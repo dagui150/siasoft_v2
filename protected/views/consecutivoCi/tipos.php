@@ -88,7 +88,7 @@ function eliminarRegistro(){
     <tr>
           <td>
               <?php 
-                    echo CHtml::dropDownList('ConsecCiTipoTrans_TRANSACCION_BASE','',CHtml::listData(TipoTransaccion::model()->findAll(),'TIPO_TRANSACCION','NOMBRE'),
+                    echo CHtml::dropDownList('ConsecCiTipoTrans_TRANSACCION_BASE','',CHtml::listData(TipoTransaccion::model()->findAll('ACTIVO = "S"'),'TIPO_TRANSACCION','NOMBRE'),
                                             array(
                                                 'disabled'=>$model2->isNewRecord ? false : true,
                                                 'style'=>'width:100px',

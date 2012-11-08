@@ -42,7 +42,7 @@
             </tr>
             <tr>
                 <td>
-                    <?php echo $form->dropDownListRow($model2,'CONDICION_PAGO', CHtml::listData(CodicionPago::model()->findAll(),'ID','DESCRIPCION'),array('empty'=>'Seleccione...')); ?>
+                    <?php echo $form->dropDownListRow($model2,'CONDICION_PAGO', CHtml::listData(CodicionPago::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('empty'=>'Seleccione...')); ?>
                 </td>
                 <td>
                     <?php $this->widget('bootstrap.widgets.BootButton', array(

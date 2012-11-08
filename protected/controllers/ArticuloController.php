@@ -259,12 +259,16 @@ class ArticuloController extends SBaseController
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
+                    Articulo::model()->updateByPk($id, array('ACTIVO'=>'N'));
+                    /*
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                     * 
+                     */
 		}
 		else
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');

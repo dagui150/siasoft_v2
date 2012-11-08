@@ -134,7 +134,7 @@
 		.$form->checkBoxRow($model,'CP_EN_LINEA').'</fieldset>'),
 		
 		array('label'=>'Varios', 'content'=>
-		$form->dropDownListRow($model,'BODEGA_DEFAULT', CHtml::listData(Bodega::model()->findAll(),'ID','DESCRIPCION'),array('empty'=>'Seleccione...'))
+		$form->dropDownListRow($model,'BODEGA_DEFAULT', CHtml::listData(Bodega::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('empty'=>'Seleccione...'))
 		.$form->dropDownListRow($model,'IMP1_AFECTA_DESCTO', array('L'=>'Linea', 'A'=>'Ambos descuentos', 'N'=>'Ningun descuento'))
 		.'<fieldset><legend>Factor de redondeo</legend>'
 		.$form->textFieldRow($model,'FACTOR_REDONDEO',array('size'=>28,'maxlength'=>28))

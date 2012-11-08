@@ -25,7 +25,7 @@
                                     'content'=>
                                         $form->textFieldRow($model2,'TIPO_TRANSACCION',array('size'=>4,'maxlength'=>4,'disabled'=>$model2->isNewRecord ? false : true))
                                         .$form->textFieldRow($model2,'NOMBRE',array('size'=>16,'maxlength'=>16,'disabled'=>$model2->TRANSACCION_FIJA == 'S' ? true : false))
-                                        .$form->dropDownListRow($model2,'TRANSACCION_BASE',CHtml::listData(TipoTransaccion::model()->findAll('TRANSACCION_FIJA = "S"'), 'TIPO_TRANSACCION', 'NOMBRE'),array('empty'=>'Seleccione','disabled'=>$model2->isNewRecord ? false : true))
+                                        .$form->dropDownListRow($model2,'TRANSACCION_BASE',CHtml::listData(TipoTransaccion::model()->findAll('TRANSACCION_FIJA = "S" AND ACTIVO = "S"'), 'TIPO_TRANSACCION', 'NOMBRE'),array('empty'=>'Seleccione','disabled'=>$model2->isNewRecord ? false : true))
                                         .$form->hiddenField($model2,'TRANSACCION_FIJA',array('value'=>'N'))
                                         .$form->dropDownListRow($model2,'NATURALEZA',array('S'=>'Salida','E'=>'Entrada','A'=>'Ambas','N'=>'Ninguna'),array('empty'=>'Seleccione','disabled'=>($model2->TRANSACCION_FIJA == 'S' && $model2->NATURALEZA != '') ? true : false))
                                     ,   

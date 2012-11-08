@@ -30,7 +30,7 @@ $(document).ready(function () {
                 <table style="width: 400px;">
                     <tr>
                         <td>
-                            <?php echo $form->dropDownListRow($model2,'TIIPO_DOCUMENTO', CHtml::listData(TipoDocumento::model()->findAll(),'ID','DESCRIPCION'), array('empty'=>'Seleccione...')); ?>        
+                            <?php echo $form->dropDownListRow($model2,'TIIPO_DOCUMENTO', CHtml::listData(TipoDocumento::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'), array('empty'=>'Seleccione...')); ?>        
                         </td>
                         <td>
                             <?php $this->widget('bootstrap.widgets.BootButton', array(

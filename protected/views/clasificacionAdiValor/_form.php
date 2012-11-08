@@ -15,7 +15,7 @@
 
 	<div class="modal-body">
 
-		<?php echo $form->dropDownListRow($model2,'CLASIFICACION',CHtml::ListData(ClasificacionAdi::model()->findAll(),'ID','NOMBRE'),array('empty'=>'Seleccione')); ?>
+		<?php echo $form->dropDownListRow($model2,'CLASIFICACION',CHtml::ListData(ClasificacionAdi::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),array('empty'=>'Seleccione')); ?>
 
 		<?php echo $form->textFieldRow($model2,'VALOR',array('maxlength'=>12)); ?>
 

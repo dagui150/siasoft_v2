@@ -142,6 +142,8 @@ class TipoTransaccionController extends SBaseController
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
+                    TipoTransaccion::model()->updateByPk($id, array('ACTIVO'=>'N'));
+                    /*
                         if($id != 0){
                             // we only allow deletion via POST request
                             $this->loadModel($id)->delete();
@@ -150,6 +152,8 @@ class TipoTransaccionController extends SBaseController
                                     $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'),array('msj'=>$msj));
                         }else
                             throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
+                     * 
+                     */
 		}
 		else
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');

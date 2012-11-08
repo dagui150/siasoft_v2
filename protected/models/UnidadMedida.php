@@ -130,7 +130,7 @@ class UnidadMedida extends CActiveRecord
 		$criteria->compare('TIPO',$this->TIPO,true);
 		$criteria->compare('UNIDAD_BASE',$this->UNIDAD_BASE);
 		$criteria->compare('EQUIVALENCIA',$this->EQUIVALENCIA,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);

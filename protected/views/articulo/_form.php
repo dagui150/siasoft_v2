@@ -166,7 +166,7 @@
                                     <td>
                                         <fieldset style="width: 380px; height: 220px;"><br><br><br>
                                             <legend ><font face="arial" size=3 >Tipo de Articulo</font></legend>'
-                                            .$form->dropDownListRow($model,'TIPO_ARTICULO',  CHtml::listData(TipoArticulo::model()->findAll(),'ID','NOMBRE'),array('empty'=>'Seleccione'))
+                                            .$form->dropDownListRow($model,'TIPO_ARTICULO',  CHtml::listData(TipoArticulo::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),array('empty'=>'Seleccione'))
                                             .$form->checkBoxRow($model,'ACTIVO',array('value'=>'S'))
                                         .'<br><br></fieldset>
                                     </td>

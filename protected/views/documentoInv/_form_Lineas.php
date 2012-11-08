@@ -500,7 +500,7 @@
                 </td>
                 <td>
                        <div align="left" style="margin-left: -60px;">
-                             <?php echo $form->dropDownListRow($modelLi,'SUBTIPO',$model->isNewRecord ? $subtipos : CHtml::listData(SubtipoTransaccion::model()->findAll(),'ID','NOMBRE'),
+                             <?php echo $form->dropDownListRow($modelLi,'SUBTIPO',$model->isNewRecord ? $subtipos : CHtml::listData(SubtipoTransaccion::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),
                                      array(
                                          'empty'=>'Seleccione',
                                          'readonly'=>isset($Vsubtipo) ? false : true,
@@ -512,7 +512,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                       <?php echo $form->dropDownListRow($modelLi,'TIPO_TRANSACCION_CANTIDAD',$model->isNewRecord ? $cantidades : CHtml::listData(TipoCantidadArticulo::model()->findAll(),'ID','NOMBRE'),
+                       <?php echo $form->dropDownListRow($modelLi,'TIPO_TRANSACCION_CANTIDAD',$model->isNewRecord ? $cantidades : CHtml::listData(TipoCantidadArticulo::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),
                                array(
                                    'empty'=>'Seleccione',
                                    'readonly'=>isset($Vcantidad) ? false : true,

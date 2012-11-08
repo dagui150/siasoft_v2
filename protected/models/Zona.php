@@ -44,7 +44,7 @@ class Zona extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('NOMBRE', 'required'),
+			array('NOMBRE,PAIS', 'required'),
 			array('PAIS', 'length', 'max'=>4),
 			array('NOMBRE', 'length', 'max'=>64),
 			array('ACTIVO', 'length', 'max'=>1),
@@ -99,7 +99,7 @@ class Zona extends CActiveRecord
 		$criteria->compare('ID',$this->ID);
 		$criteria->compare('PAIS',$this->PAIS,true);
 		$criteria->compare('NOMBRE',$this->NOMBRE,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);

@@ -114,15 +114,19 @@ class EntidadFinancieraController extends SBaseController
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
+                    EntidadFinanciera::model()->updateByPk($id, array('ACTIVO'=>'N'));
+                    /*
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                     * 
+                     */
 		}
 		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+			throw new CHttpException(400,Yii::t('app','Invalid request. Please do not repeat this request again.'));
 	}
 
 	/**
@@ -183,7 +187,7 @@ class EntidadFinancieraController extends SBaseController
         public function actionAutocompletar(){
             if (isset($_GET['term'])) {
 		
-                    $qtxt ="SELECT ID FROM nit WHERE ID LIKE :ID";
+                    $qtxt ="SELECT ID FROM nit WHERE ID LIKE :ID AND ACTIVO = 'S'";
                     $command =Yii::app()->db->createCommand($qtxt);
                     $command->bindValue(":ID", '%'.$_GET['term'].'%', PDO::PARAM_STR);
                     $res =$command->queryColumn();
