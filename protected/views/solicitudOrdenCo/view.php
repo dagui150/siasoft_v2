@@ -25,10 +25,10 @@ $this->menu=array(
 		'ORDEN_COMPRA',
 		'ORDEN_COMPRA_LINEA',
 		'DECIMA',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

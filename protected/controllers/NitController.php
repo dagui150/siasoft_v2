@@ -82,22 +82,13 @@ class NitController extends SBaseController
                                 $model->OBSERVACIONES = $datos['OBSERVACIONES'];
                                 $model->ACTIVO = 'S';
                                 
-                                if($model->save()){
-                                     echo 'guardado '.$datos['ID'].' - '.$datos['TIIPO_DOCUMENTO'].'<br>';
-                                     echo '<pre>';
-                                    print_r($model->attributes);
-                                    echo '</pre>';
-                                }else{
-                                    echo 'No guardado '.$datos['ID'].' - '.$datos['TIIPO_DOCUMENTO'].'<br>';
-                                    echo '<pre>';
-                                    print_r($model->attributes);
-                                    echo '</pre>';
-                                }
+                                $model->save();
                                // $model->unsetAttributes();
                         }
-                        Yii::app()->end();
+                        
                         $transaction->commit();
                         $this->redirect(array('admin'));
+                        Yii::app()->end();
                     }catch (Exception $e) {
                         echo $e;
                         $transaction->rollback();
@@ -168,7 +159,7 @@ class NitController extends SBaseController
         
         public function actionExcel()
 	{
-		$model= Nit::model()->findAll();
+		$model= Nit::model()->findAll('ACTIVO="S"');
                 Yii::app()->request->sendFile('Relacion de Nits.xls', 
                         $this->renderPartial('excel',array('model'=>$model),true));
 	}

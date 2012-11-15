@@ -1,7 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Categorias";?>
 <?php
 $this->breadcrumbs=array(
-	'Categorias'=>array('index'),
+        'Sistema'=>array('admin'),
+	'Categorías'=>array('admin'),
 	'Crear',
 );
 
@@ -11,6 +12,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Crear Categoria</h1>
+<h1>Crear Categoría</h1>
 
 <?php echo $this->renderPartial('_form', array('model2'=>$model2)); ?>

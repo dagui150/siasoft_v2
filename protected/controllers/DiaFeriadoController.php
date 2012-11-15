@@ -113,7 +113,7 @@ class DiaFeriadoController extends SBaseController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -136,7 +136,7 @@ class DiaFeriadoController extends SBaseController
         
             public function actionExcel()
 	{
-		$model= DiaFeriado::model()->findAll();
+		$model= DiaFeriado::model()->findAll('ACTIVO="S"');
                 Yii::app()->request->sendFile('Dias Feriados.xls', 
                         $this->renderPartial('excel',array('model'=>$model),true));
 	}

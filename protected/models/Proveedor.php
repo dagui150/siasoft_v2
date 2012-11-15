@@ -149,7 +149,7 @@ class Proveedor extends CActiveRecord
 		$criteria->compare('FAX',$this->FAX,true);
 		$criteria->compare('NIT',$this->NIT,true);
 		$criteria->compare('CONDICION_PAGO',$this->CONDICION_PAGO,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('ORDEN_MINIMA',$this->ORDEN_MINIMA,true);
 		$criteria->compare('DESCUENTO',$this->DESCUENTO,true);
 		$criteria->compare('TASA_INTERES_MORA',$this->TASA_INTERES_MORA,true);

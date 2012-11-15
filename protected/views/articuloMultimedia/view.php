@@ -19,10 +19,13 @@ $this->breadcrumbs=array(
 		'NOMBRE',
 		'DESCRIPCION',
 		'ORDEN',
+            /*
 		'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
 		'ACTUALIZADO_EL',
+             * 
+             */
 	),
 )); ?>

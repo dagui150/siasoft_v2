@@ -1,7 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Dependencia";?>
 <?php
 $this->breadcrumbs=array(
-	'Departamentos'=>array('admin'),
+        'Sistema'=>array('admin'),
+	'Dependencias'=>array('admin'),
 	'Crear',
 );
 
@@ -11,6 +12,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Crear Departamento</h1>
+<h1>Crear Dependencias</h1>
 
 <?php echo $this->renderPartial('_form', array('model2'=>$model2)); ?>

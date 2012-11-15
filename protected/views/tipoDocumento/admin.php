@@ -1,8 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - Tipos de Documento";?>
 <?php
 $this->breadcrumbs=array(
-	'Tipo Documentos'=>array('admin'),
-	'Administrar',
+    'Sistema'=>array('admin'),
+	'Tipos de Documento',
 );
 
 $this->menu=array(

@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Tipo Documento'=>array('admin'),
+    'Sistema'=>array('admin'),
+	'Tipos de Documento'=>array('admin'),
 	'Crear',
 );
 

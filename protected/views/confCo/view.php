@@ -58,9 +58,9 @@ $this->menu=array(
 		'RUBRO3_ORDNOM',
 		'RUBRO4_ORDNOM',
 		'RUBRO5_ORDNOM',
-		'CREADO_POR',
+		/*'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

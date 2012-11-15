@@ -33,7 +33,7 @@ $this->menu=array(
 		'FAX',
 		'NIT',
 		'CONDICION_PAGO',
-		'ACTIVO',
+		/*'ACTIVO',
 		'ORDEN_MINIMA',
 		'DESCUENTO',
 		'TASA_INTERES_MORA',

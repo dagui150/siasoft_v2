@@ -1,8 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - Condición de Pago";?>
 <?php
 $this->breadcrumbs=array(
-	'Condición Pagos'=>array('admin'),
-	'Administrar',
+        'Sistema'=>array('admin'),
+	'Condición de Pago',
 );
 
 $this->menu=array(
@@ -24,7 +24,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Condición Pagos</h1>
+<h1>Condiciones de Pago</h1>
 
 
 <div align="right">

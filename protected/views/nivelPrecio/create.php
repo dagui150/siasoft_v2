@@ -1,7 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Nivel de Precios";?>
 <?php
 $this->breadcrumbs=array(
-	'Nivel Precio'=>array('admin'),
+        'Sistema'=>array('admin'),
+	'Nivel de Precios'=>array('admin'),
 	'Crear',
 );
 

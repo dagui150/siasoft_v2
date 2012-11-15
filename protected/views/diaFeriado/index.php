@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Dias Feriados',
+        'Sistema'=>array('admin'),
+	'Días Feriados',
 );
 
 $this->menu=array(

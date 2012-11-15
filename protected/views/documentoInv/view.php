@@ -17,9 +17,9 @@ $this->breadcrumbs=array(
 		'FECHA_DOCUMENTO',
 		'REFERENCIA',
 		'ESTADO',
-		'CREADO_POR',
+		/*'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

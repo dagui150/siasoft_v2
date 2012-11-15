@@ -1,8 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - Centro de Costos";?>
 <?php
 $this->breadcrumbs=array(
-	'Centro Costos'=>array('admin'),
-	'Administrar',
+        'Sistema'=>array('admin'),
+	'Centro de Costos',
 );
 
 $this->menu=array(
@@ -24,7 +24,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Centro Costos</h1>
+<h1>Centro de Costos</h1>
 
 
 <div align="right">

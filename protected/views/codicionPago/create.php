@@ -1,7 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Condicion de Pagos";?>
 <?php
 $this->breadcrumbs=array(
-	'Condicion de Pagos'=>array('admin'),
+        'Sistema'=>array('admin'),
+	'Condición de Pago'=>array('admin'),
 	'Crear',
 );
 
@@ -11,6 +12,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Crear Condicion de Pago</h1>
+<h1>Crear Condición de Pago</h1>
 
 <?php echo $this->renderPartial('_form', array('model2'=>$model2)); ?>

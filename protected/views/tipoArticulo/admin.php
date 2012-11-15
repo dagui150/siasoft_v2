@@ -20,7 +20,10 @@ $this->breadcrumbs=array(
                     'ID',
                     'NOMBRE',
                     'DESCRIPCION',
+                /*
                     'ACTIVO',
+                 * 
+                 */
             ),
     )); 
 ?>

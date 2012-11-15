@@ -16,10 +16,10 @@ $this->breadcrumbs=array(
 		'PROVEEDOR',
 		'CODIGO_CATALOGO',
 		'NOMBRE_CATALOGO',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

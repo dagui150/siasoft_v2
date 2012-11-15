@@ -1,8 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - Entidad Financiera";?>
 <?php
 $this->breadcrumbs=array(
-	'Entidad Financiera'=>array('admin'),
-	'Administrar',
+    'Sistema'=>array('admin'),
+	'Entidad Financiera',
 );
 
 $this->menu=array(

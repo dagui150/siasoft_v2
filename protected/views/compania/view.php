@@ -30,9 +30,9 @@ $this->menu=array(
 		'TELEFONO1',
 		'TELEFONO2',
 		'LOGO',
-		'CREADO_POR',
+		/*'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

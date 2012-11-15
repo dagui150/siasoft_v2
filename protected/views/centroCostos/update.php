@@ -1,8 +1,11 @@
 <?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." Centro de Costos";?>
     <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('update', 'id'=>$model2->ID),
-	"Centro de costos");
+        'Sistema'=>array('admin'),
+        'Centro de Costos'=>array('admin'),
+        $model2->ID => array('view', 'id' => $model2->ID),
+        'Actualizar',
+    );
 ?>
 
 <h1>Actualizar Centro de Costos <?php echo $model2->ID; ?></h1>

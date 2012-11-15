@@ -33,10 +33,10 @@ $this->menu=array(
 		'CANTIDAD_RECHAZADA',
 		'PRECIO_UNITARIO',
 		'COSTO_FISCAL_UNITARIO',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

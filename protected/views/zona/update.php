@@ -2,6 +2,7 @@
 
 <?php
 $this->breadcrumbs=array(
+        'Sistema'=>array('admin'),
 	'Zonas'=>array('admin'),
 	$model2->ID=>array('view','id'=>$model2->ID),
 	'Actualizar',

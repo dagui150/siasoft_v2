@@ -120,7 +120,7 @@ class Retencion extends CActiveRecord
 		$criteria->compare('APLICA_IMPUESTO1',$this->APLICA_IMPUESTO1,true);
 		$criteria->compare('APLICA_RUBRO1',$this->APLICA_RUBRO1,true);
 		$criteria->compare('APLICA_RUBRO2',$this->APLICA_RUBRO2,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -133,7 +133,7 @@ class Retencion extends CActiveRecord
         public function searchPdf()
 	{
 
-		$criteria=new CDbCriteria;
+		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

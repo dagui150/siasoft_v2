@@ -99,7 +99,7 @@ class TipoTransaccionCantidad extends CActiveRecord
 		$criteria->compare('ID',$this->ID);
 		$criteria->compare('TIPO_TRANSACCION',$this->TIPO_TRANSACCION,true);
 		$criteria->compare('CANTIDAD',$this->CANTIDAD,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);

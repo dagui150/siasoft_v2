@@ -1,7 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Dependencias";?>
 <?php
 $this->breadcrumbs=array(
-	'Departamentos'=>array('admin'),
+        'Sistema'=>array('admin'),
+	'Dependencias'=>array('admin'),
 	$model->ID,
 );
 
@@ -14,17 +15,17 @@ $this->menu=array(
 );
 ?>
 
-<h1>Ver Departamento # <?php echo $model->ID; ?></h1>
+<h1>Ver Dependencia <?php echo $model->ID; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'ID',
 		'DESCRIPCION',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

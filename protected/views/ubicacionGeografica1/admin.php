@@ -3,8 +3,8 @@
 
 <?php
 $this->breadcrumbs=array(
-	'Ubicacion Geografica 1'=>array('index'),
-	'Administrar',
+        'Sistema'=>array('admin'),
+	'Ubicacion Geografica 1',
 );
 
 $this->menu=array(

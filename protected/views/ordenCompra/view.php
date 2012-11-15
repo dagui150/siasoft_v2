@@ -49,9 +49,9 @@ $this->menu=array(
 		'USUARIO_CANCELA',
 		'FECHA_CANCELA',
 		'ESTADO',
-		'CREADO_POR',
+		/*'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

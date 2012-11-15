@@ -2,8 +2,8 @@
 
 <?php
 $this->breadcrumbs=array(
-	'Bodegas'=>array('admin'),
-	'Administrar',
+        'Sistema'=>array('admin'),
+	'Bodegas',
 );
 
 $this->menu=array(

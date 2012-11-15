@@ -1,8 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - Nivel de Precios";?>
 <?php
 $this->breadcrumbs=array(
-	'Nivel de Precios'=>array('admin'),
-	'Administrar',
+        'Sistema'=>array('admin'),
+	'Nivel de Precios',
 );
 
 $this->menu=array(

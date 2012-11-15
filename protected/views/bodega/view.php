@@ -2,6 +2,7 @@
 
 <?php
 $this->breadcrumbs=array(
+        'Sistema'=>array('admin'),
 	'Bodegas'=>array('admin'),
 	$model->ID,
 );
@@ -25,10 +26,10 @@ $this->menu=array(
 		'TIPO',
 		'TELEFONO',
 		'DIRECCION',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

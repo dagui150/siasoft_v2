@@ -265,7 +265,7 @@ class Articulo extends CActiveRecord
 		$criteria->compare('FACTOR_VENTA',$this->FACTOR_VENTA,true);
 		$criteria->compare('IMPUESTO_VENTA',$this->IMPUESTO_VENTA,true);
 		$criteria->compare('RETENCION_COMPRA',$this->RETENCION_COMPRA,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);

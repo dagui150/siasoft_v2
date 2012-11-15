@@ -1,7 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Impuestos";?>
 <?php
 $this->breadcrumbs=array(
-	'Impuestos'=>array('index'),
+        'Sistema'=>array('admin'),
+	'Impuestos'=>array('admin'),
 	$model->ID,
 );
 
@@ -22,10 +23,10 @@ $this->menu=array(
 		'ID',
 		'NOMBRE',
 		'PROCENTAJE',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

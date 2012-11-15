@@ -1,7 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Tipos de Documento";?>
 <?php
 $this->breadcrumbs=array(
-	'Tipo Documentos'=>array('admin'),
+    'Sistema'=>array('admin'),
+	'Tipos de Documento'=>array('admin'),
 	$model->ID,
 );
 
@@ -22,10 +23,10 @@ $this->menu=array(
 		'ID',
 		'DESCRIPCION',
 		'MASCARA',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>
