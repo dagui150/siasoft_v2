@@ -1,7 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Retenciones";?>
 <?php
 $this->breadcrumbs=array(
-	'Retenciones'=>array('index'),
+        'Sistema'=>array('admin'),
+	'Retenciones'=>array('admin'),
 	$model->ID,
 );
 
@@ -30,10 +31,10 @@ $this->menu=array(
 		'APLICA_IMPUESTO1',
 		'APLICA_RUBRO1',
 		'APLICA_RUBRO2',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

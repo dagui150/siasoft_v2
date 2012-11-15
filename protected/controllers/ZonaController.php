@@ -87,7 +87,7 @@ class ZonaController extends SBaseController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -111,7 +111,7 @@ class ZonaController extends SBaseController
         
              public function actionExcel()
 	{
-		$model= Zona::model()->findAll();
+		$model= Zona::model()->findAll('ACTIVO="S"');
                 Yii::app()->request->sendFile('Zonas.xls', 
                         $this->renderPartial('excel',array('model'=>$model),true));
 	}

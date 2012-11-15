@@ -28,10 +28,10 @@ $this->menu=array(
 		'CANT_DISPONIBLE',
 		'CANT_RESERVADA',
 		'CANT_REMITIDA',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

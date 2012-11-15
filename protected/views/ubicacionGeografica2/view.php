@@ -21,10 +21,10 @@ $this->menu=array(
 		'ID',
 		'UBICACION_GEOGRAFICA1',
 		'NOMBRE',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

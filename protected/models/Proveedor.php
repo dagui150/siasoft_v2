@@ -179,12 +179,11 @@ class Proveedor extends CActiveRecord
 		$criteria->compare('FAX',$this->FAX,true);
 		$criteria->compare('NIT',$this->NIT,true);
 		$criteria->compare('CONDICION_PAGO',$this->CONDICION_PAGO,true);
-		$criteria->compare('PAIS',$this->PAIS,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('UBICACION_GEOGRAFICA1',$this->UBICACION_GEOGRAFICA1,true);
 		$criteria->compare('UBICACION_GEOGRAFICA2',$this->UBICACION_GEOGRAFICA2,true);
 		$criteria->compare('REGIMEN',$this->REGIMEN,true);
 		$criteria->compare('CIUDAD',$this->CIUDAD,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
 		$criteria->compare('ORDEN_MINIMA',$this->ORDEN_MINIMA,true);
 		$criteria->compare('DESCUENTO',$this->DESCUENTO,true);
 		$criteria->compare('TASA_INTERES_MORA',$this->TASA_INTERES_MORA,true);

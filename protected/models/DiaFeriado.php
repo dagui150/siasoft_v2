@@ -103,7 +103,7 @@ class DiaFeriado extends CActiveRecord
 		$criteria->compare('MES',$this->MES);
 		$criteria->compare('ANIO',$this->ANIO);
 		$criteria->compare('DESCRIPCION',$this->DESCRIPCION,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -117,7 +117,7 @@ class DiaFeriado extends CActiveRecord
         public function searchPdf()
 	{
 
-		$criteria=new CDbCriteria;
+		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

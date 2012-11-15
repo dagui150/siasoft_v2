@@ -37,9 +37,9 @@ $this->menu=array(
 		'FECHA',
 		'OBSERVACION',
 		'ESTADO',
-		'CREADO_POR',
+		/*'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

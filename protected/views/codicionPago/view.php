@@ -1,7 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Condición de Pago";?>
 <?php
 $this->breadcrumbs=array(
-	'Condición Pagos'=>array('admin'),
+        'Sistema'=>array('admin'),
+	'Condición de Pago'=>array('admin'),
 	$model->ID,
 );
 
@@ -22,10 +23,10 @@ $this->menu=array(
 		'ID',
 		'DESCRIPCION',
 		'DIAS_NETO',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

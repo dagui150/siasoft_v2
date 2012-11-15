@@ -11,6 +11,7 @@ $this->widget('ext.PdfGrid.EPDFGrid', array(
         ),
         'NOMBRE',
         
+        'ACTIVO',
     ),
     'config'    => array(
         'title'     => 'Zonas',

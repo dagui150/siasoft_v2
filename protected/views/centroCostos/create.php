@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Centro Costos'=>array('admin'),
+        'Sistema'=>array('admin'),
+	'Centro de Costos'=>array('admin'),
 	'Crear',
 );
 

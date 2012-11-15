@@ -1,8 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - Zonas";?>
 <?php
 $this->breadcrumbs=array(
-	'Zonas'=>array('admin'),
-	'Actualizar',
+        'Sistema'=>array('admin'),
+	'Zonas',
 );
 
 $this->menu=array(
@@ -74,7 +74,10 @@ $this->widget('bootstrap.widgets.BootButton', array(
 	'filter'=>$model,
 	'columns'=>array(
 		//'ID',
-		'PAIS',
+            array(
+                'name'=>'PAIS',
+                'value'=>'$data->pAIS->NOMBRE',
+            ),
 		'NOMBRE',
 		/*'ACTIVO',
 		'CREADO_POR',

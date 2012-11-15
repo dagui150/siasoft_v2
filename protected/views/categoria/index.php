@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Categorias',
+        'Sistema'=>array('admin'),
+	'Categorías',
 );
 
 $this->menu=array(
@@ -9,7 +10,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Categorias</h1>
+<h1>Categorías</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

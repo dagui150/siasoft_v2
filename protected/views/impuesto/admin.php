@@ -1,8 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - Impuestos";?>
 <?php
 $this->breadcrumbs=array(
-	'Impuestos'=>array('index'),
-	'Administrar',
+        'Sistema'=>array('admin'),
+	'Impuestos',
 );
 
 Yii::app()->clientScript->registerScript('search', "

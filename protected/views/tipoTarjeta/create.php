@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Tipo Tarjetas'=>array('admin'),
+        'Sistema'=>array('admin'),
+	'Tipo de Tarjeta'=>array('admin'),
 	'Crear',
 );
 

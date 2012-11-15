@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Tipo Documento',
+    'Sistema'=>array('admin'),
+	'Tipos de Documento',
 );
 
 $this->menu=array(

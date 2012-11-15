@@ -2,8 +2,8 @@
 
 <?php
 $this->breadcrumbs=array(
-	'Categorías'=>array('admin'),
-	'Administrar',
+        'Sistema'=>array('admin'),
+	'Categorías',
 );
 
 $this->menu=array(

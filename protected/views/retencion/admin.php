@@ -1,8 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - Retenciones";?>
 <?php
 $this->breadcrumbs=array(
-	'Retenciones'=>array('admin'),
-	'Administrar',
+        'Sistema'=>array('admin'),
+	'Retenciones',
 );
 
 $this->menu=array(

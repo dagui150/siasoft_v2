@@ -15,6 +15,6 @@ $this->breadcrumbs=array(
 		'ID',
 		'USERNAME',
 		'PASS',
-		'ACTIVO',
+		/*'ACTIVO',
 	),
 )); ?>

@@ -21,10 +21,10 @@ $this->menu=array(
 		'ID',
 		'ARTICULO',
 		'VALOR',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

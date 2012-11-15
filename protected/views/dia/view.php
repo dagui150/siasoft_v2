@@ -23,10 +23,10 @@ $this->menu=array(
 	'attributes'=>array(
 		'DIA',
 		'NOMBRE',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

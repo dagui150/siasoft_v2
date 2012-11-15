@@ -1,7 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Tipo de Tarjeta";?>
 <?php
 $this->breadcrumbs=array(
-	'Tipo Tarjeta'=>array('admin'),
+        'Sistema'=>array('admin'),
+	'Tipo de Tarjeta'=>array('admin'),
 	$model->ID,
 );
 
@@ -21,10 +22,10 @@ $this->menu=array(
 	'attributes'=>array(
 		'ID',
 		'DESCRIPCION',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

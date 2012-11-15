@@ -106,7 +106,7 @@ class Nit extends CActiveRecord
 		$criteria->compare('RAZON_SOCIAL',$this->RAZON_SOCIAL,true);
 		$criteria->compare('ALIAS',$this->ALIAS,true);
 		$criteria->compare('OBSERVACIONES',$this->OBSERVACIONES,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -129,7 +129,7 @@ class Nit extends CActiveRecord
 		$criteria->compare('RAZON_SOCIAL',$this->RAZON_SOCIAL,true);
 		$criteria->compare('ALIAS',$this->ALIAS,true);
 		$criteria->compare('OBSERVACIONES',$this->OBSERVACIONES,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -145,7 +145,7 @@ class Nit extends CActiveRecord
         public function searchPdf()
 	{
 
-		$criteria=new CDbCriteria;
+		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

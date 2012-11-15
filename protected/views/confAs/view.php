@@ -24,9 +24,9 @@ $this->menu=array(
 		'IMPUESTO2_DESC',
 		'PATRON_CCOSTO',
 		'SIMBOLO_MONEDA',
-		'CREADO_POR',
+		/*'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

@@ -1,6 +1,7 @@
 <?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Zonas";?>
 <?php
 $this->breadcrumbs=array(
+        'Sistema'=>array('admin'),
 	'Zonas'=>array('admin'),
 	$model->ID,
 );
@@ -22,10 +23,10 @@ $this->menu=array(
 		'ID',
 		'pAIS.NOMBRE',
 		'NOMBRE',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

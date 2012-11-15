@@ -1,5 +1,6 @@
 <?php
 $this->breadcrumbs=array(
+        'Sistema'=>array('admin'),
 	'Tipo Tarjeta',
 );
 

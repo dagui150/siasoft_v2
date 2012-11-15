@@ -1,7 +1,8 @@
 <?php
 $this->breadcrumbs=array(
+        'Sistema'=>array('admin'),
 	'Zonas'=>array('admin'),
-	'Crear',
+	 Yii::t('app','CREATE'),
 );
 
 $this->menu=array(

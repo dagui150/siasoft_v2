@@ -1,7 +1,8 @@
 <?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Días Feriados";?>
 <?php
 $this->breadcrumbs=array(
-	'Dia Feriados'=>array('admin'),
+        'Sistema'=>array('admin'),
+	'Días Feriados'=>array('admin'),
 	'Crear',
 );
 
