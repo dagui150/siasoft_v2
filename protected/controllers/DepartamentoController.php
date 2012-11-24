@@ -136,9 +136,11 @@ class DepartamentoController extends SBaseController
         
           public function actionExcel()
 	{
-		$model= Departamento::model()->findAll('ACTIVO="S"');
-                Yii::app()->request->sendFile('Departamentos.xls', 
-                        $this->renderPartial('excel',array('model'=>$model),true));
+		$model = new Departamento('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
 	}
         
         public function actionPdf(){

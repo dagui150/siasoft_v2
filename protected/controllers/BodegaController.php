@@ -6,6 +6,8 @@ class BodegaController extends SBaseController
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
+	public $modulo='Sistema';
+        public $submodulo='Bodegas';
 	public $layout='//layouts/column2';
 	public $breadcrumbs=array();
 	public $menu=array();
@@ -136,10 +138,32 @@ class BodegaController extends SBaseController
         
               public function actionExcel()
 	{
-		$model= Bodega::model()->findAll('ACTIVO="S"');
-                Yii::app()->request->sendFile('Bodegas.xls', 
-                        $this->renderPartial('excel',array('model'=>$model),true));
+                $model = new Bodega('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
 	}
+        
+        
+        public function actionformatoPDF(){
+            $id = $_GET['id'];
+            $conf = ConfAs::model()->find();
+            
+            $model =  Bodega::model()->findByPk($id);  
+            
+            $this->layout = $conf->fORMATOIMPRESION->RUTA;
+            
+            $mPDF1 = Yii::app()->ePdf->mpdf();
+            $mPDF1->WriteHTML($this->render('pdf2', array( 'model'=>$model), true));
+            
+            //$this->render('pdf2', array( 'model'=>$model));
+            
+            $mPDF1->Output();
+            Yii::app()->end();
+        }
+        
+        
         
          public function actionPdf(){
             

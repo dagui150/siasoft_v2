@@ -11,7 +11,7 @@ $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
 )); ?>
         <?php echo $form->errorSummary($model2); ?>
 
-		<?php echo $form->textFieldRow($model2,'ID',array('size'=>4,'maxlength'=>4)); ?>
+		<?php echo $form->textFieldRow($model2,'ID',array('size'=>4,'maxlength'=>4,'disabled' => $model2->isNewRecord ? false : true)); ?>
 		<?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
                 <?php echo $form->dropDownListRow($model2, 'TIPO', array('C'=>'Consumo','V'=>'Ventas','N'=>'No Disponible')); ?>
 		<?php echo $form->textFieldRow($model2,'TELEFONO',array('maxlength'=>20)); ?>
@@ -27,7 +27,7 @@ $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
         <div class="row-buttons" align="center">
         <?php endif ?>
     	<?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model2->isNewRecord ? 'Crear' : 'Guardar')); ?>
-	<?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => '#', 'icon' => 'remove', 'htmlOptions'=>array('data-dismiss'=>'modal')));  ?>	        
+	<?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('admin'), 'icon' => 'remove', 'htmlOptions'=>array('data-dismiss'=>'modal')));  ?>	        
         </div>
 
 <?php $this->endWidget(); ?>

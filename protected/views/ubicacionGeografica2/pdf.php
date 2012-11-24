@@ -6,13 +6,14 @@ $this->widget('ext.PdfGrid.EPDFGrid', array(
     'dataProvider'  => $dataProvider->searchPdf(), //puede ser $model->search()
     'columns'   => array(
         'ID',
-        'UBICACION_GEOGRAFICA1',
+        array('name'=>'UBICACION_GEOGRAFICA1',
+            'value'=>'$data->uBICACIONGEOGRAFICA1->NOMBRE'),
         'NOMBRE',
         
     ),
     'config'    => array(
         'title'     => 'Municipios',
-        'showLogo'  => true,
+        
         //'colWidths' => array(40, 90, 40),
     ),
 ));

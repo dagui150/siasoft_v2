@@ -94,6 +94,7 @@
                                     array('label' => 'Día feriado', 'url' => array('/diaFeriado/admin')),
                                     array('label' => 'Impuesto', 'url' => array('/impuesto/admin')),
                                     array('label' => 'Retención', 'url' => array('/retencion/admin')),
+                                    array('label' => 'Administración de Reportes', 'url' => array('/formatoImpresion/admin')),
                                 ),
                             ),
                             array('label' => 'Recursos Humanos', 'url' => '#',

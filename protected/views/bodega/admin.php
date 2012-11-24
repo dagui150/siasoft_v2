@@ -84,7 +84,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
                         'name'=>'TIPO',
                         'header'=>'Tipo',
                         'value'=>'Bodega::tipo($data->TIPO)',
-                        'filter'=>array('C'=>'Consumo','V'=>'Ventas','N'=>'No Disponible'),
+                        'filter'=>array('C'=>'Consumo','V'=>'Ventas','N'=>'No Disponible',''=>'Todos'),
                     ),
 		'TELEFONO',
 		'DIRECCION',
@@ -99,6 +99,15 @@ $this->widget('bootstrap.widgets.BootButton', array(
                     'class'=>'bootstrap.widgets.BootButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),
 		),
+            array(
+                         'class'=>'CLinkColumn',
+			 //'header'=>'Bodegas',
+			 'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
+			 //'labelExpression'=>'$data->ID',
+			 'urlExpression'=>'CController::createUrl("/Bodega/formatoPDF", array("id"=>$data->ID))',
+			 'htmlOptions'=>array('style'=>'text-align:center;'),
+			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),
+                ),
 	),
 )); ?>
 

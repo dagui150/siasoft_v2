@@ -16,7 +16,7 @@ $this->widget('ext.PdfGrid.EPDFGrid', array(
     ),
     'config'    => array(
         'title'     => 'Centro de Costos',
-        'showLogo'  => true,
+        
         //'colWidths' => array(40, 90, 40),
     ),
 ));

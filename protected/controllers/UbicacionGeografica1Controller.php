@@ -136,9 +136,11 @@ class UbicacionGeografica1Controller extends SBaseController
         
            public function actionExcel()
 	{
-		$model= UbicacionGeografica1::model()->findAll('ACTIVO="S"');
-                Yii::app()->request->sendFile('Departamentos.xls', 
-                        $this->renderPartial('excel',array('model'=>$model),true));
+		$model = new UbicacionGeografica1('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
 	}
         
         

@@ -136,9 +136,11 @@ class CategoriaController extends SBaseController
         
                   public function actionExcel()
 	{
-		$model= Categoria::model()->findAll('ACTIVO="S"');
-                Yii::app()->request->sendFile('Categorias.xls', 
-                        $this->renderPartial('excel',array('model'=>$model),true));
+		$model = new Categoria('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
 	}
         
         

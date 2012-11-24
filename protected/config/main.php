@@ -26,6 +26,7 @@ return array(
 		'application.extensions.helpers.*',
 		'application.modules.srbac.controllers.SBaseController',
                 'application.extensions.PdfGrid.*',
+                'application.extensions.tlbExcelView.*',
         'ext.helpers.*',
 	),
 	'modules'=>array(
@@ -191,6 +192,10 @@ return array(
 		
 		'bootstrap'=>array(
 			'class'=>'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
+		),
+            
+            'tlbExcelView'=>array(
+			'class'=>'ext.tlbExcelView.tlbExcelView', // assuming you extracted tlbExcelView under extensions
 		),
 	),
 

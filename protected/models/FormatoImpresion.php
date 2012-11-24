@@ -48,7 +48,7 @@ class FormatoImpresion extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ID, NOMBRE, MODULO, SUBMODULO, RUTA, TIPO, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'required'),
+			array(' NOMBRE, MODULO, SUBMODULO, RUTA, TIPO', 'required'),
 			array('ID', 'numerical', 'integerOnly'=>true),
 			array('NOMBRE', 'length', 'max'=>64),
 			array('MODULO, SUBMODULO, TIPO', 'length', 'max'=>4),
@@ -85,7 +85,7 @@ class FormatoImpresion extends CActiveRecord
 			'OBSERVACION' => 'Observacion',
 			'MODULO' => 'Modulo',
 			'SUBMODULO' => 'Submodulo',
-			'RUTA' => 'Ruta',
+			'RUTA' => 'Formato',
 			'TIPO' => 'Tipo',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',

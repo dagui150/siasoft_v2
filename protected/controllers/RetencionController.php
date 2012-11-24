@@ -81,9 +81,11 @@ class RetencionController extends SBaseController
 	}
             public function actionExcel()
 	{
-		$model= Retencion::model()->findAll('ACTIVO="S"');
-                Yii::app()->request->sendFile('Retenciones.xls', 
-                        $this->renderPartial('excel',array('model'=>$model),true));
+		$model=new Retencion('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
 	}
         
         public function actionPdf(){

@@ -145,7 +145,8 @@ class Nit extends CActiveRecord
         public function searchPdf()
 	{
 
-		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
+		$criteria=new CDbCriteria;                 
+                $criteria->compare('ACTIVO','S');
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -1,7 +1,7 @@
 <?php
 /**
  * EPDF
- * Extensión para generar archivos PDF con el framework YII
+ * Extensiï¿½n para generar archivos PDF con el framework YII
  * @version 0.4.1
  * @autor norotaro
  */
@@ -82,16 +82,17 @@ class EPDFGrid extends CWidget
 			$this->columns[$i]=$column;
 		}
 		$compania = Compania::model()->find();
+                
 		$default = array(
 			'pdfSize'		=> 'A4',
 			'title'			=> '',
 			'subTitle'		=> '',
-			'tableWidth'	=> 275,
+			'tableWidth'	=> 235,
 			'rowHeight'		=> 6,
 			'colAligns'		=> null,
 			'colWidths'		=> null,
-			'showLogo'		=> false,
-			'imagePath'		=> $compania ? YiiBase::getPathOfAlias('webroot').'/logo/'.$compania->LOGO : '',
+			'showLogo'		=> $compania->LOGO == '' ? false : true,
+			'imagePath'		=> YiiBase::getPathOfAlias('webroot').'/logo/'.$compania->LOGO,
 			'headerDetails'	=> false,
 		);
 
@@ -188,7 +189,7 @@ class EPDFGrid extends CWidget
 		$data=$this->dataProvider->getData();
 		$n=count($data);
 		
-		// Restauración de colores y fuentes
+		// Restauraciï¿½n de colores y fuentes
 		$this->_pdf->SetFillColor(229, 241, 244);
 		$this->_pdf->SetTextColor(0);
 		$this->_pdf->SetFont('');
@@ -254,7 +255,7 @@ class EPDFGrid extends CWidget
 				throw new Exception('La suma de los parametros supera a la longitud max de la tabla');
 			
 			$nulls = 0; //cantidad de columnas que no se configuraron
-			$confWidth = 0; //longitud total de las columnas que se configuró
+			$confWidth = 0; //longitud total de las columnas que se configurï¿½
 			for($i = 0; $i<$visibleCols; $i++) {
 				if(empty($params[$i]))
 					$nulls++;
@@ -286,10 +287,10 @@ class EPDFGrid extends CWidget
 	 * Combina columnas e imprime un texto
 	 * @param string $print Texto a imprimir
 	 * @param mixed $config Permite las siguientes configuraciones:
-	 * 		from: Nro de columna (cero based) desde la cual se está imprimiendo, default: 0
-	 * 		to: Nro de columna (cero based) hasta la cual se imprimirá, default: última columna
+	 * 		from: Nro de columna (cero based) desde la cual se estï¿½ imprimiendo, default: 0
+	 * 		to: Nro de columna (cero based) hasta la cual se imprimirï¿½, default: ï¿½ltima columna
 	 * 		border: Imprimir bordes, default: 0
-	 * 		align: Alineación del texto, default: 'L'
+	 * 		align: Alineaciï¿½n del texto, default: 'L'
 	 * 		fill: Imprimir relleno, default: $this->_fill
 	 * 		ln: parametro ln para fpdf::Cell(), default: 1
 	 */

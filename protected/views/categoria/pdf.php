@@ -15,7 +15,7 @@ $this->widget('ext.PdfGrid.EPDFGrid', array(
     ),
     'config'    => array(
         'title'     => 'Categorias',
-        'showLogo'  => true,
+        
         //'colWidths' => array(40, 90, 40),
     ),
 ));

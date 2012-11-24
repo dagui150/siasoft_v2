@@ -1,45 +1,60 @@
 <?php
 Yii::import('ext.pdfGrid.fpdf.fpdf');
 
+
+
 class PDF extends fpdf
 {
+    
 	public $title = 'Informe';
 	public $subTitle = '';
+        public $piePagina = 'Desarrollado por Tramasoft Soluciones TIC - www.tramasoft.com';
+        public $nombreEmpresa = '';
+        public $nit = '';
 	public $widths;
 	public $aligns;
 	public $rowHeight = 6;
 	public $imagePath;
 	//longitud total de la tabla
-	public $tableWidth = 275;
+	public $tableWidth = 200;
 	public $showLogo = false;
 	public $headerDetails = false;
 	
-	// Cabecera de página
+	// Cabecera de pï¿½gina
 	public function Header()
 	{
+            $compania = Compania::model()->find(); 
+
 		// Logo
 		if($this->showLogo)
-			$this->Image($this->imagePath,10,8,0,18);
-		// Título
+			$this->Image($this->imagePath,30,20,0,18);
+                
+		// Empresa
 		$this->SetFont('Arial','',14);
-		$this->Cell(0, 10, $this->title, 0, 1, 'C');
-		// Subítulo
-		$this->SetFont('Arial','',12);
-		$this->Cell(0, 6, $this->subTitle, 0, 1, 'C');
+		$this->Cell(0, 5, $compania->NOMBRE_ABREV, 0, 1, 'C');
+                $this->SetFont('Arial','',10);
+		$this->Cell(0, 6, 'Nit: '. $compania->NIT, 0, 1, 'C');
 		
-		// Salto de línea
-		//$this->Ln(20);
+		// Salto de lï¿½nea
+		$this->Ln(8);
+                // Titulo
+		$this->SetFont('Arial','',14);
+		
+                $this->SetFont('Arial','',16);
+		$this->Cell(0, 6, $this->title, 0, 1, 'C');
+                $this->Ln(5);
+                
 		
 		if( isset($this->headerDetails) ) {
 			//guardar coordenadas
 			$x = $this->GetX(); $y = $this->GetY();
 			
-			$this->SetY(10);
+			$this->SetY(20);
 			$this->SetX(-70);
 			$this->SetFont('Arial','',10);
 			$txt = "Emitido por: ".Yii::app()->user->name."\n";
 			$txt .= "Fecha : ".date('d/m/Y')."\n";
-			$txt .= "Página ".$this->PageNo()."/{nb}";
+			$txt .= "Pagina ".$this->PageNo()."/{nb}";
 			$this->MultiCell(60, 5, $txt, 0, 'L');
 			
 			//restaurar coordenadas
@@ -80,9 +95,12 @@ class PDF extends fpdf
 		$config['border'] = !empty($config['border']);
 		$config['fill'] = !empty($config['fill']);
 		$config['header'] = !empty($config['header']);
+                
+                
 	
 		//Calculate the height of the row
 		$nb	= $this->NbLines($data);
+                
 		$h	= $this->rowHeight*max($nb);
 		
 		//Issue a page break first if needed
@@ -184,4 +202,13 @@ class PDF extends fpdf
 		
 		return $resp;
 	}
+        
+        	public function Footer()
+	{
+		//Pie de pagina
+                    
+                $this->Text(100, 190, $this->piePagina);
+		
+	}
+        
 }

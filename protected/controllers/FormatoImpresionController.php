@@ -1,12 +1,14 @@
 <?php
 
-class FormatoImpresionController extends Controller
+class FormatoImpresionController extends SBaseController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
+    public $breadcrumbs=array();
+	public $menu=array();
 
 	/**
 	 * @return array action filters
@@ -15,6 +17,7 @@ class FormatoImpresionController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
+			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -23,6 +26,8 @@ class FormatoImpresionController extends Controller
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
+	 
+	 /**
 	public function accessRules()
 	{
 		return array(
@@ -43,6 +48,7 @@ class FormatoImpresionController extends Controller
 			),
 		);
 	}
+	*/
 
 	/**
 	 * Displays a particular model.
@@ -61,20 +67,20 @@ class FormatoImpresionController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new FormatoImpresion;
+		$model2=new FormatoImpresion;
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model);
 
 		if(isset($_POST['FormatoImpresion']))
 		{
-			$model->attributes=$_POST['FormatoImpresion'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->ID));
+			$model2->attributes=$_POST['FormatoImpresion'];
+			if($model2->save())
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('create',array(
-			'model'=>$model,
+			'model2'=>$model2,
 		));
 	}
 
@@ -85,20 +91,20 @@ class FormatoImpresionController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+		$model2=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model2);
 
 		if(isset($_POST['FormatoImpresion']))
 		{
-			$model->attributes=$_POST['FormatoImpresion'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->ID));
+			$model2->attributes=$_POST['FormatoImpresion'];
+			if($model2->save())
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('update',array(
-			'model'=>$model,
+			'model2'=>$model2,
 		));
 	}
 
@@ -109,7 +115,7 @@ class FormatoImpresionController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->request->isPostRequest)
+            if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
@@ -120,6 +126,7 @@ class FormatoImpresionController extends Controller
 		}
 		else
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
+	
 	}
 
 	/**
@@ -140,11 +147,31 @@ class FormatoImpresionController extends Controller
 	{
 		$model=new FormatoImpresion('search');
 		$model->unsetAttributes();  // clear any default values
+		$model2=new FormatoImpresion;
+		
+		$this->performAjaxValidation($model2);
+		
+		if(isset($_POST['FormatoImpresion']))
+		{
+			$model2->attributes=$_POST['FormatoImpresion'];
+			if($model2->save()){
+                            
+							
+                        }
+                        else{
+                            
+							
+                        }
+		}
+		
+		
+		
 		if(isset($_GET['FormatoImpresion']))
 			$model->attributes=$_GET['FormatoImpresion'];
 
 		$this->render('admin',array(
 			'model'=>$model,
+			'model2'=>$model2,
 		));
 	}
 
@@ -157,7 +184,7 @@ class FormatoImpresionController extends Controller
 	{
 		$model=FormatoImpresion::model()->findByPk($id);
 		if($model===null)
-			throw new CHttpException(404,'La pagina solicitada no existe.');
+			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
 

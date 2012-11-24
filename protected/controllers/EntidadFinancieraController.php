@@ -138,9 +138,11 @@ class EntidadFinancieraController extends SBaseController
         
             public function actionExcel()
 	{
-		$model= EntidadFinanciera::model()->findAll('ACTIVO="S"');
-                Yii::app()->request->sendFile('Entidades Finacieras.xls', 
-                        $this->renderPartial('excel',array('model'=>$model),true));
+			$model=new EntidadFinanciera('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
 	}
 
         

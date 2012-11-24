@@ -136,9 +136,11 @@ class PaisController extends SBaseController
         
         public function actionExcel()
 	{
-		$model=  Pais::model()->findAll('ACTIVO="S"');
-                Yii::app()->request->sendFile('Paises.xls', 
-                        $this->renderPartial('excel',array('model'=>$model),true));
+		$model = new Pais('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
 	}
         
         
