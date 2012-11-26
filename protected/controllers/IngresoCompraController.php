@@ -244,8 +244,7 @@ class IngresoCompraController extends Controller
                                     $salvar->ACTIVO = 'S';
                                     $salvar->save();                                    
                                     $config->ULT_EMBARQUE = $_POST['IngresoCompra']['INGRESO_COMPRA'];
-                                    $config->save();
-                                    $config->save();
+                                    $config->save();                                    
                                     $i++;
                                 }
                             }
@@ -398,7 +397,7 @@ class IngresoCompraController extends Controller
                                 $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos->ARTICULO,'BODEGA'=>$datos->BODEGA));
 
                                 if($existenciaBodega){
-                                        $existenciaBodega->CANT_DISPONIBLE += $datos->CANTIDAD_ACEPTADA;
+                                        $existenciaBodega->CANT_DISPONIBLE = $existenciaBodega->CANT_DISPONIBLE + $datos->CANTIDAD_ACEPTADA;
                                         $existenciaBodega->save(); //- La cantidad aceptada para el articulo exede a la maxima permitida;                                
                                 }else{                                
                                     $existenciaBodega = new ExistenciaBodega;

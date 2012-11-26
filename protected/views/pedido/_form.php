@@ -3,15 +3,33 @@ $(document).ready(function(){
     inicio();
 });
 
+function nuevo(){    
+    //Limpiar Fromulario
+    $("#PedidoLinea_ARTICULO").val('');
+    $("#PedidoLinea_UNIDAD").val('');
+    $("#PedidoLinea_CANTIDAD").val('');
+    $("#PedidoLinea_PRECIO_UNITARIO").val('');
+    $("#PedidoLinea_PORC_DESCUENTO").val('');
+    $("#PedidoLinea_MONTO_DESCUENTO").val('');
+    $("#PedidoLinea_COMENTARIO").val('');
+    
+    //llamar modal
+    $("#nuevo").modal();
+    
+    //llenar datos
+    $("#PedidoLinea_ARTICULO").val($('#Articulo').val());
+    $("#DESCRIPCION").val($('#Articulo_desc').val());
+}
+
 function inicio(){    
     $(".escritoBodega").autocomplete({
         change: function(e) { 
             $.getJSON(
-                '<?php echo $this->createUrl('proveedor/CargarNit'); ?>&buscar='+$(this).attr('value'),
+                '<?php echo $this->createUrl('completarBodega'); ?>&buscar='+$(this).attr('value'),
                 function(data)
                 {
-                    $('#Proveedor_NIT').val(data.ID);
-                    $('#Nit2').val(data.NOMBRE);
+                    $('#Pedido_BODEGA').val(data.ID);
+                    $('#Bodega').val(data.NOMBRE);
                 }
            )
         }
@@ -20,41 +38,50 @@ function inicio(){
     $(".escritoCondicion").autocomplete({
         change: function(e) { 
             $.getJSON(
-                '<?php echo $this->createUrl('proveedor/CargarNit'); ?>&buscar='+$(this).attr('value'),
+                '<?php echo $this->createUrl('proveedor/CargarNit'); ?>&FU=BOA&ID='+$(this).attr('value'),
                 function(data)
                 {
                     $('#Proveedor_NIT').val(data.ID);
-                    $('#Nit2').val(data.NOMBRE);
+                    $('#Nit2').val(data.NOMBRE);                    
                 }
            )
         }
     });    
 }
 
-function cargaBodegaGrilla(grid_id){
-    var buscar = $.fn.yiiGridView.getSelection(grid_id);
+function cargaGrilla(grid_id){
+    var ID = $.fn.yiiGridView.getSelection(grid_id);
+    var url;
+    var campo;
+    var campo_nombre;
     
-    $.getJSON(
-        '<?php echo $this->createUrl('pedido/CargarBodega'); ?>&buscar='+buscar,
-        function(data)
-        {
-            $('#Pedido_BODEGA').val(data.ID);
-            $('#Bodega').val(data.NOMBRE);
-        }
-    )
-}
-
-function cargaCondicionGrilla(grid_id){
-    var buscar = $.fn.yiiGridView.getSelection(grid_id);
-    
-    $.getJSON(
-        '<?php echo $this->createUrl('pedido/CargarCondicion'); ?>&buscar='+buscar,
-        function(data)
-        {
-            $('#Pedido_CONDICION_PAGO').val(data.ID);
-            $('#Condicion').val(data.NOMBRE);
-        }
-    )
+    if (grid_id == 'cliente-grid'){
+        url = '<?php echo $this->createUrl('dirigir'); ?>&FU=CL&ID='+ID;
+        campo = '#Pedido_CLIENTE';
+        campo_nombre = '#Cliente_desc';
+    }
+    else if (grid_id == 'articulo-grid'){
+        url = '<?php echo $this->createUrl('dirigir'); ?>&FU=AR&ID='+ID;
+        campo = '#Articulo';
+        campo_nombre = '#Articulo_desc';        
+    }
+    else if (grid_id == 'condicion-grid'){
+        url = '<?php echo $this->createUrl('dirigir'); ?>&FU=CO&ID='+ID;
+        campo = '#Pedido_CONDICION_PAGO';
+        campo_nombre = '#Condicion';
+    }
+    else if(grid_id == 'bodega-grid'){
+        url = '<?php echo $this->createUrl('dirigir'); ?>&FU=BO&ID='+ID;
+        campo = '#Pedido_BODEGA';
+        campo_nombre = '#Bodega';
+    }
+    $.getJSON(url,function(data){
+                $(campo).val(ID);
+                $(campo_nombre).val(data.NOMBRE); 
+                if(data.UNIDAD){
+                    $("#PedidoLinea_UNIDAD").val(data.UNIDAD);
+                }
+            });    
 }
 </script>
 <div class="form">
@@ -176,16 +203,91 @@ function cargaCondicionGrilla(grid_id){
 <!--Fin de fechas    -->
 
 <!--render lineas-->
-<?php $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form),true); ?>
+<?php $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form, 'model'=>$model),true); ?>
 <!--fin render lineas-->
 
 	<?php echo $form->errorSummary($model); ?>
     
-
-		<?php echo $form->textFieldRow($model,'PEDIDO',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->textFieldRow($model,'CLIENTE',array('size'=>20,'maxlength'=>20)); ?>
-
-    
+<table>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <label>Pedido: </label>
+                    </td>
+                    <td width="10%">
+                        <?php echo $form->textField($model,'PEDIDO',array('size'=>20,'maxlength'=>50)); ?>
+                    </td>
+                    <td width="2%">
+                        <?php /*$this->widget('bootstrap.widgets.BootButton', array(
+                          'type'=>'info',
+                          'size'=>'mini',
+                          'url'=>'#condicion',
+                          'icon'=>'search',
+                          'htmlOptions'=>array('data-toggle'=>'modal'),
+                    ));*/ ?>
+                    </td>
+                    <td>
+                        <?php echo CHtml::textField('Pedido_desc',''); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Cliente: </label>
+                    </td>
+                    <td>
+                        <?php echo $form->textField($model,'CLIENTE',array('size'=>20,'maxlength'=>20)); ?>
+                    </td>
+                    <td>
+                        <?php $this->widget('bootstrap.widgets.BootButton', array(
+                          'type'=>'info',
+                          'size'=>'mini',
+                          'url'=>'#cliente',
+                          'icon'=>'search',
+                          'htmlOptions'=>array('data-toggle'=>'modal'),
+                    )); ?>
+                    </td>
+                    <td>
+                        <?php echo CHtml::textField('Cliente_desc',''); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Articulo: </label>
+                    </td>
+                    <td>
+                        <?php echo CHtml::textField('Articulo',''); ?>
+                    </td>
+                    <td>
+                        <?php $this->widget('bootstrap.widgets.BootButton', array(
+                          'type'=>'info',
+                          'size'=>'mini',
+                          'url'=>'#articulo',
+                          'icon'=>'search',
+                          'htmlOptions'=>array('data-toggle'=>'modal'),
+                    )); ?>
+                    </td>
+                    <td>
+                        <?php echo CHtml::textField('Articulo_desc',''); ?>
+                        <?php
+                            $this->widget('bootstrap.widgets.BootButton', array(
+                                        'buttonType'=>'button',
+                                        'type'=>'success',
+                                        'label'=>'Agregar',
+                                        'size'=>'mini',
+                                        'htmlOptions'=>array('id'=>'btn-nuevo','name'=>'','onclick'=>'nuevo();')
+                             ));
+                        ?>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td valign="center">
+            <div style="font-size: 20px; float: left; border: 1px solid #CCC; padding: 10px; margin-top: 40px;">$ <span id="calculos">Total</span></div>
+        </td>
+    </tr>
+</table>
         <?php $this->widget('bootstrap.widgets.BootTabbable', array(
                 'type'=>'tabs', // 'tabs' or 'pills'
                 'tabs'=>array( 
@@ -194,7 +296,7 @@ function cargaCondicionGrilla(grid_id){
                     array('label'=>'General', 'content'=>
                         '<table>
                             <tr>
-                                <td width="2%">'.$form->textFieldRow($model,'BODEGA',array('size'=>4,'maxlength'=>4)).'</td>
+                                <td width="2%">'.$form->textFieldRow($model,'BODEGA',array('size'=>4,'maxlength'=>4, 'class'=>'escritoBodega')).'</td>
                                 <td width="2%">'.$btnBodega.'</td>
                                 <td>'.CHtml::textField('Bodega', '', array('size'=>40)).'</td>
                             </tr>
@@ -281,6 +383,92 @@ function cargaCondicionGrilla(grid_id){
 <!--ventanas modales-->
 
     <?php 
+    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'cliente')); ?>
+ 
+	<div class="modal-body">
+                <a class="close" data-dismiss="modal">&times;</a>
+                <br>
+          <?php 
+            $this->widget('bootstrap.widgets.BootGridView', array(
+            'type'=>'striped bordered condensed',
+            'id'=>'cliente-grid',
+            'template'=>"{items} {pager}",
+            'dataProvider'=>$cliente->search(),
+            'selectionChanged'=>'cargaGrilla',
+            'filter'=>$cliente,
+            'columns'=>array(
+                array(  'name'=>'CLIENTE',
+                        'header'=>'Codigo',
+                        'htmlOptions'=>array('data-dismiss'=>'modal'),
+                        'type'=>'raw',
+                        'value'=>'CHtml::link($data->CLIENTE,"#")'
+                    ),
+                    'NOMBRE',
+                    'NIT',
+                    array(
+                            'class'=>'bootstrap.widgets.BootButtonColumn',
+                            'htmlOptions'=>array('style'=>'width: 50px'),
+                            'template'=>'',
+                    ),
+            ),
+    ));
+      ?>
+	</div>
+        <div class="modal-footer">
+
+            <?php $this->widget('bootstrap.widgets.BootButton', array(
+                'label'=>'Cerrar',
+                'url'=>'#',
+                'htmlOptions'=>array('data-dismiss'=>'modal'),
+            )); ?>
+        </div>
+ 
+<?php $this->endWidget(); ?>
+
+    <?php 
+    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'articulo')); ?>
+ 
+	<div class="modal-body">
+                <a class="close" data-dismiss="modal">&times;</a>
+                <br>
+          <?php 
+            $this->widget('bootstrap.widgets.BootGridView', array(
+            'type'=>'striped bordered condensed',
+            'id'=>'articulo-grid',
+            'template'=>"{items} {pager}",
+            'dataProvider'=>$articulo->search(),
+            'selectionChanged'=>'cargaGrilla',
+            'filter'=>$articulo,
+            'columns'=>array(
+                array(  'name'=>'ARTICULO',
+                        'header'=>'Codigo',
+                        'htmlOptions'=>array('data-dismiss'=>'modal'),
+                        'type'=>'raw',
+                        'value'=>'CHtml::link($data->ARTICULO,"#")'
+                    ),
+                    'NOMBRE',
+                    'TIPO_ARTICULO',
+                    array(
+                            'class'=>'bootstrap.widgets.BootButtonColumn',
+                            'htmlOptions'=>array('style'=>'width: 50px'),
+                            'template'=>'',
+                    ),
+            ),
+    ));
+      ?>
+	</div>
+        <div class="modal-footer">
+
+            <?php $this->widget('bootstrap.widgets.BootButton', array(
+                'label'=>'Cerrar',
+                'url'=>'#',
+                'htmlOptions'=>array('data-dismiss'=>'modal'),
+            )); ?>
+        </div>
+ 
+<?php $this->endWidget(); ?>
+
+    <?php 
     $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'bodega')); ?>
  
 	<div class="modal-body">
@@ -292,7 +480,7 @@ function cargaCondicionGrilla(grid_id){
             'id'=>'bodega-grid',
             'template'=>"{items} {pager}",
             'dataProvider'=>$bodega->search(),
-            'selectionChanged'=>'cargaBodegaGrilla',
+            'selectionChanged'=>'cargaGrilla',
             'filter'=>$bodega,
             'columns'=>array(
                 array(  'name'=>'ID',
@@ -335,7 +523,7 @@ function cargaCondicionGrilla(grid_id){
             'id'=>'condicion-grid',
             'template'=>"{items} {pager}",
             'dataProvider'=>$condicion->search(),
-            'selectionChanged'=>'cargaCondicionGrilla',
+            'selectionChanged'=>'cargaGrilla',
             'filter'=>$condicion,
             'columns'=>array(
                 array(  'name'=>'ID',
@@ -362,6 +550,25 @@ function cargaCondicionGrilla(grid_id){
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
             )); ?>
+        </div>
+ 
+<?php $this->endWidget(); ?>
+
+
+<?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'nuevo')); ?>
+ 
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">&times;</a>
+		<h3>Nueva Línea</h3>
+		<p class="note">Los Campos con <span class="required">*</span> Son requeridos.</p>
+	</div>
+        <div id="form-lineas">
+            <?php  $this->renderPartial('form_lineas', 
+                        array(
+                            'model'=>$model,
+                            'linea'=>$linea,
+                        )
+                    ); ?>
         </div>
  
 <?php $this->endWidget(); ?>

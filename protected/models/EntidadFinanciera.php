@@ -45,6 +45,7 @@ class EntidadFinanciera extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID, NIT, DESCRIPCION', 'required'),
+                        array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'Entidad financiera','allowEmpty'=>false),
 			array('ID', 'numerical', 'integerOnly'=>true),
 			array('NIT, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('DESCRIPCION', 'length', 'max'=>64),
@@ -111,7 +112,8 @@ class EntidadFinanciera extends CActiveRecord
         public function searchPdf()
 	{
 
-		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
+		$criteria=new CDbCriteria;                 
+                $criteria->compare('ACTIVO','S');
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

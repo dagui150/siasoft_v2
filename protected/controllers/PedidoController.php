@@ -32,7 +32,7 @@ class PedidoController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'cargarBodega', 'cargarCondicion'),
+				'actions'=>array('create','update', 'Dirigir', 'completarBodega'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -64,8 +64,10 @@ class PedidoController extends Controller
 	{
 		$model=new Pedido;
                 $bodega = new Bodega;
+                $cliente = new Cliente;
                 $condicion = new CodicionPago;
                 $linea = new PedidoLinea;
+                $articulo = new Articulo;
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -82,6 +84,8 @@ class PedidoController extends Controller
                         'bodega'=>$bodega,
                         'condicion'=>$condicion,
                         'linea'=>$linea,
+                        'cliente'=>$cliente,
+                        'articulo'=>$articulo
 		));
 	}
 
@@ -109,8 +113,39 @@ class PedidoController extends Controller
 		));
 	}
         
-        public function actionCargarBodega(){
-            $item_id = $_GET['buscar'];
+        public function actionDirigir(){
+            switch($_GET['FU']){
+                case 'CL':
+                    $this->CargarCliente($_GET['ID']);
+                break;
+                case 'AR':
+                    $this->CargarArticulo($_GET['ID']);
+                break;
+                case 'BO':
+                    $this->CargarBodega($_GET['ID']);
+                break;
+                case 'CO':
+                    $this->CargarCondicion($_GET['ID']);
+                break;
+            }
+        }
+        
+        
+        //Inicio funciones que cargan info por JSON
+        
+        public function actionCompletarBodega(){
+            if (isset($_GET['term'])) {
+		
+                    $qtxt ="SELECT ID FROM bodega WHERE ID LIKE :ID";
+                    $command =Yii::app()->db->createCommand($qtxt);
+                    $command->bindValue(":ID", '%'.$_GET['term'].'%', PDO::PARAM_STR);
+                    $res =$command->queryColumn();
+            }
+            echo CJSON::encode($res);
+	    Yii::app()->end();
+        }        
+        
+        public function CargarBodega($item_id){
             $bus = Bodega::model()->findByPk($item_id);
             $res = array(
                 'ID' => $bus->ID,
@@ -120,8 +155,7 @@ class PedidoController extends Controller
             echo CJSON::encode($res);
         }
         
-        public function actionCargarCondicion(){
-            $item_id = $_GET['buscar'];
+        public function CargarCondicion($item_id){
             $bus = CodicionPago::model()->findByPk($item_id);
             $res = array(
                 'ID' => $bus->ID,
@@ -130,7 +164,31 @@ class PedidoController extends Controller
             
             echo CJSON::encode($res);
         }
-
+        
+        public function CargarCliente($item_id){            
+            $bus = Cliente::model()->findByPk($item_id);
+            $res = array(
+                'ID' => $bus->CLIENTE,
+                'NOMBRE' => $bus->NOMBRE,
+            );
+            
+            echo CJSON::encode($res);
+        }
+        
+        public function CargarArticulo($item_id){            
+            $bus = Articulo::model()->findByPk($item_id);
+            $res = array(
+                'ID' => $bus->ARTICULO,
+                'NOMBRE' => $bus->NOMBRE,
+                'UNIDAD' => $bus->UNIDAD_ALMACEN,
+            );            
+            echo CJSON::encode($res);
+        }
+        
+        
+        //Fin funciones que cargan info por JSON
+        
+        
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
