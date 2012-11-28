@@ -194,10 +194,11 @@ class DocumentoInvController extends SBaseController
             $bus = Articulo::model()->findByPk($idArticulo);
             $res = array(
                 'NOMBRE'=>isset($bus->NOMBRE) ? $bus->NOMBRE :'Ninguno',
-                'COSTO'=>''
+                'COSTO'=>'',
+                'UNIDAD'=>$bus->UNIDAD_ALMACEN
             );
             
-            if($bus->COSTO_FISCAL == 'Estandar')
+            if($bus->COSTO_FISCAL == 'Estándar')
                 $res['COSTO'] = $bus->COSTO_ESTANDAR;
             
             if($bus->COSTO_FISCAL == 'Promedio')
@@ -632,6 +633,7 @@ class DocumentoInvController extends SBaseController
                      {
                         $contError+=1;
                         $error.= $id.',';
+                        echo $e;
                         $transaction->rollBack();
                      }
                  }elseif($documento->ESTADO == 'L'){
