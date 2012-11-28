@@ -87,6 +87,9 @@ class ConsecutivoCiController extends SBaseController
                                     }
                             }
                             //ELIMINAR REGISTROS
+                            if(isset($_POST['cambia']) && $_POST['cambia'] == 1){
+                                ConsecCiTipoTrans::model()->deleteAllByAttributes(array('CONSECUTIVO_CI'=>$model2->ID));
+                            }
                             if(isset($_POST['eliminar'])){
                                 $arEliminar = explode(',',$_POST['eliminar']);
                                 foreach($arEliminar as $elimina){
