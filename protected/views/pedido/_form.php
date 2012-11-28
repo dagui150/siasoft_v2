@@ -6,7 +6,7 @@ $(document).ready(function(){
 function nuevo(){    
     //Limpiar Fromulario
     $("#PedidoLinea_ARTICULO").val('');
-    $("#PedidoLinea_UNIDAD").val('');
+    //$("#PedidoLinea_UNIDAD").val('');
     $("#PedidoLinea_CANTIDAD").val('');
     $("#PedidoLinea_PRECIO_UNITARIO").val('');
     $("#PedidoLinea_PORC_DESCUENTO").val('');

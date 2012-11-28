@@ -161,31 +161,31 @@
 			array('label'=>'Solicitudes', 'content'=>
 		'<fieldset>'
 		.'<legend>Solicitudes</legend>'
-		.$form->textFieldRow($model,'RUBRO1_SOLNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO2_SOLNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO3_SOLNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO4_SOLNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO5_SOLNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
+		.$form->textFieldRow($model,'RUBRO1_SOLNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO2_SOLNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO3_SOLNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO4_SOLNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO5_SOLNOM',array('size'=>15,'maxlength'=>15))
 		.'</fieldset>'),
 		
 		array('label'=>'Ordenes', 'content'=>
 		'<fieldset>'
 		.'<legend>Ordenes</legend>'
-		.$form->textFieldRow($model,'RUBRO1_ORDNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO2_ORDNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO3_ORDNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO4_ORDNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO5_ORDNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
+		.$form->textFieldRow($model,'RUBRO1_ORDNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO2_ORDNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO3_ORDNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO4_ORDNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO5_ORDNOM',array('size'=>15,'maxlength'=>15))
 		.'</fieldset>'),
 		
 		array('label'=>'Ingresos', 'content'=>
 		'<fieldset>'
 		.'<legend>Ingresos</legend>'
-		.$form->textFieldRow($model,'RUBRO1_EMBNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO2_EMBNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO3_EMBNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO4_EMBNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO5_EMBNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
+		.$form->textFieldRow($model,'RUBRO1_EMBNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO2_EMBNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO3_EMBNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO4_EMBNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO5_EMBNOM',array('size'=>15,'maxlength'=>15))
 		.'</fieldset>'),
 		)),
     ),

@@ -45,31 +45,45 @@ $(document).ready(function(){
         <?php 
         // Validacion de Rubros en la configuracion        
          if($config->USAR_RUBROS == "S") {
-                    $rubros = '<div class="row">'
-                    .$form->labelEx($model,'RUBRO1')
-                    .$form->textField($model,'RUBRO1',array('size'=>50,'maxlength'=>50))
-                    .$form->error($model,'RUBRO1')
-                    .'</div>'
-                    .'<div class="row">'
-                    .$form->labelEx($model,'RUBRO2')
-                    .$form->textField($model,'RUBRO2',array('size'=>50,'maxlength'=>50))
-                    .$form->error($model,'RUBRO2')
-                    .'</div>'
-                    .'<div class="row">'
-                    .$form->labelEx($model,'RUBRO3')
-                    .$form->textField($model,'RUBRO3',array('size'=>50,'maxlength'=>50))
-                    .$form->error($model,'RUBRO3')
-                    .'</div>'
-                    .'<div class="row">'
-                    .$form->labelEx($model,'RUBRO4')
-                    .$form->textField($model,'RUBRO4',array('size'=>50,'maxlength'=>50))
-                    .$form->error($model,'RUBRO4')
-                    .'</div>'
-                    .'<div class="row">'
-                    .$form->labelEx($model,'RUBRO5')
-                    .$form->textField($model,'RUBRO5',array('size'=>50,'maxlength'=>50))
-                    .$form->error($model,'RUBRO5')
-                    .'</div>';
+                    $rubros = '<div class="row">';
+                    if($config->RUBRO1_SOLNOM != ''){
+                        $rubros .= '<label>'.$config->RUBRO1_SOLNOM.'</label>'
+                        .$form->textField($model,'RUBRO1',array('size'=>50,'maxlength'=>50))
+                        .$form->error($model,'RUBRO1')
+                        .'</div>';                        
+                    }
+                    
+                    if($config->RUBRO2_SOLNOM != ''){                    
+                        $rubros .= '<div class="row">'
+                        .'<label>'.$config->RUBRO2_SOLNOM.'</label>'
+                        .$form->textField($model,'RUBRO2',array('size'=>50,'maxlength'=>50))
+                        .$form->error($model,'RUBRO2')
+                        .'</div>';                        
+                    }
+                    
+                    if($config->RUBRO3_SOLNOM != ''){                    
+                        $rubros .= '<div class="row">'
+                        .'<label>'.$config->RUBRO3_SOLNOM.'</label>'
+                        .$form->textField($model,'RUBRO3',array('size'=>50,'maxlength'=>50))
+                        .$form->error($model,'RUBRO3')
+                        .'</div>';                        
+                    }
+                    
+                    if($config->RUBRO4_SOLNOM != ''){                    
+                        $rubros .= '<div class="row">'
+                        .'<label>'.$config->RUBRO4_SOLNOM.'</label>'
+                        .$form->textField($model,'RUBRO4',array('size'=>50,'maxlength'=>50))
+                        .$form->error($model,'RUBRO4')
+                        .'</div>';                        
+                    }
+                    
+                    if($config->RUBRO5_SOLNOM != ''){                    
+                        $rubros .= '<div class="row">'
+                        .'<label>'.$config->RUBRO5_SOLNOM.'</label>'
+                        .$form->textField($model,'RUBRO5',array('size'=>50,'maxlength'=>50))
+                        .$form->error($model,'RUBRO5');                        
+                    }
+                    $rubros .= '</div>';
          }
          else{
              $rubros='Para usar esta opcion debes habilitarla en configuracion';
