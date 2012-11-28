@@ -397,8 +397,10 @@ class IngresoCompraController extends Controller
                                 $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos->ARTICULO,'BODEGA'=>$datos->BODEGA));
 
                                 if($existenciaBodega){
-                                        $existenciaBodega->CANT_DISPONIBLE = $existenciaBodega->CANT_DISPONIBLE + $datos->CANTIDAD_ACEPTADA;
-                                        $existenciaBodega->save(); //- La cantidad aceptada para el articulo exede a la maxima permitida;                                
+                                        /*$existenciaBodega->CANT_DISPONIBLE = $existenciaBodega->CANT_DISPONIBLE + $datos->CANTIDAD_ACEPTADA;                                        
+                                        $existenciaBodega->save(); //- La cantidad aceptada para el articulo exede a la maxima permitida;     */ 
+                                        $valor = $existenciaBodega->CANT_DISPONIBLE + $datos->CANTIDAD_ACEPTADA;
+                                        ExistenciaBodega::model()->updateByPk($existenciaBodega->ID, array('CANT_DISPONIBLE'=>$valor));
                                 }else{                                
                                     $existenciaBodega = new ExistenciaBodega;
                                     $existenciaBodega->ARTICULO = $datos->ARTICULO;
