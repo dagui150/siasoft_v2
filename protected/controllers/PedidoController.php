@@ -32,7 +32,7 @@ class PedidoController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'Dirigir', 'completarBodega'),
+				'actions'=>array('create','update', 'Dirigir', 'completarBodega', 'agregarLinea'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -44,6 +44,47 @@ class PedidoController extends Controller
 			),
 		);
 	}
+        
+        
+        public function actionAgregarlinea(){
+            $linea = new PedidoLinea;
+            $linea->attributes = $_POST['PedidoLinea'];
+            $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
+            
+            if($linea->validate()){
+                     echo '<div id="alert" class="alert alert-success" data-dismiss="modal">
+                            <h2 align="center">Operacion Satisfactoria</h2>
+                            </div>
+                     <span id="form-cargado" style="display:none">';
+                          $this->renderPartial('form_lineas', 
+                            array(
+                                'linea'=>$linea,
+                                'ruta'=>$ruta,
+                                'Pactualiza'=>isset($_POST['ACTUALIZA']) ? $_POST['ACTUALIZA'] : 0,
+                            )
+                        );
+                     echo '</span>
+                         
+                         <div id="boton-cargado" class="modal-footer">';
+                            $this->widget('bootstrap.widgets.BootButton', array(
+                                 'buttonType'=>'button',
+                                 'type'=>'normal',
+                                 'label'=>'Aceptar',
+                                 'icon'=>'ok',
+                                 'htmlOptions'=>array('id'=>'nuevo','onclick'=>'agregar("'.$_POST['SPAN'].'")')
+                              ));
+                     echo '</div>';
+                     Yii::app()->end();
+                    }else{
+                    $this->renderPartial('form_lineas', 
+                        array(
+                            'linea'=>$linea,
+                            'ruta'=>$ruta,
+                        )
+                    );
+                    Yii::app()->end();
+                }
+        }
 
 	/**
 	 * Displays a particular model.
@@ -68,6 +109,7 @@ class PedidoController extends Controller
                 $condicion = new CodicionPago;
                 $linea = new PedidoLinea;
                 $articulo = new Articulo;
+                $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -85,7 +127,8 @@ class PedidoController extends Controller
                         'condicion'=>$condicion,
                         'linea'=>$linea,
                         'cliente'=>$cliente,
-                        'articulo'=>$articulo
+                        'articulo'=>$articulo,
+                        'ruta'=>$ruta,
 		));
 	}
 
@@ -177,10 +220,11 @@ class PedidoController extends Controller
         
         public function CargarArticulo($item_id){            
             $bus = Articulo::model()->findByPk($item_id);
+            $unidad = UnidadMedida::model()->findByPk($bus->UNIDAD_ALMACEN);
             $res = array(
                 'ID' => $bus->ARTICULO,
                 'NOMBRE' => $bus->NOMBRE,
-                'UNIDAD' => $bus->UNIDAD_ALMACEN,
+                'UNIDAD' => $unidad->NOMBRE,
             );            
             echo CJSON::encode($res);
         }

@@ -55,8 +55,8 @@ class PedidoLinea extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ID, ARTICULO, PEDIDO, LINEA, UNIDAD, CANTIDAD, PRECIO_UNITARIO, TIPO_DESCUENTO, PORC_DESCUENTO, MONTO_DESCUENTO, ESTADO, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'required'),
-			array('ID, LINEA, UNIDAD', 'numerical', 'integerOnly'=>true),
+			array('ARTICULO, UNIDAD, CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, PORC_IMPUESTO, VALOR_IMPUESTO', 'required'),
+			array('ID, LINEA', 'numerical', 'integerOnly'=>true),
 			array('ARTICULO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('PEDIDO', 'length', 'max'=>50),
 			array('CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO', 'length', 'max'=>28),
@@ -98,6 +98,8 @@ class PedidoLinea extends CActiveRecord
 			'TIPO_DESCUENTO' => 'Tipo Descuento',
 			'PORC_DESCUENTO' => 'Porc Descuento',
 			'MONTO_DESCUENTO' => 'Monto Descuento',
+                        'PORC_IMPUESTO' => 'Porcentaje impuesto',
+                        'VALOR_IMPUESTO' => 'Valor impuesto',
 			'COMENTARIO' => 'Comentario',
 			'ESTADO' => 'Estado',
 			'ACTIVO' => 'Activo',
@@ -129,6 +131,8 @@ class PedidoLinea extends CActiveRecord
 		$criteria->compare('TIPO_DESCUENTO',$this->TIPO_DESCUENTO,true);
 		$criteria->compare('PORC_DESCUENTO',$this->PORC_DESCUENTO,true);
 		$criteria->compare('MONTO_DESCUENTO',$this->MONTO_DESCUENTO,true);
+                $criteria->compare('PORC_IMPUESTO',$this->PORC_IMPUESTO,true);
+                $criteria->compare('VALOR_IMPUESTO',$this->VALOR_IMPUESTO,true);
 		$criteria->compare('COMENTARIO',$this->COMENTARIO,true);
 		$criteria->compare('ESTADO',$this->ESTADO,true);
 		$criteria->compare('ACTIVO',$this->ACTIVO,true);
@@ -140,5 +144,22 @@ class PedidoLinea extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+        public function behaviors()
+	{
+		return array(
+			'CTimestampBehavior' => array(
+				'class' => 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' => 'CREADO_EL',
+				'updateAttribute' => 'ACTUALIZADO_EL',
+				'setUpdateOnCreate' => true,
+			),
+			
+			'BlameableBehavior' => array(
+				'class' => 'application.components.BlameableBehavior',
+				'createdByColumn' => 'CREADO_POR',
+				'updatedByColumn' => 'ACTUALIZADO_POR',
+			),
+		);
 	}
 }

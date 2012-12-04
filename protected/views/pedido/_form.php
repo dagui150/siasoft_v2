@@ -63,7 +63,8 @@ function cargaGrilla(grid_id){
     else if (grid_id == 'articulo-grid'){
         url = '<?php echo $this->createUrl('dirigir'); ?>&FU=AR&ID='+ID;
         campo = '#Articulo';
-        campo_nombre = '#Articulo_desc';        
+        campo_nombre = '#Articulo_desc';
+        $('#btn-nuevo').attr('disabled', false);
     }
     else if (grid_id == 'condicion-grid'){
         url = '<?php echo $this->createUrl('dirigir'); ?>&FU=CO&ID='+ID;
@@ -203,7 +204,7 @@ function cargaGrilla(grid_id){
 <!--Fin de fechas    -->
 
 <!--render lineas-->
-<?php $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form, 'model'=>$model),true); ?>
+<?php $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form, 'model'=>$model, 'ruta'=>$ruta),true); ?>
 <!--fin render lineas-->
 
 	<?php echo $form->errorSummary($model); ?>
@@ -276,7 +277,7 @@ function cargaGrilla(grid_id){
                                         'type'=>'success',
                                         'label'=>'Agregar',
                                         'size'=>'mini',
-                                        'htmlOptions'=>array('id'=>'btn-nuevo','name'=>'','onclick'=>'nuevo();')
+                                        'htmlOptions'=>array('id'=>'btn-nuevo','name'=>'','onclick'=>'nuevo();', 'disabled'=>true)
                              ));
                         ?>
                     </td>
@@ -567,6 +568,7 @@ function cargaGrilla(grid_id){
                         array(
                             'model'=>$model,
                             'linea'=>$linea,
+                            'ruta'=>$ruta,
                         )
                     ); ?>
         </div>

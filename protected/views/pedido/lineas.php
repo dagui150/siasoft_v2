@@ -1,3 +1,10 @@
+<?php
+    $cs=Yii::app()->clientScript;
+    $cs->registerScriptFile(XHtml::jsUrl('jquery.calculation.min.js'), CClientScript::POS_HEAD);
+    $cs->registerScriptFile(XHtml::jsUrl('jquery.format.js'), CClientScript::POS_HEAD);
+    $cs->registerScriptFile(XHtml::jsUrl('template.js'), CClientScript::POS_HEAD);
+    $cs->registerScriptFile(XHtml::jsUrl('jquery.validate.js'), CClientScript::POS_HEAD);
+?>
 <div style="overflow-x: scroll; width: 850px; margin-bottom: 10px;">
 <table class="templateFrame table table-bordered" cellspacing="0">
       <thead>
@@ -7,30 +14,30 @@
                 <td><strong>Descripción</strong></td>
                 <td><strong>Unidad</strong></td>
                 <td><strong>Cantidad</strong></td>
-                <td><strong>Precio Unitario</strong></td>
-                <td><strong>Estado</strong></td>
+                <td><strong>Precio Unitario</strong></td>                
                 <td><strong>Porcentaje Descuento</strong></td>
                 <td><strong>Monto Descuento</strong></td>
+                <td><strong>Porcentaje Impuesto</strong></td>
+                <td><strong>Valor Impuesto</strong></td>
+                <td><strong>Estado</strong></td>
                 <td><strong>Comentario</strong></td>
-                <td><strong>Porcentaje Retención</strong></td>
-                <td><strong>Monto de Retención</strong></td>
                 <td></td>
            </tr>
      </thead>
      <tfoot>
            <tr>
                 <td colspan="6">
-                      <span class="add" id="nuevaLinea" ></span>
+                    <div id="add" class="add">
                        <?php 
                             //$config = ConfCi::model()->find();
                             //$contador = $countLineas;
-                             /*$this->widget('bootstrap.widgets.BootButton', array(
-                                        'buttonType'=>'button',
-                                        'type'=>'success',
-                                        'label'=>'Nuevo',
-                                         'icon'=>'plus white',
-                                        'htmlOptions'=>array('id'=>'btn-nuevo','name'=>'','onclick'=>'$("#nuevo").modal(); limpiarForm();','disabled'=>$model->ESTADO == 'P' ? false : true)
-                             ));*/
+                            $this->widget('bootstrap.widgets.BootButton', array(
+                                                        'buttonType'=>'button',
+                                                        'type'=>'success',
+                                                        'label'=>'Nuevo',
+                                                        'icon'=>'plus white',
+                                                        'htmlOptions' => array('class'=>'clonar', 'style'=>'display:none'),
+                                                  ));
                              
                              /*
                              echo CHtml::hiddenField('maxLineas',$config->LINEAS_MAX_TRANS);
@@ -38,11 +45,11 @@
                              echo CHtml::hiddenField('contadorLineas',$contador);
                               */
                        ?>
+                    </div>
                        <textarea class="template" rows="0" cols="0" style="display:none;">
                                 <tr class="templateContent">
                                     <td>
-                                        <span id='linea_<?php echo '{0}';?>'></span>
-                                        <?php echo CHtml::hiddenField('LineaNuevo[{0}][LINEA]',''); ?>                                        
+                                        <span id='linea_<?php echo '{0}';?>'></span>                                                                        
                                     </td>
                                     <td>
                                         <span id='articulo_<?php echo '{0}';?>'></span>
@@ -63,11 +70,7 @@
                                     <td>
                                         <span id='precio_unitario_<?php echo '{0}';?>'></span>
                                         <?php echo CHtml::hiddenField('LineaNuevo[{0}][PRECIO_UNITARIO]',''); ?>                                        
-                                    </td>
-                                    <td>
-                                        <span id='estado_<?php echo '{0}';?>'></span>
-                                        <?php echo CHtml::hiddenField('LineaNuevo[{0}][ESTADO]',''); ?>                                        
-                                    </td>
+                                    </td>                                    
                                     <td>
                                         <span id='porc_descuento_<?php echo '{0}';?>'></span>
                                         <?php echo CHtml::hiddenField('LineaNuevo[{0}][PORC_DESCUENTO]',''); ?>                                        
@@ -77,28 +80,21 @@
                                         <?php echo CHtml::hiddenField('LineaNuevo[{0}][MONTO_DESCUENTO]',''); ?>
                                     </td>
                                     <td>
+                                        <span id='porc_impuesto_<?php echo '{0}';?>'></span>
+                                        <?php echo CHtml::hiddenField('LineaNuevo[{0}][PORC_IMPUESTO]',''); ?>                                        
+                                    </td>
+                                    <td>
+                                        <span id='valor_impuesto_<?php echo '{0}';?>'></span>
+                                        <?php echo CHtml::hiddenField('LineaNuevo[{0}][VALOR_IMPUESTO]',''); ?>
+                                    </td>
+                                    <td>
+                                        <span id='estado_<?php echo '{0}';?>'></span>                                                                           
+                                    </td>
+                                    <td>
                                         <span id='comentario_<?php echo '{0}';?>'></span>
                                         <?php echo CHtml::hiddenField('LineaNuevo[{0}][COMENTARIO]',''); ?>
                                     </td>
-                                    <td>
-                                        <span id='porc_retencion_<?php echo '{0}';?>'></span>
-                                        <?php echo CHtml::hiddenField('LineaNuevo[{0}][PORC_RETENCION]',''); ?>
-                                    </td>
-                                    <td>
-                                        <span id='monto_retencion_<?php echo '{0}';?>'></span>
-                                        <?php echo CHtml::hiddenField('LineaNuevo[{0}][MONTO_RETENCION]',''); ?>
-                                    </td>
-                                    <td>
-                                        <span style="float: left">
-                                            <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                                             'buttonType'=>'button',
-                                                             'type'=>'normal',
-                                                             'size'=>'mini',
-                                                             'icon'=>'pencil',
-                                                             'htmlOptions'=>array('class'=>'edit','name'=>'{0}',  )
-                                                         ));
-                                            ?>
-                                        </span>
+                                    <td width="40px">
                                         <div class="remove" id ="remover"style="float: left; margin-left: 5px;">
                                                <?php $this->widget('bootstrap.widgets.BootButton', array(
                                                          'buttonType'=>'button',
@@ -138,11 +134,7 @@
                                 <td>
                                         <?php echo '<span id="precio_unitarioU_'.$i.'">'.$linea->PRECIO_UNITARIO.'</span>'; ?>
                                         <?php echo CHtml::activeHiddenField($linea,"[$i]PRECIO_UNITARIO"); ?>                                        
-                                </td>
-                                <td>
-                                        <?php echo '<span id="estadoU_'.$i.'">'.$linea->ESTADO.'</span>'; ?>
-                                        <?php echo CHtml::activeHiddenField($linea,"[$i]ESTADO"); ?>                                        
-                                </td>
+                                </td>                                
                                 <td>
                                         <?php echo '<span id="porc_descuentoU_'.$i.'">'.$linea->PORC_DESCUENTO.'</span>'; ?>
                                         <?php echo CHtml::activeHiddenField($linea,"[$i]PORC_DESCUENTO"); ?>                                        
@@ -152,28 +144,22 @@
                                         <?php echo CHtml::activeHiddenField($linea,"[$i]PORC_DESCUENTO"); ?>                                        
                                 </td>
                                 <td>
+                                        <?php echo '<span id="porc_impuestoU_'.$i.'">'.$linea->PORC_IMPUESTO.'</span>'; ?>
+                                        <?php echo CHtml::activeHiddenField($linea,"[$i]PORC_DESCUENTO"); ?>                                        
+                                </td>
+                                <td>
+                                        <?php echo '<span id="valor_impuestoU_'.$i.'">'.$linea->VALOR_IMPUESTO.'</span>'; ?>
+                                        <?php echo CHtml::activeHiddenField($linea,"[$i]PORC_DESCUENTO"); ?>                                        
+                                </td>
+                                <td>
+                                        <?php echo '<span id="estadoU_'.$i.'">'.$linea->ESTADO.'</span>'; ?>
+                                        <?php echo CHtml::activeHiddenField($linea,"[$i]ESTADO"); ?>                                        
+                                </td>
+                                <td>
                                         <?php echo '<span id="comentarioU_'.$i.'">'.$linea->COMENTARIO.'</span>'; ?>
                                         <?php echo CHtml::activeHiddenField($linea,"[$i]COMENTARIO"); ?>                                        
                                 </td>
-                                <td>
-                                        <?php echo '<span id="porc_retencionU_'.$i.'">'.$linea->PORC_RETENCION.'</span>'; ?>
-                                        <?php echo CHtml::activeHiddenField($linea,"[$i]PORC_RETENCION"); ?>                                        
-                                </td>
-                                <td>
-                                        <?php echo '<span id="monto_retencionU_'.$i.'">'.$linea->MONTO_RETENCION.'</span>'; ?>
-                                        <?php echo CHtml::activeHiddenField($linea,"[$i]MONTO_RETENCION"); ?>                                        
-                                </td>
-                                <td>
-                                        <span style="float: left">
-                                                       <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                                             'buttonType'=>'button',
-                                                             'type'=>'normal',
-                                                             'size'=>'mini',
-                                                             'icon'=>'pencil',
-                                                             'htmlOptions'=>array('class'=>'editUpdate','name'=>$i,'disabled'=>$model->ESTADO == 'P' ? false : true)
-                                                          ));
-                                                       ?>
-                                        </span>
+                                <td>                                     
                                        <div class="remove" id ="remover" style="float: left; margin-left: 5px;">
                                                   <?php $this->widget('bootstrap.widgets.BootButton', array(
                                                                  'buttonType'=>'button',
@@ -187,9 +173,11 @@
                                        </div>
                                    </td>
                          </tr>
-                   <?php  endforeach ?>
+                   <?php  endforeach; ?>
                    <?php echo CHtml::hiddenField('eliminar','' ); ?>
           <?php endif; ?>
     </tbody>
 </table>
+    <?php $model->isNewRecord ? $i=0 : $i++; ?>
+    <?php echo CHtml::HiddenField('CAMPO_ACTUALIZA', $i); ?>
 </div>
