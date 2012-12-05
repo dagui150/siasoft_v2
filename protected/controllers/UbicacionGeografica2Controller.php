@@ -148,9 +148,7 @@ class UbicacionGeografica2Controller extends SBaseController
             $dataProvider=new UbicacionGeografica2;
 		$this->render('pdf',array(
 			'dataProvider'=>$dataProvider,
-		));
-            
-            
+		)); 
         }
 
 	/**

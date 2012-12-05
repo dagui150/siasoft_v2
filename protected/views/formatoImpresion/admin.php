@@ -52,7 +52,10 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		'NOMBRE',
 		'OBSERVACION',
-		'MODULO',
+                array(
+                    'name'=>'MODULO',
+                    'value'=>'FormatoImpresion::getModulo($data->MODULO)',
+                ),
 		'SUBMODULO',
 		'RUTA',
 		/*

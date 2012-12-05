@@ -174,6 +174,12 @@ function inicio(){
 						.'</fieldset>'
 				),
                             
+                             
+                            array('label' => 'Impresion', 'content' =>
+            $form->dropDownListRow($model, 'FORMATO_IMPRESION', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND MODULO = "INVE"'), 'ID', 'NOMBRE'), array('empty' => 'Seleccione...'))
+        ),
+            
+                            
                         
 			),
 		)); 

@@ -11,6 +11,7 @@ class BodegaController extends SBaseController
 	public $layout='//layouts/column2';
 	public $breadcrumbs=array();
 	public $menu=array();
+        
 	/**
 	 * @return array action filters
 	 */
@@ -64,6 +65,8 @@ class BodegaController extends SBaseController
 	 */
 	public function actionCreate()
 	{
+                $mensajeSucces = MensajeSistema::model()->findByPk('S001');
+                $mensajeError = MensajeSistema::model()->findByPk('E001');
 		$model2=new Bodega;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -72,16 +75,37 @@ class BodegaController extends SBaseController
 		if(isset($_POST['Bodega']))
 		{
 			$model2->attributes=$_POST['Bodega'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+                            $mensaje = "sdfhnsdkjfhjds1111";
+                            $this->render('admin', array('alerta'=>$mensaje));
+			    //$this->redirect(array('admin'));
+                        }else{
+                            $mensaje = "sdfjhsdjkfhsd22222";
+                            $this->render('admin', array('alerta'=>$mensaje));
+                            
+                            //$this->redirect(array('admin'));
+                        }
 		}
 
 		$this->render('create',array(
 			'model2'=>$model2,
 		));
-	}
+                }	
+                
+                
+             public function actionPrueba() {
+                $model = new Bodega('search');
+                $model->unsetAttributes();  // clear any default values
+                $model2 = new Bodega;
+                $mensaje = "sdfjhsdjkfhsd22222";
+                $this->render('admin', array(
+                    'alerta' => $mensaje, 
+                    'model' => $model,
+                    'model2' => $model2,
+                    ));
+            }
 
-	/**
+                /**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated

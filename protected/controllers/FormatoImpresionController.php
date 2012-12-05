@@ -200,4 +200,13 @@ class FormatoImpresionController extends SBaseController
 			Yii::app()->end();
 		}
 	}
+        
+        public function actionSubmodulo(){
+            echo CJSON::encode((FormatoImpresion::SubModulos($_GET['modulo'])));
+        }
+        
+        public function actionFormato(){
+            echo CJSON::encode((FormatoImpresion::Formato($_GET['submodulo']))); 
+        }
+        
 }

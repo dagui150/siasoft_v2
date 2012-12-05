@@ -26,7 +26,7 @@ return array(
 		'application.extensions.helpers.*',
 		'application.modules.srbac.controllers.SBaseController',
                 'application.extensions.PdfGrid.*',
-                'application.extensions.tlbExcelView.*',
+            
         'ext.helpers.*',
 	),
 	'modules'=>array(
@@ -172,8 +172,10 @@ return array(
 					//'ipFilters'=>array('127.0.0.1','192.168.0.11'),
 				),
 			),
+                    
 		),
-		/*'log'=>array(
+            
+		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
 				array(
@@ -185,18 +187,18 @@ return array(
 				array(
 					'class'=>'CWebLogRoute',
 				),
-				*/
-            /*
+                                 * 
+                                 */
+            
 			),
-		),*/
+		),
+            
 		
 		'bootstrap'=>array(
 			'class'=>'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
 		),
             
-            'tlbExcelView'=>array(
-			'class'=>'ext.tlbExcelView.tlbExcelView', // assuming you extracted tlbExcelView under extensions
-		),
+            
 	),
 
 	// application-level parameters that can be accessed

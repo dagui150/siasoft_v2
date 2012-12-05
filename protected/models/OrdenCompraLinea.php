@@ -167,6 +167,43 @@ class OrdenCompraLinea extends CActiveRecord
 		));
 	}
         
+        public function search2($id)
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('ORDEN_COMPRA_LINEA',$this->ORDEN_COMPRA_LINEA);
+		$criteria->compare('ORDEN_COMPRA',$id,true);
+		$criteria->compare('LINEA_NUM',$this->LINEA_NUM);
+		$criteria->compare('ARTICULO',$this->ARTICULO,true);
+		$criteria->compare('DESCRIPCION',$this->DESCRIPCION,true);
+		$criteria->compare('BODEGA',$this->BODEGA,true);
+		$criteria->compare('FECHA_REQUERIDA',$this->FECHA_REQUERIDA,true);
+		$criteria->compare('FACTURA',$this->FACTURA,true);
+		$criteria->compare('CANTIDAD_ORDENADA',$this->CANTIDAD_ORDENADA,true);
+		$criteria->compare('UNIDAD_COMPRA',$this->UNIDAD_COMPRA);
+		$criteria->compare('PRECIO_UNITARIO',$this->PRECIO_UNITARIO,true);
+		$criteria->compare('PORC_DESCUENTO',$this->PORC_DESCUENTO,true);
+		$criteria->compare('MONTO_DESCUENTO',$this->MONTO_DESCUENTO,true);
+		$criteria->compare('PORC_IMPUESTO',$this->PORC_IMPUESTO,true);
+		$criteria->compare('VALOR_IMPUESTO',$this->VALOR_IMPUESTO,true);
+		$criteria->compare('CANTIDAD_RECIBIDA',$this->CANTIDAD_RECIBIDA,true);
+		$criteria->compare('CANTIDAD_RECHAZADA',$this->CANTIDAD_RECHAZADA,true);
+		$criteria->compare('FECHA',$this->FECHA,true);
+		$criteria->compare('OBSERVACION',$this->OBSERVACION,true);
+		$criteria->compare('ESTADO',$this->ESTADO,true);
+		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
+		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
+		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
+		$criteria->compare('ACTUALIZADO_EL',$this->ACTUALIZADO_EL,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+        
         public function cambiaRecibir($id){
             $i = 0;
             $buscare = $this->model()->findByPk($id);

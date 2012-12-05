@@ -17,7 +17,6 @@
                 
                 color:#999999;
             }    
-            
             body{
                 background: white;
             }
@@ -29,13 +28,14 @@
 
     <body>
 
-        <div class="container" id="page">
+        <div class="container" id="page" >
 
-            
-<table width="100%" border="1">
+
+<table width="100%" >
   <tr>
-    <td width="33%" rowspan="2">
-	<?php 
+    <td height="75" colspan="2"><table width="100%" >
+      <tr>
+        <td width="26%" rowspan="3" align="left" valign="middle"><?php 
 		$compania = Compania::model()->find();
 		if($compania->LOGO != ''){
 			echo CHtml::image(Yii::app()->request->baseUrl."/logo/".$compania->LOGO, 'Logo');     
@@ -44,38 +44,39 @@
 			echo $compania->NOMBRE;
 
                                         }
-                                    ?>
-                                    </td>
-    <td align="left" > <?php echo $compania->NOMBRE_ABREV; ?></td>
-    <td ><b> <?php echo $this->modulo; ?></b></td>
+                                    ?></td>
+        <?php $compania = Compania::model()->find();?>
+        <td width="41%" align="center"><?php echo $compania->NOMBRE_ABREV; ?></td>
+        <td width="33%" rowspan="2" align="right" valign="middle"><strong>Número</strong></td>
+      </tr>
+      <tr>
+        <td align="center"><?php echo '<b>Nit:</b> '.$compania->NIT; ?></td>
+      </tr>
+      <tr>
+        <td height="23" align="center"><?php echo '<b>Tels:</b> '.$compania->TELEFONO1.'-'.$compania->TELEFONO2; ?></td>
+        <td width="33%" align="right" valign="middle"><?php echo $this->doc->DOCUMENTO_INV; ?></td>
+      </tr>
+    </table></td>
   </tr>
   <tr>
-    <td align="left">
-      <?php echo '<b>Nit:</b> '.$compania->NIT; ?></td>
-    <td><b> <?php echo $this->submodulo; ?></b></td>
+    <td height="61" colspan="2" align="center" valign="middle"><strong>Documento de Inventario</strong></td>
   </tr>
   <tr>
-    <td colspan="3" aling="center" width="100%"><br/> 
-        <center><?php echo $content; ?></center>
-    </td>
+    <td width="50%"><strong>Fecha Documento:</strong> <?php echo $this->doc->FECHA_DOCUMENTO; ?>	</td>
+    <td width="50%"><strong>Estado:</strong> <?php echo DocumentoInv::darEstado($this->doc->ESTADO); ?></td>
   </tr>
   <tr>
-    
-                    <td align="right" class="piePagina"><center><b>Generado por:</b> <?php echo Yii::app()->user->name; ?></center></td>
-                    <td class="piePagina"><center><b>Generado el:</b> <?php echo date('Y/m/d'); ?></center></td>
-
-                
+    <td colspan="2"><center>
+      <p>&nbsp;</p>
+      <p><?php echo $content; ?></p>
+    </center></td>
   </tr>
   <tr>
-    <td colspan="3" align="center" class="piePagina"><center>Desarrollado por Tramasoft Soluciones TIC - www.tramasoft.com</center></td>
+    <td colspan="2" align="left"><p><strong>Referencia:</strong> <?php echo $this->doc->REFERENCIA; ?></p>
+    <p>&nbsp;</p></td>
   </tr>
-</table>
-            
-            
-            
+</table>   
         </div><!-- page -->
-        
-
 
     </body>
 </html>

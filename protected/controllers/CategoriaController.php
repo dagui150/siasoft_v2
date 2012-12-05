@@ -6,6 +6,9 @@ class CategoriaController extends SBaseController
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
+    
+        public $modulo='Sistema';
+        public $submodulo='Categorias';
 	public $layout='//layouts/column2';
 	public $breadcrumbs=array();
 	public $menu=array();
@@ -134,7 +137,7 @@ class CategoriaController extends SBaseController
 		));
 	}
         
-                  public function actionExcel()
+        public function actionExcel()
 	{
 		$model = new Categoria('search');
                 $model->unsetAttributes();
@@ -144,6 +147,19 @@ class CategoriaController extends SBaseController
 	}
         
         
+        public function actionformatoPDF()
+        {
+            $id = $_GET['id'];
+            $conf = ConfAs::model()->find();
+            $model =  Categoria::model()->findByPk($id);  
+            $this->layout = $conf->fORMATOIMPRESION->RUTA;
+            $mPDF1 = Yii::app()->ePdf->mpdf();
+            $mPDF1->WriteHTML($this->render('pdf2', array( 'model'=>$model), true));
+            
+            $mPDF1->Output();
+            Yii::app()->end();
+        }
+        
         
         public function actionPdf(){
             
@@ -151,8 +167,6 @@ class CategoriaController extends SBaseController
 		$this->render('pdf',array(
 			'dataProvider'=>$dataProvider,
 		));
-            
-            
         }
 
 	/**

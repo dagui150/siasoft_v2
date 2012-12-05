@@ -160,7 +160,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
 			 //'header'=>'Bodegas',
 			 'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
 			 //'labelExpression'=>'$data->ID',
-			 'urlExpression'=>'CController::createUrl("/SolicitudOc/pdf", array("id"=>$data->SOLICITUD_OC))',
+			 'urlExpression'=>'CController::createUrl("/SolicitudOc/formatoPDF", array("id"=>$data->SOLICITUD_OC))',
 			 'htmlOptions'=>array('style'=>'text-align:center;'),
 			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),
                 ),

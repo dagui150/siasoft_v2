@@ -46,11 +46,10 @@ class ConfAs extends CActiveRecord
 			array('IMPUESTO1_DESC, IMPUESTO2_DESC', 'length', 'max'=>10),
 			array('PATRON_CCOSTO', 'length', 'max'=>25),
 			array('SIMBOLO_MONEDA', 'length', 'max'=>3),
-                        array('FORMATO_IMPRESION','numerical', 'integerOnly'=>true),
 			array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('ID, IMPUESTO1_DESC, IMPUESTO2_DESC, PATRON_CCOSTO, SIMBOLO_MONEDA,FORMATO_IMPRESION, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
+			array('ID, IMPUESTO1_DESC, IMPUESTO2_DESC, PATRON_CCOSTO, SIMBOLO_MONEDA, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,7 +61,6 @@ class ConfAs extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-                    'fORMATOIMPRESION' => array(self::BELONGS_TO, 'FormatoImpresion', 'FORMATO_IMPRESION'),
 		);
 	}
 
@@ -77,7 +75,6 @@ class ConfAs extends CActiveRecord
 			'IMPUESTO2_DESC' => 'Impuesto 2',
 			'PATRON_CCOSTO' => 'Máscara para centros de costo',
 			'SIMBOLO_MONEDA' => Yii::t('app','CURRENCY_SYMBOL'),
-                        'FORMATO_IMPRESION' => 'Formato Impresion',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',
 			'ACTUALIZADO_POR' => 'Actualizado Por',
@@ -101,7 +98,6 @@ class ConfAs extends CActiveRecord
 		$criteria->compare('IMPUESTO2_DESC',$this->IMPUESTO2_DESC,true);
 		$criteria->compare('PATRON_CCOSTO',$this->PATRON_CCOSTO,true);
 		$criteria->compare('SIMBOLO_MONEDA',$this->SIMBOLO_MONEDA,true);
-                $criteria->compare('FORMATO_IMPRESION',$this->FORMATO_IMPRESION);
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);

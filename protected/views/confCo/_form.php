@@ -159,7 +159,8 @@
         
                 array('label'=>'Impresion', 'content'=>
                     
-		 $form->dropDownListRow($model,'FORMATO_IMPRESION', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND MODULO = "COMP"'), 'ID', 'NOMBRE'),array('empty'=>'Seleccione...'))
+		 $form->dropDownListRow($model,'FORMATO_IMPRESION_SOL', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND MODULO = "COMP" AND SUBMODULO ="SOCO"'), 'ID', 'NOMBRE'),array('empty'=>'Seleccione...'))
+                 .$form->dropDownListRow($model,'FORMATO_IMPRESION_ORD', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND MODULO = "COMP" AND SUBMODULO = "ORCO"'), 'ID', 'NOMBRE'),array('empty'=>'Seleccione...'))
                 
                     ),
 		

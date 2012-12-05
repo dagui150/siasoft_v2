@@ -1,3 +1,8 @@
+<script>
+function completado(){
+    $.fn.yiiGridView.update('bodega-grid');
+}
+</script>
 <?php $this->pageTitle=Yii::app()->name." - Bodegas";?>
 
 <?php
@@ -26,23 +31,30 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1>Bodegas</h1>
+<br>
 <?php 
+if(isset($alerta)){
+    Yii::app()->user->setFlash('info', $alerta);
+ } 
+ 
 if(isset($_GET['mensaje'])){ ?>
 <div class="alert alert-<?php echo $_GET['tipo']; ?>"><a class="close" data-dismiss="alert">×</a><?php echo base64_decode($_GET['mensaje']); ?></div>
-<?php } ?>
+<?php } 
+$this->widget('bootstrap.widgets.BootAlert');
+?>
 
 <div align="right">
 
-                <?php 
+<?php 
 
 $this->widget('bootstrap.widgets.BootButton', array(
     'label'=>'EXCEL',
     'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
     'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('bodega/excel'),
+	//'url' => array('bodega/excel'),
+    'url' => array('bodega/prueba'),
 	'icon' => 'download-alt white'
 )); 
-
 ?>
     
 <?php 
@@ -99,15 +111,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
                     'class'=>'bootstrap.widgets.BootButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),
 		),
-            array(
-                         'class'=>'CLinkColumn',
-			 //'header'=>'Bodegas',
-			 'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
-			 //'labelExpression'=>'$data->ID',
-			 'urlExpression'=>'CController::createUrl("/Bodega/formatoPDF", array("id"=>$data->ID))',
-			 'htmlOptions'=>array('style'=>'text-align:center;'),
-			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),
-                ),
+
 	),
 )); ?>
 

@@ -29,7 +29,10 @@ $this->menu=array(
 		'ID',
 		'NOMBRE',
 		'OBSERVACION',
-		'MODULO',
+                array(
+                    'name'=>'MODULO',
+                    'value'=>FormatoImpresion::getModulo($model->MODULO),
+                ),
 		'SUBMODULO',
 		'RUTA',
 		'TIPO',

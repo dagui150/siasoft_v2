@@ -4,6 +4,45 @@
 /* @var $form CActiveForm */
 ?>
 
+<script>
+    $(document).ready(inicio);
+    
+    function inicio(){
+        
+        $('#FormatoImpresion_MODULO').change(function(){
+            
+            $.getJSON('<?php echo $this->createUrl('Submodulo')?>&modulo='+$(this).val(),
+                function(data){
+                    
+                     $('select[id$=FormatoImpresion_SUBMODULO] > option').remove();
+                      $('#FormatoImpresion_SUBMODULO').append("<option value=''>Seleccione</option>");
+                      
+                      $('select[id$=FormatoImpresion_RUTA] > option').remove();
+                      $('#FormatoImpresion_RUTA').append("<option value=''>Seleccione</option>");
+                    
+                    $.each(data, function(value, name) {
+                              $('#FormatoImpresion_SUBMODULO').append("<option value='"+value+"'>"+name+"</option>");
+                        });
+                });
+        });
+        
+        $('#FormatoImpresion_SUBMODULO').change(function(){
+            
+            $.getJSON('<?php echo $this->createUrl('Formato')?>&submodulo='+$(this).val(),
+                function(data){
+                    
+                     $('select[id$=FormatoImpresion_RUTA] > option').remove();
+                      $('#FormatoImpresion_RUTA').append("<option value=''>Seleccione</option>");
+                    
+                    $.each(data, function(value, name) {
+                              $('#FormatoImpresion_RUTA').append("<option value='"+value+"'>"+name+"</option>");
+                        });
+                });
+        });
+    }
+
+</script>
+
 <div class="form">
 
 <div class="modal-body">
@@ -22,9 +61,9 @@
 
 		<?php echo $form->textFieldRow($model2,'NOMBRE'); ?>
 		<?php echo $form->textFieldRow($model2,'OBSERVACION'); ?>
-		<?php echo $form->textFieldRow($model2,'MODULO'); ?>
-		<?php echo $form->textFieldRow($model2,'SUBMODULO'); ?>
-		<?php echo $form->dropDownListRow($model2,'RUTA',array("pdf_CSI"=>"Carta","carta1"=>"Carta 1","carta2"=>"Carta 2","carta3"=>"Carta 3")); ?>
+		<?php echo $form->dropDownListRow($model2,'MODULO',  FormatoImpresion::Modulos(), array('empty' => 'Seleccione')); ?>        
+		<?php echo $form->dropDownListRow($model2,'SUBMODULO',array(), array('empty' => 'Seleccione')); ?>
+		<?php echo $form->dropDownListRow($model2,'RUTA',array(), array('empty' => 'Seleccione')); ?>
 		<?php echo $form->textFieldRow($model2,'TIPO'); ?>
 
 <?php echo CHtml::activeHiddenField($model2, 'ACTIVO', array('value' => 'S')); ?>

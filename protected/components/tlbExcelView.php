@@ -446,7 +446,7 @@ class tlbExcelView extends CGridView
             // Set some additional properties
             self::$activeSheet
                 ->setTitle($this->sheetTitle)
-                ->getSheetView()->setZoomScale(50);
+                ->getSheetView()->setZoomScale(100);
             self::$activeSheet->getHeaderFooter()
                 ->setOddHeader('&C' . $this->sheetTitle)
                 ->setOddFooter('&L&B' . self::$objPHPExcel->getProperties()->getTitle() . $this->pageFooterText);

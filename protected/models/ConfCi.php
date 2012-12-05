@@ -72,6 +72,7 @@ class ConfCi extends CActiveRecord
 			array('EAN13_REGLA_LOCAL', 'length', 'max'=>18),
 			array('EAN8_REGLA_LOCAL', 'length', 'max'=>3),
 			array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
+                        array('FORMATO_IMPRESION', 'numerical', 'integerOnly'=>true),
 			
 			array('EAN13_REGLA_LOCAL', 'miValidacion1'),
 			array('EAN8_REGLA_LOCAL', 'miValidacion2'),
@@ -135,6 +136,7 @@ class ConfCi extends CActiveRecord
 			'cOSTOFISCAL' => array(self::BELONGS_TO, 'MetodoValuacionInv', 'COSTO_FISCAL'),
                         'uNIDADPESO' => array(self::BELONGS_TO, 'UnidadMedida', 'UNIDAD_PESO'),
                         'uNIDADVOLUMEN' => array(self::BELONGS_TO, 'UnidadMedida', 'UNIDAD_VOLUMEN'),
+                        'fORMATOIMPRESION' => array(self::BELONGS_TO,'FormatoImpresion', 'FORMATO_IMPRESION')
 		);
 	}
 
@@ -168,6 +170,7 @@ class ConfCi extends CActiveRecord
 			'EAN8_REGLA_LOCAL' => '',
 			'UCC12_REGLA_LOCAL' => '',
 			'PRIORIDAD_BUSQUEDA' => 'Prioridad:',
+                        'FORMATO_IMPRESION' => 'Formato Impresion',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',
 			'ACTUALIZADO_POR' => 'Actualizado Por',
