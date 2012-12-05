@@ -4,6 +4,7 @@
     $cs->registerScriptFile(XHtml::jsUrl('jquery.format.js'), CClientScript::POS_HEAD);
     $cs->registerScriptFile(XHtml::jsUrl('template.js'), CClientScript::POS_HEAD);
     $cs->registerScriptFile(XHtml::jsUrl('jquery.validate.js'), CClientScript::POS_HEAD);
+    $cs->registerScriptFile(XHtml::jsUrl('calculos.js'), CClientScript::POS_HEAD);
 ?>
 <div style="overflow-x: scroll; width: 850px; margin-bottom: 10px;">
 <table class="templateFrame table table-bordered" cellspacing="0">
@@ -21,6 +22,7 @@
                 <td><strong>Valor Impuesto</strong></td>
                 <td><strong>Estado</strong></td>
                 <td><strong>Comentario</strong></td>
+                <td><strong>Total</strong></td>
                 <td></td>
            </tr>
      </thead>
@@ -94,6 +96,9 @@
                                         <span id='comentario_<?php echo '{0}';?>'></span>
                                         <?php echo CHtml::hiddenField('LineaNuevo[{0}][COMENTARIO]',''); ?>
                                     </td>
+                                    <td>
+                                        <span id='total_<?php echo '{0}';?>'></span>                                                                           
+                                    </td>
                                     <td width="40px">
                                         <div class="remove" id ="remover"style="float: left; margin-left: 5px;">
                                                <?php $this->widget('bootstrap.widgets.BootButton', array(
@@ -158,6 +163,9 @@
                                 <td>
                                         <?php echo '<span id="comentarioU_'.$i.'">'.$linea->COMENTARIO.'</span>'; ?>
                                         <?php echo CHtml::activeHiddenField($linea,"[$i]COMENTARIO"); ?>                                        
+                                </td>
+                                <td>
+                                        <?php echo '<span id="totalU_'.$i.'">'.$linea->ESTADO.'</span>'; ?>
                                 </td>
                                 <td>                                     
                                        <div class="remove" id ="remover" style="float: left; margin-left: 5px;">

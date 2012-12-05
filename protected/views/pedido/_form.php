@@ -11,6 +11,8 @@ function nuevo(){
     $("#PedidoLinea_PRECIO_UNITARIO").val('');
     $("#PedidoLinea_PORC_DESCUENTO").val('');
     $("#PedidoLinea_MONTO_DESCUENTO").val('');
+    $("#PedidoLinea_PORC_IMPUESTO").val('');
+    $("#PedidoLinea_VALOR_IMPUESTO").val('');
     $("#PedidoLinea_COMENTARIO").val('');
     
     //llamar modal
@@ -130,13 +132,13 @@ function cargaGrilla(grid_id){
             'changeYear'=>true,
             'showOn'=>'both', // 'focus', 'button', 'both'
             'buttonText'=>Yii::t('ui','Select form calendar'), 
-            'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
+            'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif',
             'buttonImageOnly'=>true,
 	),
         'htmlOptions'=>array(
             'style'=>'width:80px;vertical-align:top'
         ),  
-   ), true); 
+   ), true);
 ?>
 
 <?php
@@ -350,12 +352,6 @@ function cargaGrilla(grid_id){
                         .$form->textFieldRow($model,'MONTO_ANTICIPO',array('size'=>28,'maxlength'=>28))
                         .$form->textFieldRow($model,'MONTO_FLETE',array('size'=>28,'maxlength'=>28))
                         .$form->textFieldRow($model,'MONTO_SEGURO',array('size'=>28,'maxlength'=>28))
-                        .$form->textFieldRow($model,'TIPO_DESCUENTO1',array('size'=>1,'maxlength'=>1))
-                        .$form->textFieldRow($model,'TIPO_DESCUENTO2',array('size'=>1,'maxlength'=>1))
-                        .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('size'=>28,'maxlength'=>28))
-                        .$form->textFieldRow($model,'MONTO_DESCUENTO2',array('size'=>28,'maxlength'=>28))
-                        .$form->textFieldRow($model,'POR_DESCUENTO1',array('size'=>28,'maxlength'=>28))
-                        .$form->textFieldRow($model,'POR_DESCUENTO2',array('size'=>28,'maxlength'=>28))
                         .$form->textFieldRow($model,'TOTAL_IMPUESTO1',array('size'=>28,'maxlength'=>28))
                         .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('size'=>28,'maxlength'=>28))
                         .$form->textFieldRow($model,'REMITIDO',array('size'=>1,'maxlength'=>1))

@@ -45,8 +45,12 @@
         var precio_unitario = $('#PedidoLinea_PRECIO_UNITARIO').val();
         var porc_descuento = $('#PedidoLinea_PORC_DESCUENTO').val();
         var monto_descuento = $('#PedidoLinea_MONTO_DESCUENTO').val();
+        var porc_impuesto = $('#PedidoLinea_PORC_IMPUESTO').val();
+        var valor_impuesto = $('#PedidoLinea_VALOR_IMPUESTO').val();
         var comentario = $('#PedidoLinea_COMENTARIO').val();
         var descripcion = $('#Articulo_desc').val();
+        var total = $('#TOTAL').val();
+        alert(total);
         var estado = 'Normal';
         var linea = $('#CAMPO_ACTUALIZA').val();
         linea = parseInt(linea, 10) + 1;
@@ -61,10 +65,13 @@
         $('#precio_unitario'+span+'_'+contador).text(precio_unitario);
         $('#porc_descuento'+span+'_'+contador).text(porc_descuento);
         $('#monto_descuento'+span+'_'+contador).text(monto_descuento);
+        $('#porc_impuesto'+span+'_'+contador).text(porc_impuesto);
+        $('#valor_impuesto'+span+'_'+contador).text(valor_impuesto);
         $('#comentario'+span+'_'+contador).text(comentario);        
         $('#descripcion'+span+'_'+contador).text(descripcion);        
         $('#estado'+span+'_'+contador).text(estado);      
-        $('#linea'+span+'_'+contador).text(linea);      
+        $('#linea'+span+'_'+contador).text(linea);
+        $('#total'+span+'_'+contador).text(total);
         
         //copia a campos ocultos
         $('#'+model+'_'+contador+'_ARTICULO').val(articulo);
@@ -73,6 +80,8 @@
         $('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(precio_unitario);
         $('#'+model+'_'+contador+'_PORC_DESCUENTO').val(porc_descuento);
         $('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(monto_descuento);
+        $('#'+model+'_'+contador+'_PORC_IMPUESTO').val(porc_descuento);
+        $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(monto_descuento);
         $('#'+model+'_'+contador+'_COMENTARIO').val(comentario);    
         $('#'+model+'_'+contador+'_DESCRIPCION').val(descripcion); 
         $('#alert').remove();
@@ -98,6 +107,7 @@
     $nombre_articulo = isset($Pnombre_articulo) ? $Pnombre_articulo : '';
     $subtipos = isset($Psubtipos) ? $Psubtipos : array();
     $cantidades = isset($Pcantidades) ? $Pcantidades : array();*/
+    $total = isset($_POST['TOTAL'])? $_POST['TOTAL'] : '';
     
     //$campoActualiza = isset($PcampoActualiza) ? $PcampoActualiza : '';    
     /*$actualiza = isset($Pactualiza) ? $Pactualiza : 0;*/
@@ -117,15 +127,16 @@
         
        <?php echo $form->errorSummary($linea); ?>
 
-            <?php echo $form->textFieldRow($linea,'ARTICULO', array('readonly'=>true)); ?>
-            <?php echo $form->textFieldRow($linea,'UNIDAD', array('readonly'=>true)); ?>
-            <?php echo $form->textFieldRow($linea,'CANTIDAD'); ?>
-            <?php echo $form->textFieldRow($linea,'PRECIO_UNITARIO'); ?>
-            <?php echo $form->textFieldRow($linea,'PORC_DESCUENTO'); ?>
-            <?php echo $form->textFieldRow($linea,'MONTO_DESCUENTO'); ?>
-            <?php echo $form->textAreaRow($linea,'COMENTARIO'); ?>            
-            <?php //echo $form->textFieldRow($linea,'PORC_RETENCION'); ?>
-            <?php //echo $form->textFieldRow($linea,'MONTO_RETENCION'); ?>
+            <?php echo $form->hiddenField($linea,'ARTICULO', array('readonly'=>true)); ?>
+            <?php echo $form->hiddenField($linea,'UNIDAD', array('readonly'=>true)); ?>
+            <?php echo $form->textFieldRow($linea,'CANTIDAD', array('class'=>'calculos_form_lineas')); ?>
+            <?php echo $form->textFieldRow($linea,'PRECIO_UNITARIO', array('class'=>'calculos_form_lineas')); ?>
+            <?php echo $form->textFieldRow($linea,'PORC_DESCUENTO', array('class'=>'calculos_form_lineas')); ?>
+            <?php echo $form->hiddenField($linea,'MONTO_DESCUENTO', array('readonly'=>true)); ?>
+            <?php echo $form->textFieldRow($linea,'PORC_IMPUESTO', array('class'=>'calculos_form_lineas')); ?>
+            <?php echo $form->hiddenField($linea,'VALOR_IMPUESTO', array('readonly'=>'true')); ?>
+            <?php echo $form->textAreaRow($linea,'COMENTARIO'); ?>
+            <?php echo CHtml::hiddenField('TOTAL', $total); ?>
             <?php //echo CHtml::hiddenField('CAMPO_ACTUALIZA',$campoActualiza); ?>
             <?php //echo CHtml::hiddenField('ACTUALIZA',$actualiza); ?>
             <?php echo CHtml::hiddenField('SPAN',''); ?>
