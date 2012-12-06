@@ -55,7 +55,6 @@
         var total_grande = parseFloat($('#total_grande').val());
         var tipo_precio = $('#PedidoLinea_TIPO_PRECIO').val();
         linea = parseInt(linea, 10) + 1;
-        alert(tipo_precio);
         
         //copia a spans para visualizar detalles
         if(suma == true)
