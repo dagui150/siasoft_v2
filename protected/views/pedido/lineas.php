@@ -14,6 +14,7 @@
                 <td><strong>Artículo</strong></td>
                 <td><strong>Descripción</strong></td>
                 <td><strong>Unidad</strong></td>
+                <td><strong>Tipo Precio</strong></td>
                 <td><strong>Cantidad</strong></td>
                 <td><strong>Precio Unitario</strong></td>                
                 <td><strong>Porcentaje Descuento</strong></td>
@@ -64,6 +65,10 @@
                                     <td>
                                         <span id='unidad_<?php echo '{0}';?>'></span>
                                         <?php echo CHtml::hiddenField('LineaNuevo[{0}][UNIDAD]',''); ?>
+                                    </td>
+                                    <td>
+                                        <span id='tipo_precio_<?php echo '{0}';?>'></span>
+                                        <?php echo CHtml::hiddenField('LineaNuevo[{0}][TIPO_PRECIO]',''); ?>
                                     </td>
                                     <td>
                                         <span id='cantidad_<?php echo '{0}';?>'></span>
@@ -135,6 +140,10 @@
                                <td>
                                         <?php echo '<span id="unidadU_'.$i.'">'.$linea->UNIDAD.'</span>'; ?>
                                         <?php echo CHtml::activeHiddenField($linea,"[$i]UNIDAD"); ?>
+                                </td>
+                               <td>
+                                        <?php echo '<span id="tipo_precioU_'.$i.'">'.$linea->TIPO_PRECIO.'</span>'; ?>
+                                        <?php echo CHtml::activeHiddenField($linea,"[$i]TIPO_PRECIO"); ?>
                                 </td>
                                 <td>
                                         <?php echo '<span id="precio_unitarioU_'.$i.'">'.$linea->PRECIO_UNITARIO.'</span>'; ?>

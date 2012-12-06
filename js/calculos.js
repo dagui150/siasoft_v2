@@ -10,5 +10,5 @@
         total = total - monto_descuento + monto_impuesto;
         $('#PedidoLinea_MONTO_DESCUENTO').val(monto_descuento);
         $('#PedidoLinea_VALOR_IMPUESTO').val(monto_impuesto);
-        $('#TOTAL').val(total);        
+        $('#TOTAL').val(total);
     });

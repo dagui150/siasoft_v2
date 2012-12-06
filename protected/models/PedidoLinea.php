@@ -15,6 +15,7 @@
  * @property string $MONTO_DESCUENTO
  * @property string $PORC_IMPUESTO
  * @property string $VALOR_IMPUESTO
+ * @property integer $TIPO_PRECIO
  * @property string $COMENTARIO
  * @property string $ESTADO
  * @property string $ACTIVO
@@ -24,9 +25,10 @@
  * @property string $ACTUALIZADO_EL
  *
  * The followings are the available model relations:
- * @property UnidadMedida $uNIDAD
+ * @property ArticuloPrecio $tIPOPRECIO
  * @property Articulo $aRTICULO
  * @property Pedido $pEDIDO
+ * @property UnidadMedida $uNIDAD
  */
 class PedidoLinea extends CActiveRecord
 {
@@ -56,7 +58,7 @@ class PedidoLinea extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ARTICULO, UNIDAD, CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, PORC_IMPUESTO, VALOR_IMPUESTO', 'required'),
+			array('ARTICULO, UNIDAD, CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, PORC_IMPUESTO, VALOR_IMPUESTO, TIPO_PRECIO', 'required'),
 			array('LINEA', 'numerical', 'integerOnly'=>true),
 			array('ARTICULO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('PEDIDO', 'length', 'max'=>50),
@@ -65,7 +67,7 @@ class PedidoLinea extends CActiveRecord
 			array('COMENTARIO', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('ID, ARTICULO, PEDIDO, LINEA, UNIDAD, CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, PORC_IMPUESTO, VALOR_IMPUESTO, COMENTARIO, ESTADO, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
+			array('ID, ARTICULO, PEDIDO, LINEA, UNIDAD, CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, PORC_IMPUESTO, VALOR_IMPUESTO, TIPO_PRECIO, COMENTARIO, ESTADO, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,9 +79,10 @@ class PedidoLinea extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'uNIDAD' => array(self::BELONGS_TO, 'UnidadMedida', 'UNIDAD'),
+			'tIPOPRECIO' => array(self::BELONGS_TO, 'ArticuloPrecio', 'TIPO_PRECIO'),
 			'aRTICULO' => array(self::BELONGS_TO, 'Articulo', 'ARTICULO'),
 			'pEDIDO' => array(self::BELONGS_TO, 'Pedido', 'PEDIDO'),
+			'uNIDAD' => array(self::BELONGS_TO, 'UnidadMedida', 'UNIDAD'),
 		);
 	}
 
@@ -100,6 +103,7 @@ class PedidoLinea extends CActiveRecord
 			'MONTO_DESCUENTO' => 'Monto Descuento',
 			'PORC_IMPUESTO' => 'Porc Impuesto',
 			'VALOR_IMPUESTO' => 'Valor Impuesto',
+			'TIPO_PRECIO' => 'Tipo Precio',
 			'COMENTARIO' => 'Comentario',
 			'ESTADO' => 'Estado',
 			'ACTIVO' => 'Activo',
@@ -132,6 +136,7 @@ class PedidoLinea extends CActiveRecord
 		$criteria->compare('MONTO_DESCUENTO',$this->MONTO_DESCUENTO,true);
 		$criteria->compare('PORC_IMPUESTO',$this->PORC_IMPUESTO,true);
 		$criteria->compare('VALOR_IMPUESTO',$this->VALOR_IMPUESTO,true);
+		$criteria->compare('TIPO_PRECIO',$this->TIPO_PRECIO);
 		$criteria->compare('COMENTARIO',$this->COMENTARIO,true);
 		$criteria->compare('ESTADO',$this->ESTADO,true);
 		$criteria->compare('ACTIVO',$this->ACTIVO,true);

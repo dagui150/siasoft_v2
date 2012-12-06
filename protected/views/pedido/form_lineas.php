@@ -49,11 +49,13 @@
         var valor_impuesto = $('#PedidoLinea_VALOR_IMPUESTO').val();
         var comentario = $('#PedidoLinea_COMENTARIO').val();
         var descripcion = $('#Articulo_desc').val();
-        var total = $('#TOTAL').val();
-        alert(total);
+        var total = parseFloat($('#TOTAL').val());        
         var estado = 'Normal';
         var linea = $('#CAMPO_ACTUALIZA').val();
+        var total_grande = parseFloat($('#total_grande').val());
+        var tipo_precio = $('#PedidoLinea_TIPO_PRECIO').val();
         linea = parseInt(linea, 10) + 1;
+        alert(tipo_precio);
         
         //copia a spans para visualizar detalles
         if(suma == true)
@@ -61,6 +63,7 @@
         $('#articulo'+span+'_'+contador).text(articulo);
         //$('#descripcion'+span+'_'+contador).text(nombrearticulo);
         $('#unidad'+span+'_'+contador).text(unidad);
+        $('#tipo_precio'+span+'_'+contador).text(tipo_precio);
         $('#cantidad'+span+'_'+contador).text(cantidad);
         $('#precio_unitario'+span+'_'+contador).text(precio_unitario);
         $('#porc_descuento'+span+'_'+contador).text(porc_descuento);
@@ -76,6 +79,7 @@
         //copia a campos ocultos
         $('#'+model+'_'+contador+'_ARTICULO').val(articulo);
         $('#'+model+'_'+contador+'_UNIDAD').val(unidad);
+        $('#'+model+'_'+contador+'_TIPO_PRECIO').val(tipo_precio);
         $('#'+model+'_'+contador+'_CANTIDAD').val(cantidad);
         $('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(precio_unitario);
         $('#'+model+'_'+contador+'_PORC_DESCUENTO').val(porc_descuento);
@@ -85,6 +89,10 @@
         $('#'+model+'_'+contador+'_COMENTARIO').val(comentario);    
         $('#'+model+'_'+contador+'_DESCRIPCION').val(descripcion); 
         $('#alert').remove();
+        total_grande = total_grande + total;
+        $('#total_grande').val(total_grande);
+        $('#calculos').text($('#total_grande').val());
+       
         add();
         resetAgregar();
     }
@@ -108,6 +116,7 @@
     $subtipos = isset($Psubtipos) ? $Psubtipos : array();
     $cantidades = isset($Pcantidades) ? $Pcantidades : array();*/
     $total = isset($_POST['TOTAL'])? $_POST['TOTAL'] : '';
+    $tipo_precio = isset($_POST['PedidoLinea']['TIPO_PRECIO']) && isset($_POST['PedidoLinea']['ARTICULO'])? CHtml::ListData(ArticuloPrecio::model()->findAll('ARTICULO = "'.$_POST['PedidoLinea']['ARTICULO'].'" AND ACTIVO = "S"'),'ID','NIVEL_PRECIO') : array();
     
     //$campoActualiza = isset($PcampoActualiza) ? $PcampoActualiza : '';    
     /*$actualiza = isset($Pactualiza) ? $Pactualiza : 0;*/
@@ -135,6 +144,7 @@
             <?php echo $form->hiddenField($linea,'MONTO_DESCUENTO', array('readonly'=>true)); ?>
             <?php echo $form->textFieldRow($linea,'PORC_IMPUESTO', array('class'=>'calculos_form_lineas')); ?>
             <?php echo $form->hiddenField($linea,'VALOR_IMPUESTO', array('readonly'=>'true')); ?>
+            <?php echo $form->dropDownListRow($linea, 'TIPO_PRECIO', $tipo_precio,array('empty'=>'Seleccione')); ?>
             <?php echo $form->textAreaRow($linea,'COMENTARIO'); ?>
             <?php echo CHtml::hiddenField('TOTAL', $total); ?>
             <?php //echo CHtml::hiddenField('CAMPO_ACTUALIZA',$campoActualiza); ?>
