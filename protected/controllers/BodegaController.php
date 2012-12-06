@@ -6,9 +6,12 @@ class BodegaController extends SBaseController
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
+	public $modulo='Sistema';
+        public $submodulo='Bodegas';
 	public $layout='//layouts/column2';
 	public $breadcrumbs=array();
 	public $menu=array();
+        
 	/**
 	 * @return array action filters
 	 */
@@ -62,6 +65,8 @@ class BodegaController extends SBaseController
 	 */
 	public function actionCreate()
 	{
+                $mensajeSucces = MensajeSistema::model()->findByPk('S001');
+                $mensajeError = MensajeSistema::model()->findByPk('E001');
 		$model2=new Bodega;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -70,16 +75,37 @@ class BodegaController extends SBaseController
 		if(isset($_POST['Bodega']))
 		{
 			$model2->attributes=$_POST['Bodega'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+                            $mensaje = "sdfhnsdkjfhjds1111";
+                            $this->render('admin', array('alerta'=>$mensaje));
+			    //$this->redirect(array('admin'));
+                        }else{
+                            $mensaje = "sdfjhsdjkfhsd22222";
+                            $this->render('admin', array('alerta'=>$mensaje));
+                            
+                            //$this->redirect(array('admin'));
+                        }
 		}
 
 		$this->render('create',array(
 			'model2'=>$model2,
 		));
-	}
+                }	
+                
+                
+             public function actionPrueba() {
+                $model = new Bodega('search');
+                $model->unsetAttributes();  // clear any default values
+                $model2 = new Bodega;
+                $mensaje = "sdfjhsdjkfhsd22222";
+                $this->render('admin', array(
+                    'alerta' => $mensaje, 
+                    'model' => $model,
+                    'model2' => $model2,
+                    ));
+            }
 
-	/**
+                /**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
@@ -113,7 +139,7 @@ class BodegaController extends SBaseController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -133,6 +159,45 @@ class BodegaController extends SBaseController
 			'dataProvider'=>$dataProvider,
 		));
 	}
+        
+              public function actionExcel()
+	{
+                $model = new Bodega('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
+	}
+        
+        
+        public function actionformatoPDF(){
+            $id = $_GET['id'];
+            $conf = ConfAs::model()->find();
+            
+            $model =  Bodega::model()->findByPk($id);  
+            
+            $this->layout = $conf->fORMATOIMPRESION->RUTA;
+            
+            $mPDF1 = Yii::app()->ePdf->mpdf();
+            $mPDF1->WriteHTML($this->render('pdf2', array( 'model'=>$model), true));
+            
+            //$this->render('pdf2', array( 'model'=>$model));
+            
+            $mPDF1->Output();
+            Yii::app()->end();
+        }
+        
+        
+        
+         public function actionPdf(){
+            
+            $dataProvider=new Bodega;
+		$this->render('pdf',array(
+			'dataProvider'=>$dataProvider,
+		));
+            
+            
+        }
 
 	/**
 	 * Manages all models.
@@ -150,14 +215,14 @@ class BodegaController extends SBaseController
 		{
 			$model2->attributes=$_POST['Bodega'];
 			if($model2->save()){
-                                $mensaje = MensajeSistema::mensaje('S001');
-                                $tipo = "success";
-				$this->redirect(array('admin', 'mensaje'=>$mensaje, 'tipo'=>$tipo));
+                               // $mensaje = MensajeSistema::mensaje('S001');
+                                //$tipo = "success";
+				//$this->redirect(array('admin', 'mensaje'=>$mensaje, 'tipo'=>$tipo));
                         }
                         else{
-                            $mensaje = MensajeSistema::mensaje('E001');
-                            $tipo = "error";
-                            $this->render('admin', array('mensaje'=>$mensaje, 'tipo'=>$tipo));
+                            //$mensaje = MensajeSistema::mensaje('E001');
+                            //$tipo = "error";
+                            //$this->render('admin', array('mensaje'=>$mensaje, 'tipo'=>$tipo));
                         }
 		}
 		if(isset($_GET['Bodega']))

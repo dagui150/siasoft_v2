@@ -26,7 +26,7 @@
                 $('#contenidoNuevo').html('');
                 $('#nuevo').css('display','none');
                 $("#mensaje").addClass('alert alert-info');
-                $("#mensaje").html('<strong>Tipo de Transaccion Costo no afecta ninguna cantidad</strong>');
+                $("#mensaje").html('<strong>Tipo de Transacción Costo no afecta ninguna cantidad</strong>');
             break;
             case 'ENSA':
                 habilidar();
@@ -117,7 +117,7 @@
 </script>
 <?php if($model2->isNewRecord) :?>
     <div id="mensaje" class="alert alert-info">
-            <i><strong>Por favor Seleccione Transaccion base</strong><i>
+            <i><strong>Por favor Seleccione Transacción base</strong><i>
     </div>
 <?php endif; ?>
 

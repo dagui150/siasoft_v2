@@ -101,10 +101,10 @@
 		'<div style="width:100%;"><fieldset>'
 		.'<legend>Consecutivos</legend>'
 		.'<div style="width:50%; float:left">'
-		.'<div class="control-group "><label for="ConfCo_ULT_SOLICITUD_M" class="control-label required">Mascara - Solicitud</label><div class="controls">'.$mascSolicitud.'</div></div>'
-                .'<div class="control-group "><label for="ConfCo_ULT_ORDEN_COMPRA_M" class="control-label required">Mascara - Orden compra</label><div class="controls">'.$mascOrden.'</div></div>'
-                .'<div class="control-group "><label for="ConfCo_ULT_EMBARQUE_M" class="control-label required">Mascara - Embarque</label><div class="controls">'.$mascEmbarque.'</div></div>'
-                .'<div class="control-group "><label for="ConfCo_ULT_DEVOLUCION_M" class="control-label required">Mascara - Devolucion</label><div class="controls">'.$mascDevolucion.'</div></div>'
+		.'<div class="control-group "><label for="ConfCo_ULT_SOLICITUD_M" class="control-label required">Máscara - Solicitud</label><div class="controls">'.$mascSolicitud.'</div></div>'
+                .'<div class="control-group "><label for="ConfCo_ULT_ORDEN_COMPRA_M" class="control-label required">Máscara - Orden compra</label><div class="controls">'.$mascOrden.'</div></div>'
+                .'<div class="control-group "><label for="ConfCo_ULT_EMBARQUE_M" class="control-label required">Máscara - Embarque</label><div class="controls">'.$mascEmbarque.'</div></div>'
+                .'<div class="control-group "><label for="ConfCo_ULT_DEVOLUCION_M" class="control-label required">Máscara - Devolucion</label><div class="controls">'.$mascDevolucion.'</div></div>'
 		.'</div>'
 		.'<div style="width:50%; float:right;">'
 		.$form->textFieldRow($model,'ULT_SOLICITUD',array('size'=>10,'maxlength'=>10, 'readonly' => true))
@@ -127,7 +127,7 @@
 		.$form->textAreaRow($model,'ORDEN_OBSERVACION',array('rows'=>6, 'cols'=>50))
 		.'</fieldset>'),
 		
-        array('label'=>'Embarques', 'content'=>
+        array('label'=>'Ingresos', 'content'=>
 		'<fieldset>'
 		.'<legend>Varios</legend>'
 		.$form->textFieldRow($model,'POR_VARIAC_COSTO',array('size'=>28,'maxlength'=>28, 'prepend'=>'%'))
@@ -135,7 +135,7 @@
 		
 		array('label'=>'Varios', 'content'=>
 		$form->dropDownListRow($model,'BODEGA_DEFAULT', CHtml::listData(Bodega::model()->findAll(),'ID','DESCRIPCION'),array('empty'=>'Seleccione...'))
-		.$form->dropDownListRow($model,'IMP1_AFECTA_DESCTO', array('L'=>'Linea', 'A'=>'Ambos descuentos', 'N'=>'Ningun descuento'))
+		.$form->dropDownListRow($model,'IMP1_AFECTA_DESCTO', array('L'=>'Línea', 'A'=>'Ambos descuentos', 'N'=>'Ningun descuento'))
 		.'<fieldset><legend>Factor de redondeo</legend>'
 		.$form->textFieldRow($model,'FACTOR_REDONDEO',array('size'=>28,'maxlength'=>28))
 		.'</fieldset></legend>'
@@ -143,50 +143,61 @@
 		.$form->textFieldRow($model,'PRECIO_DEC')
 		.$form->textFieldRow($model,'CANTIDAD_DEC').'</fieldset>'),
 		
-		array('label'=>'Pedidos', 'content'=>
+		/*array('label'=>'Pedidos', 'content'=>
 		'<fieldset>'
 		.'<legend>Columnas de pedidos</legend>'
 		.$form->checkBoxRow($model,'PEDIDOS_SOLICITUD')
 		.$form->checkBoxRow($model,'PEDIDOS_ORDEN')
 		.$form->checkBoxRow($model,'PEDIDOS_EMBARQUE')
-		.'</fieldset>'),
+		.'</fieldset>'),*/ //oculta generar columnas
 		
 		array('label'=>'Direcciones', 'content'=>
 		'<fieldset>'
 		.$form->textAreaRow($model,'DIRECCION_EMBARQUE',array('rows'=>6, 'cols'=>50))
 		.$form->textAreaRow($model,'DIRECCION_COBRO',array('rows'=>6, 'cols'=>50))
 		.'</fieldset>'),
+        
+                array('label'=>'Impresion', 'content'=>
+                    
+		 $form->dropDownListRow($model,'FORMATO_IMPRESION_SOL', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND MODULO = "COMP" AND SUBMODULO ="SOCO"'), 'ID', 'NOMBRE'),array('empty'=>'Seleccione...'))
+                 .$form->dropDownListRow($model,'FORMATO_IMPRESION_ORD', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND MODULO = "COMP" AND SUBMODULO = "ORCO"'), 'ID', 'NOMBRE'),array('empty'=>'Seleccione...'))
+                
+                    ),
 		
 		array('label'=>'Rubros', 'items'=>array( 
 			array('label'=>'Solicitudes', 'content'=>
 		'<fieldset>'
 		.'<legend>Solicitudes</legend>'
-		.$form->textFieldRow($model,'RUBRO1_SOLNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO2_SOLNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO3_SOLNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO4_SOLNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO5_SOLNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
+		.$form->textFieldRow($model,'RUBRO1_SOLNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO2_SOLNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO3_SOLNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO4_SOLNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO5_SOLNOM',array('size'=>15,'maxlength'=>15))
 		.'</fieldset>'),
 		
 		array('label'=>'Ordenes', 'content'=>
 		'<fieldset>'
 		.'<legend>Ordenes</legend>'
-		.$form->textFieldRow($model,'RUBRO1_ORDNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO2_ORDNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO3_ORDNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO4_ORDNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO5_ORDNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
+		.$form->textFieldRow($model,'RUBRO1_ORDNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO2_ORDNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO3_ORDNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO4_ORDNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO5_ORDNOM',array('size'=>15,'maxlength'=>15))
 		.'</fieldset>'),
 		
-		array('label'=>'Embarques', 'content'=>
+		array('label'=>'Ingresos', 'content'=>
 		'<fieldset>'
-		.'<legend>Embarques</legend>'
-		.$form->textFieldRow($model,'RUBRO1_EMBNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO2_EMBNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO3_EMBNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO4_EMBNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
-		.$form->textFieldRow($model,'RUBRO5_EMBNOM',array('size'=>15,'maxlength'=>15, 'disabled'=>true))
+		.'<legend>Ingresos</legend>'
+		.$form->textFieldRow($model,'RUBRO1_EMBNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO2_EMBNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO3_EMBNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO4_EMBNOM',array('size'=>15,'maxlength'=>15))
+		.$form->textFieldRow($model,'RUBRO5_EMBNOM',array('size'=>15,'maxlength'=>15))
 		.'</fieldset>'),
+                    
+                
+                    
+                    
 		)),
     ),
 )); 

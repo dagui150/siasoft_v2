@@ -1,11 +1,12 @@
+<?php $this->pageTitle=Yii::app()->name." - Artículo Multimedias";?>
 <?php
 $this->breadcrumbs=array(
-	'Articulo Multimedias',
+	'Artículo Multimedias',
 );
 
 ?>
 
-<h1>Articulo Multimedias</h1>
+<h1>Artículo Multimedias</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

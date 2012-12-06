@@ -78,7 +78,7 @@ class Pais extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo Pais',
+			'ID' => 'Código País',
 			'NOMBRE' => Yii::t('app','NAME'),
 			'CODIGO_ISO' => Yii::t('app','ISO_CODE'),
 			'ACTIVO' => 'Activo',
@@ -103,7 +103,7 @@ class Pais extends CActiveRecord
 		$criteria->compare('ID',$this->ID,true);
 		$criteria->compare('NOMBRE',$this->NOMBRE,true);
 		$criteria->compare('CODIGO_ISO',$this->CODIGO_ISO,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -111,6 +111,19 @@ class Pais extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+		));
+	}
+        
+        public function searchPdf()
+	{
+
+		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'pagination'=>array(
+                            'pageSize'=> Pais::model()->count(),
+                        ),
 		));
 	}
 	

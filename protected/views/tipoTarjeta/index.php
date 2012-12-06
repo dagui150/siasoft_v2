@@ -1,11 +1,12 @@
 <?php
 $this->breadcrumbs=array(
+        'Sistema'=>array('admin'),
 	'Tipo Tarjeta',
 );
 
 $this->menu=array(
-	array('label'=>'Create TipoTarjeta', 'url'=>array('create')),
-	array('label'=>'Manage TipoTarjeta', 'url'=>array('admin')),
+	array('label'=>Yii::t('app','CREATE').' TipoTarjeta', 'url'=>array('create')),
+	array('label'=>Yii::t('app','MANAGE').' TipoTarjeta', 'url'=>array('admin')),
 );
 ?>
 

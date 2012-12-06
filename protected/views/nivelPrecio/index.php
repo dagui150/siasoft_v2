@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Nivel Precio',
+        'Sistema'=>array('admin'),
+	'Nivel de Precios',
 );
 
 $this->menu=array(

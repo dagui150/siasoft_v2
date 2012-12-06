@@ -1,6 +1,7 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Tipos de Cuentas";?>
 <?php
 $this->breadcrumbs=array(
-	'Tipo Cuentas'=>array('index'),
+	'Tipos de Cuentas'=>array('admin'),
 	$model->TIPO_CUENTA,
 );
 
@@ -13,17 +14,17 @@ $this->menu=array(
 );
 ?>
 
-<h1>Ver TipoCuenta #<?php echo $model->TIPO_CUENTA; ?></h1>
+<h1>Ver Tipo de Cuenta <?php echo $model->TIPO_CUENTA; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'TIPO_CUENTA',
 		'DESCRIPCION',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

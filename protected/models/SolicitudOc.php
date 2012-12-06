@@ -99,7 +99,7 @@ class SolicitudOc extends CActiveRecord
 			'AUTORIZADA_POR' => 'Autorizada Por',
 			'FECHA_AUTORIZADA' => 'Fecha Autorizada',
 			'PRIORIDAD' => 'Prioridad',
-			'LINEAS_NO_ASIG' => 'Lineas No Asig',
+			'LINEAS_NO_ASIG' => 'Líneas No Asig',
 			'COMENTARIO' => 'Comentario',
 			'CANCELADA_POR' => 'Cancelada Por',
 			'FECHA_CANCELADA' => 'Fecha Cancelada',
@@ -153,6 +153,32 @@ class SolicitudOc extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+        public static function estado($codigo){
+            switch ($codigo){
+                case 'C' : return 'Cancelado';
+                break;
+                case 'A' : return'Asignado';
+                break;
+                case 'N' : return 'No asignado';
+                break;
+                case 'P' : return 'Planeado';
+                break;
+            }
+        }
+        
+        public static function prioridad($codigo){
+            
+            switch($codigo){
+                case 'A' : return 'Alta';
+                    break;
+                case 'M' : return 'Media';
+                    break;
+                case 'B' : return 'Baja';
+                    break;
+            }
+        }
+        
         
         public function behaviors()
 	{

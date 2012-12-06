@@ -1,3 +1,4 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." ".Yii::t('app','ADMINISTRATION_SETTINGS');?>
 <?php
 $this->breadcrumbs=array(
 	Yii::t('app','ADMINISTRATION_SETTINGS')=>array('admin'),
@@ -5,8 +6,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' Configuracion de Administracion', 'url'=>array('index')),
-	array('label'=>Yii::t('app','MANAGE').' Configuracion de Administracion', 'url'=>array('admin')),
+	array('label'=>Yii::t('app','LIST').' Configuración de Administracion', 'url'=>array('index')),
+	array('label'=>Yii::t('app','MANAGE').' Configuración de Administracion', 'url'=>array('admin')),
 );
 ?>
 

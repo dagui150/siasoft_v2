@@ -7,7 +7,6 @@
  * @property string $ID
  * @property string $DESCRIPCION
  * @property string $ESQUEMA_TRABAJO
- * @property string $CONDICION_PAGO
  * @property string $ACTIVO
  * @property string $CREADO_POR
  * @property string $CREADO_EL
@@ -46,15 +45,15 @@ class NivelPrecio extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID, DESCRIPCION, ESQUEMA_TRABAJO', 'required'),
-                        array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'Bodega','allowEmpty'=>false),
+                        array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'Bodega','allowEmpty'=>false,'on'=>'insert'),
 			array('ID', 'length', 'max'=>12),
 			array('DESCRIPCION', 'length', 'max'=>64),
-			array('ESQUEMA_TRABAJO, CONDICION_PAGO', 'length', 'max'=>4),
+			array('ESQUEMA_TRABAJO', 'length', 'max'=>4),
 			array('ACTIVO', 'length', 'max'=>1),
 			array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('ID, DESCRIPCION, ESQUEMA_TRABAJO, CONDICION_PAGO, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
+			array('ID, DESCRIPCION, ESQUEMA_TRABAJO, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,7 +65,7 @@ class NivelPrecio extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'cONDICIONPAGO' => array(self::BELONGS_TO, 'CodicionPago', 'CONDICION_PAGO'),
+			
 		);
 	}
 
@@ -76,10 +75,9 @@ class NivelPrecio extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
-			'DESCRIPCION' => 'Descripcion',
+			'ID' => 'Código',
+			'DESCRIPCION' => 'Descripción',
 			'ESQUEMA_TRABAJO' => 'Esquema Trabajo',
-			'CONDICION_PAGO' => 'Condicion Pago',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',
@@ -102,8 +100,7 @@ class NivelPrecio extends CActiveRecord
 		$criteria->compare('ID',$this->ID,true);
 		$criteria->compare('DESCRIPCION',$this->DESCRIPCION,true);
 		$criteria->compare('ESQUEMA_TRABAJO',$this->ESQUEMA_TRABAJO,true);
-		$criteria->compare('CONDICION_PAGO',$this->CONDICION_PAGO,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -111,6 +108,19 @@ class NivelPrecio extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+		));
+	}
+        
+          public function searchPdf()
+	{
+
+		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'pagination'=>array(
+                            'pageSize'=> NivelPrecio::model()->count(),
+                        ),
 		));
 	}
         

@@ -10,7 +10,7 @@
                                     array(
                                         'type'=>'raw',
                                         'name'=>'ID',
-                                        'header'=>'Codigo Retencion',
+                                        'header'=>'Código Retención',
                                         'value'=>'CHtml::link($data->ID,"#")',
                                         'htmlOptions'=>array('data-dismiss'=>'modal'),
                                     ),

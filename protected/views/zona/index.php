@@ -4,8 +4,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Zona', 'url'=>array('create')),
-	array('label'=>'Manage Zona', 'url'=>array('admin')),
+	array('label'=>Yii::t('app','CREATE').' Zona', 'url'=>array('create')),
+	array('label'=>Yii::t('app','MANAGE').' Zona', 'url'=>array('admin')),
 );
 ?>
 

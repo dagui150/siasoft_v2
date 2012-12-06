@@ -62,21 +62,44 @@ class NitController extends SBaseController
 	 */
 	public function actionCreate()
 	{
-		$model2=new Nit;
+		$model = new Nit;
+                $transaction = $model->dbConnection->beginTransaction();
+                // Uncomment the following line if AJAX validation is needed
+                $this->performAjaxValidation($model);
 
-		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model2);
-
-		if(isset($_POST['Nit']))
-		{
-			$model2->attributes=$_POST['Nit'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+                if (isset($_POST['LineaNueva'])) {
+                    /*echo '<pre>';
+                    print_r($_POST['LineaNueva']);
+                    echo '</pre>';
+                    Yii::app()->end();*/
+                    try {
+                        foreach ($_POST['LineaNueva'] as $datos) {
+                                $model = new Nit;
+                                $model->ID = $datos['ID'];
+                                $model->TIIPO_DOCUMENTO = $datos['TIIPO_DOCUMENTO'];
+                                $model->RAZON_SOCIAL = $datos['RAZON_SOCIAL'];
+                                $model->ALIAS = $datos['ALIAS'];
+                                $model->OBSERVACIONES = $datos['OBSERVACIONES'];
+                                $model->ACTIVO = 'S';
+                                
+                                $model->save();
+                               // $model->unsetAttributes();
+                        }
+                        
+                        $transaction->commit();
+                        $this->redirect(array('admin'));
+                        Yii::app()->end();
+                    }catch (Exception $e) {
+                        echo $e;
+                        $transaction->rollback();
+                    }
 		}
+                
+                $this->render('create',array(
+                    'model'=>$model,
+                    ));
 
-		$this->render('create',array(
-			'model2'=>$model2,
-		));
+		
 	}
 
 	/**
@@ -84,7 +107,7 @@ class NitController extends SBaseController
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
+		public function actionUpdate($id)
 	{
 		$model2=$this->loadModel($id);
 
@@ -113,7 +136,7 @@ class NitController extends SBaseController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -133,31 +156,44 @@ class NitController extends SBaseController
 			'dataProvider'=>$dataProvider,
 		));
 	}
+        
+        public function actionExcel()
+	{
+		$model=new Nit('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
+	}
 
+        public function actionPdf(){
+            
+            $dataProvider=new Nit;
+		$this->render('pdf',array(
+			'dataProvider'=>$dataProvider,
+		));
+            
+            
+        }
+        
 	/**
 	 * Manages all models.
 	 */
 	public function actionAdmin()
 	{
 		$model=new Nit('search');
-		$model->unsetAttributes();  // clear any default values
-		$model2=new Nit;
-
+                $model->unsetAttributes();  // clear any default values
+                
 		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model2);
+		$this->performAjaxValidation($model);
 
-		if(isset($_POST['Nit']))
-		{
-			$model2->attributes=$_POST['Nit'];
-			if($model2->save())
-				$this->redirect(array('admin'));
-		}
+		
 		if(isset($_GET['Nit']))
 			$model->attributes=$_GET['Nit'];
 
 		$this->render('admin',array(
 			'model'=>$model,
-			'model2'=>$model2,
+                    
 		));
 	}
 

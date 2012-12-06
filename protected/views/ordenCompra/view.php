@@ -1,3 +1,4 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Orden Compras";?>
 <?php
 $this->breadcrumbs=array(
 	'Orden Compras'=>array('index'),
@@ -48,9 +49,9 @@ $this->menu=array(
 		'USUARIO_CANCELA',
 		'FECHA_CANCELA',
 		'ESTADO',
-		'CREADO_POR',
+		/*'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

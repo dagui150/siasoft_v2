@@ -4,8 +4,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create CodicionPago', 'url'=>array('create')),
-	array('label'=>'Manage CodicionPago', 'url'=>array('admin')),
+	array('label'=>Yii::t('app','CREATE').' CodicionPago', 'url'=>array('create')),
+	array('label'=>Yii::t('app','MANAGE').' CodicionPago', 'url'=>array('admin')),
 );
 ?>
 

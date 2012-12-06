@@ -21,11 +21,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'CONDICION_PAGO'); ?>
-		<?php echo $form->textField($model,'CONDICION_PAGO',array('size'=>4,'maxlength'=>4)); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'ACTIVO'); ?>
 		<?php echo $form->textField($model,'ACTIVO',array('size'=>1,'maxlength'=>1)); ?>
 	</div>

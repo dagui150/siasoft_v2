@@ -77,7 +77,7 @@
         <?php $this->widget('bootstrap.widgets.BootTabbable', array(
             'type'=>'tabs', // 'tabs' or 'pills'
             'tabs'=>array(
-                array('label'=>'Lineas', 'content'=>
+                array('label'=>'Líneas', 'content'=>
                     $pestana
                     , 'active'=>true),
                

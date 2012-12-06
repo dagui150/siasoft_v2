@@ -1,15 +1,15 @@
 <?php
 $this->breadcrumbs=array(
-	'Configuracion Compras',
+	'Configuración Compras',
 );
 
 $this->menu=array(
-	array('label'=>'Create ConfCo', 'url'=>array('create')),
-	array('label'=>'Manage ConfCo', 'url'=>array('admin')),
+	array('label'=>Yii::t('app','CREATE').' ConfCo', 'url'=>array('create')),
+	array('label'=>Yii::t('app','MANAGE').' ConfCo', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Configuracion de Compras</h1>
+<h1>Configuración de Compras</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

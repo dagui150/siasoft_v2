@@ -28,6 +28,7 @@
  * @property string $EAN8_REGLA_LOCAL
  * @property string $UCC12_REGLA_LOCAL
  * @property string $PRIORIDAD_BUSQUEDA
+ * @property string $FORMATO_IMPRESION
  * @property string $CREADO_POR
  * @property string $CREADO_EL
  * @property string $ACTUALIZADO_POR
@@ -64,8 +65,8 @@ class ConfCi extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('COSTOS_DEC, EXISTENCIAS_DEC, PESOS_DEC, COSTO_FISCAL, COSTO_INGR_DEFAULT, UNIDAD_PESO, UNIDAD_VOLUMEN, INTEGRACION_CONTA, USA_CODIGO_BARRAS, LINEAS_MAX_TRANS, PRIORIDAD_BUSQUEDA', 'required'),
-			array('ID, COSTOS_DEC, EXISTENCIAS_DEC, PESOS_DEC, LINEAS_MAX_TRANS,EAN13_REGLA_LOCAL,EAN8_REGLA_LOCAL,UCC12_REGLA_LOCAL', 'numerical', 'integerOnly'=>true),
+			array('COSTOS_DEC, EXISTENCIAS_DEC, PESOS_DEC, COSTO_FISCAL, COSTO_INGR_DEFAULT, UNIDAD_PESO, UNIDAD_VOLUMEN, INTEGRACION_CONTA, USA_CODIGO_BARRAS, LINEAS_MAX_TRANS, PRIORIDAD_BUSQUEDA,FORMATO_IMPRESION', 'required'),
+			array('ID, COSTOS_DEC, EXISTENCIAS_DEC, PESOS_DEC, LINEAS_MAX_TRANS,EAN13_REGLA_LOCAL,EAN8_REGLA_LOCAL,UCC12_REGLA_LOCAL,FORMATO_IMPRESION', 'numerical', 'integerOnly'=>true),
 			array('COSTO_FISCAL,', 'length', 'max'=>11),
 			array('COSTO_INGR_DEFAULT, INTEGRACION_CONTA, USA_CODIGO_BARRAS, USA_UNIDADES_DIST, ASISTENCIA_AUTOMAT, USA_CODIGO_EAN13, USA_CODIGO_EAN8, USA_CODIGO_UCC12, USA_CODIGO_UCC8, PRIORIDAD_BUSQUEDA', 'length', 'max'=>1),
 			array('UNIDAD_PESO, UNIDAD_VOLUMEN, UCC12_REGLA_LOCAL', 'length', 'max'=>6),
@@ -135,6 +136,7 @@ class ConfCi extends CActiveRecord
 			'cOSTOFISCAL' => array(self::BELONGS_TO, 'MetodoValuacionInv', 'COSTO_FISCAL'),
                         'uNIDADPESO' => array(self::BELONGS_TO, 'UnidadMedida', 'UNIDAD_PESO'),
                         'uNIDADVOLUMEN' => array(self::BELONGS_TO, 'UnidadMedida', 'UNIDAD_VOLUMEN'),
+                        'fORMATOIMPRESION' => array(self::BELONGS_TO,'FormatoImpresion', 'FORMATO_IMPRESION')
 		);
 	}
 
@@ -155,11 +157,11 @@ class ConfCi extends CActiveRecord
 			'EXIST_DISPONIBLE' => 'Disponible',
                         'EXIST_REMITIDA' => 'Remitida',
                         'EXIST_RESERVADA' => 'Reservada',
-			'INTEGRACION_CONTA' => 'Integracion Contable',
-			'USA_CODIGO_BARRAS' => 'Usa Codigo de Barras',
-			'LINEAS_MAX_TRANS' => 'Numero Max Lineas:',
+			'INTEGRACION_CONTA' => 'Integración Contable',
+			'USA_CODIGO_BARRAS' => 'Usa Código de Barras',
+			'LINEAS_MAX_TRANS' => 'Número Max Líneas:',
 			'USA_UNIDADES_DIST' => 'Unidades de Distribucion',
-			'ASISTENCIA_AUTOMAT' => 'Asistencia Automatica',
+			'ASISTENCIA_AUTOMAT' => 'Asistencia Automática',
 			'USA_CODIGO_EAN13' => 'EAN13',
 			'USA_CODIGO_EAN8' => 'EAN8',
 			'USA_CODIGO_UCC12' => 'UCC12',
@@ -168,6 +170,7 @@ class ConfCi extends CActiveRecord
 			'EAN8_REGLA_LOCAL' => '',
 			'UCC12_REGLA_LOCAL' => '',
 			'PRIORIDAD_BUSQUEDA' => 'Prioridad:',
+                        'FORMATO_IMPRESION' => 'Formato Impresion',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',
 			'ACTUALIZADO_POR' => 'Actualizado Por',

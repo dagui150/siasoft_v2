@@ -1,3 +1,4 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Documento";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('admin'),
@@ -16,9 +17,9 @@ $this->breadcrumbs=array(
 		'FECHA_DOCUMENTO',
 		'REFERENCIA',
 		'ESTADO',
-		'CREADO_POR',
+		/*'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

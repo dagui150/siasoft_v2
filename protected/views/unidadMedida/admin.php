@@ -1,3 +1,4 @@
+<?php $this->pageTitle=Yii::app()->name." - Unidades de Medida";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('admin'),
@@ -56,6 +57,6 @@ $this->breadcrumbs=array(
 		<p class="note">Los Campos con <span class="required">*</span> Son requeridos.</p>
 	</div>
 
-	<?php echo $this->renderPartial('_form', array('model2'=>$model2)); ?>
+	<?php $this->renderPartial('_form', array('model2'=>$model2)); ?>
  
 <?php $this->endWidget(); ?>

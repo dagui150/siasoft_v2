@@ -1,6 +1,7 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." Solicitud Orden Compra";?>
 <?php
 $this->breadcrumbs=array(
-	'Solicitud Orden Cos'=>array('index'),
+	'Solicitud Orden Compra'=>array('admin'),
 	$model->ID=>array('view','id'=>$model->ID),
 	'Actualizar',
 );
@@ -13,6 +14,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Actualizar SolicitudOrdenCo <?php echo $model->ID; ?></h1>
+<h1>Actualizar Solicitud Orden Compra <?php echo $model->ID; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

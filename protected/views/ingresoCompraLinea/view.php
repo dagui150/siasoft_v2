@@ -3,16 +3,16 @@
 /* @var $model IngresoCompraLinea */
 
 $this->breadcrumbs=array(
-	'Ingreso Compra Lineas'=>array('index'),
+	'Ingreso Compra Líneas'=>array('index'),
 	$model->INGRESO_COMPRA_LINEA,
 );
 
 $this->menu=array(
-	array('label'=>'List IngresoCompraLinea', 'url'=>array('index')),
-	array('label'=>'Create IngresoCompraLinea', 'url'=>array('create')),
-	array('label'=>'Update IngresoCompraLinea', 'url'=>array('update', 'id'=>$model->INGRESO_COMPRA_LINEA)),
-	array('label'=>'Delete IngresoCompraLinea', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->INGRESO_COMPRA_LINEA),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage IngresoCompraLinea', 'url'=>array('admin')),
+	array('label'=>Yii::t('app','LIST').' IngresoCompraLinea', 'url'=>array('index')),
+	array('label'=>Yii::t('app','CREATE').' IngresoCompraLinea', 'url'=>array('create')),
+	array('label'=>Yii::t('app','UPDATE').' IngresoCompraLinea', 'url'=>array('update', 'id'=>$model->INGRESO_COMPRA_LINEA)),
+	array('label'=>Yii::t('app','DELETE').' IngresoCompraLinea', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->INGRESO_COMPRA_LINEA),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>Yii::t('app','MANAGE').' IngresoCompraLinea', 'url'=>array('admin')),
 );
 ?>
 
@@ -33,10 +33,10 @@ $this->menu=array(
 		'CANTIDAD_RECHAZADA',
 		'PRECIO_UNITARIO',
 		'COSTO_FISCAL_UNITARIO',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

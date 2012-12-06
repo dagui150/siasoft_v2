@@ -1,3 +1,9 @@
+<?php
+/* @var $this NitController */
+/* @var $model Nit */
+/* @var $form CActiveForm */
+?>
+
 <div class="wide form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -7,7 +13,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'ID'); ?>
-		<?php echo $form->textField($model,'ID',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->textField($model,'ID',array('size'=>12,'maxlength'=>12)); ?>
 	</div>
 
 	<div class="row">

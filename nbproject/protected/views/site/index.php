@@ -1,0 +1,1 @@
+<div align="center"><?php echo CHtml::image(Yii::app()->request->baseUrl.'/themes/siasoft/images/index.png'); ?></div>

@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Orden Compra Lineas'=>array('index'),
+	'Orden Compra Líneas'=>array('index'),
 	$model->ORDEN_COMPRA_LINEA=>array('view','id'=>$model->ORDEN_COMPRA_LINEA),
 	'Actualizar',
 );
