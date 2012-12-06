@@ -1,0 +1,80 @@
+<<<<<<< HEAD
+<?php $this->widget('tlbExcelView', array(
+    'id'                   => 'some-grid',
+    'dataProvider'         => $model->search(),
+    'grid_mode'            => 'export', // Same usage as EExcelView v0.33
+    'title'                => 'Retencion ' . date('d-m-Y'),
+    'creator'              => '',
+    'subject'              => '',
+    'description'          => '',
+    'lastModifiedBy'       => '',
+    'sheetTitle'           => 'Reporte ' . date('m-d-Y'),
+    'keywords'             => '',
+    'category'             => '',
+    'landscapeDisplay'     => true, // Default: false
+    'A4'                   => true, // Default: false - ie : Letter (PHPExcel default)
+    'pageFooterText'       => '&RThis is page no. &P of &N pages', // Default: '&RPage &P of &N'
+    'automaticSum'         => true, // Default: false
+    'decimalSeparator'     => ',', // Default: '.'
+    'thousandsSeparator'   => '.', // Default: ','
+    //'displayZeros'       => false,
+    //'zeroPlaceholder'    => '-',
+    'sumLabel'             => 'Column totals:', // Default: 'Totals'
+    'borderColor'          => '000000', // Default: '000000'
+    'bgColor'              => 'FFFFFF', // Default: 'FFFFFF'
+    'textColor'            => '000000', // Default: '000000'
+    'rowHeight'            => 15, // Default: 15
+    'headerBorderColor'    => '000000', // Default: '000000'
+    'headerBgColor'        => 'CCCCCC', // Default: 'CCCCCC'
+    'headerTextColor'      => '000000', // Default: '000000'
+    'headerHeight'         => 20, // Default: 20
+    'footerBorderColor'    => '0000FF', // Default: '000000'
+    'footerBgColor'        => '00FFCC', // Default: 'FFFFCC'
+    'footerTextColor'      => 'FF00FF', // Default: '0000FF'
+    'footerHeight'         => 15, // Default: 20
+    'columns'=>array(		'ID',
+		'NOMBRE',
+		'PORCENTAJE',
+		'MONTO_MINIMO',
+                /*
+		'TIPO',
+		'APLICA_MONTO',
+		'APLICA_SUBTOTAL',
+		'APLICA_SUB_DESC',
+		'APLICA_IMPUESTO1',
+		'APLICA_RUBRO1',
+		'APLICA_RUBRO2',
+		'ACTIVO',
+		'CREADO_POR',
+		'CREADO_EL',
+		'ACTUALIZADO_POR',
+		'ACTUALIZADO_EL',
+		*/
+	
+	),
+)); ?>
+
+
+=======
+<?php
+if($model!==null){ 
+$labels = new Retencion?>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<table border='1'>
+<tr>    <th> <?php echo $labels->getAttributeLabel('ID')?></th>
+        <th> <?php echo $labels->getAttributeLabel('NOMBRE')?></th>
+        <th> <?php echo $labels->getAttributeLabel('PORCENTAJE')?></th>
+        <th> <?php echo $labels->getAttributeLabel('MONTO_MINIMO')?></th>
+    
+</tr><?php $x=0; ?><?php foreach ($model as $value) { ?><?php $x++;?>
+<tr>
+    <td <?php echo ($x)%2==0 ?"style='background-color:#CCC'":""?>><?php echo$value->ID?></td>
+            <td <?php echo ($x)%2==0 ?"style='background-color:#CCC'":""?>><?php echo$value->NOMBRE?></td>
+            <td <?php echo ($x)%2==0 ?"style='background-color:#CCC'":""?>><?php echo$value->PORCENTAJE?></td>
+            <td <?php echo ($x)%2==0 ?"style='background-color:#CCC'":""?>><?php echo$value->MONTO_MINIMO?></td>
+        </tr><?php } ?>	   
+</table><?php } ?>
+>>>>>>> eee0ca42e5654b9759248035dd5175e788fa262a

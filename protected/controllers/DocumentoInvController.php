@@ -765,6 +765,11 @@ class DocumentoInvController extends SBaseController
 
                                 }elseif($tipo_transaccion->NATURALEZA == 'A')
                                         $this->naturaAmbas($datos,$existenciaBodega,$transaccionInvDetalle,$documento);
+                                        $transaccionInvDetalle->CANTIDAD = $datos->CANTIDAD;
+                                        $transaccionInvDetalle->NATURALEZA = 'S';
+
+                                }elseif($tipo_transaccion->NATURALEZA == 'A')
+                                        $this->naturaAmbas($datos,$existenciaBodega,$transaccionInvDetalle,$documento);
                                 break;
                                 case 'T':
                                     if($tipo_transaccion->NATURALEZA == 'E'){

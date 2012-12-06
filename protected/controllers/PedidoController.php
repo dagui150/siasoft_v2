@@ -32,7 +32,7 @@ class PedidoController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'Dirigir', 'completarBodega', 'agregarLinea'),
+				'actions'=>array('create','update', 'Dirigir', 'completarBodega', 'agregarLinea', 'CargarTipoPrecio'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -298,4 +298,8 @@ class PedidoController extends Controller
 			Yii::app()->end();
 		}
 	}
+        
+        public function actionCargarTipoPrecio(){            
+            echo CJSON::encode(CHtml::ListData(ArticuloPrecio::model()->with()->findAll('ARTICULO = "'.$_GET['art'].'" AND ACTIVO = "S"'),'ID','nIVELPRECIO.DESCRIPCION'));            
+        }
 }

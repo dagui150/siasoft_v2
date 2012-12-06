@@ -372,7 +372,7 @@ class SolicitudOcController extends SBaseController
                 $config = new ConfCo;
                 $linea2 = new SolicitudOcLinea2;
                 $i = 1;
-                            // retrieve items to be updated in a batch mode
+                // retrieve items to be updated in a batch mode
                 // assuming each item is of model class 'Item'
                 $items = $linea->model()->findAll('SOLICITUD_OC = "'.$id.'"');
 		// Uncomment the following line if AJAX validation is needed

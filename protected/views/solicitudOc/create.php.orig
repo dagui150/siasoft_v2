@@ -1,0 +1,34 @@
+<<<<<<< HEAD
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Solicitud";?>
+<?php
+$this->breadcrumbs=array(
+	'Solicitudes'=>array('admin'),
+	'Crear',
+);
+
+$this->menu=array(
+	array('label'=>'Listar SolicitudOc', 'url'=>array('index')),
+	array('label'=>'Administrar SolicitudOc', 'url'=>array('admin')),
+);
+?>
+
+<h1>Crear Solicitud</h1>
+
+=======
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Solicitud";?>
+<?php
+$this->breadcrumbs=array(
+	'Solicitudes'=>array('admin'),
+	'Crear',
+);
+
+$this->menu=array(
+	array('label'=>'Listar SolicitudOc', 'url'=>array('index')),
+	array('label'=>'Administrar SolicitudOc', 'url'=>array('admin')),
+);
+?>
+
+<h1>Crear Solicitud</h1>
+
+>>>>>>> eee0ca42e5654b9759248035dd5175e788fa262a
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'linea'=>$linea, 'articulo'=>$articulo, 'config'=>$config)); ?>

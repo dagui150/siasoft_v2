@@ -4,6 +4,7 @@
     $cs->registerScriptFile(XHtml::jsUrl('jquery.format.js'), CClientScript::POS_HEAD);
     $cs->registerScriptFile(XHtml::jsUrl('template.js'), CClientScript::POS_HEAD);
     $cs->registerScriptFile(XHtml::jsUrl('jquery.validate.js'), CClientScript::POS_HEAD);
+    $cs->registerScriptFile(XHtml::jsUrl('calculos.js'), CClientScript::POS_HEAD);
 ?>
 <div style="overflow-x: scroll; width: 850px; margin-bottom: 10px;">
 <table class="templateFrame table table-bordered" cellspacing="0">
@@ -13,6 +14,7 @@
                 <td><strong>Artículo</strong></td>
                 <td><strong>Descripción</strong></td>
                 <td><strong>Unidad</strong></td>
+                <td><strong>Tipo Precio</strong></td>
                 <td><strong>Cantidad</strong></td>
                 <td><strong>Precio Unitario</strong></td>                
                 <td><strong>Porcentaje Descuento</strong></td>
@@ -21,6 +23,7 @@
                 <td><strong>Valor Impuesto</strong></td>
                 <td><strong>Estado</strong></td>
                 <td><strong>Comentario</strong></td>
+                <td><strong>Total</strong></td>
                 <td></td>
            </tr>
      </thead>
@@ -64,6 +67,10 @@
                                         <?php echo CHtml::hiddenField('LineaNuevo[{0}][UNIDAD]',''); ?>
                                     </td>
                                     <td>
+                                        <span id='tipo_precio_<?php echo '{0}';?>'></span>
+                                        <?php echo CHtml::hiddenField('LineaNuevo[{0}][TIPO_PRECIO]',''); ?>
+                                    </td>
+                                    <td>
                                         <span id='cantidad_<?php echo '{0}';?>'></span>
                                         <?php echo CHtml::hiddenField('LineaNuevo[{0}][CANTIDAD]',''); ?>                                        
                                     </td>
@@ -93,6 +100,9 @@
                                     <td>
                                         <span id='comentario_<?php echo '{0}';?>'></span>
                                         <?php echo CHtml::hiddenField('LineaNuevo[{0}][COMENTARIO]',''); ?>
+                                    </td>
+                                    <td>
+                                        <span id='total_<?php echo '{0}';?>'></span>                                                                           
                                     </td>
                                     <td width="40px">
                                         <div class="remove" id ="remover"style="float: left; margin-left: 5px;">
@@ -131,6 +141,10 @@
                                         <?php echo '<span id="unidadU_'.$i.'">'.$linea->UNIDAD.'</span>'; ?>
                                         <?php echo CHtml::activeHiddenField($linea,"[$i]UNIDAD"); ?>
                                 </td>
+                               <td>
+                                        <?php echo '<span id="tipo_precioU_'.$i.'">'.$linea->TIPO_PRECIO.'</span>'; ?>
+                                        <?php echo CHtml::activeHiddenField($linea,"[$i]TIPO_PRECIO"); ?>
+                                </td>
                                 <td>
                                         <?php echo '<span id="precio_unitarioU_'.$i.'">'.$linea->PRECIO_UNITARIO.'</span>'; ?>
                                         <?php echo CHtml::activeHiddenField($linea,"[$i]PRECIO_UNITARIO"); ?>                                        
@@ -158,6 +172,9 @@
                                 <td>
                                         <?php echo '<span id="comentarioU_'.$i.'">'.$linea->COMENTARIO.'</span>'; ?>
                                         <?php echo CHtml::activeHiddenField($linea,"[$i]COMENTARIO"); ?>                                        
+                                </td>
+                                <td>
+                                        <?php echo '<span id="totalU_'.$i.'">'.$linea->ESTADO.'</span>'; ?>
                                 </td>
                                 <td>                                     
                                        <div class="remove" id ="remover" style="float: left; margin-left: 5px;">

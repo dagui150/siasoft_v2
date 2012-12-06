@@ -67,6 +67,7 @@ class ClienteController extends SBaseController
 		if(isset($_POST['Cliente']))
 		{
 			$model->attributes=$_POST['Cliente'];
+                        $model->ZONA = $_POST['Cliente']['ZONA'];
                         $model->CONDICION_PAGO = ($_POST['Cliente']['CONDICION_PAGO'] != '') ? $_POST['Cliente']['CONDICION_PAGO'] : NULL;
                         $model->TIPO_PRECIO = ($_POST['Cliente']['TIPO_PRECIO'] != '') ? $_POST['Cliente']['TIPO_PRECIO'] : NULL;
                         $model->PAIS = ($_POST['Cliente']['PAIS'] != '') ? $_POST['Cliente']['PAIS'] : NULL;

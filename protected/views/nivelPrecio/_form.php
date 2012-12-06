@@ -41,6 +41,19 @@
                 </td>
             </tr>
         </table>
+                <td>
+                </td>
+                <td>
+                    <?php $this->widget('bootstrap.widgets.BootButton', array(
+                        //'label'=>'Ayuda',
+                        'type'=>'succes',
+                        'icon'=>'info-sign',
+                        'size'=>'mini',
+                        'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'En este campo, se debe seleccionar una condición de pago previamente creada en el submenú "Condición de pago".', 'rel'=>'popover'),
+                    )); ?>
+                </td>
+            </tr>
+        </table>
 	<div class="row">
 		<?php
 			echo CHtml::activeHiddenField($model2,'ACTIVO',array('value'=>'S'));

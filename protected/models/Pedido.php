@@ -25,12 +25,7 @@
  * @property string $MONTO_ANTICIPO
  * @property string $MONTO_FLETE
  * @property string $MONTO_SEGURO
- * @property string $TIPO_DESCUENTO1
- * @property string $TIPO_DESCUENTO2
  * @property string $MONTO_DESCUENTO1
- * @property string $MONTO_DESCUENTO2
- * @property string $POR_DESCUENTO1
- * @property string $POR_DESCUENTO2
  * @property string $TOTAL_IMPUESTO1
  * @property string $TOTAL_A_FACTURAR
  * @property string $REMITIDO
@@ -42,10 +37,10 @@
  * @property string $ACTUALIZADO_EL
  *
  * The followings are the available model relations:
+ * @property NivelPrecio $nIVELPRECIO
  * @property Bodega $bODEGA
  * @property Cliente $cLIENTE
  * @property CodicionPago $cONDICIONPAGO
- * @property NivelPrecio $nIVELPRECIO
  * @property PedidoLinea[] $pedidoLineas
  */
 class Pedido extends CActiveRecord
@@ -76,18 +71,18 @@ class Pedido extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('PEDIDO, FECHA_PEDIDO, TOTAL_MERCADERIA, MONTO_ANTICIPO, MONTO_FLETE, MONTO_SEGURO, TIPO_DESCUENTO1, TIPO_DESCUENTO2, MONTO_DESCUENTO1, MONTO_DESCUENTO2, POR_DESCUENTO1, POR_DESCUENTO2, TOTAL_IMPUESTO1, TOTAL_A_FACTURAR, REMITIDO, RESERVADO', 'required'),
+			array('PEDIDO, FECHA_PEDIDO, TOTAL_MERCADERIA, MONTO_ANTICIPO, MONTO_FLETE, MONTO_SEGURO, MONTO_DESCUENTO1, TOTAL_IMPUESTO1, TOTAL_A_FACTURAR, REMITIDO, RESERVADO, ESTADO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'required'),
 			array('PEDIDO, RUBRO1, RUBRO2, RUBRO3, RUBRO4, RUBRO5, COMENTARIOS_CXC', 'length', 'max'=>50),
 			array('CLIENTE, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('BODEGA, CONDICION_PAGO', 'length', 'max'=>4),
 			array('NIVEL_PRECIO', 'length', 'max'=>12),
 			array('ORDEN_COMPRA', 'length', 'max'=>30),
-			array('TOTAL_MERCADERIA, MONTO_ANTICIPO, MONTO_FLETE, MONTO_SEGURO, MONTO_DESCUENTO1, MONTO_DESCUENTO2, POR_DESCUENTO1, POR_DESCUENTO2, TOTAL_IMPUESTO1, TOTAL_A_FACTURAR', 'length', 'max'=>28),
-			array('TIPO_DESCUENTO1, TIPO_DESCUENTO2, REMITIDO, RESERVADO, ESTADO', 'length', 'max'=>1),
+			array('TOTAL_MERCADERIA, MONTO_ANTICIPO, MONTO_FLETE, MONTO_SEGURO, MONTO_DESCUENTO1, TOTAL_IMPUESTO1, TOTAL_A_FACTURAR', 'length', 'max'=>28),
+			array('REMITIDO, RESERVADO, ESTADO', 'length', 'max'=>1),
 			array('FECHA_PROMETIDA, FECHA_EMBARQUE, FECHA_ORDEN, OBSERVACIONES', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('PEDIDO, CLIENTE, BODEGA, CONDICION_PAGO, NIVEL_PRECIO, FECHA_PEDIDO, FECHA_PROMETIDA, FECHA_EMBARQUE, ORDEN_COMPRA, FECHA_ORDEN, RUBRO1, RUBRO2, RUBRO3, RUBRO4, RUBRO5, COMENTARIOS_CXC, OBSERVACIONES, TOTAL_MERCADERIA, MONTO_ANTICIPO, MONTO_FLETE, MONTO_SEGURO, TIPO_DESCUENTO1, TIPO_DESCUENTO2, MONTO_DESCUENTO1, MONTO_DESCUENTO2, POR_DESCUENTO1, POR_DESCUENTO2, TOTAL_IMPUESTO1, TOTAL_A_FACTURAR, REMITIDO, RESERVADO, ESTADO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
+			array('PEDIDO, CLIENTE, BODEGA, CONDICION_PAGO, NIVEL_PRECIO, FECHA_PEDIDO, FECHA_PROMETIDA, FECHA_EMBARQUE, ORDEN_COMPRA, FECHA_ORDEN, RUBRO1, RUBRO2, RUBRO3, RUBRO4, RUBRO5, COMENTARIOS_CXC, OBSERVACIONES, TOTAL_MERCADERIA, MONTO_ANTICIPO, MONTO_FLETE, MONTO_SEGURO, MONTO_DESCUENTO1, TOTAL_IMPUESTO1, TOTAL_A_FACTURAR, REMITIDO, RESERVADO, ESTADO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -99,10 +94,10 @@ class Pedido extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'nIVELPRECIO' => array(self::BELONGS_TO, 'NivelPrecio', 'NIVEL_PRECIO'),
 			'bODEGA' => array(self::BELONGS_TO, 'Bodega', 'BODEGA'),
 			'cLIENTE' => array(self::BELONGS_TO, 'Cliente', 'CLIENTE'),
 			'cONDICIONPAGO' => array(self::BELONGS_TO, 'CodicionPago', 'CONDICION_PAGO'),
-			'nIVELPRECIO' => array(self::BELONGS_TO, 'NivelPrecio', 'NIVEL_PRECIO'),
 			'pedidoLineas' => array(self::HAS_MANY, 'PedidoLinea', 'PEDIDO'),
 		);
 	}
@@ -134,12 +129,7 @@ class Pedido extends CActiveRecord
 			'MONTO_ANTICIPO' => 'Monto Anticipo',
 			'MONTO_FLETE' => 'Monto Flete',
 			'MONTO_SEGURO' => 'Monto Seguro',
-			'TIPO_DESCUENTO1' => 'Tipo Descuento1',
-			'TIPO_DESCUENTO2' => 'Tipo Descuento2',
 			'MONTO_DESCUENTO1' => 'Monto Descuento1',
-			'MONTO_DESCUENTO2' => 'Monto Descuento2',
-			'POR_DESCUENTO1' => 'Por Descuento1',
-			'POR_DESCUENTO2' => 'Por Descuento2',
 			'TOTAL_IMPUESTO1' => 'Total Impuesto1',
 			'TOTAL_A_FACTURAR' => 'Total A Facturar',
 			'REMITIDO' => 'Remitido',
@@ -184,12 +174,7 @@ class Pedido extends CActiveRecord
 		$criteria->compare('MONTO_ANTICIPO',$this->MONTO_ANTICIPO,true);
 		$criteria->compare('MONTO_FLETE',$this->MONTO_FLETE,true);
 		$criteria->compare('MONTO_SEGURO',$this->MONTO_SEGURO,true);
-		$criteria->compare('TIPO_DESCUENTO1',$this->TIPO_DESCUENTO1,true);
-		$criteria->compare('TIPO_DESCUENTO2',$this->TIPO_DESCUENTO2,true);
 		$criteria->compare('MONTO_DESCUENTO1',$this->MONTO_DESCUENTO1,true);
-		$criteria->compare('MONTO_DESCUENTO2',$this->MONTO_DESCUENTO2,true);
-		$criteria->compare('POR_DESCUENTO1',$this->POR_DESCUENTO1,true);
-		$criteria->compare('POR_DESCUENTO2',$this->POR_DESCUENTO2,true);
 		$criteria->compare('TOTAL_IMPUESTO1',$this->TOTAL_IMPUESTO1,true);
 		$criteria->compare('TOTAL_A_FACTURAR',$this->TOTAL_A_FACTURAR,true);
 		$criteria->compare('REMITIDO',$this->REMITIDO,true);
@@ -204,7 +189,6 @@ class Pedido extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-        
         public function behaviors()
 	{
 		return array(

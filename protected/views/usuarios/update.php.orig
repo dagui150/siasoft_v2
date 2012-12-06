@@ -1,0 +1,28 @@
+<<<<<<< HEAD
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." Usuarios";?>
+<?php
+$this->breadcrumbs=array(
+	'Usuarios'=>array('admin'),
+	$model2->ID=>array('view','id'=>$model2->ID),
+	'Actualizar',
+);
+
+?>
+
+<h1>Actualizar Usuario <?php echo $model2->USERNAME; ?></h1>
+
+=======
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." Usuarios";?>
+<?php
+$this->breadcrumbs=array(
+	'Usuarios'=>array('admin'),
+	$model2->ID=>array('view','id'=>$model2->ID),
+	'Actualizar',
+);
+
+?>
+
+<h1>Actualizar Usuario <?php echo $model2->USERNAME; ?></h1>
+
+>>>>>>> eee0ca42e5654b9759248035dd5175e788fa262a
+<?php echo $this->renderPartial('_form2', array('model2'=>$model2)); ?>

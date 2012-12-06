@@ -1,0 +1,26 @@
+Changelog
+
+	Version 0.10
+		Sistema:
+			- Se añade nuevo campo para subir logo de la compañia
+			- Correccion de nombres en los menu
+			- Ya no se pueden agregar Paises
+			- Ya no se pueden agregar Departamentos
+			- Ya no se pueden agregar Municipios
+			- Mejoras en busquedas de NIT para las entidades financieras
+		
+		Usuarios:
+			- Modo debug en true para deshabilitar permisos
+			
+		Inventario:
+			- Redireccion a la configuracion en caso de no existir
+			- Se borro campo costo comparativo
+			- Se borro la tabla clasificacion
+			- Se adiciono campo obligatorio a la tabla clasificacion adicional
+			- Se adiciono los campos costo estandar, costo promedio y costo ultimo en el menu de articulos
+			- Se borraron los campos clasificacion 1 hasta el 6
+			- Se borraron los campos factor de clasificacion  1 hasta el 6
+			
+		Compras:
+			- Se optimizo el proceso de generar lineas en ordenes de compra y solicitudes de compra
+			- Se añadio un nuevo menu llamado Ingreso Compra		

@@ -11,9 +11,11 @@
  * @property integer $UNIDAD
  * @property string $CANTIDAD
  * @property string $PRECIO_UNITARIO
- * @property string $TIPO_DESCUENTO
  * @property string $PORC_DESCUENTO
  * @property string $MONTO_DESCUENTO
+ * @property string $PORC_IMPUESTO
+ * @property string $VALOR_IMPUESTO
+ * @property integer $TIPO_PRECIO
  * @property string $COMENTARIO
  * @property string $ESTADO
  * @property string $ACTIVO
@@ -23,6 +25,7 @@
  * @property string $ACTUALIZADO_EL
  *
  * The followings are the available model relations:
+ * @property ArticuloPrecio $tIPOPRECIO
  * @property Articulo $aRTICULO
  * @property Pedido $pEDIDO
  * @property UnidadMedida $uNIDAD
@@ -55,16 +58,16 @@ class PedidoLinea extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ARTICULO, UNIDAD, CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, PORC_IMPUESTO, VALOR_IMPUESTO', 'required'),
-			array('ID, LINEA', 'numerical', 'integerOnly'=>true),
+			array('ARTICULO, UNIDAD, CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, PORC_IMPUESTO, VALOR_IMPUESTO, TIPO_PRECIO', 'required'),
+			array('LINEA', 'numerical', 'integerOnly'=>true),
 			array('ARTICULO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('PEDIDO', 'length', 'max'=>50),
-			array('CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO', 'length', 'max'=>28),
-			array('TIPO_DESCUENTO, ESTADO, ACTIVO', 'length', 'max'=>1),
+			array('CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, PORC_IMPUESTO, VALOR_IMPUESTO', 'length', 'max'=>28),
+			array('ESTADO, ACTIVO', 'length', 'max'=>1),
 			array('COMENTARIO', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('ID, ARTICULO, PEDIDO, LINEA, UNIDAD, CANTIDAD, PRECIO_UNITARIO, TIPO_DESCUENTO, PORC_DESCUENTO, MONTO_DESCUENTO, COMENTARIO, ESTADO, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
+			array('ID, ARTICULO, PEDIDO, LINEA, UNIDAD, CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, PORC_IMPUESTO, VALOR_IMPUESTO, TIPO_PRECIO, COMENTARIO, ESTADO, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -76,6 +79,7 @@ class PedidoLinea extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'tIPOPRECIO' => array(self::BELONGS_TO, 'ArticuloPrecio', 'TIPO_PRECIO'),
 			'aRTICULO' => array(self::BELONGS_TO, 'Articulo', 'ARTICULO'),
 			'pEDIDO' => array(self::BELONGS_TO, 'Pedido', 'PEDIDO'),
 			'uNIDAD' => array(self::BELONGS_TO, 'UnidadMedida', 'UNIDAD'),
@@ -95,11 +99,11 @@ class PedidoLinea extends CActiveRecord
 			'UNIDAD' => 'Unidad',
 			'CANTIDAD' => 'Cantidad',
 			'PRECIO_UNITARIO' => 'Precio Unitario',
-			'TIPO_DESCUENTO' => 'Tipo Descuento',
 			'PORC_DESCUENTO' => 'Porc Descuento',
 			'MONTO_DESCUENTO' => 'Monto Descuento',
-                        'PORC_IMPUESTO' => 'Porcentaje impuesto',
-                        'VALOR_IMPUESTO' => 'Valor impuesto',
+			'PORC_IMPUESTO' => 'Porc Impuesto',
+			'VALOR_IMPUESTO' => 'Valor Impuesto',
+			'TIPO_PRECIO' => 'Tipo Precio',
 			'COMENTARIO' => 'Comentario',
 			'ESTADO' => 'Estado',
 			'ACTIVO' => 'Activo',
@@ -128,11 +132,11 @@ class PedidoLinea extends CActiveRecord
 		$criteria->compare('UNIDAD',$this->UNIDAD);
 		$criteria->compare('CANTIDAD',$this->CANTIDAD,true);
 		$criteria->compare('PRECIO_UNITARIO',$this->PRECIO_UNITARIO,true);
-		$criteria->compare('TIPO_DESCUENTO',$this->TIPO_DESCUENTO,true);
 		$criteria->compare('PORC_DESCUENTO',$this->PORC_DESCUENTO,true);
 		$criteria->compare('MONTO_DESCUENTO',$this->MONTO_DESCUENTO,true);
-                $criteria->compare('PORC_IMPUESTO',$this->PORC_IMPUESTO,true);
-                $criteria->compare('VALOR_IMPUESTO',$this->VALOR_IMPUESTO,true);
+		$criteria->compare('PORC_IMPUESTO',$this->PORC_IMPUESTO,true);
+		$criteria->compare('VALOR_IMPUESTO',$this->VALOR_IMPUESTO,true);
+		$criteria->compare('TIPO_PRECIO',$this->TIPO_PRECIO);
 		$criteria->compare('COMENTARIO',$this->COMENTARIO,true);
 		$criteria->compare('ESTADO',$this->ESTADO,true);
 		$criteria->compare('ACTIVO',$this->ACTIVO,true);
@@ -145,6 +149,7 @@ class PedidoLinea extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
         public function behaviors()
 	{
 		return array(

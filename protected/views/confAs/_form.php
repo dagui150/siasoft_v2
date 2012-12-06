@@ -50,6 +50,9 @@
             </td>
         </tr>
         </table>
+            </td>
+        </tr>
+        </table>
 		
 	<div class="row-buttons" align="center">
     	<?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model2->isNewRecord ? 'Crear' : 'Guardar')); ?>

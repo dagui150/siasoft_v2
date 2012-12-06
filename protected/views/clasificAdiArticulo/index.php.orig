@@ -1,0 +1,37 @@
+<<<<<<< HEAD
+<?php
+$this->breadcrumbs=array(
+	'Clasific Adi Artículos',
+);
+
+$this->menu=array(
+	array('label'=>'Crear ClasificAdiArticulo', 'url'=>array('create')),
+	array('label'=>'Administrar ClasificAdiArticulo', 'url'=>array('admin')),
+);
+?>
+
+<h1>Clasific Adi Artículos</h1>
+
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_view',
+)); ?>
+=======
+<?php
+$this->breadcrumbs=array(
+	'Clasific Adi Artículos',
+);
+
+$this->menu=array(
+	array('label'=>'Crear ClasificAdiArticulo', 'url'=>array('create')),
+	array('label'=>'Administrar ClasificAdiArticulo', 'url'=>array('admin')),
+);
+?>
+
+<h1>Clasific Adi Artículos</h1>
+
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_view',
+)); ?>
+>>>>>>> eee0ca42e5654b9759248035dd5175e788fa262a

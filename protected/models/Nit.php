@@ -78,7 +78,9 @@ class Nit extends CActiveRecord
 	{
 		return array(
 			'ID' => 'Número de documento',
+			'ID' => 'Número de documento',
 			'TIIPO_DOCUMENTO' => 'Tipo de Documento',
+			'RAZON_SOCIAL' => 'Razón Social',
 			'RAZON_SOCIAL' => 'Razón Social',
 			'ALIAS' => 'Alias',
 			'OBSERVACIONES' => 'Observaciones',
@@ -106,6 +108,7 @@ class Nit extends CActiveRecord
 		$criteria->compare('RAZON_SOCIAL',$this->RAZON_SOCIAL,true);
 		$criteria->compare('ALIAS',$this->ALIAS,true);
 		$criteria->compare('OBSERVACIONES',$this->OBSERVACIONES,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);

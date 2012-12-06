@@ -1,0 +1,32 @@
+<<<<<<< HEAD
+<?php
+$this->breadcrumbs=array(
+	'Clasific Adi Artículos'=>array('index'),
+	'Crear',
+);
+
+$this->menu=array(
+	array('label'=>'Listar ClasificAdiArticulo', 'url'=>array('index')),
+	array('label'=>'Administrar ClasificAdiArticulo', 'url'=>array('admin')),
+);
+?>
+
+<h1>Crear ClasificAdiArticulo</h1>
+
+=======
+<?php
+$this->breadcrumbs=array(
+	'Clasific Adi Artículos'=>array('index'),
+	'Crear',
+);
+
+$this->menu=array(
+	array('label'=>'Listar ClasificAdiArticulo', 'url'=>array('index')),
+	array('label'=>'Administrar ClasificAdiArticulo', 'url'=>array('admin')),
+);
+?>
+
+<h1>Crear ClasificAdiArticulo</h1>
+
+>>>>>>> eee0ca42e5654b9759248035dd5175e788fa262a
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

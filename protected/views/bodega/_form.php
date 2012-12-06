@@ -11,7 +11,7 @@ $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
 )); ?>
         <?php echo $form->errorSummary($model2); ?>,
                 <table style="width: 400px;">
-
+                    <tr>
 
         <table width="100%" border='1'>
 
@@ -50,6 +50,8 @@ $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
                         </td>
                         <td>
                         </td>
+                    </tr>
+                </table>
                     </tr>
                 </table>
         <?php echo CHtml::activeHiddenField($model2, 'ACTIVO', array('value' => 'S')); ?>

@@ -153,9 +153,9 @@ class UnidadMedidaController extends SBaseController
 		}
 	}
         
-        public function actionCargarbase(){
+        public function actionCargarTipoPrecio(){
             
-            echo CJSON::encode(CHtml::ListData(UnidadMedida::model()->findAll('TIPO = "'.$_GET['tipo'].'"'),'ID','NOMBRE'));
+            echo CJSON::encode(CHtml::ListData(ArticuloPrecio::model()->findAll('ARTICULO = "'.$_GET['tipo'].'"'),'ID','NOMBRE'));
             
         }
 }
