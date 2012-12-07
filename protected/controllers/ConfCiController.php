@@ -61,6 +61,7 @@ class ConfCiController extends SBaseController
 	{
 		$model=$this->loadModel($id);
                 
+                
                 $regla1=  substr($model->EAN13_REGLA_LOCAL, 0,3);
                 $regla2=  substr($model->EAN13_REGLA_LOCAL, 3,5);
                 $regla3=  substr($model->UCC12_REGLA_LOCAL, 0,1);

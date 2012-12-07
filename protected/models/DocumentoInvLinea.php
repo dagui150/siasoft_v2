@@ -194,7 +194,7 @@ class DocumentoInvLinea extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
+	public function search($id)
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
@@ -202,7 +202,7 @@ class DocumentoInvLinea extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('DOCUMENTO_INV_LINEA',$this->DOCUMENTO_INV_LINEA);
-		$criteria->compare('DOCUMENTO_INV',$this->DOCUMENTO_INV,true);
+		$criteria->compare('DOCUMENTO_INV',$id);
 		$criteria->compare('LINEA_NUM',$this->LINEA_NUM);
 		$criteria->compare('TIPO_TRANSACCION',$this->TIPO_TRANSACCION,true);
 		$criteria->compare('SUBTIPO',$this->SUBTIPO);

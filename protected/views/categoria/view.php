@@ -23,7 +23,11 @@ $this->menu=array(
 	'attributes'=>array(
 		'ID',
 		'DESCRIPCION',
-		'TIPO',
+		array(
+                        'name'=>'TIPO',
+                        'header'=>'Tipo',
+                        'value'=>Categoria::tipo($model->TIPO),
+                    ),
 		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',

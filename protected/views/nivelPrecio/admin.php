@@ -79,19 +79,6 @@ $this->widget('bootstrap.widgets.BootButton', array(
                         'value'=>'NivelPrecio::tipo($data->ESQUEMA_TRABAJO)',
                         'filter'=>array('NORM'=>'Normal','MULT'=>'Multiplicador', 'MARG' => 'Margen', 'MARK' => 'Markup'),
                     ),
-                array(
-                        'name'=>'CONDICION_PAGO',
-                        'header'=>'Condicion de pago',
-                        'value'=>'$data->cONDICIONPAGO->DESCRIPCION',
-                        'type'=>'text',
-                        'filter' => CHtml::listData(CodicionPago::model()->findAll(), 'ID', 'DESCRIPCION')
-                    ),
-		/*'ACTIVO',
-		'CREADO_POR',
-		'CREADO_EL',
-		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
-		*/
 		array(
                     'class'=>'bootstrap.widgets.BootButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),

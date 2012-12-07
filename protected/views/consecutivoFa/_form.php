@@ -86,6 +86,7 @@
                                                         .$form->textFieldRow($model,'MASCARA')
                                                         .$form->textFieldRow($model,'VALOR_CONSECUTIVO')
                                                         .$form->textFieldRow($model,'VALOR_MAXIMO')
+                                                        .$form->dropDownListRow($model,'CLASIFICACION',array('P'=>'Pedido','R'=>'Remisión','F'=>'Factura'),array('empty'=>'Seleccione'))
                                                         .$form->dropDownListRow($model,'FORMATO_IMPRESION',CHtml::listData(FormatoImpresion::model()->findAllByAttributes(array('MODULO'=>'FACT')), 'ID', 'NOMBRE'),array('empty'=>'Seleccione'))
                                                     .'</td>
                                                     <td>
@@ -94,7 +95,7 @@
                                                             .$form->checkBoxRow($model,'USA_ESQUEMA_CAJAS')
                                                             .$form->checkBoxRow($model,'USA_DESPACHOS')
                                                         .'<br><br></fieldset>'
-                                                        .$form->textFieldRow($model,'RESOLUCION')
+                                                        .$form->textFieldRow($model,'RESOLUCION',array('maxlength'=>64))
                                                     .'</td>
                                                 </tr>
                                             </table>

@@ -59,22 +59,7 @@
                             });
                     });
         });
-        
-        $('#Cliente_CONDICION_PAGO').change(function(){
-            $.getJSON('<?php echo $this->createUrl('cargarniveles')?>&id='+$(this).val(),
-                    function(data){
-                                                
-                        //borrar combo de NIVELES DE PRECIO
-                        $('select[id$=Cliente_TIPO_PRECIO ] > option').remove();
-                        $('#Cliente_TIPO_PRECIO').append("<option value=''>Seleccione</option>");
-                        
-                        $.each(data, function(value, name) {
-                              $('#Cliente_TIPO_PRECIO').append("<option value='"+value+"'>"+name+"</option>");
-                        });
-                    }
-                );
-        });
-        
+               
         $( ".escritoNit" ).autocomplete({
             change: function() {
                 if($(this).attr('value') == ''){
@@ -330,7 +315,7 @@
                                                             <legend ><font face="arial" size=3 >Propiedades</font></legend>'
                                                             .$form->dropDownListRow($model,'CATEGORIA',CHtml::listData(Categoria::model()->findAllByAttributes(array('TIPO'=>'C','ACTIVO'=>'S')),'ID','DESCRIPCION'),array('empty'=>'Seleccione','options'=>$model->isNewRecord ? array($this->conf->CATEGORIA_CLIENTE=>array('selected'=>'selected')): array()))
                                                             .$form->dropDownListRow($model,'CONDICION_PAGO',CHtml::listData(CodicionPago::model()->findAllByAttributes(array('ACTIVO'=>'S')),'ID','DESCRIPCION'),array('empty'=>'Seleccione','options'=>$model->isNewRecord ? array($this->conf->COND_PAGO_CONTADO=>array('selected'=>'selected')): array()))
-                                                            .$form->dropDownListRow($model,'TIPO_PRECIO',CHtml::listData(NivelPrecio::model()->findAllByAttributes(array('ACTIVO'=>'S','CONDICION_PAGO'=>$this->conf->COND_PAGO_CONTADO)),'ID','DESCRIPCION'),array('empty'=>'Seleccione','options'=>$model->isNewRecord ? array($this->conf->NIVEL_PRECIO=>array('selected'=>'selected')): array()))
+                                                            .$form->dropDownListRow($model,'TIPO_PRECIO',CHtml::listData(NivelPrecio::model()->findAllByAttributes(array('ACTIVO'=>'S')),'ID','DESCRIPCION'),array('empty'=>'Seleccione','options'=>$model->isNewRecord ? array($this->conf->NIVEL_PRECIO=>array('selected'=>'selected')): array()))
                                                        .'<br><br></fieldset>
                                                     </td>
                                                 </tr>

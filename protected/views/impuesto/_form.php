@@ -43,22 +43,23 @@
                     </tr>
                 </table>
             
-		<div class="row">
+		
 		<?php echo CHtml::activeHiddenField($model2,'ACTIVO',array('value'=>'S')); ?>
 		<?php echo $form->error($model2,'ACTIVO'); ?>
-	</div>
+	
         </div>
+    </div>
 	<?php if($model2->isNewRecord): ?>
         <div class="modal-footer" align="center">
         <?php endif ?>
 
         <?php if(!$model2->isNewRecord): ?>
         <div class="row-buttons" align="center">
-        <?php endif ?>
+            <?php endif ?>
             <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>$model2->isNewRecord ? 'Crear' : 'Guardar', 'buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white')); ?>
-            <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('/impuesto/admin'), 'icon' => 'remove', 'htmlOptions'=>array('data-dismiss'=>'modal')));  ?>	        
+            <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('admin'), 'icon' => 'remove', 'htmlOptions'=>array('data-dismiss'=>'modal')));  ?>	        
         </div>
-        </div>
+        
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->

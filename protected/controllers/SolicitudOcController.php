@@ -6,9 +6,12 @@ class SolicitudOcController extends SBaseController
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
+        public $modulo='Compras';
+        public $submodulo='Solicitud de Compra';
 	public $layout='//layouts/column2';
         public $breadcrumbs=array();
 	public $menu=array();
+        public $solicitud;
 	/**
 	 * @return array action filters
 	 */
@@ -107,15 +110,27 @@ class SolicitudOcController extends SBaseController
 		));
 	}
         
-        public function actionPdf(){
+        public function actionformatoPDF() {
+
             $id = $_GET['id'];
-            $conf = ConfCo::model()->find();
-            $compania = Compania::model()->find(); 
-            $solicitud = SolicitudOc::model()->findByPk($id);
-            $lineas = SolicitudOcLinea::model()->findAll('SOLICITUD_OC = "'.$id.'"');        
+            
+            $this->solicitud = SolicitudOc::model()->findByPk($id);
+            $lineas = new SolicitudOcLinea;
+            $this->layout = ConfCo::model()->find()->fORMATOSOLICITUD->RUTA;
+            
+            $footer = '<table width="100%">
+                    <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>
+                        <td align="center" valign="middle"><span class="piePagina"><b>Generado el:</b> ' . date('Y/m/d') . '</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center" valign="middle">Desarrollado por Tramasoft Soluciones TIC - <a href="http://www.tramasoft.com">www.tramasoft.com</a></td>
+                    </tr>
+                    </table>';
             $mPDF1 = Yii::app()->ePdf->mpdf();
-            $mPDF1->WriteHTML($this->renderPartial('pdf', array('solicitud' => $solicitud, 'lineas' => $lineas, 'compania' => $compania, 'conf'=>$conf), true));
-            $mPDF1->Output();            
+            $mPDF1->WriteHTML($this->render('pdf', array('model' => $this->solicitud,'model2'=>$lineas), true));
+            $mPDF1->SetHTMLFooter($footer);
+            
+            $mPDF1->Output();
             Yii::app()->end();
         }
                 
@@ -435,7 +450,7 @@ class SolicitudOcController extends SBaseController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))

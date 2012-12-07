@@ -159,9 +159,11 @@ class NitController extends SBaseController
         
         public function actionExcel()
 	{
-		$model= Nit::model()->findAll('ACTIVO="S"');
-                Yii::app()->request->sendFile('Relacion de Nits.xls', 
-                        $this->renderPartial('excel',array('model'=>$model),true));
+		$model=new Nit('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
 	}
 
         public function actionPdf(){

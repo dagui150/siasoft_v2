@@ -196,7 +196,7 @@
         $('#resetear').click();
         $('#form-cargado').slideDown('slow');
         $('#boton-cargado').remove();
-       // limpiarForm(false);
+        limpiarForm(false);
     }
     
     //para sumar a los contadores 1 es para validar que quede una liena,
@@ -241,7 +241,7 @@
         
         //copia a spans para visualizar detalles
         if(suma == true)
-        $('#linea'+span+'_'+contador).text(parseInt($('#contadorLineas').val(), 10) + 1);
+            $('#linea'+span+'_'+contador).text(parseInt($('#contadorLineas').val(), 10) + 1);
         $('#articulo'+span+'_'+contador).text(articulo);
         $('#descripcion'+span+'_'+contador).text(nombrearticulo);
         $('#bodega'+span+'_'+contador).text(bodega+' - '+nombrebodega);
@@ -287,7 +287,7 @@
     //resetear el formulario true es solo para la creacion de la primera linea
     function limpiarForm(bolean){
         
-        /*if(bolean == true){
+        if(bolean == true){
             $('#documento-inv-linea-form').each (function(){
               this.reset();
             });
@@ -315,13 +315,13 @@
             $('#CAMPO_ACTUALIZA').val('');
             $('#ACTUALIZA').val(0);
             $('#SPAN').val('');
-        }*/
+        }
     }
     
     //actualizar una linea
     function actualiza(){
     
-        //limpiarForm(false);
+        limpiarForm(false);
         
         var  contador = $(this).attr('name');
         
@@ -367,7 +367,7 @@
     //actualizar una linea de un documento que se va a modificar
     function actualizaUpdate(){
     
-        //limpiarForm(false);
+        limpiarForm(false);
         
         var  contador = $(this).attr('name');
         
@@ -583,7 +583,7 @@
                          'type'=>'primary',
                          'label'=>'Aceptar',
                          'icon'=>'ok white',
-                         'url'=>array('agregarlinea',),
+                         'url'=>array('documentoInv/agregarlinea',),
                          'ajaxOptions'=>array(
                              'type'=>'POST',
                              'update'=>'#form-lineas',
@@ -599,7 +599,7 @@
                          'type'=>'normal',
                          'label'=>'Cancelar',
                          'icon'=>'remove',
-                         'htmlOptions'=>array('onclick'=>'$(".close").click();')
+                         'htmlOptions'=>array('onclick'=>'$(".close").click(); limpiarForm('.$bolean.');')
                       ));
                 ?>
     </div>

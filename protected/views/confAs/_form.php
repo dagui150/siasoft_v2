@@ -8,25 +8,23 @@
 		'validateOnSubmit'=>true,
 	),
 )); ?>
-    <table style="width: 200px">
+        <?php
+            $this->widget('bootstrap.widgets.BootTabbable', array(
+            'type' => 'tabs', // 'tabs' or 'pills'
+            'tabs' => array(
+            array('label' => 'General', 'content' =>
+            $form->textFieldRow($model2, 'IMPUESTO1_DESC', array('size' => 10, 'maxlength' => 10))
+            .$form->textFieldRow($model2, 'PATRON_CCOSTO', array('size' => 25, 'maxlength' => 25))
+            .$form->textFieldRow($model2, 'SIMBOLO_MONEDA', array('size' => 3, 'maxlength' => 3))
+
+
+                    ,'active' => true),
+               
+            ),
+                )
+            );?>
         <tr>
             <td>
-		<?php echo $form->textFieldRow($model2,'IMPUESTO1_DESC',array('size'=>10,'maxlength'=>10)); ?>
-            </td>
-            <td>
-                <?php $this->widget('bootstrap.widgets.BootButton', array(
-                    //'label'=>'Ayuda',
-                    'type'=>'succes',
-                    'icon'=>'info-sign',
-                    'size'=>'mini',
-                    'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'Impuesto que será utilizado en el sistema.<br>Ej.: IVA', 'rel'=>'popover'),
-                )); ?>
-            </td>
-        </tr>
-        <tr>
-            <td>
-        	<?php //echo $form->textFieldRow($model2,'IMPUESTO2_DESC',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->textFieldRow($model2,'PATRON_CCOSTO',array('size'=>25,'maxlength'=>25)); ?>
             </td>
             <td>
                 <?php $this->widget('bootstrap.widgets.BootButton', array(
@@ -40,7 +38,6 @@
         </tr>
         <tr>
             <td>
-        	<?php echo $form->textFieldRow($model2,'SIMBOLO_MONEDA',array('size'=>3,'maxlength'=>3)); ?>
             </td>
             <td>
                 <?php $this->widget('bootstrap.widgets.BootButton', array(
@@ -50,6 +47,9 @@
                     'size'=>'mini',
                     'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'El símbolo de la moneda a utilizar en el sistema. <br>Ej.: $ (Pesos, dólares), € (Euro).', 'rel'=>'popover'),
                 )); ?>
+            </td>
+        </tr>
+        </table>
             </td>
         </tr>
         </table>

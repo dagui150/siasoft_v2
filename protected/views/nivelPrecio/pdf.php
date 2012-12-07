@@ -14,17 +14,10 @@ $this->widget('ext.PdfGrid.EPDFGrid', array(
                         'value'=>'NivelPrecio::tipo($data->ESQUEMA_TRABAJO)',
                         
                     ),
-                array(
-                        'name'=>'CONDICION_PAGO',
-                        'header'=>'Condicion de pago',
-                        'value'=>'$data->cONDICIONPAGO->DESCRIPCION',
-                        'type'=>'text',
-                        
-                    ),
     ),
     'config'    => array(
         'title'     => 'Nivel de Precios',
-        'showLogo'  => true,
+        
         //'colWidths' => array(40, 90, 40),
     ),
 ));

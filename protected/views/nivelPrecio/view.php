@@ -21,7 +21,6 @@ $this->menu=array(
 		'ID',
 		'DESCRIPCION',
 		'ESQUEMA_TRABAJO',
-		'CONDICION_PAGO',
 		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',

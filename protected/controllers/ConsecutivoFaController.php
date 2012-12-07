@@ -42,8 +42,11 @@ class ConsecutivoFaController extends SBaseController
 		if(isset($_POST['ConsecutivoFa']))
 		{
 			$model->attributes=$_POST['ConsecutivoFa'];
+                        if(isset($_POST['ConsecutivoFa']['CLASIFICACION'])){
+                            $model->CLASIFICACION = $_POST['ConsecutivoFa']['CLASIFICACION'];
+                        }
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->CODIGO_CONSECUTIVO));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('create',array(
@@ -66,8 +69,11 @@ class ConsecutivoFaController extends SBaseController
 		if(isset($_POST['ConsecutivoFa']))
 		{
 			$model->attributes=$_POST['ConsecutivoFa'];
+                        if(isset($_POST['ConsecutivoFa']['CLASIFICACION'])){
+                            $model->CLASIFICACION = $_POST['ConsecutivoFa']['CLASIFICACION'];
+                        }
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->CODIGO_CONSECUTIVO));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('update',array(

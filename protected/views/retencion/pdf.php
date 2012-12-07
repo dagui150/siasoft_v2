@@ -12,7 +12,7 @@ $this->widget('ext.PdfGrid.EPDFGrid', array(
     ),
     'config'    => array(
         'title'     => 'Retenciones',
-        'showLogo'  => true,
+        
         //'colWidths' => array(40, 90, 40),
     ),
 ));

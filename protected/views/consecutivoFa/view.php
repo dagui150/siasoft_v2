@@ -15,7 +15,7 @@ $this->breadcrumbs=array(
                 array(
                     'name'=>'FORMATO_IMPRESION',
                     'label'=>'Formato de Impresión',
-                    'value'=>$model->fORMATOIMPRESION->NOMBRE
+                    'value'=>isset($model->fORMATOIMPRESION->NOMBRE) ? $model->fORMATOIMPRESION->NOMBRE : ""
                 ),
 		'DESCRIPCION',
                 array(

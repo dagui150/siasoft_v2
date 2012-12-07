@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'consecutivo_fa':
  * @property string $CODIGO_CONSECUTIVO
+ * @property integer $CLASIFICACION
  * @property integer $FORMATO_IMPRESION
  * @property string $DESCRIPCION
  * @property string $TIPO
@@ -64,6 +65,7 @@ class ConsecutivoFa extends CActiveRecord
 			array('LONGITUD,', 'numerical', 'integerOnly'=>true,'max'=>10,'min'=>1),
 			array('NUMERO_COPIAS,', 'numerical', 'integerOnly'=>true,'max'=>5,'min'=>0),
 			array('CODIGO_CONSECUTIVO', 'length', 'max'=>10),
+			array('CLASIFICACION', 'length', 'max'=>64),
 			array('DESCRIPCION, VALOR_CONSECUTIVO, MASCARA, VALOR_MAXIMO', 'length', 'max'=>64),
 			array('TIPO, USA_DESPACHOS, USA_ESQUEMA_CAJAS, ACTIVO', 'length', 'max'=>1),
 			array('ORIGINAL, COPIA1, COPIA2, COPIA3, COPIA4, COPIA5', 'length', 'max'=>30),
@@ -113,6 +115,7 @@ class ConsecutivoFa extends CActiveRecord
 	{
 		return array(
 			'CODIGO_CONSECUTIVO' => 'Codigo Consecutivo',
+			'CLASIFICACION' => 'Clasificación',
 			'FORMATO_IMPRESION' => 'Formato Impresión',
 			'DESCRIPCION' => 'Descripción',
 			'TIPO' => 'Tipo',
@@ -150,6 +153,7 @@ class ConsecutivoFa extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('CODIGO_CONSECUTIVO',$this->CODIGO_CONSECUTIVO,true);
+		$criteria->compare('CLASIFICACION',$this->CLASIFICACION);
 		$criteria->compare('FORMATO_IMPRESION',$this->FORMATO_IMPRESION);
 		$criteria->compare('DESCRIPCION',$this->DESCRIPCION,true);
 		$criteria->compare('TIPO',$this->TIPO,true);

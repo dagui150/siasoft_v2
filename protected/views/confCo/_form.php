@@ -156,6 +156,13 @@
 		.$form->textAreaRow($model,'DIRECCION_EMBARQUE',array('rows'=>6, 'cols'=>50))
 		.$form->textAreaRow($model,'DIRECCION_COBRO',array('rows'=>6, 'cols'=>50))
 		.'</fieldset>'),
+        
+                array('label'=>'Impresion', 'content'=>
+                    
+		 $form->dropDownListRow($model,'FORMATO_IMPRESION_SOL', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND MODULO = "COMP" AND SUBMODULO ="SOCO"'), 'ID', 'NOMBRE'),array('empty'=>'Seleccione...'))
+                 .$form->dropDownListRow($model,'FORMATO_IMPRESION_ORD', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND MODULO = "COMP" AND SUBMODULO = "ORCO"'), 'ID', 'NOMBRE'),array('empty'=>'Seleccione...'))
+                
+                    ),
 		
 		array('label'=>'Rubros', 'items'=>array( 
 			array('label'=>'Solicitudes', 'content'=>
@@ -187,6 +194,10 @@
 		.$form->textFieldRow($model,'RUBRO4_EMBNOM',array('size'=>15,'maxlength'=>15))
 		.$form->textFieldRow($model,'RUBRO5_EMBNOM',array('size'=>15,'maxlength'=>15))
 		.'</fieldset>'),
+                    
+                
+                    
+                    
 		)),
     ),
 )); 

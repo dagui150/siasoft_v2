@@ -27,5 +27,7 @@ $this->menu=array(
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
 		'ACTUALIZADIO_EL',
+                 * 
+                 */
 	),
 )); ?>

@@ -9,6 +9,7 @@
  * @property string $IMPUESTO2_DESC
  * @property string $PATRON_CCOSTO
  * @property string $SIMBOLO_MONEDA
+ * @property integer $FORMATO_IMPRESION
  * @property string $CREADO_POR
  * @property string $CREADO_EL
  * @property string $ACTUALIZADO_POR

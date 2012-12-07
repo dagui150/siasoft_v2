@@ -33,7 +33,7 @@ $this->breadcrumbs=array(
                 'DESCRIPCION',
 		array(
                     'name'=>'FORMATO_IMPRESION',
-                    'value'=>'$data->fORMATOIMPRESION->NOMBRE',
+                    'value'=>'isset($data->fORMATOIMPRESION->NOMBRE) ? $data->fORMATOIMPRESION->NOMBRE : ""',
                     'filter'=>CHtml::listData(FormatoImpresion::model()->findAllByAttributes(array('MODULO'=>'FACT')), 'ID', 'NOMBRE')
                 ),
 		'LONGITUD',

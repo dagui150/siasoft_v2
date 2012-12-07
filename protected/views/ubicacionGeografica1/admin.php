@@ -60,7 +60,8 @@ $this->widget('bootstrap.widgets.BootButton', array(
 	'filter'=>$model,
 	'columns'=>array(
 		'ID',
-		'PAIS',
+            array('name'=>'PAIS',
+                'value'=>'$data->pAIS->NOMBRE'),
 		'NOMBRE',
 		//'ACTIVO',
 		//'CREADO_POR',

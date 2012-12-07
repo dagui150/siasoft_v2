@@ -77,16 +77,14 @@ CREATE TABLE `articulo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='almacena los artiuculos del inventario';
 
 INSERT INTO `articulo` (`ARTICULO`, `NOMBRE`, `ORIGEN_CORP`, `CLASE_ABC`, `TIPO_ARTICULO`, `TIPO_COD_BARRAS`, `CODIGO_BARRAS`, `EXISTENCIA_MINIMA`, `EXISTENCIA_MAXIMA`, `PUNTO_REORDEN`, `COSTO_FISCAL`, `COSTO_ESTANDAR`, `COSTO_PROMEDIO`, `COSTO_ULTIMO`, `PRECIO_BASE`, `DESCRIPCION_COMPRA`, `IMPUESTO_COMPRA`, `BODEGA`, `IMP1_AFECTA_COSTO`, `RETENCION_COMPRA`, `NOTAS`, `FRECUENCIA_CONTEO`, `PESO_NETO`, `PESO_NETO_UNIDAD`, `PESO_BRUTO`, `PESO_BRUTO_UNIDAD`, `VOLUMEN`, `VOLUMEN_UNIDAD`, `UNIDAD_ALMACEN`, `UNIDAD_EMPAQUE`, `UNIDAD_VENTA`, `FACTOR_EMPAQUE`, `FACTOR_VENTA`, `IMPUESTO_VENTA`, `RETENCION_VENTA`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('001',	'Articulo de ejemplo ',	'T',	'',	5,	NULL,	NULL,	5.00000000,	10.00000000,	10.00000000,	'Promedio',	0.00000000,	4.69964274,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	5,	45.00000000,	3,	54.00000000,	3,	24.00000000,	5,	3,	2,	2,	5.00000000,	4.00000000,	'224',	NULL,	'S',	'admin',	'2012-06-26 09:48:20',	'admin',	'2012-10-08 09:09:51'),
-('002',	'Articulo 2',	'T',	'',	5,	NULL,	NULL,	5.00000000,	10.00000000,	10.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	5,	45.00000000,	3,	54.00000000,	3,	24.00000000,	5,	3,	2,	2,	5.00000000,	4.00000000,	'224',	NULL,	'S',	'admin',	'2012-06-26 09:48:20',	'admin',	'2012-10-08 09:01:22'),
-('003',	'Articulo 3',	'T',	'',	5,	NULL,	NULL,	5.00000000,	10.00000000,	10.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	5,	45.00000000,	3,	54.00000000,	3,	24.00000000,	5,	3,	2,	2,	5.00000000,	4.00000000,	'224',	NULL,	'S',	'admin',	'2012-06-26 09:48:20',	'admin',	'2012-10-08 09:01:23'),
-('1',	'arroz',	'T',	'',	2,	NULL,	NULL,	1.00000000,	5.00000000,	0.00000000,	'Estándar',	20.00000000,	0.00000000,	0.00000000,	88.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
+('001',	'Articulo de ejemplo ',	'T',	'',	5,	NULL,	NULL,	5.00000000,	10.00000000,	10.00000000,	'Último',	0.00000000,	0.00000000,	500.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	5,	45.00000000,	3,	54.00000000,	3,	24.00000000,	5,	3,	2,	2,	5.00000000,	4.00000000,	'224',	NULL,	'S',	'admin',	'2012-06-26 09:48:20',	'admin',	'2012-09-10 14:14:03'),
+('1',	'arroz',	'T',	'',	2,	NULL,	NULL,	1.00000000,	5.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
 ('10',	'pimienta',	'T',	'',	2,	NULL,	NULL,	1.00000000,	3.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
 ('11',	'color',	'T',	'',	2,	NULL,	NULL,	1.00000000,	2.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
-('12',	'huevo',	'T',	'',	2,	NULL,	NULL,	1.00000000,	10.00000000,	0.00000000,	'Estándar',	1000.00000000,	0.00000000,	0.00000000,	80.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	4,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-10-05 15:06:55'),
-('13',	'pollo',	'T',	'',	2,	NULL,	NULL,	1.00000000,	10.00000000,	0.00000000,	'Promedio',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-10-20 12:23:07'),
-('14',	'cerdo',	'T',	'',	2,	NULL,	NULL,	1.00000000,	100.00000000,	0.00000000,	'Último',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-10-20 12:23:06'),
-('15',	'tocino',	'T',	'',	2,	NULL,	NULL,	1.00000000,	100.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-10-05 15:18:00'),
+('12',	'huevo',	'T',	'',	2,	NULL,	NULL,	1.00000000,	10.00000000,	0.00000000,	'Promedio',	1000.00000000,	23.33333333,	0.00000000,	80.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-10-05 15:04:28'),
+('13',	'pollo',	'T',	'',	2,	NULL,	NULL,	1.00000000,	10.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
+('14',	'cerdo',	'T',	'',	2,	NULL,	NULL,	1.00000000,	100.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
+('15',	'tocino',	'T',	'',	2,	NULL,	NULL,	1.00000000,	100.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
 ('16',	'bizcocho achiras',	'T',	'',	1,	NULL,	NULL,	1.00000000,	10.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
 ('17',	'bizcocho queso',	'T',	'',	1,	NULL,	NULL,	1.00000000,	10.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
 ('18',	'chucula',	'T',	'',	1,	NULL,	NULL,	1.00000000,	20.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
@@ -115,7 +113,7 @@ INSERT INTO `articulo` (`ARTICULO`, `NOMBRE`, `ORIGEN_CORP`, `CLASE_ABC`, `TIPO_
 ('B-ADJb',	'Anillo ADJ baja',	'T',	'',	1,	NULL,	NULL,	10.00000000,	100.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	1,	0.00000000,	1,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
 ('B-AMMag1',	'Anillos  Amma Alta Gama',	'T',	'',	1,	NULL,	NULL,	10.00000000,	100.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	1,	0.00000000,	1,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
 ('B-AMMag2',	'Anilloa Amma Alta Gama 2',	'T',	'',	2,	NULL,	NULL,	10.00000000,	100.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	1,	0.00000000,	1,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
-('B-AMMO',	'Anillos Amma plata-Oro',	'T',	'',	1,	NULL,	NULL,	10.00000000,	100.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	1,	0.00000000,	1,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-10-05 15:06:55'),
+('B-AMMO',	'Anillos Amma plata-Oro',	'T',	'',	1,	NULL,	NULL,	10.00000000,	100.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	1,	0.00000000,	1,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-10-05 15:04:28'),
 ('B-AMMP',	'Anillos Amma plata',	'T',	'',	1,	NULL,	NULL,	10.00000000,	100.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	1,	0.00000000,	1,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
 ('BR',	'BRONCE',	'T',	'',	2,	NULL,	NULL,	10.00000000,	100.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	1,	0.00000000,	1,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
 ('CA',	'CADENA',	'T',	'',	2,	NULL,	NULL,	20.00000000,	1000.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	1,	0.00000000,	1,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
@@ -141,6 +139,7 @@ INSERT INTO `articulo` (`ARTICULO`, `NOMBRE`, `ORIGEN_CORP`, `CLASE_ABC`, `TIPO_
 ('OR',	'ORO',	'T',	'',	2,	NULL,	NULL,	20.00000000,	100.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	1,	0.00000000,	1,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
 ('PD',	'PEDRERIA',	'T',	'',	2,	NULL,	NULL,	50.00000000,	1000.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	1,	0.00000000,	1,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
 ('PL',	'PLATA',	'T',	'',	2,	NULL,	NULL,	50.00000000,	1000.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	1,	0.00000000,	1,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
+('prueba',	'prueba',	'T',	'',	8,	NULL,	NULL,	13.00000000,	150.00000000,	100.00000000,	'Último',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	3,	0.00000000,	3,	0.00000000,	5,	1,	2,	2,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-09-19 03:51:47',	'admin',	'2012-09-27 11:48:05'),
 ('R01',	'Aceite  LA GARZA x 3000 g',	'T',	'',	1,	NULL,	NULL,	12.00000000,	24.00000000,	20.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	2,	2,	2,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 09:48:20',	'admin',	'2012-07-10 09:48:20'),
 ('R02',	'Aceite  Riquisimo x 3000 g',	'T',	'',	1,	NULL,	NULL,	12.00000000,	24.00000000,	20.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	2,	2,	2,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 09:48:20',	'admin',	'2012-07-10 09:48:20'),
 ('R03',	'Aceite  Buenisimo x 3000 g',	'T',	'',	1,	NULL,	NULL,	12.00000000,	24.00000000,	20.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	2,	2,	2,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 09:48:20',	'admin',	'2012-07-10 09:48:20'),
@@ -793,9 +792,9 @@ INSERT INTO `articulo` (`ARTICULO`, `NOMBRE`, `ORIGEN_CORP`, `CLASE_ABC`, `TIPO_
 ('R685',	'Lapisero kilometrico',	'T',	'',	1,	NULL,	NULL,	10.00000000,	100.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	2,	2,	2,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 09:48:20',	'admin',	'2012-07-10 09:48:20'),
 ('R686',	'Lapiz mirado',	'T',	'',	1,	NULL,	NULL,	20.00000000,	100.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	2,	2,	2,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 09:48:20',	'admin',	'2012-07-10 09:48:20'),
 ('R687',	'Borraor  nata pequeño',	'T',	'',	1,	NULL,	NULL,	20.00000000,	80.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	2,	2,	2,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 09:48:20',	'admin',	'2012-07-10 09:48:20'),
-('R688',	'Marcador permanente ',	'T',	'',	16,	NULL,	NULL,	20.00000000,	80.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	2,	2,	2,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 09:48:20',	'admin',	'2012-07-10 09:48:20'),
-('R689',	'Marcador borrable',	'T',	'',	16,	NULL,	NULL,	20.00000000,	80.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	2,	2,	2,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 09:48:20',	'admin',	'2012-07-10 09:48:20'),
-('R69',	'Salsa rosada la constancia x 90g',	'T',	'',	16,	NULL,	NULL,	30.00000000,	70.00000000,	40.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	2,	2,	2,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 09:48:20',	'admin',	'2012-07-10 09:48:20'),
+('R688',	'Marcador permanente ',	'T',	'',	1,	NULL,	NULL,	20.00000000,	80.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	2,	2,	2,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 09:48:20',	'admin',	'2012-07-10 09:48:20'),
+('R689',	'Marcador borrable',	'T',	'',	1,	NULL,	NULL,	20.00000000,	80.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	2,	2,	2,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 09:48:20',	'admin',	'2012-07-10 09:48:20'),
+('R69',	'Salsa rosada la constancia x 90g',	'T',	'',	1,	NULL,	NULL,	30.00000000,	70.00000000,	40.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	2,	2,	2,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 09:48:20',	'admin',	'2012-07-10 09:48:20'),
 ('R690',	'Regla',	'T',	'',	1,	NULL,	NULL,	20.00000000,	50.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	2,	2,	2,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 09:48:20',	'admin',	'2012-07-10 09:48:20'),
 ('R691',	'Resaltadores',	'T',	'',	1,	NULL,	NULL,	20.00000000,	50.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	2,	2,	2,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 09:48:20',	'admin',	'2012-07-10 09:48:20'),
 ('R692',	'Colores prismacolor x 12',	'T',	'',	1,	NULL,	NULL,	4.00000000,	10.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	2,	2,	2,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 09:48:20',	'admin',	'2012-07-10 09:48:20'),
@@ -906,16 +905,8 @@ CREATE TABLE `articulo_ensamble` (
   KEY `FK_ARTICULO_PADRE` (`ARTICULO_PADRE`),
   CONSTRAINT `FK_ARTICULO_HIJO` FOREIGN KEY (`ARTICULO_HIJO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `FK_ARTICULO_PADRE` FOREIGN KEY (`ARTICULO_PADRE`) REFERENCES `articulo` (`ARTICULO`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COMMENT='Almacena los articulos que permiten ensamblar un arituculo t';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena los articulos que permiten ensamblar un arituculo t';
 
-INSERT INTO `articulo_ensamble` (`ID`, `ARTICULO_PADRE`, `ARTICULO_HIJO`, `CANTIDAD`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'R688',	'13',	20.00000000,	'S',	'admin',	'2012-10-24 15:46:43',	'admin',	'2012-10-24 15:46:43'),
-(2,	'R688',	'14',	20.00000000,	'S',	'admin',	'2012-10-24 15:46:43',	'admin',	'2012-10-24 15:46:43'),
-(4,	'R689',	'250',	10.00000000,	'S',	'admin',	'2012-10-26 15:10:58',	'admin',	'2012-10-26 15:39:14'),
-(5,	'R689',	'500',	100.00000000,	'N',	'admin',	'2012-10-26 15:32:54',	'admin',	'2012-10-26 15:32:54'),
-(6,	'R689',	'500',	10.00000000,	'N',	'admin',	'2012-10-26 15:37:32',	'admin',	'2012-10-26 15:37:32'),
-(7,	'R689',	'500',	20.00000000,	'N',	'admin',	'2012-10-26 15:38:31',	'admin',	'2012-10-26 15:38:31'),
-(8,	'R689',	'10',	20.00000000,	'S',	'admin',	'2012-10-26 15:39:14',	'admin',	'2012-10-26 15:39:14');
 
 DROP TABLE IF EXISTS `articulo_multimedia`;
 CREATE TABLE `articulo_multimedia` (
@@ -955,7 +946,7 @@ CREATE TABLE `articulo_precio` (
   KEY `FK_TIPO_DE_PRECIO_DEL_PRECIO` (`NIVEL_PRECIO`),
   CONSTRAINT `FK_ARTICULO_AL_Q_PERTENECE_PRECIO` FOREIGN KEY (`ARTICULO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `FK_TIPO_DE_PRECIO_DEL_PRECIO` FOREIGN KEY (`NIVEL_PRECIO`) REFERENCES `nivel_precio` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=latin1 COMMENT='Tabla donde se almacena los diferentes precios asociados a l';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla donde se almacena los diferentes precios asociados a l';
 
 INSERT INTO `articulo_precio` (`ID`, `ARTICULO`, `NIVEL_PRECIO`, `PRECIO`, `ESQUEMA_TRABAJO`, `MARGEN_MULTIPLICADOR`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (130,	'12',	'1',	80.00000000,	'NORM',	0.00000000,	'S',	'admin',	'2012-10-31 16:35:49',	'admin',	'2012-10-31 16:35:49'),
@@ -1198,7 +1189,6 @@ INSERT INTO `auth_items` (`name`, `type`, `description`, `bizrule`, `data`) VALU
 ('NivelPrecioIndex',	0,	NULL,	NULL,	'N;'),
 ('NivelPrecioUpdate',	0,	NULL,	NULL,	'N;'),
 ('NivelPrecioView',	0,	NULL,	NULL,	'N;'),
-('OrdenCompra',	1,	'',	'',	's:0:\"\";'),
 ('OrdenCompraActualizaImpuesto',	0,	NULL,	NULL,	'N;'),
 ('OrdenCompraAdmin',	0,	NULL,	NULL,	'N;'),
 ('OrdenCompraAutorizar',	0,	NULL,	NULL,	'N;'),
@@ -1210,9 +1200,16 @@ INSERT INTO `auth_items` (`name`, `type`, `description`, `bizrule`, `data`) VALU
 ('OrdenCompraCreate',	0,	NULL,	NULL,	'N;'),
 ('OrdenCompraDelete',	0,	NULL,	NULL,	'N;'),
 ('OrdenCompraIndex',	0,	NULL,	NULL,	'N;'),
+('OrdenCompraLineaAdmin',	0,	NULL,	NULL,	'N;'),
+('OrdenCompraLineaCreate',	0,	NULL,	NULL,	'N;'),
+('OrdenCompraLineaDelete',	0,	NULL,	NULL,	'N;'),
+('OrdenCompraLineaIndex',	0,	NULL,	NULL,	'N;'),
+('OrdenCompraLineaUpdate',	0,	NULL,	NULL,	'N;'),
+('OrdenCompraLineaView',	0,	NULL,	NULL,	'N;'),
 ('OrdenCompraReversar',	0,	NULL,	NULL,	'N;'),
 ('OrdenCompraUpdate',	0,	NULL,	NULL,	'N;'),
 ('OrdenCompraView',	0,	NULL,	NULL,	'N;'),
+('Ordenes de Compra',	1,	'',	'',	's:0:\"\";'),
 ('Pais',	1,	'',	'',	's:0:\"\";'),
 ('PaisAdmin',	0,	NULL,	NULL,	'N;'),
 ('PaisCreate',	0,	NULL,	NULL,	'N;'),
@@ -1222,8 +1219,6 @@ INSERT INTO `auth_items` (`name`, `type`, `description`, `bizrule`, `data`) VALU
 ('PaisView',	0,	NULL,	NULL,	'N;'),
 ('Proveedor',	1,	'',	'',	's:0:\"\";'),
 ('ProveedorAdmin',	0,	NULL,	NULL,	'N;'),
-('ProveedorAutocompletar',	0,	NULL,	NULL,	'N;'),
-('ProveedorCargarNit',	0,	NULL,	NULL,	'N;'),
 ('ProveedorCargarproveedor',	0,	NULL,	NULL,	'N;'),
 ('ProveedorCreate',	0,	NULL,	NULL,	'N;'),
 ('ProveedorDelete',	0,	NULL,	NULL,	'N;'),
@@ -1240,6 +1235,8 @@ INSERT INTO `auth_items` (`name`, `type`, `description`, `bizrule`, `data`) VALU
 ('RetencionView',	0,	NULL,	NULL,	'N;'),
 ('SolicitudOc',	1,	'',	'',	's:0:\"\";'),
 ('SolicitudOcAdmin',	0,	NULL,	NULL,	'N;'),
+('SolicitudOcAutorizar',	0,	NULL,	NULL,	'N;'),
+('SolicitudOcCancelar',	0,	NULL,	NULL,	'N;'),
 ('SolicitudOcCargarArticulo',	0,	NULL,	NULL,	'N;'),
 ('SolicitudOcCreate',	0,	NULL,	NULL,	'N;'),
 ('SolicitudOcDelete',	0,	NULL,	NULL,	'N;'),
@@ -1251,6 +1248,7 @@ INSERT INTO `auth_items` (`name`, `type`, `description`, `bizrule`, `data`) VALU
 ('SolicitudOcLineaIndex',	0,	NULL,	NULL,	'N;'),
 ('SolicitudOcLineaUpdate',	0,	NULL,	NULL,	'N;'),
 ('SolicitudOcLineaView',	0,	NULL,	NULL,	'N;'),
+('SolicitudOcReversar',	0,	NULL,	NULL,	'N;'),
 ('SolicitudOcUpdate',	0,	NULL,	NULL,	'N;'),
 ('SolicitudOcView',	0,	NULL,	NULL,	'N;'),
 ('SuperAdministrador',	2,	NULL,	NULL,	NULL),
@@ -1300,6 +1298,7 @@ INSERT INTO `auth_items` (`name`, `type`, `description`, `bizrule`, `data`) VALU
 ('UbicacionGeografica2View',	0,	NULL,	NULL,	'N;'),
 ('UnidadMedida',	1,	'',	'',	's:0:\"\";'),
 ('UnidadMedidaAdmin',	0,	NULL,	NULL,	'N;'),
+('UnidadMedidaCargarbase',	0,	NULL,	NULL,	'N;'),
 ('UnidadMedidaCreate',	0,	NULL,	NULL,	'N;'),
 ('UnidadMedidaDelete',	0,	NULL,	NULL,	'N;'),
 ('UnidadMedidaIndex',	0,	NULL,	NULL,	'N;'),
@@ -1514,21 +1513,27 @@ INSERT INTO `auth_relaciones` (`parent`, `child`) VALUES
 ('NivelPrecio',	'NivelPrecioIndex'),
 ('NivelPrecio',	'NivelPrecioUpdate'),
 ('NivelPrecio',	'NivelPrecioView'),
-('SuperAdministrador',	'OrdenCompra'),
-('OrdenCompra',	'OrdenCompraActualizaImpuesto'),
-('OrdenCompra',	'OrdenCompraAdmin'),
-('OrdenCompra',	'OrdenCompraAutorizar'),
-('OrdenCompra',	'OrdenCompraCancelar'),
-('OrdenCompra',	'OrdenCompraCargarArticulo'),
-('OrdenCompra',	'OrdenCompraCargarLineas'),
-('OrdenCompra',	'OrdenCompraCargarProveedor'),
-('OrdenCompra',	'OrdenCompraCerrar'),
-('OrdenCompra',	'OrdenCompraCreate'),
-('OrdenCompra',	'OrdenCompraDelete'),
-('OrdenCompra',	'OrdenCompraIndex'),
-('OrdenCompra',	'OrdenCompraReversar'),
-('OrdenCompra',	'OrdenCompraUpdate'),
-('OrdenCompra',	'OrdenCompraView'),
+('Ordenes de Compra',	'OrdenCompraActualizaImpuesto'),
+('Ordenes de Compra',	'OrdenCompraAdmin'),
+('Ordenes de Compra',	'OrdenCompraAutorizar'),
+('Ordenes de Compra',	'OrdenCompraCancelar'),
+('Ordenes de Compra',	'OrdenCompraCargarArticulo'),
+('Ordenes de Compra',	'OrdenCompraCargarLineas'),
+('Ordenes de Compra',	'OrdenCompraCargarProveedor'),
+('Ordenes de Compra',	'OrdenCompraCerrar'),
+('Ordenes de Compra',	'OrdenCompraCreate'),
+('Ordenes de Compra',	'OrdenCompraDelete'),
+('Ordenes de Compra',	'OrdenCompraIndex'),
+('Ordenes de Compra',	'OrdenCompraLineaAdmin'),
+('Ordenes de Compra',	'OrdenCompraLineaCreate'),
+('Ordenes de Compra',	'OrdenCompraLineaDelete'),
+('Ordenes de Compra',	'OrdenCompraLineaIndex'),
+('Ordenes de Compra',	'OrdenCompraLineaUpdate'),
+('Ordenes de Compra',	'OrdenCompraLineaView'),
+('Ordenes de Compra',	'OrdenCompraReversar'),
+('Ordenes de Compra',	'OrdenCompraUpdate'),
+('Ordenes de Compra',	'OrdenCompraView'),
+('SuperAdministrador',	'Ordenes de Compra'),
 ('SuperAdministrador',	'Pais'),
 ('Pais',	'PaisAdmin'),
 ('Pais',	'PaisCreate'),
@@ -1538,8 +1543,6 @@ INSERT INTO `auth_relaciones` (`parent`, `child`) VALUES
 ('Pais',	'PaisView'),
 ('SuperAdministrador',	'Proveedor'),
 ('Proveedor',	'ProveedorAdmin'),
-('Proveedor',	'ProveedorAutocompletar'),
-('Proveedor',	'ProveedorCargarNit'),
 ('Proveedor',	'ProveedorCargarproveedor'),
 ('Proveedor',	'ProveedorCreate'),
 ('Proveedor',	'ProveedorDelete'),
@@ -1556,6 +1559,8 @@ INSERT INTO `auth_relaciones` (`parent`, `child`) VALUES
 ('Retencion',	'RetencionView'),
 ('SuperAdministrador',	'SolicitudOc'),
 ('SolicitudOc',	'SolicitudOcAdmin'),
+('SolicitudOc',	'SolicitudOcAutorizar'),
+('SolicitudOc',	'SolicitudOcCancelar'),
 ('SolicitudOc',	'SolicitudOcCargarArticulo'),
 ('SolicitudOc',	'SolicitudOcCreate'),
 ('SolicitudOc',	'SolicitudOcDelete'),
@@ -1614,6 +1619,7 @@ INSERT INTO `auth_relaciones` (`parent`, `child`) VALUES
 ('UbicacionGeografica2',	'UbicacionGeografica2View'),
 ('SuperAdministrador',	'UnidadMedida'),
 ('UnidadMedida',	'UnidadMedidaAdmin'),
+('UnidadMedida',	'UnidadMedidaCargarbase'),
 ('UnidadMedida',	'UnidadMedidaCreate'),
 ('UnidadMedida',	'UnidadMedidaDelete'),
 ('UnidadMedida',	'UnidadMedidaIndex'),
@@ -1652,7 +1658,6 @@ CREATE TABLE `bodega` (
 INSERT INTO `bodega` (`ID`, `DESCRIPCION`, `TIPO`, `TELEFONO`, `DIRECCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 ('1',	'esta es una bodega pequeña',	'p',	'asd',	'as32d1',	'S',	'admin',	'2012-05-11 15:20:32',	'admin',	'2012-05-16 22:41:16'),
 ('23',	'asd',	'V',	'a',	'a',	'S',	'admin',	'2012-05-18 16:54:36',	'admin',	'2012-05-18 16:54:36'),
-('2354',	'asdfasdf',	'C',	'',	'',	'S',	'admin',	'2012-09-27 10:01:12',	'admin',	'2012-09-27 10:01:12'),
 ('504',	'bodega de ejemplo 2',	'C',	'',	'',	'S',	'admin',	'2012-06-10 19:01:03',	'admin',	'2012-06-10 19:01:03'),
 ('604',	'Bodeg de ejemplo 1',	'N',	'',	'',	'S',	'admin',	'2012-06-10 19:00:35',	'admin',	'2012-06-10 19:02:09');
 
@@ -1687,11 +1692,10 @@ CREATE TABLE `categoria` (
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Permite almacenar las categorias para los clientes y proveed';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Permite almacenar las categorias para los clientes y proveed';
 
 INSERT INTO `categoria` (`ID`, `DESCRIPCION`, `TIPO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'categoria 1',	'C',	'S',	'admin',	'2012-05-11 15:22:59',	'admin',	'2012-09-14 18:11:28'),
-(2,	'Bolsas',	'P',	'S',	'admin',	'2012-10-17 08:49:24',	'admin',	'2012-10-17 08:49:24');
+(1,	'categoria 1',	'C',	'S',	'admin',	'2012-05-11 15:22:59',	'admin',	'2012-09-14 18:11:28');
 
 DROP TABLE IF EXISTS `centro_costos`;
 CREATE TABLE `centro_costos` (
@@ -1726,13 +1730,15 @@ CREATE TABLE `clasific_adi_articulo` (
   KEY `FK_VAL_CLASIF_ADI_ARTICULO` (`VALOR`),
   CONSTRAINT `FK_CLASIFICACION_ADI_ARTICULO` FOREIGN KEY (`ARTICULO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `FK_VAL_CLASIF_ADI_ARTICULO` FOREIGN KEY (`VALOR`) REFERENCES `clasificacion_adi_valor` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1 COMMENT='Clasificaciones adicionales para lo articulos';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Clasificaciones adicionales para lo articulos';
 
 INSERT INTO `clasific_adi_articulo` (`ID`, `ARTICULO`, `VALOR`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (9,	'001',	1,	'S',	'admin',	'2012-06-26 09:48:20',	'admin',	'2012-06-26 09:48:20'),
 (12,	'001',	2,	'S',	'admin',	'2012-09-10 14:14:03',	'admin',	'2012-09-10 14:14:03'),
 (13,	'001',	4,	'S',	'admin',	'2012-09-10 14:14:04',	'admin',	'2012-09-10 14:14:04'),
-(14,	'001',	6,	'S',	'admin',	'2012-09-10 14:14:05',	'admin',	'2012-09-10 14:14:05');
+(14,	'001',	6,	'S',	'admin',	'2012-09-10 14:14:05',	'admin',	'2012-09-10 14:14:05'),
+(15,	'prueba',	1,	'S',	'admin',	'2012-09-19 03:51:48',	'admin',	'2012-09-19 03:51:48'),
+(16,	'prueba',	6,	'S',	'admin',	'2012-09-19 03:51:48',	'admin',	'2012-09-19 03:51:48');
 
 DROP TABLE IF EXISTS `clasificacion_adi`;
 CREATE TABLE `clasificacion_adi` (
@@ -1766,7 +1772,7 @@ CREATE TABLE `clasificacion_adi_valor` (
   PRIMARY KEY (`ID`),
   KEY `FK_CLASIFICACION_DE_LOS_VALORES` (`CLASIFICACION`),
   CONSTRAINT `FK_CLASIFICACION_DE_LOS_VALORES` FOREIGN KEY (`CLASIFICACION`) REFERENCES `clasificacion_adi` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COMMENT='Valores o detalle de las clasificaciones adicionales';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Valores o detalle de las clasificaciones adicionales';
 
 INSERT INTO `clasificacion_adi_valor` (`ID`, `CLASIFICACION`, `VALOR`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'0001',	'Norma',	'S',	'admin',	'2012-06-12 10:12:20',	'admin',	'2012-06-12 10:12:20'),
@@ -1829,11 +1835,11 @@ CREATE TABLE `cliente` (
   KEY `FK_CONTRIBUYENTE` (`NIT`),
   KEY `FK_IMPUESTO_CLIENTE` (`IMPUESTO`),
   KEY `FK_PAIS` (`PAIS`),
-  KEY `FK_REGIMEN` (`REGIMEN`),
   KEY `FK_TIPO_DE_PRECIO_DEFECTO` (`TIPO_PRECIO`),
   KEY `FK_UBICACION_GEOGRAFICA1` (`UBICACION_GEOGRAFICA1`),
   KEY `FK_UBICACION_GEOGRAFICA2` (`UBICACION_GEOGRAFICA2`),
   KEY `FK_ZONA_CLIENTE` (`ZONA`),
+  KEY `FK_REGIMEN` (`REGIMEN`),
   CONSTRAINT `FK_CATEGORIA_CLIENTE` FOREIGN KEY (`CATEGORIA`) REFERENCES `categoria` (`ID`),
   CONSTRAINT `FK_CONDICION_PAGO` FOREIGN KEY (`CONDICION_PAGO`) REFERENCES `codicion_pago` (`ID`),
   CONSTRAINT `FK_CONTRIBUYENTE` FOREIGN KEY (`NIT`) REFERENCES `nit` (`ID`),
@@ -1847,7 +1853,7 @@ CREATE TABLE `cliente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena la informaciòn de los clientes';
 
 INSERT INTO `cliente` (`CLIENTE`, `REGIMEN`, `CATEGORIA`, `IMPUESTO`, `NIT`, `TIPO_PRECIO`, `CONDICION_PAGO`, `PAIS`, `UBICACION_GEOGRAFICA1`, `UBICACION_GEOGRAFICA2`, `ZONA`, `CIUDAD`, `NOMBRE`, `FECHA_INGRESO`, `ALIAS`, `CONTACTO`, `CARGO`, `TELEFONO1`, `TELEFONO2`, `FAX`, `INTERES_CORRIENTE`, `INTERES_MORA`, `DESCUENTO`, `LIMITE_CREDITO`, `EMAIL`, `SITIO_WEB`, `DIRECCION_COBRO`, `DIRECCION_EMBARQUE`, `RUBRO1_FA`, `RUBRO2_FA`, `RUBRO3_FA`, `RUBRO4_FA`, `RUBRO5_FA`, `RUBRO1_CC`, `RUBRO2_CC`, `RUBRO3_CC`, `RUBRO4_CC`, `RUBRO5_CC`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('CL1',	NULL,	NULL,	NULL,	NULL,	'1',	'1',	'COL',	'15',	'15051',	2,	'',	'Pepito',	'0000-00-00',	'',	'',	'',	'',	'',	'',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	'',	'',	'',	'',	'',	'',	'',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	'S',	'admin',	'2012-11-23 11:18:42',	'admin',	'2012-11-23 11:18:42');
+('prueba',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'prueba',	'0000-00-00',	'',	'',	'',	'',	'',	'',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	'',	'',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'S',	'admin',	'2012-12-05 17:53:34',	'admin',	'2012-12-05 17:54:01');
 
 DROP TABLE IF EXISTS `codicion_pago`;
 CREATE TABLE `codicion_pago` (
@@ -1863,8 +1869,7 @@ CREATE TABLE `codicion_pago` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='El propósito de la tabla de Condiciones de Pago, es definir ';
 
 INSERT INTO `codicion_pago` (`ID`, `DESCRIPCION`, `DIAS_NETO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('1',	'asdad',	21321,	'S',	'admin',	'2012-05-11 16:03:43',	'admin',	'2012-05-11 16:03:43'),
-('10',	'cero',	0,	'S',	'admin',	'2012-10-11 08:08:25',	'admin',	'2012-10-11 08:08:25');
+('1',	'asdad',	21321,	'S',	'admin',	'2012-05-11 16:03:43',	'admin',	'2012-05-11 16:03:43');
 
 DROP TABLE IF EXISTS `compania`;
 CREATE TABLE `compania` (
@@ -1890,10 +1895,10 @@ CREATE TABLE `compania` (
   CONSTRAINT `compania_ibfk_1` FOREIGN KEY (`UBICACION_GEOGRAFICA1`) REFERENCES `ubicacion_geografica1` (`ID`),
   CONSTRAINT `FK_PAIS_DE_LA_COMPANIA` FOREIGN KEY (`PAIS`) REFERENCES `pais` (`ID`),
   CONSTRAINT `FK_UBICACION_GEOGRAFICA_COMPANIA` FOREIGN KEY (`UBICACION_GEOGRAFICA2`) REFERENCES `ubicacion_geografica2` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1 COMMENT='Almacena los datos de la empresa o compañia';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena los datos de la empresa o compañia';
 
 INSERT INTO `compania` (`ID`, `NOMBRE`, `NOMBRE_ABREV`, `NIT`, `UBICACION_GEOGRAFICA1`, `UBICACION_GEOGRAFICA2`, `PAIS`, `DIRECCION`, `TELEFONO1`, `TELEFONO2`, `LOGO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(30,	'ALERENS',	'ALERENS',	'38361706-8',	'18',	'18753',	'COL',	'CLL 39 N 12 - 50',	'2665027',	'3138439289',	'camara_ibague.png',	'admin',	'2012-05-22 00:00:00',	'admin',	'2012-10-17 08:46:44');
+(30,	'alerens',	'ALERENS',	'38361706-8',	'73',	'73001',	'COL',	'CLL 39 N 12 - 50',	'2665027',	'3138439289',	NULL,	'admin',	'2012-05-22 00:00:00',	'admin',	'2012-11-10 10:53:28');
 
 DROP TABLE IF EXISTS `conf_as`;
 CREATE TABLE `conf_as` (
@@ -1907,10 +1912,10 @@ CREATE TABLE `conf_as` (
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena la configuración para el modulo administr';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena la configuración para el modulo administr';
 
 INSERT INTO `conf_as` (`ID`, `IMPUESTO1_DESC`, `IMPUESTO2_DESC`, `PATRON_CCOSTO`, `SIMBOLO_MONEDA`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'Iva',	'',	'999?99',	'$',	'admin',	'2012-05-11 11:32:22',	'admin',	'2012-10-17 08:53:35');
+(1,	'Iva',	'',	'1',	'$',	'admin',	'2012-05-11 11:32:22',	'admin',	'2012-05-11 11:32:22');
 
 DROP TABLE IF EXISTS `conf_ci`;
 CREATE TABLE `conf_ci` (
@@ -1938,6 +1943,7 @@ CREATE TABLE `conf_ci` (
   `EAN8_REGLA_LOCAL` varchar(3) DEFAULT NULL COMMENT 'codigos fijo de reglas locales para ean 8',
   `UCC12_REGLA_LOCAL` varchar(6) DEFAULT NULL COMMENT 'codigos fijo de reglas locales para ucc 12',
   `PRIORIDAD_BUSQUEDA` varchar(1) NOT NULL COMMENT '[A]rticulo, [C]odigo de barras',
+  `FORMATO_IMPRESION` int(11) NOT NULL,
   `CREADO_POR` varchar(20) NOT NULL,
   `CREADO_EL` datetime NOT NULL,
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
@@ -1946,17 +1952,22 @@ CREATE TABLE `conf_ci` (
   KEY `FK_METODO_COSTO_FISCAL` (`COSTO_FISCAL`),
   KEY `FK_UND_DEFECTO_PESO` (`UNIDAD_PESO`),
   KEY `FK_UND_DEFECTO_VOLUMEN` (`UNIDAD_VOLUMEN`),
+  KEY `FK_FORMATO_IMPRESION` (`FORMATO_IMPRESION`),
+  CONSTRAINT `conf_ci_ibfk_1` FOREIGN KEY (`FORMATO_IMPRESION`) REFERENCES `formato_impresion` (`ID`),
   CONSTRAINT `FK_METODO_COSTO_FISCAL` FOREIGN KEY (`COSTO_FISCAL`) REFERENCES `metodo_valuacion_inv` (`ID`),
   CONSTRAINT `FK_UND_DEFECTO_PESO` FOREIGN KEY (`UNIDAD_PESO`) REFERENCES `unidad_medida` (`ID`),
   CONSTRAINT `FK_UND_DEFECTO_VOLUMEN` FOREIGN KEY (`UNIDAD_VOLUMEN`) REFERENCES `unidad_medida` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla de configuracion del modulo de inventarios';
 
-INSERT INTO `conf_ci` (`ID`, `COSTOS_DEC`, `EXISTENCIAS_DEC`, `PESOS_DEC`, `COSTO_FISCAL`, `COSTO_INGR_DEFAULT`, `UNIDAD_PESO`, `UNIDAD_VOLUMEN`, `EXIST_DISPONIBLE`, `EXIST_REMITIDA`, `EXIST_RESERVADA`, `INTEGRACION_CONTA`, `USA_CODIGO_BARRAS`, `LINEAS_MAX_TRANS`, `USA_UNIDADES_DIST`, `ASISTENCIA_AUTOMAT`, `USA_CODIGO_EAN13`, `USA_CODIGO_EAN8`, `USA_CODIGO_UCC12`, `USA_CODIGO_UCC8`, `EAN13_REGLA_LOCAL`, `EAN8_REGLA_LOCAL`, `UCC12_REGLA_LOCAL`, `PRIORIDAD_BUSQUEDA`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(0,	0,	2,	2,	'Último',	'U',	3,	5,	'',	'',	'',	'0',	'0',	5,	'0',	'0',	'0',	'0',	'0',	'0',	'057',	'456',	'112332',	'A',	'admin',	'2012-06-26 10:47:46',	'admin',	'2012-09-10 09:58:12');
+INSERT INTO `conf_ci` (`ID`, `COSTOS_DEC`, `EXISTENCIAS_DEC`, `PESOS_DEC`, `COSTO_FISCAL`, `COSTO_INGR_DEFAULT`, `UNIDAD_PESO`, `UNIDAD_VOLUMEN`, `EXIST_DISPONIBLE`, `EXIST_REMITIDA`, `EXIST_RESERVADA`, `INTEGRACION_CONTA`, `USA_CODIGO_BARRAS`, `LINEAS_MAX_TRANS`, `USA_UNIDADES_DIST`, `ASISTENCIA_AUTOMAT`, `USA_CODIGO_EAN13`, `USA_CODIGO_EAN8`, `USA_CODIGO_UCC12`, `USA_CODIGO_UCC8`, `EAN13_REGLA_LOCAL`, `EAN8_REGLA_LOCAL`, `UCC12_REGLA_LOCAL`, `PRIORIDAD_BUSQUEDA`, `FORMATO_IMPRESION`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
+(0,	2,	2,	2,	'Estándar',	'U',	3,	5,	'1',	'0',	'1',	'0',	'0',	3,	'',	'0',	'0',	'0',	'0',	'0',	NULL,	NULL,	NULL,	'A',	0,	'admin',	'2012-09-19 04:44:14',	'admin',	'2012-09-19 04:44:14');
 
 DROP TABLE IF EXISTS `conf_co`;
 CREATE TABLE `conf_co` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `FORMATO_IMPRESION_SOL` int(11) NOT NULL,
+  `FORMATO_IMPRESION_ORD` int(11) NOT NULL,
+  `FORMATO_IMPRESION_ING` int(11) NOT NULL,
   `BODEGA_DEFAULT` varchar(4) DEFAULT NULL,
   `ULT_SOLICITUD` varchar(10) DEFAULT NULL COMMENT 'Ultimo numero de solicitud',
   `ULT_ORDEN_COMPRA` varchar(10) DEFAULT NULL COMMENT 'Ultimo numero de orden de compra',
@@ -2001,11 +2012,17 @@ CREATE TABLE `conf_co` (
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_BODEGA_DEFECTO_COMPRAS` (`BODEGA_DEFAULT`),
+  KEY `FK_FORMATO_IMPRESION_SOL` (`FORMATO_IMPRESION_SOL`),
+  KEY `FK_FORMATO_IMPRESION_ORD` (`FORMATO_IMPRESION_ORD`),
+  KEY `FK_FORMATO_IMPRESION_ING` (`FORMATO_IMPRESION_ING`),
+  CONSTRAINT `conf_co_ibfk_1` FOREIGN KEY (`FORMATO_IMPRESION_SOL`) REFERENCES `formato_impresion` (`ID`),
+  CONSTRAINT `conf_co_ibfk_2` FOREIGN KEY (`FORMATO_IMPRESION_ORD`) REFERENCES `formato_impresion` (`ID`),
+  CONSTRAINT `conf_co_ibfk_3` FOREIGN KEY (`FORMATO_IMPRESION_ING`) REFERENCES `formato_impresion` (`ID`),
   CONSTRAINT `FK_BODEGA_DEFECTO_COMPRAS` FOREIGN KEY (`BODEGA_DEFAULT`) REFERENCES `bodega` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Configuracion del modulo de compras';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Configuracion del modulo de compras';
 
-INSERT INTO `conf_co` (`ID`, `BODEGA_DEFAULT`, `ULT_SOLICITUD`, `ULT_ORDEN_COMPRA`, `ULT_EMBARQUE`, `ULT_SOLICITUD_M`, `ULT_ORDEN_COMPRA_M`, `ULT_EMBARQUE_M`, `ULT_DEVOLUCION`, `ULT_DEVOLUCION_M`, `USAR_RUBROS`, `ORDEN_OBSERVACION`, `MAXIMO_LINORDEN`, `POR_VARIAC_COSTO`, `CP_EN_LINEA`, `IMP1_AFECTA_DESCTO`, `FACTOR_REDONDEO`, `PRECIO_DEC`, `CANTIDAD_DEC`, `PEDIDOS_SOLICITUD`, `PEDIDOS_ORDEN`, `PEDIDOS_EMBARQUE`, `DIRECCION_EMBARQUE`, `DIRECCION_COBRO`, `RUBRO1_SOLNOM`, `RUBRO2_SOLNOM`, `RUBRO3_SOLNOM`, `RUBRO4_SOLNOM`, `RUBRO5_SOLNOM`, `RUBRO1_EMBNOM`, `RUBRO2_EMBNOM`, `RUBRO3_EMBNOM`, `RUBRO4_EMBNOM`, `RUBRO5_EMBNOM`, `RUBRO1_ORDNOM`, `RUBRO2_ORDNOM`, `RUBRO3_ORDNOM`, `RUBRO4_ORDNOM`, `RUBRO5_ORDNOM`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'504',	'SC0015',	'OC0015',	'IC0029',	'SC0000',	'OC0000',	'IC0000',	'',	'',	'S',	'',	4,	0,	'0',	'L',	0,	NULL,	NULL,	'0',	'0',	'0',	'avenida siempre viva 123',	'avenida siempre viva 123',	'Solicitud',	'',	'',	'',	'',	'cama',	'',	'',	'',	'',	'mesa',	'',	'',	'',	'',	'admin',	'2012-10-08 08:17:03',	'admin',	'2012-11-28 11:47:37');
+INSERT INTO `conf_co` (`ID`, `FORMATO_IMPRESION_SOL`, `FORMATO_IMPRESION_ORD`, `FORMATO_IMPRESION_ING`, `BODEGA_DEFAULT`, `ULT_SOLICITUD`, `ULT_ORDEN_COMPRA`, `ULT_EMBARQUE`, `ULT_SOLICITUD_M`, `ULT_ORDEN_COMPRA_M`, `ULT_EMBARQUE_M`, `ULT_DEVOLUCION`, `ULT_DEVOLUCION_M`, `USAR_RUBROS`, `ORDEN_OBSERVACION`, `MAXIMO_LINORDEN`, `POR_VARIAC_COSTO`, `CP_EN_LINEA`, `IMP1_AFECTA_DESCTO`, `FACTOR_REDONDEO`, `PRECIO_DEC`, `CANTIDAD_DEC`, `PEDIDOS_SOLICITUD`, `PEDIDOS_ORDEN`, `PEDIDOS_EMBARQUE`, `DIRECCION_EMBARQUE`, `DIRECCION_COBRO`, `RUBRO1_SOLNOM`, `RUBRO2_SOLNOM`, `RUBRO3_SOLNOM`, `RUBRO4_SOLNOM`, `RUBRO5_SOLNOM`, `RUBRO1_EMBNOM`, `RUBRO2_EMBNOM`, `RUBRO3_EMBNOM`, `RUBRO4_EMBNOM`, `RUBRO5_EMBNOM`, `RUBRO1_ORDNOM`, `RUBRO2_ORDNOM`, `RUBRO3_ORDNOM`, `RUBRO4_ORDNOM`, `RUBRO5_ORDNOM`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
+(1,	5,	11,	0,	'1',	'SC000000',	'',	'',	'SC999999',	'OC999999',	'',	'',	'',	'',	'',	NULL,	0,	'0',	'L',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'0000-00-00 00:00:00',	'admin',	'2012-12-05 12:40:30');
 
 DROP TABLE IF EXISTS `conf_fa`;
 CREATE TABLE `conf_fa` (
@@ -2046,10 +2063,10 @@ CREATE TABLE `conf_fa` (
   CONSTRAINT `FK_FORMATO_DEFECTO_PEDIDO` FOREIGN KEY (`FORMATO_PEDIDO`) REFERENCES `formato_impresion` (`ID`),
   CONSTRAINT `FK_FORMATO_DEFECTO_REMISION` FOREIGN KEY (`FORMATO_REMISION`) REFERENCES `formato_impresion` (`ID`),
   CONSTRAINT `FK_NIVEL_PRECIO_DEFECTO` FOREIGN KEY (`NIVEL_PRECIO`) REFERENCES `nivel_precio` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena la configuración para el modulo de factur';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena la configuración para el modulo de factur';
 
 INSERT INTO `conf_fa` (`ID`, `COND_PAGO_CONTADO`, `BODEGA_DEFECTO`, `CATEGORIA_CLIENTE`, `NIVEL_PRECIO`, `DECIMALES_PRECIO`, `DESCUENTO_PRECIO`, `DESCUENTO_AFECTA_IMP`, `FORMATO_PEDIDO`, `FORMATO_FACTURA`, `FORMATO_REMISION`, `USAR_RUBROS`, `OBSERVACIONES`, `RUBRO1_NOMBRE`, `RUBRO2_NOMBRE`, `RUBRO3_NOMBRE`, `RUBRO4_NOMBRE`, `RUBRO5_NOMBRE`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(9,	'1',	'1',	1,	'1',	50,	'L',	'T',	1,	NULL,	NULL,	'1',	'sd',	'asd',	'asd',	'asd',	'asd',	'fdfgdg',	'admin',	'2012-10-10 10:05:37',	'admin',	'2012-10-10 10:18:13');
+(1,	'1',	'23',	1,	'1',	2,	'L',	'A',	NULL,	NULL,	NULL,	'0',	'',	'',	'',	'',	'',	'',	'admin',	'2012-11-01 10:49:25',	'admin',	'2012-12-06 19:54:48');
 
 DROP TABLE IF EXISTS `consec_ci_tipo_trans`;
 CREATE TABLE `consec_ci_tipo_trans` (
@@ -2066,11 +2083,11 @@ CREATE TABLE `consec_ci_tipo_trans` (
   KEY `FK_TIPO_TRANSACCION_PARA_CONSECUTIVO_CI` (`TIPO_TRANSACCION`),
   CONSTRAINT `FK_CONSECUTIVO_CI_PARA_TIPO_TRANSACCION` FOREIGN KEY (`CONSECUTIVO_CI`) REFERENCES `consecutivo_ci` (`ID`),
   CONSTRAINT `FK_TIPO_TRANSACCION_PARA_CONSECUTIVO_CI` FOREIGN KEY (`TIPO_TRANSACCION`) REFERENCES `tipo_transaccion` (`TIPO_TRANSACCION`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COMMENT='Tabla en la que se almacena los tipos de trasnaccion asociad';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla en la que se almacena los tipos de trasnaccion asociad';
 
 INSERT INTO `consec_ci_tipo_trans` (`ID`, `CONSECUTIVO_CI`, `TIPO_TRANSACCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(3,	'0001',	'ENSA',	'S',	'admin',	'2012-08-10 11:12:36',	'admin',	'2012-08-13 14:41:29'),
-(4,	'INV',	'COMP',	'S',	'admin',	'2012-09-07 16:46:04',	'admin',	'2012-09-07 16:46:04');
+(4,	'INV',	'COMP',	'S',	'admin',	'2012-09-07 16:46:04',	'admin',	'2012-09-07 16:46:04'),
+(9,	'0001',	'FISI',	'S',	'admin',	'2012-11-28 11:53:26',	'admin',	'2012-12-05 12:28:23');
 
 DROP TABLE IF EXISTS `consec_ci_usuario`;
 CREATE TABLE `consec_ci_usuario` (
@@ -2085,11 +2102,11 @@ CREATE TABLE `consec_ci_usuario` (
   PRIMARY KEY (`ID`),
   KEY `FK_CONSECUTIVO_CI_HABILITADO_PARA_USUARIO` (`CONSECUTIVO_CI`),
   CONSTRAINT `FK_CONSECUTIVO_CI_HABILITADO_PARA_USUARIO` FOREIGN KEY (`CONSECUTIVO_CI`) REFERENCES `consecutivo_ci` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena que usuarios pueden usar un determinado c';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena que usuarios pueden usar un determinado c';
 
 INSERT INTO `consec_ci_usuario` (`ID`, `CONSECUTIVO_CI`, `USUARIO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(2,	'0001',	'admin',	'S',	'admin',	'2012-08-10 11:12:36',	'admin',	'2012-08-13 14:41:29'),
-(5,	'0001',	'demo',	'S',	'admin',	'2012-08-13 12:01:08',	'admin',	'2012-08-13 14:41:29');
+(2,	'0001',	'admin',	'S',	'admin',	'2012-08-10 11:12:36',	'admin',	'2012-12-05 12:28:23'),
+(5,	'0001',	'demo',	'S',	'admin',	'2012-08-13 12:01:08',	'admin',	'2012-12-05 12:28:23');
 
 DROP TABLE IF EXISTS `consecutivo_ci`;
 CREATE TABLE `consecutivo_ci` (
@@ -2110,13 +2127,14 @@ CREATE TABLE `consecutivo_ci` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena los consecutivos para los documentos de control de ';
 
 INSERT INTO `consecutivo_ci` (`ID`, `FORMATO_IMPRESION`, `DESCRIPCION`, `MASCARA`, `SIGUIENTE_VALOR`, `TODOS_USUARIOS`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('0001',	NULL,	'Ajustes Varios',	'AJV-9999',	'AJV-0003',	'N',	'S',	'admin',	'2012-08-10 11:12:35',	'admin',	'2012-09-13 16:21:20'),
-('INV',	NULL,	'Ingreso a Inventario',	'INV-9999',	'INV-0002',	'S',	'S',	'admin',	'2012-09-07 16:46:04',	'admin',	'2012-09-14 15:49:23');
+('0001',	8,	'Ajustes Varios',	'AJV-9999',	'AJV-0002',	'N',	'S',	'admin',	'2012-08-10 11:12:35',	'admin',	'2012-12-05 12:28:23'),
+('INV',	NULL,	'Ingreso a Inventario',	'INV-9999',	'INV-0001',	'S',	'S',	'admin',	'2012-09-07 16:46:04',	'admin',	'2012-09-27 19:58:17');
 
 DROP TABLE IF EXISTS `consecutivo_fa`;
 CREATE TABLE `consecutivo_fa` (
   `CODIGO_CONSECUTIVO` varchar(10) NOT NULL,
   `FORMATO_IMPRESION` int(11) DEFAULT NULL,
+  `CLASIFICACION` varchar(1) NOT NULL,
   `DESCRIPCION` varchar(64) NOT NULL,
   `TIPO` varchar(1) NOT NULL,
   `LONGITUD` smallint(6) NOT NULL,
@@ -2132,7 +2150,7 @@ CREATE TABLE `consecutivo_fa` (
   `COPIA3` varchar(30) DEFAULT NULL,
   `COPIA4` varchar(30) DEFAULT NULL,
   `COPIA5` varchar(30) DEFAULT NULL,
-  `RESOLUCION` varchar(20) DEFAULT NULL,
+  `RESOLUCION` varchar(64) DEFAULT NULL,
   `ACTIVO` varchar(1) NOT NULL,
   `CREADO_POR` varchar(20) NOT NULL,
   `CREADO_EL` datetime NOT NULL,
@@ -2143,6 +2161,8 @@ CREATE TABLE `consecutivo_fa` (
   CONSTRAINT `FK_FORMATO_IMPRESION` FOREIGN KEY (`FORMATO_IMPRESION`) REFERENCES `formato_impresion` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena los consecutivos de documentos que se usan en el mo';
 
+INSERT INTO `consecutivo_fa` (`CODIGO_CONSECUTIVO`, `FORMATO_IMPRESION`, `CLASIFICACION`, `DESCRIPCION`, `TIPO`, `LONGITUD`, `VALOR_CONSECUTIVO`, `MASCARA`, `USA_DESPACHOS`, `USA_ESQUEMA_CAJAS`, `VALOR_MAXIMO`, `NUMERO_COPIAS`, `ORIGINAL`, `COPIA1`, `COPIA2`, `COPIA3`, `COPIA4`, `COPIA5`, `RESOLUCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
+('cv',	NULL,	'F',	'ejemplo',	'A',	7,	'FAC-001',	'FAC-999',	'0',	'0',	'FAC-999',	2,	'Empresa',	'cnb',	'cvb',	'asdf',	NULL,	NULL,	'',	'S',	'admin',	'2012-10-26 11:02:07',	'admin',	'2012-12-05 14:55:00');
 
 DROP TABLE IF EXISTS `departamento`;
 CREATE TABLE `departamento` (
@@ -2186,7 +2206,7 @@ CREATE TABLE `dia_feriado` (
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Permite definir los dias festivos o feriados para que no los';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Permite definir los dias festivos o feriados para que no los';
 
 INSERT INTO `dia_feriado` (`ID`, `TIPO`, `DIA`, `MES`, `ANIO`, `DESCRIPCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'c',	1,	1,	1,	'asd',	'S',	'admin',	'2012-05-12 08:47:01',	'admin',	'2012-05-12 08:47:01');
@@ -2208,9 +2228,7 @@ CREATE TABLE `documento_inv` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena los documentos creados en el modulo de inventarios';
 
 INSERT INTO `documento_inv` (`DOCUMENTO_INV`, `CONSECUTIVO`, `FECHA_DOCUMENTO`, `REFERENCIA`, `ESTADO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('AJV-0001',	'0001',	'2012-09-10',	'este es un documento de prueba',	'L',	'admin',	'2012-09-13 09:52:31',	'admin',	'2012-10-05 15:06:55'),
-('AJV-0002',	'0001',	'2012-09-10',	'otro documento de prueba',	'L',	'admin',	'2012-09-13 16:21:19',	'admin',	'2012-12-04 16:38:17'),
-('INV-0001',	'INV',	'2012-09-14',	'documento de prueba',	'P',	'admin',	'2012-09-14 15:49:22',	'admin',	'2012-09-18 02:27:35');
+('AJV-0001',	'0001',	'2012-11-16',	'juh',	'L',	'admin',	'2012-11-27 19:53:52',	'admin',	'2012-11-27 20:35:29');
 
 DROP TABLE IF EXISTS `documento_inv_linea`;
 CREATE TABLE `documento_inv_linea` (
@@ -2248,19 +2266,10 @@ CREATE TABLE `documento_inv_linea` (
   CONSTRAINT `FK_TIPO_CANTIDAD_AFECTAR` FOREIGN KEY (`TIPO_TRANSACCION_CANTIDAD`) REFERENCES `tipo_cantidad_articulo` (`ID`),
   CONSTRAINT `FK_TIPO_TRANSACCION` FOREIGN KEY (`TIPO_TRANSACCION`) REFERENCES `tipo_transaccion` (`TIPO_TRANSACCION`),
   CONSTRAINT `FK_UNIDAD_MOVIMIENTO` FOREIGN KEY (`UNIDAD`) REFERENCES `unidad_medida` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1 COMMENT='Lineas del documento de inventario';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Lineas del documento de inventario';
 
 INSERT INTO `documento_inv_linea` (`DOCUMENTO_INV_LINEA`, `DOCUMENTO_INV`, `LINEA_NUM`, `TIPO_TRANSACCION`, `SUBTIPO`, `TIPO_TRANSACCION_CANTIDAD`, `BODEGA`, `BODEGA_DESTINO`, `ARTICULO`, `CANTIDAD`, `UNIDAD`, `COSTO_UNITARIO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(2,	'AJV-0001',	1,	'ENSA',	NULL,	'D',	'23',	NULL,	'12',	454.00000000,	2,	50540.00000000,	'S',	'admin',	'2012-09-13 09:52:31',	'admin',	'2012-09-18 07:31:35'),
-(4,	'AJV-0002',	1,	'ENSA',	NULL,	NULL,	'604',	NULL,	'B-AMMO',	454.00000000,	3,	50540.00000000,	'S',	'admin',	'2012-09-13 16:21:20',	'admin',	'2012-09-13 18:44:31'),
-(5,	'AJV-0002',	2,	'ENSA',	NULL,	NULL,	'604',	NULL,	'1',	454.00000000,	2,	50540.00000000,	'S',	'admin',	'2012-09-13 16:21:20',	'admin',	'2012-09-13 18:44:31'),
-(6,	'AJV-0002',	3,	'ENSA',	NULL,	NULL,	'604',	NULL,	'10',	5.00000000,	2,	54.56000000,	'S',	'admin',	'2012-09-13 16:21:20',	'admin',	'2012-09-13 18:44:31'),
-(10,	'AJV-0001',	2,	'ENSA',	NULL,	'R',	'504',	NULL,	'B-AMMO',	454.00000000,	2,	54.56000000,	'S',	'admin',	'2012-09-13 18:32:15',	'admin',	'2012-09-18 07:31:35'),
-(11,	'INV-0001',	1,	'COMP',	NULL,	NULL,	'23',	NULL,	'10',	0.10000000,	1,	500.00000000,	'S',	'admin',	'2012-09-14 15:49:22',	'admin',	'2012-09-14 15:49:22'),
-(12,	'INV-0001',	2,	'COMP',	NULL,	NULL,	'1',	NULL,	'HO',	5.00000000,	3,	54.56000000,	'S',	'admin',	'2012-09-14 15:49:22',	'admin',	'2012-09-14 15:49:22'),
-(13,	'INV-0001',	3,	'COMP',	NULL,	NULL,	'604',	NULL,	'1',	0.10000000,	2,	50540.00000000,	'S',	'admin',	'2012-09-14 15:49:22',	'admin',	'2012-09-14 15:49:22'),
-(14,	'INV-0001',	4,	'COMP',	NULL,	NULL,	'23',	NULL,	'12',	10.00000000,	3,	50540.00000000,	'S',	'admin',	'2012-09-14 15:49:23',	'admin',	'2012-09-14 15:49:23'),
-(15,	'INV-0001',	5,	'COMP',	NULL,	NULL,	'23',	NULL,	'10',	454.00000000,	2,	50540.00000000,	'S',	'admin',	'2012-09-14 15:49:23',	'admin',	'2012-09-14 15:49:23');
+(1,	'AJV-0001',	1,	'ENSA',	NULL,	'D',	'23',	NULL,	'001',	4.00000000,	3,	500.00000000,	'S',	'admin',	'2012-11-27 19:53:52',	'admin',	'2012-11-27 19:53:52');
 
 DROP TABLE IF EXISTS `entidad_financiera`;
 CREATE TABLE `entidad_financiera` (
@@ -2316,20 +2325,96 @@ CREATE TABLE `existencia_bodega` (
   KEY `FK_BODEGA_ARTICULO` (`BODEGA`),
   CONSTRAINT `FK_ARTICULO_BODEGA` FOREIGN KEY (`ARTICULO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `FK_BODEGA_ARTICULO` FOREIGN KEY (`BODEGA`) REFERENCES `bodega` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 COMMENT='Tabla donde se relaciona un articulo con una bodega donde se';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla donde se relaciona un articulo con una bodega donde se';
 
 INSERT INTO `existencia_bodega` (`ID`, `ARTICULO`, `BODEGA`, `EXISTENCIA_MINIMA`, `EXISTENCIA_MAXIMA`, `PUNTO_REORDEN`, `CANT_DISPONIBLE`, `CANT_RESERVADA`, `CANT_REMITIDA`, `CANT_CUARENTENA`, `CANT_VENCIDA`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'001',	'23',	5.00000000,	400.00000000,	10.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'S',	'admin',	'2012-06-28 17:02:03',	'admin',	'2012-10-04 09:58:13'),
-(2,	'12',	'23',	20.00000000,	100.00000000,	30.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'S',	'admin',	'2012-09-18 06:32:07',	'admin',	'2012-10-05 15:06:55'),
-(3,	'B-AMMO',	'504',	20.00000000,	100.00000000,	30.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'S',	'admin',	'2012-09-18 06:32:52',	'admin',	'2012-10-05 15:06:55'),
-(12,	'15',	'1',	0.00000000,	0.00000000,	0.00000000,	10.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'S',	'admin',	'2012-10-05 15:38:02',	'admin',	'2012-10-05 15:38:02'),
-(13,	'003',	'1',	0.00000000,	0.00000000,	0.00000000,	5.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'S',	'admin',	'2012-10-05 16:18:27',	'admin',	'2012-10-05 16:18:27'),
-(14,	'001',	'1',	0.00000000,	0.00000000,	0.00000000,	12.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'S',	'admin',	'2012-10-08 08:54:14',	'admin',	'2012-10-08 08:54:14'),
-(15,	'002',	'1',	0.00000000,	0.00000000,	0.00000000,	1.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'S',	'admin',	'2012-10-08 08:54:14',	'admin',	'2012-10-08 08:54:14'),
-(16,	'14',	'504',	0.00000000,	0.00000000,	0.00000000,	14.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'S',	'admin',	'2012-10-20 12:23:07',	'admin',	'2012-10-20 12:23:07'),
-(17,	'13',	'504',	0.00000000,	0.00000000,	0.00000000,	20.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'S',	'admin',	'2012-10-20 12:23:07',	'admin',	'2012-10-20 12:23:07'),
-(18,	'10',	'1',	0.00000000,	0.00000000,	0.00000000,	33.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'S',	'admin',	'2012-11-28 14:29:02',	'admin',	'2012-11-28 14:29:02'),
-(19,	'400',	'1',	0.00000000,	0.00000000,	0.00000000,	873.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'S',	'admin',	'2012-11-28 14:29:02',	'admin',	'2012-11-28 14:29:02');
+(1,	'001',	'23',	5.00000000,	15.00000000,	10.00000000,	4.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'S',	'admin',	'2012-06-28 17:02:03',	'admin',	'2012-11-27 20:35:29'),
+(2,	'12',	'23',	20.00000000,	100.00000000,	30.00000000,	1008.00000000,	50.00000000,	0.00000000,	0.00000000,	0.00000000,	'S',	'admin',	'2012-09-18 06:32:07',	'admin',	'2012-11-10 14:50:18'),
+(3,	'B-AMMO',	'504',	20.00000000,	100.00000000,	30.00000000,	0.00000000,	908.00000000,	0.00000000,	0.00000000,	0.00000000,	'S',	'admin',	'2012-09-18 06:32:52',	'admin',	'2012-11-10 14:26:47');
+
+DROP TABLE IF EXISTS `factura`;
+CREATE TABLE `factura` (
+  `FACTURA` varchar(50) NOT NULL,
+  `CONSECUTIVO` varchar(10) NOT NULL,
+  `CLIENTE` varchar(20) DEFAULT NULL,
+  `BODEGA` varchar(4) DEFAULT NULL,
+  `CONDICION_PAGO` varchar(4) DEFAULT NULL COMMENT 'identificación alfanumérica de la condicion de pago',
+  `NIVEL_PRECIO` varchar(12) DEFAULT NULL COMMENT 'identificación alfanumérica del nivel de precio.',
+  `PEDIDO` varchar(50) DEFAULT NULL,
+  `FECHA_FACTURA` date NOT NULL,
+  `FECHA_DESPACHO` date DEFAULT NULL,
+  `FECHA_ENTREGA` date DEFAULT NULL,
+  `ORDEN_COMPRA` varchar(30) DEFAULT NULL,
+  `FECHA_ORDEN` date DEFAULT NULL,
+  `RUBRO1` varchar(50) DEFAULT NULL,
+  `RUBRO2` varchar(50) DEFAULT NULL,
+  `RUBRO3` varchar(50) DEFAULT NULL,
+  `RUBRO4` varchar(50) DEFAULT NULL,
+  `RUBRO5` varchar(50) DEFAULT NULL,
+  `COMENTARIOS_CXC` varchar(50) DEFAULT NULL,
+  `OBSERVACIONES` text,
+  `TOTAL_MERCADERIA` decimal(28,8) NOT NULL,
+  `MONTO_ANTICIPO` decimal(28,8) NOT NULL,
+  `MONTO_FLETE` decimal(28,8) NOT NULL,
+  `MONTO_SEGURO` decimal(28,8) NOT NULL,
+  `MONTO_DESCUENTO1` decimal(28,8) NOT NULL,
+  `TOTAL_IMPUESTO1` decimal(28,8) NOT NULL,
+  `TOTAL_A_FACTURAR` decimal(28,8) NOT NULL,
+  `REMITIDO` varchar(1) NOT NULL COMMENT 'Indica si el pedido ha sido o no enviado ya al cliente.  Por defecto cuando se crea queda en N',
+  `RESERVADO` varchar(1) NOT NULL COMMENT 'Indica si las lineas del pedido han sido reservadas, inicialmente debe estar en N',
+  `ESTADO` varchar(1) NOT NULL COMMENT '[N]ormal            [R]emitido            [F]acturado            [C]ancelado',
+  `CREADO_POR` varchar(20) NOT NULL,
+  `CREADO_EL` datetime NOT NULL,
+  `ACTUALIZADO_POR` varchar(20) NOT NULL,
+  `ACTUALIZADO_EL` datetime NOT NULL,
+  PRIMARY KEY (`FACTURA`),
+  KEY `FK_BODEGA_FACTURA` (`BODEGA`),
+  KEY `FK_CLIENTE_FACTURA` (`CLIENTE`),
+  KEY `FK_CONDICION_PAGO_FACTURA` (`CONDICION_PAGO`),
+  KEY `FK_NIVEL_PRECIO_FACTURA` (`NIVEL_PRECIO`),
+  KEY `FK_PEDIDO_FACTURA` (`PEDIDO`),
+  KEY `CONSECUTIVO` (`CONSECUTIVO`),
+  CONSTRAINT `factura_ibfk_1` FOREIGN KEY (`CONSECUTIVO`) REFERENCES `consecutivo_fa` (`CODIGO_CONSECUTIVO`),
+  CONSTRAINT `FK_BODEGA_FACTURA` FOREIGN KEY (`BODEGA`) REFERENCES `bodega` (`ID`),
+  CONSTRAINT `FK_CLIENTE_FACTURA` FOREIGN KEY (`CLIENTE`) REFERENCES `cliente` (`CLIENTE`),
+  CONSTRAINT `FK_CONDICION_PAGO_FACTURA` FOREIGN KEY (`CONDICION_PAGO`) REFERENCES `codicion_pago` (`ID`),
+  CONSTRAINT `FK_NIVEL_PRECIO_FACTURA` FOREIGN KEY (`NIVEL_PRECIO`) REFERENCES `nivel_precio` (`ID`),
+  CONSTRAINT `FK_PEDIDO_FACTURA` FOREIGN KEY (`PEDIDO`) REFERENCES `pedido` (`PEDIDO`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena las facturas o remisiones.';
+
+
+DROP TABLE IF EXISTS `factura_linea`;
+CREATE TABLE `factura_linea` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `FACTURA` varchar(50) DEFAULT NULL,
+  `ARTICULO` varchar(20) NOT NULL,
+  `LINEA` smallint(6) NOT NULL,
+  `UNIDAD` int(11) NOT NULL,
+  `CANTIDAD` decimal(28,8) NOT NULL,
+  `PRECIO_UNITARIO` decimal(28,8) NOT NULL,
+  `PORC_DESCUENTO` decimal(28,8) NOT NULL,
+  `MONTO_DESCUENTO` decimal(28,8) NOT NULL,
+  `PORC_IMPUESTO` decimal(28,8) NOT NULL,
+  `VALOR_IMPUESTO` decimal(28,8) NOT NULL,
+  `TIPO_PRECIO` int(11) NOT NULL,
+  `COMENTARIO` text,
+  `ESTADO` varchar(1) NOT NULL COMMENT 'Los mismos estados del pedido',
+  `ACTIVO` varchar(1) NOT NULL,
+  `CREADO_POR` varchar(20) NOT NULL,
+  `CREADO_EL` datetime NOT NULL,
+  `ACTUALIZADO_POR` varchar(20) NOT NULL,
+  `ACTUALIZADO_EL` datetime NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_REFERENCE_137` (`FACTURA`),
+  KEY `ARTICULO` (`ARTICULO`),
+  KEY `UNIDAD` (`UNIDAD`),
+  KEY `TIPO_PRECIO` (`TIPO_PRECIO`),
+  CONSTRAINT `factura_linea_ibfk_3` FOREIGN KEY (`TIPO_PRECIO`) REFERENCES `articulo_precio` (`ID`),
+  CONSTRAINT `factura_linea_ibfk_1` FOREIGN KEY (`ARTICULO`) REFERENCES `articulo` (`ARTICULO`),
+  CONSTRAINT `factura_linea_ibfk_2` FOREIGN KEY (`UNIDAD`) REFERENCES `unidad_medida` (`ID`),
+  CONSTRAINT `FK_REFERENCE_137` FOREIGN KEY (`FACTURA`) REFERENCES `factura` (`FACTURA`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena las lineas de la factura';
+
 
 DROP TABLE IF EXISTS `formato_impresion`;
 CREATE TABLE `formato_impresion` (
@@ -2349,9 +2434,9 @@ CREATE TABLE `formato_impresion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena los diferentes formatos de impresion que ';
 
 INSERT INTO `formato_impresion` (`ID`, `NOMBRE`, `OBSERVACION`, `MODULO`, `SUBMODULO`, `RUTA`, `TIPO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'PDF',	'archivos en pdf',	'FACT',	'PEDI',	'',	'pdf',	'S',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00'),
-(2,	'XLS',	'archivos en xls',	'FACT',	'FACT',	'',	'xls',	'S',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00'),
-(3,	'DOC',	'archivos en doc',	'FACT',	'REMI',	'',	'doc',	'S',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00');
+(5,	'Prueba',	'asd',	'COMP',	'SOCO',	'SolicitudCompra',	'PDF',	'S',	'admin',	'2012-12-05 14:37:21',	'admin',	'2012-12-05 14:37:21'),
+(8,	'Formato',	'',	'INVE',	'CONS',	'DocInv',	'PDF',	'S',	'admin',	'2012-12-05 14:37:31',	'admin',	'2012-12-05 14:37:31'),
+(11,	'Prueba',	'',	'COMP',	'ORCO',	'OrdenCompra',	'PDF',	'S',	'admin',	'2012-12-05 14:37:46',	'admin',	'2012-12-05 14:37:46');
 
 DROP TABLE IF EXISTS `horario`;
 CREATE TABLE `horario` (
@@ -2436,37 +2521,6 @@ CREATE TABLE `ingreso_compra` (
   CONSTRAINT `FK_INGRESO_COMPRA_PROVEEDOR` FOREIGN KEY (`PROVEEDOR`) REFERENCES `proveedor` (`PROVEEDOR`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Documentos de ingreso de compra a partir de ordenes de compr';
 
-INSERT INTO `ingreso_compra` (`INGRESO_COMPRA`, `PROVEEDOR`, `FECHA_INGRESO`, `TIENE_FACTURA`, `RUBRO1`, `RUBRO2`, `RUBRO3`, `RUBRO4`, `RUBRO5`, `NOTAS`, `ESTADO`, `APLICADO_POR`, `APLICADO_EL`, `CANCELADO_POR`, `CANCELADO_EL`, `CREADO_POR`, `CREADO_EL`, `MODIFICADO_POR`, `MODIFICADO_EL`) VALUES
-('IC0000',	'13',	'2012-09-19',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'C',	'admin',	'2012-09-27 14:55:23',	'admin',	'2012-09-27 15:54:11',	'',	'2012-09-19 09:24:18',	'admin',	'2012-09-27 10:54:11'),
-('IC0001',	'13',	'2012-09-19',	'0',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'A',	'admin',	'2012-09-27 15:08:45',	'',	'0000-00-00 00:00:00',	'admin',	'2012-09-19 09:32:13',	'admin',	'2012-09-27 10:08:45'),
-('IC0002',	'13',	'2012-09-19',	'1',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'A',	'admin',	'2012-10-04 14:01:56',	'',	'0000-00-00 00:00:00',	'admin',	'2012-09-19 09:32:28',	'admin',	'2012-10-04 09:01:56'),
-('IC0003',	'13',	'2012-09-19',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'A',	'admin',	'2012-10-04 14:14:03',	'',	'0000-00-00 00:00:00',	'admin',	'2012-09-19 09:37:56',	'admin',	'2012-10-04 09:14:03'),
-('IC0004',	'13',	'2012-09-19',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'A',	'admin',	'2012-10-04 14:17:06',	'',	'0000-00-00 00:00:00',	'admin',	'2012-09-19 09:38:16',	'admin',	'2012-10-04 09:17:06'),
-('IC0005',	'14',	'2012-09-19',	'S',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'A',	'admin',	'2012-10-04 14:19:33',	'',	'0000-00-00 00:00:00',	'admin',	'2012-09-19 09:38:49',	'admin',	'2012-10-04 09:19:33'),
-('IC0006',	'10',	'2012-09-21',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-04 14:58:12',	'',	'0000-00-00 00:00:00',	'admin',	'2012-09-21 08:25:35',	'admin',	'2012-10-04 09:58:12'),
-('IC0007',	'1',	'2012-10-04',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-05 20:15:55',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-04 15:30:18',	'admin',	'2012-10-05 15:15:55'),
-('IC0008',	'1',	'2012-10-04',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-05 20:15:55',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-04 15:56:38',	'admin',	'2012-10-05 15:15:55'),
-('IC0009',	'1',	'2012-10-04',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-05 21:18:27',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-04 15:57:34',	'admin',	'2012-10-05 16:18:27'),
-('IC0010',	'1',	'2012-10-04',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'P',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-04 15:58:24',	'admin',	'2012-10-04 15:58:24'),
-('IC0011',	'1',	'2012-10-04',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'P',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-04 16:17:23',	'admin',	'2012-10-04 16:17:23'),
-('IC0012',	'1',	'2012-10-04',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-05 20:14:59',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-04 17:06:57',	'admin',	'2012-10-05 15:14:59'),
-('IC0013',	'1',	'2012-10-04',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-04 22:17:24',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-04 17:08:16',	'admin',	'2012-10-04 17:17:24'),
-('IC0014',	'1',	'2012-10-05',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-05 13:56:11',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-05 08:55:54',	'admin',	'2012-10-05 08:56:11'),
-('IC0015',	'1',	'2012-10-05',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-05 14:29:41',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-05 09:29:32',	'admin',	'2012-10-05 09:29:41'),
-('IC0016',	'1',	'2012-10-05',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-05 14:31:18',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-05 09:31:09',	'admin',	'2012-10-05 09:31:18'),
-('IC0017',	'1',	'2012-10-05',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-05 15:00:00',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-05 09:59:52',	'admin',	'2012-10-05 10:00:01'),
-('IC0018',	'1',	'2012-10-05',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-05 15:01:10',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-05 10:00:45',	'admin',	'2012-10-05 10:01:10'),
-('IC0019',	'14',	'2012-10-05',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-05 20:38:02',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-05 15:18:00',	'admin',	'2012-10-05 15:38:02'),
-('IC0020',	'1',	'2012-10-08',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-08 13:54:13',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-08 08:53:51',	'admin',	'2012-10-08 08:54:13'),
-('IC0021',	'1',	'2012-10-08',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-08 14:01:33',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-08 09:01:22',	'admin',	'2012-10-08 09:01:33'),
-('IC0022',	'1',	'2012-10-08',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-08 14:02:41',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-08 09:02:25',	'admin',	'2012-10-08 09:02:41'),
-('IC0023',	'1',	'2012-10-08',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'P',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-08 09:08:26',	'admin',	'2012-10-08 09:08:26'),
-('IC0024',	'1',	'2012-10-08',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-08 14:10:03',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-08 09:09:51',	'admin',	'2012-10-08 09:10:03'),
-('IC0025',	'13',	'2012-10-20',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'P',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-20 12:07:36',	'admin',	'2012-10-20 12:07:36'),
-('IC0026',	'13',	'2012-10-20',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-12-04 13:51:02',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-20 12:15:09',	'admin',	'2012-12-04 08:51:02'),
-('IC0027',	'13',	'2012-10-20',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-20 17:23:07',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-20 12:22:21',	'admin',	'2012-10-20 12:23:07'),
-('IC0028',	'1',	'2012-10-20',	'N',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'R',	'admin',	'2012-10-20 17:31:19',	'',	'0000-00-00 00:00:00',	'admin',	'2012-10-20 12:31:09',	'admin',	'2012-10-20 12:31:19'),
-('IC0029',	'13',	'2012-11-28',	'N',	'erwer',	NULL,	NULL,	NULL,	NULL,	'dfgg',	'R',	'admin',	'2012-11-28 20:53:00',	'',	'0000-00-00 00:00:00',	'admin',	'2012-11-28 11:47:37',	'admin',	'2012-11-28 15:53:00');
 
 DROP TABLE IF EXISTS `ingreso_compra_linea`;
 CREATE TABLE `ingreso_compra_linea` (
@@ -2498,72 +2552,8 @@ CREATE TABLE `ingreso_compra_linea` (
   CONSTRAINT `FK_LINEA_PERTENECE_INGRESO_COMPRA` FOREIGN KEY (`INGRESO_COMPRA`) REFERENCES `ingreso_compra` (`INGRESO_COMPRA`),
   CONSTRAINT `FK_SATISFACE_LINEA_OC` FOREIGN KEY (`ORDEN_COMPRA_LINEA`) REFERENCES `orden_compra_linea` (`ORDEN_COMPRA_LINEA`),
   CONSTRAINT `FK_UNIDAD_INGRESO_COMPRA` FOREIGN KEY (`UNIDAD_ORDENADA`) REFERENCES `unidad_medida` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1 COMMENT='Lineas del ingreso de la compra';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Lineas del ingreso de la compra';
 
-INSERT INTO `ingreso_compra_linea` (`INGRESO_COMPRA_LINEA`, `INGRESO_COMPRA`, `LINEA_NUM`, `ORDEN_COMPRA_LINEA`, `ARTICULO`, `BODEGA`, `CANTIDAD_ORDENADA`, `UNIDAD_ORDENADA`, `CANTIDAD_ACEPTADA`, `CANTIDAD_RECHAZADA`, `PRECIO_UNITARIO`, `COSTO_FISCAL_UNITARIO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'IC0000',	1,	4,	'003',	'23',	2.00000000,	3,	2.00000000,	0.00000000,	2.00000000,	0.00000000,	'S',	'admin',	'2012-09-19 09:24:18',	'admin',	'2012-09-19 09:24:18'),
-(2,	'IC0001',	1,	3,	'001',	'604',	3.00000000,	3,	3.00000000,	0.00000000,	2.00000000,	0.00000000,	'S',	'admin',	'2012-09-19 09:32:13',	'admin',	'2012-09-19 09:32:13'),
-(3,	'IC0001',	2,	5,	'001',	'23',	20.00000000,	3,	20.00000000,	0.00000000,	800.00000000,	0.00000000,	'S',	'admin',	'2012-09-19 09:32:13',	'admin',	'2012-09-19 09:32:13'),
-(4,	'IC0002',	1,	7,	'003',	'23',	43.00000000,	3,	43.00000000,	0.00000000,	500.00000000,	0.00000000,	'S',	'admin',	'2012-09-19 09:32:28',	'admin',	'2012-09-19 09:32:28'),
-(5,	'IC0003',	1,	5,	'001',	'23',	20.00000000,	3,	20.00000000,	0.00000000,	800.00000000,	0.00000000,	'S',	'admin',	'2012-09-19 09:37:56',	'admin',	'2012-09-19 09:37:56'),
-(6,	'IC0004',	1,	5,	'001',	'23',	20.00000000,	3,	20.00000000,	0.00000000,	800.00000000,	0.00000000,	'S',	'admin',	'2012-09-19 09:38:16',	'admin',	'2012-09-19 09:38:16'),
-(7,	'IC0004',	2,	2,	'001',	'23',	12.00000000,	3,	12.00000000,	0.00000000,	2.00000000,	0.00000000,	'S',	'admin',	'2012-09-19 09:38:16',	'admin',	'2012-09-19 09:38:16'),
-(8,	'IC0004',	3,	7,	'003',	'23',	43.00000000,	3,	43.00000000,	0.00000000,	500.00000000,	0.00000000,	'S',	'admin',	'2012-09-19 09:38:16',	'admin',	'2012-09-19 09:38:16'),
-(9,	'IC0005',	1,	7,	'003',	'23',	43.00000000,	3,	43.00000000,	0.00000000,	500.00000000,	0.00000000,	'S',	'admin',	'2012-09-19 09:38:49',	'admin',	'2012-09-19 09:38:49'),
-(10,	'IC0005',	2,	8,	'001',	'23',	456.00000000,	3,	456.00000000,	0.00000000,	456.00000000,	0.00000000,	'S',	'admin',	'2012-09-19 09:38:49',	'admin',	'2012-09-19 09:38:49'),
-(11,	'IC0005',	3,	6,	'002',	'504',	58.00000000,	2,	58.00000000,	0.00000000,	700.00000000,	0.00000000,	'S',	'admin',	'2012-09-19 09:38:49',	'admin',	'2012-09-19 09:38:49'),
-(12,	'IC0005',	4,	9,	'002',	'23',	45.00000000,	2,	45.00000000,	0.00000000,	8797.00000000,	0.00000000,	'S',	'admin',	'2012-09-19 09:38:49',	'admin',	'2012-09-19 09:38:49'),
-(13,	'IC0006',	1,	37,	'001',	'23',	2000.00000000,	3,	2000.00000000,	0.00000000,	20.00000000,	0.00000000,	'S',	'admin',	'2012-09-21 08:25:35',	'admin',	'2012-09-21 08:25:35'),
-(14,	'IC0008',	1,	6,	'003',	'1',	9.00000000,	3,	5.00000000,	0.00000000,	12.00000000,	0.00000000,	'S',	'admin',	'2012-10-04 15:56:38',	'admin',	'2012-10-04 15:56:38'),
-(15,	'IC0009',	1,	6,	'003',	'1',	5.00000000,	3,	5.00000000,	0.00000000,	12.00000000,	0.00000000,	'S',	'admin',	'2012-10-04 15:57:34',	'admin',	'2012-10-04 15:57:34'),
-(16,	'IC0010',	1,	6,	'003',	'1',	4.00000000,	3,	4.00000000,	0.00000000,	12.00000000,	0.00000000,	'S',	'admin',	'2012-10-04 15:58:24',	'admin',	'2012-10-04 15:58:24'),
-(17,	'IC0011',	1,	6,	'003',	'1',	5.00000000,	3,	5.00000000,	0.00000000,	12.00000000,	0.00000000,	'S',	'admin',	'2012-10-04 16:17:23',	'admin',	'2012-10-04 16:17:23'),
-(18,	'IC0012',	1,	1,	'001',	'1',	1.00000000,	4,	1.00000000,	0.00000000,	10.00000000,	10.00000000,	'S',	'admin',	'2012-10-04 17:06:57',	'admin',	'2012-10-04 17:06:57'),
-(19,	'IC0013',	1,	1,	'001',	'1',	0.00000000,	4,	0.00000000,	0.00000000,	10.00000000,	10.00000000,	'S',	'admin',	'2012-10-04 17:08:16',	'admin',	'2012-10-04 17:08:16'),
-(20,	'IC0013',	2,	2,	'002',	'1',	1.00000000,	1,	1.00000000,	0.00000000,	10.00000000,	0.00000000,	'S',	'admin',	'2012-10-04 17:08:16',	'admin',	'2012-10-04 17:08:16'),
-(21,	'IC0013',	3,	3,	'001',	'1',	12.00000000,	3,	12.00000000,	0.00000000,	12.00000000,	10.00000000,	'S',	'admin',	'2012-10-04 17:08:17',	'admin',	'2012-10-04 17:08:17'),
-(22,	'IC0013',	4,	4,	'001',	'1',	1.00000000,	4,	1.00000000,	0.00000000,	12.00000000,	10.00000000,	'S',	'admin',	'2012-10-04 17:08:17',	'admin',	'2012-10-04 17:08:17'),
-(23,	'IC0013',	5,	5,	'001',	'1',	4.00000000,	3,	4.00000000,	0.00000000,	12.00000000,	10.00000000,	'S',	'admin',	'2012-10-04 17:08:17',	'admin',	'2012-10-04 17:08:17'),
-(24,	'IC0013',	6,	6,	'003',	'1',	0.00000000,	3,	0.00000000,	0.00000000,	12.00000000,	0.00000000,	'S',	'admin',	'2012-10-04 17:08:17',	'admin',	'2012-10-04 17:08:17'),
-(25,	'IC0013',	7,	7,	'001',	'1',	3.00000000,	3,	3.00000000,	0.00000000,	12.00000000,	10.00000000,	'S',	'admin',	'2012-10-04 17:08:17',	'admin',	'2012-10-04 17:08:17'),
-(26,	'IC0013',	8,	8,	'002',	'1',	1.00000000,	1,	1.00000000,	0.00000000,	12.00000000,	0.00000000,	'S',	'admin',	'2012-10-04 17:08:17',	'admin',	'2012-10-04 17:08:17'),
-(27,	'IC0014',	1,	3,	'001',	'1',	0.00000000,	3,	0.00000000,	0.00000000,	12.00000000,	0.00000000,	'S',	'admin',	'2012-10-05 08:55:54',	'admin',	'2012-10-05 08:55:54'),
-(28,	'IC0014',	2,	6,	'003',	'1',	0.00000000,	3,	0.00000000,	0.00000000,	12.00000000,	0.00000000,	'S',	'admin',	'2012-10-05 08:55:54',	'admin',	'2012-10-05 08:55:54'),
-(29,	'IC0014',	3,	2,	'002',	'1',	0.00000000,	1,	0.00000000,	0.00000000,	10.00000000,	0.00000000,	'S',	'admin',	'2012-10-05 08:55:54',	'admin',	'2012-10-05 08:55:54'),
-(30,	'IC0014',	4,	4,	'001',	'1',	0.00000000,	4,	0.00000000,	0.00000000,	12.00000000,	0.00000000,	'S',	'admin',	'2012-10-05 08:55:55',	'admin',	'2012-10-05 08:55:55'),
-(31,	'IC0014',	5,	1,	'001',	'1',	0.00000000,	4,	0.00000000,	0.00000000,	10.00000000,	0.00000000,	'S',	'admin',	'2012-10-05 08:55:55',	'admin',	'2012-10-05 08:55:55'),
-(32,	'IC0014',	6,	5,	'001',	'1',	0.00000000,	3,	0.00000000,	0.00000000,	12.00000000,	0.00000000,	'S',	'admin',	'2012-10-05 08:55:55',	'admin',	'2012-10-05 08:55:55'),
-(33,	'IC0014',	7,	7,	'001',	'1',	0.00000000,	3,	0.00000000,	0.00000000,	12.00000000,	0.00000000,	'S',	'admin',	'2012-10-05 08:55:55',	'admin',	'2012-10-05 08:55:55'),
-(34,	'IC0014',	8,	8,	'002',	'1',	0.00000000,	1,	0.00000000,	0.00000000,	12.00000000,	0.00000000,	'S',	'admin',	'2012-10-05 08:55:55',	'admin',	'2012-10-05 08:55:55'),
-(35,	'IC0015',	1,	1,	'001',	'1',	10.00000000,	4,	8.00000000,	0.00000000,	10.00000000,	0.07911392,	'S',	'admin',	'2012-10-05 09:29:32',	'admin',	'2012-10-05 09:29:32'),
-(36,	'IC0015',	2,	2,	'002',	'1',	12.00000000,	1,	12.00000000,	0.00000000,	10.00000000,	0.00000000,	'S',	'admin',	'2012-10-05 09:29:32',	'admin',	'2012-10-05 09:29:32'),
-(37,	'IC0016',	1,	1,	'001',	'1',	8.00000000,	4,	8.00000000,	0.00000000,	10.00000000,	0.07911392,	'S',	'admin',	'2012-10-05 09:31:09',	'admin',	'2012-10-05 09:31:09'),
-(38,	'IC0017',	1,	2,	'002',	'1',	12.00000000,	1,	8.00000000,	0.00000000,	10.00000000,	0.00000000,	'S',	'admin',	'2012-10-05 09:59:52',	'admin',	'2012-10-05 09:59:52'),
-(39,	'IC0017',	2,	1,	'001',	'1',	10.00000000,	4,	10.00000000,	0.00000000,	10.00000000,	0.07911392,	'S',	'admin',	'2012-10-05 09:59:52',	'admin',	'2012-10-05 09:59:52'),
-(40,	'IC0018',	1,	2,	'002',	'1',	8.00000000,	1,	8.00000000,	0.00000000,	10.00000000,	0.00000000,	'S',	'admin',	'2012-10-05 10:00:45',	'admin',	'2012-10-05 10:00:45'),
-(41,	'IC0019',	1,	37,	'15',	'1',	10.00000000,	3,	10.00000000,	0.00000000,	10.00000000,	0.00000000,	'S',	'admin',	'2012-10-05 15:18:00',	'admin',	'2012-10-05 15:18:00'),
-(42,	'IC0020',	1,	10,	'001',	'1',	12.00000000,	3,	12.00000000,	0.00000000,	10.00000000,	0.07911392,	'S',	'admin',	'2012-10-08 08:53:51',	'admin',	'2012-10-08 08:53:51'),
-(43,	'IC0020',	2,	9,	'001',	'1',	3.00000000,	3,	3.00000000,	0.00000000,	10.00000000,	0.07911392,	'S',	'admin',	'2012-10-08 08:53:52',	'admin',	'2012-10-08 08:53:52'),
-(44,	'IC0020',	3,	12,	'003',	'1',	9.00000000,	3,	9.00000000,	0.00000000,	10.00000000,	0.00000000,	'S',	'admin',	'2012-10-08 08:53:52',	'admin',	'2012-10-08 08:53:52'),
-(45,	'IC0020',	4,	11,	'001',	'1',	4.00000000,	3,	4.00000000,	0.00000000,	10.00000000,	0.07911392,	'S',	'admin',	'2012-10-08 08:53:52',	'admin',	'2012-10-08 08:53:52'),
-(46,	'IC0020',	5,	14,	'001',	'1',	1.00000000,	4,	1.00000000,	0.00000000,	10.00000000,	0.07911392,	'S',	'admin',	'2012-10-08 08:53:52',	'admin',	'2012-10-08 08:53:52'),
-(47,	'IC0020',	6,	13,	'002',	'1',	1.00000000,	1,	1.00000000,	0.00000000,	10.00000000,	0.00000000,	'S',	'admin',	'2012-10-08 08:53:52',	'admin',	'2012-10-08 08:53:52'),
-(48,	'IC0021',	1,	11,	'001',	'1',	4.00000000,	3,	4.00000000,	0.00000000,	10.00000000,	10.00000000,	'S',	'admin',	'2012-10-08 09:01:22',	'admin',	'2012-10-08 09:01:22'),
-(49,	'IC0021',	2,	13,	'002',	'1',	1.00000000,	1,	1.00000000,	0.00000000,	10.00000000,	0.00000000,	'S',	'admin',	'2012-10-08 09:01:22',	'admin',	'2012-10-08 09:01:22'),
-(50,	'IC0021',	3,	9,	'001',	'1',	3.00000000,	3,	3.00000000,	0.00000000,	10.00000000,	10.00000000,	'S',	'admin',	'2012-10-08 09:01:22',	'admin',	'2012-10-08 09:01:22'),
-(51,	'IC0021',	4,	10,	'001',	'1',	12.00000000,	3,	10.00000000,	1.00000000,	10.00000000,	10.00000000,	'S',	'admin',	'2012-10-08 09:01:22',	'admin',	'2012-10-08 09:01:22'),
-(52,	'IC0021',	5,	12,	'003',	'1',	9.00000000,	3,	9.00000000,	0.00000000,	10.00000000,	0.00000000,	'S',	'admin',	'2012-10-08 09:01:22',	'admin',	'2012-10-08 09:01:22'),
-(53,	'IC0021',	6,	14,	'001',	'1',	1.00000000,	4,	1.00000000,	0.00000000,	10.00000000,	10.00000000,	'S',	'admin',	'2012-10-08 09:01:23',	'admin',	'2012-10-08 09:01:23'),
-(54,	'IC0022',	1,	10,	'001',	'1',	2.00000000,	3,	2.00000000,	0.00000000,	10.00000000,	0.55153707,	'S',	'admin',	'2012-10-08 09:02:25',	'admin',	'2012-10-08 09:02:25'),
-(55,	'IC0024',	1,	10,	'001',	'1',	10.00000000,	3,	10.00000000,	0.00000000,	10.00000000,	4.91236611,	'S',	'admin',	'2012-10-08 09:09:51',	'admin',	'2012-10-08 09:09:51'),
-(56,	'IC0025',	1,	38,	'13',	'504',	20.00000000,	3,	0.00000000,	0.00000000,	10000.00000000,	0.00000000,	'S',	'admin',	'2012-10-20 12:07:36',	'admin',	'2012-10-20 12:07:36'),
-(57,	'IC0026',	1,	39,	'14',	'504',	14.00000000,	3,	0.00000000,	0.00000000,	10000.00000000,	0.00000000,	'S',	'admin',	'2012-10-20 12:15:09',	'admin',	'2012-10-20 12:15:09'),
-(58,	'IC0027',	1,	39,	'14',	'504',	14.00000000,	3,	14.00000000,	0.00000000,	10000.00000000,	0.00000000,	'S',	'admin',	'2012-10-20 12:22:21',	'admin',	'2012-10-20 12:22:21'),
-(59,	'IC0027',	2,	38,	'13',	'504',	20.00000000,	3,	20.00000000,	0.00000000,	10000.00000000,	0.00000000,	'S',	'admin',	'2012-10-20 12:22:21',	'admin',	'2012-10-20 12:22:21'),
-(60,	'IC0028',	1,	40,	'13',	'504',	20.00000000,	3,	20.00000000,	0.00000000,	100000.00000000,	0.00000000,	'S',	'admin',	'2012-10-20 12:31:09',	'admin',	'2012-10-20 12:31:09'),
-(61,	'IC0028',	2,	41,	'14',	'504',	15.00000000,	3,	15.00000000,	0.00000000,	100000.00000000,	0.00000000,	'S',	'admin',	'2012-10-20 12:31:09',	'admin',	'2012-10-20 12:31:09'),
-(62,	'IC0029',	1,	42,	'10',	'1',	10.00000000,	3,	10.00000000,	0.00000000,	12000.00000000,	0.00000000,	'S',	'admin',	'2012-11-28 11:47:37',	'admin',	'2012-11-28 11:47:37'),
-(63,	'IC0029',	2,	43,	'400',	'1',	850.00000000,	4,	850.00000000,	0.00000000,	85760.00000000,	0.00000000,	'S',	'admin',	'2012-11-28 11:47:37',	'admin',	'2012-11-28 11:47:37');
 
 DROP TABLE IF EXISTS `mensaje_sistema`;
 CREATE TABLE `mensaje_sistema` (
@@ -2581,8 +2571,7 @@ CREATE TABLE `mensaje_sistema` (
 INSERT INTO `mensaje_sistema` (`CODIGO`, `TIPO`, `MENSAJE`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 ('A001',	'warning',	'Advertencias en la Operación\r\n',	'S',	'admin',	'2012-08-21 00:00:00',	'admin',	'2012-08-21 00:00:00'),
 ('E001',	'error',	'Error al intentar realizar la operación, verifique nuevamente',	'S',	'admin',	'2012-08-21 00:00:00',	'admin',	'2012-08-21 00:00:00'),
-('S001',	'success',	'Se realizo la operación con éxito',	'S',	'admin',	'2012-08-21 00:00:00',	'admin',	'2012-08-21 00:00:00'),
-('S002',	'success',	'Los siguientes documentos van a ser procesados',	'S',	'admin',	'2012-08-21 00:00:00',	'admin',	'2012-08-21 00:00:00');
+('S001',	'success',	'Se realizo la operación con éxito',	'S',	'admin',	'2012-08-21 00:00:00',	'admin',	'2012-08-21 00:00:00');
 
 DROP TABLE IF EXISTS `metodo_valuacion_inv`;
 CREATE TABLE `metodo_valuacion_inv` (
@@ -2597,11 +2586,9 @@ CREATE TABLE `metodo_valuacion_inv` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena los metodos de valuación de inventario (e';
 
 INSERT INTO `metodo_valuacion_inv` (`ID`, `DESCRIPCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('Estándar',	'descripcion',	'S',	'admin',	'2012-05-29 10:30:54',	'admin',	'2012-05-29 10:30:54'),
-('PEPS',	'descripcion',	'S',	'admin',	'2012-05-29 10:31:24',	'admin',	'2012-05-29 10:31:24'),
-('Promedio',	'descripcion',	'S',	'admin',	'2012-05-29 10:31:06',	'admin',	'2012-05-29 10:31:06'),
-('UEPS',	'descripcion',	'S',	'admin',	'2012-05-29 10:31:15',	'admin',	'2012-05-29 10:31:15'),
-('Último',	'descripcion',	'S',	'admin',	'2012-05-29 10:31:32',	'admin',	'2012-05-29 10:31:32');
+('Estándar',	'costo definido por el usuario',	'S',	'admin',	'2012-05-29 10:30:54',	'admin',	'2012-05-29 10:30:54'),
+('Promedio',	'calcula el costo del artículo como el promedio ponderado',	'S',	'admin',	'2012-05-29 10:31:06',	'admin',	'2012-05-29 10:31:06'),
+('Último',	'calcula el costo del artículo con el último costo definido ',	'S',	'admin',	'2012-05-29 10:31:32',	'admin',	'2012-05-29 10:31:32');
 
 DROP TABLE IF EXISTS `nit`;
 CREATE TABLE `nit` (
@@ -2637,7 +2624,7 @@ INSERT INTO `nit` (`ID`, `TIIPO_DOCUMENTO`, `RAZON_SOCIAL`, `ALIAS`, `OBSERVACIO
 ('800186960-6',	'NIT',	'Altipal S.A.',	NULL,	NULL,	'S',	'admin',	'2012-07-13 16:38:28',	'admin',	'2012-07-13 16:38:28'),
 ('800245795-0',	'NIT',	'Parmalat Colombia Ltda',	NULL,	NULL,	'S',	'admin',	'2012-07-17 16:38:28',	'admin',	'2012-07-17 16:38:28'),
 ('809002831-8',	'NIT',	'Distribuidora Martines y Villanueva Ltda',	NULL,	NULL,	'S',	'admin',	'2012-07-18 16:38:28',	'admin',	'2012-07-18 16:38:28'),
-('809002939-4',	'NIT',	'Distribuciones  MYL',	NULL,	NULL,	'S',	'admin',	'2012-08-06 16:38:28',	'admin',	'2012-08-06 16:38:28'),
+('809002939-4',	'NIT',	'Distribuciones MYL',	NULL,	NULL,	'S',	'admin',	'2012-08-06 16:38:28',	'admin',	'2012-08-06 16:38:28'),
 ('809006578-7',	'NIT',	'Distribuciones en Red Ltda',	NULL,	NULL,	'S',	'admin',	'2012-07-12 16:38:28',	'admin',	'2012-07-12 16:38:28'),
 ('830006651-3',	'NIT',	'Alpina',	NULL,	NULL,	'S',	'admin',	'2012-08-05 16:38:28',	'admin',	'2012-08-05 16:38:28'),
 ('830069726-7',	'NIT',	'profrance eu',	NULL,	NULL,	'S',	'admin',	'2012-07-12 10:42:00',	'admin',	'2012-07-12 10:42:00'),
@@ -2667,24 +2654,21 @@ DROP TABLE IF EXISTS `nivel_precio`;
 CREATE TABLE `nivel_precio` (
   `ID` varchar(12) NOT NULL COMMENT 'identificación alfanumérica del nivel de precio.',
   `DESCRIPCION` varchar(64) NOT NULL COMMENT 'nombre del nivel de precio',
-  `ESQUEMA_TRABAJO` varchar(4) NOT NULL COMMENT 'se refiere al procedimiento que se utilizará para calcular los precios de los artículos.\n            \n            Al posicionarse en la casilla de esquema de trabajo, también aparece un icono con una flecha hacia abajo. Las opciones que se pueden escoger ',
-  `CONDICION_PAGO` varchar(4) DEFAULT NULL,
+  `ESQUEMA_TRABAJO` varchar(4) NOT NULL COMMENT 'se refiere al procedimiento que se utilizará para calcular los precios de los artículos.                        Al posicionarse en la casilla de esquema de trabajo, también aparece un icono con una flecha hacia abajo. Las opciones que se pueden escoger ',
   `ACTIVO` varchar(1) NOT NULL,
   `CREADO_POR` varchar(20) NOT NULL,
   `CREADO_EL` datetime NOT NULL,
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `FK_COND_PAGO_NV_PRECIO` (`CONDICION_PAGO`),
-  CONSTRAINT `FK_COND_PAGO_NV_PRECIO` FOREIGN KEY (`CONDICION_PAGO`) REFERENCES `codicion_pago` (`ID`)
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena los posibles tipos precios de los artículos de la c';
 
-INSERT INTO `nivel_precio` (`ID`, `DESCRIPCION`, `ESQUEMA_TRABAJO`, `CONDICION_PAGO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('1',	'asd',	'NORM',	'1',	'S',	'admin',	'2012-05-12 08:15:20',	'admin',	'2012-05-12 08:15:20'),
-('CLI',	'Cliente',	'NORM',	'1',	'S',	'admin',	'2012-10-30 10:19:52',	'admin',	'2012-10-30 10:19:52'),
-('EST',	'Este mas',	'MARG',	'10',	'S',	'admin',	'2012-11-01 14:41:06',	'admin',	'2012-11-01 14:41:06'),
-('OTR',	'Otros',	'MARG',	'10',	'S',	'admin',	'2012-10-30 10:20:09',	'admin',	'2012-10-30 10:20:09'),
-('PRO',	'proveedor',	'MULT',	'10',	'S',	'admin',	'2012-10-30 10:19:00',	'admin',	'2012-10-30 10:19:00');
+INSERT INTO `nivel_precio` (`ID`, `DESCRIPCION`, `ESQUEMA_TRABAJO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
+('1',	'asd',	'23',	'S',	'admin',	'2012-05-12 08:15:20',	'admin',	'2012-05-12 08:15:20'),
+('CLI',	'Cliente',	'NORM',	'S',	'admin',	'2012-10-30 10:19:52',	'admin',	'2012-10-30 10:19:52'),
+('EST',	'Este mas',	'MARG',	'S',	'admin',	'2012-11-01 14:41:06',	'admin',	'2012-11-01 14:41:06'),
+('OTR',	'Otros',	'MARG',	'S',	'admin',	'2012-10-30 10:20:09',	'admin',	'2012-10-30 10:20:09'),
+('PRO',	'proveedor',	'MULT',	'S',	'admin',	'2012-10-30 10:19:00',	'admin',	'2012-10-30 10:19:00');
 
 DROP TABLE IF EXISTS `orden_compra`;
 CREATE TABLE `orden_compra` (
@@ -2737,23 +2721,6 @@ CREATE TABLE `orden_compra` (
   CONSTRAINT `FK_PROVEEDOR_ORDEN_COMPRA` FOREIGN KEY (`PROVEEDOR`) REFERENCES `proveedor` (`PROVEEDOR`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena las ordenes de compra';
 
-INSERT INTO `orden_compra` (`ORDEN_COMPRA`, `PROVEEDOR`, `FECHA`, `BODEGA`, `DEPARTAMENTO`, `FECHA_COTIZACION`, `FECHA_OFRECIDA`, `FECHA_REQUERIDA`, `FECHA_REQ_EMBARQUE`, `PRIORIDAD`, `CONDICION_PAGO`, `DIRECCION_EMBARQUE`, `DIRECCION_COBRO`, `RUBRO1`, `RUBRO2`, `RUBRO3`, `RUBRO4`, `RUBRO5`, `COMENTARIO_CXP`, `INSTRUCCIONES`, `OBSERVACIONES`, `PORC_DESCUENTO`, `MONTO_FLETE`, `MONTO_SEGURO`, `MONTO_ANTICIPO`, `TIPO_PRORRATEO_OC`, `TOTAL_A_COMPRAR`, `USUARIO_CANCELA`, `FECHA_CANCELA`, `ESTADO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`, `USUARIO_CIERRA`, `FECHA_CIERRA`, `AUTORIZADA_POR`, `FECHA_AUTORIZADA`) VALUES
-('OC0000',	'1',	'2012-10-01',	'1',	'1',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'A',	'1',	'',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	10.00000000,	10.00000000,	10.00000000,	10.00000000,	'PRE',	36.20000000,	'admin',	'2012-10-02 14:17:49',	'R',	'admin',	'2012-10-01 16:18:05',	'admin',	'2012-10-05 14:59:47',	NULL,	NULL,	NULL,	NULL),
-('OC0001',	'1',	'2012-10-02',	'1',	'1',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'A',	'1',	'',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	10.00000000,	10.00000000,	10.00000000,	10.00000000,	'CAN',	340.76000000,	NULL,	NULL,	'R',	'admin',	'2012-10-02 15:09:08',	'admin',	'2012-10-03 15:26:40',	NULL,	NULL,	NULL,	NULL),
-('OC0002',	'1',	'2012-10-02',	'1',	'1',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'A',	'1',	'',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	10.00000000,	10.00000000,	10.00000000,	10.00000000,	'CAN',	287.30000000,	NULL,	NULL,	'R',	'admin',	'2012-10-02 15:32:56',	'admin',	'2012-10-05 14:54:18',	NULL,	NULL,	NULL,	NULL),
-('OC0003',	'1',	'2012-10-02',	'1',	'1',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'A',	'1',	'',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	10.00000000,	10.00000000,	10.00000000,	10.00000000,	'CAN',	82.37000000,	NULL,	NULL,	'A',	'admin',	'2012-10-02 15:40:44',	'admin',	'2012-11-26 15:34:09',	NULL,	NULL,	'admin',	'2012-11-26 20:34:09'),
-('OC0004',	'1',	'2012-10-02',	'1',	'1',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'A',	'1',	'',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	10.00000000,	10.00000000,	10.00000000,	10.00000000,	'CAN',	425.72000000,	NULL,	NULL,	'P',	'admin',	'2012-10-02 15:42:15',	'admin',	'2012-12-04 08:54:16',	NULL,	NULL,	'',	'0000-00-00 00:00:00'),
-('OC0005',	'1',	'2012-10-02',	'1',	'1',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'A',	'1',	'',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	10.00000000,	10.00000000,	10.00000000,	10.00000000,	'CAN',	21047.60000000,	NULL,	NULL,	'P',	'admin',	'2012-10-02 15:45:31',	'admin',	'2012-10-02 15:45:31',	NULL,	NULL,	NULL,	NULL),
-('OC0006',	'1',	'2012-10-02',	'1',	'1',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'A',	'1',	'',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	10.00000000,	50.00000000,	50.00000000,	50.00000000,	'CAN',	17110.00000000,	NULL,	NULL,	'P',	'admin',	'2012-10-02 15:49:00',	'admin',	'2012-10-02 15:49:00',	NULL,	NULL,	NULL,	NULL),
-('OC0007',	'1',	'2012-10-02',	'1',	'1',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'A',	'1',	'',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	10.00000000,	10.00000000,	10.00000000,	10.00000000,	'CAN',	8039.00000000,	NULL,	NULL,	'P',	'admin',	'2012-10-02 15:58:46',	'admin',	'2012-10-02 15:58:46',	NULL,	NULL,	NULL,	NULL),
-('OC0008',	'1',	'2012-10-02',	'1',	'1',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'A',	'1',	'',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	10.00000000,	10.00000000,	10.00000000,	10.00000000,	'CAN',	4880.00000000,	NULL,	NULL,	'P',	'admin',	'2012-10-02 15:59:51',	'admin',	'2012-10-02 15:59:51',	NULL,	NULL,	NULL,	NULL),
-('OC0009',	'1',	'2012-10-02',	'1',	'1',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'A',	'1',	'',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	10.00000000,	10.00000000,	10.00000000,	10.00000000,	'CAN',	4880.00000000,	NULL,	NULL,	'P',	'admin',	'2012-10-02 16:00:51',	'admin',	'2012-10-02 16:00:51',	NULL,	NULL,	NULL,	NULL),
-('OC0010',	'1',	'2012-10-03',	'1',	'1',	'2012-10-03',	'2012-10-26',	'2012-10-04',	'2012-10-04',	'A',	'1',	'',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	10.00000000,	20.00000000,	20.00000000,	20.00000000,	'CAN',	202.00000000,	NULL,	NULL,	'P',	'admin',	'2012-10-03 08:37:36',	'admin',	'2012-12-04 08:55:05',	NULL,	NULL,	'',	'0000-00-00 00:00:00'),
-('OC0011',	'13',	'2012-10-03',	'1',	'1',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'A',	'1',	'',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	10.00000000,	10.00000000,	10.00000000,	10.00000000,	'CAN',	830.00000000,	NULL,	NULL,	'A',	'admin',	'2012-10-03 08:43:03',	'admin',	'2012-10-03 10:06:25',	NULL,	NULL,	NULL,	NULL),
-('OC0012',	'14',	'2012-10-05',	'504',	'1',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'A',	'1',	'',	'',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	10.00000000,	10.00000000,	10.00000000,	10.00000000,	'CAN',	101.00000000,	NULL,	NULL,	'R',	'admin',	'2012-10-05 15:17:36',	'admin',	'2012-10-05 15:17:44',	NULL,	NULL,	NULL,	NULL),
-('OC0013',	'13',	'2012-10-20',	'504',	'1',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'A',	'1',	'avenida siempre viva 123',	'avenida siempre viva 123',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	10.00000000,	2000.00000000,	5000.00000000,	13.00000000,	'CAN',	291400.00000000,	NULL,	NULL,	'R',	'admin',	'2012-10-20 12:06:54',	'admin',	'2012-10-20 12:07:01',	NULL,	NULL,	NULL,	NULL),
-('OC0014',	'1',	'2012-10-20',	'504',	'1',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'A',	'1',	'avenida siempre viva 123',	'avenida siempre viva 123',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	'',	10.00000000,	20.00000000,	50.00000000,	1000.00000000,	'CAN',	2925070.00000000,	NULL,	NULL,	'R',	'admin',	'2012-10-20 12:30:44',	'admin',	'2012-10-20 12:30:50',	NULL,	NULL,	NULL,	NULL),
-('OC0015',	'13',	'2012-11-27',	'504',	'1',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'0000-00-00',	'M',	'1',	'avenida siempre viva 123',	'avenida siempre viva 123',	'mesa',	'',	'',	'',	'',	'sin comentarios',	'',	'',	10.00000000,	200000.00000000,	30000.00000000,	50000.00000000,	'CAN',	65944400.00000000,	NULL,	NULL,	'R',	'admin',	'2012-11-27 14:54:53',	'admin',	'2012-11-27 15:02:54',	NULL,	NULL,	'admin',	'2012-11-27 20:02:54');
 
 DROP TABLE IF EXISTS `orden_compra_linea`;
 CREATE TABLE `orden_compra_linea` (
@@ -2790,52 +2757,8 @@ CREATE TABLE `orden_compra_linea` (
   CONSTRAINT `FK_BODEGA_LINEA_ORDEN_COMPRA` FOREIGN KEY (`BODEGA`) REFERENCES `bodega` (`ID`),
   CONSTRAINT `FK_LINEA_PERTENECE_A_ORDEN_COMPRA` FOREIGN KEY (`ORDEN_COMPRA`) REFERENCES `orden_compra` (`ORDEN_COMPRA`),
   CONSTRAINT `FK_UNIDAD_COMPRA_LINEA` FOREIGN KEY (`UNIDAD_COMPRA`) REFERENCES `unidad_medida` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1 COMMENT='Lineas de la orden de compra';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Lineas de la orden de compra';
 
-INSERT INTO `orden_compra_linea` (`ORDEN_COMPRA_LINEA`, `ORDEN_COMPRA`, `LINEA_NUM`, `ARTICULO`, `DESCRIPCION`, `BODEGA`, `FECHA_REQUERIDA`, `FACTURA`, `CANTIDAD_ORDENADA`, `UNIDAD_COMPRA`, `PRECIO_UNITARIO`, `PORC_DESCUENTO`, `MONTO_DESCUENTO`, `PORC_IMPUESTO`, `VALOR_IMPUESTO`, `CANTIDAD_RECIBIDA`, `CANTIDAD_RECHAZADA`, `FECHA`, `OBSERVACION`, `ESTADO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'OC0000',	1,	'001',	'Articulo de ejemplo ',	'1',	'2012-10-31',	'',	10.00000000,	4,	10.00000000,	10.00000000,	1.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-24',	'45',	'R',	'admin',	'2012-10-01 16:18:05',	'admin',	'2012-10-05 15:14:59'),
-(2,	'OC0000',	2,	'002',	'fsdf',	'1',	'2012-10-31',	'',	12.00000000,	1,	10.00000000,	10.00000000,	1.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-27',	'78',	'R',	'admin',	'2012-10-01 16:18:05',	'admin',	'2012-10-05 10:01:10'),
-(3,	'OC0001',	1,	'001',	'Articulo de ejemplo ',	'1',	'2012-07-03',	'',	12.00000000,	3,	12.00000000,	1.00000000,	1.44000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-02',	'asd',	'R',	'admin',	'2012-10-02 15:09:08',	'admin',	'2012-10-05 08:56:09'),
-(4,	'OC0001',	2,	'001',	'Articulo de ejemplo ',	'1',	'0000-00-00',	'',	1.00000000,	4,	12.00000000,	1.00000000,	0.12000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-02',	'45',	'R',	'admin',	'2012-10-02 15:09:08',	'admin',	'2012-10-05 08:56:10'),
-(5,	'OC0001',	3,	'001',	'Articulo de ejemplo ',	'1',	'2012-07-18',	'',	4.00000000,	3,	12.00000000,	1.00000000,	0.48000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-02',	'asd',	'R',	'admin',	'2012-10-02 15:09:08',	'admin',	'2012-10-05 08:56:10'),
-(6,	'OC0001',	4,	'003',	'asdfsdfger',	'1',	'2012-07-13',	'',	9.00000000,	3,	12.00000000,	1.00000000,	1.08000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-02',	'gdfg',	'R',	'admin',	'2012-10-02 15:09:08',	'admin',	'2012-10-05 16:18:26'),
-(7,	'OC0001',	5,	'001',	'Articulo de ejemplo ',	'1',	'2012-07-04',	'',	3.00000000,	3,	12.00000000,	1.00000000,	0.36000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-02',	'asd',	'R',	'admin',	'2012-10-02 15:09:08',	'admin',	'2012-10-05 08:56:10'),
-(8,	'OC0001',	6,	'002',	'fsdf',	'1',	'0000-00-00',	'',	1.00000000,	1,	12.00000000,	1.00000000,	0.12000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-02',	'78',	'R',	'admin',	'2012-10-02 15:09:09',	'admin',	'2012-10-05 08:56:11'),
-(9,	'OC0002',	1,	'001',	'Articulo de ejemplo ',	'1',	'2012-07-04',	'',	3.00000000,	3,	10.00000000,	1.00000000,	0.30000000,	0.00000000,	0.00000000,	3.00000000,	0.00000000,	'2012-10-02',	'asd',	'R',	'admin',	'2012-10-02 15:32:56',	'admin',	'2012-10-08 09:01:32'),
-(10,	'OC0002',	2,	'001',	'Articulo de ejemplo ',	'1',	'2012-07-03',	'',	12.00000000,	3,	10.00000000,	1.00000000,	1.20000000,	0.00000000,	0.00000000,	12.00000000,	0.00000000,	'2012-10-03',	'asd',	'R',	'admin',	'2012-10-02 15:32:56',	'admin',	'2012-10-08 09:10:03'),
-(11,	'OC0002',	3,	'001',	'Articulo de ejemplo ',	'1',	'2012-07-18',	'',	4.00000000,	3,	10.00000000,	1.00000000,	0.40000000,	0.00000000,	0.00000000,	4.00000000,	0.00000000,	'2012-10-02',	'asd',	'R',	'admin',	'2012-10-02 15:32:56',	'admin',	'2012-10-08 09:01:32'),
-(12,	'OC0002',	4,	'003',	'asdfsdfger',	'1',	'2012-07-13',	'',	9.00000000,	3,	10.00000000,	1.00000000,	0.90000000,	0.00000000,	0.00000000,	9.00000000,	0.00000000,	'2012-10-03',	'gdfg',	'R',	'admin',	'2012-10-02 15:32:56',	'admin',	'2012-10-08 09:01:33'),
-(13,	'OC0002',	5,	'002',	'fsdf',	'1',	'0000-00-00',	'',	1.00000000,	1,	10.00000000,	1.00000000,	0.10000000,	0.00000000,	0.00000000,	1.00000000,	0.00000000,	'2012-10-31',	'78',	'R',	'admin',	'2012-10-02 15:32:56',	'admin',	'2012-10-08 09:01:32'),
-(14,	'OC0002',	6,	'001',	'Articulo de ejemplo ',	'1',	'0000-00-00',	'',	1.00000000,	4,	10.00000000,	1.00000000,	0.10000000,	0.00000000,	0.00000000,	1.00000000,	0.00000000,	'2012-10-12',	'45',	'R',	'admin',	'2012-10-02 15:32:57',	'admin',	'2012-10-08 09:01:33'),
-(15,	'OC0003',	1,	'001',	'Articulo de ejemplo ',	'1',	'2012-07-04',	'',	3.00000000,	3,	10.00000000,	1.00000000,	0.30000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-02',	'asd',	'A',	'admin',	'2012-10-02 15:40:44',	'admin',	'2012-11-26 15:34:09'),
-(16,	'OC0003',	2,	'001',	'Articulo de ejemplo ',	'1',	'2012-07-18',	'',	4.00000000,	3,	10.00000000,	1.00000000,	0.40000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-04',	'asd',	'A',	'admin',	'2012-10-02 15:40:44',	'admin',	'2012-11-26 15:34:09'),
-(17,	'OC0004',	1,	'001',	'Articulo de ejemplo ',	'1',	'0000-00-00',	'',	1.00000000,	4,	20.00000000,	2.00000000,	0.40000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-09',	'45',	'P',	'admin',	'2012-10-02 15:42:15',	'admin',	'2012-12-04 08:54:16'),
-(18,	'OC0004',	2,	'002',	'fsdf',	'1',	'0000-00-00',	'',	1.00000000,	1,	20.00000000,	2.00000000,	0.40000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-11',	'78',	'P',	'admin',	'2012-10-02 15:42:15',	'admin',	'2012-12-04 08:54:16'),
-(19,	'OC0004',	3,	'001',	'Articulo de ejemplo ',	'1',	'2012-07-03',	'',	12.00000000,	3,	20.00000000,	2.00000000,	4.80000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-04',	'asd',	'P',	'admin',	'2012-10-02 15:42:15',	'admin',	'2012-12-04 08:54:16'),
-(20,	'OC0004',	4,	'003',	'asdfsdfger',	'1',	'2012-07-13',	'',	9.00000000,	3,	20.00000000,	2.00000000,	3.60000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-25',	'gdfg',	'P',	'admin',	'2012-10-02 15:42:16',	'admin',	'2012-12-04 08:54:16'),
-(21,	'OC0005',	1,	'003',	'asdfsdfger',	'1',	'2012-09-14',	'',	30.00000000,	3,	200.00000000,	1.00000000,	60.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-02',	'20',	'P',	'admin',	'2012-10-02 15:45:31',	'admin',	'2012-10-02 15:45:31'),
-(22,	'OC0005',	2,	'003',	'asdfsdfger',	'1',	'2012-09-07',	'',	20.00000000,	3,	200.00000000,	1.00000000,	40.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-03',	'',	'P',	'admin',	'2012-10-02 15:45:31',	'admin',	'2012-10-02 15:45:31'),
-(23,	'OC0005',	3,	'001',	'Articulo de ejemplo ',	'1',	'2012-09-06',	'',	18.00000000,	3,	200.00000000,	1.00000000,	36.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-10',	'',	'P',	'admin',	'2012-10-02 15:45:32',	'admin',	'2012-10-02 15:45:32'),
-(24,	'OC0005',	4,	'001',	'Articulo de ejemplo ',	'1',	'2012-09-07',	'',	10.00000000,	3,	200.00000000,	1.00000000,	20.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-18',	'20',	'P',	'admin',	'2012-10-02 15:45:32',	'admin',	'2012-10-02 15:45:32'),
-(25,	'OC0005',	5,	'002',	'fsdf',	'1',	'2012-09-29',	'',	20.00000000,	1,	200.00000000,	1.00000000,	40.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-31',	'fghdfgh',	'P',	'admin',	'2012-10-02 15:45:32',	'admin',	'2012-10-02 15:45:32'),
-(26,	'OC0005',	6,	'001',	'Articulo de ejemplo ',	'1',	'2012-09-29',	'',	20.00000000,	3,	200.00000000,	1.00000000,	40.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-25',	'',	'P',	'admin',	'2012-10-02 15:45:32',	'admin',	'2012-10-02 15:45:32'),
-(27,	'OC0006',	1,	'001',	'Articulo de ejemplo ',	'1',	'2012-09-06',	'',	10.00000000,	3,	100.00000000,	10.00000000,	100.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-30',	'',	'P',	'admin',	'2012-10-02 15:49:00',	'admin',	'2012-10-02 15:49:00'),
-(28,	'OC0006',	2,	'003',	'asdfsdfger',	'1',	'2012-09-07',	'',	20.00000000,	3,	1000.00000000,	10.00000000,	2000.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-26',	'',	'P',	'admin',	'2012-10-02 15:49:00',	'admin',	'2012-10-02 15:49:00'),
-(29,	'OC0007',	1,	'001',	'Articulo de ejemplo ',	'1',	'2012-09-06',	'',	10.00000000,	3,	300.00000000,	1.00000000,	30.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-16',	'',	'P',	'admin',	'2012-10-02 15:58:46',	'admin',	'2012-10-02 15:58:46'),
-(30,	'OC0007',	2,	'003',	'asdfsdfger',	'1',	'2012-09-07',	'',	20.00000000,	3,	300.00000000,	1.00000000,	60.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-17',	'',	'P',	'admin',	'2012-10-02 15:58:46',	'admin',	'2012-10-02 15:58:46'),
-(31,	'OC0008',	1,	'001',	'Articulo de ejemplo ',	'1',	'2012-09-06',	'',	10.00000000,	3,	200.00000000,	10.00000000,	200.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-30',	'',	'P',	'admin',	'2012-10-02 15:59:51',	'admin',	'2012-10-02 15:59:51'),
-(32,	'OC0008',	2,	'003',	'asdfsdfger',	'1',	'2012-09-07',	'',	20.00000000,	3,	200.00000000,	10.00000000,	400.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-11',	'',	'P',	'admin',	'2012-10-02 15:59:51',	'admin',	'2012-10-02 15:59:51'),
-(33,	'OC0009',	1,	'003',	'asdfsdfger',	'1',	'2012-09-07',	'',	10.00000000,	3,	200.00000000,	10.00000000,	200.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-09',	'',	'P',	'admin',	'2012-10-02 16:00:51',	'admin',	'2012-10-02 16:00:51'),
-(34,	'OC0009',	2,	'001',	'Articulo de ejemplo ',	'1',	'2012-09-06',	'',	20.00000000,	3,	200.00000000,	10.00000000,	400.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-25',	'',	'P',	'admin',	'2012-10-02 16:00:51',	'admin',	'2012-10-02 16:00:51'),
-(35,	'OC0010',	1,	'003',	'asdfsdfger',	'1',	'2012-09-07',	'',	10.00000000,	3,	20.00000000,	10.00000000,	20.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-24',	'',	'P',	'admin',	'2012-10-03 08:37:36',	'admin',	'2012-12-04 08:55:05'),
-(36,	'OC0011',	1,	'003',	'asdfsdfger',	'1',	'2012-09-07',	'',	10.00000000,	3,	100.00000000,	10.00000000,	100.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-17',	'',	'A',	'admin',	'2012-10-03 08:43:03',	'admin',	'2012-10-03 10:06:25'),
-(37,	'OC0012',	1,	'15',	'tocino',	'1',	'2012-10-12',	'',	10.00000000,	3,	10.00000000,	10.00000000,	10.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-11',	'',	'R',	'admin',	'2012-10-05 15:17:36',	'admin',	'2012-10-05 15:38:02'),
-(38,	'OC0013',	1,	'13',	'pollo',	'504',	'2012-10-30',	'',	20.00000000,	3,	10000.00000000,	5.00000000,	10000.00000000,	0.00000000,	0.00000000,	20.00000000,	0.00000000,	'2012-10-30',	'',	'R',	'admin',	'2012-10-20 12:06:54',	'admin',	'2012-10-20 12:23:07'),
-(39,	'OC0013',	2,	'14',	'cerdo',	'504',	'2012-10-26',	'',	14.00000000,	3,	10000.00000000,	10.00000000,	14000.00000000,	0.00000000,	0.00000000,	14.00000000,	0.00000000,	'2012-10-18',	'',	'R',	'admin',	'2012-10-20 12:06:54',	'admin',	'2012-12-04 08:51:02'),
-(40,	'OC0014',	1,	'13',	'pollo',	'504',	'2012-10-31',	'',	20.00000000,	3,	100000.00000000,	5.00000000,	100000.00000000,	0.00000000,	0.00000000,	20.00000000,	0.00000000,	'2012-10-30',	'',	'R',	'admin',	'2012-10-20 12:30:44',	'admin',	'2012-10-20 12:31:19'),
-(41,	'OC0014',	2,	'14',	'cerdo',	'504',	'2012-10-26',	'',	15.00000000,	3,	100000.00000000,	10.00000000,	150000.00000000,	0.00000000,	0.00000000,	15.00000000,	0.00000000,	'2012-10-17',	'',	'R',	'admin',	'2012-10-20 12:30:44',	'admin',	'2012-10-20 12:31:19'),
-(42,	'OC0015',	1,	'10',	'pimienta',	'1',	'2012-11-27',	'fsdfsdf',	10.00000000,	3,	12000.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	10.00000000,	0.00000000,	'2012-11-27',	'',	'R',	'admin',	'2012-11-27 14:54:53',	'admin',	'2012-11-28 15:53:00'),
-(43,	'OC0015',	2,	'400',	'tamal',	'1',	'2012-11-28',	'sdfsdf',	850.00000000,	4,	85760.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	850.00000000,	0.00000000,	'2012-11-28',	'',	'R',	'admin',	'2012-11-27 14:54:53',	'admin',	'2012-11-28 15:53:00');
 
 DROP TABLE IF EXISTS `pais`;
 CREATE TABLE `pais` (
@@ -2851,12 +2774,13 @@ CREATE TABLE `pais` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `pais` (`ID`, `NOMBRE`, `CODIGO_ISO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADIO_EL`) VALUES
-('ARG',	'Argentina',	'321',	'S',	'admin',	'2012-05-11 09:11:40',	'admin',	'2012-05-11 09:13:24'),
+('ARG',	'Argentina',	'0001',	'S',	'admin',	'2012-11-01 17:10:51',	'admin',	'2012-11-01 17:10:51'),
 ('COL',	'Colombia',	'123',	'S',	'admin',	'2012-05-11 09:11:40',	'admin',	'2012-05-11 09:13:24');
 
 DROP TABLE IF EXISTS `pedido`;
 CREATE TABLE `pedido` (
   `PEDIDO` varchar(50) NOT NULL,
+  `CONSECUTIVO` varchar(10) NOT NULL,
   `CLIENTE` varchar(20) DEFAULT NULL,
   `BODEGA` varchar(4) DEFAULT NULL,
   `CONDICION_PAGO` varchar(4) DEFAULT NULL COMMENT 'identificación alfanumérica de la condicion de pago',
@@ -2882,7 +2806,7 @@ CREATE TABLE `pedido` (
   `TOTAL_A_FACTURAR` decimal(28,8) NOT NULL,
   `REMITIDO` varchar(1) NOT NULL COMMENT 'Indica si el pedido ha sido o no enviado ya al cliente.  Por defecto cuando se crea queda en N',
   `RESERVADO` varchar(1) NOT NULL COMMENT 'Indica si las lineas del pedido han sido reservadas, inicialmente debe estar en N',
-  `ESTADO` varchar(1) NOT NULL COMMENT '[N]ormal\r\n            [R]emitido\r\n            [F]acturado\r\n            [C]ancelado',
+  `ESTADO` varchar(1) NOT NULL COMMENT '[N]ormal            [R]emitido            [F]acturado            [C]ancelado',
   `CREADO_POR` varchar(20) NOT NULL,
   `CREADO_EL` datetime NOT NULL,
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
@@ -2892,6 +2816,8 @@ CREATE TABLE `pedido` (
   KEY `FK_CLIENTE_PEDIDO` (`CLIENTE`),
   KEY `FK_CONDICION_PAGO_PEDIDO` (`CONDICION_PAGO`),
   KEY `FK_TIPO_PRECIO_PEDIDO` (`NIVEL_PRECIO`),
+  KEY `CONSECUTIVO` (`CONSECUTIVO`),
+  CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`CONSECUTIVO`) REFERENCES `consecutivo_fa` (`CODIGO_CONSECUTIVO`),
   CONSTRAINT `FK_BODEGA_DEFECTO_PEDIDO` FOREIGN KEY (`BODEGA`) REFERENCES `bodega` (`ID`),
   CONSTRAINT `FK_CLIENTE_PEDIDO` FOREIGN KEY (`CLIENTE`) REFERENCES `cliente` (`CLIENTE`),
   CONSTRAINT `FK_CONDICION_PAGO_PEDIDO` FOREIGN KEY (`CONDICION_PAGO`) REFERENCES `codicion_pago` (`ID`),
@@ -2966,10 +2892,10 @@ CREATE TABLE `proveedor` (
   KEY `FK_CODICION_PAGO_PROVEEDOR` (`CONDICION_PAGO`),
   KEY `FK_NIT_PROVEEDOR` (`NIT`),
   KEY `FK_REFERENCE_10` (`CATEGORIA`),
-  KEY `UBICACION_GEOGRAFICA2` (`UBICACION_GEOGRAFICA2`),
-  KEY `UBICACION_GEOGRAFICA1` (`UBICACION_GEOGRAFICA1`),
   KEY `PAIS` (`PAIS`),
   KEY `REGIMEN` (`REGIMEN`),
+  KEY `UBICACION_GEOGRAFICA1` (`UBICACION_GEOGRAFICA1`),
+  KEY `UBICACION_GEOGRAFICA2` (`UBICACION_GEOGRAFICA2`),
   CONSTRAINT `FK_NIT_PROVEEDOR` FOREIGN KEY (`NIT`) REFERENCES `nit` (`ID`),
   CONSTRAINT `FK_REFERENCE_10` FOREIGN KEY (`CATEGORIA`) REFERENCES `categoria` (`ID`),
   CONSTRAINT `proveedor_ibfk_1` FOREIGN KEY (`UBICACION_GEOGRAFICA2`) REFERENCES `ubicacion_geografica2` (`ID`),
@@ -2979,48 +2905,6 @@ CREATE TABLE `proveedor` (
   CONSTRAINT `proveedor_ibfk_5` FOREIGN KEY (`CONDICION_PAGO`) REFERENCES `codicion_pago` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena los proveedores de la empresa';
 
-INSERT INTO `proveedor` (`PROVEEDOR`, `CATEGORIA`, `NOMBRE`, `ALIAS`, `CONTACTO`, `CARGO`, `DIRECCION`, `EMAIL`, `FECHA_INGRESO`, `TELEFONO1`, `TELEFONO2`, `FAX`, `NIT`, `CONDICION_PAGO`, `PAIS`, `UBICACION_GEOGRAFICA1`, `UBICACION_GEOGRAFICA2`, `REGIMEN`, `CIUDAD`, `ACTIVO`, `ORDEN_MINIMA`, `DESCUENTO`, `TASA_INTERES_MORA`, `NOTAS`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('1',	1,	'profrance eu',	NULL,	'miguel angel rodriguez',	'asesor de ventas',	'c.c.la quinta',	'ventasibague@marcel-france.com',	'2012-07-12',	'2781646',	'3125837927',	NULL,	'830069726-7',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	10.00000000,	NULL,	'',	'admin',	'2012-07-12 02:00:00',	'admin',	'2012-07-12 02:00:00'),
-('10',	1,	'Inverciones Distriorinoquia S.A.S',	NULL,	'Johany Jimenez',	'Vendedor',	'Av Ferrocarril No 29 - 58',	'',	'2041-10-00',	'2665978',	'',	NULL,	'900340659-6',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-19 16:38:28',	'admin',	'2012-07-19 16:38:28'),
-('11',	1,	'Tropi LimaS.A.S',	NULL,	'Edna F Bayona',	'Vendedor',	'Cr 1 No 66 28',	'',	'2041-10-00',	'2657979',	'2650488',	NULL,	'900369023-9',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-20 16:38:28',	'admin',	'2012-07-20 16:38:28'),
-('12',	1,	'Ventas Del Tolima',	NULL,	'Barker Montealegre',	'Vendedor',	'Cl 94 No 4 - 52 ',	'',	'2041-10-00',	'2677750',	'2714854',	NULL,	'800098870-4',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-21 16:38:28',	'admin',	'2012-07-21 16:38:28'),
-('123',	1,	'prueba',	'aaa',	'aaaa',	'aaa',	'asdasda',	'',	'2012-09-07',	'1133',	'',	'',	'800098870-4',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	0.00000000,	0.00000000,	0.00000000,	'',	'admin',	'2012-09-06 08:29:36',	'admin',	'2012-09-06 08:29:36'),
-('13',	1,	'Susesores de Jesus Restrepo CIA S.A',	NULL,	'contacto',	'Vendedor',	'Torre casa luker',	'',	'2041-10-00',	'2695777',	'',	NULL,	'890800718-1',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-22 16:38:28',	'admin',	'2012-07-22 16:38:28'),
-('14',	1,	'Organización Cardenas',	NULL,	'Carmen Andrea',	'Vendedor',	'Cr 5 No 87 - 44',	'',	'2041-10-00',	'2689471',	'',	NULL,	'860521637-7',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-23 16:38:28',	'admin',	'2012-07-23 16:38:28'),
-('15',	1,	'TRAPIASEO',	NULL,	'Jorge A Cardenas',	'Vendedor',	'Mza h casa 9',	'',	'2041-10-00',	'2750948',	'',	NULL,	'14240456-5',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-24 16:38:28',	'admin',	'2012-07-24 16:38:28'),
-('16',	1,	'Distri Lineas',	NULL,	'Barker Montealegre',	'Vendedor',	'Cl 94 No 4 - 52 Mz E ',	'',	'2041-10-00',	'677750',	'680848',	NULL,	'900414293',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-25 16:38:28',	'admin',	'2012-07-25 16:38:28'),
-('17',	1,	'Elias A costa y CIA S en C',	NULL,	'Raul Soto Sanchez',	'Vendedor',	'Cra 2 No14 33',	'',	'2041-10-00',	'2632042',	'2630700',	NULL,	'890702902-0',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-26 16:38:28',	'admin',	'2012-07-26 16:38:28'),
-('18',	1,	'Coca Cola Femsa. S.A de C. V',	NULL,	'contacto',	'Vendedor',	'Avenida Mirolindo Via al Parque deportivo',	'',	'2041-10-00',	'2675644',	'',	NULL,	'860753429',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-27 16:38:28',	'admin',	'2012-07-27 16:38:28'),
-('19',	1,	'Dtergentes Ltda ',	NULL,	'Gilberto Rojas',	'Vendedor',	'Cr36 No 5C -09 Apartado Aereo',	'dersa6@dersa.com.con',	'2041-10-00',	'3759600',	'3759635',	NULL,	'860007955-0',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-28 16:38:28',	'admin',	'2012-07-28 16:38:28'),
-('2',	1,	'comercializadora spaisons',	NULL,	'diana cuartas',	'asesor de ventas',	'cra 4b No 31a21',	'',	'2012-07-12',	'2644815',	'',	NULL,	'900333483-8',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-12 02:00:00',	'admin',	'2012-07-12 02:00:00'),
-('20',	1,	'Tolimax Industrias Cacaoteras del ahauila',	NULL,	'contacto',	'Vendedor',	'Calle 13No 1 G -09',	'tolimax@telecom.com.con',	'2041-10-00',	'8714208',	'8721006',	NULL,	'891100158-7',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-29 16:38:28',	'admin',	'2012-07-29 16:38:28'),
-('21',	1,	'Jhon Restrepo a y Cia s.a ',	NULL,	'contacto',	'Vendedor',	'Zona Industrial el papayo Km 4',	'',	'2041-10-00',	'2642799',	'',	NULL,	'890900250-6',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-30 16:38:28',	'admin',	'2012-07-30 16:38:28'),
-('22',	1,	'Almacen y Depocito PIPO',	NULL,	'contacto',	'Vendedor',	'Cra 4 No 19-62',	'',	'2041-10-00',	'2630517',	'',	NULL,	'65739683-1',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-31 16:38:28',	'admin',	'2012-07-31 16:38:28'),
-('23',	1,	'Depocito y Trilladora Primavera',	NULL,	'contacto',	'Vendedor',	'Cra 4 No19-53',	'',	'2041-10-00',	'0',	'',	NULL,	'14212809-2',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-08-01 16:38:28',	'admin',	'2012-08-01 16:38:28'),
-('24',	1,	'Promotora Comercial Andina',	NULL,	'Martha ',	'Vendedora',	'calle 69 No5-216 Zona industrial Papayo',	'promotoracomercia@gmail.com',	'2041-10-00',	'2770093',	'',	NULL,	'890705018-8',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-08-02 16:38:28',	'admin',	'2012-08-02 16:38:28'),
-('25',	1,	'Postobon Gaseosa de cordoba S.A ',	NULL,	'contacto',	'Vendedora',	'aaa',	'',	'2041-10-00',	'0',	'',	NULL,	'8910003244',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-08-03 16:38:28',	'admin',	'2012-08-03 16:38:28'),
-('26',	1,	'San Sebastian',	NULL,	'Diego Fernando Diaz',	'Vendedor',	'Av ambala 93 31 bg ',	'',	'2041-10-00',	'2716639',	'',	NULL,	'900482649-1',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-08-04 16:38:28',	'admin',	'2012-08-04 16:38:28'),
-('27',	1,	'Alpina',	NULL,	'Alex Diaz',	'Vendedor',	'Via perales  Km 1',	'',	'2041-10-00',	'2684221',	'2689026',	NULL,	'830006651-3',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-08-05 16:38:28',	'admin',	'2012-08-05 16:38:28'),
-('28',	1,	'Distribuciones  MYL',	NULL,	'Alvaro Flavio Alvila',	'Vendedor',	'Cra 4 estadio No 22-23',	'',	'2041-10-00',	'2635262',	'2636327',	NULL,	'809002939-4',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-08-06 16:38:28',	'admin',	'2012-08-06 16:38:28'),
-('29',	1,	'AZUL K',	NULL,	'Jhon Cano',	'Vendedor',	'Autopista sur No 60-51 ',	'www.azulk.com',	'2041-10-00',	'7119116',	'',	NULL,	'860000135-6',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-08-07 16:38:28',	'admin',	'2012-08-07 16:38:28'),
-('3',	1,	'distrinatalia',	NULL,	'diana hernandez mendoza',	'asesor de ventas',	'calle35No3-08',	'',	'2012-07-12',	'2669478',	'',	NULL,	'65770886-2',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-12 02:00:00',	'admin',	'2012-07-12 02:00:00'),
-('30',	1,	'Velas y Veladoras LA LUZ',	NULL,	'D0RIS Carvajal',	'Vendedora',	'Cr  28 No 69-26 ciruelos ',	'',	'2041-10-00',	'2750907',	'',	NULL,	'65739769-4',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-08-08 16:38:28',	'admin',	'2012-08-08 16:38:28'),
-('31',	1,	'Bavaria S.A',	NULL,	'Marisol',	'Vendedora',	'CL 94 No 7A-47',	'',	'2041-10-00',	'0',	'',	NULL,	'860005224-6',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-08-09 16:38:28',	'admin',	'2012-08-09 16:38:28'),
-('32',	1,	'Productos la esperansa vio vida Ltda',	NULL,	'Ecno Guzman',	'Vendedor',	'cr 11 No 34 a 92 ',	'',	'2041-10-00',	'2657027',	'',	NULL,	'900428914-1',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-08-10 16:38:28',	'admin',	'2012-08-10 16:38:28'),
-('33',	1,	'Comapan',	NULL,	'Alexander sanches',	'Vendedor',	'Cra 4 estadio 32-56',	'',	'2041-10-00',	'0',	'',	NULL,	'79054051-5',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-08-11 16:38:28',	'admin',	'2012-08-11 16:38:28'),
-('34',	1,	'POLLOS DEL CAMPO',	NULL,	'Hernando Micano',	'Vendedor',	'aaa',	'',	'2041-10-00',	'0',	'',	NULL,	'9336317-3',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-08-12 16:38:28',	'admin',	'2012-08-12 16:38:28'),
-('35',	1,	'FRITO LAY',	NULL,	'Eduardo Sebera',	'Vendedor',	'Mz q casa 29',	'',	'2041-10-00',	'3112122277',	'',	NULL,	'97777164',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-08-13 16:38:28',	'admin',	'2012-08-13 16:38:28'),
-('36',	1,	'Luz Adriana Diaz',	NULL,	'Adriana Diaz',	'Vendedora',	'aaa',	'adica2805@hotmail.com',	'2041-10-00',	'3004676214',	'3123516269',	NULL,	'38144770-1',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-08-14 16:38:28',	'admin',	'2012-08-14 16:38:28'),
-('4',	1,	'Altipal S.A.',	NULL,	'Edwin Fabia Castillo',	'vendedor',	'Cr 8 No129-45Km 6.5Via armero',	'',	'2041-10-00',	'2711528',	'',	NULL,	'800186960-6',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-13 16:38:28',	'admin',	'2012-07-13 16:38:28'),
-('464646',	1,	'prov',	'',	'hjfghjfg',	'fgjgj',	'dfghdfghdfghdfgh',	'',	'2012-10-11',	'4646',	'',	'',	'1111',	'1',	'COL',	'25',	'25178',	NULL,	'',	'S',	0.00000000,	0.00000000,	0.00000000,	NULL,	'admin',	'2012-10-19 17:00:54',	'admin',	'2012-10-20 08:57:21'),
-('5',	1,	'Comercial Ntresa S.A.S',	NULL,	'Jose Alirio Castro',	'Vendedor',	'Cr 52 No20-124',	'',	'2041-10-00',	'0',	'',	NULL,	'900341086-0',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-14 16:38:28',	'admin',	'2012-07-14 16:38:28'),
-('6',	1,	'Distribuidora La Veneciana S.A',	NULL,	'Eduardo',	'Vendedor',	'Calle 17 No 751',	'',	'2041-10-00',	'2623965',	'',	NULL,	'0',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-15 16:38:28',	'admin',	'2012-07-15 16:38:28'),
-('7',	1,	'Agropecuaria la Granjita',	NULL,	'Rocio Gusman',	'Vendedor',	'Cr 4 C27 71',	'',	'2041-10-00',	'2655364',	'',	NULL,	'14242316-1',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-16 16:38:28',	'admin',	'2012-07-16 16:38:28'),
-('8',	1,	'Parmalat Colombia Ltda',	NULL,	'contacto',	'Vendedor',	'Avenida mirolindo Calle 60int 3',	'',	'2041-10-00',	'2642702',	'',	NULL,	'800245795-0',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-17 16:38:28',	'admin',	'2012-07-17 16:38:28'),
-('9',	1,	'Distribuidora Martines y Villanueva Ltda',	NULL,	'contacto',	'Vendedor',	'Avenida mirolindo Calle 83 No 6-93',	'',	'2041-10-00',	'2686086',	'2678988',	NULL,	'809002831-8',	'1',	'',	'',	NULL,	NULL,	NULL,	'S',	NULL,	NULL,	NULL,	'',	'admin',	'2012-07-18 16:38:28',	'admin',	'2012-07-18 16:38:28'),
-('prov1',	2,	'prov1',	'',	'klasdjfklsd',	'asdasdad',	'sdasda',	'',	'2012-10-18',	'32132',	'',	'',	'65739769-4',	'1',	'COL',	'17',	'17088',	'658',	'',	'S',	0.00000000,	0.00000000,	0.00000000,	'asdad',	'admin',	'2012-10-23 15:23:51',	'admin',	'2012-10-23 15:23:51'),
-('prov3',	1,	'prov3',	'',	'dfadfa',	'asdfaf',	'asdfasdf',	'',	'2012-10-25',	'5456',	'',	'',	'38144770-1',	'1',	'COL',	'50',	'50350',	'123',	'',	'S',	0.00000000,	0.00000000,	0.00000000,	'',	'admin',	'2012-10-23 15:24:56',	'admin',	'2012-10-23 15:24:56'),
-('PRove',	1,	'Super lanas',	'',	'Juan Perez',	'Plomero',	'dasdad',	'',	'2012-11-27',	'23654987',	'',	'',	'14212809-2',	'1',	'COL',	'47',	'47545',	'123',	'',	'S',	0.00000000,	0.00000000,	0.00000000,	'',	'admin',	'2012-11-27 11:56:43',	'admin',	'2012-11-27 11:56:43');
 
 DROP TABLE IF EXISTS `proveedor_entidad`;
 CREATE TABLE `proveedor_entidad` (
@@ -3059,7 +2943,7 @@ CREATE TABLE `regimen_tributario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena la informaciòn sobre los diferentes regimenes tribu';
 
 INSERT INTO `regimen_tributario` (`REGIMEN`, `DESCRIPCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('123',	'123',	'S',	'admin',	'2012-10-23 11:21:04',	'admin',	'2012-10-23 11:21:04'),
+('123',	'TEST',	'S',	'admin',	'2012-10-23 11:21:04',	'admin',	'2012-10-23 11:21:04'),
 ('658',	'asdad',	'S',	'admin',	'2012-10-23 11:23:38',	'admin',	'2012-10-23 11:23:38'),
 ('aksjd',	'asdfaf',	'S',	'admin',	'2012-10-25 10:01:30',	'admin',	'2012-10-25 10:01:30');
 
@@ -3116,22 +3000,7 @@ CREATE TABLE `solicitud_oc` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Solicitudes para ordenes de compra';
 
 INSERT INTO `solicitud_oc` (`SOLICITUD_OC`, `DEPARTAMENTO`, `FECHA_SOLICITUD`, `FECHA_REQUERIDA`, `AUTORIZADA_POR`, `FECHA_AUTORIZADA`, `PRIORIDAD`, `LINEAS_NO_ASIG`, `COMENTARIO`, `CANCELADA_POR`, `FECHA_CANCELADA`, `RUBRO1`, `RUBRO2`, `RUBRO3`, `RUBRO4`, `RUBRO5`, `ESTADO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('SC0000',	'1',	'2012-07-03',	'2012-07-04',	NULL,	NULL,	'A',	0,	'asd',	'admin',	'2012-07-16 15:37:44',	NULL,	NULL,	NULL,	NULL,	NULL,	'C',	'admin',	'2012-07-03 11:43:36',	'admin',	'2012-07-16 10:37:44'),
-('SC0001',	'1',	'2012-07-19',	'2012-07-18',	'',	'0000-00-00 00:00:00',	'A',	0,	'asd',	'admin',	'2012-07-16 14:24:46',	NULL,	NULL,	NULL,	NULL,	NULL,	'P',	'admin',	'2012-07-03 15:06:25',	'admin',	'2012-12-04 08:52:40'),
-('SC0002',	'1',	'2012-07-20',	'2012-07-26',	'admin',	'2012-10-01 15:03:43',	'A',	0,	'asd',	'admin',	'2012-10-01 13:31:39',	NULL,	NULL,	NULL,	NULL,	NULL,	'A',	'admin',	'2012-07-03 15:16:18',	'admin',	'2012-10-01 10:03:43'),
-('SC0003',	'1',	'2012-07-11',	'2012-07-24',	'',	'0000-00-00 00:00:00',	'A',	0,	'',	'admin',	'2012-07-16 14:37:17',	NULL,	NULL,	NULL,	NULL,	NULL,	'A',	'admin',	'2012-07-03 15:59:55',	'admin',	'2012-07-16 16:59:59'),
-('SC0004',	'1',	'2012-07-19',	'2012-07-16',	'',	'0000-00-00 00:00:00',	'A',	0,	'',	'admin',	'2012-07-16 14:37:29',	NULL,	NULL,	NULL,	NULL,	NULL,	'A',	'admin',	'2012-07-05 10:42:23',	'admin',	'2012-07-16 16:31:09'),
-('SC0005',	'1',	'2012-07-25',	'2012-07-11',	'',	'0000-00-00 00:00:00',	'A',	0,	'',	'admin',	'2012-07-16 14:11:23',	NULL,	NULL,	NULL,	NULL,	NULL,	'P',	'admin',	'2012-07-05 18:03:59',	'admin',	'2012-07-16 16:31:44'),
-('SC0006',	'1',	'2012-07-19',	'2012-07-28',	'admin',	'2012-10-02 20:43:41',	'A',	0,	'',	'admin',	'2012-07-16 14:11:38',	NULL,	NULL,	NULL,	NULL,	NULL,	'N',	'admin',	'2012-07-06 09:53:45',	'admin',	'2012-10-02 15:43:41'),
-('SC0007',	'1',	'2012-07-14',	'2012-07-19',	'',	'0000-00-00 00:00:00',	'A',	0,	'',	'admin',	'2012-07-16 14:12:04',	NULL,	NULL,	NULL,	NULL,	NULL,	'P',	'admin',	'2012-07-14 12:24:57',	'admin',	'2012-12-04 08:53:59'),
-('SC0008',	'1',	'2012-07-17',	'2012-07-17',	NULL,	NULL,	'A',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'P',	'admin',	'2012-07-17 15:58:26',	'admin',	'2012-07-17 15:58:26'),
-('SC0009',	'1',	'2012-08-17',	'2012-08-17',	'',	'0000-00-00 00:00:00',	'A',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'P',	'admin',	'2012-08-16 11:27:28',	'admin',	'2012-10-01 11:21:59'),
-('SC0010',	'1',	'2012-08-17',	'2012-08-16',	NULL,	NULL,	'A',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'P',	'admin',	'2012-08-16 11:29:15',	'admin',	'2012-08-16 11:29:15'),
-('SC0011',	'1',	'2012-08-18',	'2012-08-16',	NULL,	NULL,	'A',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'P',	'admin',	'2012-08-16 11:30:09',	'admin',	'2012-08-16 11:30:09'),
-('SC0012',	'1',	'2012-09-06',	'2012-09-06',	'admin',	'2012-10-02 20:44:05',	'M',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'A',	'admin',	'2012-09-06 15:24:43',	'admin',	'2012-10-02 15:44:05'),
-('SC0013',	'1',	'2012-09-14',	'2012-09-16',	'',	'0000-00-00 00:00:00',	'A',	0,	'',	'admin',	'2012-09-07 14:26:09',	NULL,	NULL,	NULL,	NULL,	NULL,	'C',	'admin',	'2012-09-07 09:15:17',	'admin',	'2012-09-07 09:26:09'),
-('SC0014',	'1',	'2012-09-19',	'2012-09-14',	'admin',	'2012-10-02 20:44:06',	'A',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'A',	'admin',	'2012-09-07 15:22:17',	'admin',	'2012-10-02 15:44:06'),
-('SC0015',	'1',	'2012-11-27',	'2012-11-30',	'admin',	'2012-11-27 19:51:27',	'A',	0,	'Esta es una solicitud para mañana',	NULL,	NULL,	'',	'',	'',	'',	'',	'A',	'admin',	'2012-11-27 14:47:37',	'admin',	'2012-11-27 14:51:27');
+('SC000000',	'1',	'2012-12-13',	'2012-12-12',	NULL,	NULL,	'A',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'P',	'admin',	'2012-12-05 12:40:30',	'admin',	'2012-12-05 12:40:30');
 
 DROP TABLE IF EXISTS `solicitud_oc_linea`;
 CREATE TABLE `solicitud_oc_linea` (
@@ -3155,35 +3024,10 @@ CREATE TABLE `solicitud_oc_linea` (
   KEY `FK_SOLICITUD_PERTENECE_LINEA` (`SOLICITUD_OC`),
   CONSTRAINT `FK_ARTICULO_LINEA_SOL` FOREIGN KEY (`ARTICULO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `FK_SOLICITUD_PERTENECE_LINEA` FOREIGN KEY (`SOLICITUD_OC`) REFERENCES `solicitud_oc` (`SOLICITUD_OC`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1 COMMENT='Lineas que conforman una orden de compra.';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Lineas que conforman una orden de compra.';
 
 INSERT INTO `solicitud_oc_linea` (`SOLICITUD_OC_LINEA`, `SOLICITUD_OC`, `LINEA_NUM`, `ARTICULO`, `DESCRIPCION`, `CANTIDAD`, `UNIDAD`, `SALDO`, `COMENTARIO`, `FECHA_REQUERIDA`, `ESTADO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'SC0002',	1,	'001',	'Articulo de ejemplo ',	12.00000000,	3,	0.00000000,	'asd',	'2012-07-03',	'A',	'admin',	'2012-07-03 15:16:18',	'admin',	'2012-10-02 15:42:16'),
-(2,	'SC0003',	1,	'001',	'Articulo de ejemplo ',	3.00000000,	3,	0.00000000,	'asd',	'2012-07-04',	'A',	'admin',	'2012-07-03 15:59:55',	'admin',	'2012-10-02 15:40:44'),
-(3,	'SC0003',	2,	'001',	'Articulo de ejemplo ',	4.00000000,	3,	0.00000000,	'asd',	'2012-07-18',	'A',	'admin',	'2012-07-03 15:59:55',	'admin',	'2012-10-02 15:40:44'),
-(4,	'SC0004',	1,	'001',	'Articulo de ejemplo ',	1.00000000,	4,	0.00000000,	'45',	'0000-00-00',	'A',	'admin',	'2012-07-05 10:42:23',	'admin',	'2012-10-02 15:42:15'),
-(5,	'SC0004',	2,	'002',	'fsdf',	1.00000000,	1,	0.00000000,	'78',	'0000-00-00',	'A',	'admin',	'2012-07-05 10:42:23',	'admin',	'2012-10-02 15:42:15'),
-(6,	'SC0005',	1,	'001',	'Articulo de ejemplo ',	1.00000000,	3,	0.00000000,	'',	'0000-00-00',	'P',	'admin',	'2012-07-05 18:03:59',	'admin',	'2012-07-16 16:31:44'),
-(7,	'SC0005',	2,	'002',	'fsdf',	1.00000000,	2,	0.00000000,	'',	'0000-00-00',	'P',	'admin',	'2012-07-05 18:03:59',	'admin',	'2012-07-16 16:31:44'),
-(13,	'SC0005',	1,	'001',	'Articulo de ejemplo ',	1.00000000,	3,	0.00000000,	'',	'0000-00-00',	'P',	'admin',	'2012-07-13 10:23:57',	'admin',	'2012-07-16 16:31:44'),
-(14,	'SC0005',	2,	'002',	'fsdf',	1.00000000,	2,	0.00000000,	'',	'0000-00-00',	'P',	'admin',	'2012-07-13 10:23:57',	'admin',	'2012-07-16 16:31:45'),
-(15,	'SC0005',	3,	'003',	'asdfsdfger',	2.00000000,	3,	0.00000000,	'dsfsf',	'2012-07-13',	'P',	'admin',	'2012-07-13 10:23:57',	'admin',	'2012-07-16 16:31:45'),
-(16,	'SC0004',	3,	'003',	'asdfsdfger',	9.00000000,	3,	0.00000000,	'gdfg',	'2012-07-13',	'A',	'admin',	'2012-07-13 10:35:00',	'admin',	'2012-10-02 15:42:16'),
-(17,	'SC0007',	1,	'002',	'fsdf',	2.00000000,	1,	0.00000000,	'hgj',	'2012-07-24',	'P',	'admin',	'2012-07-14 12:24:57',	'admin',	'2012-12-04 08:53:59'),
-(18,	'SC0009',	1,	'001',	'Articulo de ejemplo ',	55.00000000,	3,	0.00000000,	'asdasd',	'2012-08-17',	'P',	'admin',	'2012-08-16 11:27:28',	'admin',	'2012-10-01 11:21:59'),
-(19,	'SC0010',	1,	'002',	'fsdf',	30.00000000,	1,	0.00000000,	'asd',	'2012-08-16',	'P',	'admin',	'2012-08-16 11:29:15',	'admin',	'2012-08-16 11:29:15'),
-(20,	'SC0011',	1,	'001',	'Articulo de ejemplo ',	654.00000000,	3,	0.00000000,	'',	'2012-08-15',	'P',	'admin',	'2012-08-16 11:30:09',	'admin',	'2012-08-16 11:30:09'),
-(21,	'SC0012',	1,	'001',	'Articulo de ejemplo ',	20.00000000,	3,	0.00000000,	'',	'2012-09-06',	'A',	'admin',	'2012-09-06 15:24:43',	'admin',	'2012-10-02 16:00:51'),
-(22,	'SC0012',	2,	'003',	'asdfsdfger',	20.00000000,	3,	0.00000000,	'',	'2012-09-07',	'A',	'admin',	'2012-09-06 15:24:43',	'admin',	'2012-10-03 08:43:03'),
-(23,	'SC0013',	1,	'001',	'Articulo de ejemplo ',	20.00000000,	3,	0.00000000,	'',	'2012-09-07',	'P',	'admin',	'2012-09-07 09:15:17',	'admin',	'2012-09-07 09:26:03'),
-(26,	'SC0013',	3,	'003',	'asdfsdfger',	5.00000000,	3,	0.00000000,	'',	'2012-09-07',	'P',	'admin',	'2012-09-07 09:19:14',	'admin',	'2012-09-07 09:26:03'),
-(27,	'SC0013',	3,	'002',	'fsdf',	15.00000000,	1,	0.00000000,	'',	'2012-09-07',	'P',	'admin',	'2012-09-07 09:20:42',	'admin',	'2012-09-07 09:26:03'),
-(28,	'SC0014',	1,	'001',	'Articulo de ejemplo ',	10.00000000,	3,	0.00000000,	'20',	'2012-09-07',	'A',	'admin',	'2012-09-07 15:22:17',	'admin',	'2012-10-02 15:45:32'),
-(29,	'SC0014',	2,	'003',	'asdfsdfger',	30.00000000,	3,	0.00000000,	'20',	'2012-09-14',	'A',	'admin',	'2012-09-07 15:22:18',	'admin',	'2012-10-02 15:45:31'),
-(30,	'SC0014',	3,	'002',	'fsdf',	20.00000000,	1,	0.00000000,	'fghdfgh',	'2012-09-29',	'A',	'admin',	'2012-09-07 15:22:18',	'admin',	'2012-10-02 15:45:32'),
-(31,	'SC0014',	4,	'001',	'Articulo de ejemplo ',	20.00000000,	3,	0.00000000,	'',	'2012-09-29',	'A',	'admin',	'2012-09-07 15:23:18',	'admin',	'2012-10-02 15:45:32'),
-(32,	'SC0015',	1,	'10',	'pimienta',	10.00000000,	3,	0.00000000,	'',	'2012-11-27',	'A',	'admin',	'2012-11-27 14:47:37',	'admin',	'2012-11-27 14:54:53'),
-(33,	'SC0015',	2,	'400',	'tamal',	850.00000000,	4,	0.00000000,	'',	'2012-11-28',	'A',	'admin',	'2012-11-27 14:47:38',	'admin',	'2012-11-27 14:54:54');
+(1,	'SC000000',	1,	'001',	'Articulo de ejemplo ',	10.00000000,	3,	0.00000000,	'',	'2012-12-06',	'P',	'admin',	'2012-12-05 12:40:30',	'admin',	'2012-12-05 12:40:30');
 
 DROP TABLE IF EXISTS `solicitud_orden_co`;
 CREATE TABLE `solicitud_orden_co` (
@@ -3207,47 +3051,8 @@ CREATE TABLE `solicitud_orden_co` (
   CONSTRAINT `FK_CUBIERTO_EN_ORDEN_COMPRA_LINEA` FOREIGN KEY (`ORDEN_COMPRA_LINEA`) REFERENCES `orden_compra_linea` (`ORDEN_COMPRA_LINEA`),
   CONSTRAINT `FK_CUBIERTO_EN_SOLICITUD_OC_LINEA` FOREIGN KEY (`SOLICITUD_OC_LINEA`) REFERENCES `solicitud_oc_linea` (`SOLICITUD_OC_LINEA`),
   CONSTRAINT `FK_CUBIERTO_EN_SOLICITUD_ORDEN_COMPRA` FOREIGN KEY (`SOLICITUD_OC`) REFERENCES `solicitud_oc` (`SOLICITUD_OC`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1 COMMENT='Tabla que relaciona las solicitudes de compra con las ordene';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que relaciona las solicitudes de compra con las ordene';
 
-INSERT INTO `solicitud_orden_co` (`ID`, `SOLICITUD_OC`, `SOLICITUD_OC_LINEA`, `ORDEN_COMPRA`, `ORDEN_COMPRA_LINEA`, `DECIMA`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'SC0004',	4,	'OC0000',	1,	1.00000000,	'S',	'admin',	'2012-10-01 16:18:05',	'admin',	'2012-10-01 16:18:05'),
-(2,	'SC0004',	5,	'OC0000',	2,	1.00000000,	'S',	'admin',	'2012-10-01 16:18:05',	'admin',	'2012-10-01 16:18:05'),
-(3,	'SC0002',	1,	'OC0001',	3,	12.00000000,	'S',	'admin',	'2012-10-02 15:09:08',	'admin',	'2012-10-02 15:09:08'),
-(4,	'SC0004',	4,	'OC0001',	4,	1.00000000,	'S',	'admin',	'2012-10-02 15:09:08',	'admin',	'2012-10-02 15:09:08'),
-(5,	'SC0003',	3,	'OC0001',	5,	4.00000000,	'S',	'admin',	'2012-10-02 15:09:08',	'admin',	'2012-10-02 15:09:08'),
-(6,	'SC0004',	16,	'OC0001',	6,	9.00000000,	'S',	'admin',	'2012-10-02 15:09:08',	'admin',	'2012-10-02 15:09:08'),
-(7,	'SC0003',	2,	'OC0001',	7,	3.00000000,	'S',	'admin',	'2012-10-02 15:09:09',	'admin',	'2012-10-02 15:09:09'),
-(8,	'SC0004',	5,	'OC0001',	8,	1.00000000,	'S',	'admin',	'2012-10-02 15:09:09',	'admin',	'2012-10-02 15:09:09'),
-(9,	'SC0003',	2,	'OC0002',	9,	3.00000000,	'S',	'admin',	'2012-10-02 15:32:56',	'admin',	'2012-10-02 15:32:56'),
-(10,	'SC0002',	1,	'OC0002',	10,	12.00000000,	'S',	'admin',	'2012-10-02 15:32:56',	'admin',	'2012-10-02 15:32:56'),
-(11,	'SC0003',	3,	'OC0002',	11,	4.00000000,	'S',	'admin',	'2012-10-02 15:32:56',	'admin',	'2012-10-02 15:32:56'),
-(12,	'SC0004',	16,	'OC0002',	12,	9.00000000,	'S',	'admin',	'2012-10-02 15:32:56',	'admin',	'2012-10-02 15:32:56'),
-(13,	'SC0004',	5,	'OC0002',	13,	1.00000000,	'S',	'admin',	'2012-10-02 15:32:56',	'admin',	'2012-10-02 15:32:56'),
-(14,	'SC0004',	4,	'OC0002',	14,	1.00000000,	'S',	'admin',	'2012-10-02 15:32:57',	'admin',	'2012-10-02 15:32:57'),
-(15,	'SC0003',	2,	'OC0003',	15,	3.00000000,	'S',	'admin',	'2012-10-02 15:40:44',	'admin',	'2012-10-02 15:40:44'),
-(16,	'SC0003',	3,	'OC0003',	16,	4.00000000,	'S',	'admin',	'2012-10-02 15:40:44',	'admin',	'2012-10-02 15:40:44'),
-(17,	'SC0004',	4,	'OC0004',	17,	1.00000000,	'S',	'admin',	'2012-10-02 15:42:15',	'admin',	'2012-10-02 15:42:15'),
-(18,	'SC0004',	5,	'OC0004',	18,	1.00000000,	'S',	'admin',	'2012-10-02 15:42:15',	'admin',	'2012-10-02 15:42:15'),
-(19,	'SC0002',	1,	'OC0004',	19,	12.00000000,	'S',	'admin',	'2012-10-02 15:42:15',	'admin',	'2012-10-02 15:42:15'),
-(20,	'SC0004',	16,	'OC0004',	20,	9.00000000,	'S',	'admin',	'2012-10-02 15:42:16',	'admin',	'2012-10-02 15:42:16'),
-(21,	'SC0014',	29,	'OC0005',	21,	30.00000000,	'S',	'admin',	'2012-10-02 15:45:31',	'admin',	'2012-10-02 15:45:31'),
-(22,	'SC0012',	22,	'OC0005',	22,	20.00000000,	'S',	'admin',	'2012-10-02 15:45:31',	'admin',	'2012-10-02 15:45:31'),
-(23,	'SC0012',	21,	'OC0005',	23,	18.00000000,	'S',	'admin',	'2012-10-02 15:45:32',	'admin',	'2012-10-02 15:45:32'),
-(24,	'SC0014',	28,	'OC0005',	24,	10.00000000,	'S',	'admin',	'2012-10-02 15:45:32',	'admin',	'2012-10-02 15:45:32'),
-(25,	'SC0014',	30,	'OC0005',	25,	20.00000000,	'S',	'admin',	'2012-10-02 15:45:32',	'admin',	'2012-10-02 15:45:32'),
-(26,	'SC0014',	31,	'OC0005',	26,	20.00000000,	'S',	'admin',	'2012-10-02 15:45:32',	'admin',	'2012-10-02 15:45:32'),
-(27,	'SC0012',	21,	'OC0006',	27,	10.00000000,	'S',	'admin',	'2012-10-02 15:49:00',	'admin',	'2012-10-02 15:49:00'),
-(28,	'SC0012',	22,	'OC0006',	28,	20.00000000,	'S',	'admin',	'2012-10-02 15:49:00',	'admin',	'2012-10-02 15:49:00'),
-(29,	'SC0012',	21,	'OC0007',	29,	10.00000000,	'S',	'admin',	'2012-10-02 15:58:46',	'admin',	'2012-10-02 15:58:46'),
-(30,	'SC0012',	22,	'OC0007',	30,	20.00000000,	'S',	'admin',	'2012-10-02 15:58:46',	'admin',	'2012-10-02 15:58:46'),
-(31,	'SC0012',	21,	'OC0008',	31,	10.00000000,	'S',	'admin',	'2012-10-02 15:59:51',	'admin',	'2012-10-02 15:59:51'),
-(32,	'SC0012',	22,	'OC0008',	32,	20.00000000,	'S',	'admin',	'2012-10-02 15:59:51',	'admin',	'2012-10-02 15:59:51'),
-(33,	'SC0012',	22,	'OC0009',	33,	10.00000000,	'S',	'admin',	'2012-10-02 16:00:51',	'admin',	'2012-10-02 16:00:51'),
-(34,	'SC0012',	21,	'OC0009',	34,	20.00000000,	'S',	'admin',	'2012-10-02 16:00:51',	'admin',	'2012-10-02 16:00:51'),
-(35,	'SC0012',	22,	'OC0010',	35,	10.00000000,	'S',	'admin',	'2012-10-03 08:37:36',	'admin',	'2012-10-03 08:37:36'),
-(36,	'SC0012',	22,	'OC0011',	36,	10.00000000,	'S',	'admin',	'2012-10-03 08:43:03',	'admin',	'2012-10-03 08:43:03'),
-(37,	'SC0015',	32,	'OC0015',	42,	10.00000000,	'S',	'admin',	'2012-11-27 14:54:53',	'admin',	'2012-11-27 14:54:53'),
-(38,	'SC0015',	33,	'OC0015',	43,	850.00000000,	'S',	'admin',	'2012-11-27 14:54:54',	'admin',	'2012-11-27 14:54:54');
 
 DROP TABLE IF EXISTS `subtipo_transaccion`;
 CREATE TABLE `subtipo_transaccion` (
@@ -3261,15 +3066,15 @@ CREATE TABLE `subtipo_transaccion` (
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `TIPO_TRANSACCION` (`TIPO_TRANSACCION`),
-  CONSTRAINT `fk_tipo_transaccion_del_subtipo` FOREIGN KEY (`TIPO_TRANSACCION`) REFERENCES `tipo_transaccion` (`TIPO_TRANSACCION`),
+  CONSTRAINT `fk_tipo_transaccion_del_subtipo` FOREIGN KEY (`tipo_transaccion`) REFERENCES `tipo_transaccion` (`TIPO_TRANSACCION`),
   CONSTRAINT `subtipo_transaccion_ibfk_1` FOREIGN KEY (`TIPO_TRANSACCION`) REFERENCES `tipo_transaccion` (`TIPO_TRANSACCION`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena los subtipos de transaccion';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena los subtipos de transaccion';
 
 INSERT INTO `subtipo_transaccion` (`ID`, `NOMBRE`, `TIPO_TRANSACCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(5,	'Desperdicio',	'CONS',	'S',	'admin',	'2012-08-08 15:47:34',	'admin',	'2012-08-13 15:53:25'),
-(6,	'Retrabajo',	'CONS',	'S',	'admin',	'2012-08-08 15:47:34',	'admin',	'2012-08-13 15:53:25'),
-(9,	'Gasto',	'CONS',	'S',	'admin',	'2012-08-13 16:00:06',	'admin',	'2012-08-13 16:00:06'),
-(10,	'Consumo Normal',	'CONS',	'S',	'admin',	'2012-08-13 16:00:06',	'admin',	'2012-08-13 16:00:06'),
+(5,	'Desperdicio',	'CONS',	'S',	'admin',	'2012-08-08 15:47:34',	'admin',	'2012-11-23 10:46:48'),
+(6,	'Retrabajo',	'CONS',	'S',	'admin',	'2012-08-08 15:47:34',	'admin',	'2012-11-23 10:46:48'),
+(9,	'Gasto',	'CONS',	'S',	'admin',	'2012-08-13 16:00:06',	'admin',	'2012-11-23 10:46:48'),
+(10,	'Consumo Normal',	'CONS',	'S',	'admin',	'2012-08-13 16:00:06',	'admin',	'2012-11-23 10:46:48'),
 (11,	'Vencido',	'VENC',	'S',	'admin',	'2012-09-06 17:11:49',	'admin',	'2012-09-06 17:11:49'),
 (12,	'Dañado',	'VENC',	'S',	'admin',	'2012-09-06 17:11:49',	'admin',	'2012-09-06 17:11:49'),
 (13,	'Rechazado',	'VENC',	'S',	'admin',	'2012-09-06 17:11:49',	'admin',	'2012-09-06 17:11:49');
@@ -3311,7 +3116,7 @@ CREATE TABLE `tipo_articulo` (
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COMMENT='Tipos de articulo';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tipos de articulo';
 
 INSERT INTO `tipo_articulo` (`ID`, `NOMBRE`, `DESCRIPCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'Terminado',	'artículos que se tienen en inventario y que se encuentran listos para ser embarcados a un cliente de acuerdo a un pedido en una planta de producción.',	'S',	'admin',	'2012-06-04 10:52:07',	'admin',	'2012-06-04 10:52:07'),
@@ -3406,7 +3211,7 @@ CREATE TABLE `tipo_documento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Con el fin de facilitar y estandarizar la creación de NIT’s,';
 
 INSERT INTO `tipo_documento` (`ID`, `DESCRIPCION`, `MASCARA`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('C.C.',	'Cedula de Ciudadania',	'?99999999999',	'S',	'1',	'2012-05-22 16:38:28',	'1',	'2012-10-19 16:44:51'),
+('C.C.',	'Cedula de Ciudadania',	'999999999999',	'S',	'1',	'2012-05-22 16:38:28',	'1',	'2012-05-22 16:38:28'),
 ('NIT',	'Nit',	'999999999999-9',	'S',	'1',	'2012-05-22 16:40:22',	'1',	'2012-05-22 16:40:22'),
 ('T.I.',	'Tarjeta de Identidad',	'999999-999999',	'S',	'1',	'2012-05-22 16:38:57',	'1',	'2012-05-22 16:38:57');
 
@@ -3420,7 +3225,7 @@ CREATE TABLE `tipo_tarjeta` (
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='El objetivo de los tipos de tarjeta de crédito es establecer';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='El objetivo de los tipos de tarjeta de crédito es establecer';
 
 INSERT INTO `tipo_tarjeta` (`ID`, `DESCRIPCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'dasd',	'S',	'admin',	'2012-05-12 08:43:06',	'admin',	'2012-05-12 08:43:06');
@@ -3444,16 +3249,16 @@ CREATE TABLE `tipo_transaccion` (
 
 INSERT INTO `tipo_transaccion` (`TIPO_TRANSACCION`, `NOMBRE`, `TRANSACCION_BASE`, `TRANSACCION_FIJA`, `NATURALEZA`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 ('APRO',	'Aprobación',	'APRO',	'S',	'A',	'S',	'admin',	'2012-06-21 14:57:05',	'admin',	'2012-08-14 11:55:21'),
-('COMP',	'Compra',	'COMP',	'S',	'S',	'S',	'admin',	'2012-06-21 15:04:31',	'admin',	'2012-08-14 11:57:15'),
-('CONS',	'Consumo',	'CONS',	'S',	'A',	'S',	'admin',	'2012-06-21 15:06:16',	'admin',	'2012-08-13 15:53:23'),
-('COST',	'Costo',	'COST',	'S',	NULL,	'S',	'admin',	'2012-06-21 15:07:31',	'admin',	'2012-06-21 15:07:31'),
-('ENSA',	'Ensamble',	'ENSA',	'S',	NULL,	'S',	'admin',	'2012-06-21 15:03:45',	'admin',	'2012-06-21 16:50:18'),
-('FISI',	'Físico',	'FISI',	'S',	NULL,	'S',	'admin',	'2012-06-21 15:04:58',	'admin',	'2012-06-21 15:04:58'),
-('MISC',	'Misceláneo',	'MISC',	'S',	NULL,	'S',	'admin',	'2012-06-21 15:06:44',	'admin',	'2012-06-21 15:06:44'),
-('PROD',	'Producción',	'PROD',	'S',	NULL,	'S',	'admin',	'2012-06-21 15:07:48',	'admin',	'2012-06-21 15:07:48'),
-('REMI',	'Remisión',	'REMI',	'S',	NULL,	'S',	'admin',	'2012-06-21 15:04:07',	'admin',	'2012-06-21 15:04:07'),
-('RESE',	'Reservación',	'RESE',	'S',	'N',	'S',	'admin',	'2012-06-21 15:05:36',	'admin',	'2012-08-14 14:20:32'),
-('TRAS',	'Traspaso',	'TRAS',	'S',	NULL,	'S',	'admin',	'2012-06-21 15:07:01',	'admin',	'2012-06-21 15:07:01'),
+('COMP',	'Compra',	'COMP',	'S',	'E',	'S',	'admin',	'2012-06-21 15:04:31',	'admin',	'2012-08-14 11:57:15'),
+('CONS',	'Consumo',	'CONS',	'S',	'S',	'S',	'admin',	'2012-06-21 15:06:16',	'admin',	'2012-11-23 10:46:47'),
+('COST',	'Costo',	'COST',	'S',	'N',	'N',	'admin',	'2012-06-21 15:07:31',	'admin',	'2012-09-20 05:20:10'),
+('ENSA',	'Ensamble',	'ENSA',	'S',	'E',	'S',	'admin',	'2012-06-21 15:03:45',	'admin',	'2012-11-23 10:49:15'),
+('FISI',	'Físico',	'FISI',	'S',	'A',	'S',	'admin',	'2012-06-21 15:04:58',	'admin',	'2012-11-23 10:50:00'),
+('MISC',	'Misceláneo',	'MISC',	'S',	'A',	'S',	'admin',	'2012-06-21 15:06:44',	'admin',	'2012-11-23 10:50:33'),
+('PROD',	'Producción',	'PROD',	'S',	'E',	'S',	'admin',	'2012-06-21 15:07:48',	'admin',	'2012-11-23 10:51:01'),
+('REMI',	'Remisión',	'REMI',	'S',	'S',	'S',	'admin',	'2012-06-21 15:04:07',	'admin',	'2012-11-23 10:51:34'),
+('RESE',	'Reservación',	'RESE',	'S',	'A',	'S',	'admin',	'2012-06-21 15:05:36',	'admin',	'2012-08-14 14:20:32'),
+('TRAS',	'Traspaso',	'TRAS',	'S',	'A',	'S',	'admin',	'2012-06-21 15:07:01',	'admin',	'2012-11-23 10:52:21'),
 ('VENC',	'Vencimiento',	'VENC',	'S',	'A',	'S',	'admin',	'2012-06-21 15:08:02',	'admin',	'2012-09-06 17:11:49'),
 ('VENT',	'Venta',	'VENT',	'S',	'S',	'S',	'admin',	'2012-06-21 15:09:40',	'admin',	'2012-08-14 14:21:40');
 
@@ -3472,7 +3277,7 @@ CREATE TABLE `tipo_transaccion_cantidad` (
   KEY `FK_TIPO_TRANSACCION_AFECTA_CANTIDAD` (`TIPO_TRANSACCION`),
   CONSTRAINT `FK_TIPO_CANTIDAD_PARA_TIPO_TRANSACCION` FOREIGN KEY (`CANTIDAD`) REFERENCES `tipo_cantidad_articulo` (`ID`),
   CONSTRAINT `FK_TIPO_TRANSACCION_AFECTA_CANTIDAD` FOREIGN KEY (`TIPO_TRANSACCION`) REFERENCES `tipo_transaccion` (`TIPO_TRANSACCION`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1 COMMENT='Tabla en la que se relaciona las cantidades que pueden ser a';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla en la que se relaciona las cantidades que pueden ser a';
 
 INSERT INTO `tipo_transaccion_cantidad` (`ID`, `TIPO_TRANSACCION`, `CANTIDAD`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (4,	'APRO',	'C',	'S',	'admin',	'2012-08-14 11:55:21',	'admin',	'2012-08-14 11:55:21'),
@@ -3539,29 +3344,10 @@ CREATE TABLE `transaccion_inv` (
   KEY `CONSECUTIVO_CO` (`CONSECUTIVO_CO`),
   CONSTRAINT `transaccion_inv_ibfk_1` FOREIGN KEY (`CONSECUTIVO_CI`) REFERENCES `documento_inv` (`DOCUMENTO_INV`),
   CONSTRAINT `transaccion_inv_ibfk_2` FOREIGN KEY (`CONSECUTIVO_CO`) REFERENCES `ingreso_compra` (`INGRESO_COMPRA`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1 COMMENT='Encabezado de los movimientos aplicados al inventario';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Encabezado de los movimientos aplicados al inventario';
 
 INSERT INTO `transaccion_inv` (`TRANSACCION_INV`, `CONSECUTIVO_CI`, `CONSECUTIVO_CO`, `CONSECUTIVO_FA`, `MODULO_ORIGEN`, `REFERENCIA`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(21,	NULL,	NULL,	NULL,	'CI',	'Transaccion generada por Documento de Inventario',	'S',	'admin',	'2012-10-05 15:06:55',	'admin',	'2012-10-05 15:06:55'),
-(22,	NULL,	NULL,	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-10-05 15:14:59',	'admin',	'2012-10-05 15:14:59'),
-(23,	NULL,	NULL,	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-10-05 15:15:55',	'admin',	'2012-10-05 15:15:55'),
-(24,	NULL,	NULL,	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-10-05 15:15:55',	'admin',	'2012-10-05 15:15:55'),
-(25,	NULL,	NULL,	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-10-05 15:18:12',	'admin',	'2012-10-05 15:18:12'),
-(26,	NULL,	NULL,	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-10-05 15:21:13',	'admin',	'2012-10-05 15:21:13'),
-(27,	NULL,	NULL,	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-10-05 15:38:02',	'admin',	'2012-10-05 15:38:02'),
-(28,	NULL,	NULL,	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-10-05 16:18:26',	'admin',	'2012-10-05 16:18:26'),
-(29,	NULL,	NULL,	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-10-08 08:54:12',	'admin',	'2012-10-08 08:54:12'),
-(30,	NULL,	NULL,	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-10-08 09:01:32',	'admin',	'2012-10-08 09:01:32'),
-(31,	NULL,	NULL,	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-10-08 09:02:40',	'admin',	'2012-10-08 09:02:40'),
-(32,	NULL,	NULL,	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-10-08 09:10:03',	'admin',	'2012-10-08 09:10:03'),
-(33,	NULL,	NULL,	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-10-20 12:23:06',	'admin',	'2012-10-20 12:23:06'),
-(34,	NULL,	NULL,	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-10-20 12:31:19',	'admin',	'2012-10-20 12:31:19'),
-(36,	NULL,	'IC0029',	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-11-28 15:29:43',	'admin',	'2012-11-28 15:29:43'),
-(37,	NULL,	'IC0029',	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-11-28 15:34:52',	'admin',	'2012-11-28 15:34:52'),
-(38,	NULL,	'IC0029',	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-11-28 15:51:36',	'admin',	'2012-11-28 15:51:36'),
-(39,	NULL,	'IC0029',	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-11-28 15:53:00',	'admin',	'2012-11-28 15:53:00'),
-(40,	NULL,	'IC0026',	NULL,	'CO',	'Ingreso de compra',	'S',	'admin',	'2012-12-04 08:51:02',	'admin',	'2012-12-04 08:51:02'),
-(41,	'AJV-0002',	NULL,	NULL,	'CI',	'Transacción generada por Documento de Inventario',	'S',	'admin',	'2012-12-04 16:38:17',	'admin',	'2012-12-04 16:38:17');
+(2,	'AJV-0001',	NULL,	NULL,	'CI',	'Transacción generada por Documento de Inventario',	'S',	'admin',	'2012-11-27 20:35:29',	'admin',	'2012-11-27 20:35:29');
 
 DROP TABLE IF EXISTS `transaccion_inv_detalle`;
 CREATE TABLE `transaccion_inv_detalle` (
@@ -3584,12 +3370,12 @@ CREATE TABLE `transaccion_inv_detalle` (
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`TRANSACCION_INV_DETALLE`),
+  KEY `FFK_ARTICULO_MOVIMIENTO` (`ARTICULO`),
   KEY `FK_BODEGA_MOVIMIENTO` (`BODEGA`),
   KEY `FK_REFERENCE_92` (`TRANSACCION_INV`),
   KEY `FK_SUBTIPO_TRANSACCION_MOVIMIENTO` (`SUBTIPO`),
   KEY `FK_TIPO_TRANSACCION_MOVIMIENTO` (`TIPO_TRANSACCION`),
   KEY `FK_UNIDAD_ARTICULO_MOVIMIENTO` (`UNIDAD`),
-  KEY `FFK_ARTICULO_MOVIMIENTO` (`ARTICULO`),
   KEY `FK_TIPO_TRANSACCION_CANTIDAD_MOVIMIENTO` (`TIPO_TRANSACCION_CANTIDAD`),
   CONSTRAINT `FK_BODEGA_MOVIMIENTO` FOREIGN KEY (`BODEGA`) REFERENCES `bodega` (`ID`),
   CONSTRAINT `FK_REFERENCE_92` FOREIGN KEY (`TRANSACCION_INV`) REFERENCES `transaccion_inv` (`TRANSACCION_INV`),
@@ -3598,42 +3384,10 @@ CREATE TABLE `transaccion_inv_detalle` (
   CONSTRAINT `FK_UNIDAD_ARTICULO_MOVIMIENTO` FOREIGN KEY (`UNIDAD`) REFERENCES `unidad_medida` (`ID`),
   CONSTRAINT `transaccion_inv_detalle_ibfk_2` FOREIGN KEY (`ARTICULO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `transaccion_inv_detalle_ibfk_3` FOREIGN KEY (`TIPO_TRANSACCION_CANTIDAD`) REFERENCES `tipo_cantidad_articulo` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=latin1 COMMENT='Tabla con el detalle de las transacciones que afectan el inv';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla con el detalle de las transacciones que afectan el inv';
 
 INSERT INTO `transaccion_inv_detalle` (`TRANSACCION_INV_DETALLE`, `TRANSACCION_INV`, `LINEA`, `TIPO_TRANSACCION`, `SUBTIPO`, `TIPO_TRANSACCION_CANTIDAD`, `ARTICULO`, `UNIDAD`, `BODEGA`, `NATURALEZA`, `CANTIDAD`, `COSTO_UNITARIO`, `PRECIO_UNITARIO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(37,	22,	1,	NULL,	NULL,	'0',	'001',	4,	'1',	'E',	1.00000000,	10.00000000,	10.00000000,	'S',	'admin',	'2012-10-05 15:14:59',	'admin',	'2012-10-05 15:14:59'),
-(38,	24,	1,	NULL,	NULL,	'0',	'003',	3,	'1',	'E',	5.00000000,	0.00000000,	12.00000000,	'S',	'admin',	'2012-10-05 15:15:55',	'admin',	'2012-10-05 15:15:55'),
-(39,	25,	1,	NULL,	NULL,	'0',	'15',	3,	'1',	'E',	10.00000000,	0.00000000,	10.00000000,	'S',	'admin',	'2012-10-05 15:18:12',	'admin',	'2012-10-05 15:18:12'),
-(40,	26,	1,	NULL,	NULL,	'0',	'15',	3,	'1',	'E',	10.00000000,	0.00000000,	10.00000000,	'S',	'admin',	'2012-10-05 15:21:13',	'admin',	'2012-10-05 15:21:13'),
-(41,	27,	1,	NULL,	NULL,	'0',	'15',	3,	'1',	'E',	10.00000000,	0.00000000,	10.00000000,	'S',	'admin',	'2012-10-05 15:38:02',	'admin',	'2012-10-05 15:38:02'),
-(42,	28,	1,	NULL,	NULL,	'0',	'003',	3,	'1',	'E',	5.00000000,	0.00000000,	12.00000000,	'S',	'admin',	'2012-10-05 16:18:26',	'admin',	'2012-10-05 16:18:26'),
-(43,	29,	1,	NULL,	NULL,	'0',	'001',	3,	'1',	'E',	12.00000000,	0.07911392,	10.00000000,	'S',	'admin',	'2012-10-08 08:54:12',	'admin',	'2012-10-08 08:54:12'),
-(44,	29,	2,	NULL,	NULL,	'0',	'001',	3,	'1',	'E',	3.00000000,	0.07911392,	10.00000000,	'S',	'admin',	'2012-10-08 08:54:12',	'admin',	'2012-10-08 08:54:12'),
-(45,	29,	3,	NULL,	NULL,	'0',	'003',	3,	'1',	'E',	9.00000000,	0.00000000,	10.00000000,	'S',	'admin',	'2012-10-08 08:54:13',	'admin',	'2012-10-08 08:54:13'),
-(46,	29,	4,	NULL,	NULL,	'0',	'001',	3,	'1',	'E',	4.00000000,	0.07911392,	10.00000000,	'S',	'admin',	'2012-10-08 08:54:13',	'admin',	'2012-10-08 08:54:13'),
-(47,	29,	5,	NULL,	NULL,	'0',	'001',	4,	'1',	'E',	1.00000000,	0.07911392,	10.00000000,	'S',	'admin',	'2012-10-08 08:54:13',	'admin',	'2012-10-08 08:54:13'),
-(48,	29,	6,	NULL,	NULL,	'0',	'002',	1,	'1',	'E',	1.00000000,	0.00000000,	10.00000000,	'S',	'admin',	'2012-10-08 08:54:13',	'admin',	'2012-10-08 08:54:13'),
-(49,	30,	1,	NULL,	NULL,	'0',	'001',	3,	'1',	'E',	4.00000000,	10.00000000,	10.00000000,	'S',	'admin',	'2012-10-08 09:01:32',	'admin',	'2012-10-08 09:01:32'),
-(50,	30,	2,	NULL,	NULL,	'0',	'002',	1,	'1',	'E',	1.00000000,	0.00000000,	10.00000000,	'S',	'admin',	'2012-10-08 09:01:32',	'admin',	'2012-10-08 09:01:32'),
-(51,	30,	3,	NULL,	NULL,	'0',	'001',	3,	'1',	'E',	3.00000000,	10.00000000,	10.00000000,	'S',	'admin',	'2012-10-08 09:01:32',	'admin',	'2012-10-08 09:01:32'),
-(52,	30,	4,	NULL,	NULL,	'0',	'001',	3,	'1',	'E',	10.00000000,	10.00000000,	10.00000000,	'S',	'admin',	'2012-10-08 09:01:32',	'admin',	'2012-10-08 09:01:32'),
-(53,	30,	5,	NULL,	NULL,	'0',	'003',	3,	'1',	'E',	9.00000000,	0.00000000,	10.00000000,	'S',	'admin',	'2012-10-08 09:01:33',	'admin',	'2012-10-08 09:01:33'),
-(54,	30,	6,	NULL,	NULL,	'0',	'001',	4,	'1',	'E',	1.00000000,	10.00000000,	10.00000000,	'S',	'admin',	'2012-10-08 09:01:33',	'admin',	'2012-10-08 09:01:33'),
-(55,	31,	1,	NULL,	NULL,	'0',	'001',	3,	'1',	'E',	2.00000000,	0.55153707,	10.00000000,	'S',	'admin',	'2012-10-08 09:02:40',	'admin',	'2012-10-08 09:02:40'),
-(56,	32,	1,	NULL,	NULL,	'0',	'001',	3,	'1',	'E',	10.00000000,	4.91236611,	10.00000000,	'S',	'admin',	'2012-10-08 09:10:03',	'admin',	'2012-10-08 09:10:03'),
-(57,	33,	1,	NULL,	NULL,	'0',	'14',	3,	'504',	'E',	14.00000000,	0.00000000,	10000.00000000,	'S',	'admin',	'2012-10-20 12:23:06',	'admin',	'2012-10-20 12:23:06'),
-(58,	33,	2,	NULL,	NULL,	'0',	'13',	3,	'504',	'E',	20.00000000,	0.00000000,	10000.00000000,	'S',	'admin',	'2012-10-20 12:23:06',	'admin',	'2012-10-20 12:23:06'),
-(59,	34,	1,	NULL,	NULL,	'0',	'13',	3,	'504',	'E',	20.00000000,	0.00000000,	100000.00000000,	'S',	'admin',	'2012-10-20 12:31:19',	'admin',	'2012-10-20 12:31:19'),
-(60,	34,	2,	NULL,	NULL,	'0',	'14',	3,	'504',	'E',	15.00000000,	0.00000000,	100000.00000000,	'S',	'admin',	'2012-10-20 12:31:19',	'admin',	'2012-10-20 12:31:19'),
-(63,	36,	1,	NULL,	NULL,	'D',	'10',	3,	'1',	'E',	10.00000000,	0.00000000,	12000.00000000,	'S',	'admin',	'2012-11-28 15:29:43',	'admin',	'2012-11-28 15:29:43'),
-(64,	36,	2,	NULL,	NULL,	'D',	'400',	4,	'1',	'E',	850.00000000,	0.00000000,	85760.00000000,	'S',	'admin',	'2012-11-28 15:29:43',	'admin',	'2012-11-28 15:29:43'),
-(65,	37,	1,	NULL,	NULL,	'D',	'10',	3,	'1',	'E',	10.00000000,	0.00000000,	12000.00000000,	'S',	'admin',	'2012-11-28 15:34:52',	'admin',	'2012-11-28 15:34:52'),
-(66,	37,	2,	NULL,	NULL,	'D',	'400',	4,	'1',	'E',	850.00000000,	0.00000000,	85760.00000000,	'S',	'admin',	'2012-11-28 15:34:52',	'admin',	'2012-11-28 15:34:52'),
-(67,	38,	1,	NULL,	NULL,	'D',	'10',	3,	'1',	'E',	10.00000000,	0.00000000,	12000.00000000,	'S',	'admin',	'2012-11-28 15:51:36',	'admin',	'2012-11-28 15:51:36'),
-(68,	38,	2,	NULL,	NULL,	'D',	'400',	4,	'1',	'E',	850.00000000,	0.00000000,	85760.00000000,	'S',	'admin',	'2012-11-28 15:51:36',	'admin',	'2012-11-28 15:51:36'),
-(69,	39,	1,	NULL,	NULL,	'D',	'10',	3,	'1',	'E',	10.00000000,	0.00000000,	12000.00000000,	'S',	'admin',	'2012-11-28 15:53:00',	'admin',	'2012-11-28 15:53:00'),
-(70,	39,	2,	NULL,	NULL,	'D',	'400',	4,	'1',	'E',	850.00000000,	0.00000000,	85760.00000000,	'S',	'admin',	'2012-11-28 15:53:00',	'admin',	'2012-11-28 15:53:00'),
-(71,	40,	1,	NULL,	NULL,	'D',	'14',	3,	'504',	'E',	0.00000000,	0.00000000,	10000.00000000,	'S',	'admin',	'2012-12-04 08:51:02',	'admin',	'2012-12-04 08:51:02');
+(1,	2,	1,	'ENSA',	NULL,	'D',	'001',	3,	'23',	'E',	4.00000000,	500.00000000,	0.00000000,	'S',	'admin',	'2012-11-27 20:35:29',	'admin',	'2012-11-27 20:35:29');
 
 DROP TABLE IF EXISTS `ubicacion_geografica1`;
 CREATE TABLE `ubicacion_geografica1` (
@@ -4837,7 +4591,7 @@ CREATE TABLE `unidad_medida` (
   PRIMARY KEY (`ID`),
   KEY `FK_UNIDAD_BASE` (`UNIDAD_BASE`),
   CONSTRAINT `FK_UNIDAD_BASE` FOREIGN KEY (`UNIDAD_BASE`) REFERENCES `unidad_medida` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena las unidades de medida para los articulos';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena las unidades de medida para los articulos';
 
 INSERT INTO `unidad_medida` (`ID`, `NOMBRE`, `ABREVIATURA`, `TIPO`, `UNIDAD_BASE`, `EQUIVALENCIA`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'Metro',	'Mt',	'L',	NULL,	0.00000000,	'S',	'admin',	'2012-06-08 18:00:05',	'admin',	'2012-06-08 18:00:05'),
@@ -4856,7 +4610,7 @@ CREATE TABLE `usuarios` (
   `CREADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `USERNAME` (`USERNAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `usuarios` (`ID`, `USERNAME`, `PASS`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`) VALUES
 (1,	'admin',	'21232f297a57a5a743894a0e4a801fc3',	'S',	'admin',	'2012-05-21 00:08:31'),
@@ -4875,10 +4629,10 @@ CREATE TABLE `zona` (
   PRIMARY KEY (`ID`),
   KEY `FK_PAIS_DE_LA_ZONA` (`PAIS`),
   CONSTRAINT `FK_PAIS_DE_LA_ZONA` FOREIGN KEY (`PAIS`) REFERENCES `pais` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='El propósito de la tabla de datos de Zonas, es segmentar o d';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='El propósito de la tabla de datos de Zonas, es segmentar o d';
 
 INSERT INTO `zona` (`ID`, `PAIS`, `NOMBRE`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'COL',	'zona',	'N',	'admin',	'2012-10-10 11:48:49',	'admin',	'2012-10-10 11:55:32'),
-(2,	'COL',	'564sdf',	'S',	'admin',	'2012-11-23 11:18:26',	'admin',	'2012-11-23 11:18:26');
+(1,	'COL',	'Centro',	'S',	'admin',	'2012-11-01 09:56:03',	'admin',	'2012-11-01 09:56:03'),
+(2,	'COL',	'Sur',	'S',	'admin',	'2012-11-01 09:56:19',	'admin',	'2012-11-01 09:56:19');
 
 -- 2012-12-06 17:19:53

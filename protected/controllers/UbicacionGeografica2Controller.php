@@ -136,9 +136,11 @@ class UbicacionGeografica2Controller extends SBaseController
         
              public function actionExcel()
 	{
-		$model= UbicacionGeografica2::model()->findAll('ACTIVO="S"');
-                Yii::app()->request->sendFile('Municipios.xls', 
-                        $this->renderPartial('excel',array('model'=>$model),true));
+		$model = new UbicacionGeografica2('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
 	}
         
           public function actionPdf(){
@@ -146,9 +148,7 @@ class UbicacionGeografica2Controller extends SBaseController
             $dataProvider=new UbicacionGeografica2;
 		$this->render('pdf',array(
 			'dataProvider'=>$dataProvider,
-		));
-            
-            
+		)); 
         }
 
 	/**

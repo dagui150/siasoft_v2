@@ -6,9 +6,12 @@ class DocumentoInvController extends SBaseController
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
+        public $modulo='Invetario';
+        public $submodulo='Documentos Inventario';
 	public $layout='//layouts/column2';
         public $breadcrumbs=array();
 	public $menu=array();
+        public $doc;
 
 	/**
 	 * @return array action filters
@@ -429,6 +432,35 @@ class DocumentoInvController extends SBaseController
 			'model'=>$model,
 		));
 	}
+        /**
+         *Genera un pdf con la informacion del item seleccionado
+         *  
+         */
+        
+        public function actionformatoPDF() {
+
+            $id = $_GET['id'];
+            
+            $this->doc = $model = DocumentoInv::model()->findByPk($id);
+            $model2 = new DocumentoInvLinea;
+            
+            $this->layout = ConsecutivoCi::model()->find('ID = "'.$model->CONSECUTIVO.'"')->fORMATOIMPRESION->RUTA;
+            
+            $footer = '<table width="100%">
+                    <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>
+                        <td align="center" valign="middle"><span class="piePagina"><b>Generado el:</b> ' . date('Y/m/d') . '</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center" valign="middle">Desarrollado por Tramasoft Soluciones TIC - <a href="http://www.tramasoft.com">www.tramasoft.com</a></td>
+                    </tr>
+                    </table>';
+            $mPDF1 = Yii::app()->ePdf->mpdf();
+            $mPDF1->WriteHTML($this->render('pdf', array('model2' => $model2, 'model' => $this->doc), true));
+            $mPDF1->SetHTMLFooter($footer);
+
+            $mPDF1->Output();
+            Yii::app()->end();
+        }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

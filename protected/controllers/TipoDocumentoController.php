@@ -136,9 +136,11 @@ class TipoDocumentoController extends SBaseController
         
         public function actionExcel()
 	{
-		$model= TipoDocumento::model()->findAll('ACTIVO="S"');
-                Yii::app()->request->sendFile('Tipo_Documento.xls', 
-                        $this->renderPartial('excel',array('model'=>$model),true));
+		$model = new TipoDocumento('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
 	}
         
         

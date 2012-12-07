@@ -140,9 +140,11 @@ class CentroCostosController extends SBaseController
         
                   public function actionExcel()
 	{
-		$model= CentroCostos::model()->findAll('ACTIVO="S"');
-                Yii::app()->request->sendFile('Centros_Costos.xls', 
-                        $this->renderPartial('excel',array('model'=>$model),true));
+		$model = new CentroCostos('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
 	}
         
         

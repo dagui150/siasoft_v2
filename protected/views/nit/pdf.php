@@ -13,7 +13,7 @@ $this->widget('ext.PdfGrid.EPDFGrid', array(
     ),
     'config'    => array(
         'title'     => 'Nits',
-        'showLogo'  => true,
+        
         //'colWidths' => array(40, 90, 40),
     ),
 ));

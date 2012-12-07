@@ -136,9 +136,11 @@ class CodicionPagoController extends SBaseController
         
                           public function actionExcel()
 	{
-		$model= CodicionPago::model()->findAll('ACTIVO="S"');
-                Yii::app()->request->sendFile('Codicion_Pagos.xls', 
-                        $this->renderPartial('excel',array('model'=>$model),true));
+		$model = new CodicionPago('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
 	}
         
         

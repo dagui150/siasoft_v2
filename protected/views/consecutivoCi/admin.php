@@ -36,7 +36,10 @@ $this->breadcrumbs=array(
                     'DESCRIPCION',
                     'MASCARA',
                     'SIGUIENTE_VALOR',
-                    'FORMATO_IMPRESION',
+                    array(
+                         'name' => 'FORMATO_IMPRESION',
+                         'value'=>'isset($data->fORMATOIMPRESION->NOMBRE) ? $data->fORMATOIMPRESION->NOMBRE : ""',
+                     ),
                     array(
                          'name'=>'TODOS_USUARIOS',
                          'value'=>'($data->TODOS_USUARIOS == \'S\') ? \'Si\' :\'No\'',

@@ -171,6 +171,7 @@ function inicio(){
 							.$form->radioButtonListRow($model, 'PRIORIDAD_BUSQUEDA', array('A'=>'Por Codgo de Artículo','C'=>'Por Código de Barras'))
 						.'</fieldset>'
 				),
+                                                 
 			),
 		)); 
 	?>

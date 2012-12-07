@@ -49,7 +49,7 @@ class ConsecutivoCi extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ID, DESCRIPCION, MASCARA, SIGUIENTE_VALOR, TODOS_USUARIOS, ACTIVO', 'required'),
+			array(' DESCRIPCION, MASCARA, SIGUIENTE_VALOR, TODOS_USUARIOS,FORMATO_IMPRESION', 'required'),
 			array('FORMATO_IMPRESION', 'numerical', 'integerOnly'=>true),
 			array('ID', 'length', 'max'=>10),
 			array('DESCRIPCION', 'length', 'max'=>48),

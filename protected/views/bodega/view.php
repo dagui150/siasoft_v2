@@ -23,7 +23,11 @@ $this->menu=array(
 	'attributes'=>array(
 		'ID',
 		'DESCRIPCION',
-		'TIPO',
+		array(
+                        'name'=>'TIPO',
+                        'header'=>'Tipo',
+                        'value'=>Bodega::tipo($model->TIPO),
+                    ),
 		'TELEFONO',
 		'DIRECCION',
 		/*'ACTIVO',

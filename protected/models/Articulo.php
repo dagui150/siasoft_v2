@@ -88,7 +88,7 @@ class Articulo extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ORIGEN_CORP, TIPO_ARTICULO, EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN,', 'required'),
-			array('ARTICULO, NOMBRE, FRECUENCIA_CONTEO,PESO_NETO, PESO_NETO_UNIDAD, PESO_BRUTO, PESO_BRUTO_UNIDAD, VOLUMEN, VOLUMEN_UNIDAD, UNIDAD_ALMACEN, UNIDAD_EMPAQUE, UNIDAD_VENTA, FACTOR_EMPAQUE, FACTOR_VENTA, IMPUESTO_VENTA,', 'required', 'message'=>''),
+			array('ARTICULO, NOMBRE, FRECUENCIA_CONTEO,PESO_NETO, PESO_NETO_UNIDAD, PESO_BRUTO, PESO_BRUTO_UNIDAD, VOLUMEN, VOLUMEN_UNIDAD, UNIDAD_ALMACEN, UNIDAD_EMPAQUE, UNIDAD_VENTA, FACTOR_EMPAQUE, FACTOR_VENTA, IMPUESTO_VENTA,', 'required',),
                         array('EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA,PUNTO_REORDEN,FRECUENCIA_CONTEO, PESO_NETO, PESO_BRUTO, VOLUMEN, FACTOR_EMPAQUE,FACTOR_VENTA', 'numerical',),
                         array('ARTICULO, CODIGO_BARRAS, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
                         array('NOMBRE, DESCRIPCION_COMPRA', 'length', 'max'=>128),
@@ -98,7 +98,7 @@ class Articulo extends CActiveRecord
                         array('IMPUESTO_COMPRA, BODEGA, RETENCION_COMPRA, IMPUESTO_VENTA, RETENCION_VENTA', 'length', 'max'=>4),
                         array('NOTAS', 'safe'),
                     
-                        array('IMPUESTO_VENTA', 'exist', 'attributeName'=>'ID', 'className'=>'Impuesto','allowEmpty'=>false, 'message'=>''),
+                        array('IMPUESTO_VENTA', 'exist', 'attributeName'=>'ID', 'className'=>'Impuesto','allowEmpty'=>true,),
                     
                         array('ARTICULO', 'unique', 'attributeName'=>'ARTICULO', 'className'=>'Articulo','allowEmpty'=>false),
                         array('EXISTENCIA_MAXIMA', 'miValidacion3', ),
