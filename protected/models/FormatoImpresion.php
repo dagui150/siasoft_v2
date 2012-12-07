@@ -249,6 +249,12 @@ class FormatoImpresion extends CActiveRecord {
                             'OrdenCompra' => 'Plantilla 1',
                 );
                 break;
+            case 'INCO' :
+                return
+                        array(
+                            'IngresoCompra' => 'Plantilla 1',
+                );
+                break;
         }
     }
 

@@ -80,7 +80,7 @@ class ConfCo extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('BODEGA_DEFAULT', 'required'),
-                        array('FORMATO_IMPRESION_SOL, FORMATO_IMPRESION_ORD', 'numerical', 'integerOnly'=>true),
+                        array('FORMATO_IMPRESION_SOL, FORMATO_IMPRESION_ORD, FORMATO_IMPRESION_ING', 'numerical', 'integerOnly'=>true),
 			array('MAXIMO_LINORDEN, PRECIO_DEC, CANTIDAD_DEC', 'numerical', 'integerOnly'=>true),
 			array('BODEGA_DEFAULT', 'length', 'max'=>4),
 			array('ULT_SOLICITUD, ULT_ORDEN_COMPRA, ULT_EMBARQUE, ULT_SOLICITUD_M, ULT_ORDEN_COMPRA_M, ULT_EMBARQUE_M, ULT_DEVOLUCION, ULT_DEVOLUCION_M', 'length', 'max'=>10),
@@ -109,6 +109,7 @@ class ConfCo extends CActiveRecord
 			'bODEGADEFAULT' => array(self::BELONGS_TO, 'Bodega', 'BODEGA_DEFAULT'),
                         'fORMATOSOLICITUD' => array(self::BELONGS_TO, 'FormatoImpresion', 'FORMATO_IMPRESION_SOL'),
 			'fORMATOORDEN' => array(self::BELONGS_TO, 'FormatoImpresion', 'FORMATO_IMPRESION_ORD'),
+                        'fORMATOINGRESO' => array(self::BELONGS_TO, 'FormatoImpresion', 'FORMATO_IMPRESION_ING'),
 		);
 	}
 
@@ -121,6 +122,7 @@ class ConfCo extends CActiveRecord
 			'ID' => 'ID',
                         'FORMATO_IMPRESION_SOL'=>'Formato impresion Solicitudes',
                         'FORMATO_IMPRESION_ORD'=>'Formato impresion Ordenes',
+                        'FORMATO_IMPRESION_ING'=>'Formato impresion Ingresos',
 			'BODEGA_DEFAULT' => 'Bodega por Omisi&oacute;n',
 			'ULT_SOLICITUD' => 'Ultima Solicitud',
 			'ULT_ORDEN_COMPRA' => 'Ultima Orden de Compra',

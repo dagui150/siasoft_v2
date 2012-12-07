@@ -160,7 +160,17 @@ $('.search-form form').submit(function(){
 		'MODIFICADO_POR',
 		'MODIFICADO_EL',
 		*/
+            array(
+                         'class'=>'CLinkColumn',
+			 //'header'=>'Bodegas',
+			 'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
+			 //'labelExpression'=>'$data->ID',
+			 'urlExpression'=>'CController::createUrl("/ingresoCompra/formatoPDF", array("id"=>$data->INGRESO_COMPRA))',
+			 'htmlOptions'=>array('style'=>'text-align:center;'),
+			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),
+                ),
 	),
+        
 )); ?>
 
 <?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'advertencia')); ?>
