@@ -173,11 +173,11 @@ return array(
 					'levels'=>'error, warning',
 					//'ipFilters'=>array('127.0.0.1','192.168.0.11'),
 				),
-                                 * 
+                                 
 			),
 		),
                     
-		),*/
+		
 		
 		'bootstrap'=>array(
 			'class'=>'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
