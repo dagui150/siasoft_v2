@@ -6,7 +6,7 @@ $(document).ready(function(){
 function nuevo(){    
     //Limpiar Fromulario
     $("#FacturaLinea_ARTICULO").val('');
-    //$("#PedidoLinea_UNIDAD").val('');
+    //$("#FacturaLinea_UNIDAD").val('');
     $("#FacturaLinea_CANTIDAD").val('');
     $("#FacturaLinea_PRECIO_UNITARIO").val('');
     $("#FacturaLinea_PORC_DESCUENTO").val('');
@@ -19,18 +19,18 @@ function nuevo(){
     $("#nuevo").modal();
     
     //llenar datos
-    $("#FacturaLinea_ARTICULO").val($('#Articulo').val());
+    $("#FacturaLinea_ARTICULO").val($('#Factura_ARTICULO').val());
     $("#DESCRIPCION").val($('#Articulo_desc').val());
 }
 
 function inicio(){ 
     
     $('#agregar').click(function(){            
-            $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&art='+$('#Articulo').val(),
+            $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&art='+$('#Factura_ARTICULO').val(),
                 function(data){
                     
-                     $('select[id$=PedidoLinea_TIPO_PRECIO ] > option').remove();
-                      $('#FacturaLinea_TIPO_PRECIO').append("<option value=''>Seleccione</option>");
+                     $('select[id$=FacturaLinea_TIPO_PRECIO]>option').remove();
+                     $('#FacturaLinea_TIPO_PRECIO').append("<option value=''>Seleccione</option>");
                     
                     $.each(data, function(value, name) {
                               $('#FacturaLinea_TIPO_PRECIO').append("<option value='"+value+"'>"+name+"</option>");
@@ -41,7 +41,27 @@ function inicio(){
             $.getJSON('<?php echo $this->createUrl('cargarconsecutivo')?>&id='+$(this).val(),
                 function(data){
                     
-                    $('#Factura_PEDIDO').val(data.VALOR);
+                    $('#Factura_FACTURA').val(data.VALOR);
+                    
+                }
+            );
+        });
+        
+    $('#Factura_ARTICULO').change(function(){
+            $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$(this).val(),
+                function(data){
+                    $("#Articulo_desc").val(data.NOMBRE);
+                    $("#FacturaLinea_UNIDAD").val(data.UNIDAD);
+                    $('#agregar').attr('disabled', false);
+                    
+                }
+            );
+        });
+        
+    $('#Factura_CLIENTE').change(function(){
+            $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=CL&ID='+$(this).val(),
+                function(data){
+                    $("#Cliente_desc").val(data.NOMBRE);
                     
                 }
             );
@@ -62,13 +82,13 @@ function inicio(){
     $(".escritoCondicion").autocomplete({
         change: function(e) { 
             $.getJSON(
-                '<?php echo $this->createUrl('proveedor/CargarNit'); ?>&FU=BOA&ID='+$(this).attr('value'),
+                '<?php echo $this->createUrl('CargarCond'); ?>&buscar='+$(this).attr('value'),
                 function(data)
                 {
-                    $('#Proveedor_NIT').val(data.ID);
-                    $('#Nit2').val(data.NOMBRE);                    
+                    $('#Factura_CONDICION_PAGO').val(data.ID);
+                    $('#Condicion').val(data.NOMBRE);
                 }
-           )
+            )
         }
     });    
 }
@@ -86,7 +106,7 @@ function cargaGrilla(grid_id){
     }
     else if (grid_id == 'articulo-grid'){
         url = '<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+ID;
-        campo = '#Articulo';
+        campo = '#Factura_ARTICULO';
         campo_nombre = '#Articulo_desc';
         $('#agregar').attr('disabled', false);
     }
@@ -111,55 +131,21 @@ function cargaGrilla(grid_id){
 </script>
 <div class="form">
 
-<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
-	'id'=>'pedido-form',
-	'type'=>'horizontal',
-	'enableAjaxValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
-	),	
-)); ?>
-    
-<!--Inicio de Autocompletar-->
 <?php
-    $autocompletarBodega = $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                    'model'=>$model,
-                    'attribute'=>'BODEGA',
-                    'source'=>$this->createUrl('/pedido/completarbodega'),
-                    'htmlOptions'=>array(
-                        'size'=>4,
-                        'class'=>'escritoBodega',
-                        'maxlength'=>4
-                    ),
-                ), true);
+    $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+            'id'=>'factura-form',
+            'type'=>'horizontal',
+            'enableAjaxValidation'=>true,
+            'clientOptions'=>array(
+                  'validateOnSubmit'=>true,
+             ),	
+    )); 
+    $conf = ConfFa::model()->find();
 ?>
-<!--Fin de Autocompletar-->
-
-
-<!--Inicio de Botones que llaman a modal-->
-
-<?php $btnBodega = $this->widget('bootstrap.widgets.BootButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#bodega',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal'),
-                    ), true); 
-?>
-<?php $btnCondicion = $this->widget('bootstrap.widgets.BootButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#condicion',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal'),
-                    ), true); 
-?>
-
-<!--Fin de Botones que llaman a modal-->
-
+    
 <!--Inicio de fechas-->
 <?php
-    $fechaPedido = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+    $fechaFactura = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
         'attribute'=>'FECHA_FACTURA',
         'model'=>$model,
 	'language'=>'es',
@@ -180,7 +166,7 @@ function cargaGrilla(grid_id){
 ?>
 
 <?php
-    $fechaPrometida = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+    $fechaDespacho = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
         'attribute'=>'FECHA_DESPACHO',
         'model'=>$model,
 	'language'=>'es',
@@ -201,7 +187,7 @@ function cargaGrilla(grid_id){
 ?>
 
 <?php
-    $fechaEmbarque = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+    $fechaEntrega = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
         'attribute'=>'FECHA_ENTREGA',
         'model'=>$model,
 	'language'=>'es',
@@ -232,27 +218,43 @@ function cargaGrilla(grid_id){
 <table>
     <tr>
         <td>
-            <table>
+            <table style="margin-left: -100px;">
                 <tr>
-                    <td>
-                        <label>Consecutivo: </label>
+                    <td style="width: 315px">
+                        <?php echo $form->dropDownListRow($model,'CONSECUTIVO',CHtml::listData(ConsecutivoFa::model()->findAllByAttributes(array('ACTIVO'=>'S','CLASIFICACION'=>'F')),'CODIGO_CONSECUTIVO','DESCRIPCION'),array('empty'=>'Seleccione','style'=>'width: 100px;')); ?>
                     </td>
-                    <td width="10%">
-                        <?php echo $form->dropDownList($model,'CONSECUTIVO',CHtml::listData(ConsecutivoFa::model()->findAllByAttributes(array('ACTIVO'=>'S','CLASIFICACION'=>'F')),'CODIGO_CONSECUTIVO','DESCRIPCION'),array('empty'=>'Seleccione','style'=>'width: 160px;')); ?>
-                    </td>
-                    <td width="2%"></td>
-                    <td>
-                        <?php echo $form->textField($model,'PEDIDO',array('size'=>20,'maxlength'=>50,'disabled'=>true)); ?>
+                    <td style="width: 80px;">
+                        <?php echo $form->textField($model,'FACTURA',array('size'=>15,'maxlength'=>50,'readonly'=>true)); ?>
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <label>Cliente: </label>
+                    <td colspan="2">
+                         <div class="control-group ">
+                                <?php echo $form->labelEx($model,'FECHA_FACTURA',array('class'=>'control-label')); ?>
+                                <div class="controls">   
+                                    <?php 
+                                        echo $fechaFactura; 
+                                        echo $form->error($model,'FECHA_FACTURA')
+                                    ?>
+                                </div>
+                        </div>
                     </td>
-                    <td>
-                        <?php echo $form->textField($model,'CLIENTE',array('size'=>20,'maxlength'=>20)); ?>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                         <?php echo $form->dropDownListRow($model,'CONDICION_PAGO',CHtml::listData(CodicionPago::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 239px;','empty'=>'Seleccione','options'=>array($model->isNewRecord && $conf->COND_PAGO_CONTADO!= '' ? $conf->COND_PAGO_CONTADO : ''=>array('selected'=>'selected'))));?>
                     </td>
-                    <td>
+                </tr>
+                
+            </table>
+        </td>
+        <td>
+            <table style="margin-left: -140px;">
+                <tr>
+                    <td style="width: 315px">
+                        <?php echo $form->textFieldRow($model,'CLIENTE',array('size'=>18,'maxlength'=>20)); ?>
+                    </td>
+                    <td style="width: 28px;">
                         <?php $this->widget('bootstrap.widgets.BootButton', array(
                           'type'=>'info',
                           'size'=>'mini',
@@ -262,42 +264,25 @@ function cargaGrilla(grid_id){
                     )); ?>
                     </td>
                     <td>
-                        <?php echo CHtml::textField('Cliente_desc','',array('disabled'=>true)); ?>
+                        <?php echo CHtml::textField('Cliente_desc','',array('disabled'=>true,'size'=>35)); ?>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label>Articulo: </label>
+                         <?php echo $form->dropDownListRow($model,'BODEGA',CHtml::listData(Bodega::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 150px;','empty'=>'Seleccione','options'=>array($model->isNewRecord && $conf->BODEGA_DEFECTO!= '' ? $conf->BODEGA_DEFECTO : ''=>array('selected'=>'selected'))));?>
                     </td>
-                    <td>
-                        <?php echo CHtml::textField('Articulo',''); ?>
-                    </td>
-                    <td>
-                        <?php $this->widget('bootstrap.widgets.BootButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#articulo',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal'),
-                    )); ?>
-                    </td>
-                    <td>
-                        <?php echo CHtml::textField('Articulo_desc',''); ?>
-                        <?php
-                            $this->widget('bootstrap.widgets.BootButton', array(
-                                        'buttonType'=>'button',
-                                        'type'=>'success',
-                                        'label'=>'Agregar',
-                                        'size'=>'mini',
-                                        'htmlOptions'=>array('id'=>'agregar','name'=>'','onclick'=>'nuevo();', 'disabled'=>true)
-                             ));
-                        ?>
+                    <td rowspan="2" colspan="2">
+                        <span style="margin-top:50px;float:left;font-size: 60px;">$</span>
+                        <?php echo CHtml::textField('calculos','0',array('disabled'=>true,'style'=>'width:254px;height:62px;font-size: 55px;margin-top:28px;text-align:right;'));?>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                         <?php echo $form->dropDownListRow($model,'NIVEL_PRECIO', CHtml::listData(NivelPrecio::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 150px;','empty'=>'Seleccione','options'=>array($model->isNewRecord && $conf->NIVEL_PRECIO!= '' ? $conf->NIVEL_PRECIO : ''=>array('selected'=>'selected'))));?>
+                    </td>
+                </tr>
+                
             </table>
-        </td>
-        <td valign="center">
-            <div style="font-size: 20px; float: left; border: 1px solid #CCC; padding: 10px; margin-top: 40px;">$ <span id="calculos">Total</span></div>
         </td>
     </tr>
 </table>
@@ -305,50 +290,7 @@ function cargaGrilla(grid_id){
                 'type'=>'tabs', // 'tabs' or 'pills'
                 'tabs'=>array( 
                     array('label'=>'Líneas', 'content'=>$renderLineas, 'active'=>true),
-                    
-                    array('label'=>'General', 'content'=>
-                        '<table>
-                            <tr>
-                                <td width="2%">'
-                                    .$form->labelEx($model,'BODEGA',array('class'=>'control-label'))
-                                    .' <div class="controls">'.$autocompletarBodega.'</div>
-                                </td>
-                                <td width="2%">'.$btnBodega.'</td>
-                                <td>'.CHtml::textField('Bodega', '', array('size'=>40,'disabled'=>true)).'</td>
-                            </tr>
-                            <tr>
-                                <td>'.$form->textFieldRow($model,'CONDICION_PAGO',array('size'=>4,'maxlength'=>4)).'</td>   
-                                <td>'.$btnCondicion.'</td>
-                                <td>'.CHtml::textField('Condicion', '', array('size'=>40,'disabled'=>true)).'</td>
-                            </tr>
-                        </table>'
-                        .$form->dropDownListRow($model,'NIVEL_PRECIO', CHtml::listData(NivelPrecio::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('empty'=>'Seleccione...'))
-                        .'<div class="row">'
-                        .'<div class="control-group "><label for="Pedido_FECHA_PEDIDO" class="control-label required">Fecha pedido<span class="required"> *</span></label><div class="controls">'   
-                        .$fechaPedido
-                        .'</span></div></div>'                        
-                        .'<div class="control-group "><label for="Pedido_FECHA_PROMETIDA" class="control-label required">Fecha prometida<span class="required"> *</span></label><div class="controls">'   
-                        .$fechaPrometida
-                        .'</span></div></div>'
-                        .'<div class="control-group "><label for="Pedido_FECHA_EMBARQUE" class="control-label required">Fecha de ingreso<span class="required"> *</span></label><div class="controls">'   
-                        .$fechaEmbarque
-                        .'</span></div></div>'
-                        .'</div>'
-                        ),
-
-                    array('label'=>'Textos', 'content'=>
-                        $form->textFieldRow($model,'RUBRO1',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'RUBRO2',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'RUBRO3',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'RUBRO4',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'RUBRO5',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'COMENTARIOS_CXC',array('size'=>50,'maxlength'=>50))
-                        .$form->textAreaRow($model,'OBSERVACIONES',array('rows'=>6, 'cols'=>50))
-                        ),
-
-                    
-
-                    array('label'=>'Montos', 'content'=>
+                     array('label'=>'Montos', 'content'=>
                         $form->textFieldRow($model,'TOTAL_MERCADERIA',array('size'=>28,'maxlength'=>28))
                         .$form->textFieldRow($model,'MONTO_ANTICIPO',array('size'=>28,'maxlength'=>28))
                         .$form->textFieldRow($model,'MONTO_FLETE',array('size'=>28,'maxlength'=>28))
@@ -361,13 +303,28 @@ function cargaGrilla(grid_id){
                         .CHtml::textField('total_grande', '0', array('readonly'=>true))
                         .'</div></div>'
                         ),
-                    
-                    array('label'=>'Auitoria', 'content'=>
-                        $form->textFieldRow($model,'ESTADO',array('size'=>1,'maxlength'=>1, 'readonly'=>true))
-                        .$form->textFieldRow($model,'CREADO_POR',array('size'=>20,'maxlength'=>20, 'readonly'=>true))
-                        .$form->textFieldRow($model,'CREADO_EL', array('readonly'=>true))
-                        .$form->textFieldRow($model,'ACTUALIZADO_POR',array('size'=>20,'maxlength'=>20, 'readonly'=>true))
-                        .$form->textFieldRow($model,'ACTUALIZADO_EL', array('readonly'=>true))
+                    array('label'=>'Otros', 'content'=>
+                        '<div class="row">
+                            <div class="control-group ">'
+                                .$form->labelEx($model,'FECHA_DESPACHO',array('class'=>'control-label'))
+                                .'<div class="controls">'   
+                                .$fechaDespacho
+                                .'</div>
+                            </div>'
+                            .'<div class="control-group ">'
+                                .$form->labelEx($model,'FECHA_ENTREGA',array('class'=>'control-label'))
+                                .'<div class="controls">'   
+                                .$fechaEntrega
+                                .'</div>
+                            </div>'
+                        .'</div>'
+                        .$form->textFieldRow($model,'RUBRO1',array('size'=>50,'maxlength'=>50))
+                        .$form->textFieldRow($model,'RUBRO2',array('size'=>50,'maxlength'=>50))
+                        .$form->textFieldRow($model,'RUBRO3',array('size'=>50,'maxlength'=>50))
+                        .$form->textFieldRow($model,'RUBRO4',array('size'=>50,'maxlength'=>50))
+                        .$form->textFieldRow($model,'RUBRO5',array('size'=>50,'maxlength'=>50))
+                        .$form->textFieldRow($model,'COMENTARIOS_CXC',array('size'=>50,'maxlength'=>50))
+                        .$form->textAreaRow($model,'OBSERVACIONES',array('rows'=>6, 'cols'=>50))
                         ),
                 )
             )); ?>

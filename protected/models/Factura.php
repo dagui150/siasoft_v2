@@ -52,6 +52,7 @@ class Factura extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Factura the static model class
 	 */
+         public $ARTICULO;
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -73,12 +74,13 @@ class Factura extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('FACTURA, FECHA_FACTURA, TOTAL_MERCADERIA, MONTO_ANTICIPO, MONTO_FLETE, MONTO_SEGURO, MONTO_DESCUENTO1, TOTAL_IMPUESTO1, TOTAL_A_FACTURAR, REMITIDO, RESERVADO, ESTADO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'required'),
+			array('CONSECUTIVO,CLIENTE,FACTURA, FECHA_FACTURA, TOTAL_MERCADERIA, MONTO_ANTICIPO, MONTO_FLETE, MONTO_SEGURO, MONTO_DESCUENTO1, TOTAL_IMPUESTO1, TOTAL_A_FACTURAR, REMITIDO, RESERVADO, ESTADO', 'required'),
 			array('FACTURA, PEDIDO, RUBRO1, RUBRO2, RUBRO3, RUBRO4, RUBRO5, COMENTARIOS_CXC', 'length', 'max'=>50),
 			array('CLIENTE, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('BODEGA, CONDICION_PAGO', 'length', 'max'=>4),
 			array('NIVEL_PRECIO', 'length', 'max'=>12),
 			array('ORDEN_COMPRA', 'length', 'max'=>30),
+                        array('ARTICULO', 'exist', 'attributeName'=>'ARTICULO', 'className'=>'Articulo','allowEmpty'=>true),
 			array('TOTAL_MERCADERIA, MONTO_ANTICIPO, MONTO_FLETE, MONTO_SEGURO, MONTO_DESCUENTO1, TOTAL_IMPUESTO1, TOTAL_A_FACTURAR', 'length', 'max'=>28),
 			array('REMITIDO, RESERVADO, ESTADO', 'length', 'max'=>1),
 			array('FECHA_DESPACHO, FECHA_ENTREGA, FECHA_ORDEN, OBSERVACIONES', 'safe'),
@@ -88,6 +90,24 @@ class Factura extends CActiveRecord
 		);
 	}
 
+        public function behaviors()
+	{
+		return array(
+			'CTimestampBehavior' => array(
+				'class' => 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' => 'CREADO_EL',
+				'updateAttribute' => 'ACTUALIZADO_EL',
+				'setUpdateOnCreate' => true,
+			),
+			
+			'BlameableBehavior' => array(
+				'class' => 'application.components.BlameableBehavior',
+				'createdByColumn' => 'CREADO_POR',
+				'updatedByColumn' => 'ACTUALIZADO_POR',
+			),
+		);
+	}
+        
 	/**
 	 * @return array relational rules.
 	 */
@@ -110,23 +130,26 @@ class Factura extends CActiveRecord
 	 */
 	public function attributeLabels()
 	{
+                $conf_fa = ConfFa::model()->find();
 		return array(
 			'FACTURA' => 'Factura',
+			'CONSECUTIVO' => 'Factura',
 			'CLIENTE' => 'Cliente',
+			'ARTICULO' => 'Articulo',
 			'BODEGA' => 'Bodega',
-			'CONDICION_PAGO' => 'Condicion Pago',
+			'CONDICION_PAGO' => 'Cond. Pago',
 			'NIVEL_PRECIO' => 'Nivel Precio',
 			'PEDIDO' => 'Pedido',
-			'FECHA_FACTURA' => 'Fecha Factura',
+			'FECHA_FACTURA' => 'Fecha',
 			'FECHA_DESPACHO' => 'Fecha Despacho',
 			'FECHA_ENTREGA' => 'Fecha Entrega',
 			'ORDEN_COMPRA' => 'Orden Compra',
 			'FECHA_ORDEN' => 'Fecha Orden',
-			'RUBRO1' => 'Rubro1',
-			'RUBRO2' => 'Rubro2',
-			'RUBRO3' => 'Rubro3',
-			'RUBRO4' => 'Rubro4',
-			'RUBRO5' => 'Rubro5',
+                        'RUBRO1' => $conf_fa->USAR_RUBROS && $conf_fa->RUBRO1_NOMBRE != '' ? $conf_fa->RUBRO1_NOMBRE : 'Rubro 1',
+			'RUBRO2' => $conf_fa->USAR_RUBROS && $conf_fa->RUBRO2_NOMBRE != '' ? $conf_fa->RUBRO2_NOMBRE : 'Rubro 2',
+			'RUBRO3' => $conf_fa->USAR_RUBROS && $conf_fa->RUBRO3_NOMBRE != '' ? $conf_fa->RUBRO3_NOMBRE : 'Rubro 3',
+			'RUBRO4' => $conf_fa->USAR_RUBROS && $conf_fa->RUBRO4_NOMBRE != '' ? $conf_fa->RUBRO4_NOMBRE : 'Rubro 4',
+			'RUBRO5' => $conf_fa->USAR_RUBROS && $conf_fa->RUBRO5_NOMBRE != '' ? $conf_fa->RUBRO5_NOMBRE : 'Rubro 5',
 			'COMENTARIOS_CXC' => 'Comentarios Cxc',
 			'OBSERVACIONES' => 'Observaciones',
 			'TOTAL_MERCADERIA' => 'Total Mercaderia',

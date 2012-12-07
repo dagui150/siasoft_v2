@@ -121,7 +121,7 @@
     /*$actualiza = isset($Pactualiza) ? $Pactualiza : 0;*/
     
     $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
-                'id'=>'pedido-linea-form',
+                'id'=>'factura-linea-form',
                 'enableAjaxValidation'=>true,
                 'clientOptions'=>array(
                      'validateOnSubmit'=>true,
