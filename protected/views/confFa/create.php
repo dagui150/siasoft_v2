@@ -16,7 +16,7 @@ $this->breadcrumbs=array(
     $this->widget('bootstrap.widgets.BootAlert');
     $bus=ConfFa::model()->find();
     
-    if($bus)
+    if(ConfFa::darConf())
         $this->redirect(array('update','id'=>$bus->ID));
     else
         $this->renderPartial('_form', array('model'=>$model, 'condicion'=>$condicion, 'categoria'=>$categoria, 'bodega'=>$bodega));    

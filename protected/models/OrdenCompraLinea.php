@@ -217,7 +217,7 @@ class OrdenCompraLinea extends CActiveRecord
                 OrdenCompra::model()->updateByPk($a->ORDEN_COMPRA, array('ESTADO'=>'R'));
             }
         }
-                
+                       
         public function behaviors()
 	{
 		return array(

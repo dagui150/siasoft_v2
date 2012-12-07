@@ -16,7 +16,7 @@ $('.search-button').click(function(){
 
 ?>
 
-<h1>Existencias de Bodega</h1>
+<h1>Bodegas de Articulo "<?php echo $articulo.' - '.$barticulo->NOMBRE?>"</h1>
 
     <br>
     <div align="right">

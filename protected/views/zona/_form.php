@@ -11,8 +11,29 @@
  
 	<?php echo $form->errorSummary($model2); ?>
 
-		<?php echo $form->dropDownListRow($model2,'PAIS', CHtml::listData(Pais::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),array('empty'=>'Seleccione...')); ?>
-		<?php echo $form->textFieldRow($model2,'NOMBRE',array('maxlength'=>64)); ?>
+		<table style="width: 200px">
+                <tr>
+                    <td>
+                        <?php echo $form->dropDownListRow($model2,'PAIS', CHtml::listData(Pais::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),array('empty'=>'Seleccione...')); ?>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <?php echo $form->textFieldRow($model2,'NOMBRE',array('maxlength'=>64)); ?>
+                    </td>
+                    <td>
+                        <?php $this->widget('bootstrap.widgets.BootButton', array(
+                            //'label'=>'Ayuda',
+                            'type'=>'succes',
+                            'icon'=>'info-sign',
+                            'size'=>'mini',
+                            'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'Es una división que hace la empresa para clasificar clientes o proveedores. <br>Ej.: Zona caribe, zona cafetera.<br>Este submenú es solo de carácter informativo.', 'rel'=>'popover'),
+                        )); ?>
+                    </td>
+                </tr>
+                </table>
 
 	<div class="row">
 		<?php

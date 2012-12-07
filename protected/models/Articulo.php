@@ -88,7 +88,7 @@ class Articulo extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ORIGEN_CORP, TIPO_ARTICULO, EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN,', 'required'),
-			array('ARTICULO, NOMBRE, FRECUENCIA_CONTEO,PESO_NETO, PESO_NETO_UNIDAD, PESO_BRUTO, PESO_BRUTO_UNIDAD, VOLUMEN, VOLUMEN_UNIDAD, UNIDAD_ALMACEN, UNIDAD_EMPAQUE, UNIDAD_VENTA, FACTOR_EMPAQUE, FACTOR_VENTA, IMPUESTO_VENTA,', 'required', 'message'=>''),
+			array('ARTICULO, NOMBRE, FRECUENCIA_CONTEO,PESO_NETO, PESO_NETO_UNIDAD, PESO_BRUTO, PESO_BRUTO_UNIDAD, VOLUMEN, VOLUMEN_UNIDAD, UNIDAD_ALMACEN, UNIDAD_EMPAQUE, UNIDAD_VENTA, FACTOR_EMPAQUE, FACTOR_VENTA, IMPUESTO_VENTA,', 'required',),
                         array('EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA,PUNTO_REORDEN,FRECUENCIA_CONTEO, PESO_NETO, PESO_BRUTO, VOLUMEN, FACTOR_EMPAQUE,FACTOR_VENTA', 'numerical',),
                         array('ARTICULO, CODIGO_BARRAS, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
                         array('NOMBRE, DESCRIPCION_COMPRA', 'length', 'max'=>128),
@@ -98,7 +98,7 @@ class Articulo extends CActiveRecord
                         array('IMPUESTO_COMPRA, BODEGA, RETENCION_COMPRA, IMPUESTO_VENTA, RETENCION_VENTA', 'length', 'max'=>4),
                         array('NOTAS', 'safe'),
                     
-                        array('IMPUESTO_VENTA', 'exist', 'attributeName'=>'ID', 'className'=>'Impuesto','allowEmpty'=>false, 'message'=>''),
+                        array('IMPUESTO_VENTA', 'exist', 'attributeName'=>'ID', 'className'=>'Impuesto','allowEmpty'=>true,),
                     
                         array('ARTICULO', 'unique', 'attributeName'=>'ARTICULO', 'className'=>'Articulo','allowEmpty'=>false),
                         array('EXISTENCIA_MAXIMA', 'miValidacion3', ),
@@ -275,6 +275,55 @@ class Articulo extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+	public function searchPrecio()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('ARTICULO',$this->ARTICULO,true);
+		$criteria->compare('NOMBRE',$this->NOMBRE,true);
+		$criteria->compare('ORIGEN_CORP',$this->ORIGEN_CORP,true);
+		$criteria->compare('CLASE_ABC',$this->CLASE_ABC,true);
+		$criteria->compare('TIPO_ARTICULO',$this->TIPO_ARTICULO);
+		$criteria->compare('TIPO_COD_BARRAS',$this->TIPO_COD_BARRAS,true);
+		$criteria->compare('CODIGO_BARRAS',$this->CODIGO_BARRAS,true);
+		$criteria->compare('EXISTENCIA_MINIMA',$this->EXISTENCIA_MINIMA,true);
+		$criteria->compare('EXISTENCIA_MAXIMA',$this->EXISTENCIA_MAXIMA,true);
+		$criteria->compare('PUNTO_REORDEN',$this->PUNTO_REORDEN,true);
+		$criteria->compare('COSTO_FISCAL',$this->COSTO_FISCAL,true);
+		$criteria->compare('DESCRIPCION_COMPRA',$this->DESCRIPCION_COMPRA,true);
+		$criteria->compare('IMPUESTO_COMPRA',$this->IMPUESTO_COMPRA,true);
+		$criteria->compare('BODEGA',$this->BODEGA,true);
+		$criteria->compare('IMP1_AFECTA_COSTO',$this->IMP1_AFECTA_COSTO,true);
+                $criteria->compare('RETENCION_COMPRA',$this->RETENCION_COMPRA,true);
+		$criteria->compare('NOTAS',$this->NOTAS,true);
+		$criteria->compare('FRECUENCIA_CONTEO',$this->FRECUENCIA_CONTEO);
+		$criteria->compare('PESO_NETO',$this->PESO_NETO,true);
+		$criteria->compare('PESO_NETO_UNIDAD',$this->PESO_NETO_UNIDAD);
+		$criteria->compare('PESO_BRUTO',$this->PESO_BRUTO,true);
+		$criteria->compare('PESO_BRUTO_UNIDAD',$this->PESO_BRUTO_UNIDAD);
+		$criteria->compare('VOLUMEN',$this->VOLUMEN,true);
+		$criteria->compare('VOLUMEN_UNIDAD',$this->VOLUMEN_UNIDAD);
+		$criteria->compare('UNIDAD_ALMACEN',$this->UNIDAD_ALMACEN);
+		$criteria->compare('UNIDAD_EMPAQUE',$this->UNIDAD_EMPAQUE);
+		$criteria->compare('UNIDAD_VENTA',$this->UNIDAD_VENTA);
+		$criteria->compare('FACTOR_EMPAQUE',$this->FACTOR_EMPAQUE,true);
+		$criteria->compare('FACTOR_VENTA',$this->FACTOR_VENTA,true);
+		$criteria->compare('IMPUESTO_VENTA',$this->IMPUESTO_VENTA,true);
+		$criteria->compare('RETENCION_COMPRA',$this->RETENCION_COMPRA,true);
+		$criteria->compare('ACTIVO','S');
+		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
+		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
+		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
+		$criteria->compare('ACTUALIZADO_EL',$this->ACTUALIZADO_EL,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
 	public function searchModal()
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -296,6 +345,72 @@ class Articulo extends CActiveRecord
                         'pagination'=>array(
                             'pageSize'=>5
                         ),
+		));
+	}
+        
+        public function searchEnsamble()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('ARTICULO',$this->ARTICULO,true);
+		$criteria->compare('NOMBRE',$this->NOMBRE,true);
+		$criteria->compare('TIPO_ARTICULO','16');
+                $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+        
+       public function searchKit()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('ARTICULO',$this->ARTICULO,true);
+		$criteria->compare('NOMBRE',$this->NOMBRE,true);
+		$criteria->compare('ORIGEN_CORP',$this->ORIGEN_CORP,true);
+		$criteria->compare('CLASE_ABC',$this->CLASE_ABC,true);
+		$criteria->compare('TIPO_ARTICULO',$this->TIPO_ARTICULO);
+		$criteria->compare('TIPO_COD_BARRAS',$this->TIPO_COD_BARRAS,true);
+		$criteria->compare('CODIGO_BARRAS',$this->CODIGO_BARRAS,true);
+		$criteria->compare('EXISTENCIA_MINIMA',$this->EXISTENCIA_MINIMA,true);
+		$criteria->compare('EXISTENCIA_MAXIMA',$this->EXISTENCIA_MAXIMA,true);
+		$criteria->compare('PUNTO_REORDEN',$this->PUNTO_REORDEN,true);
+		$criteria->compare('COSTO_FISCAL',$this->COSTO_FISCAL,true);
+		$criteria->compare('DESCRIPCION_COMPRA',$this->DESCRIPCION_COMPRA,true);
+		$criteria->compare('IMPUESTO_COMPRA',$this->IMPUESTO_COMPRA,true);
+		$criteria->compare('BODEGA',$this->BODEGA,true);
+		$criteria->compare('IMP1_AFECTA_COSTO',$this->IMP1_AFECTA_COSTO,true);
+                $criteria->compare('RETENCION_COMPRA',$this->RETENCION_COMPRA,true);
+		$criteria->compare('NOTAS',$this->NOTAS,true);
+		$criteria->compare('FRECUENCIA_CONTEO',$this->FRECUENCIA_CONTEO);
+		$criteria->compare('PESO_NETO',$this->PESO_NETO,true);
+		$criteria->compare('PESO_NETO_UNIDAD',$this->PESO_NETO_UNIDAD);
+		$criteria->compare('PESO_BRUTO',$this->PESO_BRUTO,true);
+		$criteria->compare('PESO_BRUTO_UNIDAD',$this->PESO_BRUTO_UNIDAD);
+		$criteria->compare('VOLUMEN',$this->VOLUMEN,true);
+		$criteria->compare('VOLUMEN_UNIDAD',$this->VOLUMEN_UNIDAD);
+		$criteria->compare('UNIDAD_ALMACEN',$this->UNIDAD_ALMACEN);
+		$criteria->compare('UNIDAD_EMPAQUE',$this->UNIDAD_EMPAQUE);
+		$criteria->compare('UNIDAD_VENTA',$this->UNIDAD_VENTA);
+		$criteria->compare('FACTOR_EMPAQUE',$this->FACTOR_EMPAQUE,true);
+		$criteria->compare('FACTOR_VENTA',$this->FACTOR_VENTA,true);
+		$criteria->compare('IMPUESTO_VENTA',$this->IMPUESTO_VENTA,true);
+		$criteria->compare('RETENCION_COMPRA',$this->RETENCION_COMPRA,true);
+		$criteria->compare('ACTIVO','S');
+		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
+		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
+		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
+		$criteria->compare('ACTUALIZADO_EL',$this->ACTUALIZADO_EL,true);
+                
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
 		));
 	}
         
@@ -353,16 +468,15 @@ class Articulo extends CActiveRecord
                         $cantTotal += $datos->CANTIDAD;
                     }
                     $costoFinal = $costoTotal/$cantTotal;
-                    $articulo->COSTO_PROMEDIO = $costoFinal;
+                    Articulo::model()->updateByPk($id, array('COSTO_PROMEDIO'=>$costoFinal));
                     
                break;     
                 case 'Último':
                     $transacciones = TransaccionInvDetalle::model()->findByAttributes(array('ARTICULO'=>$id),array('order'=>'TRANSACCION_INV_DETALLE DESC'));
-                    $articulo->COSTO_PROMEDIO = $transacciones->COSTO_UNITARIO;
+                    Articulo::model()->updateByPk($id, array('COSTO_ULTIMO'=>$transacciones->COSTO_UNITARIO));
                break;     
                     
             }
-            $articulo->save();
         }
             
 }

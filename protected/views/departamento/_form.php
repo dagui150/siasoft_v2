@@ -10,9 +10,29 @@
 )); ?>
     
     <?php echo $form->errorSummary($model2); ?>
-
-		<?php echo $form->textFieldRow($model2,'ID',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
+                <table style="width: 400px;">
+                    <tr>
+                        <td>
+                            <?php echo $form->textFieldRow($model2,'ID',array('size'=>10,'maxlength'=>10)); ?>
+                        </td>
+                        <td>
+                        <?php $this->widget('bootstrap.widgets.BootButton', array(
+                            //'label'=>'Ayuda',
+                            'type'=>'succes',
+                            'icon'=>'info-sign',
+                            'size'=>'mini',
+                            'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'Cadena de caracteres alfanumérico.', 'rel'=>'popover'),
+                        )); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
 	<div class="row">
 		<?php
 			echo CHtml::activeHiddenField($model2,'ACTIVO',array('value'=>'S'));

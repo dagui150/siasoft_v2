@@ -22,7 +22,7 @@ function updateCampos(grid_id){
 		'validateOnSubmit'=>true,
 	),
 )); ?>
-        
+             
     <?php $completar =  $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
         'model'=>$model2,
         'attribute'=>'NIT',
@@ -41,10 +41,44 @@ function updateCampos(grid_id){
                           'htmlOptions'=>array('onclick'=>'$("#nit").dialog("open");return false;'),
                     ), true); ?>
         
-<?php echo $form->errorSummary($model2); ?>
-		<?php echo $form->textFieldRow($model2,'ID'); ?>
-                <div class="control-group "><label for="EntidadFinanciera_NIT" class="control-label required">NIT <span class="required">*</span></label><div class="controls"><?php echo $completar; ?> <?php echo $modal; ?></div></div>
-		<?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
+    <?php echo $form->errorSummary($model2); ?>
+                <table style="width: 400px;">
+                    <tr>
+                        <td>
+                            <?php echo $form->textFieldRow($model2,'ID'); ?>
+                        </td>
+                        <td>
+                             <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                //'label'=>'Ayuda',
+                                'type'=>'succes',
+                                'icon'=>'info-sign',
+                                'size'=>'mini',
+                                'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'Cadena de caracteres alfanumérico.', 'rel'=>'popover'),
+                            )); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="control-group "><label for="EntidadFinanciera_NIT" class="control-label required">NIT <span class="required">*</span></label><div class="controls"><?php echo $completar; ?> <?php echo $modal; ?></div></div>
+                        </td>
+                        <td>
+                            <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                //'label'=>'Ayuda',
+                                'type'=>'succes',
+                                'icon'=>'info-sign',
+                                'size'=>'mini',
+                                'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'En este campo, se debe escribir/seleccionar un NIT previamente relaciona/creado en el submenú "Relación de Nits".', 'rel'=>'popover'),
+                            )); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
 	<div class="row">
 		<?php
 			echo CHtml::activeHiddenField($model2,'ACTIVO',array('value'=>'S'));

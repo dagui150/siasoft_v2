@@ -7,6 +7,6 @@ $this->breadcrumbs=array(
 
 ?>
 
-<h1>Crear ConsecutivoCi</h1>
+<h1>Crear Consecutivo</h1>
 
 <?php echo $this->renderPartial('_form', array('model2'=>$model2)); ?>

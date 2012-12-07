@@ -12,12 +12,37 @@
 	<?php echo $form->errorSummary($model2); ?>
 
 	<div class="row">
-		<?php echo $form->textFieldRow($model2,'ID',array('size'=>4,'maxlength'=>4)); ?>
-
-		<?php echo $form->textFieldRow($model2,'NOMBRE',array('maxlength'=>64)); ?>
-
-		<?php echo $form->textFieldRow($model2,'PROCENTAJE',array('maxlength'=>28, 'prepend'=>'%')); ?>
-
+                <table style="width: 400px;">
+                    <tr>
+                        <td>
+                            <?php echo $form->textFieldRow($model2,'ID',array('size'=>4,'maxlength'=>4)); ?>
+                        </td>
+                        <td>
+                            <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                //'label'=>'Ayuda',
+                                'type'=>'succes',
+                                'icon'=>'info-sign',
+                                'size'=>'mini',
+                                'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'Cadena de caracteres alfanumérico.', 'rel'=>'popover'),
+                            )); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $form->textFieldRow($model2,'NOMBRE',array('maxlength'=>64)); ?>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $form->textFieldRow($model2,'PROCENTAJE',array('maxlength'=>28, 'prepend'=>'%')); ?>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            
 		
 		<?php echo CHtml::activeHiddenField($model2,'ACTIVO',array('value'=>'S')); ?>
 		<?php echo $form->error($model2,'ACTIVO'); ?>

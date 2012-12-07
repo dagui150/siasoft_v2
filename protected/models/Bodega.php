@@ -49,7 +49,7 @@ class Bodega extends CActiveRecord
 			array('TIPO, ACTIVO', 'length', 'max'=>1),
 			array('TELEFONO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('DIRECCION', 'length', 'max'=>128),
-                       array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'Bodega','allowEmpty'=>false),
+                        array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'Bodega','allowEmpty'=>false),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('ID, DESCRIPCION, TIPO, TELEFONO, DIRECCION, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
@@ -182,8 +182,7 @@ class Bodega extends CActiveRecord
 
         
         public static function darDescripcion($id){
-            $bus = Bodega::model()->findByPk($id);
-            
+            $bus = Bodega::model()->findByPk($id);            
             return $bus ? $bus->DESCRIPCION : '';
         }
 }

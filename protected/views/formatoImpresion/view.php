@@ -6,6 +6,13 @@
 <?php $this->pageTitle=Yii::app()->name.' - '.Yii::t('app','VIEW').' FormatoImpresion';?>
 
 <?php
+/* @var $this FormatoImpresionController */
+/* @var $model FormatoImpresion */
+?>
+
+<?php $this->pageTitle=Yii::app()->name.' - '.Yii::t('app','VIEW').' FormatoImpresion';?>
+
+<?php
 $this->breadcrumbs=array(
 	'Sistema'=>array('admin'),
 	'Administración de Reportes'=>array('admin'),

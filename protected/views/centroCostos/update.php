@@ -1,5 +1,4 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." Centro de Costos";?>
-    <?php
+<?php
 $this->breadcrumbs=array(
         'Sistema'=>array('admin'),
         'Centro de Costos'=>array('admin'),

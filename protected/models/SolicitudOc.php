@@ -179,6 +179,7 @@ class SolicitudOc extends CActiveRecord
             }
         }
         
+        
         public function behaviors()
 	{
 		return array(

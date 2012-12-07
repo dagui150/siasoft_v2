@@ -24,7 +24,6 @@ $('.form').submit(function(){
 <h1>Artículos</h1>
 <br>
 <div align="right">
-
     <?php 
 
         $this->widget('bootstrap.widgets.BootButton', array(

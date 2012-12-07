@@ -144,6 +144,7 @@ class CodicionPago extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
 	
 	public function behaviors()
 	{

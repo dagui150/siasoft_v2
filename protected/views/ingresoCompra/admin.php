@@ -70,7 +70,7 @@ $('.search-form form').submit(function(){
     <?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array()); ?>
     <?php echo CHtml::HiddenField('check',''); ?>
     
-    
+      
 <?php 
     $this->widget('bootstrap.widgets.BootButton', array(
         'label'=>'Cancelar',

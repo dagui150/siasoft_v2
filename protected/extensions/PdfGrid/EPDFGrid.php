@@ -7,7 +7,7 @@
  */
 
 Yii::import('zii.widgets.grid.CDataColumn');
-Yii::import('ext.pdfGrid.fpdf.PDF');
+Yii::import('ext.PdfGrid.fpdf.PDF');
 
 class EPDFGrid extends CWidget
 {

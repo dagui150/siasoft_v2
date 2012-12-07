@@ -10,7 +10,7 @@ $this->breadcrumbs=array(
 ?>
 
 <h1>Consecutivos</h1>
-<br>
+<br />
 <div align="right">
 
     <?php 
@@ -38,7 +38,7 @@ $this->breadcrumbs=array(
                     'SIGUIENTE_VALOR',
                     array(
                          'name' => 'FORMATO_IMPRESION',
-                         'value'=>'$data->fORMATOIMPRESION->NOMBRE',
+                         'value'=>'isset($data->fORMATOIMPRESION->NOMBRE) ? $data->fORMATOIMPRESION->NOMBRE : ""',
                      ),
                     array(
                          'name'=>'TODOS_USUARIOS',

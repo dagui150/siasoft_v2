@@ -36,6 +36,6 @@ $this->menu=array(
 		/*'ACTIVO',
 		'ORDEN_MINIMA',
 		'DESCUENTO',
-		'TASA_INTERES_MORA',
+		'TASA_INTERES_MORA',*/
 	),
 )); ?>

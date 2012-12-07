@@ -15,7 +15,7 @@ $this->breadcrumbs=array(
 		'ID',
 		array(
                     'name' => 'FORMATO_IMPRESION',
-                    'value' => $model->fORMATOIMPRESION->NOMBRE,
+                    'value' => isset($model->fORMATOIMPRESION->NOMBRE) ? $model->fORMATOIMPRESION->NOMBRE : "",
                 ),
 		'DESCRIPCION',
 		'MASCARA',

@@ -18,6 +18,11 @@
  * @property string $FAX
  * @property string $NIT
  * @property string $CONDICION_PAGO
+ * @property string $PAIS
+ * @property string $UBICACION_GEOGRAFICA1
+ * @property string $UBICACION_GEOGRAFICA2
+ * @property string $REGIMEN
+ * @property string $CIUDAD
  * @property string $ACTIVO
  * @property string $ORDEN_MINIMA
  * @property string $DESCUENTO
@@ -29,9 +34,16 @@
  * @property string $ACTUALIZADO_EL
  *
  * The followings are the available model relations:
- * @property CentroCostos $cONDICIONPAGO
+ * @property ArticuloProveedor[] $articuloProveedors
+ * @property IngresoCompra[] $ingresoCompras
+ * @property OrdenCompra[] $ordenCompras
+ * @property CodicionPago $cONDICIONPAGO
  * @property Nit $nIT
  * @property Categoria $cATEGORIA
+ * @property UbicacionGeografica2 $uBICACIONGEOGRAFICA2
+ * @property UbicacionGeografica1 $uBICACIONGEOGRAFICA1
+ * @property Pais $pAIS
+ * @property RegimenTributario $rEGIMEN
  * @property ProveedorEntidad[] $proveedorEntidads
  */
 class Proveedor extends CActiveRecord
@@ -45,7 +57,7 @@ class Proveedor extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-
+	
 	/**
 	 * @return string the associated database table name
 	 */
@@ -62,18 +74,24 @@ class Proveedor extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('PROVEEDOR, CATEGORIA, NOMBRE, CONTACTO, CARGO, DIRECCION, FECHA_INGRESO, TELEFONO1, NIT, ACTIVO, CONDICION_PAGO', 'required'),
+			array('PROVEEDOR, CATEGORIA, NOMBRE, CONTACTO, CARGO, DIRECCION, FECHA_INGRESO, TELEFONO1, NIT, PAIS, UBICACION_GEOGRAFICA1, CONDICION_PAGO', 'required'),
 			array('CATEGORIA', 'numerical', 'integerOnly'=>true),
 			array('PROVEEDOR, TELEFONO1, TELEFONO2, FAX, NIT, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('NOMBRE, ALIAS', 'length', 'max'=>80),
 			array('CONTACTO, CARGO', 'length', 'max'=>30),
 			array('EMAIL', 'length', 'max'=>128),
 			array('CONDICION_PAGO', 'length', 'max'=>25),
+			array('PAIS', 'length', 'max'=>4),
+			array('UBICACION_GEOGRAFICA1', 'length', 'max'=>2),
+			array('UBICACION_GEOGRAFICA2', 'length', 'max'=>5),
+			array('REGIMEN', 'length', 'max'=>12),
+			array('CIUDAD', 'length', 'max'=>64),
 			array('ACTIVO', 'length', 'max'=>1),
 			array('ORDEN_MINIMA, DESCUENTO, TASA_INTERES_MORA', 'length', 'max'=>28),
+			array('NOTAS', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('PROVEEDOR, CATEGORIA, NOMBRE, ALIAS, CONTACTO, CARGO, DIRECCION, EMAIL, FECHA_INGRESO, TELEFONO1, TELEFONO2, FAX, NIT, CONDICION_PAGO, ACTIVO, ORDEN_MINIMA, DESCUENTO, TASA_INTERES_MORA, NOTAS, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
+			array('PROVEEDOR, CATEGORIA, NOMBRE, ALIAS, CONTACTO, CARGO, DIRECCION, EMAIL, FECHA_INGRESO, TELEFONO1, TELEFONO2, FAX, NIT, CONDICION_PAGO, PAIS, UBICACION_GEOGRAFICA1, UBICACION_GEOGRAFICA2, REGIMEN, CIUDAD, ACTIVO, ORDEN_MINIMA, DESCUENTO, TASA_INTERES_MORA, NOTAS, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -85,9 +103,16 @@ class Proveedor extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'cONDICIONPAGO' => array(self::BELONGS_TO, 'CentroCostos', 'CONDICION_PAGO'),
+			'articuloProveedors' => array(self::HAS_MANY, 'ArticuloProveedor', 'PROVEEDOR'),
+			'ingresoCompras' => array(self::HAS_MANY, 'IngresoCompra', 'PROVEEDOR'),
+			'ordenCompras' => array(self::HAS_MANY, 'OrdenCompra', 'PROVEEDOR'),
+			'cONDICIONPAGO' => array(self::BELONGS_TO, 'CodicionPago', 'CONDICION_PAGO'),
 			'nIT' => array(self::BELONGS_TO, 'Nit', 'NIT'),
 			'cATEGORIA' => array(self::BELONGS_TO, 'Categoria', 'CATEGORIA'),
+			'uBICACIONGEOGRAFICA2' => array(self::BELONGS_TO, 'UbicacionGeografica2', 'UBICACION_GEOGRAFICA2'),
+			'uBICACIONGEOGRAFICA1' => array(self::BELONGS_TO, 'UbicacionGeografica1', 'UBICACION_GEOGRAFICA1'),
+			'pAIS' => array(self::BELONGS_TO, 'Pais', 'PAIS'),
+			'rEGIMEN' => array(self::BELONGS_TO, 'RegimenTributario', 'REGIMEN'),
 			'proveedorEntidads' => array(self::HAS_MANY, 'ProveedorEntidad', 'PROVEEDOR'),
 		);
 	}
@@ -101,7 +126,7 @@ class Proveedor extends CActiveRecord
 			'PROVEEDOR' => 'Proveedor',
 			'CATEGORIA' => 'Categoria',
 			'NOMBRE' => 'Nombre',
-			'ALIAS' => 'Alias',
+			'ALIAS' => 'Sigla',
 			'CONTACTO' => 'Contacto',
 			'CARGO' => 'Cargo',
 			'DIRECCION' => 'Direccion',
@@ -112,6 +137,11 @@ class Proveedor extends CActiveRecord
 			'FAX' => 'Fax',
 			'NIT' => 'Nit',
 			'CONDICION_PAGO' => 'Condicion Pago',
+			'PAIS' => 'Pais',
+			'UBICACION_GEOGRAFICA1' => 'Departamento',
+			'UBICACION_GEOGRAFICA2' => 'Municipio',
+			'REGIMEN' => 'Regimen',
+			'CIUDAD' => 'Ciudad',
 			'ACTIVO' => 'Activo',
 			'ORDEN_MINIMA' => 'Orden Mínima',
 			'DESCUENTO' => 'Descuento',
@@ -149,6 +179,11 @@ class Proveedor extends CActiveRecord
 		$criteria->compare('FAX',$this->FAX,true);
 		$criteria->compare('NIT',$this->NIT,true);
 		$criteria->compare('CONDICION_PAGO',$this->CONDICION_PAGO,true);
+		$criteria->compare('PAIS',$this->PAIS,true);
+		$criteria->compare('UBICACION_GEOGRAFICA1',$this->UBICACION_GEOGRAFICA1,true);
+		$criteria->compare('UBICACION_GEOGRAFICA2',$this->UBICACION_GEOGRAFICA2,true);
+		$criteria->compare('REGIMEN',$this->REGIMEN,true);
+		$criteria->compare('CIUDAD',$this->CIUDAD,true);
 		$criteria->compare('ACTIVO','S');
 		$criteria->compare('ORDEN_MINIMA',$this->ORDEN_MINIMA,true);
 		$criteria->compare('DESCUENTO',$this->DESCUENTO,true);

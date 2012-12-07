@@ -80,7 +80,7 @@
 
            </fieldset>
             
-           <fieldset style="float: left; margin: 0 0 0 45px; width: 310px; height: 218px;">
+           <fieldset style="float: left; margin: 0 0 0 30px; width: 310px; height: 218px;">
                 <legend ><font face="arial" size=3 >Cantidades</font></legend>
                 <table>
                     <tr>
@@ -119,6 +119,16 @@
                                     'icon'=>$model->isNewRecord ? 'ok-circle white' : 'pencil white',
                             )
                         );
+                ?>
+                
+                <?php
+                    $this->widget('bootstrap.widgets.BootButton', array(
+                                   'label'=>'Cancelar',
+                                   'type'=>'action',
+                                   'icon'=>'remove ', 
+                                   'url'=>array('articulo/admin'),
+                                )
+                   );
                 ?>
             </div>
         </div>

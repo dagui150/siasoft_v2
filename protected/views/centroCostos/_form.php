@@ -11,17 +11,45 @@
         
             <?php echo $form->errorSummary($model2); ?>
                 <?php $mask = $config->PATRON_CCOSTO; ?>
-                <div class="control-group "><label for="CentroCostos_ID" class="control-label required">Código <span class="required">*</span></label><div class="controls"> 
-               <?php $this->widget('CMaskedTextField', array(
-                    'model' => $model2,
-                    'attribute' => 'ID',
+        <table style="width: 400px;">
+                    <tr>
+                        <td>
+                            <div class="control-group "><label for="CentroCostos_ID" class="control-label required">Codigo <span class="required">*</span></label><div class="controls"> 
+                           <?php $this->widget('CMaskedTextField', array(
+                                'model' => $model2,
+                                'attribute' => 'ID',
                     'mask' => $mask, 
                    'htmlOptions'=>array('readonly'=>$model2->isNewRecord ? false : true),
-                ));
-                ?></div></div>
-		<?php //echo $form->textFieldRow($model2,'ID',array('size'=>25,'maxlength'=>25)); ?>
-		<?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
-                <?php echo $form->dropDownListRow($model2, 'TIPO', array('G'=>'Gasto','I'=>'Ingreso', 'A' => 'Ambos')); ?>
+                            ));
+                            ?>
+                           </div></div>
+                        </td>
+                        <td>
+                            <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                   //'label'=>'Ayuda',
+                                   'type'=>'succes',
+                                   'icon'=>'info-sign',
+                                   'size'=>'mini',
+                                   'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'Este código depende de la máscara configurada en el submenú "Configuración general".', 'rel'=>'popover'),
+                               )); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php //echo $form->textFieldRow($model2,'ID',array('size'=>25,'maxlength'=>25)); ?>
+                            <?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $form->dropDownListRow($model2, 'TIPO', array('G'=>'Gasto','I'=>'Ingreso', 'A' => 'Ambos')); ?>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    </table>
 
 	<div class="row">
 		<?php

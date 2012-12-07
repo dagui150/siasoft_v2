@@ -124,7 +124,7 @@ class FormatoImpresion extends CActiveRecord {
             'COMP' => 'Compras',
             'INVE' => 'Inventario',
             'ADSI' => 'Administracion del Sistema',
-            'REHU' => 'Recursos Humanos',
+            //'REHU' => 'Recursos Humanos',
         );
     }
 

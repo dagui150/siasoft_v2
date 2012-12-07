@@ -48,8 +48,14 @@
                             array('label' => 'Facturación', 'url' => '#',
                                 'items' => array(
                                     array('label' => 'Configuracion de Facturación', 'url' => $fac ? array('/confFa/update', 'id' => $fac->ID) : array('/confFa/create')),
-                                )
-                            ),
+                                    array('label'=>'Ensamble de articulos', 'url'=>array('/articuloEnsamble/admin')),
+                                    array('label'=>'Precio de articulos', 'url'=>array('/articuloPrecio/admin')),
+                                    array('label'=>'Pedidos', 'url'=>array('/pedido/admin')),
+                                    array('label'=>'Facturas', 'url'=>array('/factura/admin')),
+                                    array('label'=>'Consecutivos', 'url'=>array('/consecutivoFa/admin')),	
+                                    array('label'=>'Clientes', 'url'=>array('/cliente/admin')),	
+				)
+			    ),
                             array('label' => 'Compras', 'url' => '#',
                                 'items' => array(
                                     array('label' => 'Configuración de Compras', 'url' => $com ? array('/confCo/update', 'id' => $com->ID) : array('/confCo/create')),
@@ -89,15 +95,15 @@
                                     array('label' => 'Tipo de documento', 'url' => array('/tipoDocumento/admin')),
                                     array('label' => 'Relación de Nits', 'url' => array('nit/admin')),
                                     array('label' => 'Entidad financiera', 'url' => array('/entidadFinanciera/admin')),
-                                    array('label' => 'Nivel de precio', 'url' => array('/nivelPrecio/admin')),
+                                                        array('label'=>'Tipos de precio', 'url'=>array('/nivelPrecio/admin')),
                                     array('label' => 'Tipo de tarjeta', 'url' => array('/tipoTarjeta/admin')),
                                     array('label' => 'Día feriado', 'url' => array('/diaFeriado/admin')),
                                     array('label' => 'Impuesto', 'url' => array('/impuesto/admin')),
                                     array('label' => 'Retención', 'url' => array('/retencion/admin')),
+                                    array('label'=>'Regimen Tributario', 'url'=>array('/regimenTributario/admin')),
                                     array('label' => 'Administración de Reportes', 'url' => array('/formatoImpresion/admin')),
-                                ),
-                            ),
-                            array('label' => 'Recursos Humanos', 'url' => '#',
+                            )),
+                            /*array('label' => 'Recursos Humanos', 'url' => '#',
                                 'items' => array(
                                     array('label' => 'Cargo', 'url' => array('/cargo/admin')),
                                     array('label' => 'Estado de empleados', 'url' => array('/estadoEmpleado/admin')),
@@ -112,7 +118,7 @@
                                     
                                     
                                     ),
-                            ),
+                            ),*/
                             array('label' => 'Usuarios', 'url' => array('/usuarios/admin')),
                             array('label' => Yii::t('app', 'LOGIN'), 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
                             array('label' => Yii::t('app', 'LOGOUT (') . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)

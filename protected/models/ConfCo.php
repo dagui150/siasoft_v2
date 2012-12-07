@@ -109,6 +109,8 @@ class ConfCo extends CActiveRecord
 			'bODEGADEFAULT' => array(self::BELONGS_TO, 'Bodega', 'BODEGA_DEFAULT'),
                         'fORMATOSOLICITUD' => array(self::BELONGS_TO, 'FormatoImpresion', 'FORMATO_IMPRESION_SOL'),
 			'fORMATOORDEN' => array(self::BELONGS_TO, 'FormatoImpresion', 'FORMATO_IMPRESION_ORD'),
+                        'fORMATOSOLICITUD' => array(self::BELONGS_TO, 'FormatoImpresion', 'FORMATO_IMPRESION_SOL'),
+			'fORMATOORDEN' => array(self::BELONGS_TO, 'FormatoImpresion', 'FORMATO_IMPRESION_ORD'),
                         'fORMATOINGRESO' => array(self::BELONGS_TO, 'FormatoImpresion', 'FORMATO_IMPRESION_ING'),
 		);
 	}

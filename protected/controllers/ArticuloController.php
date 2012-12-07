@@ -188,7 +188,7 @@ class ArticuloController extends SBaseController
                         
                         if($_POST['Articulo']['RETENCION_VENTA'] === '')
                             $model->RETENCION_VENTA = NULL;
-                        
+                        $model->IMPUESTO_VENTA = $_POST['Articulo']['IMPUESTO_VENTA'];
 			if($model->save()){
                             //Actualizar Registros
                             if(isset($_POST['ClasificAdiArticulo'])){
