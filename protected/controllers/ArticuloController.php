@@ -86,17 +86,8 @@ class ArticuloController extends SBaseController
                             $model->RETENCION_VENTA = NULL;
                         
 			if($model->save()){
-                            if(isset($_POST['ClasificacionNuevo'])){
-                                foreach ($_POST['ClasificacionNuevo'] as $datos){
-                                     $adi = new ClasificAdiArticulo;
-                                     $adi->ARTICULO = $_POST['Articulo']['ARTICULO'];
-                                     $adi->VALOR = $datos['VALOR'];
-                                     $adi->ACTIVO = 'S';
-                                     $adi->save();
-                                }
-                            }
-                            if(isset($_POST['ObligaClasificacionNuevo'])){
-                                foreach ($_POST['ObligaClasificacionNuevo'] as $datos){
+                            if(isset($_POST['OtraClasificacionNuevo'])){
+                                foreach ($_POST['OtraClasificacionNuevo'] as $datos){
                                      $adi = new ClasificAdiArticulo;
                                      $adi->ARTICULO = $_POST['Articulo']['ARTICULO'];
                                      $adi->VALOR = $datos['VALOR'];
@@ -188,7 +179,7 @@ class ArticuloController extends SBaseController
                         
                         if($_POST['Articulo']['RETENCION_VENTA'] === '')
                             $model->RETENCION_VENTA = NULL;
-                        $model->IMPUESTO_VENTA = $_POST['Articulo']['IMPUESTO_VENTA'];
+                        
 			if($model->save()){
                             //Actualizar Registros
                             if(isset($_POST['ClasificAdiArticulo'])){
@@ -201,8 +192,8 @@ class ArticuloController extends SBaseController
                                 }
                             }
                             //NUEVOS REGISTROS
-                            if(isset($_POST['ClasificacionNuevo'])){
-                                foreach ($_POST['ClasificacionNuevo'] as $datos){
+                            if(isset($_POST['OtraClasificacionNuevo'])){
+                                foreach ($_POST['OtraClasificacionNuevo'] as $datos){
                                      $adi = new ClasificAdiArticulo;
                                      $adi->ARTICULO = $model->ARTICULO;
                                      $adi->VALOR = $datos['VALOR'];
@@ -259,16 +250,12 @@ class ArticuloController extends SBaseController
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
-                    Articulo::model()->updateByPk($id, array('ACTIVO'=>'N'));
-                    /*
 			// we only allow deletion via POST request
-			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
+			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-                     * 
-                     */
 		}
 		else
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
@@ -328,11 +315,15 @@ class ArticuloController extends SBaseController
 	}
         
         public function actionCargar() {
-                $var = $_GET['ClasificacionAdiValor'];
+                $var = $_POST['ClasificacionAdiValor'];
 		$data=  ClasificacionAdiValor::model()->findAll('CLASIFICACION = '.$var);
                
                $data=CHtml::listData($data,'ID','VALOR');
-               echo CJSON::encode($data);
+               echo "<option value=''>Seleccione</option>";
+               foreach($data as $value=>$name)
+               {
+                       echo CHtml::tag('option',array('value'=>$value),CHtml::encode($name),true);
+               }
 	}
         
         public function actionCargarAjax(){

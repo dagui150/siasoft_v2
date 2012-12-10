@@ -1,4 +1,3 @@
-<?php $this->pageTitle=Yii::app()->name." - Consecutivos";?>
 <?php
 if(!ConfCi::darConf())
      $this->redirect(array('/confCi/create'));
@@ -10,7 +9,7 @@ $this->breadcrumbs=array(
 ?>
 
 <h1>Consecutivos</h1>
-<br />
+<br>
 <div align="right">
 
     <?php 
@@ -36,10 +35,7 @@ $this->breadcrumbs=array(
                     'DESCRIPCION',
                     'MASCARA',
                     'SIGUIENTE_VALOR',
-                    array(
-                         'name' => 'FORMATO_IMPRESION',
-                         'value'=>'isset($data->fORMATOIMPRESION->NOMBRE) ? $data->fORMATOIMPRESION->NOMBRE : ""',
-                     ),
+                    'FORMATO_IMPRESION',
                     array(
                          'name'=>'TODOS_USUARIOS',
                          'value'=>'($data->TODOS_USUARIOS == \'S\') ? \'Si\' :\'No\'',

@@ -34,8 +34,6 @@ function cargaProveedorGrilla (grid_id){
 }
 
 $(document).ready(function(){
-    $('#OrdenCompra_DIRECCION_EMBARQUE').val('<?php echo $config->DIRECCION_EMBARQUE; ?>');
-    $('#OrdenCompra_DIRECCION_COBRO').val('<?php echo $config->DIRECCION_COBRO; ?>');
     $(".escritoProv").live("change", function (e) {
        $.getJSON(
             '<?php echo $this->createUrl('ordenCompra/CargarProveedor'); ?>&buscar='+$(this).attr('value'),
@@ -186,46 +184,31 @@ $(document).ready(function(){
 	<?php 
         // Validacion de Rubros en la configuracion        
          if($config->USAR_RUBROS == "S") {
-                    $rubros = '';
-                    if($config->RUBRO1_ORDNOM != ''){
-                        $rubros .= '<div class="row"><label>'.$config->RUBRO1_ORDNOM.'</label>'
-                        .$form->textField($model,'RUBRO1',array('size'=>50,'maxlength'=>50))
-                        .$form->error($model,'RUBRO1')
-                        .'</div>';                        
-                    }
-                    
-                    if($config->RUBRO2_ORDNOM != ''){                    
-                        $rubros .= '<div class="row">'
-                        .'<label>'.$config->RUBRO2_ORDNOM.'</label>'
-                        .$form->textField($model,'RUBRO2',array('size'=>50,'maxlength'=>50))
-                        .$form->error($model,'RUBRO2')
-                        .'</div>';                        
-                    }
-                    
-                    if($config->RUBRO3_ORDNOM != ''){                    
-                        $rubros .= '<div class="row">'
-                        .'<label>'.$config->RUBRO3_ORDNOM.'</label>'
-                        .$form->textField($model,'RUBRO3',array('size'=>50,'maxlength'=>50))
-                        .$form->error($model,'RUBRO3')
-                        .'</div>';                        
-                    }
-                    
-                    if($config->RUBRO4_ORDNOM != ''){                    
-                        $rubros .= '<div class="row">'
-                        .'<label>'.$config->RUBRO4_ORDNOM.'</label>'
-                        .$form->textField($model,'RUBRO4',array('size'=>50,'maxlength'=>50))
-                        .$form->error($model,'RUBRO4')
-                        .'</div>';
-                    }
-                    
-                    if($config->RUBRO5_ORDNOM != ''){
-                        $rubros .= '<div class="row">'
-                        .'<label>'.$config->RUBRO5_ORDNOM.'</label>'
-                        .$form->textField($model,'RUBRO5',array('size'=>50,'maxlength'=>50))
-                        .$form->error($model,'RUBRO5')
-                        .'</div>';
-                    }
-                    
+                    $rubros = '<div class="row">'
+                    .$form->labelEx($model,'RUBRO1')
+                    .$form->textField($model,'RUBRO1',array('size'=>50,'maxlength'=>50))
+                    .$form->error($model,'RUBRO1')
+                    .'</div>'
+                    .'<div class="row">'
+                    .$form->labelEx($model,'RUBRO2')
+                    .$form->textField($model,'RUBRO2',array('size'=>50,'maxlength'=>50))
+                    .$form->error($model,'RUBRO2')
+                    .'</div>'
+                    .'<div class="row">'
+                    .$form->labelEx($model,'RUBRO3')
+                    .$form->textField($model,'RUBRO3',array('size'=>50,'maxlength'=>50))
+                    .$form->error($model,'RUBRO3')
+                    .'</div>'
+                    .'<div class="row">'
+                    .$form->labelEx($model,'RUBRO4')
+                    .$form->textField($model,'RUBRO4',array('size'=>50,'maxlength'=>50))
+                    .$form->error($model,'RUBRO4')
+                    .'</div>'
+                    .'<div class="row">'
+                    .$form->labelEx($model,'RUBRO5')
+                    .$form->textField($model,'RUBRO5',array('size'=>50,'maxlength'=>50))
+                    .$form->error($model,'RUBRO5')
+                    .'</div>';
          }
          else{
              $rubros='Para usar esta opcion debes habilitarla en configuracion';
@@ -309,7 +292,7 @@ $(document).ready(function(){
                 </tr>
             </table></fieldset>', 'active'=>true),
         
-        array('label'=>'Líneas', 'content'=>$pestana),
+        array('label'=>'Lineas', 'content'=>$pestana),
         
         array('label'=>'Proveedor', 'content'=>
             '<fieldset>'.
@@ -325,7 +308,7 @@ $(document).ready(function(){
             $form->textAreaRow($model,'DIRECCION_EMBARQUE',array('cols' => '50', 'rows' => '5')).
             $form->textAreaRow($model,'DIRECCION_COBRO',array('cols' => '50', 'rows' => '5')).
             '</fliedset>'),
-             
+        
         array('label'=>'Rubros', 'content'=>$rubros),
         
         array('label'=>'Textos', 'content'=>
@@ -401,7 +384,7 @@ $(document).ready(function(){
             'filter'=>$proveedor,
             'columns'=>array(
                 array(  'name'=>'PROVEEDOR',
-                        'header'=>'Código Proveedor',
+                        'header'=>'Codigo Proveedor',
                         'htmlOptions'=>array('data-dismiss'=>'modal'),
                         'type'=>'raw',
                         'value'=>'CHtml::link($data->PROVEEDOR,"#")'
@@ -443,7 +426,7 @@ $(document).ready(function(){
             'filter'=>$articulo,
             'columns'=>array(
                 array(  'name'=>'ARTICULO',
-                        'header'=>'Código Artículo',
+                        'header'=>'Codigo Articulo',
                         'htmlOptions'=>array('data-dismiss'=>'modal'),
                         'type'=>'raw',
                         'value'=>'CHtml::link($data->ARTICULO,"#")'
@@ -481,7 +464,7 @@ $(document).ready(function(){
             'filter'=>$articulo,
             'columns'=>array(
                 array(  'name'=>'ARTICULO',
-                        'header'=>'Código Artículo',
+                        'header'=>'Codigo Articulo',
                         'htmlOptions'=>array('data-dismiss'=>'modal'),
                         'type'=>'raw',
                         'value'=>'CHtml::link($data->ARTICULO,"#")'
@@ -519,7 +502,7 @@ $(document).ready(function(){
             'columns'=>array(
                 array('class'=>'CCheckBoxColumn'),
                 array(  'name'=>'SOLICITUD_OC_LINEA',
-                        'header'=>'Código Solicitud'),
+                        'header'=>'Codigo Solicitud'),
                     'SOLICITUD_OC',
                     array('name' => 'ARTICULO', 'value'=>'$data->aRTICULO->NOMBRE'),
                     'FECHA_REQUERIDA',
@@ -530,7 +513,7 @@ $(document).ready(function(){
 	</div>
         <div class="modal-footer">
         <?php $this->widget('bootstrap.widgets.BootButton', array(
-                'label'=>'Cargar Líneas',
+                'label'=>'Cargar Lineas',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal', 'onclick' => 'cargaSolicitud()'),
             )); ?>

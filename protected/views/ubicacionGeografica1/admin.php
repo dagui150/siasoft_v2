@@ -1,15 +1,12 @@
-<?php $this->pageTitle=Yii::app()->name." - Ubicacion Geografica 1";?>
-
-
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
-	'Ubicacion Geografica 1',
+	'Ubicacion Geografica 1'=>array('index'),
+	'Administrar',
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' UbicacionGeografica1', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE').' UbicacionGeografica1', 'url'=>array('create')),
+	array('label'=>'List UbicacionGeografica1', 'url'=>array('index')),
+	array('label'=>'Create UbicacionGeografica1', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -27,31 +24,6 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1>Departamento</h1>
-<div align="right">
-        <?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'EXCEL',
-    'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('ubicacionGeografica1/excel'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
-<?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'PDF',
-    'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('ubicacionGeografica1/pdf'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-</div>
 
 <?php $this->widget('bootstrap.widgets.BootGridView', array(
     'type'=>'striped bordered condensed',
@@ -60,8 +32,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
 	'filter'=>$model,
 	'columns'=>array(
 		'ID',
-            array('name'=>'PAIS',
-                'value'=>'$data->pAIS->NOMBRE'),
+		'PAIS',
 		'NOMBRE',
 		//'ACTIVO',
 		//'CREADO_POR',

@@ -1,7 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
-	'Centro de Costos',
+	'Centro Costos',
 );
 
 $this->menu=array(
@@ -10,7 +9,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Centro de Costos</h1>
+<h1>Centro Costos</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

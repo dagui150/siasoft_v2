@@ -1,4 +1,3 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Proveedor";?>
 <?php
 $this->breadcrumbs=array(
 	'Proveedor'=>array('admin'),
@@ -6,11 +5,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' Proveedor', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE').' Proveedor', 'url'=>array('create')),
-	array('label'=>Yii::t('app','UPDATE').' Proveedor', 'url'=>array('update', 'id'=>$model->PROVEEDOR)),
-	array('label'=>Yii::t('app','DELETE').' Proveedor', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->PROVEEDOR),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>Yii::t('app','MANAGE').' Proveedor', 'url'=>array('admin')),
+	array('label'=>'List Proveedor', 'url'=>array('index')),
+	array('label'=>'Create Proveedor', 'url'=>array('create')),
+	array('label'=>'Update Proveedor', 'url'=>array('update', 'id'=>$model->PROVEEDOR)),
+	array('label'=>'Delete Proveedor', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->PROVEEDOR),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage Proveedor', 'url'=>array('admin')),
 );
 ?>
 
@@ -33,9 +32,9 @@ $this->menu=array(
 		'FAX',
 		'NIT',
 		'CONDICION_PAGO',
-		/*'ACTIVO',
+		'ACTIVO',
 		'ORDEN_MINIMA',
 		'DESCUENTO',
-		'TASA_INTERES_MORA',*/
+		'TASA_INTERES_MORA',
 	),
 )); ?>

@@ -1,4 +1,3 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." Configuración";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('update','id'=>$model->ID),

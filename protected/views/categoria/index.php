@@ -1,16 +1,15 @@
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
-	'Categorías',
+	'Categorias',
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','CREATE').' Categoria', 'url'=>array('create')),
-	array('label'=>Yii::t('app','MANAGE').' Categoria', 'url'=>array('admin')),
+	array('label'=>'Create Categoria', 'url'=>array('create')),
+	array('label'=>'Manage Categoria', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Categorías</h1>
+<h1>Categorias</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

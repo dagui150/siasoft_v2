@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Clasific Adi Artículos'=>array('index'),
+	'Clasific Adi Articulos'=>array('index'),
 	'Crear',
 );
 

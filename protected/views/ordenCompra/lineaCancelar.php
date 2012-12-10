@@ -10,7 +10,7 @@
     'type'=>'',
     'size'=>'mini',
     'url'=>'#lineas',
-    'label' => 'Cargar Líneas',
+    'label' => 'Cargar Lineas',
     'icon'=>'icon-download-alt',
     'htmlOptions'=>array('data-toggle'=>'modal'),
 )); ?>

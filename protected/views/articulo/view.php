@@ -1,14 +1,13 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Artículos";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('admin'),
-	'Artículos'=>array('admin'),
+	'Articulos'=>array('admin'),
 	$model->ARTICULO,
 );
 
 ?>
 
-<h1>Ver Artículo #<?php echo $model->ARTICULO; ?></h1>
+<h1>Ver Articulo #<?php echo $model->ARTICULO; ?></h1>
 <br>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

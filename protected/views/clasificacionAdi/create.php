@@ -1,8 +1,7 @@
-
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Clasificaciónes";?><?php
+<?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('admin'),
-	'Clasificaciónes'=>array('admin'),
+	'Clasificaciones'=>array('admin'),
 	'Crear',
 );
 

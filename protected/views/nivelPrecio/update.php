@@ -1,10 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
-        'Nivel de Precios'=>array('admin'),
-        $model2->ID => array('view', 'id' => $model2->ID),
-        'Actualizar',
-    );
+        'Sistema'=>array('update', 'id'=>$model2->ID),
+	"Nivel de precio");
 ?>
 
 <h1>Actualizar Nivel Precio <?php echo $model2->ID; ?></h1>

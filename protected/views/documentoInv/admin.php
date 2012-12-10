@@ -10,13 +10,12 @@
      setTimeout(function(){
          $(".alert").slideUp('slow');
          $('#seleccion').val('');
-     }, 15000);
+     }, 10000);
      $.fn.yiiGridView.update('documento-inv-grid');
      
  }
 </script>
 
-<?php $this->pageTitle=Yii::app()->name." - Documentos";?>
 <?php
 if(!ConfCi::darConf())
      $this->redirect(array('/confCi/create'));
@@ -57,35 +56,17 @@ $this->breadcrumbs=array(
 
             $this->widget('bootstrap.widgets.BootButton', array(
                     'buttonType'=>'ajaxSubmit',
-                    'label'=>'Rev. Aprobación',
-                    'type'=>'inverse', 
-                    'size'=>'mini', 
-                    'icon' => 'arrow-left white',
-                    'url'=>array('reversar'),
-                    'ajaxOptions'=>array(
-                        'type'=>'POST',
-                        'update'=>'#repuesta',
-                        'complete'=>'completado()',
-                    ),
-                    'htmlOptions'=>array('id'=>'reversar','confirm'=>'¿Desea Reversar Documento(s) Seleccionado(s)?'),
-            )); 
-
-    ?>
-    <?php 
-
-            $this->widget('bootstrap.widgets.BootButton', array(
-                    'buttonType'=>'ajaxSubmit',
-                    'label'=>'Cancelar',
+                    'label'=>'Rev. Aprovación',
                     'type'=>'danger', 
                     'size'=>'mini', 
-                    'icon' => 'remove white',
+                    'icon' => 'arrow-left white',
                     'url'=>array('cancelar'),
                     'ajaxOptions'=>array(
                         'type'=>'POST',
                         'update'=>'#repuesta',
                         'complete'=>'completado()',
                     ),
-                    'htmlOptions'=>array('id'=>'cancelar','confirm'=>'¿Desea Cancelar Documento(s) Seleccionado(s)?'),
+                    'htmlOptions'=>array('id'=>'cancelar'),
             )); 
 
     ?>
@@ -150,13 +131,6 @@ $this->breadcrumbs=array(
 			'class'=>'bootstrap.widgets.BootButtonColumn',
                         'template'=>'{update}'
 		),
-             array(
-                         'class'=>'CLinkColumn',
-			 'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
-			 'urlExpression'=>'CController::createUrl("/documentoInv/formatoPDF", array("id"=>$data->DOCUMENTO_INV))',
-			 'htmlOptions'=>array('style'=>'text-align:center;'),
-			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),
-                ),
 	),
     ));
 ?>

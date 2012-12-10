@@ -1,19 +1,12 @@
-<script>
-function completado(){
-    $.fn.yiiGridView.update('bodega-grid');
-}
-</script>
-<?php $this->pageTitle=Yii::app()->name." - Bodegas";?>
-
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
-	'Bodegas',
+	'Bodegas'=>array('admin'),
+	'Administrar',
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' Bodega', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE').' Bodega', 'url'=>array('create')),
+	array('label'=>'List Bodega', 'url'=>array('index')),
+	array('label'=>'Create Bodega', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -31,44 +24,12 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1>Bodegas</h1>
-<br>
 <?php 
-if(isset($alerta)){
-    Yii::app()->user->setFlash('info', $alerta);
- } 
- 
 if(isset($_GET['mensaje'])){ ?>
 <div class="alert alert-<?php echo $_GET['tipo']; ?>"><a class="close" data-dismiss="alert">×</a><?php echo base64_decode($_GET['mensaje']); ?></div>
-<?php } 
-$this->widget('bootstrap.widgets.BootAlert');
-?>
+<?php } ?>
 
 <div align="right">
-
-<?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'EXCEL',
-    'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	//'url' => array('bodega/excel'),
-    'url' => array('bodega/prueba'),
-	'icon' => 'download-alt white'
-)); 
-?>
-    
-<?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'PDF',
-    'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('bodega/pdf'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
 <?php 
 
 $this->widget('bootstrap.widgets.BootButton', array(
@@ -96,7 +57,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
                         'name'=>'TIPO',
                         'header'=>'Tipo',
                         'value'=>'Bodega::tipo($data->TIPO)',
-                        'filter'=>array('C'=>'Consumo','V'=>'Ventas','N'=>'No Disponible',''=>'Todos'),
+                        'filter'=>array('C'=>'Consumo','V'=>'Ventas','N'=>'No Disponible'),
                     ),
 		'TELEFONO',
 		'DIRECCION',
@@ -111,7 +72,6 @@ $this->widget('bootstrap.widgets.BootButton', array(
                     'class'=>'bootstrap.widgets.BootButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),
 		),
-
 	),
 )); ?>
 

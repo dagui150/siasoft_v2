@@ -1,13 +1,9 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." Categorías";?>
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
-        'Categorías'=>array('admin'),
-        $model2->ID => array('view', 'id' => $model2->ID),
-        'Actualizar',
-    );
+        'Sistema'=>array('update', 'id'=>$model2->ID),
+	"Categoria");
 ?>
 
-<h1>Actualizar Categoría <?php echo $model2->ID; ?></h1>
+<h1>Actualizar Categoria <?php echo $model2->ID; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model2'=>$model2)); ?>

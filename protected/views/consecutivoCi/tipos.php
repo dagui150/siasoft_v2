@@ -17,15 +17,13 @@ function dependiente () {
 		  function(data){
                         $('select[id$=' + nombreCampoDependiente + '] > option').remove();
                         $('#' + nombreCampoDependiente).append(data);
+                        $(".tonces").attr("disabled","disabled");
 		  }
         );
-            
-        $(".templateTarget").html('');   
-        $("#nuevo").attr('disabled',false);   
-        $("#cambia").val(1);   
+        $("#nuevo").slideToggle('fast');   
 }
 function agregar(){
-        var cont = $('body').find('.rowIndex').max();
+        var cont = $('#contador').val();
         var valor = $("#valor").val();
             
         $('#ConsecCiTipoTransNuevo_'+cont+'_TRANSACCION_BASE').val(valor);
@@ -90,8 +88,9 @@ function eliminarRegistro(){
     <tr>
           <td>
               <?php 
-                    echo CHtml::dropDownList('ConsecCiTipoTrans_TRANSACCION_BASE','',CHtml::listData(TipoTransaccion::model()->findAll('ACTIVO = "S"'),'TIPO_TRANSACCION','NOMBRE'),
+                    echo CHtml::dropDownList('ConsecCiTipoTrans_TRANSACCION_BASE','',CHtml::listData(TipoTransaccion::model()->findAll(),'TIPO_TRANSACCION','NOMBRE'),
                                             array(
+                                                'disabled'=>$model2->isNewRecord ? false : true,
                                                 'style'=>'width:100px',
                                                 'prompt' => 'Seleccione',
                                                 'class' => 'tonces',
@@ -110,7 +109,6 @@ function eliminarRegistro(){
           </td>
           <input type="hidden" value="0" id="contador" />
           <?php echo CHtml::hiddenField('valor',$model2->isNewRecord ? '' : $id_tipo); ?>
-          <?php echo CHtml::hiddenField('cambia',0); ?>
   </tr>
 </table>
 
@@ -185,7 +183,7 @@ function eliminarRegistro(){
                                                  'type'=>'success',
                                                  'label'=>'Nuevo',
                                                  'icon'=>'plus white',
-                                                 'htmlOptions'=>array('id'=>'nuevo','disabled'=>$model2->isNewRecord ? true : false)
+                                                 'htmlOptions'=>array('id'=>'nuevo','style'=>$model2->isNewRecord ? 'display: none;' : '')
                                          )); 
                                    ?>
                             </div>

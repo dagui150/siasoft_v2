@@ -34,7 +34,7 @@
                     $('#precio_unitario_' + a).text(data.PRECIO_UNITARIO);   
                     $('#costo_fiscal_unitario_' + a).text(data.COSTO_FISCAL_UNITARIO); 
                     $('#linea_num_' + a).text(parseInt(i));
-                    $('#orden_compra_linea_' + a).text(data.ID);                    
+                    $('#orden_compra_linea_' + a).text(data.ID); 
                     
                     //input
                     $('#LineaNuevo_' + a + '_ARTICULO').val(data.ARTICULO);
@@ -45,8 +45,7 @@
                     $('#LineaNuevo_' + a + '_PRECIO_UNITARIO').val(data.PRECIO_UNITARIO);   
                     $('#LineaNuevo_' + a + '_COSTO_FISCAL_UNITARIO').val(data.COSTO_FISCAL_UNITARIO);                
                     $('#LineaNuevo_' + a + '_LINEA_NUM').val(parseInt(i));                
-                    $('#LineaNuevo_' + a + '_ORDEN_COMPRA_LINEA').val(data.ID);
-                    $('#LineaNuevo_' + a + '_CANTIDAD_REAL').val(data.CANTIDAD_REAL);
+                    $('#LineaNuevo_' + a + '_ORDEN_COMPRA_LINEA').val(data.ID);                
                     a++;
                     $('#contador').val(a);
                 }
@@ -54,19 +53,14 @@
         }
     }
 </script>
-<div id="advertenciaLineas" class="alert alert-warning">
-    <h2 align="center">Debe ingresar proveedor antes de introducir lineas</h2>
-</div>
-<div id="cargarLineasBoton" style="display: none;">
 <?php $this->widget('bootstrap.widgets.BootButton', array(
     'type'=>'',
     'size'=>'mini',
     'url'=>'#lineas',
-    'label' => 'Cargar Líneas',
+    'label' => 'Cargar Lineas',
     'icon'=>'icon-download-alt',
     'htmlOptions'=>array('data-toggle'=>'modal', 'id'=>"cargar"),
 )); ?>
-</div>
 <p>&nbsp;</p>
 <?php
 
@@ -83,8 +77,8 @@
                         <table class="templateFrame grid table table-bordered" cellspacing="0">
                             <thead class="templateHead">
                                 <tr>
-                                    <td width="100px" align="center"><strong>Número Línea</strong></td>
-                                    <td width="300px" align="center"><strong>Artículo</strong></td>
+                                    <td width="100px" align="center"><strong>Numero Linea</strong></td>
+                                    <td width="300px" align="center"><strong>Articulo</strong></td>
                                     <td width="200px" align="center"><strong>Unidad Ordenada</strong></td>
                                     <td width="200px" align="center"><strong>Bodega</strong></td> 
                                     <td width="100px" align="center"><strong>Cantidad Ordenada</strong></td>
@@ -154,7 +148,6 @@
                                     <td>
                                         <span id='orden_compra_linea_<?php echo '{0}';?>'></span>
                                         <?php echo CHtml::hiddenField('LineaNuevo[{0}][ORDEN_COMPRA_LINEA]',''); ?>
-                                        <?php echo CHtml::hiddenField('LineaNuevo[{0}][CANTIDAD_REAL]',''); ?>
                                         <?php echo CHtml::hiddenField('LineaNuevo[{0}][ACTIVO]','S'); ?>
                                     </td>
                                     <td>

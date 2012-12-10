@@ -49,7 +49,7 @@ class Bodega extends CActiveRecord
 			array('TIPO, ACTIVO', 'length', 'max'=>1),
 			array('TELEFONO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('DIRECCION', 'length', 'max'=>128),
-                        array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'Bodega','allowEmpty'=>false),
+                       array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'Bodega','allowEmpty'=>false),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('ID, DESCRIPCION, TIPO, TELEFONO, DIRECCION, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
@@ -73,11 +73,11 @@ class Bodega extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Código de bodega',
-			'DESCRIPCION' => 'Descripción',
+			'ID' => 'Codigo de bodega',
+			'DESCRIPCION' => 'Descripcion',
 			'TIPO' => 'Tipo',
-			'TELEFONO' => 'Teléfono',
-			'DIRECCION' => 'Dirección',
+			'TELEFONO' => 'Telefono',
+			'DIRECCION' => 'Direccion',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',
@@ -102,7 +102,7 @@ class Bodega extends CActiveRecord
 		$criteria->compare('TIPO',$this->TIPO,true);
 		$criteria->compare('TELEFONO',$this->TELEFONO,true);
 		$criteria->compare('DIRECCION',$this->DIRECCION,true);
-		$criteria->compare('ACTIVO','S');
+		$criteria->compare('ACTIVO',$this->ACTIVO,true);
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -110,18 +110,6 @@ class Bodega extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-		));
-	}
-        public function searchPdf()
-	{
-
-		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-                        'pagination'=>array(
-                            'pageSize'=> Bodega::model()->count(),
-                        ),
 		));
 	}
 	public function searchModal()
@@ -136,12 +124,11 @@ class Bodega extends CActiveRecord
 		$criteria->compare('TIPO',$this->TIPO,true);
 		$criteria->compare('TELEFONO',$this->TELEFONO,true);
 		$criteria->compare('DIRECCION',$this->DIRECCION,true);
-		$criteria->compare('ACTIVO','S');
+		$criteria->compare('ACTIVO',$this->ACTIVO,true);
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
 		$criteria->compare('ACTUALIZADO_EL',$this->ACTUALIZADO_EL,true);
-                $criteria->compare('ACTIVO','S');
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -182,7 +169,8 @@ class Bodega extends CActiveRecord
 
         
         public static function darDescripcion($id){
-            $bus = Bodega::model()->findByPk($id);            
+            $bus = Bodega::model()->findByPk($id);
+            
             return $bus ? $bus->DESCRIPCION : '';
         }
 }

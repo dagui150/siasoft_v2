@@ -1,4 +1,3 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." ".Yii::t('app','ADMINISTRATION_SETTINGS');?>
 <?php
 $this->breadcrumbs=array(
 	'Conf Ases'=>array('admin'),
@@ -24,9 +23,9 @@ $this->menu=array(
 		'IMPUESTO2_DESC',
 		'PATRON_CCOSTO',
 		'SIMBOLO_MONEDA',
-		/*'CREADO_POR',
+		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',*/
+		'ACTUALIZADO_EL',
 	),
 )); ?>

@@ -1,12 +1,11 @@
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
 	'Bodegas',
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','CREATE').' Bodega', 'url'=>array('create')),
-	array('label'=>Yii::t('app','MANAGE').' Bodega', 'url'=>array('admin')),
+	array('label'=>'Create Bodega', 'url'=>array('create')),
+	array('label'=>'Manage Bodega', 'url'=>array('admin')),
 );
 ?>
 

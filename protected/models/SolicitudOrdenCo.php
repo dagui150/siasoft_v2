@@ -84,9 +84,9 @@ class SolicitudOrdenCo extends CActiveRecord
 		return array(
 			'ID' => 'ID',
 			'SOLICITUD_OC' => 'Solicitud Oc',
-			'SOLICITUD_OC_LINEA' => 'Solicitud Oc Línea',
+			'SOLICITUD_OC_LINEA' => 'Solicitud Oc Linea',
 			'ORDEN_COMPRA' => 'Orden Compra',
-			'ORDEN_COMPRA_LINEA' => 'Orden Compra Línea',
+			'ORDEN_COMPRA_LINEA' => 'Orden Compra Linea',
 			'DECIMA' => 'Decima',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
@@ -113,7 +113,7 @@ class SolicitudOrdenCo extends CActiveRecord
 		$criteria->compare('ORDEN_COMPRA',$this->ORDEN_COMPRA,true);
 		$criteria->compare('ORDEN_COMPRA_LINEA',$this->ORDEN_COMPRA_LINEA);
 		$criteria->compare('DECIMA',$this->DECIMA,true);
-		$criteria->compare('ACTIVO','S');
+		$criteria->compare('ACTIVO',$this->ACTIVO,true);
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);

@@ -1,18 +1,12 @@
-<?php $this->pageTitle=Yii::app()->name." - Formato Impresion";?>
 <?php
-/* @var $this FormatoImpresionController */
-/* @var $model FormatoImpresion */
-
-
-
 $this->breadcrumbs=array(
-	'Sistema'=>array('admin'),
-	'Administración de Reportes',
+	'Formato Impresions'=>array('index'),
+	'Administrar',
 );
 
 $this->menu=array(
-    array('label'=>Yii::t('app','LIST'). 'FormatoImpresion', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE'). 'FormatoImpresion', 'url'=>array('create')),
+	array('label'=>'Listar FormatoImpresion', 'url'=>array('index')),
+	array('label'=>'Crear FormatoImpresion', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -29,34 +23,29 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Administración de Reportes</h1>
+<h1>Administrar Formato Impresions</h1>
 
-<div align="right">
-    <?php
-    $this->widget('bootstrap.widgets.BootButton', array(
-        'label' => 'Nuevo',
-        'type' => 'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-        'size' => 'mini', // '', 'large', 'small' or 'mini'
-        'url' => '#myModal',
-        'icon' => 'plus white',
-		'htmlOptions'=>array('data-toggle'=>'modal')
-    ));
-    ?>
-</div>
+<p>
+Si lo desea, puede entrar en un operador de comparacion (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
+o <b>=</b>) al comienzo de cada uno de los valores de su busqueda para especificar como la comparacion se debe hacer.
+</p>
 
+<?php echo CHtml::link('Busqueda Avazada','#',array('class'=>'search-button')); ?>
+<div class="search-form" style="display:none">
+<?php $this->renderPartial('_search',array(
+	'model'=>$model,
+)); ?>
+</div><!-- search-form -->
 
-<?php $this->widget('bootstrap.widgets.BootGridView', array(
-    'type' => 'striped bordered condensed',
+<?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'formato-impresion-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
+		'ID',
 		'NOMBRE',
 		'OBSERVACION',
-                array(
-                    'name'=>'MODULO',
-                    'value'=>'FormatoImpresion::getModulo($data->MODULO)',
-                ),
+		'MODULO',
 		'SUBMODULO',
 		'RUTA',
 		/*
@@ -68,28 +57,7 @@ $('.search-form form').submit(function(){
 		'ACTUALIZADO_EL',
 		*/
 		array(
-            'class' => 'bootstrap.widgets.BootButtonColumn',
-            'htmlOptions' => array('style' => 'width: 50px'),
-        ),
+			'class'=>'CButtonColumn',
+		),
 	),
 )); ?>
-
-
-
-
-<?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
- 
-<div class="modal-header">
-    <a class="close" data-dismiss="modal">&times;</a>
-    <h3>Crear Formato de Impresion</h3>
-    <p class="note"><?php echo Yii::t('app','FIELDS_WITH'); ?><span class='required'> * </span><?php echo Yii::t('app','ARE_REQUIRED'); ?>.
-</p>
-</div>
-
-<?php $this->renderPartial('_form', array('model2'=>$model2)); ?>
- 
-<?php $this->endWidget(); ?>
-
-
-
-

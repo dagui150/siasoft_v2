@@ -94,7 +94,7 @@ class Impuesto extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Código',
+			'ID' => 'Codigo',
 			'NOMBRE' => 'Nombre',
 			'PROCENTAJE' => 'Porcentaje',
 			'ACTIVO' => 'Activo',
@@ -119,7 +119,7 @@ class Impuesto extends CActiveRecord
 		$criteria->compare('ID',$this->ID,true);
 		$criteria->compare('NOMBRE',$this->NOMBRE,true);
 		$criteria->compare('PROCENTAJE',$this->PROCENTAJE,true);
-		$criteria->compare('ACTIVO','S');
+		$criteria->compare('ACTIVO',$this->ACTIVO,true);
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -129,17 +129,4 @@ class Impuesto extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-        public function searchPdf()
-	{
-
-		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-                        'pagination'=>array(
-                            'pageSize'=> Impuesto::model()->count(),
-                        ),
-		));
-	}
-
 }

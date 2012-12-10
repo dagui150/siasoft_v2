@@ -1,22 +1,15 @@
-<?php $this->pageTitle=Yii::app()->name.' - '.Yii::t('app','LIST').' Nit';?>
 <?php
-/* @var $this NitController */
-/* @var $dataProvider CActiveDataProvider */
-
-
-
 $this->breadcrumbs=array(
-    'Sistema'=>array('admin'),
-	'Nits',
+	'Nit',
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','CREATE'). 'Nit', 'url'=>array('create')),
-	array('label'=>Yii::t('app','MANAGE'). 'Nit', 'url'=>array('admin')),
+	array('label'=>'Create Nit', 'url'=>array('create')),
+	array('label'=>'Manage Nit', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Nits</h1>
+<h1>Nit</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

@@ -1,10 +1,9 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Retención";?>
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
+        'Sistema'=>array('create'),
 	"Retenciones");
 ?>
 
-<h1>Crear Retención</h1>
+<h1>Crear Retencion</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

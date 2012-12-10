@@ -76,9 +76,9 @@ class SubtipoTransaccion extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Código',
+			'ID' => 'Codigo',
 			'NOMBRE' => 'Nombre',
-			'TIPO_TRANSACCION' => 'Tipo Transacción',
+			'TIPO_TRANSACCION' => 'Tipo Transaccion',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',
@@ -101,7 +101,7 @@ class SubtipoTransaccion extends CActiveRecord
 		$criteria->compare('ID',$this->ID);
 		$criteria->compare('NOMBRE',$this->NOMBRE,true);
 		$criteria->compare('TIPO_TRANSACCION',$this->TIPO_TRANSACCION,true);
-		$criteria->compare('ACTIVO','S');
+		$criteria->compare('ACTIVO',$this->ACTIVO,true);
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);

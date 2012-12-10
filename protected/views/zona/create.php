@@ -1,13 +1,12 @@
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
 	'Zonas'=>array('admin'),
-	 Yii::t('app','CREATE'),
+	'Crear',
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' Zona', 'url'=>array('index')),
-	array('label'=>Yii::t('app','MANAGE').' Zona', 'url'=>array('admin')),
+	array('label'=>'List Zona', 'url'=>array('index')),
+	array('label'=>'Manage Zona', 'url'=>array('admin')),
 );
 ?>
 

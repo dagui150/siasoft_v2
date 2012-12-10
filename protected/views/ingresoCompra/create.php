@@ -1,4 +1,3 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Ingreso Compras";?>
 <?php
 /* @var $this IngresoCompraController */
 /* @var $model IngresoCompra */
@@ -9,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' IngresoCompra', 'url'=>array('index')),
-	array('label'=>Yii::t('app','MANAGE').' IngresoCompra', 'url'=>array('admin')),
+	array('label'=>'List IngresoCompra', 'url'=>array('index')),
+	array('label'=>'Manage IngresoCompra', 'url'=>array('admin')),
 );
 ?>
 

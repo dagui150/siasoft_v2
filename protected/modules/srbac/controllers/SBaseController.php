@@ -23,23 +23,11 @@
 Yii::import("srbac.components.Helper");
 class SBaseController extends CController {
 
-    
-    public function botonAyuda($texto) {
-        $boton = $this->widget('bootstrap.widgets.BootButton', array(
-                    'type' => 'nommal', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-                    'size' => 'mini', // '', 'large', 'small' or 'mini'
-                    'icon' => 'info-sign',
-                    'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>$texto, 'rel'=>'popover'),
-                ),true);
-        return $boton;
-    }
-    
   /**
    * Checks if srbac access is granted for the current user
    * @param String $action . The current action
    * @return boolean true if access is granted else false
    */
-    
   protected function beforeAction($action) {
     $del = Helper::findModule('srbac')->delimeter;
     //srbac access

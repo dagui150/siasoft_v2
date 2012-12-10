@@ -1,7 +1,6 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Artículo Multimedias";?>
 <?php
 $this->breadcrumbs=array(
-	'Artículo Multimedias'=>array('index'),
+	'Articulo Multimedias'=>array('index'),
 	'Crear',
 );
 
@@ -11,7 +10,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Crear Artículo Multimedia</h1>
+<h1>Crear Articulo Multimedia</h1>
 
 
 <?php 

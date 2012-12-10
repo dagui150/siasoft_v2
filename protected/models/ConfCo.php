@@ -80,7 +80,6 @@ class ConfCo extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('BODEGA_DEFAULT', 'required'),
-                        array('FORMATO_IMPRESION_SOL, FORMATO_IMPRESION_ORD', 'numerical', 'integerOnly'=>true),
 			array('MAXIMO_LINORDEN, PRECIO_DEC, CANTIDAD_DEC', 'numerical', 'integerOnly'=>true),
 			array('BODEGA_DEFAULT', 'length', 'max'=>4),
 			array('ULT_SOLICITUD, ULT_ORDEN_COMPRA, ULT_EMBARQUE, ULT_SOLICITUD_M, ULT_ORDEN_COMPRA_M, ULT_EMBARQUE_M, ULT_DEVOLUCION, ULT_DEVOLUCION_M', 'length', 'max'=>10),
@@ -107,8 +106,6 @@ class ConfCo extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'bODEGADEFAULT' => array(self::BELONGS_TO, 'Bodega', 'BODEGA_DEFAULT'),
-                        'fORMATOSOLICITUD' => array(self::BELONGS_TO, 'FormatoImpresion', 'FORMATO_IMPRESION_SOL'),
-			'fORMATOORDEN' => array(self::BELONGS_TO, 'FormatoImpresion', 'FORMATO_IMPRESION_ORD'),
 		);
 	}
 
@@ -119,22 +116,20 @@ class ConfCo extends CActiveRecord
 	{
 		return array(
 			'ID' => 'ID',
-                        'FORMATO_IMPRESION_SOL'=>'Formato impresion Solicitudes',
-                        'FORMATO_IMPRESION_ORD'=>'Formato impresion Ordenes',
 			'BODEGA_DEFAULT' => 'Bodega por Omisi&oacute;n',
 			'ULT_SOLICITUD' => 'Ultima Solicitud',
 			'ULT_ORDEN_COMPRA' => 'Ultima Orden de Compra',
 			'ULT_EMBARQUE' => 'Ultimo Embarque',
-			'ULT_SOLICITUD_M' => 'Máscara - Solicitud',
-			'ULT_ORDEN_COMPRA_M' => 'Máscara - Orden compra',
-			'ULT_EMBARQUE_M' => 'Máscara - Embarque',
+			'ULT_SOLICITUD_M' => 'Mascara - Solicitud',
+			'ULT_ORDEN_COMPRA_M' => 'Mascara - Orden compra',
+			'ULT_EMBARQUE_M' => 'Mascara - Embarque',
 			'ULT_DEVOLUCION' => 'Ultima Devolucion',
-			'ULT_DEVOLUCION_M' => 'Máscara - Devolucion',
+			'ULT_DEVOLUCION_M' => 'Mascara - Devolucion',
 			'USAR_RUBROS' => 'Usar Rubros',
 			'ORDEN_OBSERVACION' => 'Observaciones',
 			'MAXIMO_LINORDEN' => 'N&uacute;mero m&aacute;ximo de l&iacute;neas en las &oacute;rdenes',
 			'POR_VARIAC_COSTO' => 'Porcentaje variaci&oacute;n de costo',
-			'CP_EN_LINEA' => 'Generar factura en l&iacute;nea al aplicar ingreso',
+			'CP_EN_LINEA' => 'Generar factura en l&iacute;nea al aplicar embarque',
 			'IMP1_AFECTA_DESCTO' => 'Impuesto 1 se afecta por',
 			'FACTOR_REDONDEO' => 'Factor de Redondeo',
 			'PRECIO_DEC' => 'Precio Decimales',
@@ -178,9 +173,6 @@ class ConfCo extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('ID',$this->ID);
-                $criteria->compare('FORMATO_IMPRESION_SOL',$this->FORMATO_IMPRESION_SOL,true);
-                $criteria->compare('FORMATO_IMPRESION_ORD',$this->FORMATO_IMPRESION_SOL,true);
-                $criteria->compare('FORMATO_IMPRESION_ING',$this->FORMATO_IMPRESION_SOL,true);
 		$criteria->compare('BODEGA_DEFAULT',$this->BODEGA_DEFAULT,true);
 		$criteria->compare('ULT_SOLICITUD',$this->ULT_SOLICITUD,true);
 		$criteria->compare('ULT_ORDEN_COMPRA',$this->ULT_ORDEN_COMPRA,true);
@@ -228,13 +220,8 @@ class ConfCo extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-        
-        public static function darConf(){
-            $conf = ConfCo::model()->find();            
-            return $conf ? true : false;
-        }
 	
-	public function behaviors()
+		public function behaviors()
 	{
 		return array(
 			'CTimestampBehavior' => array(

@@ -1,13 +1,12 @@
-<?php $this->pageTitle=Yii::app()->name." - Días Feriados";?>
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
-	'Días Feriados',
+	'Dia Feriados'=>array('admin'),
+	'Administrar',
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' DiaFeriado', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE').' DiaFeriado', 'url'=>array('create')),
+	array('label'=>'List DiaFeriado', 'url'=>array('index')),
+	array('label'=>'Create DiaFeriado', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -24,45 +23,21 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Días Feriados</h1>
+<h1>Dias Feriados</h1>
 
 <div align="right">
-    	<?php 
+<?php 
 
-		$this->widget('bootstrap.widgets.BootButton', array(
-		'label'=>'EXCEL',
-		'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-		'size'=>'mini', // '', 'large', 'small' or 'mini'
-		'url' => array('diaFeriado/excel'),
-		'icon' => 'download-alt white'
-		)); 
-
-	?>
-    
-    <?php 
-
-    $this->widget('bootstrap.widgets.BootButton', array(
-        'label'=>'PDF',
-        'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-        'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('diaFeriado/pdf'),
-	'icon' => 'download-alt white'
-        )); 
-    ?>
-    
-    
-    <?php 
-
-    $this->widget('bootstrap.widgets.BootButton', array(
+$this->widget('bootstrap.widgets.BootButton', array(
     'label'=>'Nuevo',
     'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
     'size'=>'mini', // '', 'large', 'small' or 'mini'
 	'icon' => 'plus white',
 	'url'=>'#myModal',
 	'htmlOptions'=>array('data-toggle'=>'modal')
-    )); 
+)); 
 
-    ?>
+?>
 </div>
 
 <?php $this->widget('bootstrap.widgets.BootGridView', array(
@@ -100,7 +75,7 @@ $('.search-form form').submit(function(){
  
 <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>
-    <h3>Crear Día feriado</h3>
+    <h3>Crear Dia feriado</h3>
     <p class="note"><?php echo Yii::t('app','FIELDS_WITH'); ?><span class="required"> * </span><?php echo Yii::t('app','ARE_REQUIRED'); ?>.</p>
 </div>
 

@@ -6,12 +6,9 @@ class SolicitudOcController extends SBaseController
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-        public $modulo='Compras';
-        public $submodulo='Solicitud de Compra';
 	public $layout='//layouts/column2';
         public $breadcrumbs=array();
 	public $menu=array();
-        public $solicitud;
 	/**
 	 * @return array action filters
 	 */
@@ -109,30 +106,6 @@ class SolicitudOcController extends SBaseController
                         
 		));
 	}
-        
-        public function actionformatoPDF() {
-
-            $id = $_GET['id'];
-            
-            $this->solicitud = SolicitudOc::model()->findByPk($id);
-            $lineas = new SolicitudOcLinea;
-            $this->layout = ConfCo::model()->find()->fORMATOSOLICITUD->RUTA;
-            
-            $footer = '<table width="100%">
-                    <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>
-                        <td align="center" valign="middle"><span class="piePagina"><b>Generado el:</b> ' . date('Y/m/d') . '</span></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center" valign="middle">Desarrollado por Tramasoft Soluciones TIC - <a href="http://www.tramasoft.com">www.tramasoft.com</a></td>
-                    </tr>
-                    </table>';
-            $mPDF1 = Yii::app()->ePdf->mpdf();
-            $mPDF1->WriteHTML($this->render('pdf', array('model' => $this->solicitud,'model2'=>$lineas), true));
-            $mPDF1->SetHTMLFooter($footer);
-            
-            $mPDF1->Output();
-            Yii::app()->end();
-        }
                 
         public function actionCargarArticulo(){
             
@@ -165,79 +138,49 @@ class SolicitudOcController extends SBaseController
         }
         
         public function actionCancelar(){
-            $id = explode(",", $_POST['check']);
-            $contSucces = 0;
-            $contError = 0;
-            $contWarning = 0;
-            $succes = '';
-            $error = '';
-            $warning = '';
+            $id = explode(",", $_GET['buscar']);
+            $error = 0;
+            $info = 0;
+            $exito = 0;
             
             foreach($id as $cancela){
-                 $cancelar = SolicitudOc::model()->findByPk($cancela);
-                 
-                 switch ($cancelar->ESTADO){
-                     case 'C' :
-                        $contError+=1;
-                        $error.= $cancela.',';
-                        break;
-                 
-                     case 'P' :
-                        $cancelar->ESTADO = 'C';
-                        $cancelar->CANCELADA_POR = Yii::app()->user->name;
-                        $cancelar->FECHA_CANCELADA = date("Y-m-d H:i:s");
-                        $cancelar->save();
-                        $contSucces+=1;
-                        $succes .= $cancela.',';
-                        break;
+                $cancelar = SolicitudOc::model()->findByPk($cancela);
+                if($cancelar->ESTADO == 'C'){
+                    $info++; // ya esta en cancelar
+                }
+                else{
+                    $cancelar->ESTADO = 'C';
+                    $cancelar->CANCELADA_POR = Yii::app()->user->name;
+                    $cancelar->FECHA_CANCELADA = date("Y-m-d H:i:s");
+                    if($cancelar->save()){
+                        $exito++; // exito
+                    }
+                    else{
+                        $error++; // error
+                    }
                 
-                    case 'N' :
-                        $contWarning+=1;
-                        $warning.= $cancela.',';
-                        break;
-                    
-                    case 'A' :
-                        $contWarning+=1;
-                        $warning.= $cancela.',';
-                        break;
-                 }
-                 
-            $mensajeSucces = MensajeSistema::model()->findByPk('S001');
-            $mensajeError = MensajeSistema::model()->findByPk('E001');
-            $mensajeWarning = MensajeSistema::model()->findByPk('A001');
-            }
-            if($contSucces !=0)
-                Yii::app()->user->setFlash($mensajeSucces->TIPO, '<h3 align="center">'.$mensajeSucces->MENSAJE.': '.$contSucces.' Solicitud(es) Cancelada(s)<br>('.$succes.')</h3>');
-            
-            if($contError !=0)
-                Yii::app()->user->setFlash($mensajeError->TIPO, '<h3 align="center">'.$mensajeError->MENSAJE.': '.$contError.' Solicitud(es) no Cancelada(s)<br>('.$error.')</h3>');
-            
-            if($contWarning !=0)
-                Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Solicitud(es) ya Cancelada(s)<br>('.$warning.')</h3>');
-            
-           $this->widget('bootstrap.widgets.BootAlert');
+            }}
+            $variable = array('error'=>$error, 'info'=>$info, 'exito'=>$exito);
+            echo CJSON::encode($variable);
         }
         
        public function actionAutorizar(){
-           
-            $id = explode(",", $_POST['check']);
-            $contSucces = 0;
-            $contError = 0;
-            $contWarning = 0;
-            $succes = '';
-            $error = '';
-            $warning = '';
+            $id = explode(",", $_GET['buscar']);
+            $error = 0;
+            $info = 0;
+            $exito = 0;
+            $advertencia = 0;
             
             foreach($id as $autoriza){
-                 $autorizar = SolicitudOc::model()->findByPk($autoriza);
-                 
-                 switch ($autorizar->ESTADO){
-                     case 'C' :
-                        $contError+=1;
-                        $error.= $autoriza.',';
-                        break;
-                 
-                     case 'P' :
+                $autorizar = SolicitudOc::model()->findByPk($autoriza);
+                if($autorizar->ESTADO == 'C'){
+                    $advertencia++; //error 2 esta en cancelar
+                }
+                else{
+                    if ($autorizar->ESTADO == 'N' || $autorizar->ESTADO == 'A'){
+                        $info++; //error 3 ya esta en autorizar
+                    }
+                    else{
                         $autorizar->ESTADO = 'N';
                         $autorizar->AUTORIZADA_POR = Yii::app()->user->name;
                         $autorizar->FECHA_AUTORIZADA = date("Y-m-d H:i:s");
@@ -247,66 +190,40 @@ class SolicitudOcController extends SBaseController
                                 $datos->ESTADO = 'N';
                                 $datos->save();
                             }
+                            $exito++; // Se autorizo correctamente
                         }
                         else{
-                            $contError+=1;
-                            $error.= $autoriza.',';
-                            break;
+                            $error++; // error 4 no se pudo autorizar
                         }
-                        $contSucces+=1;
-                        $succes .= $autoriza.',';
-                        break;
                 
-                    case 'N' :
-                        $contWarning+=1;
-                        $warning.= $autoriza.',';
-                        break;
-                    
-                    case 'A' :
-                        $contWarning+=1;
-                        $warning.= $autoriza.',';
-                        break;
-                 }
-                 
-                       
-            $mensajeSucces = MensajeSistema::model()->findByPk('S001');
-            $mensajeError = MensajeSistema::model()->findByPk('E001');
-            $mensajeWarning = MensajeSistema::model()->findByPk('A001');
-            }
-            if($contSucces !=0)
-                Yii::app()->user->setFlash($mensajeSucces->TIPO, '<h3 align="center">'.$mensajeSucces->MENSAJE.': '.$contSucces.' Solicitud(es) Autorizada(s)<br>('.$succes.')</h3>');
-            
-            if($contError !=0)
-                Yii::app()->user->setFlash($mensajeError->TIPO, '<h3 align="center">'.$mensajeError->MENSAJE.': '.$contError.' Solicitud(es) no Autorizada(s)<br>('.$error.')</h3>');
-            
-            if($contWarning !=0)
-                Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Solicitud(es) ya Autorizada(s)<br>('.$warning.')</h3>');
-            
-           $this->widget('bootstrap.widgets.BootAlert');
+                    }
+                }            
+                }
+            $variable = array('error'=>$error, 'info'=>$info, 'exito'=>$exito, 'advertencia'=>$advertencia);
+            echo CJSON::encode($variable);
         }
         
         public function actionReversar(){
-            
-            $id = explode(",", $_POST['check']);
-            $contSucces = 0;
-            $contError = 0;
-            $contWarning = 0;
-            $succes = '';
-            $error = '';
-            $warning = '';
+            $id = explode(",", $_GET['buscar']);
+            $error = 0;
+            $info = 0;
+            $exito = 0;
+            $advertencia = 0;
             
             foreach($id as $reversa){
                 $reversar = SolicitudOc::model()->findByPk($reversa);
-                 
-                 switch ($reversar->ESTADO){
-                     case 'C' :
-                        $contError+=1;
-                        $error.= $autoriza.',';
-                        break;
-                 
-                     case 'N' :
-                         $contar = SolicitudOcLinea::model()->countByAttributes(array('SOLICITUD_OC' => $reversa, 'ESTADO' => 'A'));   
-                         if($contar == 0){
+                if($reversar->ESTADO == 'C'){
+                    $advertencia++; //error 2 esta en cancelar
+                }
+                 else{
+                     if ($reversar->ESTADO == 'A'){
+                        $advertencia++; //error 3 ya esta en autorizar
+                    }
+                    else{
+                        if($reversar->ESTADO == 'P'){
+                            $info++; //error 4 esta aun en planeada
+                        }
+                        else{
                             $reversar->ESTADO = 'P';
                             $reversar->AUTORIZADA_POR = "";
                             $reversar->FECHA_AUTORIZADA = "";
@@ -316,47 +233,17 @@ class SolicitudOcController extends SBaseController
                                     $datos->ESTADO = 'P';
                                     $datos->save();
                                 }
+                            $exito; // Se reverso correctamente
                             }
                             else{
-                                $contError+=1;
-                                $error.= $reversa.',';
-                                break;
+                                $error++; // error 5 no se pudo reversar
                             }
-                            $contSucces+=1;
-                            $succes .= $reversa.',';
                         }
-                        else{
-                            $contError+=1;
-                            $error.= $reversa.',';
-                        }
-                        break;
-                
-                    case 'A' :
-                        $contWarning+=1;
-                        $warning.= $reversar.',';
-                        break;
-                    
-                    case 'P' :
-                        $contWarning+=1;
-                        $warning.= $reversar.',';
-                        break;
+                    }
                  }
-                 
-                       
-            $mensajeSucces = MensajeSistema::model()->findByPk('S001');
-            $mensajeError = MensajeSistema::model()->findByPk('E001');
-            $mensajeWarning = MensajeSistema::model()->findByPk('A001');
             }
-            if($contSucces !=0)
-                Yii::app()->user->setFlash($mensajeSucces->TIPO, '<h3 align="center">'.$mensajeSucces->MENSAJE.': '.$contSucces.' Solicitud(es) Reversada(s)<br>('.$succes.')</h3>');
-            
-            if($contError !=0)
-                Yii::app()->user->setFlash($mensajeError->TIPO, '<h3 align="center">'.$mensajeError->MENSAJE.': '.$contError.' Solicitud(es) no Reversada(s)<br>('.$error.')</h3>');
-            
-            if($contWarning !=0)
-                Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Solicitud(es) ya Reversada(s)<br>('.$warning.')</h3>');
-            
-           $this->widget('bootstrap.widgets.BootAlert');
+            $variable = array('error'=>$error, 'info'=>$info, 'exito'=>$exito, 'advertencia'=>$advertencia);
+            echo CJSON::encode($variable);
         }
         
 	/**
@@ -372,7 +259,7 @@ class SolicitudOcController extends SBaseController
                 $config = new ConfCo;
                 $linea2 = new SolicitudOcLinea2;
                 $i = 1;
-                // retrieve items to be updated in a batch mode
+                            // retrieve items to be updated in a batch mode
                 // assuming each item is of model class 'Item'
                 $items = $linea->model()->findAll('SOLICITUD_OC = "'.$id.'"');
 		// Uncomment the following line if AJAX validation is needed
@@ -450,7 +337,7 @@ class SolicitudOcController extends SBaseController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
+			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -512,3 +399,5 @@ class SolicitudOcController extends SBaseController
 		}
 	}
 }
+
+

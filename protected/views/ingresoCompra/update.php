@@ -1,19 +1,18 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." Ingreso Compras";?>
 <?php
 /* @var $this IngresoCompraController */
 /* @var $model IngresoCompra */
 
 $this->breadcrumbs=array(
-	'Ingreso Compras'=>array('admin'),
+	'Ingreso Compras'=>array('index'),
 	$model->INGRESO_COMPRA=>array('view','id'=>$model->INGRESO_COMPRA),
-	'Actualizar',
+	'Update',
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' IngresoCompra', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE').' IngresoCompra', 'url'=>array('create')),
-	array('label'=>Yii::t('app','VIEW').' IngresoCompra', 'url'=>array('view', 'id'=>$model->INGRESO_COMPRA)),
-	array('label'=>Yii::t('app','MANAGE').' IngresoCompra', 'url'=>array('admin')),
+	array('label'=>'List IngresoCompra', 'url'=>array('index')),
+	array('label'=>'Create IngresoCompra', 'url'=>array('create')),
+	array('label'=>'View IngresoCompra', 'url'=>array('view', 'id'=>$model->INGRESO_COMPRA)),
+	array('label'=>'Manage IngresoCompra', 'url'=>array('admin')),
 );
 ?>
 

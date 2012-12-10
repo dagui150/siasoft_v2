@@ -1,8 +1,6 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Impuestos";?>
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
-	'Impuestos'=>array('admin'),
+	'Impuestos'=>array('index'),
 	'Crear',
 );
 

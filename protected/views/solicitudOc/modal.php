@@ -8,7 +8,7 @@
             'filter'=>$articulo,
             'columns'=>array(
                 array(  'name'=>'ARTICULO',
-                        'header'=>'Código Artículo',
+                        'header'=>'Codigo Articulo',
                         'htmlOptions'=>array('data-dismiss'=>'modal'),
                         'type'=>'raw',
                         'value'=>'CHtml::link($data->ARTICULO,"#")'

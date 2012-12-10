@@ -60,7 +60,7 @@ class TipoTransaccion extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('TIPO_TRANSACCION, NOMBRE,TIPO_TRANSACCION, TRANSACCION_BASE, NATURALEZA, ACTIVO', 'required'),
+			array('TIPO_TRANSACCION, NOMBRE,TIPO_TRANSACCION, TRANSACCION_FIJA, NATURALEZA, ACTIVO', 'required'),
 			array('TIPO_TRANSACCION, TRANSACCION_BASE', 'length', 'max'=>4),
 			array('NOMBRE', 'length', 'max'=>16),
 			array('TRANSACCION_FIJA, ACTIVO', 'length', 'max'=>1),
@@ -93,7 +93,7 @@ class TipoTransaccion extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'TIPO_TRANSACCION' => 'Código',
+			'TIPO_TRANSACCION' => 'Codigo',
 			'NOMBRE' => 'Nombre',
 			'TRANSACCION_BASE' => 'Transacción Base',
 			'TRANSACCION_FIJA' => 'Transacción Fija',
@@ -122,7 +122,7 @@ class TipoTransaccion extends CActiveRecord
 		$criteria->compare('TRANSACCION_BASE',$this->TRANSACCION_BASE,true);
 		$criteria->compare('TRANSACCION_FIJA',$this->TRANSACCION_FIJA,true);
 		$criteria->compare('NATURALEZA',$this->NATURALEZA,true);
-		$criteria->compare('ACTIVO','S');
+		$criteria->compare('ACTIVO',$this->ACTIVO,true);
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);

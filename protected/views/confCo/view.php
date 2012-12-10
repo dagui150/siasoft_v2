@@ -1,20 +1,19 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Configuración de Compras";?>
 <?php
 $this->breadcrumbs=array(
-	'Configuración de Compras'=>array('admin'),
+	'Configuracion Compras'=>array('admin'),
 	$model->ID,
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' ConfCo', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE').' ConfCo', 'url'=>array('create')),
-	array('label'=>Yii::t('app','UPDATE').' ConfCo', 'url'=>array('update', 'id'=>$model->ID)),
-	array('label'=>Yii::t('app','DELETE').' ConfCo', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->ID),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>Yii::t('app','MANAGE').' ConfCo', 'url'=>array('admin')),
+	array('label'=>'List ConfCo', 'url'=>array('index')),
+	array('label'=>'Create ConfCo', 'url'=>array('create')),
+	array('label'=>'Update ConfCo', 'url'=>array('update', 'id'=>$model->ID)),
+	array('label'=>'Delete ConfCo', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->ID),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage ConfCo', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Ver Configuración de Compras # <?php echo $model->ID; ?></h1>
+<h1>Ver Configuracion de Compras # <?php echo $model->ID; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -58,9 +57,9 @@ $this->menu=array(
 		'RUBRO3_ORDNOM',
 		'RUBRO4_ORDNOM',
 		'RUBRO5_ORDNOM',
-		/*'CREADO_POR',
+		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',*/
+		'ACTUALIZADO_EL',
 	),
 )); ?>

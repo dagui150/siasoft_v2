@@ -1,7 +1,6 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Artículo Proveedores";?>
 <?php
 $this->breadcrumbs=array(
-	'Artículo Proveedores'=>array('index'),
+	'Articulo Proveedores'=>array('index'),
 	'Crear',
 );
 
@@ -13,7 +12,7 @@ $('.search-button').click(function(){
 
 ?>
 
-<h1>Crear Artículo Proveedor</h1>
+<h1>Crear Articulo Proveedor</h1>
 
 <br>
     <div align="right">

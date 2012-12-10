@@ -1,7 +1,6 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." Tipos de Cuentas";?>
 <?php
 $this->breadcrumbs=array(
-	'Tipos de Cuentas'=>array('admin'),
+	'Tipo Cuentas'=>array('index'),
 	$model->TIPO_CUENTA=>array('view','id'=>$model->TIPO_CUENTA),
 	'Actualizar',
 );
@@ -14,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Actualizar Tipo de Cuenta <?php echo $model->TIPO_CUENTA; ?></h1>
+<h1>Actualizar TipoCuenta <?php echo $model->TIPO_CUENTA; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

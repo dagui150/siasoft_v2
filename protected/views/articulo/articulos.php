@@ -16,7 +16,7 @@
                     'NOMBRE',
                     array(
                         'name'=>'TIPO_ARTICULO',
-                        'header'=>'Tipo de Artículo',
+                        'header'=>'Tipo de Articulo',
                         'value'=>'$data->tIPOARTICULO->NOMBRE',
                         'filter'=>CHtml::ListData(TipoArticulo::model()->findAll(),'ID','NOMBRE'),
                     ),

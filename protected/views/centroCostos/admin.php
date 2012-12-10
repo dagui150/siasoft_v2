@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
-	'Centro de Costos',
+	'Centro Costos'=>array('admin'),
+	'Administrar',
 );
 
 $this->menu=array(
@@ -23,35 +23,10 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Centro de Costos</h1>
+<h1>Centro Costos</h1>
 
 
 <div align="right">
-                    <?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'EXCEL',
-    'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('centroCostos/excel'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
-    
-    <?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'PDF',
-    'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('centroCostos/pdf'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
 <?php 
 
 $this->widget('bootstrap.widgets.BootButton', array(

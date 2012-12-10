@@ -5,11 +5,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' UbicacionGeografica2', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE').' UbicacionGeografica2', 'url'=>array('create')),
-	array('label'=>Yii::t('app','UPDATE').' UbicacionGeografica2', 'url'=>array('update', 'id'=>$model->ID)),
-	array('label'=>Yii::t('app','DELETE').' UbicacionGeografica2', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->ID),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>Yii::t('app','MANAGE').' UbicacionGeografica2', 'url'=>array('admin')),
+	array('label'=>'List UbicacionGeografica2', 'url'=>array('index')),
+	array('label'=>'Create UbicacionGeografica2', 'url'=>array('create')),
+	array('label'=>'Update UbicacionGeografica2', 'url'=>array('update', 'id'=>$model->ID)),
+	array('label'=>'Delete UbicacionGeografica2', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->ID),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage UbicacionGeografica2', 'url'=>array('admin')),
 );
 ?>
 
@@ -21,10 +21,10 @@ $this->menu=array(
 		'ID',
 		'UBICACION_GEOGRAFICA1',
 		'NOMBRE',
-		/*'ACTIVO',
+		'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',*/
+		'ACTUALIZADO_EL',
 	),
 )); ?>

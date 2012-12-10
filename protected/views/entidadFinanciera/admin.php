@@ -1,13 +1,12 @@
-<?php $this->pageTitle=Yii::app()->name." - Entidad Financiera";?>
 <?php
 $this->breadcrumbs=array(
-    'Sistema'=>array('admin'),
-	'Entidad Financiera',
+	'Entidad Financiera'=>array('admin'),
+	'Administrar',
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' EntidadFinanciera', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE').' EntidadFinanciera', 'url'=>array('create')),
+	array('label'=>'List EntidadFinanciera', 'url'=>array('index')),
+	array('label'=>'Create EntidadFinanciera', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -27,30 +26,6 @@ $('.search-form form').submit(function(){
 <h1>Entidades Financieras</h1>
 
 <div align="right">
-    
-        <?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'EXCEL',
-    'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('entidadFinanciera/excel'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-         <?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'PDF',
-    'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('entidadFinanciera/pdf'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
 <?php 
 
 $this->widget('bootstrap.widgets.BootButton', array(

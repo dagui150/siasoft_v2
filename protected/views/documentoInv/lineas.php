@@ -1,9 +1,9 @@
 <table class="templateFrame table table-bordered" cellspacing="0">
       <thead>
            <tr>
-                <td><strong>Línea</strong></td>
-                <td><strong>Artículo</strong></td>
-                <td><strong>Descripción</strong></td>
+                <td><strong>Linea</strong></td>
+                <td><strong>Articulo</strong></td>
+                <td><strong>Descripcion</strong></td>
                 <td><strong>Bodega</strong></td>
                 <td><strong>Cantidad</strong></td>
                 <td></td>
@@ -21,7 +21,7 @@
                                         'type'=>'success',
                                         'label'=>'Nuevo',
                                          'icon'=>'plus white',
-                                        'htmlOptions'=>array('id'=>'btn-nuevo','name'=>'','onclick'=>'$("#nuevo").modal(); limpiarForm();','disabled'=>$model->ESTADO == 'P' ? false : true)
+                                        'htmlOptions'=>array('id'=>'btn-nuevo','name'=>'','onclick'=>'$("#nuevo").modal(); limpiarForm();')
                              ));
                              
                              echo CHtml::hiddenField('maxLineas',$config->LINEAS_MAX_TRANS);
@@ -129,7 +129,7 @@
                                                              'type'=>'normal',
                                                              'size'=>'mini',
                                                              'icon'=>'pencil',
-                                                             'htmlOptions'=>array('class'=>'editUpdate','name'=>$i,'disabled'=>$model->ESTADO == 'P' ? false : true)
+                                                             'htmlOptions'=>array('class'=>'editUpdate','name'=>$i)
                                                           ));
                                                        ?>
                                         </span>
@@ -139,7 +139,7 @@
                                                                  'type'=>'danger',
                                                                  'size'=>'mini',
                                                                  'icon'=>'minus white',
-                                                                 'htmlOptions'=>array('id'=>'btn-remover','class'=>'eliminaRegistro','name'=>$i,'disabled'=>$model->ESTADO == 'P' ? false : true)
+                                                                 'htmlOptions'=>array('id'=>'btn-remover','class'=>'eliminaRegistro','name'=>$i)
 
                                                          ));
                                                  ?>

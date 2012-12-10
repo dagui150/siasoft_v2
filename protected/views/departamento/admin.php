@@ -1,13 +1,12 @@
-<?php $this->pageTitle=Yii::app()->name." - Dependencias";?>
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
-	'Dependencias',
+	'Dependencia'=>array('admin'),
+	'Administrar',
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' Dependencia', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE').' Dependencia', 'url'=>array('create')),
+	array('label'=>'List Dependencia', 'url'=>array('index')),
+	array('label'=>'Create Dependencia', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -27,31 +26,6 @@ $('.search-form form').submit(function(){
 <h1>Dependencias</h1>
 
 <div align="right">
-        
-<?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'EXCEL',
-    'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('departamento/excel'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
-    <?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'PDF',
-    'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('departamento/pdf'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
 <?php 
 
 $this->widget('bootstrap.widgets.BootButton', array(

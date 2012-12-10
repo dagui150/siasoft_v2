@@ -1,17 +1,15 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Tipos de Documento";?>
 <?php
 $this->breadcrumbs=array(
-    'Sistema'=>array('admin'),
-	'Tipos de Documento'=>array('admin'),
+	'Tipo Documentos'=>array('admin'),
 	$model->ID,
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' TipoDocumento', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE').' TipoDocumento', 'url'=>array('create')),
-	array('label'=>Yii::t('app','UPDATE').' TipoDocumento', 'url'=>array('update', 'id'=>$model->ID)),
-	array('label'=>Yii::t('app','DELETE').' TipoDocumento', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->ID),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>Yii::t('app','MANAGE').' TipoDocumento', 'url'=>array('admin')),
+	array('label'=>'List TipoDocumento', 'url'=>array('index')),
+	array('label'=>'Create TipoDocumento', 'url'=>array('create')),
+	array('label'=>'Update TipoDocumento', 'url'=>array('update', 'id'=>$model->ID)),
+	array('label'=>'Delete TipoDocumento', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->ID),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage TipoDocumento', 'url'=>array('admin')),
 );
 ?>
 
@@ -23,10 +21,10 @@ $this->menu=array(
 		'ID',
 		'DESCRIPCION',
 		'MASCARA',
-		/*'ACTIVO',
+		'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',*/
+		'ACTUALIZADO_EL',
 	),
 )); ?>

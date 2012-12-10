@@ -1,4 +1,3 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Consecutivos";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('admin'),
@@ -13,10 +12,7 @@ $this->breadcrumbs=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'ID',
-		array(
-                    'name' => 'FORMATO_IMPRESION',
-                    'value' => isset($model->fORMATOIMPRESION->NOMBRE) ? $model->fORMATOIMPRESION->NOMBRE : "",
-                ),
+		'FORMATO_IMPRESION',
 		'DESCRIPCION',
 		'MASCARA',
 		'SIGUIENTE_VALOR',

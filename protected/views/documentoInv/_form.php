@@ -14,12 +14,7 @@
                     function(data){
                         
                         $('#consecutivo').val($('#DocumentoInv_CONSECUTIVO').val());
-                        
-                        //borrar combo de cantidades
-                        $('select[id$=DocumentoInvLinea_TIPO_TRANSACCION_CANTIDAD ] > option').remove();
-                        $('#DocumentoInvLinea_TIPO_TRANSACCION_CANTIDAD').append("<option value=''>Seleccione</option>");
-                        
-                        //borrar combo de transacciones
+
                         $('select[id$=DocumentoInvLinea_TIPO_TRANSACCION ] > option').remove();
                         $('#DocumentoInvLinea_TIPO_TRANSACCION').append("<option value=''>Seleccione</option>");
 
@@ -96,7 +91,7 @@
                                      'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif',
                                      'buttonImageOnly'=>true,
                               ),
-                              'htmlOptions'=>array('style'=>'width:80px;vertical-align:top','disabled'=>$model->ESTADO == 'P' ? false : true),
+                              'htmlOptions'=>array('style'=>'width:80px;vertical-align:top',),
                 ),true);
 ?>
 
@@ -104,7 +99,7 @@
             <tr>
                 <td>
                     <div align="left" style="width: 60px;">
-                        <?php echo $form->dropDownListRow($model,'CONSECUTIVO',CHtml::ListData(ConsecutivoCi::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('empty'=>'Seleccione','disabled'=>$model->isNewRecord ? false :true)); ?>
+                        <?php echo $form->dropDownListRow($model,'CONSECUTIVO',CHtml::ListData(ConsecutivoCi::model()->findAll(),'ID','DESCRIPCION'),array('empty'=>'Seleccione','disabled'=>$model->isNewRecord ? false :true)); ?>
                     </div>
                 </td>
                 <td>
@@ -130,13 +125,13 @@
                                         .'<br>'
                                         .$form->error($model,'FECHA_DOCUMENTO')
                                  .'</div>'
-                                    .$form->textAreaRow($model,'REFERENCIA',array('style'=>'width: 500px; height: 100px;','disabled'=>$model->ESTADO == 'P' ? false : true))
-                                    .$form->hiddenField($model,'ESTADO')
+                                    .$form->textAreaRow($model,'REFERENCIA',array('style'=>'width: 500px; height: 100px;'))
+                                    .$form->hiddenField($model,'ESTADO',array('value'=>'P'))
                                 ,   
                                 'active'=>true
                             ),
                            array(
-                                'label'=>'Líneas',
+                                'label'=>'Lineas',
                                 'content'=>
                                         $this->renderPartial('lineas',
                                                 array(
@@ -182,7 +177,7 @@
  
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
-		<h3>Nueva Línea</h3>
+		<h3>Nueva Linea</h3>
 		<p class="note">Los Campos con <span class="required">*</span> Son requeridos.</p>
 	</div>
         <div id="form-lineas">
@@ -255,7 +250,7 @@
      $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
                 'id'=>'articulo',
                 'options'=>array(
-                    'title'=>'Artículos',
+                    'title'=>'Articulos',
                     'width'=>550,
                     'height'=>'auto',
                     'autoOpen'=>false,

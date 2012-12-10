@@ -3,8 +3,9 @@
     $(document).ready(inicio);
     
     function inicio(){ 
+        var nombre_cantidad;
         $('#DocumentoInvLinea_TIPO_TRANSACCION').change(function (){
-            $('#signo').slideUp('slow');
+            
             $.getJSON('<?php echo $this->createUrl('agregarlinea'); ?>&tipo='+$(this).val(),
                 function(data){
                     $('select[id$=DocumentoInvLinea_SUBTIPO ] > option').remove();
@@ -26,12 +27,6 @@
             
             $.getJSON('<?php echo $this->createUrl('agregarlinea'); ?>&tipo_transaccion='+$(this).val(),
                 function(data){
-                    
-                        if(data.NATURALEZA == 'A')
-                           $('#signo').slideDown('slow');
-                        else
-                           $('#signo').slideUp('slow');
-                    
                         $('#DocumentoInvLinea_BODEGA_DESTINO').attr('disabled',true);
                         $('#bodega-destino').attr('disabled',true);
                         
@@ -42,15 +37,29 @@
                             
                             $('#DocumentoInvLinea_TIPO_TRANSACCION_CANTIDAD').append("<option value=''>Seleccione</option>");
                             
-                            $.each(data.TRANSACCIONES, function(value, name) {
+                            $.each(data.TRANSACCIONES, function(key, transaccion) {
                                 
-                                $('#DocumentoInvLinea_TIPO_TRANSACCION_CANTIDAD').append("<option value='"+value+"'>"+name+"</option>");
+                                $.getJSON('<?php echo $this->createUrl('agregarlinea'); ?>&cantidad='+transaccion.CANTIDAD,
+                                    function(respuesta){
+
+                                        nombre_cantidad = respuesta.NOMBRE;
+
+                                        $('#DocumentoInvLinea_TIPO_TRANSACCION_CANTIDAD').append("<option value='"+transaccion.CANTIDAD+"'>"+nombre_cantidad+"</option>");
+                                });
                             });
                         }else{
-                            $('#DocumentoInvLinea_TIPO_TRANSACCION_CANTIDAD').append("<option value=''>Ninguno</option>");
+                            $('#DocumentoInvLinea_TIPO_TRANSACCION_CANTIDAD').append("<option value=''>Seleccione</option>");
+                            
+                            $.getJSON('<?php echo $this->createUrl('agregarlinea'); ?>&cantidades='+1,
+                                    function(data){
+
+                                        $.each(data, function(value, name) {
+                                            $('#DocumentoInvLinea_TIPO_TRANSACCION_CANTIDAD').append("<option value='"+value+"'>"+name+"</option>");
+                                        });
+                            });
                         }
                         
-                        switch($(this).val()){
+                        switch(data.TRANSACCION_BASE){
                             case 'COST':
                                   $('#DocumentoInvLinea_TIPO_TRANSACCION_CANTIDAD').attr('readonly',true);
                             break;
@@ -107,10 +116,6 @@
         $.getJSON(url,function(data){
                 $(campo).val(id);
                 $(campo_nombre).val(data.NOMBRE);
-                if(id_grilla == 'articulo-grid'){
-                    $('#DocumentoInvLinea_UNIDAD').val(data.UNIDAD);
-                    $('#DocumentoInvLinea_COSTO_UNITARIO').val(data.COSTO);
-                }
             });
         
     }
@@ -158,8 +163,6 @@
                 
                 $('#DocumentoInvLinea_ARTICULO').val(idArticulo);
                 $('#NOMBRE_ARTICULO').val(data.NOMBRE);
-                $('#DocumentoInvLinea_UNIDAD').val(data.UNIDAD);
-                $('#DocumentoInvLinea_COSTO_UNITARIO').val(data.COSTO);
             });
         }else
             $('#NOMBRE_ARTICULO').val('Ninguno');
@@ -506,7 +509,7 @@
                 </td>
                 <td>
                        <div align="left" style="margin-left: -60px;">
-                             <?php echo $form->dropDownListRow($modelLi,'SUBTIPO',$model->isNewRecord ? $subtipos : CHtml::listData(SubtipoTransaccion::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),
+                             <?php echo $form->dropDownListRow($modelLi,'SUBTIPO',$model->isNewRecord ? $subtipos : CHtml::listData(SubtipoTransaccion::model()->findAll(),'ID','NOMBRE'),
                                      array(
                                          'empty'=>'Seleccione',
                                          'readonly'=>isset($Vsubtipo) ? false : true,
@@ -518,7 +521,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                       <?php echo $form->dropDownListRow($modelLi,'TIPO_TRANSACCION_CANTIDAD',$model->isNewRecord ? $cantidades : CHtml::listData(TipoCantidadArticulo::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),
+                       <?php echo $form->dropDownListRow($modelLi,'TIPO_TRANSACCION_CANTIDAD',$model->isNewRecord ? $cantidades : CHtml::listData(TipoCantidadArticulo::model()->findAll(),'ID','NOMBRE'),
                                array(
                                    'empty'=>'Seleccione',
                                    'readonly'=>isset($Vcantidad) ? false : true,
@@ -549,11 +552,6 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                    <span id="signo" style="display: none"><?php echo $form->radioButtonListRow($modelLi,'SIGNO',array(''=>'+','-'=>'-'))?></span>
-                </td>
-            </tr>
-            <tr>
                  <td>
                         <div align="left" style="width: 120px;">
                                 <?php echo $form->textFieldRow($modelLi,'CANTIDAD',array('size'=>13,'maxlength'=>28)); ?>
@@ -561,7 +559,7 @@
                 </td>
                 <td>
                         <div align="left" style="margin-left: 30px;">
-                                <?php echo $form->dropDownList($modelLi,'UNIDAD',CHtml::listData(UnidadMedida::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),array('empty'=>'Seleccione')); ?>
+                                <?php echo $form->dropDownList($modelLi,'UNIDAD',CHtml::listData(UnidadMedida::model()->findAll(),'ID','NOMBRE'),array('empty'=>'Seleccione')); ?>
                         </div>
                 </td>
            </tr>

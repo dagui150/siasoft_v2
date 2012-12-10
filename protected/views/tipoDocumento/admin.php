@@ -1,13 +1,12 @@
-<?php $this->pageTitle=Yii::app()->name." - Tipos de Documento";?>
 <?php
 $this->breadcrumbs=array(
-    'Sistema'=>array('admin'),
-	'Tipos de Documento',
+	'Tipo Documentos'=>array('admin'),
+	'Administrar',
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' TipoDocumento', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE').' TipoDocumento', 'url'=>array('create')),
+	array('label'=>'List TipoDocumento', 'url'=>array('index')),
+	array('label'=>'Create TipoDocumento', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -27,31 +26,6 @@ $('.search-form form').submit(function(){
 <h1>Tipo Documento</h1>
 
 <div align="right">
-    
-    <?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'EXCEL',
-    'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('tipoDocumento/excel'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
-    <?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'PDF',
-    'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('tipoDocumento/pdf'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
 <?php 
 
 $this->widget('bootstrap.widgets.BootButton', array(

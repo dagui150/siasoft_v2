@@ -1,5 +1,3 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." ".Yii::t('app','ADMINISTRATION_SETTINGS');?>
-
 <?php
 $this->breadcrumbs=array(
 

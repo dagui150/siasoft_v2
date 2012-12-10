@@ -79,24 +79,6 @@ class RetencionController extends SBaseController
 			'model'=>$model,
 		));
 	}
-            public function actionExcel()
-	{
-		$model=new Retencion('search');
-                $model->unsetAttributes();
-                $this->render('excel',array(
-			'model' => $model,
-		));
-	}
-        
-        public function actionPdf(){
-            
-            $dataProvider=new Retencion;
-		$this->render('pdf',array(
-			'dataProvider'=>$dataProvider,
-		));
-            
-            
-        }
 
 	/**
 	 * Updates a particular model.
@@ -131,16 +113,12 @@ class RetencionController extends SBaseController
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
-                    Retencion::model()->updateByPk($id, array('ACTIVO'=>'N'));
-                    /*
 			// we only allow deletion via POST request
-			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
+			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-                     * 
-                     */
 		}
 		else
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');

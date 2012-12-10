@@ -1,4 +1,3 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." ".Yii::t('app','COUNTRIES');?>
 <?php
 $this->breadcrumbs=array(
 	Yii::t('app','COUNTRY')=>array('admin'),
@@ -22,12 +21,10 @@ $this->menu=array(
 		'ID',
 		'NOMBRE',
 		'CODIGO_ISO',
-		/*'ACTIVO',
-		/*'CREADO_POR',
+		'ACTIVO',
+		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
 		'ACTUALIZADIO_EL',
-                 * 
-                 */
 	),
 )); ?>

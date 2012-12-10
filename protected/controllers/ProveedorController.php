@@ -21,6 +21,32 @@ class ProveedorController extends SBaseController
 	}
 
 	/**
+	 * Specifies the access control rules.
+	 * This method is used by the 'accessControl' filter.
+	 * @return array access control rules
+	 */
+	/*public function accessRules()
+	{
+		return array(
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('index','view'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete'),
+				'users'=>array('admin'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
+		);
+	}
+*/
+	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
@@ -47,17 +73,8 @@ class ProveedorController extends SBaseController
 		if(isset($_POST['Proveedor']))
 		{
 			$model->attributes=$_POST['Proveedor'];
-                        ($_POST['Proveedor']['CONDICION_PAGO'] == '') ? $model->CONDICION_PAGO = NULL : $model->CONDICION_PAGO = $_POST['Proveedor']['CONDICION_PAGO'];
-                        if($model->PAIS == 'COL'){
-                            $model->CIUDAD = '';
-                            $model->UBICACION_GEOGRAFICA1 = $_POST['Proveedor']['UBICACION_GEOGRAFICA1'];
-                        }
-                        else{
-                            $model->UBICACION_GEOGRAFICA2 = NULL;
-                            $model->UBICACION_GEOGRAFICA1 = NULL;
-                        }
 			if($model->save())
-				$this->redirect(array('admin'));
+				$this->redirect(array('view','id'=>$model->PROVEEDOR));
 		}
                 if(isset($_GET['Nit']))
 			$nit->attributes=$_GET['Nit'];
@@ -87,16 +104,8 @@ class ProveedorController extends SBaseController
 		if(isset($_POST['Proveedor']))
 		{
 			$model->attributes=$_POST['Proveedor'];
-                        if($model->PAIS == 'COL'){
-                            $model->CIUDAD = '';
-                            $model->UBICACION_GEOGRAFICA1 = $_POST['Proveedor']['UBICACION_GEOGRAFICA1'];
-                        }
-                        else{
-                            $model->UBICACION_GEOGRAFICA2 = NULL;
-                            $model->UBICACION_GEOGRAFICA1 = NULL;
-                        }
 			if($model->save())
-				$this->redirect(array('admin'));
+				$this->redirect(array('view','id'=>$model->PROVEEDOR));
 		}
                 
                 if(isset($_GET['Nit']))
@@ -118,19 +127,15 @@ class ProveedorController extends SBaseController
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
-                    Proveedor::model()->updateByPk($id, array('ACTIVO'=>'N'));
-                    /*
 			// we only allow deletion via POST request
-			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
+			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-                     * 
-                     */
 		}
 		else
-			throw new CHttpException(400,Yii::t('app','Invalid request. Please do not repeat this request again.'));
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -185,10 +190,6 @@ class ProveedorController extends SBaseController
 		}
 	}
         
-        public function actionCargarubicacion(){            
-            echo CJSON::encode(CHtml::ListData(UbicacionGeografica2::model()->findAll('UBICACION_GEOGRAFICA1 = "'.$_GET['ubicacion'].'" AND ACTIVO = "S"'),'ID','NOMBRE'));            
-        }
-        
         public function actionCargarNit() {
             
             $item_id = $_GET['buscar'];
@@ -204,7 +205,7 @@ class ProveedorController extends SBaseController
         public function actionAutocompletar(){
             if (isset($_GET['term'])) {
 		
-                    $qtxt ="SELECT ID FROM nit WHERE ID LIKE :ID AND ACTIVO='S'";
+                    $qtxt ="SELECT ID FROM nit WHERE ID LIKE :ID";
                     $command =Yii::app()->db->createCommand($qtxt);
                     $command->bindValue(":ID", '%'.$_GET['term'].'%', PDO::PARAM_STR);
                     $res =$command->queryColumn();

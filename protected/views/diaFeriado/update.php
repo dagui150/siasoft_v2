@@ -1,11 +1,7 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." Días Feriados";?>
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
-        'Días Feriados'=>array('admin'),
-        $model2->ID => array('view', 'id' => $model2->ID),
-        'Actualizar',
-    );
+        'Sistema'=>array('update', 'id'=>$model2->ID),
+	"Dia Feriado");
 ?>
 
 <h1>Actualizar Dia Feriado <?php echo $model2->ID; ?></h1>

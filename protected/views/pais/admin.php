@@ -1,6 +1,3 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','COUNTRIES');?>
-
-
 <?php
 $this->breadcrumbs=array(
 	Yii::t('app','COUNTRIES')=>array('admin'),
@@ -27,32 +24,6 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1><?php echo Yii::t('app','COUNTRIES'); ?></h1>
-
-<div align="right">
-    <?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'EXCEL',
-    'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('pais/excel'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
-<?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'PDF',
-    'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('pais/pdf'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-</div>
 
 <?php $this->widget('bootstrap.widgets.BootGridView', array(
     'type'=>'striped bordered condensed',

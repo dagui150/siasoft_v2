@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Orden Compra Líneas'=>array('index'),
+	'Orden Compra Lineas'=>array('index'),
 	'Crear',
 );
 

@@ -8,7 +8,7 @@
             'filter'=>$proveedor,
             'columns'=>array(
                 array(  'name'=>'PROVEEDOR',
-                        'header'=>'Código Proveedor',
+                        'header'=>'Codigo Proveedor',
                         'htmlOptions'=>array('data-dismiss'=>'modal'),
                         'type'=>'raw',
                         'value'=>'CHtml::link($data->PROVEEDOR,"#")'

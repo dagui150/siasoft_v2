@@ -1,14 +1,12 @@
 <?php
 
-class FormatoImpresionController extends SBaseController
+class FormatoImpresionController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-    public $breadcrumbs=array();
-	public $menu=array();
 
 	/**
 	 * @return array action filters
@@ -17,7 +15,6 @@ class FormatoImpresionController extends SBaseController
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -26,8 +23,6 @@ class FormatoImpresionController extends SBaseController
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
-	 
-	 /**
 	public function accessRules()
 	{
 		return array(
@@ -48,7 +43,6 @@ class FormatoImpresionController extends SBaseController
 			),
 		);
 	}
-	*/
 
 	/**
 	 * Displays a particular model.
@@ -67,20 +61,20 @@ class FormatoImpresionController extends SBaseController
 	 */
 	public function actionCreate()
 	{
-		$model2=new FormatoImpresion;
+		$model=new FormatoImpresion;
 
 		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model);
+		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['FormatoImpresion']))
 		{
-			$model2->attributes=$_POST['FormatoImpresion'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			$model->attributes=$_POST['FormatoImpresion'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->ID));
 		}
 
 		$this->render('create',array(
-			'model2'=>$model2,
+			'model'=>$model,
 		));
 	}
 
@@ -91,20 +85,20 @@ class FormatoImpresionController extends SBaseController
 	 */
 	public function actionUpdate($id)
 	{
-		$model2=$this->loadModel($id);
+		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model2);
+		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['FormatoImpresion']))
 		{
-			$model2->attributes=$_POST['FormatoImpresion'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			$model->attributes=$_POST['FormatoImpresion'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->ID));
 		}
 
 		$this->render('update',array(
-			'model2'=>$model2,
+			'model'=>$model,
 		));
 	}
 
@@ -115,10 +109,10 @@ class FormatoImpresionController extends SBaseController
 	 */
 	public function actionDelete($id)
 	{
-            if(Yii::app()->request->isPostRequest)
+		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
+			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -126,7 +120,6 @@ class FormatoImpresionController extends SBaseController
 		}
 		else
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
-	
 	}
 
 	/**
@@ -147,31 +140,11 @@ class FormatoImpresionController extends SBaseController
 	{
 		$model=new FormatoImpresion('search');
 		$model->unsetAttributes();  // clear any default values
-		$model2=new FormatoImpresion;
-		
-		$this->performAjaxValidation($model2);
-		
-		if(isset($_POST['FormatoImpresion']))
-		{
-			$model2->attributes=$_POST['FormatoImpresion'];
-			if($model2->save()){
-                            
-							
-                        }
-                        else{
-                            
-							
-                        }
-		}
-		
-		
-		
 		if(isset($_GET['FormatoImpresion']))
 			$model->attributes=$_GET['FormatoImpresion'];
 
 		$this->render('admin',array(
 			'model'=>$model,
-			'model2'=>$model2,
 		));
 	}
 
@@ -184,7 +157,7 @@ class FormatoImpresionController extends SBaseController
 	{
 		$model=FormatoImpresion::model()->findByPk($id);
 		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404,'La pagina solicitada no existe.');
 		return $model;
 	}
 
@@ -200,13 +173,4 @@ class FormatoImpresionController extends SBaseController
 			Yii::app()->end();
 		}
 	}
-        
-        public function actionSubmodulo(){
-            echo CJSON::encode((FormatoImpresion::SubModulos($_GET['modulo'])));
-        }
-        
-        public function actionFormato(){
-            echo CJSON::encode((FormatoImpresion::Formato($_GET['submodulo']))); 
-        }
-        
 }

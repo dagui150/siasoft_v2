@@ -1,4 +1,3 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Proveedor";?>
 <?php
 $this->breadcrumbs=array(
 	'Proveedor'=>array('admin'),
@@ -6,8 +5,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' Proveedor', 'url'=>array('index')),
-	array('label'=>Yii::t('app','MANAGE').' Proveedor', 'url'=>array('admin')),
+	array('label'=>'List Proveedor', 'url'=>array('index')),
+	array('label'=>'Manage Proveedor', 'url'=>array('admin')),
 );
 ?>
 

@@ -142,18 +142,14 @@ class TipoTransaccionController extends SBaseController
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
-                    TipoTransaccion::model()->updateByPk($id, array('ACTIVO'=>'N'));
-                    /*
                         if($id != 0){
                             // we only allow deletion via POST request
-                            $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
+                            $this->loadModel($id)->delete();
                             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
                             if(!isset($_GET['ajax']))
                                     $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'),array('msj'=>$msj));
                         }else
                             throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
-                     * 
-                     */
 		}
 		else
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');

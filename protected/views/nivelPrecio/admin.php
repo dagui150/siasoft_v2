@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
-	'Nivel de Precios',
+	'Nivel Precio'=>array('admin'),
+	'Administrar',
 );
 
 $this->menu=array(
@@ -26,30 +26,6 @@ $('.search-form form').submit(function(){
 <h1>Nivel de Precios</h1>
 
 <div align="right">
-    <?php 
-
-		$this->widget('bootstrap.widgets.BootButton', array(
-		'label'=>'EXCEL',
-		'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-		'size'=>'mini', // '', 'large', 'small' or 'mini'
-		'url' => array('nivelPrecio/excel'),
-		'icon' => 'download-alt white'
-		)); 
-
-	?>
-    
-             <?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'PDF',
-    'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('nivelPrecio/pdf'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-        
 <?php 
 
 $this->widget('bootstrap.widgets.BootButton', array(
@@ -79,6 +55,19 @@ $this->widget('bootstrap.widgets.BootButton', array(
                         'value'=>'NivelPrecio::tipo($data->ESQUEMA_TRABAJO)',
                         'filter'=>array('NORM'=>'Normal','MULT'=>'Multiplicador', 'MARG' => 'Margen', 'MARK' => 'Markup'),
                     ),
+                array(
+                        'name'=>'CONDICION_PAGO',
+                        'header'=>'Condicion de pago',
+                        'value'=>'$data->cONDICIONPAGO->DESCRIPCION',
+                        'type'=>'text',
+                        'filter' => CHtml::listData(CodicionPago::model()->findAll(), 'ID', 'DESCRIPCION')
+                    ),
+		/*'ACTIVO',
+		'CREADO_POR',
+		'CREADO_EL',
+		'ACTUALIZADO_POR',
+		'ACTUALIZADO_EL',
+		*/
 		array(
                     'class'=>'bootstrap.widgets.BootButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),

@@ -87,9 +87,6 @@ class ConsecutivoCiController extends SBaseController
                                     }
                             }
                             //ELIMINAR REGISTROS
-                            if(isset($_POST['cambia']) && $_POST['cambia'] == 1){
-                                ConsecCiTipoTrans::model()->deleteAllByAttributes(array('CONSECUTIVO_CI'=>$model2->ID));
-                            }
                             if(isset($_POST['eliminar'])){
                                 $arEliminar = explode(',',$_POST['eliminar']);
                                 foreach($arEliminar as $elimina){
@@ -147,16 +144,12 @@ class ConsecutivoCiController extends SBaseController
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
-                    ConsecutivoCi::model()->updateByPk($id, array('ACTIVO'=>'N'));
-                    /*
 			// we only allow deletion via POST request
-			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
+			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-                     * 
-                     */
 		}
 		else
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');

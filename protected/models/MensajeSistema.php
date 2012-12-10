@@ -68,7 +68,7 @@ class MensajeSistema extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'CODIGO' => 'Código',
+			'CODIGO' => 'Codigo',
 			'TIPO' => 'Tipo',
 			'MENSAJE' => 'Mensaje',
 			'ACTIVO' => 'Activo',
@@ -93,7 +93,7 @@ class MensajeSistema extends CActiveRecord
 		$criteria->compare('CODIGO',$this->CODIGO,true);
 		$criteria->compare('TIPO',$this->TIPO,true);
 		$criteria->compare('MENSAJE',$this->MENSAJE,true);
-		$criteria->compare('ACTIVO','S');
+		$criteria->compare('ACTIVO',$this->ACTIVO,true);
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);

@@ -1,13 +1,12 @@
-<?php $this->pageTitle=Yii::app()->name." - Condición de Pago";?>
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
-	'Condición de Pago',
+	'Condicion Pagos'=>array('admin'),
+	'Administrar',
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' CodicionPago', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE').' CodicionPago', 'url'=>array('create')),
+	array('label'=>'List CodicionPago', 'url'=>array('index')),
+	array('label'=>'Create CodicionPago', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -24,36 +23,10 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Condiciones de Pago</h1>
+<h1>Condicion Pagos</h1>
 
 
 <div align="right">
-    
-<?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'EXCEL',
-    'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('codicionPago/excel'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
-   <?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'PDF',
-    'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('codicionPago/pdf'),
-	'icon' => 'download-alt white'
-)); 
-
-?> 
-    
-    
 <?php 
 
 $this->widget('bootstrap.widgets.BootButton', array(
@@ -94,7 +67,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
  
 <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>
-    <h3>Crear Condición de pago</h3>
+    <h3>Crear Condicion de pago</h3>
     <p class="note"><?php echo Yii::t('app','FIELDS_WITH'); ?><span class="required"> * </span><?php echo Yii::t('app','ARE_REQUIRED'); ?>.</p>
 </div>
 

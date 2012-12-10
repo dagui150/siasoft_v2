@@ -1,7 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
-	'Centro de Costos'=>array('admin'),
+	'Centro Costos'=>array('admin'),
 	$model->ID,
 );
 
@@ -21,15 +20,11 @@ $this->menu=array(
 	'attributes'=>array(
 		'ID',
 		'DESCRIPCION',
-		array(
-                        'name'=>'TIPO',
-                        'header'=>'Tipo',
-                        'value'=>CentroCostos::tipo($model->TIPO),
-                    ),
-		/*'ACTIVO',
+		'TIPO',
+		'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',*/
+		'ACTUALIZADO_EL',
 	),
 )); ?>

@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
+	'Nivel Precio'=>array('admin'),
 	$model->ID,
 );
 
@@ -21,10 +21,11 @@ $this->menu=array(
 		'ID',
 		'DESCRIPCION',
 		'ESQUEMA_TRABAJO',
-		/*'ACTIVO',
+		'CONDICION_PAGO',
+		'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',*/
+		'ACTUALIZADO_EL',
 	),
 )); ?>

@@ -1,4 +1,3 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." Documento";?>
 <?php
 Yii::import('application.extensions.bootstrap.widgets.*');
 $this->breadcrumbs=array(

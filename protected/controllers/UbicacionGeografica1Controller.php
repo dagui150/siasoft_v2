@@ -112,19 +112,15 @@ class UbicacionGeografica1Controller extends SBaseController
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
-                    UbicacionGeografica1::model()->updateByPk($id, array('ACTIVO'=>'N'));
-                    /*
 			// we only allow deletion via POST request
-			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
+			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-                     * 
-                     */
 		}
 		else
-			throw new CHttpException(400,Yii::t('app','Invalid request. Please do not repeat this request again.'));
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -137,28 +133,8 @@ class UbicacionGeografica1Controller extends SBaseController
 			'dataProvider'=>$dataProvider,
 		));
 	}
-        
-           public function actionExcel()
-	{
-		$model = new UbicacionGeografica1('search');
-                $model->unsetAttributes();
-                $this->render('excel',array(
-			'model' => $model,
-		));
-	}
-        
-        
-        public function actionPdf(){
-            
-            $dataProvider=new UbicacionGeografica1;
-		$this->render('pdf',array(
-			'dataProvider'=>$dataProvider,
-		));
-            
-            
-        }
 
-        /**
+	/**
 	 * Manages all models.
 	 */
 	public function actionAdmin()

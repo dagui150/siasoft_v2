@@ -25,8 +25,6 @@ return array(
 		'application.components.*',
 		'application.extensions.helpers.*',
 		'application.modules.srbac.controllers.SBaseController',
-                'application.extensions.PdfGrid.*',
-            
         'ext.helpers.*',
 	),
 	'modules'=>array(
@@ -41,7 +39,7 @@ return array(
 			// In debug mode every user (even guest) can admin srbac, also
 			//if you use internationalization untranslated words/phrases
 			//will be marked with a red star
-			"debug"=>true,
+			"debug"=>false,
 			// The number of items shown in each page (default:15)
 			"pageSize"=>10,
 			// The name of the super user
@@ -89,33 +87,6 @@ return array(
 
 	// application components
 	'components'=>array(
-            
-                'ePdf' => array(
-                'class'         => 'ext.yii-pdf.EYiiPdf',
-                'params'        => array(
-                    'mpdf'     => array(
-                        'librarySourcePath' => 'application.vendors.mpdf.*',
-                        'constants'         => array(
-                            '_MPDF_TEMP_PATH' => Yii::getPathOfAlias('application.runtime'),
-                        ),
-                        'class'=>'mpdf', // the literal class filename to be loaded from the vendors folder
-                        /*'defaultParams'     => array( // More info: http://mpdf1.com/manual/index.php?tid=184
-                            'mode'              => '', //  This parameter specifies the mode of the new document.
-                            'format'            => 'A4', // format A4, A5, ...
-                            'default_font_size' => 0, // Sets the default document font size in points (pt)
-                            'default_font'      => '', // Sets the default font-family for the new document.
-                            'mgl'               => 15, // margin_left. Sets the page margins for the new document.
-                            'mgr'               => 15, // margin_right
-                            'mgt'               => 16, // margin_top
-                            'mgb'               => 16, // margin_bottom
-                            'mgh'               => 9, // margin_header
-                            'mgf'               => 9, // margin_footer
-                            'orientation'       => 'P', // landscape or portrait orientation
-                        )*/
-                    ),                    
-                ),
-            ),
-            
 		'authManager'=>array(
 			// The type of Manager (Database)
 			'class'=>'CDbAuthManager',
@@ -163,7 +134,7 @@ return array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
         ),
-		/*'log'=>array(
+		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
 				array(
@@ -172,14 +143,27 @@ return array(
 					//'ipFilters'=>array('127.0.0.1','192.168.0.11'),
 				),
 			),
-                    
+		),
+		/*'log'=>array(
+			'class'=>'CLogRouter',
+			'routes'=>array(
+				array(
+					'class'=>'CFileLogRoute',
+					'levels'=>'error, warning',
+				),
+				// uncomment the following to show log messages on web pages
+				/*
+				array(
+					'class'=>'CWebLogRoute',
+				),
+				*/
+            /*
+			),
 		),*/
 		
 		'bootstrap'=>array(
 			'class'=>'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
 		),
-            
-            
 	),
 
 	// application-level parameters that can be accessed

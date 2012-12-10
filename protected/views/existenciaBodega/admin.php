@@ -1,7 +1,6 @@
-<?php $this->pageTitle=Yii::app()->name." - Existencias en Bodegas";?>
 <?php
 $this->breadcrumbs=array(
-	'Existencias en Bodegas'=>array('admin'),
+	'Existencia Bodegas'=>array('index'),
 	'Administrar',
 );
 
@@ -31,7 +30,7 @@ Si lo desea, puede entrar en un operador de comparacion (<b>&lt;</b>, <b>&lt;=</
 o <b>=</b>) al comienzo de cada uno de los valores de su busqueda para especificar como la comparacion se debe hacer.
 </p>
 
-<?php echo CHtml::link('Búsqueda Avazada','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link('Busqueda Avazada','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,

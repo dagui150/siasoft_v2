@@ -1,7 +1,6 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Artículo Proveedores";?>
 <?php
 $this->breadcrumbs=array(
-	'Artículo Proveedores'=>array('admin'),
+	'Articulo Proveedores'=>array('admin'),
 	$model->ID,
 );
 ?>
@@ -16,10 +15,10 @@ $this->breadcrumbs=array(
 		'PROVEEDOR',
 		'CODIGO_CATALOGO',
 		'NOMBRE_CATALOGO',
-		/*'ACTIVO',
+		'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',*/
+		'ACTUALIZADO_EL',
 	),
 )); ?>

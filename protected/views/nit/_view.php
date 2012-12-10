@@ -1,8 +1,3 @@
-<?php
-/* @var $this NitController */
-/* @var $data Nit */
-?>
-
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('ID')); ?>:</b>
@@ -25,7 +20,6 @@
 	<?php echo CHtml::encode($data->OBSERVACIONES); ?>
 	<br />
 
-        <?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('ACTIVO')); ?>:</b>
 	<?php echo CHtml::encode($data->ACTIVO); ?>
 	<br />
@@ -34,7 +28,7 @@
 	<?php echo CHtml::encode($data->CREADO_POR); ?>
 	<br />
 
-	
+	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('CREADO_EL')); ?>:</b>
 	<?php echo CHtml::encode($data->CREADO_EL); ?>
 	<br />

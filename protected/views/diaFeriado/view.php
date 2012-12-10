@@ -1,16 +1,15 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Días Feriados";?><?php
+<?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
-	'Días Feriados'=>array('admin'),
+	'Dias Feriados'=>array('admin'),
 	$model->ID,
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' DiaFeriado', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE').' DiaFeriado', 'url'=>array('create')),
-	array('label'=>Yii::t('app','UPDATE').' DiaFeriado', 'url'=>array('update', 'id'=>$model->ID)),
-	array('label'=>Yii::t('app','DELETE').' DiaFeriado', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->ID),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>Yii::t('app','MANAGE').' DiaFeriado', 'url'=>array('admin')),
+	array('label'=>'List DiaFeriado', 'url'=>array('index')),
+	array('label'=>'Create DiaFeriado', 'url'=>array('create')),
+	array('label'=>'Update DiaFeriado', 'url'=>array('update', 'id'=>$model->ID)),
+	array('label'=>'Delete DiaFeriado', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->ID),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage DiaFeriado', 'url'=>array('admin')),
 );
 ?>
 
@@ -25,10 +24,10 @@ $this->menu=array(
 		'MES',
 		'ANIO',
 		'DESCRIPCION',
-		/*'ACTIVO',
+		'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',*/
+		'ACTUALIZADO_EL',
 	),
 )); ?>

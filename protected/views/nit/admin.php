@@ -1,18 +1,12 @@
-
-
-<?php $this->pageTitle=Yii::app()->name.' - Nit';
-
+<?php
 $this->breadcrumbs=array(
-	'Sistema'=>array('admin'),
-	'Nits',
+	'Nit'=>array('admin'),
+	'Administrar',
 );
 
 $this->menu=array(
-
-    array('label'=>Yii::t('app','LIST'). 'Nit', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE'). 'Nit', 'url'=>array('create')),
-	
-	
+	array('label'=>'List Nit', 'url'=>array('index')),
+	array('label'=>'Create Nit', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -29,47 +23,26 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Nits</h1>
+<h1>Relación de Nits</h1>
+
 
 <div align="right">
-        <?php 
+<?php 
 
 $this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'EXCEL',
-    'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'label'=>'Nuevo',
+    'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
     'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('nit/excel'),
-	'icon' => 'download-alt white'
+	'icon' => 'plus white',
+	'url'=>'#myModal',
+	'htmlOptions'=>array('data-toggle'=>'modal')
 )); 
 
 ?>
-    
-     <?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'PDF',
-    'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('nit/pdf'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
-    <?php
-    $this->widget('bootstrap.widgets.BootButton', array(
-        'label' => 'Nuevo',
-        'type' => 'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-        'size' => 'mini', // '', 'large', 'small' or 'mini'
-        'url' => array('nit/create'),
-        'icon' => 'plus white'
-    ));
-    ?>
 </div>
 
-
 <?php $this->widget('bootstrap.widgets.BootGridView', array(
-    'type' => 'striped bordered condensed',
+    'type'=>'striped bordered condensed',
 	'id'=>'nit-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -79,17 +52,28 @@ $this->widget('bootstrap.widgets.BootButton', array(
 		'RAZON_SOCIAL',
 		'ALIAS',
 		'OBSERVACIONES',
+		//'ACTIVO',
 		/*
-                'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
 		'ACTUALIZADO_EL',
 		*/
 		array(
-            'class' => 'bootstrap.widgets.BootButtonColumn',
-            'htmlOptions' => array('style' => 'width: 50px'),
-        ),
+                    'class'=>'bootstrap.widgets.BootButtonColumn',
+                    'htmlOptions'=>array('style'=>'width: 50px'),
+		),
 	),
 )); ?>
 
+<?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
+ 
+<div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>Crear Nit</h3>
+    <p class="note"><?php echo Yii::t('app','FIELDS_WITH'); ?><span class="required"> * </span><?php echo Yii::t('app','ARE_REQUIRED'); ?>.</p>
+</div>
+
+<?php echo $this->renderPartial('_form', array('model2'=>$model2)); ?>
+
+<?php $this->endWidget(); ?>

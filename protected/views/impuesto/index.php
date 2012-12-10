@@ -1,6 +1,5 @@
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
 	'Impuestos',
 );
 

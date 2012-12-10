@@ -1,8 +1,3 @@
-<?php
-/* @var $this FormatoImpresionController */
-/* @var $data FormatoImpresion */
-?>
-
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('ID')); ?>:</b>

@@ -87,11 +87,11 @@ class SolicitudOcLinea3 extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'SOLICITUD_OC_LINEA' => 'Solicitud Oc Línea',
+			'SOLICITUD_OC_LINEA' => 'Solicitud Oc Linea',
 			'SOLICITUD_OC' => 'Solicitud Oc',
-			'LINEA_NUM' => 'Línea Num',
-			'ARTICULO' => 'Artículo',
-			'DESCRIPCION' => 'Descripción',
+			'LINEA_NUM' => 'Linea Num',
+			'ARTICULO' => 'Articulo',
+			'DESCRIPCION' => 'Descripcion',
 			'CANTIDAD' => 'Cantidad',
 			'SALDO' => 'Saldo',
 			'COMENTARIO' => 'Comentario',

@@ -1,12 +1,11 @@
-<?php $this->pageTitle=Yii::app()->name." - Valor-Clasificación";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('admin'),
-	'Valores - Clasificaciónes',
+	'Valores - Clasificaciones',
 );
 
 ?>
-<h1>Valores - Clasificaciónes</h1>
+<h1>Valores - Clasificaciones</h1>
 <br>
 <div align="right">
 
@@ -33,7 +32,7 @@ $this->breadcrumbs=array(
 		'columns'=>array(
 			array(
 				'name'=>'CLASIFICACION',
-				'header'=>'Clasificación',
+				'header'=>'Clasificacion',
 				'value'=>'$data->cLASIFICACION->NOMBRE',
 			),
                         'VALOR',

@@ -6,9 +6,6 @@ class CategoriaController extends SBaseController
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-    
-        public $modulo='Sistema';
-        public $submodulo='Categorias';
 	public $layout='//layouts/column2';
 	public $breadcrumbs=array();
 	public $menu=array();
@@ -115,19 +112,15 @@ class CategoriaController extends SBaseController
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
-                    Categoria::model()->updateByPk($id, array('ACTIVO'=>'N'));
-                    /*
 			// we only allow deletion via POST request
-			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
+			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-                     * 
-                     */
 		}
 		else
-			throw new CHttpException(400,Yii::t('app','Invalid request. Please do not repeat this request again.'));
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -140,38 +133,6 @@ class CategoriaController extends SBaseController
 			'dataProvider'=>$dataProvider,
 		));
 	}
-        
-        public function actionExcel()
-	{
-		$model = new Categoria('search');
-                $model->unsetAttributes();
-                $this->render('excel',array(
-			'model' => $model,
-		));
-	}
-        
-        
-        public function actionformatoPDF()
-        {
-            $id = $_GET['id'];
-            $conf = ConfAs::model()->find();
-            $model =  Categoria::model()->findByPk($id);  
-            $this->layout = $conf->fORMATOIMPRESION->RUTA;
-            $mPDF1 = Yii::app()->ePdf->mpdf();
-            $mPDF1->WriteHTML($this->render('pdf2', array( 'model'=>$model), true));
-            
-            $mPDF1->Output();
-            Yii::app()->end();
-        }
-        
-        
-        public function actionPdf(){
-            
-            $dataProvider=new Categoria;
-		$this->render('pdf',array(
-			'dataProvider'=>$dataProvider,
-		));
-        }
 
 	/**
 	 * Manages all models.

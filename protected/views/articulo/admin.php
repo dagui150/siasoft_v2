@@ -1,10 +1,9 @@
-<?php $this->pageTitle=Yii::app()->name." - Artículos";?>
 <?php
 if(!ConfCi::darConf())
      $this->redirect(array('/confCi/create'));
 $this->breadcrumbs=array(
 	'Inventario'=>array('admin'),
-	'Artículos'
+	'Articulos'
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -21,9 +20,21 @@ $('.form').submit(function(){
 ");
 ?>
 
-<h1>Artículos</h1>
+<h1>Articulos</h1>
 <br>
 <div align="right">
+    <?php 
+
+        /*$this->widget('bootstrap.widgets.BootButton', array(
+            'label'=>'Busqueda Avanzada',
+            'type'=>'', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'size'=>'mini', // '', 'large', 'small' or 'mini'
+            'url'=>'#myModal',
+            'htmlOptions'=>array('data-toggle'=>'modal'),
+            'icon' => 'search'
+        )); */
+
+    ?>
     <?php 
 
         $this->widget('bootstrap.widgets.BootButton', array(
@@ -49,7 +60,8 @@ $('.form').submit(function(){
                     /*'CLASIFICACION_1',
                     'CLASIFICACION_2',
                     'CLASIFICACION_3',
-                    'CLASIFICACION_4',                    
+                    'CLASIFICACION_4',
+                    
                     'CLASIFICACION_5',
                     'CLASIFICACION_6',
                     'FACTOR_CONVER_1',
@@ -62,7 +74,7 @@ $('.form').submit(function(){
                     'CLASE_ABC',*/
                     array(
                         'name'=>'TIPO_ARTICULO',
-                        'header'=>'Tipo de Artículo',
+                        'header'=>'Tipo de Articulo',
                         'value'=>'$data->tIPOARTICULO->NOMBRE',
                         'filter'=>CHtml::ListData(TipoArticulo::model()->findAll(),'ID','NOMBRE'),
                     ),
@@ -115,7 +127,7 @@ $('.form').submit(function(){
  
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
-                <h3>Búsqueda Avanzada</h3>
+                <h3>Busqueda Avanzada</h3>
 	</div>
 	 
 	<?php echo $this->renderPartial('_search',array('model'=>$model)); ?>

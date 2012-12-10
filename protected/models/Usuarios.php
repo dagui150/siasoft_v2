@@ -95,7 +95,7 @@ class Usuarios extends CActiveRecord
 		$criteria->compare('ID',$this->ID);
 		$criteria->compare('USERNAME',$this->USERNAME,true);
 		$criteria->compare('PASS',$this->PASS,true);
-		$criteria->compare('ACTIVO','S');
+		$criteria->compare('ACTIVO',$this->ACTIVO,true);
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 

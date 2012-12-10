@@ -12,6 +12,9 @@
 	<?php echo CHtml::encode($data->ESQUEMA_TRABAJO); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('CONDICION_PAGO')); ?>:</b>
+	<?php echo CHtml::encode($data->CONDICION_PAGO); ?>
+	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('ACTIVO')); ?>:</b>
 	<?php echo CHtml::encode($data->ACTIVO); ?>

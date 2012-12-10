@@ -1,4 +1,3 @@
-<?php $this->pageTitle=Yii::app()->name." - Usuarios";?>
 <?php
 $this->breadcrumbs=array(
 	'Usuarios'=>array('admin'),

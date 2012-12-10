@@ -1,4 +1,3 @@
-<?php $this->pageTitle=Yii::app()->name." - Metodos de Valuación";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('admin'),

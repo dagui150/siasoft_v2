@@ -1,13 +1,12 @@
-<?php $this->pageTitle=Yii::app()->name." - Retenciones";?>
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
-	'Retenciones',
+	'Retenciones'=>array('index'),
+	'Administrar',
 );
 
 $this->menu=array(
-	array('label'=>'Listar Retención', 'url'=>array('index')),
-	array('label'=>'Crear Retención', 'url'=>array('create')),
+	array('label'=>'Listar Retencion', 'url'=>array('index')),
+	array('label'=>'Crear Retencion', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -28,29 +27,6 @@ $('.search-form form').submit(function(){
 
 
 <div align="right">
-    <?php 
-
-		$this->widget('bootstrap.widgets.BootButton', array(
-		'label'=>'EXCEL',
-		'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-		'size'=>'mini', // '', 'large', 'small' or 'mini'
-		'url' => array('retencion/excel'),
-		'icon' => 'download-alt white'
-		)); 
-
-	?>
-    
-     <?php 
-
-    $this->widget('bootstrap.widgets.BootButton', array(
-        'label'=>'PDF',
-        'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-        'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('retencion/pdf'),
-	'icon' => 'download-alt white white'
-        )); 
-    ?>
-    
 <?php 
 
 $this->widget('bootstrap.widgets.BootButton', array(

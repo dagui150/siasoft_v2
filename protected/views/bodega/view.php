@@ -1,18 +1,15 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Bodegas";?>
-
 <?php
 $this->breadcrumbs=array(
-        'Sistema'=>array('admin'),
 	'Bodegas'=>array('admin'),
 	$model->ID,
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app','LIST').' Bodega', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE').' Bodega', 'url'=>array('create')),
-	array('label'=>Yii::t('app','UPDATE').' Bodega', 'url'=>array('update', 'id'=>$model->ID)),
-	array('label'=>Yii::t('app','DELETE').' Bodega', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->ID),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>Yii::t('app','MANAGE').' Bodega', 'url'=>array('admin')),
+	array('label'=>'List Bodega', 'url'=>array('index')),
+	array('label'=>'Create Bodega', 'url'=>array('create')),
+	array('label'=>'Update Bodega', 'url'=>array('update', 'id'=>$model->ID)),
+	array('label'=>'Delete Bodega', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->ID),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage Bodega', 'url'=>array('admin')),
 );
 ?>
 
@@ -23,17 +20,13 @@ $this->menu=array(
 	'attributes'=>array(
 		'ID',
 		'DESCRIPCION',
-		array(
-                        'name'=>'TIPO',
-                        'header'=>'Tipo',
-                        'value'=>Bodega::tipo($model->TIPO),
-                    ),
+		'TIPO',
 		'TELEFONO',
 		'DIRECCION',
-		/*'ACTIVO',
+		'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',*/
+		'ACTUALIZADO_EL',
 	),
 )); ?>
