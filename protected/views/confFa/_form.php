@@ -207,7 +207,7 @@
                 .$form->dropDownListRow($model,'NIVEL_PRECIO', CHtml::listData(NivelPrecio::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('empty'=>'Seleccione...'))
                 .$form->textFieldRow($model,'DECIMALES_PRECIO')
                 .$form->radioButtonListInlineRow($model, 'DESCUENTO_PRECIO', array('U' =>'Precio unitario', 'L' => 'Total de la linea'))
-                .$form->radioButtonListInlineRow($model,'DESCUENTO_AFECTA_IMP',array('L' => 'Lineas', 'A' => 'Ambos', 'T' => 'Total', 'N' => 'Ninguno')), 'active'=>true),
+                .$form->radioButtonListInlineRow($model,'DESCUENTO_AFECTA_IMP',array('L' => 'Líneas', 'A' => 'Ambos', 'T' => 'Total', 'N' => 'Ninguno')), 'active'=>true),
 
             array('label'=>'Impresión', 'content'=>
                  $form->dropDownListRow($model,'FORMATO_PEDIDO', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND SUBMODULO = "PEDI"'), 'ID', 'NOMBRE'),array('empty'=>'Seleccione...'))
@@ -254,7 +254,7 @@ $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'condicion')); ?>
                         'columns'=>array(
                                 array(
                                     'name'=>'ID',
-                                    'header'=>'Codigo',
+                                    'header'=>'Código',
                                     'htmlOptions'=>array('data-dismiss'=>'modal'),
                                     'type'=>'raw',
                                     'value'=>'CHtml::link($data->ID,"#")'
@@ -296,7 +296,7 @@ $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'condicion')); ?>
                     'columns'=>array(
                             array(
                                 'name'=>'ID',
-                                'header'=>'Codigo',
+                                'header'=>'Código',
                                 'htmlOptions'=>array('data-dismiss'=>'modal'),
                                 'type'=>'raw',
                                 'value'=>'CHtml::link($data->ID,"#")'
@@ -339,7 +339,7 @@ $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'condicion')); ?>
                     'columns'=>array(
                             array(
                                 'name'=>'ID',
-                                'header'=>'Codigo',
+                                'header'=>'Código',
                                 'htmlOptions'=>array('data-dismiss'=>'modal'),
                                 'type'=>'raw',
                                 'value'=>'CHtml::link($data->ID,"#")'

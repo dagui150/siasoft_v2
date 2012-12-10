@@ -69,8 +69,8 @@ class Departamento extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
-			'DESCRIPCION' => 'Descripcion',
+			'ID' => 'Código',
+			'DESCRIPCION' => 'Descripción',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',
@@ -100,6 +100,19 @@ class Departamento extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+		));
+	}
+        
+        public function searchPdf()
+	{
+
+		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'pagination'=>array(
+                            'pageSize'=> Departamento::model()->count(),
+                        ),
 		));
 	}
 	

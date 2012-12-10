@@ -115,7 +115,7 @@ class PaisController extends SBaseController
                     Pais::model()->updateByPk($id, array('ACTIVO'=>'N'));
                     /*
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -137,6 +137,26 @@ class PaisController extends SBaseController
 			'dataProvider'=>$dataProvider,
 		));
 	}
+        
+        public function actionExcel()
+	{
+		$model = new Pais('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
+	}
+        
+        
+        public function actionPdf(){
+            
+            $dataProvider=new Pais;
+		$this->render('pdf',array(
+			'dataProvider'=>$dataProvider,
+		));
+            
+            
+        }
 
 	/**
 	 * Manages all models.

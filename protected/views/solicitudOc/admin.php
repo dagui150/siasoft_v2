@@ -22,26 +22,11 @@ $this->breadcrumbs=array(
 	'Administrar',
 );
 
-$this->menu=array(
-	array('label'=>'Listar SolicitudOc', 'url'=>array('index')),
-	array('label'=>'Crear SolicitudOc', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('solicitud-oc-grid', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
-<h1>Administrar Solicitudes</h1>
+<?php $this->pageTitle=Yii::app()->name." - Solicitudes";?>
+
+<h1>Solicitudes</h1>
 <br />
 <div id="mensaje"></div>
 <div align="right">
@@ -158,7 +143,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
 			 //'header'=>'Bodegas',
 			 'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
 			 //'labelExpression'=>'$data->ID',
-			 'urlExpression'=>'CController::createUrl("/SolicitudOc/pdf", array("id"=>$data->SOLICITUD_OC))',
+			 'urlExpression'=>'CController::createUrl("/SolicitudOc/formatoPDF", array("id"=>$data->SOLICITUD_OC))',
 			 'htmlOptions'=>array('style'=>'text-align:center;'),
 			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),
                 ),

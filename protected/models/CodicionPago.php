@@ -75,8 +75,8 @@ class CodicionPago extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
-			'DESCRIPCION' => 'Descripcion',
+			'ID' => 'Código',
+			'DESCRIPCION' => 'Descripción',
 			'DIAS_NETO' => 'Dias Neto',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
@@ -111,6 +111,19 @@ class CodicionPago extends CActiveRecord
 		));
 	}
         
+        public function searchPdf()
+	{
+
+		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'pagination'=>array(
+                            'pageSize'=> CodicionPago::model()->count(),
+                        ),
+		));
+	}
+        
 	public function searchMod()
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -131,6 +144,7 @@ class CodicionPago extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
 	
 	public function behaviors()
 	{

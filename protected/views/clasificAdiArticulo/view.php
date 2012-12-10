@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Clasific Adi Articulos'=>array('index'),
+	'Clasific Adi Artículos'=>array('index'),
 	$model->ID,
 );
 
@@ -21,10 +21,10 @@ $this->menu=array(
 		'ID',
 		'ARTICULO',
 		'VALOR',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

@@ -1,7 +1,7 @@
 <!-- Tabla que actualiza y hace el ciclo -->
     <div class="form">
         <table>
-            <tr><th>Articulo</th><th>&nbsp;</th><th>Descripcion</th><th>Unidad</th><th>Estado</th><th>Cantidad</th><th>Fecha Requerida</th><th>Comentario</th><th>Saldo</th><th>Linea Num</th><th>&nbsp;</th></tr>
+            <tr><th>Artículo</th><th>&nbsp;</th><th>Descripción</th><th>Unidad</th><th>Estado</th><th>Cantidad</th><th>Fecha Requerida</th><th>Comentario</th><th>Saldo</th><th>Línea Num</th><th>&nbsp;</th></tr>
         <?php foreach($items as $i=>$item): ?>
         <tr>
         <td><?php echo CHtml::activeTextField($item,"[$i]ARTICULO"); ?></td>

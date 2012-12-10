@@ -97,9 +97,9 @@ class ArticuloProveedor extends CActiveRecord
 	{
 		return array(
 			'ID' => 'ID',
-			'ARTICULO' => 'Articulo',
+			'ARTICULO' => 'Artículo',
 			'PROVEEDOR' => 'Proveedor',
-			'CODIGO_CATALOGO' => 'Codigo Catalogo',
+			'CODIGO_CATALOGO' => 'Código Catalogo',
 			'NOMBRE_CATALOGO' => 'Nombre Catalogo',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
@@ -125,7 +125,7 @@ class ArticuloProveedor extends CActiveRecord
 		$criteria->compare('PROVEEDOR',$this->PROVEEDOR,true);
 		$criteria->compare('CODIGO_CATALOGO',$this->CODIGO_CATALOGO,true);
 		$criteria->compare('NOMBRE_CATALOGO',$this->NOMBRE_CATALOGO,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -147,7 +147,7 @@ class ArticuloProveedor extends CActiveRecord
 		$criteria->compare('PROVEEDOR',$this->PROVEEDOR,true);
 		$criteria->compare('CODIGO_CATALOGO',$this->CODIGO_CATALOGO,true);
 		$criteria->compare('NOMBRE_CATALOGO',$this->NOMBRE_CATALOGO,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);

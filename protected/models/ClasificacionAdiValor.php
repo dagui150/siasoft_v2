@@ -90,8 +90,8 @@ class ClasificacionAdiValor extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
-			'CLASIFICACION' => 'Clasificacion',
+			'ID' => 'Código',
+			'CLASIFICACION' => 'Clasificación',
 			'VALOR' => 'Valor',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',

@@ -87,6 +87,9 @@ class ConsecutivoCiController extends SBaseController
                                     }
                             }
                             //ELIMINAR REGISTROS
+                            if(isset($_POST['cambia']) && $_POST['cambia'] == 1){
+                                ConsecCiTipoTrans::model()->deleteAllByAttributes(array('CONSECUTIVO_CI'=>$model2->ID));
+                            }
                             if(isset($_POST['eliminar'])){
                                 $arEliminar = explode(',',$_POST['eliminar']);
                                 foreach($arEliminar as $elimina){
@@ -147,7 +150,7 @@ class ConsecutivoCiController extends SBaseController
                     ConsecutivoCi::model()->updateByPk($id, array('ACTIVO'=>'N'));
                     /*
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))

@@ -69,7 +69,7 @@ class Categoria extends CActiveRecord
 	{
 		return array(
 			'ID' => 'ID',
-			'DESCRIPCION' => 'Descripcion',
+			'DESCRIPCION' => 'Descripción',
 			'TIPO' => 'Tipo',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
@@ -101,6 +101,19 @@ class Categoria extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+		));
+	}
+        
+        public function searchPdf()
+	{
+
+		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'pagination'=>array(
+                            'pageSize'=> Categoria::model()->count(),
+                        ),
 		));
 	}
         

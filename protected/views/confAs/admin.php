@@ -1,8 +1,12 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','ADMINISTRATION_SETTINGS');?>
 <?php
 $this->breadcrumbs=array(
 	Yii::t('app','ADMINISTRATION_SETTINGS')=>array('admin'),
 	Yii::t('app','MANAGE'),
 );
+    
+$this->pageTitle=Yii::app()->name." - ".Yii::t('app','ADMINISTRATION_SETTINGS');
+
 
 $this->menu=array(
 	array('label'=>Yii::t('app','LIST').' ConfAs', 'url'=>array('index')),
@@ -80,7 +84,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
  
 <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>
-    <h3>Crear Configuracion de Administracion</h3>
+    <h3>Crear Configuración de Administracion</h3>
     
 </div>
 

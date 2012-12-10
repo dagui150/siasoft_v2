@@ -99,7 +99,7 @@ class UnidadMedida extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
+			'ID' => 'Código',
 			'NOMBRE' => 'Nombre',
 			'ABREVIATURA' => 'Abreviatura',
 			'TIPO' => 'Tipo',

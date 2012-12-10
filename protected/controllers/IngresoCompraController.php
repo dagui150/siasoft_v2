@@ -32,7 +32,7 @@ class IngresoCompraController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'CargarProveedor', 'CargarArticulo', 'CargarLineas', 'Actlinea', 'Listar', 'Aplicar', 'Cancelar'),
+				'actions'=>array('create','update', 'Pdf', 'CargarProveedor', 'CargarArticulo', 'CargarLineas', 'Actlinea', 'Listar', 'Aplicar', 'Cancelar'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -242,10 +242,9 @@ class IngresoCompraController extends Controller
                                     $salvar->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
                                     $salvar->COSTO_FISCAL_UNITARIO = $datos['COSTO_FISCAL_UNITARIO'];
                                     $salvar->ACTIVO = 'S';
-                                    $salvar->save();
-                                    Articulo::model()->actualizarCosto($datos['ARTICULO']);
+                                    $salvar->save();                                    
                                     $config->ULT_EMBARQUE = $_POST['IngresoCompra']['INGRESO_COMPRA'];
-                                    $config->save();
+                                    $config->save();                                    
                                     $i++;
                                 }
                             }
@@ -295,12 +294,24 @@ class IngresoCompraController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
+        
+        public function actionPdf(){
+            $id = $_GET['id'];
+            $conf = ConfCo::model()->find();
+            $compania = Compania::model()->find(); 
+            $ingreso = IngresoCompra::model()->findByPk($id);
+            $lineas = IngresoCompraLinea::model()->findAll('INGRESO_COMPRA = "'.$id.'"');        
+            $mPDF1 = Yii::app()->ePdf->mpdf();
+            $mPDF1->WriteHTML($this->renderPartial('pdf', array('ingreso' => $ingreso, 'lineas' => $lineas, 'compania' => $compania, 'conf'=>$conf), true));
+            $mPDF1->Output();
+            Yii::app()->end();
+        }
 
 	/**
 	 * Lists all models.
@@ -368,42 +379,53 @@ class IngresoCompraController extends Controller
             $error = '';
             $warning = '';
             foreach($check as $id){                
-                $ingreso = IngresoCompra::model()->findByPk($id);
+                $ingreso = IngresoCompra::model()->findByPk($id);                
+                
                 switch ($ingreso->ESTADO){
                     case 'P' :
-                        $lineas = IngresoCompraLinea::model()->findAll('INGRESO_COMPRA = "'.$ingreso->INGRESO_COMPRA.'"');
-                        $this->transacciones($lineas, $ingreso);                        
-                        $ingreso->ESTADO = 'R';
-                        $ingreso->APLICADO_POR = Yii::app()->user->name;
-                        $ingreso->APLICADO_EL = date("Y-m-d H:i:s");                        
-                        $ingreso->save();
-                        
-                        foreach($lineas as $datos){
-                            $articulo = Articulo::model()->findByPk($datos->ARTICULO);
-                            $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos->ARTICULO,'BODEGA'=>$datos->BODEGA));
+                        $transaction=$ingreso->dbConnection->beginTransaction();
+                        try{
+                            $lineas = IngresoCompraLinea::model()->findAll('INGRESO_COMPRA = "'.$ingreso->INGRESO_COMPRA.'"');
+                            $this->transacciones($lineas, $ingreso);                        
+                            $ingreso->ESTADO = 'R';
+                            $ingreso->APLICADO_POR = Yii::app()->user->name;
+                            $ingreso->APLICADO_EL = date("Y-m-d H:i:s");                        
+                            $ingreso->save();
 
-                            if($existenciaBodega){
-                                    $existenciaBodega->CANT_DISPONIBLE += $datos->CANTIDAD_ACEPTADA;
-                                    $existenciaBodega->save(); //- La cantidad aceptada para el articulo exede a la maxima permitida;                                
-                            }else{                                
-                                $existenciaBodega = new ExistenciaBodega;
-                                $existenciaBodega->ARTICULO = $datos->ARTICULO;
-                                $existenciaBodega->BODEGA = $datos->BODEGA;
-                                $existenciaBodega->EXISTENCIA_MINIMA = 0;
-                                $existenciaBodega->EXISTENCIA_MAXIMA = 0;
-                                $existenciaBodega->PUNTO_REORDEN = 0;
-                                $existenciaBodega->CANT_RESERVADA = 0;
-                                $existenciaBodega->CANT_REMITIDA = 0;
-                                $existenciaBodega->CANT_CUARENTENA = 0;
-                                $existenciaBodega->CANT_VENCIDA = 0;
-                                $existenciaBodega->ACTIVO = 'S';
-                                $existenciaBodega->CANT_DISPONIBLE = $datos->CANTIDAD_ACEPTADA;
-                                $existenciaBodega->CREADO_POR = Yii::app()->user->name;
-                                $existenciaBodega->CREADO_EL = date("Y-m-d H:i:s");
-                                $existenciaBodega->ACTUALIZADO_POR = Yii::app()->user->name;
-                                $existenciaBodega->ACTUALIZADO_EL = date("Y-m-d H:i:s");
-                                $existenciaBodega->insert(); // - El articulo no pertenece a esta bodega
+                            foreach($lineas as $datos){
+                                $articulo = Articulo::model()->findByPk($datos->ARTICULO);
+                                $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos->ARTICULO,'BODEGA'=>$datos->BODEGA));
+
+                                if($existenciaBodega){
+                                        /*$existenciaBodega->CANT_DISPONIBLE = $existenciaBodega->CANT_DISPONIBLE + $datos->CANTIDAD_ACEPTADA;                                        
+                                        $existenciaBodega->save(); //- La cantidad aceptada para el articulo exede a la maxima permitida;     */ 
+                                        $valor = $existenciaBodega->CANT_DISPONIBLE + $datos->CANTIDAD_ACEPTADA;
+                                        ExistenciaBodega::model()->updateByPk($existenciaBodega->ID, array('CANT_DISPONIBLE'=>$valor));
+                                }else{                                
+                                    $existenciaBodega = new ExistenciaBodega;
+                                    $existenciaBodega->ARTICULO = $datos->ARTICULO;
+                                    $existenciaBodega->BODEGA = $datos->BODEGA;
+                                    $existenciaBodega->EXISTENCIA_MINIMA = 0;
+                                    $existenciaBodega->EXISTENCIA_MAXIMA = 0;
+                                    $existenciaBodega->PUNTO_REORDEN = 0;
+                                    $existenciaBodega->CANT_RESERVADA = 0;
+                                    $existenciaBodega->CANT_REMITIDA = 0;
+                                    $existenciaBodega->CANT_CUARENTENA = 0;
+                                    $existenciaBodega->CANT_VENCIDA = 0;
+                                    $existenciaBodega->ACTIVO = 'S';
+                                    $existenciaBodega->CANT_DISPONIBLE = $datos->CANTIDAD_ACEPTADA;
+                                    $existenciaBodega->CREADO_POR = Yii::app()->user->name;
+                                    $existenciaBodega->CREADO_EL = date("Y-m-d H:i:s");
+                                    $existenciaBodega->ACTUALIZADO_POR = Yii::app()->user->name;
+                                    $existenciaBodega->ACTUALIZADO_EL = date("Y-m-d H:i:s");
+                                    $existenciaBodega->insert(); // - El articulo no pertenece a esta bodega
+                                }
                             }
+                            $transaction->commit();
+                        }catch(Exception $e){
+                            $contError+=1;
+                            $error.= $id.',';
+                            $transaction->rollBack();
                         }
                         break;
                     case 'R' :
@@ -459,6 +481,7 @@ class IngresoCompraController extends Controller
                 $detalle->ACTIVO = 'S';
                 $detalle->TIPO_TRANSACCION_CANTIDAD = 'D';
                 $detalle->save();
+                Articulo::model()->actualizarCosto($datos->ARTICULO);
                 
                 //Backorder - recibido
                 $back = OrdenCompraLinea::model()->findByPk($datos->ORDEN_COMPRA_LINEA);

@@ -1,3 +1,4 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." Configuración";?>
 <?php
 /* @var $this ConfFaController */
 /* @var $model ConfFa */

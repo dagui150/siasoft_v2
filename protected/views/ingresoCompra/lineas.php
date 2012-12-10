@@ -62,7 +62,7 @@
     'type'=>'',
     'size'=>'mini',
     'url'=>'#lineas',
-    'label' => 'Cargar Lineas',
+    'label' => 'Cargar Líneas',
     'icon'=>'icon-download-alt',
     'htmlOptions'=>array('data-toggle'=>'modal', 'id'=>"cargar"),
 )); ?>
@@ -83,8 +83,8 @@
                         <table class="templateFrame grid table table-bordered" cellspacing="0">
                             <thead class="templateHead">
                                 <tr>
-                                    <td width="100px" align="center"><strong>Numero Linea</strong></td>
-                                    <td width="300px" align="center"><strong>Articulo</strong></td>
+                                    <td width="100px" align="center"><strong>Número Línea</strong></td>
+                                    <td width="300px" align="center"><strong>Artículo</strong></td>
                                     <td width="200px" align="center"><strong>Unidad Ordenada</strong></td>
                                     <td width="200px" align="center"><strong>Bodega</strong></td> 
                                     <td width="100px" align="center"><strong>Cantidad Ordenada</strong></td>

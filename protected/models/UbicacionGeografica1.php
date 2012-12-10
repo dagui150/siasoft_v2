@@ -77,7 +77,7 @@ class UbicacionGeografica1 extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
+			'ID' => 'Código',
 			'PAIS' => Yii::t('app','COUNTRY'),
 			'NOMBRE' => Yii::t('app','NAME'),
 			'ACTIVO' => 'Activo',
@@ -110,6 +110,18 @@ class UbicacionGeografica1 extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+		));
+	}
+	public function searchPdf()
+	{
+
+		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'pagination'=>array(
+                            'pageSize'=>  UbicacionGeografica1::model()->count(),
+                        ),
 		));
 	}
 	

@@ -1,3 +1,4 @@
+<?php $this->pageTitle=Yii::app()->name." - Unidades de Medida";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('admin'),

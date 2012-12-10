@@ -17,7 +17,7 @@
                   array(
                      'type'=>'raw',
                      'name'=>'ID',
-                     'header'=>'Codigo Bodega',
+                     'header'=>'Código Bodega',
                      'value'=>'CHtml::link($data->ID,"#")',
                      'htmlOptions'=>array('data-dismiss'=>'modal'),
                   ),

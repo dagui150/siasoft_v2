@@ -71,7 +71,7 @@ class ExistenciaBodega extends CActiveRecord
         public function miValidacion($attribute,$params){
 		
 		if ($this->EXISTENCIA_MAXIMA <= $this->EXISTENCIA_MINIMA){
-				$this->addError('EXISTENCIA_MAXIMA','Debe ser mayor a Minima');
+				$this->addError('EXISTENCIA_MAXIMA','Debe ser mayor a Mínima');
                 }
 	}
         
@@ -94,11 +94,11 @@ class ExistenciaBodega extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
-			'ARTICULO' => 'Codigo Articulo',
-			'BODEGA' => 'Codigo Bodega',
-			'EXISTENCIA_MINIMA' => 'Minima',
-			'EXISTENCIA_MAXIMA' => 'Maxima',
+			'ID' => 'Código',
+			'ARTICULO' => 'Código Artículo',
+			'BODEGA' => 'Código Bodega',
+			'EXISTENCIA_MINIMA' => 'Mínima',
+			'EXISTENCIA_MAXIMA' => 'Máxima',
 			'PUNTO_REORDEN' => 'Punto Reorden',
 			'CANT_DISPONIBLE' => 'Disponible',
 			'CANT_RESERVADA' => 'Reservada',
@@ -133,7 +133,7 @@ class ExistenciaBodega extends CActiveRecord
 		$criteria->compare('CANT_DISPONIBLE',$this->CANT_DISPONIBLE,true);
 		$criteria->compare('CANT_RESERVADA',$this->CANT_RESERVADA,true);
 		$criteria->compare('CANT_REMITIDA',$this->CANT_REMITIDA,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -159,7 +159,7 @@ class ExistenciaBodega extends CActiveRecord
 		$criteria->compare('CANT_DISPONIBLE',$this->CANT_DISPONIBLE,true);
 		$criteria->compare('CANT_RESERVADA',$this->CANT_RESERVADA,true);
 		$criteria->compare('CANT_REMITIDA',$this->CANT_REMITIDA,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);

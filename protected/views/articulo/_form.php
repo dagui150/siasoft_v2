@@ -96,22 +96,22 @@
 )); ?>
 
     <br>
-	<?php /*echo $form->errorSummary(array($model,$adi));*/?>
         <table>
-            <tr>
-                <td >
-                    <div align="left" style="width: 120px;;">
-                        <?php echo $form->textFieldRow($model,'ARTICULO',array('maxlength'=>20));?>
-                    </div>
-                </td>
-                <td>
-                    <div align="left" style="width: 230px;">
-                        <?php echo $form->textFieldRow($model,'NOMBRE',array('maxlength'=>128)); ?>
-                    </div>
-                </td>
-            </tr>
-           
-        </table>   
+                <tr>
+                    <td >
+                        <div align="left" style="width: 120px;">
+                            <?php echo $form->textFieldRow($model,'ARTICULO',array('maxlength'=>20));?>
+                        </div>
+                    </td>
+                    <td>
+                        <div align="left" style="width: 228px;">
+                            <?php echo $form->textFieldRow($model,'NOMBRE',array('maxlength'=>128)); ?>
+                        </div>
+                    </td>
+                </tr>
+
+       </table>  
+	<?php echo $form->errorSummary($model);?>
         <?php    
         
             $boton = $this->widget('bootstrap.widgets.BootButton', array(
@@ -165,8 +165,13 @@
                                 <tr>
                                     <td>
                                         <fieldset style="width: 380px; height: 220px;"><br><br><br>
+<<<<<<< HEAD
                                             <legend ><font face="arial" size=3 >Tipo de Articulo</font></legend>'
                                             .$form->dropDownListRow($model,'TIPO_ARTICULO',  CHtml::listData(TipoArticulo::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),array('empty'=>'Seleccione'))
+=======
+                                            <legend ><font face="arial" size=3 >Tipo de Artículo</font></legend>'
+                                            .$form->dropDownListRow($model,'TIPO_ARTICULO',  CHtml::listData(TipoArticulo::model()->findAll(),'ID','NOMBRE'),array('empty'=>'Seleccione'))
+>>>>>>> ff8edc1f2287478707a6deb5631d76ace17ca520
                                             .$form->checkBoxRow($model,'ACTIVO',array('value'=>'S'))
                                         .'<br><br></fieldset>
                                     </td>
@@ -182,7 +187,7 @@
                                 <tr>
                                     <td>
                                         <fieldset style="width: 380px;">
-                                            <legend ><font face="arial" size=3 >Codigo de Barras Unidad detalle</font></legend>'
+                                            <legend ><font face="arial" size=3 >Código de Barras Unidad detalle</font></legend>'
                                             .$form->dropDownListRow($model,'TIPO_COD_BARRAS',$tipo,array('empty'=>'Ninguno','disabled'=>$conf->USA_CODIGO_BARRAS ? false : true,'maxlength'=>10))
                                             .$form->textFieldRow($model,'CODIGO_BARRAS',array('disabled'=>$conf->USA_CODIGO_BARRAS ? false : true,'maxlength'=>20))
                                         .'</fieldset>
@@ -199,7 +204,7 @@
                             'active'=>true
                     ),
                     array(
-                        'label'=>'Clasificacion',
+                        'label'=>'Clasificación',
                         'content'=>
                             $this->renderPartial('clasificaciones',
                                             array(
@@ -266,22 +271,22 @@
                                        <br><fieldset >
                                            <table>
                                                <tr>
-                                                    <td>'.$form->textFieldRow($model,'PESO_NETO',array('size'=>6)).'</td> 
-                                                    <td><div style="margin: 0px 0 0 -125px">'.$form->dropDownList($model,'PESO_NETO_UNIDAD',UnidadMedida::getPeso(),array('empty'=>'--UND--')).'</div></td> 
+                                                    <td width="10">'.$form->textFieldRow($model,'PESO_NETO',array('size'=>6)).'</td> 
+                                                    <td>'.$form->dropDownList($model,'PESO_NETO_UNIDAD',UnidadMedida::getPeso(),array('empty'=>'--UND--')).'</td> 
                                                </tr>
                                                <tr>
                                                     <td>'.$form->textFieldRow($model,'PESO_BRUTO',array('size'=>6)).'</td> 
-                                                    <td><div style="margin: 0px 0 0 -125px">'.$form->dropDownList($model,'PESO_BRUTO_UNIDAD',UnidadMedida::getPeso(),array('empty'=>'--UND--')).'</div></td> 
+                                                    <td>'.$form->dropDownList($model,'PESO_BRUTO_UNIDAD',UnidadMedida::getPeso(),array('empty'=>'--UND--')).'</td> 
                                                </tr>
                                                <tr>
                                                     <td>'.$form->textFieldRow($model,'VOLUMEN',array('size'=>6)).'</td> 
-                                                    <td><div style="margin: 0px 0 0 -125px  ">'.$form->dropDownList($model,'VOLUMEN_UNIDAD',UnidadMedida::getVolumen(),array('empty'=>'--UND--')).'</div></td> 
+                                                    <td>'.$form->dropDownList($model,'VOLUMEN_UNIDAD',UnidadMedida::getVolumen(),array('empty'=>'--UND--')).'</td> 
                                                </tr>
                                           </table>
                                       </fieldset>
                                    </td>
                                    <td>
-                                       <fieldset  style="width: 280px; height: 229px;">
+                                       <fieldset  style="width: 390px; height: auto;">
                                        <legend ><font face="arial" size=3 >Unidades</font></legend>
                                            <table>
                                                <tr>
@@ -306,8 +311,8 @@
                                     <td colspan="2">
                                         <table>
                                             <tr>
-                                                <td>'.$form->textFieldRow($model,'IMPUESTO_VENTA',array('size'=>4,'ajax'=>array('type' => 'POST','url' => CController::createUrl('Articulo/cargarAjax3'),'update' => '#IMPUESTOO2'))).'</td> 
-                                                <td><div id="IMPUESTOO2" style="margin: 0 0 0 -550px">'.CHtml::textField('IMPUESTO3','',array('disabled'=>true)).'</div></td> 
+                                                <td width="10">'.$form->textFieldRow($model,'IMPUESTO_VENTA',array('size'=>4,'ajax'=>array('type' => 'POST','url' => CController::createUrl('Articulo/cargarAjax3'),'update' => '#IMPUESTOO2'))).'</td> 
+                                                <td><div id="IMPUESTOO2">'.CHtml::textField('IMPUESTO3','',array('disabled'=>true)).'</div></td> 
                                                 <td><div style="margin: 5px 0 0 -405px">'.$boton3.'</div></td> 
                                             </tr>
                                         </table>
@@ -379,7 +384,7 @@
                                    array(
                                         'type'=>'raw',
                                         'name'=>'ID',
-                                        'header'=>'Codigo Bodega',
+                                        'header'=>'Código Bodega',
                                         'value'=>'CHtml::link($data->ID,"#")',
                                         'htmlOptions'=>array('data-dismiss'=>'modal'),
                                    ),

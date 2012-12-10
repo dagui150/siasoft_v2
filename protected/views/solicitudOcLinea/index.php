@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Solicitud Oc Lineas',
+	'Solicitud Oc Líneas',
 );
 
 $this->menu=array(
@@ -9,7 +9,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Solicitud Oc Lineas</h1>
+<h1>Solicitud Oc Líneas</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

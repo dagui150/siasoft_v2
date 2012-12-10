@@ -1,6 +1,7 @@
+<?php $this->pageTitle=Yii::app()->name." - Artículo Proveedors";?>
 <?php
 $this->breadcrumbs=array(
-	'Articulo Proveedors'=>array('index'),
+	'Artículo Proveedors'=>array('index'),
 	'Administrar',
 );
 Yii::app()->clientScript->registerScript('search', "
@@ -17,7 +18,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Administrar Articulo Proveedors</h1>
+<h1>Administrar Artículo Proveedors</h1>
 
 <p>
 Si lo desea, puede entrar en un operador de comparacion (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>

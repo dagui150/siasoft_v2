@@ -9,6 +9,7 @@ class OrdenCompraController extends SBaseController
 	public $layout='//layouts/column2';
         public $breadcrumbs=array();
 	public $menu=array();
+        public $orden;
 	/**
 	 * @return array action filters
 	 */
@@ -80,6 +81,29 @@ class OrdenCompraController extends SBaseController
             $lineas = OrdenCompraLinea::model()->findAll('ORDEN_COMPRA = "'.$id.'"');
             $mPDF1 = Yii::app()->ePdf->mpdf();
             $mPDF1->WriteHTML($this->renderPartial('pdf', array('orden' => $orden, 'lineas' => $lineas, 'compania' => $compania, 'conf'=>$conf), true));
+            $mPDF1->Output();
+            Yii::app()->end();
+        }
+        
+        public function actionformatoPDF() {
+
+            $id = $_GET['id'];
+            $this->orden = OrdenCompra::model()->findByPk($id);
+            $lineas = new OrdenCompraLinea;
+            $this->layout = ConfCo::model()->find()->fORMATOORDEN->RUTA;
+
+            $footer = '<table width="100%">
+                        <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>
+                            <td align="center" valign="middle"><span class="piePagina"><b>Generado el:</b> ' . date('Y/m/d') . '</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center" valign="middle">Desarrollado por Tramasoft Soluciones TIC - <a href="http://www.tramasoft.com">www.tramasoft.com</a></td>
+                        </tr>
+                        </table>';
+            $mPDF1 = Yii::app()->ePdf->mpdf();
+            $mPDF1->WriteHTML($this->render('pdf', array('model' => $this->orden, 'model2' => $lineas), true));
+            $mPDF1->SetHTMLFooter($footer);
+
             $mPDF1->Output();
             Yii::app()->end();
         }
@@ -681,7 +705,7 @@ class OrdenCompraController extends SBaseController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))

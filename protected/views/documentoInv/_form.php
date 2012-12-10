@@ -136,7 +136,7 @@
                                 'active'=>true
                             ),
                            array(
-                                'label'=>'Lineas',
+                                'label'=>'Líneas',
                                 'content'=>
                                         $this->renderPartial('lineas',
                                                 array(
@@ -182,7 +182,7 @@
  
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
-		<h3>Nueva Linea</h3>
+		<h3>Nueva Línea</h3>
 		<p class="note">Los Campos con <span class="required">*</span> Son requeridos.</p>
 	</div>
         <div id="form-lineas">
@@ -255,7 +255,7 @@
      $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
                 'id'=>'articulo',
                 'options'=>array(
-                    'title'=>'Articulos',
+                    'title'=>'Artículos',
                     'width'=>550,
                     'height'=>'auto',
                     'autoOpen'=>false,

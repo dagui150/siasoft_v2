@@ -6,9 +6,12 @@ class DocumentoInvController extends SBaseController
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
+        public $modulo='Invetario';
+        public $submodulo='Documentos Inventario';
 	public $layout='//layouts/column2';
         public $breadcrumbs=array();
 	public $menu=array();
+        public $doc;
 
 	/**
 	 * @return array action filters
@@ -54,7 +57,7 @@ class DocumentoInvController extends SBaseController
                 
 		if(isset($_POST['DocumentoInv']))
 		{
-			$model->attributes=$_POST['DocumentoInv'];
+                        $model->attributes=$_POST['DocumentoInv'];
                         
                          //ACTUALIZAR CONSECUTIVO
                             $modelConsecutivo = ConsecutivoCi::model()->findByPk($model->CONSECUTIVO);
@@ -94,7 +97,7 @@ class DocumentoInvController extends SBaseController
                             
                             $this->redirect(array('admin'));
                         }
-				
+			
 		}
                 if(isset($_GET['Bodega']))
 			$bodega->attributes=$_GET['Bodega'];
@@ -193,8 +196,19 @@ class DocumentoInvController extends SBaseController
         protected function cargarArticulo($idArticulo){
             $bus = Articulo::model()->findByPk($idArticulo);
             $res = array(
-                'NOMBRE'=>isset($bus->NOMBRE) ? $bus->NOMBRE :'Ninguno'
+                'NOMBRE'=>isset($bus->NOMBRE) ? $bus->NOMBRE :'Ninguno',
+                'COSTO'=>'',
+                'UNIDAD'=>$bus->UNIDAD_ALMACEN
             );
+            
+            if($bus->COSTO_FISCAL == 'Estándar')
+                $res['COSTO'] = $bus->COSTO_ESTANDAR;
+            
+            if($bus->COSTO_FISCAL == 'Promedio')
+                $res['COSTO'] = $bus->COSTO_PROMEDIO;
+            
+            if($bus->COSTO_FISCAL == 'Último')
+                $res['COSTO'] = $bus->COSTO_ULTIMO;
             
             echo CJSON::encode($res);
             Yii::app()->end();
@@ -418,6 +432,35 @@ class DocumentoInvController extends SBaseController
 			'model'=>$model,
 		));
 	}
+        /**
+         *Genera un pdf con la informacion del item seleccionado
+         *  
+         */
+        
+        public function actionformatoPDF() {
+
+            $id = $_GET['id'];
+            
+            $this->doc = $model = DocumentoInv::model()->findByPk($id);
+            $model2 = new DocumentoInvLinea;
+            
+            $this->layout = ConsecutivoCi::model()->find('ID = "'.$model->CONSECUTIVO.'"')->fORMATOIMPRESION->RUTA;
+            
+            $footer = '<table width="100%">
+                    <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>
+                        <td align="center" valign="middle"><span class="piePagina"><b>Generado el:</b> ' . date('Y/m/d') . '</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center" valign="middle">Desarrollado por Tramasoft Soluciones TIC - <a href="http://www.tramasoft.com">www.tramasoft.com</a></td>
+                    </tr>
+                    </table>';
+            $mPDF1 = Yii::app()->ePdf->mpdf();
+            $mPDF1->WriteHTML($this->render('pdf', array('model2' => $model2, 'model' => $this->doc), true));
+            $mPDF1->SetHTMLFooter($footer);
+
+            $mPDF1->Output();
+            Yii::app()->end();
+        }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
@@ -622,6 +665,7 @@ class DocumentoInvController extends SBaseController
                      {
                         $contError+=1;
                         $error.= $id.',';
+                        echo $e;
                         $transaction->rollBack();
                      }
                  }elseif($documento->ESTADO == 'L'){
@@ -659,7 +703,7 @@ class DocumentoInvController extends SBaseController
             
                 $transaccionInv->CONSECUTIVO_CI = $documento->DOCUMENTO_INV;
                 $transaccionInv->MODULO_ORIGEN = 'CI';
-                $transaccionInv->REFERENCIA = 'Transaccion generada por Documento de Inventario';
+                $transaccionInv->REFERENCIA = 'Transacción generada por Documento de Inventario';
                 $transaccionInv->ACTIVO = 'S';
                 
                 if($transaccionInv->save()){

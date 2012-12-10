@@ -40,9 +40,12 @@
                 <td>
                 </td>
             </tr>
-            <tr>
+        </table>
                 <td>
+<<<<<<< HEAD
                     <?php echo $form->dropDownListRow($model2,'CONDICION_PAGO', CHtml::listData(CodicionPago::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('empty'=>'Seleccione...')); ?>
+=======
+>>>>>>> ff8edc1f2287478707a6deb5631d76ace17ca520
                 </td>
                 <td>
                     <?php $this->widget('bootstrap.widgets.BootButton', array(
@@ -70,7 +73,7 @@
         <div class="row-buttons" align="center">
         <?php endif ?>
     	<?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model2->isNewRecord ? 'Crear' : 'Guardar')); ?>
- 	<?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => '#', 'icon' => 'remove', 'htmlOptions'=>array('data-dismiss'=>'modal')));  ?>	        
+ 	<?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('admin'), 'icon' => 'remove', 'htmlOptions'=>array('data-dismiss'=>'modal')));  ?>	        
         </div>
 
 

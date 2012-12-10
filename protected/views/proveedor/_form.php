@@ -1,5 +1,57 @@
 <script>
 $(document).ready(function(){
+    
+    <?php if(!$model->isNewRecord){ ?>
+                var pais = $('#Proveedor_PAIS').val();
+                if(pais == 'COL'){
+                    $('#ciudad').slideUp('slow');
+                    $('#ub1').slideDown('slow');
+                    $('#ub2').slideDown('slow');
+                }
+                else{
+                    $('#ub1').slideUp('slow');
+                    $('#ub2').slideUp('slow');
+                    $('#ciudad').slideDown('slow');
+                }
+                
+                $.getJSON(
+                    '<?php echo $this->createUrl('proveedor/CargarNit'); ?>&buscar='+$('#Proveedor_NIT').val(),
+                    function(data)
+                    {
+                        $('#Proveedor_NIT').val(data.ID);
+                        $('#Nit2').val(data.NOMBRE);
+                    }
+               )
+    <?php } ?>
+    
+    $('#Proveedor_PAIS').change(function(){
+        var pais = $('#Proveedor_PAIS').val();
+        if(pais == 'COL'){
+            $('#ciudad').slideUp('slow');
+            $('#ub1').slideDown('slow');
+            $('#ub2').slideDown('slow');
+        }
+        else{
+            $('#ub1').slideUp('slow');
+            $('#ub2').slideUp('slow');
+            $('#ciudad').slideDown('slow');
+        }
+    });
+      
+    $('#Proveedor_UBICACION_GEOGRAFICA1').change(function(){
+            
+            $.getJSON('<?php echo $this->createUrl('cargarubicacion')?>&ubicacion='+$(this).val(),
+                function(data){
+                    
+                     $('select[id$=Proveedor_UBICACION_GEOGRAFICA2 ] > option').remove();
+                      $('#Proveedor_UBICACION_GEOGRAFICA2').append("<option value=''>Seleccione</option>");
+                    
+                    $.each(data, function(value, name) {
+                              $('#Proveedor_UBICACION_GEOGRAFICA2').append("<option value='"+value+"'>"+name+"</option>");
+                        });
+                });
+    });
+    
     $( ".escritoNit" ).autocomplete({
         change: function(e) { 
             $.getJSON(
@@ -28,7 +80,7 @@ function cargaNitGrilla(grid_id){
 }
 </script>
 <div class="form">
-
+    
 <?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
 	'id'=>'proveedor-form',
         'type'=>'horizontal',
@@ -37,6 +89,15 @@ function cargaNitGrilla(grid_id){
 		'validateOnSubmit'=>true,
 	),	
 )); ?>
+    
+    <?php
+    if($model->isNewRecord){
+        $ub2 = $form->dropDownListRow($model,'UBICACION_GEOGRAFICA2',array(),array('empty'=>'Seleccione'));
+    }
+    else{
+        $ub2 = $form->dropDownListRow($model,'UBICACION_GEOGRAFICA2',CHtml::listData(UbicacionGeografica2::model()->findAll('ACTIVO = "S" AND UBICACION_GEOGRAFICA1 = "'.$model->UBICACION_GEOGRAFICA1.'"'),'ID','NOMBRE'));
+    }
+?>
     
     	<?php echo $form->errorSummary($model); ?>
     <table widht="100%">
@@ -119,13 +180,52 @@ function cargaNitGrilla(grid_id){
     'tabs'=>array(
         
         array('label'=>'General', 'content'=>
-            '<fieldset><table widht="100%"><tr><td colspan="2"><div class="row"><table><tr><td width="50px;">'
-            .'<div class="control-group "><label for="Proveedor_NIT" class="control-label required">NIT <span class="required">*</span></label><div class="controls">'.$autocompletar.'</div></div></div>'      
-            .'</td><td width="10px;">'
-            .$modal
-            .'</td><td>'
-            .CHtml::textField('Nit2','', array('readonly' => true, 'size'=>40))
-            .'</td></tr></table></div></td></tr><tr><td>'
+            '<table widht="100%">
+                <tr>
+                    <td colspan="2">
+                        <div class="row">
+                            <table>
+                                <tr>
+                                    <td width="50px;">
+                                        <div class="control-group">
+                                            <label for="Proveedor_NIT" class="control-label required">NIT 
+                                                <span class="required">*</span>
+                                            </label>
+                                            <div class="controls">'.$autocompletar.'</div>
+                                        </div>
+                                    </td>      
+                                    <td width="10px;">'
+                                        .$modal
+                                   .'</td><td>'
+                                        .CHtml::textField('Nit2','', array('readonly' => true, 'size'=>40))
+                                    .'</td>
+                               </tr>
+                            </table>
+                       </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <table>
+                            <tr>
+                                <td>'
+                                    .$form->dropDownListRow($model,'PAIS', CHtml::listData(Pais::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),array('empty'=>'Seleccione...'))
+                                .'</td>
+                                <td><div id="ciudad" style="display:none;">'
+                                    .$form->textFieldRow($model, 'CIUDAD')
+                                .'</div></td>
+                            </tr><tr>
+                                <td><div id="ub1" style="display:none;">'
+                                    .$form->dropDownListRow($model,'UBICACION_GEOGRAFICA1', CHtml::listData(UbicacionGeografica1::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'), array('empty'=>'Seleccione...'))
+                                .'</div></td>
+                                <td><div id="ub2" style="display:none;">'
+                                    .$ub2
+                                .'</div></td>
+                            </tr>
+                        </table>'                        
+                    .'</td>'            
+            .'</td></tr><tr><td>'
+            
             .$form->textFieldRow($model,'ALIAS',array('size'=>30,'maxlength'=>80))
             .$form->textFieldRow($model,'CONTACTO',array('size'=>30,'maxlength'=>30))
             .$form->textFieldRow($model,'CARGO',array('size'=>30,'maxlength'=>30))
@@ -133,12 +233,17 @@ function cargaNitGrilla(grid_id){
             .'<div class="control-group "><label for="Proveedor_CARGO" class="control-label required">Fecha de Ingreso<span class="required"> *</span></label><div class="controls">'
             .$tab
             .'</span></div></div>'
-            .'</div></td><td>'
+            .'</div>'
+            .$form->dropDownListRow($model,'REGIMEN',CHtml::listData(RegimenTributario::model()->findAll('ACTIVO = "S"'),'REGIMEN','REGIMEN')).'</td><td>'
             .$form->textFieldRow($model,'TELEFONO1', array('size'=>20,'maxlength'=>20))
             .$form->textFieldRow($model,'TELEFONO2', array('size'=>20,'maxlength'=>20))
             .$form->textFieldRow($model,'FAX',array('size'=>20,'maxlength'=>20))
             .$form->dropDownListRow($model,'CATEGORIA', CHtml::listData(Categoria::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('empty'=>'Seleccione...'))
+<<<<<<< HEAD
             .'</td></tr></table></fieldset>', 'active'=>true),
+=======
+            .'</td></tr></table>', 'active'=>true),
+>>>>>>> ff8edc1f2287478707a6deb5631d76ace17ca520
         
         array('label'=>'Otros', 'content'=>
             '<fieldset><legend>Condiciones</legend>'
@@ -177,8 +282,8 @@ function cargaNitGrilla(grid_id){
 	</div>
 
 	<div align="center">
-    	<?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-        <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('proveedor/admin'), 'icon' => 'remove'));  ?>
+            <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
+            <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('proveedor/admin'), 'icon' => 'remove'));  ?>
 	</div>
 
 

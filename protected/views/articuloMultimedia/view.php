@@ -1,6 +1,7 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Artículo Multimedias";?>
 <?php
 $this->breadcrumbs=array(
-	'Articulo Multimedias'=>array('admin'),
+	'Artículo Multimedias'=>array('admin'),
 	$model->ID,
 );
 
@@ -18,10 +19,13 @@ $this->breadcrumbs=array(
 		'NOMBRE',
 		'DESCRIPCION',
 		'ORDEN',
+            /*
 		'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
 		'ACTUALIZADO_EL',
+             * 
+             */
 	),
 )); ?>

@@ -1,11 +1,11 @@
 <?php
 $this->breadcrumbs=array(
-	'Articulo Proveedores',
+	'Artículo Proveedores',
 );
 
 ?>
 
-<h1>Articulo Proveedors</h1>
+<h1>Artículo Proveedors</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

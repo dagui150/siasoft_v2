@@ -32,6 +32,7 @@ $(document).ready(function(){
 
 function buscar(){}
 </script>
+<?php $this->pageTitle=Yii::app()->name." - Ingreso Compras";?>
 <?php
 /* @var $this IngresoCompraController */
 /* @var $model IngresoCompra */
@@ -43,8 +44,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List IngresoCompra', 'url'=>array('index')),
-	array('label'=>'Create IngresoCompra', 'url'=>array('create')),
+	array('label'=>Yii::t('app','LIST').' IngresoCompra', 'url'=>array('index')),
+	array('label'=>Yii::t('app','CREATE').' IngresoCompra', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -69,7 +70,7 @@ $('.search-form form').submit(function(){
     <?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array()); ?>
     <?php echo CHtml::HiddenField('check',''); ?>
     
-    
+      
 <?php 
     $this->widget('bootstrap.widgets.BootButton', array(
         'label'=>'Cancelar',
@@ -159,6 +160,13 @@ $('.search-form form').submit(function(){
 		'MODIFICADO_POR',
 		'MODIFICADO_EL',
 		*/
+                array(
+                    'class'=>'CLinkColumn',
+                    'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
+                    'urlExpression'=>'CController::createUrl("/IngresoCompra/pdf", array("id"=>$data->INGRESO_COMPRA))',
+                    'htmlOptions'=>array('style'=>'text-align:center;'),
+                    'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),
+                ),
 	),
 )); ?>
 

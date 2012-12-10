@@ -4,8 +4,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Proveedor', 'url'=>array('create')),
-	array('label'=>'Manage Proveedor', 'url'=>array('admin')),
+	array('label'=>Yii::t('app','CREATE').' Proveedor', 'url'=>array('create')),
+	array('label'=>Yii::t('app','MANAGE').' Proveedor', 'url'=>array('admin')),
 );
 ?>
 

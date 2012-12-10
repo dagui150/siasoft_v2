@@ -1,6 +1,7 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Solicitudes";?>
 <?php
 $this->breadcrumbs=array(
-	'Solicitud Ocs'=>array('index'),
+	'Solicitud Ocs'=>array('admin'),
 	$model->SOLICITUD_OC,
 );
 
@@ -35,9 +36,9 @@ $this->menu=array(
 		'RUBRO4',
 		'RUBRO5',
 		'ESTADO',
-		'CREADO_POR',
+		/*'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

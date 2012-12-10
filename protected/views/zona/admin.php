@@ -1,12 +1,13 @@
+<?php $this->pageTitle=Yii::app()->name." - Zonas";?>
 <?php
 $this->breadcrumbs=array(
-	'Zonas'=>array('admin'),
-	'Actualizar',
+        'Sistema'=>array('admin'),
+	'Zonas',
 );
 
 $this->menu=array(
-	array('label'=>'List Zona', 'url'=>array('index')),
-	array('label'=>'Create Zona', 'url'=>array('create')),
+	array('label'=>Yii::t('app','LIST').' Zona', 'url'=>array('index')),
+	array('label'=>Yii::t('app','CREATE').' Zona', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,6 +27,32 @@ $('.search-form form').submit(function(){
 <h1>Zonas</h1>
 
 <div align="right">
+    
+            <?php 
+
+$this->widget('bootstrap.widgets.BootButton', array(
+    'label'=>'EXCEL',
+    'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'size'=>'mini', // '', 'large', 'small' or 'mini'
+	'url' => array('zona/excel'),
+	'icon' => 'download-alt white'
+)); 
+
+?>
+    
+<?php 
+
+
+$this->widget('bootstrap.widgets.BootButton', array(
+    'label'=>'PDF',
+    'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'size'=>'mini', // '', 'large', 'small' or 'mini'
+	'url' => array('zona/pdf'),
+	'icon' => 'download-alt white'
+)); 
+
+?>
+
 <?php 
 
 $this->widget('bootstrap.widgets.BootButton', array(
@@ -47,7 +74,10 @@ $this->widget('bootstrap.widgets.BootButton', array(
 	'filter'=>$model,
 	'columns'=>array(
 		//'ID',
-		'PAIS',
+            array(
+                'name'=>'PAIS',
+                'value'=>'$data->pAIS->NOMBRE',
+            ),
 		'NOMBRE',
 		/*'ACTIVO',
 		'CREADO_POR',

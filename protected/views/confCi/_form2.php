@@ -91,7 +91,7 @@ function inicio(){
 							<tr>
 								<td>
 									<fieldset style="width: 280px; height: 190px;">
-										<legend ><font face="arial" size=3 >Costos por Omision</font></legend>'
+										<legend ><font face="arial" size=3 >Costos por Omisión</font></legend>'
 										.$form->dropDownListRow($model,'COSTO_FISCAL',MetodoValuacionInv::getMetodo(),array('empty'=>'Seleccione'))
 									.'</fieldset>
 								</td>
@@ -119,7 +119,7 @@ function inicio(){
 						.'</fieldset>'
 				),
 				array(
-					'label'=>'Codigo de Barras',
+					'label'=>'Código de Barras',
 					'content'=>
 						//$form->checkBoxRow($model, 'USA_UNIDADES_DIST',array('disabled'=>true))
 						$form->checkBoxRow($model, 'ASISTENCIA_AUTOMAT',array('disabled'=>$model->USA_CODIGO_BARRAS ? false : true ))
@@ -169,10 +169,18 @@ function inicio(){
 							</table>'
 						.'</fieldset>'
 						.'<fieldset style="width: 380px; float: left; margin-left: 10px;">
-							<legend ><font face="arial" size=3 >Prioridad Busqueda</font></legend>'
-							.$form->radioButtonListRow($model, 'PRIORIDAD_BUSQUEDA', array('A'=>'Por Codgo de Articulo','C'=>'Por Codigo de Barras'))
+							<legend ><font face="arial" size=3 >Prioridad Búsqueda</font></legend>'
+							.$form->radioButtonListRow($model, 'PRIORIDAD_BUSQUEDA', array('A'=>'Por Codgo de Artículo','C'=>'Por Código de Barras'))
 						.'</fieldset>'
 				),
+                            
+                             
+                            array('label' => 'Impresion', 'content' =>
+            $form->dropDownListRow($model, 'FORMATO_IMPRESION', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND MODULO = "INVE"'), 'ID', 'NOMBRE'), array('empty' => 'Seleccione...'))
+        ),
+            
+                            
+                        
 			),
 		)); 
 	?>

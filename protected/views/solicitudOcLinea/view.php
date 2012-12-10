@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Solicitud Oc Lineas'=>array('index'),
+	'Solicitud Oc Líneas'=>array('admin'),
 	$model->SOLICITUD_OC_LINEA,
 );
 
@@ -28,9 +28,9 @@ $this->menu=array(
 		'COMENTARIO',
 		'FECHA_REQUERIDA',
 		'ESTADO',
-		'CREADO_POR',
+		/*'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

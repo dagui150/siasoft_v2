@@ -183,4 +183,11 @@ class ConfFa extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+        public static function darConf(){
+            $conf = ConfFa::model()->find();
+            
+            return $conf ? true : false;
+        }
+
 }

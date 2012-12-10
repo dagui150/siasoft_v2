@@ -51,6 +51,14 @@ function cargaProveedorGrilla (grid_id){
                           'htmlOptions'=>array('data-toggle'=>'modal'),
                     ), true); ?>
 <div class="form">
+    <?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+	'id'=>'ingreso-compra-form',
+	'type'=>'horizontal',
+	'enableAjaxValidation'=>true,
+	'clientOptions'=>array(
+		'validateOnSubmit'=>true,
+	),
+)); ?>
 
 
 <?php
@@ -76,26 +84,50 @@ function cargaProveedorGrilla (grid_id){
     <?php 
         // Validacion de Rubros en la configuracion        
          if($config->USAR_RUBROS == "S") {
-                    $rubros = $form->textFieldRow($model,'RUBRO1',array('size'=>50,'maxlength'=>50))
-                            .$form->textFieldRow($model,'RUBRO2',array('size'=>50,'maxlength'=>50))
-                            .$form->textFieldRow($model,'RUBRO3',array('size'=>50,'maxlength'=>50))
-                            .$form->textFieldRow($model,'RUBRO4',array('size'=>50,'maxlength'=>50))
-                            .$form->textFieldRow($model,'RUBRO5',array('size'=>50,'maxlength'=>50));
+                    $rubros = '';
+                    if($config->RUBRO1_EMBNOM != ''){
+                        $rubros .= '<div class="row"><label>'.$config->RUBRO1_EMBNOM.'</label>'
+                        .$form->textField($model,'RUBRO1',array('size'=>50,'maxlength'=>50))
+                        .$form->error($model,'RUBRO1')
+                        .'</div>';                        
+                    }
+                    
+                    if($config->RUBRO2_EMBNOM != ''){                    
+                        $rubros .= '<div class="row">'
+                        .'<label>'.$config->RUBRO2_EMBNOM.'</label>'
+                        .$form->textField($model,'RUBRO2',array('size'=>50,'maxlength'=>50))
+                        .$form->error($model,'RUBRO2')
+                        .'</div>';                        
+                    }
+                    
+                    if($config->RUBRO3_EMBNOM != ''){                    
+                        $rubros .= '<div class="row">'
+                        .'<label>'.$config->RUBRO3_EMBNOM.'</label>'
+                        .$form->textField($model,'RUBRO3',array('size'=>50,'maxlength'=>50))
+                        .$form->error($model,'RUBRO3')
+                        .'</div>';                        
+                    }
+                    
+                    if($config->RUBRO4_EMBNOM != ''){                    
+                        $rubros .= '<div class="row">'
+                        .'<label>'.$config->RUBRO4_EMBNOM.'</label>'
+                        .$form->textField($model,'RUBRO4',array('size'=>50,'maxlength'=>50))
+                        .$form->error($model,'RUBRO4')
+                        .'</div>';                        
+                    }
+                    
+                    if($config->RUBRO5_EMBNOM != ''){                    
+                        $rubros .= '<div class="row">'
+                        .'<label>'.$config->RUBRO5_EMBNOM.'</label>'
+                        .$form->textField($model,'RUBRO5',array('size'=>50,'maxlength'=>50))
+                        .$form->error($model,'RUBRO5')
+                        .'</div>';
+                    }                    
          }
          else{
              $rubros='Para usar esta opcion debes habilitarla en configuracion';
          }
         ?>
-    
-    
-<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
-	'id'=>'ingreso-compra-form',
-	'type'=>'horizontal',
-	'enableAjaxValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
-	),
-)); ?>
 
     <?php
     // evalua si el estado es vacio para la casilla de estado
@@ -205,7 +237,7 @@ function cargaProveedorGrilla (grid_id){
             'filter'=>$proveedor,
             'columns'=>array(
                 array(  'name'=>'PROVEEDOR',
-                        'header'=>'Codigo Proveedor',
+                        'header'=>'Código Proveedor',
                         'htmlOptions'=>array('data-dismiss'=>'modal'),
                         'type'=>'raw',
                         'value'=>'CHtml::link($data->PROVEEDOR,"#")'
@@ -247,7 +279,7 @@ function cargaProveedorGrilla (grid_id){
                 'columns'=>array(
                     array('class'=>'CCheckBoxColumn'),
                     array('name'=>'ORDEN_COMPRA_LINEA',
-                            'header'=>'Codigo Orden de compra'),
+                            'header'=>'Código Orden de compra'),
                     array('name' => 'ARTICULO', 'value'=>'$data->aRTICULO->NOMBRE'),
                         'FECHA_REQUERIDA',
                 ),
@@ -256,7 +288,7 @@ function cargaProveedorGrilla (grid_id){
 	</div>
         <div class="modal-footer">
         <?php $this->widget('bootstrap.widgets.BootButton', array(
-                'label'=>'Cargar Lineas',
+                'label'=>'Cargar Líneas',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal', 'onclick' => 'cargaSolicitud()'),
             )); ?>
@@ -267,7 +299,7 @@ function cargaProveedorGrilla (grid_id){
     
     	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
-		<h3>Nueva Linea</h3>
+		<h3>Nueva Línea</h3>
 		<p class="note">Los Campos con <span class="required">*</span> Son requeridos.</p>
 	</div>
     

@@ -99,7 +99,7 @@ class SolicitudOc extends CActiveRecord
 			'AUTORIZADA_POR' => 'Autorizada Por',
 			'FECHA_AUTORIZADA' => 'Fecha Autorizada',
 			'PRIORIDAD' => 'Prioridad',
-			'LINEAS_NO_ASIG' => 'Lineas No Asig',
+			'LINEAS_NO_ASIG' => 'Líneas No Asig',
 			'COMENTARIO' => 'Comentario',
 			'CANCELADA_POR' => 'Cancelada Por',
 			'FECHA_CANCELADA' => 'Fecha Cancelada',
@@ -178,6 +178,7 @@ class SolicitudOc extends CActiveRecord
                     break;
             }
         }
+        
         
         public function behaviors()
 	{

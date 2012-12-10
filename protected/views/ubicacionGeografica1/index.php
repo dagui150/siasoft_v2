@@ -4,8 +4,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create UbicacionGeografica1', 'url'=>array('create')),
-	array('label'=>'Manage UbicacionGeografica1', 'url'=>array('admin')),
+	array('label'=>Yii::t('app','CREATE').' UbicacionGeografica1', 'url'=>array('create')),
+	array('label'=>Yii::t('app','MANAGE').' UbicacionGeografica1', 'url'=>array('admin')),
 );
 ?>
 

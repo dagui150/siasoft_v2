@@ -49,10 +49,8 @@ class Nit extends CActiveRecord
 		return array(
 			array('ID, TIIPO_DOCUMENTO, RAZON_SOCIAL', 'required'),
                         array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'Nit','allowEmpty'=>false),
-			array('ID, TIIPO_DOCUMENTO', 'length', 'max'=>12),
+			array('ID', 'length', 'max'=>20),
 			array('RAZON_SOCIAL, ALIAS', 'length', 'max'=>128),
-			array('ACTIVO', 'length', 'max'=>1),
-			array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('OBSERVACIONES', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -79,9 +77,11 @@ class Nit extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Numero de documento',
+			'ID' => 'Número de documento',
+			'ID' => 'Número de documento',
 			'TIIPO_DOCUMENTO' => 'Tipo de Documento',
-			'RAZON_SOCIAL' => 'Razon Social',
+			'RAZON_SOCIAL' => 'Razón Social',
+			'RAZON_SOCIAL' => 'Razón Social',
 			'ALIAS' => 'Alias',
 			'OBSERVACIONES' => 'Observaciones',
 			'ACTIVO' => 'Activo',
@@ -109,6 +109,10 @@ class Nit extends CActiveRecord
 		$criteria->compare('ALIAS',$this->ALIAS,true);
 		$criteria->compare('OBSERVACIONES',$this->OBSERVACIONES,true);
 		$criteria->compare('ACTIVO','S');
+<<<<<<< HEAD
+=======
+		$criteria->compare('ACTIVO','S');
+>>>>>>> ff8edc1f2287478707a6deb5631d76ace17ca520
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -144,6 +148,20 @@ class Nit extends CActiveRecord
                         ),
 		));
 	}
+        public function searchPdf()
+	{
+
+		$criteria=new CDbCriteria;                 
+                $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'pagination'=>array(
+                            'pageSize'=> NIt::model()->count(),
+                        ),
+		));
+	}
+
 	
 	public function behaviors()
 	{

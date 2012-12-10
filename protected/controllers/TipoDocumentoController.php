@@ -114,7 +114,11 @@ class TipoDocumentoController extends SBaseController
 		{
                     TipoDocumento::model()->updateByPk($id, array('ACTIVO'=>'N'));
 			// we only allow deletion via POST request
+<<<<<<< HEAD
 			/*$this->loadModel($id)->delete();
+=======
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
+>>>>>>> ff8edc1f2287478707a6deb5631d76ace17ca520
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -134,6 +138,26 @@ class TipoDocumentoController extends SBaseController
 			'dataProvider'=>$dataProvider,
 		));
 	}
+        
+        public function actionExcel()
+	{
+		$model = new TipoDocumento('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
+	}
+        
+        
+        public function actionPdf(){
+            
+            $dataProvider=new TipoDocumento;
+		$this->render('pdf',array(
+			'dataProvider'=>$dataProvider,
+		));
+            
+            
+        }
 
 	/**
 	 * Manages all models.

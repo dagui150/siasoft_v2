@@ -68,7 +68,7 @@ class TipoTarjeta extends CActiveRecord
 	{
 		return array(
 			'ID' => 'ID',
-			'DESCRIPCION' => 'Descripcion',
+			'DESCRIPCION' => 'Descripción',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',
@@ -98,6 +98,19 @@ class TipoTarjeta extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+		));
+	}
+        
+          public function searchPdf()
+	{
+
+		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'pagination'=>array(
+                            'pageSize'=> TipoTarjeta::model()->count(),
+                        ),
 		));
 	}
 	

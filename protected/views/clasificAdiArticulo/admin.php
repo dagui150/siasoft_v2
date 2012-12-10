@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Clasific Adi Articulos'=>array('index'),
+	'Clasific Adi Artículos'=>array('index'),
 	'Administrar',
 );
 
@@ -19,14 +19,14 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Administrar Clasific Adi Articulos</h1>
+<h1>Administrar Clasific Adi Artículos</h1>
 
 <p>
 Si lo desea, puede entrar en un operador de comparacion (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
 o <b>=</b>) al comienzo de cada uno de los valores de su busqueda para especificar como la comparacion se debe hacer.
 </p>
 
-<?php echo CHtml::link('Busqueda Avazada','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link('Búsqueda Avazada','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,

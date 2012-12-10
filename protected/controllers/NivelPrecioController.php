@@ -115,7 +115,7 @@ class NivelPrecioController extends SBaseController
                     NivelPrecio::model()->updateByPk($id, array('ACTIVO'=>'N'));
                     /*
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -137,7 +137,25 @@ class NivelPrecioController extends SBaseController
 			'dataProvider'=>$dataProvider,
 		));
 	}
+        
+            public function actionExcel()
+	{
+		$model= NivelPrecio::model()->findAll('ACTIVO="S"');
+                Yii::app()->request->sendFile('Nivel de Precios.xls', 
+                        $this->renderPartial('excel',array('model'=>$model),true));
+	}
 
+        
+public function actionPdf(){
+            
+            $dataProvider=new NivelPrecio;
+		$this->render('pdf',array(
+			'dataProvider'=>$dataProvider,
+		));
+            
+            
+        }
+        
 	/**
 	 * Manages all models.
 	 */

@@ -14,6 +14,7 @@ function inicio(){
 
 }
 </script>
+<?php $this->pageTitle=Yii::app()->name." - Orden Compras";?>
 <?php
 if(!ConfCo::darConf())
      $this->redirect(array('/confCo/create'));
@@ -199,7 +200,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
 			 //'header'=>'Bodegas',
 			 'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
 			 //'labelExpression'=>'$data->ID',
-			 'urlExpression'=>'CController::createUrl("/OrdenCompra/pdf", array("id"=>$data->ORDEN_COMPRA))',
+			 'urlExpression'=>'CController::createUrl("/OrdenCompra/formatoPDF", array("id"=>$data->ORDEN_COMPRA))',
 			 'htmlOptions'=>array('style'=>'text-align:center;'),
 			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),
                 ),

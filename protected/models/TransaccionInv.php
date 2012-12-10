@@ -96,7 +96,7 @@ class TransaccionInv extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'TRANSACCION_INV' => 'Transaccion Inv',
+			'TRANSACCION_INV' => 'Transacción Inv',
 			'CONSECUTIVO_CI' => 'Consecutivo Ci',
 			'CONSECUTIVO_CO' => 'Consecutivo Co',
 			'CONSECUTIVO_FA' => 'Consecutivo Fa',
@@ -127,7 +127,7 @@ class TransaccionInv extends CActiveRecord
 		$criteria->compare('CONSECUTIVO_FA',$this->CONSECUTIVO_FA,true);
 		$criteria->compare('MODULO_ORIGEN',$this->MODULO_ORIGEN,true);
 		$criteria->compare('REFERENCIA',$this->REFERENCIA,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);

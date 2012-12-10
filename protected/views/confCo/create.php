@@ -1,16 +1,17 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Configuración de Compras";?>
 <?php
 $this->breadcrumbs=array(
-	'Configuracion Compras'=>array('admin'),
+	'Configuración de Compras'=>array('admin'),
 	'Crear',
 );
 
 $this->menu=array(
-	array('label'=>'List ConfCo', 'url'=>array('index')),
-	array('label'=>'Manage ConfCo', 'url'=>array('admin')),
+	array('label'=>Yii::t('app','LIST').' ConfCo', 'url'=>array('index')),
+	array('label'=>Yii::t('app','MANAGE').' ConfCo', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Configuracion de compras</h1>
+<h1>Configuración de compras</h1>
 <br />
 
 <?php Yii::app()->user->setFlash('warning', '<h3 align="center">Realice su configuración antes de continuar...</h3>');

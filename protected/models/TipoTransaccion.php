@@ -93,7 +93,7 @@ class TipoTransaccion extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'TIPO_TRANSACCION' => 'Codigo',
+			'TIPO_TRANSACCION' => 'Código',
 			'NOMBRE' => 'Nombre',
 			'TRANSACCION_BASE' => 'Transacción Base',
 			'TRANSACCION_FIJA' => 'Transacción Fija',

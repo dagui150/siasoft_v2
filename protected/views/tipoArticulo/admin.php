@@ -1,11 +1,12 @@
+<?php $this->pageTitle=Yii::app()->name." - Tipos de Artículos";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('admin'),
-	'Tipos de Articulos'
+	'Tipos de Artículos'
 );
 ?>
 
-<h1>Tipos de Articulos</h1>
+<h1>Tipos de Artículos</h1>
 <br>
 
 
@@ -19,7 +20,10 @@ $this->breadcrumbs=array(
                     'ID',
                     'NOMBRE',
                     'DESCRIPCION',
+                /*
                     'ACTIVO',
+                 * 
+                 */
             ),
     )); 
 ?>

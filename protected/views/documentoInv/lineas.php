@@ -1,9 +1,9 @@
 <table class="templateFrame table table-bordered" cellspacing="0">
       <thead>
            <tr>
-                <td><strong>Linea</strong></td>
-                <td><strong>Articulo</strong></td>
-                <td><strong>Descripcion</strong></td>
+                <td><strong>Línea</strong></td>
+                <td><strong>Artículo</strong></td>
+                <td><strong>Descripción</strong></td>
                 <td><strong>Bodega</strong></td>
                 <td><strong>Cantidad</strong></td>
                 <td></td>

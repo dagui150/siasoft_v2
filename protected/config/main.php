@@ -25,6 +25,8 @@ return array(
 		'application.components.*',
 		'application.extensions.helpers.*',
 		'application.modules.srbac.controllers.SBaseController',
+                'application.extensions.PdfGrid.*',
+            
         'ext.helpers.*',
 	),
 	'modules'=>array(
@@ -161,7 +163,7 @@ return array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
         ),
-		'log'=>array(
+		/*'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
 				array(
@@ -170,27 +172,14 @@ return array(
 					//'ipFilters'=>array('127.0.0.1','192.168.0.11'),
 				),
 			),
-		),
-		/*'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
-				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
-				),
-				// uncomment the following to show log messages on web pages
-				/*
-				array(
-					'class'=>'CWebLogRoute',
-				),
-				*/
-            /*
-			),
+                    
 		),*/
 		
 		'bootstrap'=>array(
 			'class'=>'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
 		),
+            
+            
 	),
 
 	// application-level parameters that can be accessed

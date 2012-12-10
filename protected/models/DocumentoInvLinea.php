@@ -171,15 +171,15 @@ class DocumentoInvLinea extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'DOCUMENTO_INV_LINEA' => 'Documento Inv Linea',
+			'DOCUMENTO_INV_LINEA' => 'Documento Inv Línea',
 			'DOCUMENTO_INV' => 'Documento Inv',
-			'LINEA_NUM' => 'Linea Num',
-			'TIPO_TRANSACCION' => 'Tipo Transaccion',
+			'LINEA_NUM' => 'Línea Num',
+			'TIPO_TRANSACCION' => 'Tipo Transacción',
 			'SUBTIPO' => 'Subtipo',
 			'TIPO_TRANSACCION_CANTIDAD' => 'Cantidad a Afectar',
 			'BODEGA' => 'Bodega',
 			'BODEGA_DESTINO' => 'Bodega Destino',
-			'ARTICULO' => 'Articulo',
+			'ARTICULO' => 'Artículo',
 			'CANTIDAD' => 'Cantidad',
 			'UNIDAD' => 'Unidad',
 			'COSTO_UNITARIO' => 'Costo Unitario',
@@ -194,7 +194,7 @@ class DocumentoInvLinea extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
+	public function search($id)
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
@@ -202,7 +202,7 @@ class DocumentoInvLinea extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('DOCUMENTO_INV_LINEA',$this->DOCUMENTO_INV_LINEA);
-		$criteria->compare('DOCUMENTO_INV',$this->DOCUMENTO_INV,true);
+		$criteria->compare('DOCUMENTO_INV',$id);
 		$criteria->compare('LINEA_NUM',$this->LINEA_NUM);
 		$criteria->compare('TIPO_TRANSACCION',$this->TIPO_TRANSACCION,true);
 		$criteria->compare('SUBTIPO',$this->SUBTIPO);
@@ -213,7 +213,7 @@ class DocumentoInvLinea extends CActiveRecord
 		$criteria->compare('CANTIDAD',$this->CANTIDAD,true);
 		$criteria->compare('UNIDAD',$this->UNIDAD);
 		$criteria->compare('COSTO_UNITARIO',$this->COSTO_UNITARIO,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);

@@ -82,7 +82,7 @@ class Retencion extends CActiveRecord
 			'ID' => 'ID',
 			'NOMBRE' => 'Nombre',
 			'PORCENTAJE' => 'Porcentaje',
-			'MONTO_MINIMO' => 'Monto Minimo',
+			'MONTO_MINIMO' => 'Monto Mínimo',
 			'TIPO' => 'Tipo',
 			'APLICA_MONTO' => 'Monto',
 			'APLICA_SUBTOTAL' => 'Subtotal',
@@ -130,6 +130,20 @@ class Retencion extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        public function searchPdf()
+	{
+
+		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'pagination'=>array(
+                            'pageSize'=> Retencion::model()->count(),
+                        ),
+		));
+	}
+
+        
         	public function behaviors()
 	{
 		return array(
