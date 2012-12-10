@@ -53,6 +53,8 @@ class Factura extends CActiveRecord
 	 * @return Factura the static model class
 	 */
          public $ARTICULO;
+         public $UNIDAD;
+         public $CANTIDAD;
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -138,7 +140,7 @@ class Factura extends CActiveRecord
 			'ARTICULO' => 'Articulo',
 			'BODEGA' => 'Bodega',
 			'CONDICION_PAGO' => 'Cond. Pago',
-			'NIVEL_PRECIO' => 'Nivel Precio',
+			'NIVEL_PRECIO' => 'Tipo Precio',
 			'PEDIDO' => 'Pedido',
 			'FECHA_FACTURA' => 'Fecha',
 			'FECHA_DESPACHO' => 'Fecha Despacho',

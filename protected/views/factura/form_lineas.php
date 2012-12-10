@@ -97,8 +97,11 @@
     }
     
     function resetAgregar(){
-        $('#Articulo').val('');
+        $('#Factura_ARTICULO').val('');
         $('#Articulo_desc').val('');
+        $('select[id$=Factura_UNIDAD]>option').remove();
+        $('#Factura_UNIDAD').append("<option value=''>Seleccione</option>");
+        $('#Factura_CANTIDAD').val('');
         $('#btn-nuevo').attr('disabled', true);
     }
     

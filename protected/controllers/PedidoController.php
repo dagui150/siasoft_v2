@@ -18,33 +18,6 @@ class PedidoController extends Controller
 			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
-
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	public function accessRules()
-	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'Dirigir', 'completarBodega', 'agregarLinea', 'CargarTipoPrecio'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
-	}
-        
         
         public function actionAgregarlinea(){
             $linea = new PedidoLinea;
@@ -175,39 +148,7 @@ class PedidoController extends Controller
         
         
         //Inicio funciones que cargan info por JSON
-        
-        public function actionCompletarBodega(){
-            if (isset($_GET['term'])) {
-		
-                    $qtxt ="SELECT ID FROM bodega WHERE ID LIKE :ID";
-                    $command =Yii::app()->db->createCommand($qtxt);
-                    $command->bindValue(":ID", '%'.$_GET['term'].'%', PDO::PARAM_STR);
-                    $res =$command->queryColumn();
-            }
-            echo CJSON::encode($res);
-	    Yii::app()->end();
-        }        
-        
-        public function CargarBodega($item_id){
-            $bus = Bodega::model()->findByPk($item_id);
-            $res = array(
-                'ID' => $bus->ID,
-                'NOMBRE' => $bus->DESCRIPCION,
-            );
-            
-            echo CJSON::encode($res);
-        }
-        
-        public function CargarCondicion($item_id){
-            $bus = CodicionPago::model()->findByPk($item_id);
-            $res = array(
-                'ID' => $bus->ID,
-                'NOMBRE' => $bus->DESCRIPCION,
-            );
-            
-            echo CJSON::encode($res);
-        }
-        
+              
         public function CargarCliente($item_id){            
             $bus = Cliente::model()->findByPk($item_id);
             $res = array(
@@ -220,11 +161,13 @@ class PedidoController extends Controller
         
         public function CargarArticulo($item_id){            
             $bus = Articulo::model()->findByPk($item_id);
-            $unidad = UnidadMedida::model()->findByPk($bus->UNIDAD_ALMACEN);
             $res = array(
                 'ID' => $bus->ARTICULO,
                 'NOMBRE' => $bus->NOMBRE,
-                'UNIDAD' => $unidad->NOMBRE,
+                'IMPUESTO' => $bus->iMPUESTOVENTA->PROCENTAJE,
+                'UNIDAD' => $bus->UNIDAD_ALMACEN,
+                'UNIDAD_NOMBRE' => $bus->uNIDADALMACEN->NOMBRE,
+                'UNIDADES' => CHtml::listData(UnidadMedida::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>$bus->uNIDADALMACEN->TIPO)),'ID','NOMBRE'),
             );            
             echo CJSON::encode($res);
         }
