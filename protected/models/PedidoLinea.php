@@ -104,6 +104,7 @@ class PedidoLinea extends CActiveRecord
 			'PORC_IMPUESTO' => 'Porc Impuesto',
 			'VALOR_IMPUESTO' => 'Valor Impuesto',
 			'TIPO_PRECIO' => 'Tipo Precio',
+                        'TOTAL' => 'Total',
 			'COMENTARIO' => 'Comentario',
 			'ESTADO' => 'Estado',
 			'ACTIVO' => 'Activo',
@@ -137,6 +138,7 @@ class PedidoLinea extends CActiveRecord
 		$criteria->compare('PORC_IMPUESTO',$this->PORC_IMPUESTO,true);
 		$criteria->compare('VALOR_IMPUESTO',$this->VALOR_IMPUESTO,true);
 		$criteria->compare('TIPO_PRECIO',$this->TIPO_PRECIO);
+		$criteria->compare('TOTAL',$this->TOTAL);
 		$criteria->compare('COMENTARIO',$this->COMENTARIO,true);
 		$criteria->compare('ESTADO',$this->ESTADO,true);
 		$criteria->compare('ACTIVO',$this->ACTIVO,true);

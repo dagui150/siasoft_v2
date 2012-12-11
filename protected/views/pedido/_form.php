@@ -25,6 +25,18 @@ function nuevo(){
 
 function inicio(){ 
     
+    $('.edit').live('click',actualiza);
+    
+    $('#Pedido_CONSECUTIVO').change(function(){
+            $.getJSON('<?php echo $this->createUrl('/factura/cargarconsecutivo')?>&id='+$(this).val(),
+                function(data){
+                    
+                    $('#Pedido_PEDIDO').val(data.VALOR);
+                    
+                }
+            );
+        });
+    
     $('#agregar').click(function(){            
             $.getJSON('<?php echo $this->createUrl('cargarTipoPrecio')?>&art='+$('#Articulo').val(),
                 function(data){
@@ -220,7 +232,7 @@ function cargaGrilla(grid_id){
 <!--Fin de fechas    -->
 
 <!--render lineas-->
-<?php $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form, 'model'=>$model, 'ruta'=>$ruta),true); ?>
+<?php $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form, 'model'=>$model, 'ruta'=>$ruta,'modelLinea'=>$model->isNewRecord ? '' : $modelLinea, 'countLineas'=>$model->isNewRecord ? 0 : $countLineas),true); ?>
 <!--fin render lineas-->
 
 	<?php echo $form->errorSummary($model); ?>
@@ -234,19 +246,11 @@ function cargaGrilla(grid_id){
                         <label>Pedido: </label>
                     </td>
                     <td width="10%">
-                        <?php echo $form->textField($model,'PEDIDO',array('size'=>20,'maxlength'=>50)); ?>
+                        <?php echo $form->dropDownList($model,'CONSECUTIVO',CHtml::listData(ConsecutivoFa::model()->findAllByAttributes(array('ACTIVO'=>'S','CLASIFICACION'=>'P')),'CODIGO_CONSECUTIVO','DESCRIPCION'),array('empty'=>'Seleccione','style'=>'width: 160px;')); ?>
                     </td>
-                    <td width="2%">
-                        <?php /*$this->widget('bootstrap.widgets.BootButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#condicion',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal'),
-                    ));*/ ?>
-                    </td>
+                    <td width="2%"></td>
                     <td>
-                        <?php echo CHtml::textField('Pedido_desc',''); ?>
+                        <?php echo $form->textField($model,'PEDIDO',array('size'=>20,'maxlength'=>50,'readonly'=>true)); ?>
                     </td>
                 </tr>
                 <tr>
@@ -267,6 +271,7 @@ function cargaGrilla(grid_id){
                     </td>
                     <td>
                         <?php echo CHtml::textField('Cliente_desc',''); ?>
+                        <?php //echo CHtml::hiddenField('impuesto_cliente', ''); ?>
                     </td>
                 </tr>
                 <tr>
@@ -362,21 +367,22 @@ function cargaGrilla(grid_id){
                     
 
                     array('label'=>'Montos', 'content'=>
-                        $form->textFieldRow($model,'TOTAL_MERCADERIA',array('size'=>28,'maxlength'=>28))
-                        .$form->textFieldRow($model,'MONTO_ANTICIPO',array('size'=>28,'maxlength'=>28))
-                        .$form->textFieldRow($model,'MONTO_FLETE',array('size'=>28,'maxlength'=>28))
-                        .$form->textFieldRow($model,'MONTO_SEGURO',array('size'=>28,'maxlength'=>28))
-                        .$form->textFieldRow($model,'TOTAL_IMPUESTO1',array('size'=>28,'maxlength'=>28))
-                        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('size'=>28,'maxlength'=>28))
-                        .$form->textFieldRow($model,'REMITIDO',array('size'=>1,'maxlength'=>1))
-                        .$form->textFieldRow($model,'RESERVADO',array('size'=>1,'maxlength'=>1))
+                        $form->textFieldRow($model,'TOTAL_MERCADERIA',array('size'=>28,'maxlength'=>28, 'readonly'=>true))
+                        .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('size'=>28,'maxlength'=>28, 'readonly'=>true, 'value'=>'0'))
+                        .$form->textFieldRow($model,'MONTO_ANTICIPO',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos'))
+                        .$form->textFieldRow($model,'MONTO_FLETE',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos'))
+                        .$form->textFieldRow($model,'MONTO_SEGURO',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos'))
+                        .$form->textFieldRow($model,'TOTAL_IMPUESTO1', array('size'=>28,'maxlength'=>28, 'value'=>'0', 'readonly'=>true))
+                        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('size'=>28,'maxlength'=>28, 'readonly'=>true))
+                        .$form->textFieldRow($model,'REMITIDO',array('size'=>1,'maxlength'=>1, 'value'=>'N', 'readonly'=>true))
+                        .$form->textFieldRow($model,'RESERVADO',array('size'=>1,'maxlength'=>1, 'value'=>'N', 'readonly'=>true))
                         .'<div class="control-group "><label for="total_grande" class="control-label">Gran total: </label><div class="controls">'
                         .CHtml::textField('total_grande', '0', array('readonly'=>true))
                         .'</div></div>'
                         ),
                     
                     array('label'=>'Auitoria', 'content'=>
-                        $form->textFieldRow($model,'ESTADO',array('size'=>1,'maxlength'=>1, 'readonly'=>true))
+                        $form->textFieldRow($model,'ESTADO',array('size'=>1,'maxlength'=>1, 'readonly'=>true, 'value'=>'N'))
                         .$form->textFieldRow($model,'CREADO_POR',array('size'=>20,'maxlength'=>20, 'readonly'=>true))
                         .$form->textFieldRow($model,'CREADO_EL', array('readonly'=>true))
                         .$form->textFieldRow($model,'ACTUALIZADO_POR',array('size'=>20,'maxlength'=>20, 'readonly'=>true))
@@ -581,7 +587,7 @@ function cargaGrilla(grid_id){
                         array(
                             'model'=>$model,
                             'linea'=>$linea,
-                            'ruta'=>$ruta,
+                            'ruta'=>$ruta,							
                         )
                     ); ?>
         </div>

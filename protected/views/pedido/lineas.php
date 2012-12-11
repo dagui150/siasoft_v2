@@ -102,9 +102,20 @@
                                         <?php echo CHtml::hiddenField('LineaNuevo[{0}][COMENTARIO]',''); ?>
                                     </td>
                                     <td>
-                                        <span id='total_<?php echo '{0}';?>'></span>                                                                           
+                                        <span id='total_<?php echo '{0}';?>'></span>   
+                                        <?php echo CHtml::hiddenField('LineaNuevo[{0}][TOTAL]',''); ?>
                                     </td>
-                                    <td width="40px">
+                                    <td width="60px">
+                                        <span style="float: left">
+                                            <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                             'buttonType'=>'button',
+                                                             'type'=>'normal',
+                                                             'size'=>'mini',
+                                                             'icon'=>'pencil',
+                                                             'htmlOptions'=>array('class'=>'edit','name'=>'{0}')
+                                                         ));
+                                            ?>
+                                        </span>
                                         <div class="remove" id ="remover"style="float: left; margin-left: 5px;">
                                                <?php $this->widget('bootstrap.widgets.BootButton', array(
                                                          'buttonType'=>'button',
@@ -127,14 +138,14 @@
                     <?php foreach($modelLinea as $i=>$linea): ?>
                             <tr class="templateContent">
                                 <td>
-                                        <?php echo '<span id="lineaU_'.$i.'">'.$linea->LINEA_NUM.'</span>'; ?>
+                                        <?php echo '<span id="lineaU_'.$i.'">'.$linea->LINEA.'</span>'; ?>
                                </td>
                                <td>
                                         <?php echo '<span id="articuloU_'.$i.'">'.$linea->ARTICULO.'</span>'; ?>
                                         <?php echo CHtml::activeHiddenField($linea,"[$i]ARTICULO"); ?>
                                </td>
                                <td> 
-                                        <?php echo '<span id="descripcionU_'.$i.'">'.$linea->DESCRIPCION.'</span>'; ?>
+                                        <?php echo '<span id="descripcionU_'.$i.'">'./*$linea->DESCRIPCION.*/  '</span>'; ?>
                                         <?php echo CHtml::activeHiddenField($linea,"[$i]DESCRIPCION"); ?>
                                </td>
                                <td>
@@ -174,16 +185,27 @@
                                         <?php echo CHtml::activeHiddenField($linea,"[$i]COMENTARIO"); ?>                                        
                                 </td>
                                 <td>
-                                        <?php echo '<span id="totalU_'.$i.'">'.$linea->ESTADO.'</span>'; ?>
+                                        <?php echo '<span id="totalU_'.$i.'">'.$linea->TOTAL.'</span>'; ?>
+                                        <?php echo CHtml::activeHiddenField($linea,"[$i]TOTAL"); ?>        
                                 </td>
-                                <td>                                     
+                                <td>          
+                                        <span style="float: left">
+                                                       <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                             'buttonType'=>'button',
+                                                             'type'=>'normal',
+                                                             'size'=>'mini',
+                                                             'icon'=>'pencil',
+                                                             'htmlOptions'=>array('class'=>'editUpdate','name'=>$i)
+                                                          ));
+                                                       ?>
+                                        </span>
                                        <div class="remove" id ="remover" style="float: left; margin-left: 5px;">
                                                   <?php $this->widget('bootstrap.widgets.BootButton', array(
                                                                  'buttonType'=>'button',
                                                                  'type'=>'danger',
                                                                  'size'=>'mini',
                                                                  'icon'=>'minus white',
-                                                                 'htmlOptions'=>array('id'=>'btn-remover','class'=>'eliminaRegistro','name'=>$i,'disabled'=>$model->ESTADO == 'P' ? false : true)
+                                                                 'htmlOptions'=>array('id'=>'btn-remover','class'=>'eliminaRegistro','name'=>$i)
 
                                                          ));
                                                  ?>

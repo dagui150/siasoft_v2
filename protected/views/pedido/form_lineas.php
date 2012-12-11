@@ -18,9 +18,11 @@
         if(actualiza == 0){
             //$('.add').click();
             contador = $('body').find('.rowIndex').max();
+            
         }else{
             contador = $('#CAMPO_ACTUALIZA').val();
-            suma = false;
+            suma = false;            
+            //$('#ACTUALIZA').val('0');
         }
                 
         copiarCampos(contador,model,span,suma);
@@ -38,21 +40,25 @@
     //copiar a campos en la linea despues de creada esta
     function copiarCampos(contador,model,span,suma){
         
-        $('.clonar').click();
+        if($('#ACTUALIZA').val() != 0){
+            $('.clonar').click();
+        }
         var articulo = $('#PedidoLinea_ARTICULO').val();
         var unidad = $('#PedidoLinea_UNIDAD').val();
         var cantidad = $('#PedidoLinea_CANTIDAD').val();
         var precio_unitario = $('#PedidoLinea_PRECIO_UNITARIO').val();
         var porc_descuento = $('#PedidoLinea_PORC_DESCUENTO').val();
-        var monto_descuento = $('#PedidoLinea_MONTO_DESCUENTO').val();
+        var monto_descuento = parseFloat($('#PedidoLinea_MONTO_DESCUENTO').val());
         var porc_impuesto = $('#PedidoLinea_PORC_IMPUESTO').val();
-        var valor_impuesto = $('#PedidoLinea_VALOR_IMPUESTO').val();
+        var valor_impuesto = parseFloat($('#PedidoLinea_VALOR_IMPUESTO').val());
         var comentario = $('#PedidoLinea_COMENTARIO').val();
         var descripcion = $('#Articulo_desc').val();
-        var total = parseFloat($('#TOTAL').val());        
+        var total = parseFloat($('#TOTAL').val());
         var estado = 'Normal';
         var linea = $('#CAMPO_ACTUALIZA').val();
         var total_grande = parseFloat($('#total_grande').val());
+        var total_descuento = parseFloat($('#Pedido_MONTO_DESCUENTO1').val());
+        var total_impuesto = parseFloat($('#Pedido_TOTAL_IMPUESTO1').val());
         var tipo_precio = $('#PedidoLinea_TIPO_PRECIO').val();
         linea = parseInt(linea, 10) + 1;
         
@@ -83,16 +89,31 @@
         $('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(precio_unitario);
         $('#'+model+'_'+contador+'_PORC_DESCUENTO').val(porc_descuento);
         $('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(monto_descuento);
-        $('#'+model+'_'+contador+'_PORC_IMPUESTO').val(porc_descuento);
-        $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(monto_descuento);
+        $('#'+model+'_'+contador+'_PORC_IMPUESTO').val(porc_impuesto);
+        $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(valor_impuesto);
+        $('#'+model+'_'+contador+'_TOTAL').val(total);
         $('#'+model+'_'+contador+'_COMENTARIO').val(comentario);    
         $('#'+model+'_'+contador+'_DESCRIPCION').val(descripcion); 
         $('#alert').remove();
         total_grande = total_grande + total;
-        $('#total_grande').val(total_grande);
-        $('#Pedido_TOTAL_MERCADERIA').val(total_grande);
+        $('#Pedido_TOTAL_MERCADERIA').val(total);
+        total_descuento = total_descuento + monto_descuento;
+        $('#Pedido_MONTO_DESCUENTO1').val(total_descuento);
+				
+        
+        //antes de calcular el impuesto, hay que verificar los excentos
+        /*var cero = $('#impuesto_cliente').val();
+        if(cero == 'EXC' || cero == 'N/A' || cero == 'NING'){            
+            total_impuesto = 0;
+        }
+        else{*/
+            total_impuesto = total_impuesto + valor_impuesto;
+        //}
+        $('#Pedido_TOTAL_IMPUESTO1').val(total_impuesto);
+        total_grande = (total_grande - total_descuento) + total_impuesto;
+        $('#total_grande').val(total_grande); 
+        $('#Pedido_TOTAL_A_FACTURAR').val(total_grande);
         $('#calculos').text($('#total_grande').val());
-       
         add();
         resetAgregar();
     }
@@ -101,12 +122,67 @@
         $('#Articulo').val('');
         $('#Articulo_desc').val('');
         $('#btn-nuevo').attr('disabled', true);
+        $('#ACTUALIZA').val('1');
     }
     
     function add(){
         var cuentaLineas = $('#CAMPO_ACTUALIZA').val();
         cuentaLineas = parseInt(cuentaLineas, 10) + 1;        
         $('#CAMPO_ACTUALIZA').val(cuentaLineas);
+    }
+    
+    //limpiar formulario
+    function limpiarForm(){
+        $("#PedidoLinea_ARTICULO").val('');
+        //$("#PedidoLinea_UNIDAD").val('');
+        $("#PedidoLinea_CANTIDAD").val('');
+        $("#PedidoLinea_PRECIO_UNITARIO").val('');
+        $("#PedidoLinea_PORC_DESCUENTO").val('');
+        $("#PedidoLinea_MONTO_DESCUENTO").val('');
+        $("#PedidoLinea_PORC_IMPUESTO").val('');
+        $("#PedidoLinea_VALOR_IMPUESTO").val('');
+        $("#PedidoLinea_COMENTARIO").val('');
+    }
+    
+    //actualizar una linea
+    function actualiza(){
+    
+        limpiarForm();
+        
+        var contador = $(this).attr('name');
+        var model = 'LineaNuevo';
+        
+        //values de los campos ocultos de la fila para actualizar
+        var articulo = $('#'+model+'_'+contador+'_ARTICULO').val();
+        var unidad = $('#'+model+'_'+contador+'_UNIDAD').val();
+        var tipo_precio = $('#'+model+'_'+contador+'_TIPO_PRECIO').val();
+        var cantidad = $('#'+model+'_'+contador+'_CANTIDAD').val();
+        var precio_unitario = $('#'+model+'_'+contador+'_PRECIO_UNITARIO').val();
+        var porc_descuento = $('#'+model+'_'+contador+'_PORC_DESCUENTO').val();
+        var monto_descuento = $('#'+model+'_'+contador+'_MONTO_DESCUENTO').val();
+        var porc_impuesto = $('#'+model+'_'+contador+'_PORC_IMPUESTO').val();
+        var valor_impuesto = $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val();
+        var comentario = $('#'+model+'_'+contador+'_COMENTARIO').val();    
+        var descripcion = $('#'+model+'_'+contador+'_DESCRIPCION').val();         
+        
+        //asignacion a los campos del formulario para su actualizacion
+        $('#PedidoLinea_ARTICULO').val(articulo);
+        $('#PedidoLinea_UNIDAD').val(unidad);
+        $('#PedidoLinea_CANTIDAD').val(cantidad);
+        $('#PedidoLinea_PRECIO_UNITARIO').val(precio_unitario);
+        $('#PedidoLinea_PORC_DESCUENTO').val(porc_descuento);
+        $('#PedidoLinea_MONTO_DESCUENTO').val(monto_descuento);
+        $('#PedidoLinea_PORC_IMPUESTO').val(porc_impuesto);
+        $('#PedidoLinea_VALOR_IMPUESTO').val(valor_impuesto);
+        $('#PedidoLinea_COMENTARIO').val(comentario);
+        $('#Articulo_desc').val(descripcion);
+        $('#PedidoLinea_TIPO_PRECIO').val(tipo_precio);
+        $('#CAMPO_ACTUALIZA').val(contador);
+        $('#ACTUALIZA').val('0');
+        
+        $('#nuevo').modal();
+        
+    
     }
 </script>
 <?php 
@@ -116,10 +192,11 @@
     $subtipos = isset($Psubtipos) ? $Psubtipos : array();
     $cantidades = isset($Pcantidades) ? $Pcantidades : array();*/
     $total = isset($_POST['TOTAL'])? $_POST['TOTAL'] : '';
+    $actualiza = isset($_POST['ACTUALIZA'])? $_POST['ACTUALIZA'] : '1';
     $tipo_precio = isset($_POST['PedidoLinea']['TIPO_PRECIO']) && isset($_POST['PedidoLinea']['ARTICULO'])? CHtml::ListData(ArticuloPrecio::model()->findAll('ARTICULO = "'.$_POST['PedidoLinea']['ARTICULO'].'" AND ACTIVO = "S"'),'ID','NIVEL_PRECIO') : array();
     
     //$campoActualiza = isset($PcampoActualiza) ? $PcampoActualiza : '';    
-    /*$actualiza = isset($Pactualiza) ? $Pactualiza : 0;*/
+    //$actualiza = isset($Pactualiza) ? $Pactualiza : 0;
     
     $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
                 'id'=>'pedido-linea-form',
@@ -148,7 +225,7 @@
             <?php echo $form->textAreaRow($linea,'COMENTARIO'); ?>
             <?php echo CHtml::hiddenField('TOTAL', $total); ?>
             <?php //echo CHtml::hiddenField('CAMPO_ACTUALIZA',$campoActualiza); ?>
-            <?php //echo CHtml::hiddenField('ACTUALIZA',$actualiza); ?>
+            <?php echo CHtml::hiddenField('ACTUALIZA',$actualiza); ?>
             <?php echo CHtml::hiddenField('SPAN',''); ?>
      </div>
     <div class="modal-footer">
