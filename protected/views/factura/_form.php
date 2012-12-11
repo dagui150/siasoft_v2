@@ -21,10 +21,12 @@ function inicio(){
                      $('select[id$=Factura_UNIDAD]>option').remove();
                     
                     $.each(data.UNIDADES, function(value, name) {
-                              $('#Factura_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
+                            if(value == data.UNIDAD)
+                              $('#Factura_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
+                            else
+                               $('#Factura_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
                         });
-                    $("#Factura_UNIDAD").val(data.UNIDAD);
-                    
+                    $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
                     $('#agregar').attr('disabled', false);
                     
                 }

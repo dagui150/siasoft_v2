@@ -8,40 +8,58 @@
 ?>
 <script>
     $(document).ready(function(){
-    
+        
+        $('#Factura_UNIDAD').change(function(){
+            $.getJSON('<?php echo $this->createUrl('/pedido/cargarUnidad')?>&id='+$(this).val(),
+                    function(data){
+                         $('#NOMBRE_UNIDAD').val('');
+                         $('#NOMBRE_UNIDAD').val(data.NOMBRE);
+                 });
+        });
+        
         $('#agregar').click(function(){
                 $('.clonar').click();
                 var contador = $('body').find('.rowIndex').max();
-                //alert(contador);
                 var model ='LineaNuevo';
                 var impuesto;
                 var tipo_precio = $('#Factura_NIVEL_PRECIO').val();
                 
-                $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&art='+$('#Factura_ARTICULO').val(),
+                $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&art='+$('#Factura_ARTICULO').val()+'&tipo='+tipo_precio,
                     function(data){
-
+                         $('#tipo_precio_'+contador).text(data.NOMBRE);
+                         $('#precio_unitario_'+contador).text('$ '+data.PRECIO);
+                         $('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
+                         
                          $('select[id$='+model+'_'+contador+'_TIPO_PRECIO]>option').remove();
-
-                        $.each(data, function(value, name) {
-                                  $('#'+model+'_'+contador+'_TIPO_PRECIO').append("<option value='"+value+"'>"+name+"</option>");
+                         
+                         $.each(data.COMBO, function(value, name) {
+                                tipo_precio = data.SELECCION;
+                                if(value == tipo_precio)
+                                    $('#'+model+'_'+contador+'_TIPO_PRECIO').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
+                                else
+                                    $('#'+model+'_'+contador+'_TIPO_PRECIO').append("<option value='"+value+"'>"+name+"</option>");
+                                    
+                                    
                         });
-                        
-                        $('#tipo_precio_'+contador).text(tipo_precio);
                          
                  });
                  $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$('#Factura_ARTICULO').val(),
                     function(data){
                          impuesto = data.IMPUESTO;
                          $('select[id$='+model+'_'+contador+'_UNIDAD]>option').remove();
-
+                         
                          $.each(data.UNIDADES, function(value, name) {
-                                  $('#'+model+'_'+contador+'_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
-                         });
-                         $('#unidad_'+contador).text(data.UNIDAD_NOMBRE);
+                            if(value == $('#Factura_UNIDAD').val())
+                               $('#'+model+'_'+contador+'_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
+                            else
+                               $('#'+model+'_'+contador+'_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
+                        });
+                        
+                        $('#unidad_'+contador).text($('#NOMBRE_UNIDAD').val());
+                        $('#porc_impuesto_'+contador).text(impuesto+" %");
+                        $('#'+model+'_'+contador+'_PORC_IMPUESTO').val(impuesto);
 
                   });
-                  $('#porc_impuesto_'+contador).text(impuesto);
-                  $('#'+model+'_'+contador+'_PORC_DESCUENTO').val(impuesto);
                   agregarCampos(contador,model);
     });
     
@@ -49,16 +67,14 @@
         
         var articulo = $('#Factura_ARTICULO').val();
         var descripcion = $('#Articulo_desc').val();
-        var unidad = $('#Factura_UNIDAD').val();
         var cantidad = $('#Factura_CANTIDAD').val(); 
-        var tipo_precio = $('#Factura_TIPO_PRECIO').val();
         
         //copia a spans para visualizar detalles
         $('#linea_'+contador).text(parseInt(contador, 10) + 1);
         $('#articulo_'+contador).text(articulo);
         $('#descripcion_'+contador).text(descripcion);
         $('#cantidad_'+contador).text(cantidad);
-        $('#precio_unitario_'+contador).text(0);
+        
         $('#porc_descuento_'+contador).text(0);
         $('#monto_descuento_'+contador).text(0);
         $('#valor_impuesto_'+contador).text(0);0   
@@ -67,13 +83,11 @@
         //copia a campos ocultos
         $('#'+model+'_'+contador+'_ARTICULO').val(articulo);
         $('#'+model+'_'+contador+'_DESCRIPCION').val(descripcion);
-        $('#'+model+'_'+contador+'_UNIDAD').val(unidad);
-        $('#'+model+'_'+contador+'_TIPO_PRECIO').val(tipo_precio);
         $('#'+model+'_'+contador+'_CANTIDAD').val(cantidad);
-        $('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(0);
         $('#'+model+'_'+contador+'_PORC_DESCUENTO').val(0);
         $('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(0);
         $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(0);
+        $('#'+model+'_'+contador+'_TOTAL').val(0);
         $('#'+model+'_'+contador+'_COMENTARIO').val('');     
   
     }
@@ -107,6 +121,7 @@
                    <tr>
                        <td>
                             <?php echo $form->dropDownListRow($model,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px;'));?>
+                            <?php echo CHtml::hiddenField('NOMBRE_UNIDAD','');?>
                        </td>
                    </tr>
                </table>
@@ -143,14 +158,14 @@
                     <td><strong>Cantidad</strong></td>
                     <td><strong>Tipo Precio</strong></td>
                     <td><strong>Precio Unitario</strong></td>  
-                    <td><strong>% Descuento</strong></td>
-                    <td><strong>% Impuesto</strong></td>
+                    <td><strong>% Desc.</strong></td>
+                    <td><strong>% Iva</strong></td>
                     <td><strong>Impuesto</strong></td>
                     <td><strong>Total</strong></td>
                     <td></td>
                </tr>
          </thead>
-         <tfoot>
+         <tfoot style="display:none;">
                <tr>
                     <td colspan="15">
                         <div id="add" class="add">
@@ -183,7 +198,7 @@
                                         </td>
                                         <td>
                                             <span id='cantidad_<?php echo '{0}';?>'></span>
-                                            <?php echo CHtml::hiddenField('LineaNuevo[{0}][CANTIDAD]',''); ?>                                        
+                                            <?php echo CHtml::textField('LineaNuevo[{0}][CANTIDAD]','',array('size'=>4)); ?>                                        
                                         </td>
                                         <td>
                                             <span id='tipo_precio_<?php echo '{0}';?>'></span>
@@ -191,11 +206,11 @@
                                         </td>
                                         <td>
                                             <span id='precio_unitario_<?php echo '{0}';?>'></span>
-                                            <?php echo CHtml::hiddenField('LineaNuevo[{0}][PRECIO_UNITARIO]',''); ?>                                        
+                                            <?php echo CHtml::textField('LineaNuevo[{0}][PRECIO_UNITARIO]','',array('size'=>10)); ?>                                        
                                         </td>                                    
                                         <td>
                                             <span id='porc_descuento_<?php echo '{0}';?>'></span>
-                                            <?php echo CHtml::hiddenField('LineaNuevo[{0}][PORC_DESCUENTO]',''); ?>    
+                                            <?php echo CHtml::textField('LineaNuevo[{0}][PORC_DESCUENTO]','',array('size'=>4)); ?>    
                                             <?php echo CHtml::hiddenField('LineaNuevo[{0}][MONTO_DESCUENTO]',''); ?>
                                         </td>
                                         <td>

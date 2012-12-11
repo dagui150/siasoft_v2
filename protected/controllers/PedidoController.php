@@ -149,7 +149,7 @@ class PedidoController extends Controller
         
         //Inicio funciones que cargan info por JSON
               
-        public function CargarCliente($item_id){            
+        protected function CargarCliente($item_id){            
             $bus = Cliente::model()->findByPk($item_id);
             $res = array(
                 'ID' => $bus->CLIENTE,
@@ -159,7 +159,7 @@ class PedidoController extends Controller
             echo CJSON::encode($res);
         }
         
-        public function CargarArticulo($item_id){            
+        protected function CargarArticulo($item_id){            
             $bus = Articulo::model()->findByPk($item_id);
             $res = array(
                 'ID' => $bus->ARTICULO,
@@ -242,7 +242,31 @@ class PedidoController extends Controller
 		}
 	}
         
-        public function actionCargarTipoPrecio(){            
-            echo CJSON::encode(CHtml::ListData(ArticuloPrecio::model()->with()->findAll('ARTICULO = "'.$_GET['art'].'" AND ACTIVO = "S"'),'ID','nIVELPRECIO.DESCRIPCION'));            
+        public function actionCargarTipoPrecio(){
+            if(isset($_GET['art'])){
+                $bus = ArticuloPrecio::model()->findByAttributes(array('ARTICULO'=>$_GET['art'],'NIVEL_PRECIO'=>$_GET['tipo']));
+                $res = array(
+                    'NOMBRE'=>$bus->nIVELPRECIO->DESCRIPCION,
+                    'PRECIO'=>$bus->PRECIO,
+                    'SELECCION'=>$bus->ID,
+                    'COMBO'=>CHtml::ListData(ArticuloPrecio::model()->with()->findAll('ARTICULO = "'.$_GET['art'].'" AND ACTIVO = "S"'),'ID','nIVELPRECIO.DESCRIPCION')
+                );
+                echo CJSON::encode($res);            
+            } 
+            elseif(isset($_GET['tipo'])){
+                $bus = NivelPrecio::model()->findByPk($_GET['tipo']);
+                $res = array(
+                    'NOMBRE'=>$bus->DESCRIPCION
+                );
+                echo CJSON::encode($res);
+            }
+        }
+        
+        public function actionCargarUnidad($id){
+            $bus = UnidadMedida::model()->findByPk($id);
+            $res = array(
+                'NOMBRE'=>$bus->NOMBRE
+            );
+            echo CJSON::encode($res);            
         }
 }
