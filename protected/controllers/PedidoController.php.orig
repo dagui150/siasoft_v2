@@ -204,10 +204,14 @@ class PedidoController extends Controller
             $res = array(
                 'ID' => $bus->ARTICULO,
                 'NOMBRE' => $bus->NOMBRE,
+<<<<<<< HEAD
+                'UNIDAD' => $unidad->ID,
+=======
                 'IMPUESTO' => $bus->iMPUESTOVENTA->PROCENTAJE,
                 'UNIDAD' => $bus->UNIDAD_ALMACEN,
                 'UNIDAD_NOMBRE' => $bus->uNIDADALMACEN->NOMBRE,
                 'UNIDADES' => CHtml::listData(UnidadMedida::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>$bus->uNIDADALMACEN->TIPO)),'ID','NOMBRE'),
+>>>>>>> b511c1a85d4755bbfcad6784d41f41fe25109ec6
             );            
             echo CJSON::encode($res);
         }
