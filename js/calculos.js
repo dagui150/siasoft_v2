@@ -7,7 +7,8 @@
         var porc_impuesto = parseFloat($('#' + model + '_PORC_IMPUESTO').val());        
         var total = cantidad * precio_unitario;
         var monto_descuento = (total * porc_descuento) / 100;
-        var monto_impuesto = (total * porc_impuesto) / 100;        
+        var monto_impuesto = (total * porc_impuesto) / 100; 
+        
         $('#' + model + '_MONTO_DESCUENTO').val(monto_descuento);
         $('#' + model + '_VALOR_IMPUESTO').val(monto_impuesto);
         $('#TOTAL').val(total);
