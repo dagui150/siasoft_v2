@@ -87,6 +87,11 @@ function cargaGrilla(grid_id){
              ),	
     )); 
     $conf = ConfFa::model()->find();
+    $rubro1 =$conf->USAR_RUBROS && $conf->RUBRO1_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO1') : '';
+    $rubro2 =$conf->USAR_RUBROS && $conf->RUBRO2_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO2') : '';
+    $rubro3 =$conf->USAR_RUBROS && $conf->RUBRO3_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO3') : '';
+    $rubro4 =$conf->USAR_RUBROS && $conf->RUBRO4_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO4') : '';
+    $rubro5 =$conf->USAR_RUBROS && $conf->RUBRO5_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO5') : '';
 ?>
     
 <?php
@@ -243,11 +248,11 @@ function cargaGrilla(grid_id){
                                 .'</div>
                             </div>'
                         .'</div>'
-                        .$form->textFieldRow($model,'RUBRO1',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'RUBRO2',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'RUBRO3',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'RUBRO4',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'RUBRO5',array('size'=>50,'maxlength'=>50))
+                        .$rubro1
+                        .$rubro2
+                        .$rubro3
+                        .$rubro4
+                        .$rubro5
                         .$form->textFieldRow($model,'COMENTARIOS_CXC',array('size'=>50,'maxlength'=>50))
                         .$form->textAreaRow($model,'OBSERVACIONES',array('rows'=>6, 'cols'=>50))
                         ),
@@ -256,8 +261,9 @@ function cargaGrilla(grid_id){
                         .$form->textFieldRow($model,'MONTO_ANTICIPO',array('size'=>28,'maxlength'=>28))
                         .$form->textFieldRow($model,'MONTO_FLETE',array('size'=>28,'maxlength'=>28))
                         .$form->textFieldRow($model,'MONTO_SEGURO',array('size'=>28,'maxlength'=>28))
+                        .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('size'=>28,'maxlength'=>28))
                         .$form->textFieldRow($model,'TOTAL_IMPUESTO1',array('size'=>28,'maxlength'=>28))
-                        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('size'=>28,'maxlength'=>28))
+                        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('size'=>28,'maxlength'=>28,'value'=>0))
                         .$form->textFieldRow($model,'REMITIDO',array('size'=>1,'maxlength'=>1))
                         ),
                 )
