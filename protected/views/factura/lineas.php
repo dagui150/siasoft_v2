@@ -27,6 +27,13 @@
                     $('#LineaNuevo_'+contador+'_UNIDAD').focus();
                     break;
                 case 'tipoprecio':
+                    $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&tipo='+$('#LineaNuevo_'+contador+'_TIPO_PRECIO').val(),
+                        function(data){
+                             $('#NOMBRE_TIPO_PRECIO').val('');
+                             $('#NOMBRE_TIPO_PRECIO').val(data.NOMBRE);
+                             $('#preciounitario_'+contador).text('$ '+data.PRECIO);
+                             $('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
+                     });
                     $('#LineaNuevo_'+contador+'_TIPO_PRECIO').focus();
                     break;
                 case 'preciounitario':
@@ -79,7 +86,7 @@
                  });
         });
         $('.tipo_precio').live('change',function(){
-            
+             contador =  $(this).attr('id').split('_')[1];
              modelo = $(this).attr('id').split('_')[0];
             $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&tipo='+$(this).val(),
                     function(data){
@@ -147,7 +154,7 @@
         $('#articulo_'+contador).text(articulo);
         $('#descripcion_'+contador).text(descripcion);
         $('#cantidad_'+contador).text(cantidad);
-        $('#porcdescuento_'+contador).text(0);
+        $('#porcdescuento_'+contador).text(0+' %');
         $('#monto_descuento_'+contador).text(0);
         $('#valor_impuesto_'+contador).text(0);0   
         $('#total_'+contador).text(0);
