@@ -83,6 +83,7 @@ class PedidoController extends Controller
                 $linea = new PedidoLinea;
                 $articulo = new Articulo;
                 $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
+                $i = 1;
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -90,9 +91,32 @@ class PedidoController extends Controller
 		if(isset($_POST['Pedido']))
 		{
 			$model->attributes=$_POST['Pedido'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->PEDIDO));
-		}
+			if($model->save()){
+                            if(isset($_POST['LineaNuevo'])){
+                                    foreach ($_POST['LineaNuevo'] as $datos){
+                                        $salvar = new PedidoLinea;
+                                        $salvar->ARTICULO = $datos['ARTICULO'];
+                                        $salvar->PEDIDO = $_POST['Pedido']['PEDIDO'];
+                                        $salvar->LINEA = $i;
+                                        $salvar->UNIDAD = $datos['UNIDAD'];
+                                        $salvar->CANTIDAD = $datos['CANTIDAD'];
+                                        $salvar->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
+                                        $salvar->PORC_DESCUENTO = $datos['PORC_DESCUENTO'];
+                                        $salvar->MONTO_DESCUENTO = $datos['MONTO_DESCUENTO'];
+                                        $salvar->PORC_IMPUESTO = $datos['PORC_IMPUESTO'];
+                                        $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
+                                        $salvar->TIPO_PRECIO = $datos['TIPO_PRECIO'];
+                                        $salvar->COMENTARIO = $datos['COMENTARIO'];
+                                        $salvar->ESTADO = 'N';
+                                        $salvar->ACTIVO = 'S';
+                                        $salvar->save();
+                                        $i++;
+                                    }
+                            }
+                            $this->redirect(array('admin'));
+                        }				
+                            
+                }
 
 		$this->render('create',array(
 			'model'=>$model,
@@ -113,6 +137,14 @@ class PedidoController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		$bodega = new Bodega;
+        $cliente = new Cliente;
+        $condicion = new CodicionPago;
+        $linea = new PedidoLinea;
+        $articulo = new Articulo;
+		$modelLinea = PedidoLinea::model()->findAll('PEDIDO ="'.$model->PEDIDO.'"');
+        $countLineas = PedidoLinea::model()->count('PEDIDO ="'.$model->PEDIDO.'"');
+        $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -121,11 +153,19 @@ class PedidoController extends Controller
 		{
 			$model->attributes=$_POST['Pedido'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->PEDIDO));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
+			'bodega'=>$bodega,
+			'cliente'=>$cliente,
+			'condicion'=>$condicion,
+			'linea'=>$linea,
+			'articulo'=>$articulo,
+			'modelLinea'=>$modelLinea,
+			'countLineas'=>$countLineas,
+			'ruta'=>$ruta,
 		));
 	}
         
