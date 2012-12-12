@@ -50,6 +50,10 @@ class Pedido extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Pedido the static model class
 	 */
+	public $ARTICULO;
+    public $UNIDAD;
+    public $CANTIDAD;
+	
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -78,7 +82,8 @@ class Pedido extends CActiveRecord
 			array('NIVEL_PRECIO', 'length', 'max'=>12),
 			array('ORDEN_COMPRA', 'length', 'max'=>30),
 			array('TOTAL_MERCADERIA, MONTO_ANTICIPO, MONTO_FLETE, MONTO_SEGURO, MONTO_DESCUENTO1, TOTAL_IMPUESTO1, TOTAL_A_FACTURAR', 'length', 'max'=>28),
-			array('REMITIDO, RESERVADO, ESTADO', 'length', 'max'=>1),
+			array('REMITIDO, RESERVADO, ESTADO', 'length', 'max'=>1),			
+			array('ARTICULO', 'exist', 'attributeName'=>'ARTICULO', 'className'=>'Articulo','allowEmpty'=>true),
 			array('FECHA_PROMETIDA, FECHA_EMBARQUE, FECHA_ORDEN, OBSERVACIONES', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
