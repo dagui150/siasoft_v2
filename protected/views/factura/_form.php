@@ -216,6 +216,7 @@ function cargaGrilla(grid_id){
                         <tr>
                             <td>
                                  <?php echo $form->dropDownListRow($model,'NIVEL_PRECIO', CHtml::listData(NivelPrecio::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 150px;','empty'=>'Seleccione','options'=>array($model->isNewRecord && $conf->NIVEL_PRECIO!= '' ? $conf->NIVEL_PRECIO : ''=>array('selected'=>'selected'))));?>
+                                <?php echo CHtml::hiddenField('NOMBRE_TIPO_PRECIO','');?>
                             </td>
                         </tr>
 

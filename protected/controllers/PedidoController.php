@@ -294,9 +294,10 @@ class PedidoController extends Controller
                 echo CJSON::encode($res);            
             } 
             elseif(isset($_GET['tipo'])){
-                $bus = NivelPrecio::model()->findByPk($_GET['tipo']);
+                $bus = ArticuloPrecio::model()->findByPk($_GET['tipo']);
                 $res = array(
-                    'NOMBRE'=>$bus->DESCRIPCION
+                    'NOMBRE'=>$bus->nIVELPRECIO->DESCRIPCION,
+                    'PRECIO'=>$bus->PRECIO,
                 );
                 echo CJSON::encode($res);
             }
