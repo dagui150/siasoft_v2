@@ -8,26 +8,99 @@
 ?>
 <script>
     $(document).ready(function(){
+        var contador ;
+        var model;
+        var id;
         
-        $('#Factura_UNIDAD').change(function(){
+        
+        $('.cambiar').live('dblclick',function(){
+            model = $(this).attr('id').split('_')[0];
+            contador = $(this).attr('id').split('_')[1];
+            id = '#campo_'+model+'_'+contador;
+            $(this).hide('fast');
+            $(id).show('fast');
+            switch(model){
+                case 'cantidad':
+                    $('#LineaNuevo_'+contador+'_CANTIDAD').focus();
+                    break;
+                case 'unidad':
+                    $('#LineaNuevo_'+contador+'_UNIDAD').focus();
+                    break;
+                case 'tipoprecio':
+                    $('#LineaNuevo_'+contador+'_TIPO_PRECIO').focus();
+                    break;
+                case 'preciounitario':
+                    $('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').focus();
+                    break;
+                case 'porcdescuento':
+                    $('#LineaNuevo_'+contador+'_PORC_DESCUENTO').focus();
+                    break;
+            }
+                
+            
+        });
+        
+        $('.blur').live('blur',function(){
+            contador =  $(this).attr('id').split('_')[1];
+            switch(model){
+                case 'cantidad':
+                    $('#cantidad_'+contador).text($(this).val());
+                    $('#campo_cantidad_'+contador).hide('fast');
+                    $('#cantidad_'+contador).show('fast');
+                break;
+                case 'unidad':
+                    $('#unidad_'+contador).text($('#NOMBRE_UNIDAD').val());
+                    $('#campo_unidad_'+contador).hide('fast');
+                    $('#unidad_'+contador).show('fast');
+                break;
+                case 'tipoprecio':
+                    $('#tipoprecio_'+contador).text($('#NOMBRE_TIPO_PRECIO').val());
+                    $('#campo_tipoprecio_'+contador).hide('fast');
+                    $('#tipoprecio_'+contador).show('fast');
+                break;
+                case 'preciounitario':
+                    $('#preciounitario_'+contador).text('$ '+$(this).val());
+                    $('#campo_preciounitario_'+contador).hide('fast');
+                    $('#preciounitario_'+contador).show('fast');
+                break;
+                case 'porcdescuento':
+                    $('#porcdescuento_'+contador).text($(this).val()+' %');
+                    $('#campo_porcdescuento_'+contador).hide('fast');
+                    $('#porcdescuento_'+contador).show('fast');
+               break;
+            }
+        });
+        
+        $('.unidad').live('change',function(){
             $.getJSON('<?php echo $this->createUrl('/pedido/cargarUnidad')?>&id='+$(this).val(),
                     function(data){
                          $('#NOMBRE_UNIDAD').val('');
                          $('#NOMBRE_UNIDAD').val(data.NOMBRE);
                  });
         });
+        $('.tipo_precio').live('change',function(){
+            
+             modelo = $(this).attr('id').split('_')[0];
+            $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&tipo='+$(this).val(),
+                    function(data){
+                         $('#NOMBRE_TIPO_PRECIO').val('');
+                         $('#NOMBRE_TIPO_PRECIO').val(data.NOMBRE);
+                         $('#preciounitario_'+contador).text('$ '+data.PRECIO);
+                         $('#'+modelo+'_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
+                 });
+        });
         
         $('#agregar').click(function(){
                 $('.clonar').click();
-                var contador = $('body').find('.rowIndex').max();
-                var model ='LineaNuevo';
+                contador = $('body').find('.rowIndex').max();
+                model ='LineaNuevo';
                 var impuesto;
                 var tipo_precio = $('#Factura_NIVEL_PRECIO').val();
                 
                 $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&art='+$('#Factura_ARTICULO').val()+'&tipo='+tipo_precio,
                     function(data){
-                         $('#tipo_precio_'+contador).text(data.NOMBRE);
-                         $('#precio_unitario_'+contador).text('$ '+data.PRECIO);
+                         $('#tipoprecio_'+contador).text(data.NOMBRE);
+                         $('#preciounitario_'+contador).text('$ '+data.PRECIO);
                          $('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
                          
                          $('select[id$='+model+'_'+contador+'_TIPO_PRECIO]>option').remove();
@@ -74,8 +147,7 @@
         $('#articulo_'+contador).text(articulo);
         $('#descripcion_'+contador).text(descripcion);
         $('#cantidad_'+contador).text(cantidad);
-        
-        $('#porc_descuento_'+contador).text(0);
+        $('#porcdescuento_'+contador).text(0);
         $('#monto_descuento_'+contador).text(0);
         $('#valor_impuesto_'+contador).text(0);0   
         $('#total_'+contador).text(0);
@@ -90,6 +162,17 @@
         $('#'+model+'_'+contador+'_TOTAL').val(0);
         $('#'+model+'_'+contador+'_COMENTARIO').val('');     
   
+    }
+    function strpos (haystack, needle, offset) {
+      // http://kevin.vanzonneveld.net
+      // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+      // +   improved by: Onno Marsman
+      // +   bugfixed by: Daniel Esteban
+      // +   improved by: Brett Zamir (http://brett-zamir.me)
+      // *     example 1: strpos('Kevin van Zonneveld', 'e', 5);
+      // *     returns 1: 14
+      var i = (haystack + '').indexOf(needle, (offset || 0));
+      return i === -1 ? false : true;
     }
         
         
@@ -120,7 +203,7 @@
                <table style="margin-left: -100px;margin-top:-4px;">
                    <tr>
                        <td>
-                            <?php echo $form->dropDownListRow($model,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px;'));?>
+                            <?php echo $form->dropDownListRow($model,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px;','class'=>'unidad'));?>
                             <?php echo CHtml::hiddenField('NOMBRE_UNIDAD','');?>
                        </td>
                    </tr>
@@ -151,11 +234,11 @@
 <table class="templateFrame table table-bordered" cellspacing="0">
           <thead>
                <tr>
-                    <td><strong>Línea</strong></td>
+                    <td><strong>#</strong></td>
                     <td><strong>Artículo</strong></td>
                     <td><strong>Descripción</strong></td>
+                    <td><strong>Cant.</strong></td>
                     <td><strong>Unidad</strong></td>
-                    <td><strong>Cantidad</strong></td>
                     <td><strong>Tipo Precio</strong></td>
                     <td><strong>Precio Unitario</strong></td>  
                     <td><strong>% Desc.</strong></td>
@@ -193,24 +276,24 @@
                                             <?php echo CHtml::hiddenField('LineaNuevo[{0}][DESCRIPCION]',''); ?>
                                         </td>
                                         <td>
-                                            <span id='unidad_<?php echo '{0}';?>'></span>
-                                            <?php echo CHtml::dropDownList('LineaNuevo[{0}][UNIDAD]','',array(),array('empty'=>'Seleccione')); ?>
+                                            <span id='cantidad_<?php echo '{0}';?>' class="cambiar"></span>
+                                            <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][CANTIDAD]','',array('size'=>4,'class'=>'blur')); ?></span>                                        
                                         </td>
                                         <td>
-                                            <span id='cantidad_<?php echo '{0}';?>'></span>
-                                            <?php echo CHtml::textField('LineaNuevo[{0}][CANTIDAD]','',array('size'=>4)); ?>                                        
+                                            <span id='unidad_<?php echo '{0}';?>' class="cambiar"></span>
+                                            <span id='campo_unidad_<?php echo '{0}';?>' style="display:none;" ><?php echo CHtml::dropDownList('LineaNuevo[{0}][UNIDAD]','',array(),array('empty'=>'Seleccione','style'=>'width:65px;','class'=>'blur unidad')); ?></span>
                                         </td>
                                         <td>
-                                            <span id='tipo_precio_<?php echo '{0}';?>'></span>
-                                            <?php echo CHtml::dropDownList('LineaNuevo[{0}][TIPO_PRECIO]','',array(),array('empty'=>'Seleccione')); ?>
+                                            <span id='tipoprecio_<?php echo '{0}';?>' class="cambiar"></span>
+                                            <span id='campo_tipoprecio_<?php echo '{0}';?>' style="display:none;" ><?php echo CHtml::dropDownList('LineaNuevo[{0}][TIPO_PRECIO]','',array(),array('empty'=>'Seleccione','style'=>'width:80px;','class'=>'blur tipo_precio')); ?></span>
                                         </td>
                                         <td>
-                                            <span id='precio_unitario_<?php echo '{0}';?>'></span>
-                                            <?php echo CHtml::textField('LineaNuevo[{0}][PRECIO_UNITARIO]','',array('size'=>10)); ?>                                        
+                                            <span id='preciounitario_<?php echo '{0}';?>' class="cambiar"></span>
+                                            <span id='campo_preciounitario_<?php echo '{0}';?>'style="display:none;" ><?php echo CHtml::textField('LineaNuevo[{0}][PRECIO_UNITARIO]','',array('size'=>10,'class'=>'blur')); ?></span>                                        
                                         </td>                                    
                                         <td>
-                                            <span id='porc_descuento_<?php echo '{0}';?>'></span>
-                                            <?php echo CHtml::textField('LineaNuevo[{0}][PORC_DESCUENTO]','',array('size'=>4)); ?>    
+                                            <span id='porcdescuento_<?php echo '{0}';?>' class="cambiar"></span>
+                                            <span id='campo_porcdescuento_<?php echo '{0}';?>'style="display:none;" ><?php echo CHtml::textField('LineaNuevo[{0}][PORC_DESCUENTO]','',array('size'=>4,'class'=>'blur')); ?></span>    
                                             <?php echo CHtml::hiddenField('LineaNuevo[{0}][MONTO_DESCUENTO]',''); ?>
                                         </td>
                                         <td>
