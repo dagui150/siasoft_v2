@@ -4,6 +4,8 @@ $(document).ready(function(){
 });
 
 function inicio(){ 
+        $('.edit').live('click',actualiza);
+    
         $('#Pedido_CONSECUTIVO').change(function(){
             $.getJSON('<?php echo $this->createUrl('/factura/cargarconsecutivo')?>&id='+$(this).val(),
                 function(data){
@@ -158,7 +160,7 @@ function cargaGrilla(grid_id){
             <table style="margin-left: -100px;">
                         <tr>
                             <td style="width: 315px">
-                                <?php echo $form->dropDownListRow($model,'CONSECUTIVO',CHtml::listData(ConsecutivoFa::model()->findAllByAttributes(array('ACTIVO'=>'S','CLASIFICACION'=>'F')),'CODIGO_CONSECUTIVO','DESCRIPCION'),array('empty'=>'Seleccione','style'=>'width: 100px;')); ?>
+                                <?php echo $form->dropDownListRow($model,'CONSECUTIVO',CHtml::listData(ConsecutivoFa::model()->findAllByAttributes(array('ACTIVO'=>'S','CLASIFICACION'=>'P')),'CODIGO_CONSECUTIVO','DESCRIPCION'),array('empty'=>'Seleccione','style'=>'width: 100px;')); ?>
                             </td>
                             <td style="width: 80px;">
                                 <?php echo $form->textField($model,'PEDIDO',array('size'=>15,'maxlength'=>50,'readonly'=>true)); ?>
@@ -216,6 +218,7 @@ function cargaGrilla(grid_id){
                         <tr>
                             <td>
                                  <?php echo $form->dropDownListRow($model,'NIVEL_PRECIO', CHtml::listData(NivelPrecio::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 150px;','empty'=>'Seleccione','options'=>array($model->isNewRecord && $conf->NIVEL_PRECIO!= '' ? $conf->NIVEL_PRECIO : ''=>array('selected'=>'selected'))));?>
+                                <?php echo CHtml::hiddenField('NOMBRE_TIPO_PRECIO','');?>
                             </td>
                         </tr>
 
@@ -251,13 +254,14 @@ function cargaGrilla(grid_id){
                         .$form->textAreaRow($model,'OBSERVACIONES',array('rows'=>6, 'cols'=>50))
                         ),
                     array('label'=>'Montos', 'content'=>
-                        $form->textFieldRow($model,'TOTAL_MERCADERIA',array('size'=>28,'maxlength'=>28, 'readonly'=>true))
+                        $form->textFieldRow($model,'TOTAL_MERCADERIA',array('size'=>28,'maxlength'=>28, 'readonly'=>true, 'value'=>'0'))
                         .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('size'=>28,'maxlength'=>28, 'readonly'=>true, 'value'=>'0'))
-                        .$form->textFieldRow($model,'MONTO_ANTICIPO',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos'))
-                        .$form->textFieldRow($model,'MONTO_FLETE',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos'))
-                        .$form->textFieldRow($model,'MONTO_SEGURO',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos'))
+                        .$form->textFieldRow($model,'MONTO_ANTICIPO',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos', 'value'=>'0'))
+                        .$form->textFieldRow($model,'MONTO_FLETE',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos', 'value'=>'0'))
+                        .$form->textFieldRow($model,'MONTO_SEGURO',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos', 'value'=>'0'))
                         .$form->textFieldRow($model,'TOTAL_IMPUESTO1', array('size'=>28,'maxlength'=>28, 'value'=>'0', 'readonly'=>true))
-                        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('size'=>28,'maxlength'=>28, 'readonly'=>true))
+                        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('size'=>28,'maxlength'=>28, 'readonly'=>true, 'value'=>'0'))
+                        .$form->textFieldRow($model,'ESTADO',array('size'=>28,'maxlength'=>28, 'readonly'=>true, 'value'=>'N'))
                         .$form->textFieldRow($model,'REMITIDO',array('size'=>1,'maxlength'=>1, 'value'=>'N', 'readonly'=>true))
                         .$form->textFieldRow($model,'RESERVADO',array('size'=>1,'maxlength'=>1, 'value'=>'N', 'readonly'=>true))
                         .'<div class="control-group "><label for="total_grande" class="control-label">Gran total: </label><div class="controls">'

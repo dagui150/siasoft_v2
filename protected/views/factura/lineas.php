@@ -80,7 +80,7 @@
         });
         $('.tipo_precio').live('change',function(){
             
-             modelo = $(this).attr('id').split('_')[0];
+            var modelo = $(this).attr('id').split('_')[0];
             $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&tipo='+$(this).val(),
                     function(data){
                          $('#NOMBRE_TIPO_PRECIO').val('');
