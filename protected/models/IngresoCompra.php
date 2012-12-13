@@ -145,6 +145,17 @@ class IngresoCompra extends CActiveRecord
 		));
 	}
         
+        public static function estado($codigo){
+            switch ($codigo){
+                case 'C' : return 'Cancelado';
+                break;
+                case 'R' : return 'Recibido';
+                break;
+                case 'P' : return 'Planeado';
+                break;
+            }
+        }
+        
         public function behaviors()
 	{
 		return array(

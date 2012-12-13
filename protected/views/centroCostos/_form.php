@@ -11,16 +11,35 @@
         
             <?php echo $form->errorSummary($model2); ?>
                 <?php $mask = $config->PATRON_CCOSTO; ?>
-                <div class="control-group "><label for="CentroCostos_ID" class="control-label required">Codigo <span class="required">*</span></label><div class="controls"> 
-               <?php $this->widget('CMaskedTextField', array(
-                    'model' => $model2,
-                    'attribute' => 'ID',
-                    'mask' => $mask,                    
-                ));
-                ?></div></div>
-		<?php //echo $form->textFieldRow($model2,'ID',array('size'=>25,'maxlength'=>25)); ?>
-		<?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
-                <?php echo $form->dropDownListRow($model2, 'TIPO', array('G'=>'Gasto','I'=>'Ingreso', 'A' => 'Ambos')); ?>
+        <table style="width: 400px;">
+                    <tr>
+                        <td>
+                            <div class="control-group "><label for="CentroCostos_ID" class="control-label required">Codigo <span class="required">*</span></label><div class="controls"> 
+                           <?php $this->widget('CMaskedTextField', array(
+                                'model' => $model2,
+                                'attribute' => 'ID',
+                                'mask' => $mask,                    
+                   'htmlOptions'=>array('readonly'=>$model2->isNewRecord ? false : true),
+                            ));
+                            ?>
+                           </div></div>
+                        </td>
+                        <td><?php echo $this->botonAyuda('CODIGO_CC'); ?></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php //echo $form->textFieldRow($model2,'ID',array('size'=>25,'maxlength'=>25)); ?>
+                            <?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
+                        </td>
+                        <td><?php echo $this->botonAyuda('DESCR_CC'); ?></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $form->dropDownListRow($model2, 'TIPO', array('G'=>'Gasto','I'=>'Ingreso', 'A' => 'Ambos')); ?>
+                        </td>
+                        <td><?php echo $this->botonAyuda('TIPO_CC'); ?></td>
+                    </tr>
+                    </table>
 
 	<div class="row">
 		<?php
@@ -38,7 +57,7 @@
         <div class="row-buttons" align="center">
         <?php endif ?>
     	<?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model2->isNewRecord ? 'Crear' : 'Guardar')); ?>
-	<?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => '#', 'icon' => 'remove', 'htmlOptions'=>array('data-dismiss'=>'modal')));  ?>	        
+	<?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('admin'), 'icon' => 'remove', 'htmlOptions'=>array('data-dismiss'=>'modal')));  ?>	        
         </div>
 
 

@@ -90,7 +90,6 @@
         $('#alert').remove();
         total_grande = total_grande + total;
         $('#total_grande').val(total_grande);
-        $('#Pedido_TOTAL_MERCADERIA').val(total_grande);
         $('#calculos').text($('#total_grande').val());
        
         add();

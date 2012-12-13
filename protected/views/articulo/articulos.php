@@ -12,11 +12,16 @@
                         'class'=> 'CCheckBoxColumn',
                         'visible'=>$check
                     ),
-                    'ARTICULO',
+                    array(  'name'=>'ARTICULO',
+                        'header'=>'Codigo',
+                        'htmlOptions'=>array('data-dismiss'=>'modal'),
+                        'type'=>'raw',
+                        'value'=>'CHtml::link($data->ARTICULO,"#")'
+                    ),
                     'NOMBRE',
                     array(
                         'name'=>'TIPO_ARTICULO',
-                        'header'=>'Tipo de Articulo',
+                        'header'=>'Tipo de Artículo',
                         'value'=>'$data->tIPOARTICULO->NOMBRE',
                         'filter'=>CHtml::ListData(TipoArticulo::model()->findAll(),'ID','NOMBRE'),
                     ),

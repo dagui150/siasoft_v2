@@ -1,12 +1,13 @@
+<?php $this->pageTitle=Yii::app()->name." - Tipo de Tarjeta";?>
 <?php
 $this->breadcrumbs=array(
-	'Tipo Tarjeta'=>array('admin'),
-	'Administrar',
+        'Sistema'=>array('admin'),
+	'Tipo de Tarjeta',
 );
 
 $this->menu=array(
-	array('label'=>'List TipoTarjeta', 'url'=>array('index')),
-	array('label'=>'Create TipoTarjeta', 'url'=>array('create')),
+	array('label'=>Yii::t('app','LIST').' TipoTarjeta', 'url'=>array('index')),
+	array('label'=>Yii::t('app','CREATE').' TipoTarjeta', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,6 +27,30 @@ $('.search-form form').submit(function(){
 <h1>Tipo Tarjeta</h1>
 
 <div align="right">
+    
+    <?php 
+
+		$this->widget('bootstrap.widgets.BootButton', array(
+		'label'=>'EXCEL',
+		'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+		'size'=>'mini', // '', 'large', 'small' or 'mini'
+		'url' => array('tipoTarjeta/excel'),
+		'icon' => 'download-alt white'
+		)); 
+
+	?>
+             <?php 
+
+$this->widget('bootstrap.widgets.BootButton', array(
+    'label'=>'PDF',
+    'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'size'=>'mini', // '', 'large', 'small' or 'mini'
+	'url' => array('tipoTarjeta/pdf'),
+	'icon' => 'download-alt white'
+)); 
+
+?>
+    
 <?php 
 
 $this->widget('bootstrap.widgets.BootButton', array(

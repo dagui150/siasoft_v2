@@ -18,10 +18,60 @@ class FacturaController extends SBaseController
 			'accessControl', // perform access control for CRUD operations
 		);
 	}
+	/**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionView($id)
+	{
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));
+	}
 
+	/**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionCreate()
+	{
+		$model=new Factura;
+                $bodega = new Bodega;
+                $cliente = new Cliente;
+                $condicion = new CodicionPago;
+                $linea = new FacturaLinea;
+                $articulo = new Articulo;
+                $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
+
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation($model);
+                if(isset($_POST['ajax']) && $_POST['ajax']==='factura-linea-form')
+		{
+			echo CActiveForm::validate($linea);
+			Yii::app()->end();
+		}
+
+		if(isset($_POST['Factura']))
+		{
+			$model->attributes=$_POST['Factura'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->FACTURA));
+		}
+
+		$this->render('create',array(
+			'model'=>$model,
+                        'bodega'=>$bodega,
+                        'condicion'=>$condicion,
+                        'linea'=>$linea,
+                        'cliente'=>$cliente,
+                        'articulo'=>$articulo,
+                        'ruta'=>$ruta,
+		));
+	}
         public function actionAgregarlinea(){
-            $linea = new PedidoLinea;
-            $linea->attributes = $_POST['PedidoLinea'];
+            $linea = new FacturaLinea;
+            $linea->attributes = $_POST['FacturaLinea'];
+            $model->ACTIVO = "S";
             $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
             
             if($linea->validate()){
@@ -58,51 +108,6 @@ class FacturaController extends SBaseController
                     Yii::app()->end();
                 }
         }
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new Factura;
-                $bodega = new Bodega;
-                $cliente = new Cliente;
-                $condicion = new CodicionPago;
-                $linea = new FacturaLinea;
-                $articulo = new Articulo;
-                $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
-
-		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model);
-
-		if(isset($_POST['Factura']))
-		{
-			$model->attributes=$_POST['Factura'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->FACTURA));
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-                        'bodega'=>$bodega,
-                        'condicion'=>$condicion,
-                        'linea'=>$linea,
-                        'cliente'=>$cliente,
-                        'articulo'=>$articulo,
-                        'ruta'=>$ruta,
-		));
-	}
 
 	/**
 	 * Updates a particular model.
@@ -148,17 +153,7 @@ class FacturaController extends SBaseController
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
 	}
 
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Factura');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-
+        
 	/**
 	 * Manages all models.
 	 */

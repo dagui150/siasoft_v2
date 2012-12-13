@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Clasific Adi Articulos'=>array('index'),
+	'Clasific Adi Artículos'=>array('index'),
 	$model->ID=>array('view','id'=>$model->ID),
 	'Actualizar',
 );

@@ -9,6 +9,7 @@
  * @property string $IMPUESTO2_DESC
  * @property string $PATRON_CCOSTO
  * @property string $SIMBOLO_MONEDA
+ * @property integer $FORMATO_IMPRESION
  * @property string $CREADO_POR
  * @property string $CREADO_EL
  * @property string $ACTUALIZADO_POR
@@ -72,7 +73,7 @@ class ConfAs extends CActiveRecord
 			'ID' => 'ID',
 			'IMPUESTO1_DESC' => 'Nombre del impuesto de consumo',
 			'IMPUESTO2_DESC' => 'Impuesto 2',
-			'PATRON_CCOSTO' => 'Mascara para centros de costo',
+			'PATRON_CCOSTO' => 'Máscara para centros de costo',
 			'SIMBOLO_MONEDA' => Yii::t('app','CURRENCY_SYMBOL'),
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',

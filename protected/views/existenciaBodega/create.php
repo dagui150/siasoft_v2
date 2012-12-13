@@ -1,3 +1,4 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Existencias en Bodegas";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('articulo/admin'),
@@ -15,7 +16,7 @@ $('.search-button').click(function(){
 
 ?>
 
-<h1>Existencias de Bodega</h1>
+<h1>Bodegas de Articulo "<?php echo $articulo.' - '.$barticulo->NOMBRE?>"</h1>
 
     <br>
     <div align="right">

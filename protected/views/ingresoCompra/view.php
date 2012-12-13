@@ -1,3 +1,4 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Ingreso Compras";?>
 <?php
 /* @var $this IngresoCompraController */
 /* @var $model IngresoCompra */
@@ -8,11 +9,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List IngresoCompra', 'url'=>array('index')),
-	array('label'=>'Create IngresoCompra', 'url'=>array('create')),
-	array('label'=>'Update IngresoCompra', 'url'=>array('update', 'id'=>$model->INGRESO_COMPRA)),
-	array('label'=>'Delete IngresoCompra', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->INGRESO_COMPRA),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage IngresoCompra', 'url'=>array('admin')),
+	array('label'=>Yii::t('app','LIST').' IngresoCompra', 'url'=>array('index')),
+	array('label'=>Yii::t('app','CREATE').' IngresoCompra', 'url'=>array('create')),
+	array('label'=>Yii::t('app','UPDATE').' IngresoCompra', 'url'=>array('update', 'id'=>$model->INGRESO_COMPRA)),
+	array('label'=>Yii::t('app','DELETE').' IngresoCompra', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->INGRESO_COMPRA),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>Yii::t('app','MANAGE').' IngresoCompra', 'url'=>array('admin')),
 );
 ?>
 

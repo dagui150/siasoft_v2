@@ -11,8 +11,21 @@
  
 	<?php echo $form->errorSummary($model2); ?>
 
-		<?php echo $form->dropDownListRow($model2,'PAIS', CHtml::listData(Pais::model()->findAll(),'ID','NOMBRE'),array('empty'=>'Seleccione...')); ?>
-		<?php echo $form->textFieldRow($model2,'NOMBRE',array('maxlength'=>64)); ?>
+		<table style="width: 200px">
+                <tr>
+                    <td>
+                        <?php echo $form->dropDownListRow($model2,'PAIS', CHtml::listData(Pais::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),array('empty'=>'Seleccione...')); ?>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <?php echo $form->textFieldRow($model2,'NOMBRE',array('maxlength'=>64)); ?>
+                    </td>
+                    <td><?php echo $this->botonAyuda('NOM_ZONA'); ?></td>
+                </tr>
+                </table>
 
 	<div class="row">
 		<?php
@@ -23,7 +36,7 @@
     </div>
 	<div class="modal-footer" align="center">
     	<?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model2->isNewRecord ? 'Crear' : 'Guardar')); ?>
-	<?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => '#', 'icon' => 'remove', 'htmlOptions'=>array('data-dismiss'=>'modal')));  ?>	
+	<?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('admin'), 'icon' => 'remove', 'htmlOptions'=>array('data-dismiss'=>'modal')));  ?>	
         </div>
 
 

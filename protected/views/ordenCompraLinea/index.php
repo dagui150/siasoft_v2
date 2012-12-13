@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Orden Compra Lineas',
+	'Orden Compra Líneas',
 );
 
 $this->menu=array(
@@ -9,7 +9,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Orden Compra Lineas</h1>
+<h1>Orden Compra Líneas</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

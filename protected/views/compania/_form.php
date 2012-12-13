@@ -36,12 +36,12 @@ function Elimina(){
                     </div>
                     <div class="row">
                             <?php echo $form->labelEx($model,'PAIS'); ?>
-                            <?php echo $form->dropDownList($model,'PAIS', CHtml::listData(Pais::model()->findAll(),'ID','NOMBRE'),array('empty'=>'Seleccione...')); ?>
+                            <?php echo $form->dropDownList($model,'PAIS', CHtml::listData(Pais::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),array('empty'=>'Seleccione...')); ?>
                             <?php echo $form->error($model,'PAIS'); ?>
                     </div>
                     <div class="row">
                             <?php echo $form->labelEx($model,'UBICACION_GEOGRAFICA1'); ?>
-                            <?php echo $form->dropDownList($model,'UBICACION_GEOGRAFICA1', CHtml::listData(UbicacionGeografica1::model()->findAll(),'ID','NOMBRE'),
+                            <?php echo $form->dropDownList($model,'UBICACION_GEOGRAFICA1', CHtml::listData(UbicacionGeografica1::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),
                             array(
                                 'ajax'=>array(
 				'type' => 'POST',
@@ -76,7 +76,7 @@ function Elimina(){
                                         array('0' => 'Seleccione...')); }
                                         else {
                                             echo $form->dropDownList($model,'UBICACION_GEOGRAFICA2',
-                                            CHtml::listData(UbicacionGeografica2::model()->findAllBySql("select * from ubicacion_geografica2 where UBICACION_GEOGRAFICA1 = ".$model->UBICACION_GEOGRAFICA1), 'ID','NOMBRE'));
+                                            CHtml::listData(UbicacionGeografica2::model()->findAllBySql("select * from ubicacion_geografica2 where ACTIVO = 'S' AND UBICACION_GEOGRAFICA1 = ".$model->UBICACION_GEOGRAFICA1), 'ID','NOMBRE'));
                                         }
                                     } ?>
                         </div>

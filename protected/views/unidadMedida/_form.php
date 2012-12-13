@@ -33,15 +33,43 @@
                         <?php echo $form->errorSummary($model2); ?>
 
                 <div class="row">
-                        <?php echo $form->textFieldRow($model2,'NOMBRE',array('maxlength'=>64)); ?>
-
-                        <?php echo $form->textFieldRow($model2,'ABREVIATURA',array('size'=>5,'maxlength'=>5)); ?>
-
-                        <?php echo $form->dropDownListRow($model2,'TIPO',array(''=>'Seleccione','U'=>'Unidad','L'=>'Longitud','V'=>'Volumen','P'=>'Peso')); ?>
-
-                        <?php echo $form->dropDownListRow($model2,'UNIDAD_BASE',array(),array('empty'=>'Seleccione')); ?>
-
-                        <?php echo $form->textFieldRow($model2,'EQUIVALENCIA'); ?>
+                    
+                    <table style="width: 400px;">
+                        <tr>
+                            <td>
+                                <?php echo $form->textFieldRow($model2,'NOMBRE',array('maxlength'=>64)); ?>
+                            </td>
+                            <td><?php echo $this->botonAyuda('NOM_UNID_MED'); ?></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?php echo $form->textFieldRow($model2,'ABREVIATURA',array('size'=>5,'maxlength'=>5)); ?>
+                            </td>
+                            <td><?php echo $this->botonAyuda('ABRE_UNID_MED'); ?></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?php echo $form->dropDownListRow($model2,'TIPO',array(''=>'Seleccione','U'=>'Unidad','L'=>'Longitud','V'=>'Volumen','P'=>'Peso')); ?>
+                            </td>
+                            <td><?php echo $this->botonAyuda('TIPO_UNID_MED'); ?></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?php echo $form->dropDownListRow($model2,'UNIDAD_BASE',array(),array('empty'=>'Seleccione')); ?>
+                            </td>
+                            <td>
+                                <?php echo $this->botonAyuda('UBASE_UNID_MED'); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?php echo $form->textFieldRow($model2,'EQUIVALENCIA'); ?>
+                            </td>
+                            <td>
+                                <?php echo $this->botonAyuda('EQUI_UNID_MED'); ?>
+                            </td>
+                        </tr>
+                    </table>
 
                         <div class="row">
                                 <?php echo CHtml::activeHiddenField($model2,'ACTIVO',array('value'=>'S')); ?>

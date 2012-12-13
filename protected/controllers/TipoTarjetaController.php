@@ -113,7 +113,7 @@ class TipoTarjetaController extends SBaseController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -134,6 +134,21 @@ class TipoTarjetaController extends SBaseController
 		));
 	}
 
+            public function actionExcel()
+	{
+		$model= TipoTarjeta::model()->findAll('ACTIVO="S"');
+                Yii::app()->request->sendFile('Tipos de Tarjeta.xls', 
+                        $this->renderPartial('excel',array('model'=>$model),true));
+	}
+        public function actionPdf(){
+            
+            $dataProvider=new TipoTarjeta;
+		$this->render('pdf',array(
+			'dataProvider'=>$dataProvider,
+		));
+            
+            
+        }
 	/**
 	 * Manages all models.
 	 */

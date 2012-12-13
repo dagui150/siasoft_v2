@@ -1,3 +1,9 @@
+<?php
+/* @var $this FormatoImpresionController */
+/* @var $model FormatoImpresion */
+/* @var $form CActiveForm */
+?>
+
 <div class="wide form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -66,7 +72,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Buscar'); ?>
+		<?php echo CHtml::submitButton('Search'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

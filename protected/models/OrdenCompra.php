@@ -123,10 +123,10 @@ class OrdenCompra extends CActiveRecord
 			'FECHA_COTIZACION' => 'Fecha Cotizacion',
 			'FECHA_OFRECIDA' => 'Fecha Ofrecida',
 			'FECHA_REQUERIDA' => 'Fecha Requerida',
-			'FECHA_REQ_EMBARQUE' => 'Fecha Req Embarque',
+			'FECHA_REQ_EMBARQUE' => 'Fecha Req Ingreso',
 			'PRIORIDAD' => 'Prioridad',
 			'CONDICION_PAGO' => 'Condicion Pago',
-			'DIRECCION_EMBARQUE' => 'Direccion Embarque',
+			'DIRECCION_EMBARQUE' => 'Direccion Ingreso',
 			'DIRECCION_COBRO' => 'Direccion Cobro',
 			'RUBRO1' => $conf->RUBRO1_ORDNOM,
 			'RUBRO2' => $conf->RUBRO2_ORDNOM,
@@ -149,6 +149,10 @@ class OrdenCompra extends CActiveRecord
 			'CREADO_EL' => 'Creado El',
 			'ACTUALIZADO_POR' => 'Actualizado Por',
 			'ACTUALIZADO_EL' => 'Actualizado El',
+			'USUARIO_CIERRA' => 'Cerrado Por',
+			'FECHA_CIERRA' => 'Cerrado El',
+			'AUTORIZADA_POR' => 'Autorizado Por',
+			'FECHA_AUTORIZADA' => 'Autorizado El',
 		);
 	}
 
@@ -197,12 +201,45 @@ class OrdenCompra extends CActiveRecord
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
 		$criteria->compare('ACTUALIZADO_EL',$this->ACTUALIZADO_EL,true);
+		$criteria->compare('USUARIO_CIERRA',$this->CREADO_POR,true);
+		$criteria->compare('FECHA_CIERRA',$this->CREADO_EL,true);
+		$criteria->compare('AUTORIZADA_POR',$this->ACTUALIZADO_POR,true);
+		$criteria->compare('FECHA_AUTORIZADA',$this->ACTUALIZADO_EL,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
         
+        public static function estado($codigo){
+            switch ($codigo){
+                case 'P' : return 'Planeado';
+                break;
+                case 'B' : return 'Backorder';
+                break;
+                case 'R' : return 'Recibido';
+                break;
+                case 'C' : return 'Cancelado';
+                break;
+                case 'A' : return 'Autorizado';
+                break;
+                case 'E' : return 'Cerrada';
+                break;
+            }
+        }
+        
+        public static function prioridad($codigo){
+            
+            switch($codigo){
+                case 'A' : return 'Alta';
+                    break;
+                case 'M' : return 'Media';
+                    break;
+                case 'B' : return 'Baja';
+                    break;
+            }
+        }
+
         public function behaviors()
 	{
 		return array(

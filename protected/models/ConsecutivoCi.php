@@ -49,7 +49,7 @@ class ConsecutivoCi extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ID, DESCRIPCION, MASCARA, SIGUIENTE_VALOR, TODOS_USUARIOS, ACTIVO', 'required'),
+			array(' DESCRIPCION, MASCARA, SIGUIENTE_VALOR, TODOS_USUARIOS,FORMATO_IMPRESION', 'required'),
 			array('FORMATO_IMPRESION', 'numerical', 'integerOnly'=>true),
 			array('ID', 'length', 'max'=>10),
 			array('DESCRIPCION', 'length', 'max'=>48),
@@ -86,7 +86,7 @@ class ConsecutivoCi extends CActiveRecord
 			'ID' => 'Código',
 			'FORMATO_IMPRESION' => 'Formato Impresión',
 			'DESCRIPCION' => 'Nombre',
-			'MASCARA' => 'Mascara',
+			'MASCARA' => 'Máscara',
 			'SIGUIENTE_VALOR' => 'Siguiente Valor',
 			'TODOS_USUARIOS' => 'Todos los Usuarios',
 			'ACTIVO' => 'Activo',
@@ -114,7 +114,7 @@ class ConsecutivoCi extends CActiveRecord
 		$criteria->compare('MASCARA',$this->MASCARA,true);
 		$criteria->compare('SIGUIENTE_VALOR',$this->SIGUIENTE_VALOR,true);
 		$criteria->compare('TODOS_USUARIOS',$this->TODOS_USUARIOS,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);

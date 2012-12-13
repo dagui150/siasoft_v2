@@ -57,7 +57,7 @@ class IngresoCompraLinea extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('INGRESO_COMPRA, LINEA_NUM, ARTICULO, BODEGA, CANTIDAD_ORDENADA, UNIDAD_ORDENADA, CANTIDAD_ACEPTADA, CANTIDAD_RECHAZADA, PRECIO_UNITARIO, COSTO_FISCAL_UNITARIO', 'required'),
+			array('BODEGA, CANTIDAD_ACEPTADA, CANTIDAD_RECHAZADA', 'required'),
 			array('LINEA_NUM, ORDEN_COMPRA_LINEA, UNIDAD_ORDENADA', 'numerical', 'integerOnly'=>true),
 			array('INGRESO_COMPRA', 'length', 'max'=>10),
 			array('ARTICULO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
@@ -92,11 +92,11 @@ class IngresoCompraLinea extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'INGRESO_COMPRA_LINEA' => 'Ingreso Compra Linea',
+			'INGRESO_COMPRA_LINEA' => 'Ingreso Compra Línea',
 			'INGRESO_COMPRA' => 'Ingreso Compra',
-			'LINEA_NUM' => 'Linea Num',
-			'ORDEN_COMPRA_LINEA' => 'Orden Compra Linea',
-			'ARTICULO' => 'Articulo',
+			'LINEA_NUM' => 'Línea Num',
+			'ORDEN_COMPRA_LINEA' => 'Orden Compra Línea',
+			'ARTICULO' => 'Artículo',
 			'BODEGA' => 'Bodega',
 			'CANTIDAD_ORDENADA' => 'Cantidad Ordenada',
 			'UNIDAD_ORDENADA' => 'Unidad Ordenada',
@@ -135,7 +135,7 @@ class IngresoCompraLinea extends CActiveRecord
 		$criteria->compare('CANTIDAD_RECHAZADA',$this->CANTIDAD_RECHAZADA,true);
 		$criteria->compare('PRECIO_UNITARIO',$this->PRECIO_UNITARIO,true);
 		$criteria->compare('COSTO_FISCAL_UNITARIO',$this->COSTO_FISCAL_UNITARIO,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);

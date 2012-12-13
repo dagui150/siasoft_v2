@@ -74,9 +74,9 @@ class TipoDocumento extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
-			'DESCRIPCION' => 'Descripcion',
-			'MASCARA' => 'Mascara',
+			'ID' => 'Código',
+			'DESCRIPCION' => 'Descripción',
+			'MASCARA' => 'Máscara',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',
@@ -99,7 +99,7 @@ class TipoDocumento extends CActiveRecord
 		$criteria->compare('ID',$this->ID,true);
 		$criteria->compare('DESCRIPCION',$this->DESCRIPCION,true);
 		$criteria->compare('MASCARA',$this->MASCARA,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -109,7 +109,18 @@ class TipoDocumento extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	
+	public function searchPdf()
+	{
+
+		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'pagination'=>array(
+                            'pageSize'=> TipoDocumento::model()->count(),
+                        ),
+		));
+	}
 	public function behaviors()
 	{
 		return array(

@@ -1,12 +1,14 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Entidad Financiera";?>
 <?php
 $this->breadcrumbs=array(
+        'Sistema'=>array('admin'),
 	'Entidad Financiera'=>array('admin'),
 	'Crear',
 );
 
 $this->menu=array(
-	array('label'=>'List EntidadFinanciera', 'url'=>array('index')),
-	array('label'=>'Manage EntidadFinanciera', 'url'=>array('admin')),
+	array('label'=>Yii::t('app','LIST').' EntidadFinanciera', 'url'=>array('index')),
+	array('label'=>Yii::t('app','MANAGE').' EntidadFinanciera', 'url'=>array('admin')),
 );
 ?>
 

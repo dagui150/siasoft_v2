@@ -441,7 +441,7 @@ $(document).ready(function(){
     'type'=>'',
     'size'=>'mini',
     'url'=>'#lineas',
-    'label' => 'Cargar Lineas',
+    'label' => 'Cargar Líneas',
     'icon'=>'icon-download-alt',
     'htmlOptions'=>array('data-toggle'=>'modal', 'id'=>"cargar"),
 )); ?>

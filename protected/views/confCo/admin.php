@@ -1,12 +1,13 @@
+<?php $this->pageTitle=Yii::app()->name." - Configuración de Compras";?>
 <?php
 $this->breadcrumbs=array(
-	'Configuracion de Compras'=>array('index'),
+	'Configuración de Compras'=>array('index'),
 	'Administracion',
 );
 
 $this->menu=array(
-	array('label'=>'List ConfCo', 'url'=>array('index')),
-	array('label'=>'Create ConfCo', 'url'=>array('create')),
+	array('label'=>Yii::t('app','LIST').' ConfCo', 'url'=>array('index')),
+	array('label'=>Yii::t('app','CREATE').' ConfCo', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -23,13 +24,13 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Configuracion de Compras</h1>
+<h1>Configuración de Compras</h1>
 
 <div align = "right">
 <?php 
 
 $this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'Busqueda Avanzada',
+    'label'=>'Búsqueda Avanzada',
     'size'=>'mini', // '', 'large', 'small' or 'mini'
 	'url' => '#myModal',
         'htmlOptions'=>array('data-toggle'=>'modal'),
@@ -114,7 +115,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
  
 <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>
-    <h3>Busqueda Avanzada</h3>
+    <h3>Búsqueda Avanzada</h3>
     
 </div>
 

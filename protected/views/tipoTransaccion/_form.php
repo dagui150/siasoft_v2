@@ -10,6 +10,9 @@
     )); ?>
         <br>
             <?php
+            // Esta es la linea que causaba conflicto
+            $sentencia__='TRANSACCION_FIJA = "S"';
+                
                 $cs=Yii::app()->clientScript;
                 $cs->registerScriptFile(XHtml::jsUrl('jquery.calculation.min.js'), CClientScript::POS_HEAD);
                 $cs->registerScriptFile(XHtml::jsUrl('jquery.format.js'), CClientScript::POS_HEAD);
@@ -23,12 +26,34 @@
                                 array(
                                     'label'=>'Tipo de Transacción',
                                     'content'=>
-                                        $form->textFieldRow($model2,'TIPO_TRANSACCION',array('size'=>4,'maxlength'=>4,'disabled'=>$model2->isNewRecord ? false : true))
-                                        .$form->textFieldRow($model2,'NOMBRE',array('size'=>16,'maxlength'=>16,'disabled'=>$model2->TRANSACCION_FIJA == 'S' ? true : false))
-                                        .$form->dropDownListRow($model2,'TRANSACCION_BASE',CHtml::listData(TipoTransaccion::model()->findAll('TRANSACCION_FIJA = "S"'), 'TIPO_TRANSACCION', 'NOMBRE'),array('empty'=>'Seleccione','disabled'=>$model2->isNewRecord ? false : true))
-                                        .$form->hiddenField($model2,'TRANSACCION_FIJA',array('value'=>'N'))
-                                        .$form->dropDownListRow($model2,'NATURALEZA',array('S'=>'Salida','E'=>'Entrada','A'=>'Ambas','N'=>'Ninguna'),array('empty'=>'Seleccione','disabled'=>($model2->TRANSACCION_FIJA == 'S' && $model2->NATURALEZA != '') ? true : false))
-                                    ,   
+                                        '<table style="width: 400px;">
+                                            <tr>
+                                                <td>
+                                                '.$form->textFieldRow($model2,"TIPO_TRANSACCION",array("size"=>4,"maxlength"=>4,"disabled"=>$model2->isNewRecord ? false : true)).'
+                                                </td>
+                                                <td>'.$this->botonAyuda("CODIGO").'</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                '.$form->textFieldRow($model2,"NOMBRE",array("size"=>16,"maxlength"=>16,"disabled"=>$model2->TRANSACCION_FIJA == "S" ? true : false)).'
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                '.$form->dropDownListRow($model2,"TRANSACCION_BASE",CHtml::listData(TipoTransaccion::model()->findAll('TRANSACCION_FIJA = "S"'), "TIPO_TRANSACCION", "NOMBRE"),array("empty"=>"Seleccione","disabled"=>$model2->isNewRecord ? false : true)).'
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                                '.$form->hiddenField($model2,"TRANSACCION_FIJA",array("value"=>"N")).'
+                                            <tr>
+                                                <td>
+                                                '.$form->dropDownListRow($model2,"NATURALEZA",array("S"=>"Salida","E"=>"Entrada","A"=>"Ambas","N"=>"Ninguna"),array("empty"=>"Seleccione","disabled"=>($model2->TRANSACCION_FIJA == "S" && $model2->NATURALEZA != "") ? true : false)).'
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </table>'
+                                    ,     
                                     'active'=>true
                                 ),
                                 array(

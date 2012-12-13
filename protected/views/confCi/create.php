@@ -1,3 +1,4 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Configuración";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('create'),
@@ -10,7 +11,7 @@ $this->breadcrumbs=array(
 <br />
 <?php 
     
-    Yii::app()->user->setFlash('warning', '<h3 align="center">Realize su configuración antes de continuar...</h3>');
+    Yii::app()->user->setFlash('warning', '<h3 align="center">Realice su configuración antes de continuar...</h3>');
             
     $this->widget('bootstrap.widgets.BootAlert');
     

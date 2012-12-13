@@ -3,13 +3,13 @@
 /* @var $model IngresoCompraLinea */
 
 $this->breadcrumbs=array(
-	'Ingreso Compra Lineas'=>array('index'),
-	'Create',
+	'Ingreso Compra Líneas'=>array('index'),
+	Yii::t('app','CREATE').'',
 );
 
 $this->menu=array(
-	array('label'=>'List IngresoCompraLinea', 'url'=>array('index')),
-	array('label'=>'Manage IngresoCompraLinea', 'url'=>array('admin')),
+	array('label'=>Yii::t('app','LIST').' IngresoCompraLinea', 'url'=>array('index')),
+	array('label'=>Yii::t('app','MANAGE').' IngresoCompraLinea', 'url'=>array('admin')),
 );
 ?>
 

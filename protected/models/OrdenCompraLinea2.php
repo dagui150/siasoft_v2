@@ -99,11 +99,11 @@ class OrdenCompraLinea2 extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ORDEN_COMPRA_LINEA' => 'Orden Compra Linea',
+			'ORDEN_COMPRA_LINEA' => 'Orden Compra Línea',
 			'ORDEN_COMPRA' => 'Orden Compra',
-			'LINEA_NUM' => 'Linea Num',
-			'ARTICULO' => 'Articulo',
-			'DESCRIPCION' => 'Descripcion',
+			'LINEA_NUM' => 'Línea Num',
+			'ARTICULO' => 'Artículo',
+			'DESCRIPCION' => 'Descripción',
 			'BODEGA' => 'Bodega',
 			'FECHA_REQUERIDA' => 'Fecha Requerida',
 			'FACTURA' => 'Factura',

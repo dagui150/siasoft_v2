@@ -1,3 +1,4 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." Usuarios";?>
 <?php
 $this->breadcrumbs=array(
 	'Usuarios'=>array('admin'),

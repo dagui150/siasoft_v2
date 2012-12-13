@@ -64,13 +64,21 @@
                                         '<span class="hint" style="margin-left: 160px;">aaa - 9999?9999999999</span>'
                                         .$form->textFieldRow($model2,'MASCARA',array('size'=>20,'maxlength'=>20,'disabled'=>$model2->isNewRecord ? false : true))
                                         .$form->textFieldRow($model2,'SIGUIENTE_VALOR',array('size'=>20,'maxlength'=>20,'readonly'=>true))
-                                        .$form->dropDownListRow($model2,'FORMATO_IMPRESION',CHtml::listData(FormatoImpresion::model()->findAllByAttributes(array('MODULO'=>'COIN','SUBMODULO'=>'CONS')), 'ID', 'NOMBRE'),array('empty'=>'Seleccione'))
+                                        .$form->dropDownListRow($model2,'FORMATO_IMPRESION',CHtml::listData(FormatoImpresion::model()->findAllByAttributes(array('MODULO'=>'INVE','SUBMODULO'=>'CONS')), 'ID', 'NOMBRE'),array('empty'=>'Seleccione'))
                                     ,   
                                     'active'=>true
                                 ),
                                 array(
                                     'label'=>'Transacciónes Configurables',
-                                    'content'=>$this->renderPartial('tipos',array('form'=>$form,'model2'=>$model2,'tipos'=>$model2->isNewRecord ? '' :$tipos),true)
+                                    'content'=>
+                                    '<table style="width: 400px;">
+                                        <tr>
+                                            <td>
+                                                '.$this->renderPartial('tipos',array('form'=>$form,'model2'=>$model2,'tipos'=>$model2->isNewRecord ? '' :$tipos),true).'
+                                            </td>
+                                            <td>'.$this->botonAyuda("TRANS_CONF").'</td>
+                                        </tr>
+                                    </table>'
                                ),
                                 array(
                                     'label'=>'Usuarios',

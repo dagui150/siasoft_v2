@@ -1,13 +1,14 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Artículos";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('admin'),
-	'Articulos'=>array('admin'),
+	'Artículos'=>array('admin'),
 	'Crear',
 );
 
 ?>
 
-<h1>Crear Articulo</h1>
+<h1>Crear Artículo</h1>
 
 <?php 
         echo $this->renderPartial('_form',

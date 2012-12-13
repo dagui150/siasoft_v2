@@ -231,7 +231,7 @@ function add(){
                     <div class="complex">
                     <div class="panel">
                         <table class="templateFrame grid table table-bordered" cellspacing="0">
-                            <thead class="templateHead">
+                            <thead>
                                 <tr>
                                     <td>
                                         <?php echo $form->labelEx($linea,'ARTICULO');?>

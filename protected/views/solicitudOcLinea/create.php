@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Solicitud Oc Lineas'=>array('index'),
+	'Solicitud Oc Líneas'=>array('index'),
 	'Crear',
 );
 
