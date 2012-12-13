@@ -3,6 +3,29 @@ $(document).ready(function(){
     inicio();
 });
 
+<<<<<<< HEAD
+function nuevo(){    
+    //Limpiar Fromulario
+    $("#FacturaLinea_ARTICULO").val('');
+    //$("#FacturaLinea_UNIDAD").val('');
+    $("#FacturaLinea_CANTIDAD").val('');
+    $("#FacturaLinea_PRECIO_UNITARIO").val('');
+    $("#FacturaLinea_PORC_DESCUENTO").val('');
+    $("#FacturaLinea_MONTO_DESCUENTO").val('');
+    $("#FacturaLinea_PORC_IMPUESTO").val('');
+    $("#FacturaLinea_VALOR_IMPUESTO").val('');
+    $("#FacturaLinea_COMENTARIO").val('');
+    
+    //llamar modal
+    $("#nuevo").modal();
+    
+    //llenar datos
+    $("#FacturaLinea_ARTICULO").val($('#Factura_ARTICULO').val());
+    $("#DESCRIPCION").val($('#Articulo_desc').val());
+}
+
+=======
+>>>>>>> 3dd5884455079fb50c3748364b0c8bd824bf3b7c
 function inicio(){ 
         $('#Factura_CONSECUTIVO').change(function(){
             $.getJSON('<?php echo $this->createUrl('cargarconsecutivo')?>&id='+$(this).val(),
@@ -18,6 +41,9 @@ function inicio(){
             $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$(this).val(),
                 function(data){
                     $("#Articulo_desc").val(data.NOMBRE);
+<<<<<<< HEAD
+                    $("#FacturaLinea_UNIDAD").val(data.UNIDAD);
+=======
                      $('select[id$=Factura_UNIDAD]>option').remove();
                     
                     $.each(data.UNIDADES, function(value, name) {
@@ -27,8 +53,10 @@ function inicio(){
                                $('#Factura_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
                         });
                     $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
+>>>>>>> 3dd5884455079fb50c3748364b0c8bd824bf3b7c
                     $('#agregar').attr('disabled', false);
                     
+                }
             );
         });
         
@@ -215,7 +243,10 @@ function cargaGrilla(grid_id){
                         <tr>
                             <td>
                                  <?php echo $form->dropDownListRow($model,'NIVEL_PRECIO', CHtml::listData(NivelPrecio::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 150px;','empty'=>'Seleccione','options'=>array($model->isNewRecord && $conf->NIVEL_PRECIO!= '' ? $conf->NIVEL_PRECIO : ''=>array('selected'=>'selected'))));?>
+<<<<<<< HEAD
+=======
                                 <?php echo CHtml::hiddenField('NOMBRE_TIPO_PRECIO','');?>
+>>>>>>> 3dd5884455079fb50c3748364b0c8bd824bf3b7c
                             </td>
                         </tr>
 
@@ -258,6 +289,14 @@ function cargaGrilla(grid_id){
                         .$form->textFieldRow($model,'TOTAL_IMPUESTO1',array('size'=>28,'maxlength'=>28))
                         .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('size'=>28,'maxlength'=>28))
                         .$form->textFieldRow($model,'REMITIDO',array('size'=>1,'maxlength'=>1))
+<<<<<<< HEAD
+                        .$form->textFieldRow($model,'RESERVADO',array('size'=>1,'maxlength'=>1))
+                        .'<div class="control-group "><label for="total_grande" class="control-label">Gran total: </label><div class="controls">'
+                        .CHtml::textField('total_grande', '0', array('readonly'=>true))
+                        .'</div></div>'
+=======
+>>>>>>> 3dd5884455079fb50c3748364b0c8bd824bf3b7c
+                        ),
                 )
             )); ?>
 

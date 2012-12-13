@@ -96,6 +96,9 @@
         $('#'+model+'_'+contador+'_DESCRIPCION').val(descripcion); 
         $('#alert').remove();
         total_grande = total_grande + total;
+<<<<<<< HEAD
+        $('#total_grande').val(total_grande);
+=======
         $('#Pedido_TOTAL_MERCADERIA').val(total);
         total_descuento = total_descuento + monto_descuento;
         $('#Pedido_MONTO_DESCUENTO1').val(total_descuento);
@@ -113,6 +116,7 @@
         total_grande = (total_grande - total_descuento) + total_impuesto;
         $('#total_grande').val(total_grande); 
         $('#Pedido_TOTAL_A_FACTURAR').val(total_grande);
+>>>>>>> 3dd5884455079fb50c3748364b0c8bd824bf3b7c
         $('#calculos').text($('#total_grande').val());
         add();
         resetAgregar();
