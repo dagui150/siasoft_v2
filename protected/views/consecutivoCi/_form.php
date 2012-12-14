@@ -70,7 +70,15 @@
                                 ),
                                 array(
                                     'label'=>'Transacciónes Configurables',
-                                    'content'=>$this->renderPartial('tipos',array('form'=>$form,'model2'=>$model2,'tipos'=>$model2->isNewRecord ? '' :$tipos),true)
+                                    'content'=>
+                                    '<table style="width: 400px;">
+                                        <tr>
+                                            <td>
+                                                '.$this->renderPartial('tipos',array('form'=>$form,'model2'=>$model2,'tipos'=>$model2->isNewRecord ? '' :$tipos),true).'
+                                            </td>
+                                            <td>'.$this->botonAyuda("TRANS_CONF").'</td>
+                                        </tr>
+                                    </table>'
                                ),
                                 array(
                                     'label'=>'Usuarios',

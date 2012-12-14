@@ -13,47 +13,30 @@ $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
                 <table style="width: 400px;">
                     <tr>
 
+
+
         <table width="100%" border='1'>
 
             <tr>
                 <td width="2%" ><?php echo $form->textFieldRow($model2, 'ID', array('size' => 4, 'maxlength' => 4, 'disabled' => $model2->isNewRecord ? false : true)); ?></td>
-                <td><?php echo $this->botonAyuda('Pruebas Boton Ayuda'); ?></td>
+                <td><?php echo $this->botonAyuda('CODIGO'); ?></td>
             </tr>
             <tr>
                 <td><?php echo $form->textAreaRow($model2, 'DESCRIPCION'); ?></td>
-                <td><?php echo $this->botonAyuda('Pruebas Boton Ayuda'); ?></td>
+                <td><?php echo $this->botonAyuda('DESC_BODEGA'); ?></td>
             </tr>
             <tr>
                 <td><?php echo $form->dropDownListRow($model2, 'TIPO', array('C' => 'Consumo', 'V' => 'Ventas', 'N' => 'No Disponible')); ?></td>
-                <td><?php echo $this->botonAyuda('Pruebas Boton Ayuda'); ?> </td>
+                <td><?php //echo $this->botonAyuda('Pruebas Boton Ayuda'); ?> </td>
             </tr>
             <tr>
                 <td><?php echo $form->textFieldRow($model2, 'TELEFONO', array('maxlength' => 20)); ?></td>
-                <td><?php echo $this->botonAyuda('Pruebas Boton Ayuda'); ?> </td>
             </tr>
             <tr>
                 <td><?php echo $form->textFieldRow($model2, 'DIRECCION', array('maxlength' => 128)); ?></td>
-                <td><?php echo $this->botonAyuda('Pruebas Boton Ayuda'); ?> </td>
             </tr>
         </table>
-        
-        
-                    </tr>
-                    <tr>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                </table>
-                    </tr>
-                </table>
+
         <?php echo CHtml::activeHiddenField($model2, 'ACTIVO', array('value' => 'S')); ?>
 
 

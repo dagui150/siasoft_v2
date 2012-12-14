@@ -29,7 +29,6 @@ function inicio(){
                     $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
                     $('#agregar').attr('disabled', false);
                     
-                }
             );
         });
         

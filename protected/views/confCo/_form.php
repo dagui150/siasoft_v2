@@ -99,7 +99,7 @@
     'tabs'=>array(
         array('label'=>'General', 'content'=> 
 		'<div style="width:100%;"><fieldset>'
-		.'<legend>Consecutivos</legend>'
+		.'<legend>Consecutivos '.$this->botonAyuda('CONSECUTIVOS').'</legend>'
 		.'<div style="width:50%; float:left">'
 		.'<div class="control-group "><label for="ConfCo_ULT_SOLICITUD_M" class="control-label required">Máscara - Solicitud</label><div class="controls">'.$mascSolicitud.'</div></div>'
                 .'<div class="control-group "><label for="ConfCo_ULT_ORDEN_COMPRA_M" class="control-label required">Máscara - Orden compra</label><div class="controls">'.$mascOrden.'</div></div>'
@@ -123,8 +123,22 @@
 		
         array('label'=>'Ordenes', 'content'=>
 		'<fieldset>'
-		.$form->textFieldRow($model,'MAXIMO_LINORDEN')
-		.$form->textAreaRow($model,'ORDEN_OBSERVACION',array('rows'=>6, 'cols'=>50))
+		.'<legend>Ordenes</legend>'
+                
+                .'<table style="width: 400px;">
+                    <tr>
+                        <td>
+                            '.$form->textFieldRow($model,'MAXIMO_LINORDEN').'
+                        </td>
+                        <td>'.$this->botonAyuda('ORDENES_COMP').'</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            '.$form->textAreaRow($model,'ORDEN_OBSERVACION',array('rows'=>6, 'cols'=>50)).'
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>'
 		.'</fieldset>'),
 		
         array('label'=>'Ingresos', 'content'=>
@@ -161,13 +175,14 @@
                     
 		 $form->dropDownListRow($model,'FORMATO_IMPRESION_SOL', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND MODULO = "COMP" AND SUBMODULO ="SOCO"'), 'ID', 'NOMBRE'),array('empty'=>'Seleccione...'))
                  .$form->dropDownListRow($model,'FORMATO_IMPRESION_ORD', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND MODULO = "COMP" AND SUBMODULO = "ORCO"'), 'ID', 'NOMBRE'),array('empty'=>'Seleccione...'))
+                 .$form->dropDownListRow($model,'FORMATO_IMPRESION_ING', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND MODULO = "COMP" AND SUBMODULO = "INCO"'), 'ID', 'NOMBRE'),array('empty'=>'Seleccione...'))
                 
                     ),
 		
 		array('label'=>'Rubros', 'items'=>array( 
 			array('label'=>'Solicitudes', 'content'=>
 		'<fieldset>'
-		.'<legend>Solicitudes</legend>'
+		.'<legend>Solicitudes '.$this->botonAyuda('RUBR_SOLICI').'</legend>'
 		.$form->textFieldRow($model,'RUBRO1_SOLNOM',array('size'=>15,'maxlength'=>15))
 		.$form->textFieldRow($model,'RUBRO2_SOLNOM',array('size'=>15,'maxlength'=>15))
 		.$form->textFieldRow($model,'RUBRO3_SOLNOM',array('size'=>15,'maxlength'=>15))
@@ -177,7 +192,7 @@
 		
 		array('label'=>'Ordenes', 'content'=>
 		'<fieldset>'
-		.'<legend>Ordenes</legend>'
+		.'<legend>Ordenes '.$this->botonAyuda('RUBR_ORDENE').'</legend>'
 		.$form->textFieldRow($model,'RUBRO1_ORDNOM',array('size'=>15,'maxlength'=>15))
 		.$form->textFieldRow($model,'RUBRO2_ORDNOM',array('size'=>15,'maxlength'=>15))
 		.$form->textFieldRow($model,'RUBRO3_ORDNOM',array('size'=>15,'maxlength'=>15))
@@ -187,7 +202,7 @@
 		
 		array('label'=>'Ingresos', 'content'=>
 		'<fieldset>'
-		.'<legend>Ingresos</legend>'
+		.'<legend>Ingresos '.$this->botonAyuda('RUBR_INGRES').'</legend>'
 		.$form->textFieldRow($model,'RUBRO1_EMBNOM',array('size'=>15,'maxlength'=>15))
 		.$form->textFieldRow($model,'RUBRO2_EMBNOM',array('size'=>15,'maxlength'=>15))
 		.$form->textFieldRow($model,'RUBRO3_EMBNOM',array('size'=>15,'maxlength'=>15))

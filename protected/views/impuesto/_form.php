@@ -17,15 +17,7 @@
                         <td>
                             <?php echo $form->textFieldRow($model2,'ID',array('size'=>4,'maxlength'=>4)); ?>
                         </td>
-                        <td>
-                            <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                //'label'=>'Ayuda',
-                                'type'=>'succes',
-                                'icon'=>'info-sign',
-                                'size'=>'mini',
-                                'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'Cadena de caracteres alfanumérico.', 'rel'=>'popover'),
-                            )); ?>
-                        </td>
+                        <td><?php echo $this->botonAyuda('CODIGO'); ?></td>
                     </tr>
                     <tr>
                         <td>

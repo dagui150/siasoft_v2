@@ -14,10 +14,22 @@
 	<?php echo $form->errorSummary($model2); ?>
 
 	<div class="modal-body">
+                
+                <table style="width: 400px;">
+                    <tr>
+                        <td>
+                            <?php echo $form->dropDownListRow($model2,'CLASIFICACION',CHtml::ListData(ClasificacionAdi::model()->findAll(),'ID','NOMBRE'),array('empty'=>'Seleccione')); ?>
+                        </td>
+                        <td><?php echo $this->botonAyuda('CLAS_ADI_VAL_CLAS'); ?></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $form->textFieldRow($model2,'VALOR',array('maxlength'=>12)); ?>
+                        </td>
+                        <td><?php echo $this->botonAyuda('CLAS_ADI_VAL_VAL'); ?></td>
+                    </tr>
+                </table>
 
-		<?php echo $form->dropDownListRow($model2,'CLASIFICACION',CHtml::ListData(ClasificacionAdi::model()->findAll(),'ID','NOMBRE'),array('empty'=>'Seleccione')); ?>
-
-		<?php echo $form->textFieldRow($model2,'VALOR',array('maxlength'=>12)); ?>
 
 	</div>
 

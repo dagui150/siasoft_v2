@@ -89,6 +89,12 @@ function cargaGrilla(grid_id){
              ),	
     )); 
     $conf = ConfFa::model()->find();
+    $text_rubros =$conf->USAR_RUBROS == 0 ? '<div class="alert alert-info"><strong>Actualmente No usa Rubros</strong></div>' : '';
+    $rubro1 =$conf->USAR_RUBROS == 1 && $conf->RUBRO1_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO1') : '';
+    $rubro2 =$conf->USAR_RUBROS == 1 && $conf->RUBRO2_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO2') : '';
+    $rubro3 =$conf->USAR_RUBROS == 1 && $conf->RUBRO3_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO3') : '';
+    $rubro4 =$conf->USAR_RUBROS == 1 && $conf->RUBRO4_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO4') : '';
+    $rubro5 =$conf->USAR_RUBROS == 1 && $conf->RUBRO5_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO5') : '';
 ?>
     
 <?php
@@ -132,6 +138,25 @@ function cargaGrilla(grid_id){
     
     $fechaEntrega = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
         'attribute'=>'FECHA_EMBARQUE',
+        'model'=>$model,
+	'language'=>'es',
+	'options'=>array(
+            'showAnim'=>'fadeIn', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
+            'dateFormat'=>'yy-mm-dd',
+            'changeMonth'=>true,
+            'changeYear'=>true,
+            'showOn'=>'both', // 'focus', 'button', 'both'
+            'buttonText'=>Yii::t('ui','Select form calendar'), 
+            'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
+            'buttonImageOnly'=>true,
+	),
+        'htmlOptions'=>array(
+            'style'=>'width:80px;vertical-align:top'
+        ),  
+   ), true); 
+    
+    $fechaOrden = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+        'attribute'=>'FECHA_ORDEN',
         'model'=>$model,
 	'language'=>'es',
 	'options'=>array(
@@ -231,28 +256,59 @@ function cargaGrilla(grid_id){
                 'tabs'=>array( 
                     array('label'=>'Líneas', 'content'=>$renderLineas, 'active'=>true),
                     array('label'=>'Otros', 'content'=>
-                        '<div class="row">
-                            <div class="control-group ">'
-                                .$form->labelEx($model,'FECHA_DESPACHO',array('class'=>'control-label'))
-                                .'<div class="controls">'   
-                                .$fechaDespacho
-                                .'</div>
-                            </div>'
-                            .'<div class="control-group ">'
-                                .$form->labelEx($model,'FECHA_ENTREGA',array('class'=>'control-label'))
-                                .'<div class="controls">'   
-                                .$fechaEntrega
-                                .'</div>
-                            </div>'
-                        .'</div>'
-                        .$form->textFieldRow($model,'RUBRO1',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'RUBRO2',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'RUBRO3',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'RUBRO4',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'RUBRO5',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'COMENTARIOS_CXC',array('size'=>50,'maxlength'=>50))
-                        .$form->textAreaRow($model,'OBSERVACIONES',array('rows'=>6, 'cols'=>50))
-                        ),
+                        '<table>
+                            <tr>
+                                <td style="width: 380px;">
+                                    <fieldset >
+                                        <legend ><font face="arial" size=3 >Fechas</font></legend>
+                                        <div class="control-group ">'
+                                            .$form->labelEx($model,'FECHA_DESPACHO',array('class'=>'control-label'))
+                                            .'<div class="controls">'   
+                                            .$fechaDespacho
+                                            .'</div>
+                                        </div>'
+                                        .'<div class="control-group ">'
+                                            .$form->labelEx($model,'FECHA_ENTREGA',array('class'=>'control-label'))
+                                            .'<div class="controls">'   
+                                            .$fechaEntrega
+                                            .'</div>
+                                        </div>'
+                                   .'</fieldset>'
+                                   .$form->textFieldRow($model,'COMENTARIOS_CXC',array('size'=>50,'maxlength'=>50))
+                                   .$form->textAreaRow($model,'OBSERVACIONES',array('rows'=>6, 'cols'=>50))
+                               .'</td>
+                                <td>
+                                    <fieldset>
+                                        <legend ><font face="arial" size=3 >Rubros</font></legend>'
+                                        .$text_rubros
+                                        .$rubro1
+                                        .$rubro2
+                                        .$rubro3
+                                        .$rubro4
+                                        .$rubro5
+                                    .'</fieldset>
+                               </td>
+                            </tr>
+                       </table>
+                       <fieldset>
+                               <legend ><font face="arial" size=3 >Orden de Compra</font></legend>
+                               <table>
+                                    <tr>
+                                        <td style="width: 380px;">'
+                                            .$form->textFieldRow($model,'ORDEN_COMPRA',array('size'=>30,'maxlength'=>50))
+                                         .'</td>
+                                        <td>
+                                            <div class="control-group ">'
+                                                .$form->labelEx($model,'FECHA_ORDEN',array('class'=>'control-label'))
+                                                .'<div class="controls">'   
+                                                    .$fechaOrden
+                                                .'</div>
+                                            </div>
+                                        </td>
+                                    <tr>
+                            </table>
+                      </fieldset>'
+                    ),
                     array('label'=>'Montos', 'content'=>
                         $form->textFieldRow($model,'TOTAL_MERCADERIA',array('size'=>28,'maxlength'=>28, 'readonly'=>true, 'value'=>'0'))
                         .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('size'=>28,'maxlength'=>28, 'readonly'=>true, 'value'=>'0'))

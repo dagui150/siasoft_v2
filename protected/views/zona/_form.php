@@ -23,15 +23,7 @@
                     <td>
                         <?php echo $form->textFieldRow($model2,'NOMBRE',array('maxlength'=>64)); ?>
                     </td>
-                    <td>
-                        <?php $this->widget('bootstrap.widgets.BootButton', array(
-                            //'label'=>'Ayuda',
-                            'type'=>'succes',
-                            'icon'=>'info-sign',
-                            'size'=>'mini',
-                            'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'Es una división que hace la empresa para clasificar clientes o proveedores. <br>Ej.: Zona caribe, zona cafetera.<br>Este submenú es solo de carácter informativo.', 'rel'=>'popover'),
-                        )); ?>
-                    </td>
+                    <td><?php echo $this->botonAyuda('NOM_ZONA'); ?></td>
                 </tr>
                 </table>
 
