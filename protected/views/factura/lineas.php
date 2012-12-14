@@ -10,7 +10,7 @@
     $(document).ready(function(){
         var total_resta = new Array();
         var cantidad,precio,descuento,iva,valor_impuesto,contador, model,id,total,total_mercaderia,total_facturar,total_descuento,total_iva,anticipo,flete,seguro,gran_total;
-        
+
         
         $('.cambiar').live('dblclick',function(){
             model = $(this).attr('id').split('_')[0];
@@ -81,7 +81,7 @@
                     precio = parseInt($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(), 10);
                     descuento = (precio * $(this).val())/100;
                     $('#LineaNuevo_'+contador+'_MONTO_DESCUENTO').val(descuento);
-                    total_resta['descuento'] = (precio * parseInt($('#LineaNuevo_'+contador+'_PRE-DESCUENTO').val(), 10))/100;
+                    total_resta['descuentos'] = (precio * parseInt($('#LineaNuevo_'+contador+'_PRE-DESCUENTO').val(), 10))/100;
                     total_resta['mercaderia'] = parseInt($('#LineaNuevo_'+contador+'_CANTIDAD').val(), 10) * precio;
                     $('#LineaNuevo_'+contador+'_PRE-DESCUENTO').val($(this).val());
                     //calcular el total
@@ -166,7 +166,7 @@
                          });
 
                   });
-    });
+     });
     
     $('.montos').blur(function(){
         total_facturar =  parseInt($('#Factura_TOTAL_A_FACTURAR').val(), 10);
@@ -176,8 +176,42 @@
         calculoGranTotal(total_facturar,anticipo,flete,seguro);
     });
     
+    $('.eliminaLinea').live('click',function(){
+        contador = $(this).attr('name');
+        model = 'LineaNuevo';
+        
+        
+        cantidad = parseInt($('#LineaNuevo_'+contador+'_CANTIDAD').val(), 10);
+        precio = parseInt($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(), 10);
+        descuento = parseInt($('#LineaNuevo_'+contador+'_MONTO_DESCUENTO').val(), 10);
+        iva = parseInt($('#LineaNuevo_'+contador+'_VALOR_IMPUESTO').val(), 10);
+        $('#remover_'+contador).click();
+        total_descuento =  parseInt($('#Factura_MONTO_DESCUENTO1').val(), 10);
+        total_iva =  parseInt($('#Factura_TOTAL_IMPUESTO1').val(), 10);
+        total_mercaderia =  parseInt($('#Factura_TOTAL_MERCADERIA').val(), 10);
+        total_facturar =  parseInt($('#Factura_TOTAL_A_FACTURAR').val(), 10);
+        anticipo =  parseInt($('#Factura_MONTO_ANTICIPO').val(), 10);
+        flete =  parseInt($('#Factura_MONTO_FLETE').val(), 10);
+        seguro =  parseInt($('#Factura_MONTO_SEGURO').val(), 10);
+        
+        //restar valores
+        total = precio * cantidad;
+        total_mercaderia -= total;
+        total_descuento -= descuento;
+        total_iva -= iva;
+        total_facturar = (total_mercaderia-total_descuento)+total_iva;
+        
+        calculoGranTotal(total_facturar,anticipo,flete,seguro);
+        
+        $('#Factura_TOTAL_MERCADERIA').val(total_mercaderia);
+        $('#Factura_MONTO_DESCUENTO1').val(total_descuento);
+        $('#Factura_TOTAL_IMPUESTO1').val(total_iva);
+        $('#Factura_TOTAL_A_FACTURAR').val(total_facturar);
+        
+    });
+    
     function calcularTotal(contador,model,restar,total_resta){
-        //lineas           
+        //lineas         
         cantidad = parseInt($('#'+model+'_'+contador+'_CANTIDAD').val(), 10);
         precio = parseInt($('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(), 10);
         descuento = parseInt($('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(), 10);
@@ -193,12 +227,16 @@
         if(restar == true){
             if(total_resta.descuento){
                  total_descuento -= parseInt(total_resta.descuento, 10);
-                 total_resta['descuento'] = 0;
+                 total_resta['descuentos'] = 0;
             }
              
             if(total_resta.mercaderia){
                 total_mercaderia -= total_resta.mercaderia;
                 total_resta['mercaderia'] = 0;
+            }
+            if(total_resta.iva){
+                total_iva -= total_resta.iva;
+                total_resta['iva'] = 0;
             }
         }
         
@@ -325,7 +363,7 @@
          </thead>
          <tfoot style="display:none;">
                <tr>
-                    <td colspan="15">
+                    <td colspan="12">
                         <div id="add" class="add">
                            <?php 
                                 $this->widget('bootstrap.widgets.BootButton', array(
@@ -388,13 +426,14 @@
                                             <?php echo CHtml::hiddenField('LineaNuevo[{0}][COMENTARIO]',''); ?>
                                         </td>                                            
                                         <td width="40px">
-                                            <div class="remove" id ="remover"style="float: left; margin-left: 5px;">
-                                                   <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                            <div class="remove" id ="remover_<?php echo '{0}';?>" style="float: left; margin-left: 5px; display: none"></div>
+                                            <div style="float: left; margin-left: 5px;">
+                                                <?php $this->widget('bootstrap.widgets.BootButton', array(
                                                              'buttonType'=>'button',
                                                              'type'=>'danger',
                                                              'size'=>'mini',
                                                              'icon'=>'minus white',
-                                                             'htmlOptions'=>array('onclick'=>'eliminar();','class'=>'eliminaRegistro','name'=>'{0}')
+                                                             'htmlOptions'=>array('class'=>'eliminaLinea','name'=>'{0}')
                                                          ));
                                                    ?>
                                             </div>
