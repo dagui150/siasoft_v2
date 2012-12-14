@@ -225,8 +225,8 @@
         flete =  parseInt($('#Factura_MONTO_FLETE').val(), 10);
         seguro =  parseInt($('#Factura_MONTO_SEGURO').val(), 10);
         if(restar == true){
-            if(total_resta.descuento){
-                 total_descuento -= parseInt(total_resta.descuento, 10);
+            if(total_resta.descuentos){
+                 total_descuento -= parseInt(total_resta.descuentos, 10);
                  total_resta['descuentos'] = 0;
             }
              
