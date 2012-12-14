@@ -169,11 +169,11 @@ function cargaGrilla(grid_id){
                         <tr>
                             <td colspan="2">
                                  <div class="control-group ">
-                                        <?php echo $form->labelEx($model,'FECHA_FACTURA',array('class'=>'control-label')); ?>
+                                        <?php echo $form->labelEx($model,'FECHA_PEDIDO',array('class'=>'control-label')); ?>
                                         <div class="controls">   
                                             <?php 
                                                 echo $fechaFactura; 
-                                                echo $form->error($model,'FECHA_FACTURA')
+                                                echo $form->error($model,'FECHA_PEDIDO')
                                             ?>
                                         </div>
                                 </div>
@@ -203,7 +203,7 @@ function cargaGrilla(grid_id){
                             )); ?>
                             </td>
                             <td>
-                                <?php echo CHtml::textField('Cliente_desc','',array('disabled'=>true,'size'=>35)); ?>
+                                <?php echo CHtml::textField('Cliente_desc','',array('disabled'=>true,'size'=>32)); ?>
                             </td>
                         </tr>
                         <tr>
