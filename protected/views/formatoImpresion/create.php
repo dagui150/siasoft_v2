@@ -1,4 +1,3 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Formato Impresion";?>
 <?php
 /* @var $this FormatoImpresionController */
 /* @var $model FormatoImpresion */

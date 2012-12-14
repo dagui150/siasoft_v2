@@ -6,7 +6,10 @@ class IngresoCompraController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
+        public $modulo='Compras';
+        public $submodulo='Ingreso de Compra';
 	public $layout='//layouts/column2';
+        public $ingreso;
 
 	/**
 	 * @return array action filters
@@ -24,6 +27,7 @@ class IngresoCompraController extends Controller
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
+        /*
 	public function accessRules()
 	{
 		return array(
@@ -44,6 +48,8 @@ class IngresoCompraController extends Controller
 			),
 		);
 	}
+         * 
+         */
         
         public function actionCargarLineas (){
             $item_id = $_GET['seleccion'];
@@ -156,6 +162,30 @@ class IngresoCompraController extends Controller
 			'model'=>$this->loadModel($id),
 		));
 	}
+        
+        public function actionformatoPDF() {
+
+            $id = $_GET['id'];
+            
+            $this->ingreso = IngresoCompra::model()->findByPk($id);
+            $lineas = new IngresoCompraLinea;
+            $this->layout = ConfCo::model()->find()->fORMATOINGRESO->RUTA;
+            
+            $footer = '<table width="100%">
+                    <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>
+                        <td align="center" valign="middle"><span class="piePagina"><b>Generado el:</b> ' . date('Y/m/d') . '</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center" valign="middle">Desarrollado por Tramasoft Soluciones TIC - <a href="http://www.tramasoft.com">www.tramasoft.com</a></td>
+                    </tr>
+                    </table>';
+            $mPDF1 = Yii::app()->ePdf->mpdf();
+            $mPDF1->WriteHTML($this->render('pdf', array('model' => $this->ingreso,'model2'=>$lineas), true));
+            $mPDF1->SetHTMLFooter($footer);
+
+            $mPDF1->Output();
+            Yii::app()->end();
+        }
 
 	/**
 	 * Creates a new model.

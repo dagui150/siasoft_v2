@@ -129,7 +129,7 @@ class SolicitudOcController extends SBaseController
             $mPDF1 = Yii::app()->ePdf->mpdf();
             $mPDF1->WriteHTML($this->render('pdf', array('model' => $this->solicitud,'model2'=>$lineas), true));
             $mPDF1->SetHTMLFooter($footer);
-            
+
             $mPDF1->Output();
             Yii::app()->end();
         }

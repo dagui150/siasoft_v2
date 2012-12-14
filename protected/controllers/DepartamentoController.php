@@ -136,6 +136,20 @@ class DepartamentoController extends SBaseController
         
           public function actionExcel()
 	{
+		$model = new Departamento('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
+	}
+        
+        public function actionPdf(){
+            
+            $dataProvider=new Departamento;
+		$this->render('pdf',array(
+			'dataProvider'=>$dataProvider,
+		));
+            
             
         }
 

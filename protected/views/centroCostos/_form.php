@@ -18,7 +18,7 @@
                            <?php $this->widget('CMaskedTextField', array(
                                 'model' => $model2,
                                 'attribute' => 'ID',
-                                'mask' => $mask,                    
+                    'mask' => $mask, 
                    'htmlOptions'=>array('readonly'=>$model2->isNewRecord ? false : true),
                             ));
                             ?>

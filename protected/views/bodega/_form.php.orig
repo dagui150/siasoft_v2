@@ -36,7 +36,12 @@ $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
                 <td><?php echo $form->textFieldRow($model2, 'DIRECCION', array('maxlength' => 128)); ?></td>
             </tr>
         </table>
+<<<<<<< HEAD
 
+=======
+        
+        
+>>>>>>> 1ae50e04e48127426950d0332c690d913aa96f0f
         <?php echo CHtml::activeHiddenField($model2, 'ACTIVO', array('value' => 'S')); ?>
 
 
