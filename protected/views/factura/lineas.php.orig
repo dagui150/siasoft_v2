@@ -101,8 +101,13 @@
                  });
         });
         $('.tipo_precio').live('change',function(){
+<<<<<<< HEAD
+            
+            var modelo = $(this).attr('id').split('_')[0];
+=======
              contador =  $(this).attr('id').split('_')[1];
              var modelo = $(this).attr('id').split('_')[0];
+>>>>>>> 643c3a31e8ef8544eb488f69ad50869b61c5d68f
             $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&tipo='+$(this).val(),
                     function(data){
                          $('#NOMBRE_TIPO_PRECIO').val('');
