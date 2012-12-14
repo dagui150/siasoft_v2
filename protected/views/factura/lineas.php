@@ -353,7 +353,6 @@
                     <td><strong>Cant.</strong></td>
                     <td><strong>Unidad</strong></td>
                     <td><strong>Tipo Precio</strong></td>
-                    <td><strong>Tipo Precio</strong></td>
                     <td><strong>Precio Unitario</strong></td>  
                     <td><strong>% Desc.</strong></td>
                     <td><strong>% Iva</strong></td>
@@ -401,8 +400,6 @@
                                         <td>
                                             <span id='tipoprecio_<?php echo '{0}';?>' class="cambiar"></span>
                                             <span id='campo_tipoprecio_<?php echo '{0}';?>' style="display:none;" ><?php echo CHtml::dropDownList('LineaNuevo[{0}][TIPO_PRECIO]','',array(),array('empty'=>'Seleccione','style'=>'width:80px;','class'=>'blur tipo_precio')); ?></span>
-                                        </td>
-                                        <td>
                                         </td>
                                         <td>
                                             <span id='preciounitario_<?php echo '{0}';?>' class="cambiar"></span>
