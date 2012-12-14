@@ -9,7 +9,7 @@
 <script>
     $(document).ready(function(){
         var total_resta = new Array();
-        var cantidad,precio,descuento,iva,contador, model,id,total,total_mercaderia,total_facturar,total_descuento,total_iva,anticipo,flete,seguro,gran_total;
+        var cantidad,precio,descuento,iva,valor_impuesto,contador, model,id,total,total_mercaderia,total_facturar,total_descuento,total_iva,anticipo,flete,seguro,gran_total;
         
         
         $('.cambiar').live('dblclick',function(){
@@ -158,14 +158,24 @@
 
 
                                 });
-                                $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val((parseInt(data.PRECIO, 10) * parseInt(impuesto, 10))/100);
-                                $('#valor_impuesto_'+contador).text((parseInt(data.PRECIO, 10) * parseInt(impuesto, 10))/100);
+                                valor_impuesto = (parseInt(data.PRECIO, 10) * parseInt(impuesto, 10))/100;
+                                $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(valor_impuesto);
+                                $('#valor_impuesto_'+contador).text('$ '+valor_impuesto);
                                 
                                 calcularTotal(contador,model,false,null);              
                          });
 
                   });
     });
+    
+    $('.montos').blur(function(){
+        total_facturar =  parseInt($('#Factura_TOTAL_A_FACTURAR').val(), 10);
+        anticipo =  parseInt($('#Factura_MONTO_ANTICIPO').val(), 10);
+        flete =  parseInt($('#Factura_MONTO_FLETE').val(), 10);
+        seguro =  parseInt($('#Factura_MONTO_SEGURO').val(), 10);
+        calculoGranTotal(total_facturar,anticipo,flete,seguro);
+    });
+    
     function calcularTotal(contador,model,restar,total_resta){
         //lineas           
         cantidad = parseInt($('#'+model+'_'+contador+'_CANTIDAD').val(), 10);
@@ -204,12 +214,12 @@
         total_iva += iva;
         total_facturar = (total_mercaderia-total_descuento)+total_iva;
         
-        calculoGranTotal(total_facturar,anticipo,flete,seguro)
+        calculoGranTotal(total_facturar,anticipo,flete,seguro);
         
         $('#Factura_TOTAL_MERCADERIA').val(total_mercaderia);
         $('#Factura_MONTO_DESCUENTO1').val(total_descuento);
         $('#Factura_TOTAL_IMPUESTO1').val(total_iva);
-        $('#Factura_TOTAL_A_FACTURAR').val(total_iva);
+        $('#Factura_TOTAL_A_FACTURAR').val(total_facturar);
     }
     function calculoGranTotal(total_facturar,anticipo,flete,seguro){
         gran_total =(total_facturar - anticipo)+flete+seguro;
@@ -239,19 +249,7 @@
         $('#porcdescuento_'+contador).text(0+' %');
         $('#monto_descuento_'+contador).text(0);
   
-    }
-    function strpos (haystack, needle, offset) {
-      // http://kevin.vanzonneveld.net
-      // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-      // +   improved by: Onno Marsman
-      // +   bugfixed by: Daniel Esteban
-      // +   improved by: Brett Zamir (http://brett-zamir.me)
-      // *     example 1: strpos('Kevin van Zonneveld', 'e', 5);
-      // *     returns 1: 14
-      var i = (haystack + '').indexOf(needle, (offset || 0));
-      return i === -1 ? false : true;
-    }
-        
+    } 
         
     
 });
@@ -320,7 +318,7 @@
                     <td><strong>Precio Unitario</strong></td>  
                     <td><strong>% Desc.</strong></td>
                     <td><strong>% Iva</strong></td>
-                    <td><strong>Impuesto</strong></td>
+                    <td><strong>Iva</strong></td>
                     <td><strong>Total</strong></td>
                     <td></td>
                </tr>
@@ -396,7 +394,7 @@
                                                              'type'=>'danger',
                                                              'size'=>'mini',
                                                              'icon'=>'minus white',
-                                                             'htmlOptions'=>array('onclick'=>'eliminar();','name'=>'{0}')
+                                                             'htmlOptions'=>array('onclick'=>'eliminar();','class'=>'eliminaRegistro','name'=>'{0}')
                                                          ));
                                                    ?>
                                             </div>

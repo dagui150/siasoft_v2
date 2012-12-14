@@ -111,7 +111,8 @@ function cargaGrilla(grid_id){
             'buttonImageOnly'=>true,
 	),
         'htmlOptions'=>array(
-            'style'=>'width:80px;vertical-align:top'
+            'style'=>'width:80px;vertical-align:top',
+            'value'=>date('Y-m-d'),
         ),  
    ), true);
     
@@ -307,14 +308,23 @@ function cargaGrilla(grid_id){
                       </fieldset>'
                     ),
                     array('label'=>'Montos', 'content'=>
-                        $form->textFieldRow($model,'TOTAL_MERCADERIA',array('size'=>28,'maxlength'=>28,'value'=>0))
-                        .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('size'=>28,'maxlength'=>28,'value'=>0))
-                        .$form->textFieldRow($model,'TOTAL_IMPUESTO1',array('size'=>28,'maxlength'=>28,'value'=>0))
-                        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('size'=>28,'maxlength'=>28,'value'=>0))
-                        .$form->textFieldRow($model,'MONTO_ANTICIPO',array('size'=>28,'maxlength'=>28,'value'=>0))
-                        .$form->textFieldRow($model,'MONTO_FLETE',array('size'=>28,'maxlength'=>28,'value'=>0))
-                        .$form->textFieldRow($model,'MONTO_SEGURO',array('size'=>28,'maxlength'=>28,'value'=>0))
-                        ),
+                        '<table>
+                                 <tr>
+                                      <td style="width: 380px;">'
+                                            .$form->textFieldRow($model,'TOTAL_MERCADERIA',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true))
+                                            .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true))
+                                            .$form->textFieldRow($model,'TOTAL_IMPUESTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true))
+                                            .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true))
+                                     .'</td>
+                                      <td>'
+                                           .$form->textFieldRow($model,'MONTO_ANTICIPO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>0,'class'=>'montos'))
+                                           .$form->textFieldRow($model,'MONTO_FLETE',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>0,'class'=>'montos'))
+                                           .$form->textFieldRow($model,'MONTO_SEGURO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>0,'class'=>'montos'))
+                                     .'</td>
+                                 <tr>
+                        </table>'
+                        
+                    ),
                 )
             )); ?>
 
