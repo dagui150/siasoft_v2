@@ -112,6 +112,7 @@ class Pedido extends CActiveRecord
 	 */
 	public function attributeLabels()
 	{
+                $conf_fa = ConfFa::model()->find();
 		return array(
                         'CONSECUTIVO'=>'Pedido',
 			'PEDIDO' => 'Pedido',
@@ -124,11 +125,11 @@ class Pedido extends CActiveRecord
 			'FECHA_EMBARQUE' => 'Embarque',
 			'ORDEN_COMPRA' => 'Orden Compra',
 			'FECHA_ORDEN' => 'Fecha',
-			'RUBRO1' => 'Rubro1',
-			'RUBRO2' => 'Rubro2',
-			'RUBRO3' => 'Rubro3',
-			'RUBRO4' => 'Rubro4',
-			'RUBRO5' => 'Rubro5',
+			'RUBRO1' => $conf_fa->USAR_RUBROS && $conf_fa->RUBRO1_NOMBRE != '' ? $conf_fa->RUBRO1_NOMBRE : 'Rubro 1',
+			'RUBRO2' => $conf_fa->USAR_RUBROS && $conf_fa->RUBRO2_NOMBRE != '' ? $conf_fa->RUBRO2_NOMBRE : 'Rubro 2',
+			'RUBRO3' => $conf_fa->USAR_RUBROS && $conf_fa->RUBRO3_NOMBRE != '' ? $conf_fa->RUBRO3_NOMBRE : 'Rubro 3',
+			'RUBRO4' => $conf_fa->USAR_RUBROS && $conf_fa->RUBRO4_NOMBRE != '' ? $conf_fa->RUBRO4_NOMBRE : 'Rubro 4',
+			'RUBRO5' => $conf_fa->USAR_RUBROS && $conf_fa->RUBRO5_NOMBRE != '' ? $conf_fa->RUBRO5_NOMBRE : 'Rubro 5',
 			'COMENTARIOS_CXC' => 'Comentarios Cxc',
 			'OBSERVACIONES' => 'Observaciones',
 			'TOTAL_MERCADERIA' => 'Total Mercaderia',
