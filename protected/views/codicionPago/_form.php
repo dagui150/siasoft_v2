@@ -14,36 +14,19 @@
                 <td>
                     <?php echo $form->textFieldRow($model2,'ID',array('size'=>4,'maxlength'=>4)); ?>
                 </td>
-                <td>
-                    <?php $this->widget('bootstrap.widgets.BootButton', array(
-                        //'label'=>'Ayuda',
-                        'type'=>'succes',
-                        'icon'=>'info-sign',
-                        'size'=>'mini',
-                        'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'Cadena de caracteres alfanumérico.', 'rel'=>'popover'),
-                    )); ?>
-                </td>
+                <td><?php echo $this->botonAyuda('CODIGO'); ?></td>
             </tr>
             <tr>
                 <td>
                     <?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
                 </td>
-                <td>
-                </td>
+                <td><?php echo $this->botonAyuda('DESCR_CP'); ?></td>
             </tr>
             <tr>
                 <td>
                     <?php echo $form->textFieldRow($model2,'DIAS_NETO'); ?>
                 </td>
-                <td>
-                    <?php $this->widget('bootstrap.widgets.BootButton', array(
-                        //'label'=>'Ayuda',
-                        'type'=>'succes',
-                        'icon'=>'info-sign',
-                        'size'=>'mini',
-                        'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'Días hábiles.', 'rel'=>'popover'),
-                    )); ?>
-                </td>
+                <td><?php echo $this->botonAyuda('DIAS_CP'); ?></td>
             </tr>
             </tr>
         </table>

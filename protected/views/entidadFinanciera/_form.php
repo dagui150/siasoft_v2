@@ -47,36 +47,19 @@ function updateCampos(grid_id){
                         <td>
                             <?php echo $form->textFieldRow($model2,'ID'); ?>
                         </td>
-                        <td>
-                             <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                //'label'=>'Ayuda',
-                                'type'=>'succes',
-                                'icon'=>'info-sign',
-                                'size'=>'mini',
-                                'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'Cadena de caracteres alfanumérico.', 'rel'=>'popover'),
-                            )); ?>
-                        </td>
+                        <td><?php echo $this->botonAyuda('CODIGO'); ?></td>
                     </tr>
                     <tr>
                         <td>
                             <div class="control-group "><label for="EntidadFinanciera_NIT" class="control-label required">NIT <span class="required">*</span></label><div class="controls"><?php echo $completar; ?> <?php echo $modal; ?></div></div>
                         </td>
-                        <td>
-                            <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                //'label'=>'Ayuda',
-                                'type'=>'succes',
-                                'icon'=>'info-sign',
-                                'size'=>'mini',
-                                'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'En este campo, se debe escribir/seleccionar un NIT previamente relaciona/creado en el submenú "Relación de Nits".', 'rel'=>'popover'),
-                            )); ?>
-                        </td>
+                        <td><?php echo $this->botonAyuda('NIT_ENT_FINAN'); ?></td>
                     </tr>
                     <tr>
                         <td>
                             <?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
                         </td>
-                        <td>
-                        </td>
+                        <td><?php echo $this->botonAyuda('DESCR_ENT_FINAN'); ?></td>
                     </tr>
                 </table>
 	<div class="row">

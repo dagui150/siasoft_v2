@@ -16,42 +16,19 @@
                 <td>
                     <?php echo $form->textFieldRow($model2,'ID',array('size'=>12,'maxlength'=>12)); ?>
                 </td>
-                <td>
-                    <?php $this->widget('bootstrap.widgets.BootButton', array(
-                        //'label'=>'Ayuda',
-                        'type'=>'succes',
-                        'icon'=>'info-sign',
-                        'size'=>'mini',
-                        'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'Cadena de caracteres alfanumérico.', 'rel'=>'popover'),
-                    )); ?>
-                </td>
+                <td><?php echo $this->botonAyuda('CODIGO'); ?></td>
             </tr>
             <tr>
                 <td>
                     <?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
                 </td>
-                <td>
-                </td>
+                <td><?php echo $this->botonAyuda('DESCR_NIV_PRECI'); ?></td>
             </tr>
             <tr>
                 <td>
                     <?php echo $form->dropDownListRow($model2, 'ESQUEMA_TRABAJO', array('NORM'=>'Normal','MULT'=>'Multiplicador', 'MARG' => 'Margen', 'MARK' => 'Markup')); ?>
                 </td>
-                <td>
-                </td>
-            </tr>
-        </table>
-                <td>
-                </td>
-                <td>
-                    <?php $this->widget('bootstrap.widgets.BootButton', array(
-                        //'label'=>'Ayuda',
-                        'type'=>'succes',
-                        'icon'=>'info-sign',
-                        'size'=>'mini',
-                        'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'En este campo, se debe seleccionar una condición de pago previamente creada en el submenú "Condición de pago".', 'rel'=>'popover'),
-                    )); ?>
-                </td>
+                <td><?php echo $this->botonAyuda('ESQ_NIV_PRECI'); ?></td>
             </tr>
         </table>
 	<div class="row">

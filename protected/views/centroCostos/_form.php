@@ -24,30 +24,20 @@
                             ?>
                            </div></div>
                         </td>
-                        <td>
-                            <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                   //'label'=>'Ayuda',
-                                   'type'=>'succes',
-                                   'icon'=>'info-sign',
-                                   'size'=>'mini',
-                                   'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>'Este código depende de la máscara configurada en el submenú "Configuración general".', 'rel'=>'popover'),
-                               )); ?>
-                        </td>
+                        <td><?php echo $this->botonAyuda('CODIGO_CC'); ?></td>
                     </tr>
                     <tr>
                         <td>
                             <?php //echo $form->textFieldRow($model2,'ID',array('size'=>25,'maxlength'=>25)); ?>
                             <?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
                         </td>
-                        <td>
-                        </td>
+                        <td><?php echo $this->botonAyuda('DESCR_CC'); ?></td>
                     </tr>
                     <tr>
                         <td>
                             <?php echo $form->dropDownListRow($model2, 'TIPO', array('G'=>'Gasto','I'=>'Ingreso', 'A' => 'Ambos')); ?>
                         </td>
-                        <td>
-                        </td>
+                        <td><?php echo $this->botonAyuda('TIPO_CC'); ?></td>
                     </tr>
                     </table>
 

@@ -29,7 +29,6 @@ function inicio(){
                     $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
                     $('#agregar').attr('disabled', false);
                     
-                }
             );
         });
         
@@ -314,7 +313,6 @@ function cargaGrilla(grid_id){
                         .$form->textFieldRow($model,'MONTO_ANTICIPO',array('size'=>28,'maxlength'=>28,'value'=>0))
                         .$form->textFieldRow($model,'MONTO_FLETE',array('size'=>28,'maxlength'=>28,'value'=>0))
                         .$form->textFieldRow($model,'MONTO_SEGURO',array('size'=>28,'maxlength'=>28,'value'=>0))
-                        ),
                 )
             )); ?>
 

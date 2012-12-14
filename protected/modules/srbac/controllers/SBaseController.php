@@ -29,7 +29,7 @@ class SBaseController extends CController {
                     'type' => 'nommal', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
                     'size' => 'mini', // '', 'large', 'small' or 'mini'
                     'icon' => 'info-sign',
-                    'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>$texto, 'rel'=>'popover'),
+                    'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>Yii::t('ayuda',$texto), 'rel'=>'popover'),
                 ),true);
         return $boton;
     }

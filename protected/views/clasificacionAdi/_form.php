@@ -12,13 +12,33 @@
 	<?php echo $form->errorSummary($model2); ?>
 
 	<div class="modal-body">
-		<?php echo $form->textFieldRow($model2,'ID',array('maxlength'=>12)); ?>
-
-		<?php echo $form->textFieldRow($model2,'NOMBRE',array('maxlength'=>64)); ?>
             
-		<?php echo $form->radioButtonListRow($model2,'OBLIGATORIO',array('S'=>'Si','N'=>'No')); ?>
-
-		<?php echo $form->textFieldRow($model2,'POSICION'); ?>
+                <table style="width: 400px;">
+                    <tr>
+                        <td>
+                            <?php echo $form->textFieldRow($model2,'ID',array('maxlength'=>12)); ?>
+                        </td>
+                        <td><?php echo $this->botonAyuda('CODIGO'); ?></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $form->textFieldRow($model2,'NOMBRE',array('maxlength'=>64)); ?>
+                        </td>
+                        <td><?php echo $this->botonAyuda('CLAS_NOM'); ?></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $form->radioButtonListRow($model2,'OBLIGATORIO',array('S'=>'Si','N'=>'No')); ?>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $form->textFieldRow($model2,'POSICION'); ?>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
 
 		<div class="row">
 			<?php echo CHtml::activeHiddenField($model2,'ACTIVO',array('value'=>'S')); ?>
