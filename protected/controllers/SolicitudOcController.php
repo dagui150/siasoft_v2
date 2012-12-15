@@ -65,8 +65,8 @@ class SolicitudOcController extends SBaseController
 	 */
 	public function actionCreate()
 	{
-		$model=new SolicitudOc;
-                $linea=new SolicitudOcLinea;
+		$model = new SolicitudOc;
+                $linea = new SolicitudOcLinea;
                 $articulo = new Articulo;
                 $config = ConfCo::model()->find();
                 $i = 1;
@@ -80,13 +80,19 @@ class SolicitudOcController extends SBaseController
                         
 			if($model->save())
                             if(isset($_POST['Nuevo'])){
+                                $trans = array('.' => '');
+                                $trans2 = array(',' => '.');
+                                
                                 foreach ($_POST['Nuevo'] as $datos){
+                                    
+                                    $cantidad=strtr(strtr($datos['CANTIDAD'], $trans), $trans2);
+                                    
                                     $linea=new SolicitudOcLinea;
                                     $linea->SOLICITUD_OC = $_POST['SolicitudOc']['SOLICITUD_OC'];
                                     $linea->ARTICULO = $datos['ARTICULO'];
                                     $linea->DESCRIPCION = $datos['DESCRIPCION'];
                                     $linea->UNIDAD = $datos['UNIDAD'];
-                                    $linea->CANTIDAD = $datos['CANTIDAD'];
+                                    $linea->CANTIDAD = $cantidad;
                                     $linea->FECHA_REQUERIDA = $datos['FECHA_REQUERIDA'];
                                     $linea->COMENTARIO = $datos ['COMENTARIO'];
                                     $linea->SALDO = $datos ['SALDO'];

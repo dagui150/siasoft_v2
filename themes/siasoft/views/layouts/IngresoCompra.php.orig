@@ -32,7 +32,11 @@
 
             <table width="100%">
                 <tr>
+<<<<<<< HEAD
+                    <td colspan="2"><table width="100%" >
+=======
                     <td colspan="2"><table width="100%" align="center">
+>>>>>>> 9d8da85227e75f8885c50bae126edb8a31167ab3
                             <tr>
                                 <td width="26%" rowspan="3" align="left" valign="middle"><?php
                                     $compania = Compania::model()->find();

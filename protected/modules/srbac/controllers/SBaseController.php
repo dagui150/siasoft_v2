@@ -34,6 +34,13 @@ class SBaseController extends CController {
         return $boton;
     }
     
+    public static function unformat($valor){
+        $trans = array('.' => '');
+        $trans2 = array(',' => '.');
+        $valorunformat=strtr(strtr($valor, $trans), $trans2);
+        return $valorunformat;
+    }
+    
   /**
    * Checks if srbac access is granted for the current user
    * @param String $action . The current action

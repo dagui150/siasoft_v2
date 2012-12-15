@@ -84,12 +84,14 @@ class Articulo extends CActiveRecord
 	 */
 	public function rules()
 	{
+            
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
 			array('ORIGEN_CORP, TIPO_ARTICULO, EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN,', 'required'),
 			array('ARTICULO, NOMBRE, FRECUENCIA_CONTEO,PESO_NETO, PESO_NETO_UNIDAD, PESO_BRUTO, PESO_BRUTO_UNIDAD, VOLUMEN, VOLUMEN_UNIDAD, UNIDAD_ALMACEN, UNIDAD_EMPAQUE, UNIDAD_VENTA, FACTOR_EMPAQUE, FACTOR_VENTA, IMPUESTO_VENTA,', 'required',),
-                        array('EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA,PUNTO_REORDEN,FRECUENCIA_CONTEO, PESO_NETO, PESO_BRUTO, VOLUMEN, FACTOR_EMPAQUE,FACTOR_VENTA', 'numerical',),
+                        array('EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA,PUNTO_REORDEN, PESO_NETO, PESO_BRUTO, VOLUMEN, FACTOR_EMPAQUE,FACTOR_VENTA','numerical','numberPattern'=>'/^\s*[-+]?([0-9]{0,3}).*\,*[0-9]*?[0-9]+([eE][-+]?[0-9]+)?\s*$/'),
+                        array('FRECUENCIA_CONTEO','numerical'),
                         array('ARTICULO, CODIGO_BARRAS, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
                         array('NOMBRE, DESCRIPCION_COMPRA', 'length', 'max'=>128),
                         array('EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN, PESO_NETO, PESO_BRUTO, VOLUMEN, FACTOR_EMPAQUE, FACTOR_VENTA', 'length', 'max'=>28),
@@ -107,32 +109,36 @@ class Articulo extends CActiveRecord
 			array('ARTICULO, NOMBRE, ORIGEN_CORP, CLASE_ABC, TIPO_ARTICULO, TIPO_COD_BARRAS, CODIGO_BARRAS, EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN, COSTO_FISCAL, DESCRIPCION_COMPRA, IMPUESTO, BODEGA, IMP1_AFECTA_COSTO, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
 	}
+        
         public function miValidacion3($attribute,$params){
-		
-		if ($this->EXISTENCIA_MAXIMA <= $this->EXISTENCIA_MINIMA){
-				$this->addError('EXISTENCIA_MAXIMA','Debe ser mayor a Mínima');
+            $min = SBaseController::unformat($this->EXISTENCIA_MINIMA);
+            $max = SBaseController::unformat($this->EXISTENCIA_MAXIMA);
+		if ($max <= $min){
+                    $this->addError('EXISTENCIA_MAXIMA','Debe ser mayor a Mínima');
                 }
 	}
         
         public function behaviors()
 	{
                 $conf=ConfCi::model()->find();
-                $trans = array("," => ".");
 		return array(
-                       /* 'defaults'=>array(
+                        'defaults'=>array(
                             'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
-                            'format'=>'db',
+                            //'format'=>'db',
                             'formats'=> array(
-                                   'EXISTENCIA_MINIMA'=>'#0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
-                                   'EXISTENCIA_MAXIMA'=>'#0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
-                                   'PUNTO_REORDEN'=>'#0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
-                                   'PESO_BRUTO'=>'#0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
-                                   'VOLUMEN'=>'#0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
-                                   'FACTOR_EMPAQUE'=>'#0.'.str_repeat('0',$conf->EXISTENCIAS_DEC),  
-                                   'FACTOR_VENTA'=>'#0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   'EXISTENCIA_MINIMA'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   'EXISTENCIA_MAXIMA'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   'PUNTO_REORDEN'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   'PESO_BRUTO'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   'VOLUMEN'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   'FACTOR_EMPAQUE'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC),  
+                                   'FACTOR_VENTA'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   'PESO_NETO'=>'###,##0.'.str_repeat('0',$conf->PESOS_DEC), 
+                                   'PESO_BRUTO'=>'###,##0.'.str_repeat('0',$conf->PESOS_DEC), 
+                                   'COSTO_PROMEDIO'=>'###,##0.'.str_repeat('0',$conf->COSTOS_DEC), 
                             ),
-                            'parseExpression'=> "strtr(\$value,',','.')",
-                        ),*/
+                            //'parseExpression'=> "strtr(\$value,',','.')",
+                        ),
                         
                         'CTimestampBehavior' => array(
                              'class' => 'zii.behaviors.CTimestampBehavior',
@@ -477,6 +483,5 @@ class Articulo extends CActiveRecord
                break;     
                     
             }
-        }
-            
+        }     
 }
