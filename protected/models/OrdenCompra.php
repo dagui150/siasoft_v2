@@ -242,7 +242,22 @@ class OrdenCompra extends CActiveRecord
 
         public function behaviors()
 	{
+		$conf=ConfCo::model()->find();
+                $dec=isset($conf->CANTIDAD_DEC)?$conf->CANTIDAD_DEC:0;
 		return array(
+                        'defaults'=>array(
+                            'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
+                            'format'=>'db',
+                            'formats'=> array(
+                                   'MONTO_FLETE'=>'#0.'.str_repeat('0',$dec),
+                                   'MONTO_SEGURO'=>'#0.'.str_repeat('0',$dec),
+                                   'MONTO_ANTICIPO'=>'#0.'.str_repeat('0',$dec),
+                                   'TOTAL_A_COMPRAR'=>'#0.'.str_repeat('0',$dec),
+                            ),
+                            
+                            'parseExpression'=> "strtr(\$value,',','.')",
+                        ),
+                    
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',

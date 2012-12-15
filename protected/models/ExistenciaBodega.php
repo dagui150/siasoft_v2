@@ -69,8 +69,8 @@ class ExistenciaBodega extends CActiveRecord
 	}
         
         public function miValidacion($attribute,$params){
-		
-		if ($this->EXISTENCIA_MAXIMA <= $this->EXISTENCIA_MINIMA){
+		$trans = array("," => ".");
+		if (strtr($this->EXISTENCIA_MAXIMA, $trans) <= strtr($this->EXISTENCIA_MINIMA, $trans)){
 				$this->addError('EXISTENCIA_MAXIMA','Debe ser mayor a Mínima');
                 }
 	}
@@ -175,7 +175,21 @@ class ExistenciaBodega extends CActiveRecord
         
          public function behaviors()
 	{
+                $conf=ConfCi::model()->find();
 		return array(
+                    'defaults'=>array(
+                            'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
+                            'format'=>'db',
+                            'formats'=> array(
+                                   'EXISTENCIA_MINIMA'=>'#0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   'EXISTENCIA_MAXIMA'=>'#0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   'PUNTO_REORDEN'=>'#0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   'CANT_DISPONIBLE'=>'#0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   'CANT_RESERVADA'=>'#0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   'CANT_REMITIDA'=>'#0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                            ),
+                            'parseExpression'=> "strtr(\$value,',','.')",
+                        ),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',
@@ -188,6 +202,5 @@ class ExistenciaBodega extends CActiveRecord
 				'updatedByColumn' => 'ACTUALIZADO_POR',
 			),
 		);
-	}
-        
+	} 
 }

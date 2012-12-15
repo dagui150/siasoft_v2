@@ -112,6 +112,15 @@ $(document).ready(function(){
         
         
 }) 
+function formato(input)
+{	
+    var num = input.value.replace(/\./g,'');	
+    if(!/,/.test(num)){
+        num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+        num = num.split('').reverse().join('').replace(/^[\.]/,'');
+        input.value = num;
+    }
+}
 
 function cargaArticuloGrilla (grid_id){
        
@@ -305,7 +314,7 @@ function add(){
                                                     <?php echo CHtml::textField('Nuevo[{0}][ESTADO]','P',array('readonly'=>true, 'size'=>'1')); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][CANTIDAD]','',array('size'=>'5', 'class' => 'cantidad')); ?>
+                                                    <?php echo CHtml::textField('Nuevo[{0}][CANTIDAD]','',array('size'=>'5', 'class' => 'cantidad','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
                                                 </td>
                                                 <td>
                                                     <?php echo CHtml::textField('Nuevo[{0}][FECHA_REQUERIDA]','',array('class' => 'fecha', 'size'=>'10')); ?>
@@ -369,7 +378,7 @@ function add(){
                             <?php echo $form->textField($item,"[$i]ESTADO",array('readonly'=>true, 'size'=>'1')); ?>
                         </td>
                         <td>
-                            <?php echo $form->textField($item,"[$i]CANTIDAD",array('size'=>'5', 'class' => 'cantidad')); ?>
+                            <?php echo $form->textField($item,"[$i]CANTIDAD",array('size'=>'5', 'class' => 'cantidad','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
                         </td>
                         <td>
                             <?php echo $form->textField($item,"[$i]FECHA_REQUERIDA",array('class' => 'fecha', 'size'=>'10')); ?>

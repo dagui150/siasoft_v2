@@ -19,6 +19,16 @@
         });
     }
     
+    function formato(input)
+            {	
+                var num = input.value.replace(/\./g,'');	
+                if(!/,/.test(num)){
+                    num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+                    num = num.split('').reverse().join('').replace(/^[\.]/,'');
+                    input.value = num;
+                }
+            }
+    
     function updateBodega(grid_id){
         var id=$.fn.yiiGridView.getSelection(grid_id);
         
@@ -173,9 +183,9 @@
                                     <td>
                                         <fieldset style="width: 380px;">
                                             <legend ><font face="arial" size=3 >Existencias</font></legend>'
-                                                  .$form->textFieldRow($model,'EXISTENCIA_MINIMA',array('maxlength'=>28))
-                                                  .$form->textFieldRow($model,'PUNTO_REORDEN',array('maxlength'=>28))
-                                                  .$form->textFieldRow($model,'EXISTENCIA_MAXIMA',array('maxlength'=>28))
+                                                  .$form->textFieldRow($model,'EXISTENCIA_MINIMA',array('maxlength'=>28,'onkeyup'=>'formato(this)', 'onchange'=>'formato(this)'))
+                                                  .$form->textFieldRow($model,'PUNTO_REORDEN',array('maxlength'=>28,'onkeyup'=>'formato(this)', 'onchange'=>'formato(this)'))
+                                                  .$form->textFieldRow($model,'EXISTENCIA_MAXIMA',array('maxlength'=>28,'onkeyup'=>'formato(this)', 'onchange'=>'formato(this)'))
                                         .'</fieldset>
                                     </td>
                                 </tr>
@@ -290,12 +300,12 @@
                                                </tr>
                                                <tr>
                                                     <td>'.$form->dropDownListRow($model,'UNIDAD_EMPAQUE',UnidadMedida::getUnidad(),array('empty'=>'Seleccione')).'</td> 
-                                                    <td>'.$form->textField($model,'FACTOR_EMPAQUE',array('size'=>6)).'</td>
+                                                    <td>'.$form->textField($model,'FACTOR_EMPAQUE',array('size'=>6,'onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')).'</td>
                                                    
                                                </tr>
                                                <tr>
                                                     <td>'.$form->dropDownListRow($model,'UNIDAD_VENTA',UnidadMedida::getUnidad(),array('empty'=>'Seleccione')).'</td>  
-                                                    <td>'.$form->textField($model,'FACTOR_VENTA',array('size'=>6)).'</td>  
+                                                    <td>'.$form->textField($model,'FACTOR_VENTA',array('size'=>6,'onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')).'</td>
                                                     
                                                </tr>
                                           </table>
