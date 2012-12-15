@@ -205,9 +205,7 @@
                 .CHtml::textField('Categoria2','', array('readonly' => true, 'size'=>40))
                 .'</td></tr></table>'
                 .$form->dropDownListRow($model,'NIVEL_PRECIO', CHtml::listData(NivelPrecio::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('empty'=>'Seleccione...'))
-                .$form->textFieldRow($model,'DECIMALES_PRECIO')
-                .$form->radioButtonListInlineRow($model, 'DESCUENTO_PRECIO', array('U' =>'Precio unitario', 'L' => 'Total de la linea'))
-                .$form->radioButtonListInlineRow($model,'DESCUENTO_AFECTA_IMP',array('L' => 'Líneas', 'A' => 'Ambos', 'T' => 'Total', 'N' => 'Ninguno')), 'active'=>true),
+                .$form->textFieldRow($model,'DECIMALES_PRECIO'), 'active'=>true),
 
             array('label'=>'Impresión', 'content'=>
                  $form->dropDownListRow($model,'FORMATO_PEDIDO', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND SUBMODULO = "PEDI"'), 'ID', 'NOMBRE'),array('empty'=>'Seleccione...'))

@@ -41,7 +41,7 @@
                                                     <?php echo CHtml::textField('Nuevo[{0}][MARGEN_MULTIPLICADOR]','',array()); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][PRECIO]','',array()); ?>
+                                                    <?php echo CHtml::textField('Nuevo[{0}][PRECIO]','0',array()); ?>
                                                 </td>                                                                                                
                                                     <input type="hidden" class="rowIndex" value="{0}" />
                                             </tr>
@@ -93,7 +93,7 @@
                             ?>
                         </td>
                         <td>
-                            <?php echo CHtml::textField("NivelPrecio4[$i]_PRECIO", '', array('readonly'=>true)); ?>
+                            <?php echo CHtml::textField("NivelPrecio4[$i]_PRECIO", '0', array('readonly'=>true)); ?>
                         </td>
                       </tr>   
                       <?php $i++; ?>
