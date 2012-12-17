@@ -90,8 +90,8 @@ class Articulo extends CActiveRecord
 		return array(
 			array('ORIGEN_CORP, TIPO_ARTICULO, EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN,', 'required'),
 			array('ARTICULO, NOMBRE, FRECUENCIA_CONTEO,PESO_NETO, PESO_NETO_UNIDAD, PESO_BRUTO, PESO_BRUTO_UNIDAD, VOLUMEN, VOLUMEN_UNIDAD, UNIDAD_ALMACEN, UNIDAD_EMPAQUE, UNIDAD_VENTA, FACTOR_EMPAQUE, FACTOR_VENTA, IMPUESTO_VENTA,', 'required',),
-                        array('EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA,PUNTO_REORDEN, PESO_NETO, PESO_BRUTO, VOLUMEN, FACTOR_EMPAQUE,FACTOR_VENTA','numerical','numberPattern'=>'/^\s*[-+]?([0-9]{0,3}).*\,*[0-9]*?[0-9]+([eE][-+]?[0-9]+)?\s*$/'),
-                        array('FRECUENCIA_CONTEO','numerical'),
+                        array('EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA,PUNTO_REORDEN, PESO_NETO, PESO_BRUTO, VOLUMEN, FACTOR_EMPAQUE,FACTOR_VENTA','numerical','numberPattern' => '/^\s*[-+]?(\d{1,3}\.*\,*)*?\s*$/'), //Decimales 'numberPattern' => '/^\s*[-+]?(\d{1,3}\.*\,*)*?\s*$/' 
+                        array('FRECUENCIA_CONTEO','numerical'),//Enteros 'integerOnly' =>true, 'integerPattern' => '/^\s*[-+]?(\d{1,3}\.*)*?\s*$/'
                         array('ARTICULO, CODIGO_BARRAS, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
                         array('NOMBRE, DESCRIPCION_COMPRA', 'length', 'max'=>128),
                         array('EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN, PESO_NETO, PESO_BRUTO, VOLUMEN, FACTOR_EMPAQUE, FACTOR_VENTA', 'length', 'max'=>28),
