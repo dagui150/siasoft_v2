@@ -52,10 +52,15 @@
                     $('#cantidad_'+contador).text($(this).val());
                     $('#campo_cantidad_'+contador).hide('fast');
                     $('#cantidad_'+contador).show('fast');
-                    total_resta['mercaderia'] = parseInt($('#LineaNuevo_'+contador+'_PRE-CANTIDAD').val(), 10) * parseInt($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(), 10);
+                    precio = parseInt($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(),10);
+                    
+                    if($(this).val() != $('#LineaNuevo_'+contador+'_PRE-CANTIDAD').val()){
+                        total_resta['descuentos'] = (precio * parseInt($('#LineaNuevo_'+contador+'_PORC_DESCUENTO').val(), 10))/100;
+                        total_resta['mercaderia'] = parseInt($('#LineaNuevo_'+contador+'_PRE-CANTIDAD').val(), 10) * precio;
+                        //calcular el total
+                        calcularTotal(contador,'LineaNuevo',true,total_resta);
+                    }
                     $('#LineaNuevo_'+contador+'_PRE-CANTIDAD').val($(this).val());
-                    //calcular el total
-                    calcularTotal(contador,'LineaNuevo',true,total_resta);
                 break;
                 case 'unidad':
                     $('#unidad_'+contador).text($('#NOMBRE_UNIDAD').val());
@@ -70,10 +75,15 @@
                 case 'preciounitario':
                     $('#preciounitario_'+contador).text('$ '+$(this).val());
                     $('#campo_preciounitario_'+contador).hide('fast');
-                    total_resta['mercaderia'] = parseInt($('#LineaNuevo_'+contador+'_CANTIDAD').val(), 10) * parseInt($('#LineaNuevo_'+contador+'_PRE-PRECIO').val(), 10);
-                     $('#LineaNuevo_'+contador+'_PRE-PRECIO').val($(this).val());
-                    //calcular el total
-                    calcularTotal(contador,'LineaNuevo',true,total_resta);
+                    precio = parseInt($('#LineaNuevo_'+contador+'_PRE-PRECIO').val(), 10);
+                    if($(this).val() != precio){
+                        total_resta['descuentos'] = (precio * parseInt($('#LineaNuevo_'+contador+'_PORC_DESCUENTO').val(), 10))/100;
+                        total_resta['mercaderia'] = parseInt($('#LineaNuevo_'+contador+'_CANTIDAD').val(), 10) * precio;
+                        //calcular el total
+                        calcularTotal(contador,'LineaNuevo',true,total_resta);
+                    }
+                    
+                    $('#LineaNuevo_'+contador+'_PRE-PRECIO').val($(this).val());
                     $('#preciounitario_'+contador).show('fast');
                 break;
                 case 'porcdescuento':
@@ -81,13 +91,15 @@
                     precio = parseInt($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(), 10);
                     descuento = (precio * $(this).val())/100;
                     $('#LineaNuevo_'+contador+'_MONTO_DESCUENTO').val(descuento);
-                    total_resta['descuentos'] = (precio * parseInt($('#LineaNuevo_'+contador+'_PRE-DESCUENTO').val(), 10))/100;
-                    total_resta['mercaderia'] = parseInt($('#LineaNuevo_'+contador+'_CANTIDAD').val(), 10) * precio;
+                    descuento = (precio * parseInt($('#LineaNuevo_'+contador+'_PRE-DESCUENTO').val(), 10))/100;
+                    if($(this).val() != $('#LineaNuevo_'+contador+'_PRE-DESCUENTO').val()){
+                        total_resta['descuentos'] = descuento;
+                        total_resta['mercaderia'] = parseInt($('#LineaNuevo_'+contador+'_CANTIDAD').val(), 10) * precio;
+                        //calcular el total
+                        calcularTotal(contador,'LineaNuevo',true,total_resta);
+                    }
                     $('#LineaNuevo_'+contador+'_PRE-DESCUENTO').val($(this).val());
-                    //calcular el total
-                    calcularTotal(contador,'LineaNuevo',true,total_resta);
-                    $('#campo_porcdescuento_'+contador).hide('fast');
-                    
+                    $('#campo_porcdescuento_'+contador).hide('fast');                    
                     $('#porcdescuento_'+contador).show('fast');
                break;
             }
@@ -109,7 +121,10 @@
                          $('#NOMBRE_TIPO_PRECIO').val(data.NOMBRE);
                          $('#preciounitario_'+contador).text('$ '+data.PRECIO);
                          $('#'+modelo+'_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
-                         total_resta['mercaderia'] = parseInt($('#'+modelo+'_'+contador+'_CANTIDAD').val(), 10) * parseInt($('#'+modelo+'_'+contador+'_PRE-PRECIO').val(), 10);
+                         
+                         precio = parseInt($('#'+modelo+'_'+contador+'_PRE-PRECIO').val(), 10);
+                         total_resta['descuentos'] = (precio * parseInt($('#LineaNuevo_'+contador+'_PORC_DESCUENTO').val(), 10))/100;
+                         total_resta['mercaderia'] = parseInt($('#'+modelo+'_'+contador+'_CANTIDAD').val(), 10) * precio;
                          $('#LineaNuevo_'+contador+'_PRE-PRECIO').val(data.PRECIO);
                          //calcular el total
                          calcularTotal(contador,modelo,true,total_resta);
@@ -165,7 +180,13 @@
                                 calcularTotal(contador,model,false,null);              
                          });
 
-                  });
+                });
+                $('#carga').ajaxSend(function(){
+                    $("#carga").html('<div align="left" style="margin-bottom: 9px; margin-left: 7px;"><?php echo CHtml::image($ruta2);?></div>');
+                });
+                $('#carga').ajaxComplete(function(){
+                    $('#carga').html('');
+                });
      });
     
     $('.montos').blur(function(){
@@ -225,18 +246,14 @@
         flete =  parseInt($('#Factura_MONTO_FLETE').val(), 10);
         seguro =  parseInt($('#Factura_MONTO_SEGURO').val(), 10);
         if(restar == true){
-            if(total_resta.descuentos){
-                 total_descuento -= parseInt(total_resta.descuentos, 10);
-                 total_resta['descuentos'] = 0;
-            }
+             if(total_resta.descuentos){
+                  total_descuento -= total_resta.descuentos;
+                  total_resta['descuentos'] = 0;
+             }
              
             if(total_resta.mercaderia){
-                total_mercaderia -= total_resta.mercaderia;
-                total_resta['mercaderia'] = 0;
-            }
-            if(total_resta.iva){
-                total_iva -= total_resta.iva;
-                total_resta['iva'] = 0;
+              total_mercaderia -= total_resta.mercaderia;
+              total_resta['mercaderia'] = 0;
             }
         }
         
@@ -315,9 +332,8 @@
            <td>
                <table style="margin-left: -100px;margin-top:-4px;">
                    <tr>
-                       <td>
-                            <?php echo $form->dropDownListRow($model,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px;','class'=>'unidad'));?>
-                            <?php echo CHtml::hiddenField('NOMBRE_UNIDAD','');?>
+                       <td style="width: 289px;">
+                            <?php echo $form->textFieldRow($model,'CANTIDAD',array('size'=>4));?>
                        </td>
                    </tr>
                </table>
@@ -325,8 +341,9 @@
            <td>
                <table style="margin-left: -100px;margin-top:-4px;">
                    <tr>
-                       <td style="width: 289px;">
-                            <?php echo $form->textFieldRow($model,'CANTIDAD',array('size'=>4));?>
+                       <td>
+                            <?php echo $form->dropDownListRow($model,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px;','class'=>'unidad'));?>
+                            <?php echo CHtml::hiddenField('NOMBRE_UNIDAD','');?>
                        </td>
                        <td>
                            <?php
@@ -344,6 +361,7 @@
            </td>
         </tr>
 </table>
+<span id="carga" style="height:30px;width:30px;"></span>
 <table class="templateFrame table table-bordered" cellspacing="0">
           <thead>
                <tr>
@@ -353,9 +371,9 @@
                     <td><strong>Cant.</strong></td>
                     <td><strong>Unidad</strong></td>
                     <td><strong>Tipo Precio</strong></td>
-                    <td><strong>Precio Unitario</strong></td>  
-                    <td><strong>% Desc.</strong></td>
-                    <td><strong>% Iva</strong></td>
+                    <td style="width: 74px;"><strong>Precio Unit.</strong></td>  
+                    <td style="width: 74px;"><strong>% Desc.</strong></td>
+                    <td style="width: 74px;"><strong>% Iva</strong></td>
                     <td><strong>Iva</strong></td>
                     <td><strong>Total</strong></td>
                     <td></td>
@@ -401,18 +419,18 @@
                                             <span id='tipoprecio_<?php echo '{0}';?>' class="cambiar"></span>
                                             <span id='campo_tipoprecio_<?php echo '{0}';?>' style="display:none;" ><?php echo CHtml::dropDownList('LineaNuevo[{0}][TIPO_PRECIO]','',array(),array('empty'=>'Seleccione','style'=>'width:80px;','class'=>'blur tipo_precio')); ?></span>
                                         </td>
-                                        <td>
+                                        <td style="width: 74px;">
                                             <span id='preciounitario_<?php echo '{0}';?>' class="cambiar"></span>
                                             <span id='campo_preciounitario_<?php echo '{0}';?>'style="display:none;" ><?php echo CHtml::textField('LineaNuevo[{0}][PRECIO_UNITARIO]','',array('size'=>10,'class'=>'blur')); ?></span>                                        
                                             <?php echo CHtml::hiddenField('LineaNuevo[{0}][PRE-PRECIO]',''); ?>  
                                         </td>                                    
-                                        <td>
+                                        <td style="width: 74px;">
                                             <span id='porcdescuento_<?php echo '{0}';?>' class="cambiar"></span>
                                             <span id='campo_porcdescuento_<?php echo '{0}';?>'style="display:none;" ><?php echo CHtml::textField('LineaNuevo[{0}][PORC_DESCUENTO]','',array('size'=>4,'class'=>'blur')); ?></span>    
                                             <?php echo CHtml::hiddenField('LineaNuevo[{0}][PRE-DESCUENTO]',''); ?>
                                             <?php echo CHtml::hiddenField('LineaNuevo[{0}][MONTO_DESCUENTO]',''); ?>
                                         </td>
-                                        <td>
+                                        <td style="width: 74px;">
                                             <span id='porc_impuesto_<?php echo '{0}';?>'></span>
                                             <?php echo CHtml::hiddenField('LineaNuevo[{0}][PORC_IMPUESTO]',''); ?>                                        
                                         </td>
@@ -426,6 +444,16 @@
                                             <?php echo CHtml::hiddenField('LineaNuevo[{0}][COMENTARIO]',''); ?>
                                         </td>                                            
                                         <td width="40px">
+                                             <span style="float: left">
+                                                <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                                 'buttonType'=>'button',
+                                                                 'type'=>'normal',
+                                                                 'size'=>'mini',
+                                                                 'icon'=>'pencil',
+                                                                 'htmlOptions'=>array('class'=>'edit','name'=>'{0}')
+                                                             ));
+                                                ?>
+                                            </span>
                                             <div class="remove" id ="remover_<?php echo '{0}';?>" style="float: left; margin-left: 5px; display: none"></div>
                                             <div style="float: left; margin-left: 5px;">
                                                 <?php $this->widget('bootstrap.widgets.BootButton', array(

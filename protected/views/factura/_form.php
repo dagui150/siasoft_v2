@@ -1,7 +1,9 @@
 <script>
     $(document).ready(inicio);
 
-    function inicio(){ 
+    function inicio(){
+            $('.edit').live('click',actualiza);
+            
             $('#Factura_CONSECUTIVO').change(function(){
                 $.getJSON('<?php echo $this->createUrl('cargarconsecutivo')?>&id='+$(this).val(),
                     function(data){
@@ -178,7 +180,7 @@
         ),  
    ), true); 
     
-    $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form, 'model'=>$model, 'ruta'=>$ruta),true);
+    $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form, 'model'=>$model,'ruta2'=>$ruta2,),true);
     
 ?>
 
@@ -397,7 +399,8 @@
           <?php
             $funcion = 'cargaGrilla';
             $id = 'articulo-grid';
-            $this->renderPartial('/articulo/articulos', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id,'check'=>false));
+            $data=$articulo->searchModal();
+            $this->renderPartial('/articulo/articulos', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id,'check'=>false,'data'=>$data));
       ?>
 	</div>
         <div class="modal-footer">

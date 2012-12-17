@@ -42,6 +42,7 @@ class FacturaController extends SBaseController
                 $linea = new FacturaLinea;
                 $articulo = new Articulo;
                 $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
+                $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -66,12 +67,12 @@ class FacturaController extends SBaseController
                         'cliente'=>$cliente,
                         'articulo'=>$articulo,
                         'ruta'=>$ruta,
+                        'ruta2'=>$ruta2,
 		));
 	}
         public function actionAgregarlinea(){
             $linea = new FacturaLinea;
-            $linea->attributes = $_POST['FacturaLinea'];
-            $model->ACTIVO = "S";
+            $linea->attributes = $_POST['PedidoLinea'];
             $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
             
             if($linea->validate()){
