@@ -1,11 +1,11 @@
 <?php
- $dataprovider = $impuesto->search();
- $dataprovider->pagination = array('pageSize'=>5);
+
 $this->widget('bootstrap.widgets.BootGridView', array(
                          'type'=>'striped bordered condensed',
                          'id'=>$id,
+                         'pager' => array('class'=>'BootPager','maxButtonCount' => 6),
                          'template'=>"{items}{pager}",
-                         'dataProvider'=>$dataprovider,
+                         'dataProvider'=>$data,
                          'filter'=>$impuesto,                       
                          'selectionChanged'=>$funcion,
                          'columns'=>array(

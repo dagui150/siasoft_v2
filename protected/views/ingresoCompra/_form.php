@@ -228,29 +228,11 @@ function cargaProveedorGrilla (grid_id){
                 <a class="close" data-dismiss="modal">&times;</a>
                 <br>
                 <?php 
-    $this->widget('bootstrap.widgets.BootGridView', array(
-            'type'=>'striped bordered condensed',
-            'id'=>'proveedor-grid',
-            'template'=>"{items} {pager}",
-            'dataProvider'=>$proveedor->search(),
-            'selectionChanged'=>'cargaProveedorGrilla',
-            'filter'=>$proveedor,
-            'columns'=>array(
-                array(  'name'=>'PROVEEDOR',
-                        'header'=>'Código Proveedor',
-                        'htmlOptions'=>array('data-dismiss'=>'modal'),
-                        'type'=>'raw',
-                        'value'=>'CHtml::link($data->PROVEEDOR,"#")'
-                    ),
-                    'NOMBRE',
-                    'CATEGORIA',
-                    array(
-                            'class'=>'bootstrap.widgets.BootButtonColumn',
-                            'htmlOptions'=>array('style'=>'width: 50px'),
-                            'template'=>'',
-                    ),
-            ),
-    ));
+                $funcion = 'cargaProveedorGrilla';
+                    $id = 'proveedor-grid';
+                    $data=$proveedor->search();
+                    $data->pagination = array('pageSize'=>4);
+                    echo $this->renderPartial('/proveedor/proveedores', array('proveedor'=>$proveedor,'funcion'=>$funcion,'id'=>$id,'data'=>$data,'check'=>false));
              ?>
 	</div>
         <div class="modal-footer">

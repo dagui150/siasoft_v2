@@ -223,7 +223,8 @@
      )); 
             $funcion = 'updateCampos';
             $id = 'bodega-grid';
-            echo $this->renderPartial('/bodega/bodegas', array('bodega'=>$bodega,'funcion'=>$funcion,'id'=>$id,'check'=>true));
+            $data=$bodega->searchModal();
+            echo $this->renderPartial('/bodega/bodegas', array('bodega'=>$bodega,'funcion'=>$funcion,'id'=>$id,'data'=>$data,'check'=>true));
 
    $this->endWidget('zii.widgets.jui.CJuiDialog');
     //MODAL DE LAS BODEGAS DESTINO
@@ -248,7 +249,8 @@
      )); 
             $funcion = 'updateCampos';
             $id = 'bodega-grid-destino';
-            echo $this->renderPartial('/bodega/bodegas', array('bodega'=>$bodega,'funcion'=>$funcion,'id'=>$id,'check'=>true));
+            $data=$bodega->searchModal();
+            echo $this->renderPartial('/bodega/bodegas', array('bodega'=>$bodega,'funcion'=>$funcion,'id'=>$id,'data'=>$data,'check'=>true));
 
    $this->endWidget('zii.widgets.jui.CJuiDialog');
     //MODAL DE LOS ARTICULOS
@@ -273,7 +275,8 @@
      )); 
             $funcion = 'updateCampos';
             $id = 'articulo-grid';
-            echo $this->renderPartial('/articulo/articulos', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id,'check'=>true));
+            $data=$articulo->searchModal();
+            echo $this->renderPartial('/articulo/articulos', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id,'data'=>$data,'check'=>true));
 
    $this->endWidget('zii.widgets.jui.CJuiDialog');
 ?>
