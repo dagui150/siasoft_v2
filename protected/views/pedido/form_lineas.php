@@ -45,6 +45,7 @@
         }
         var articulo = $('#PedidoLinea_ARTICULO').val();
         var unidad = $('#PedidoLinea_UNIDAD').val();
+        var unidad_span = $('#PedidoLinea_UNIDAD option:selected').html();       
         var cantidad = $('#PedidoLinea_CANTIDAD').val();
         var precio_unitario = $('#PedidoLinea_PRECIO_UNITARIO').val();
         var porc_descuento = $('#PedidoLinea_PORC_DESCUENTO').val();
@@ -60,18 +61,25 @@
         var total_descuento = parseFloat($('#Pedido_MONTO_DESCUENTO1').val());
         var total_impuesto = parseFloat($('#Pedido_TOTAL_IMPUESTO1').val());
         var tipo_precio = $('#PedidoLinea_TIPO_PRECIO').val();
+        var tipo_precio_span;
+        $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&tipo='+tipo_precio,
+                    function(data){
+                         $('#NOMBRE_TIPO_PRECIO').val('');
+                         $('#NOMBRE_TIPO_PRECIO').val(data.NOMBRE);
+                 });
+                 
+        var tipo_precio_span = $('#NOMBRE_TIPO_PRECIO').val();
         linea = parseInt(linea, 10) + 1;
         
         //copia a spans para visualizar detalles
         if(suma == true)
         $('#linea'+span+'_'+contador).text(parseInt($('#contadorLineas').val(), 10) + 1);
         $('#articulo'+span+'_'+contador).text(articulo);
-        //$('#descripcion'+span+'_'+contador).text(nombrearticulo);
-        $('#unidad'+span+'_'+contador).text(unidad);
-        $('#tipo_precio'+span+'_'+contador).text(tipo_precio);
+        $('#unidad'+span+'_'+contador).text(unidad_span);
+        $('#tipoprecio'+span+'_'+contador).text(tipo_precio_span);
         $('#cantidad'+span+'_'+contador).text(cantidad);
-        $('#precio_unitario'+span+'_'+contador).text(precio_unitario);
-        $('#porc_descuento'+span+'_'+contador).text(porc_descuento);
+        $('#preciounitario'+span+'_'+contador).text(precio_unitario);
+        $('#porcdescuento'+span+'_'+contador).text(porc_descuento);
         $('#monto_descuento'+span+'_'+contador).text(monto_descuento);
         $('#porc_impuesto'+span+'_'+contador).text(porc_impuesto);
         $('#valor_impuesto'+span+'_'+contador).text(valor_impuesto);
@@ -179,6 +187,13 @@
         $('#PedidoLinea_TIPO_PRECIO').val(tipo_precio);
         $('#CAMPO_ACTUALIZA').val(contador);
         $('#ACTUALIZA').val('0');
+        $('select[id$=PedidoLinea_TIPO_PRECIO] > option').remove();
+        $('#'+model+'_'+contador+'_TIPO_PRECIO option').clone().appendTo('#PedidoLinea_TIPO_PRECIO');
+        $('#PedidoLinea_TIPO_PRECIO').val($('#'+model+'_'+contador+'_TIPO_PRECIO').val());
+        
+        $('select[id$=PedidoLinea_UNIDAD] > option').remove();
+        $('#'+model+'_'+contador+'_UNIDAD option').clone().appendTo('#PedidoLinea_UNIDAD');
+        $('#PedidoLinea_UNIDAD').val($('#'+model+'_'+contador+'_UNIDAD').val());
         
         $('#nuevo').modal();
         
@@ -194,6 +209,7 @@
     $total = isset($_POST['TOTAL'])? $_POST['TOTAL'] : '';
     $actualiza = isset($_POST['ACTUALIZA'])? $_POST['ACTUALIZA'] : '1';
     $tipo_precio = isset($_POST['PedidoLinea']['TIPO_PRECIO']) && isset($_POST['PedidoLinea']['ARTICULO'])? CHtml::ListData(ArticuloPrecio::model()->findAll('ARTICULO = "'.$_POST['PedidoLinea']['ARTICULO'].'" AND ACTIVO = "S"'),'ID','NIVEL_PRECIO') : array();
+    $unidad = isset($_POST['PedidoLinea']['UNIDAD'])? CHtml::ListData(UnidadMedida::model()->findAll('ID = "'.$_POST['PedidoLinea']['UNIDAD'].'" AND ACTIVO = "S"'),'ID','NOMBRE') : array();
     
     //$campoActualiza = isset($PcampoActualiza) ? $PcampoActualiza : '';    
     //$actualiza = isset($Pactualiza) ? $Pactualiza : 0;
@@ -214,14 +230,14 @@
        <?php echo $form->errorSummary($linea); ?>
 
             <?php echo $form->hiddenField($linea,'ARTICULO', array('readonly'=>true)); ?>
-            <?php echo $form->hiddenField($linea,'UNIDAD', array('readonly'=>true)); ?>
             <?php echo $form->textFieldRow($linea,'CANTIDAD', array('class'=>'calculos_form_lineas')); ?>
+            <?php echo $form->dropDownListRow($linea,'UNIDAD', $unidad); ?>
+            <?php echo $form->dropDownListRow($linea, 'TIPO_PRECIO', $tipo_precio,array('empty'=>'Seleccione', 'class'=>'tipo_precio')); ?>
             <?php echo $form->textFieldRow($linea,'PRECIO_UNITARIO', array('class'=>'calculos_form_lineas')); ?>
             <?php echo $form->textFieldRow($linea,'PORC_DESCUENTO', array('class'=>'calculos_form_lineas')); ?>
             <?php echo $form->hiddenField($linea,'MONTO_DESCUENTO', array('readonly'=>true)); ?>
-            <?php echo $form->textFieldRow($linea,'PORC_IMPUESTO', array('class'=>'calculos_form_lineas')); ?>
-            <?php echo $form->hiddenField($linea,'VALOR_IMPUESTO', array('readonly'=>'true')); ?>
-            <?php echo $form->dropDownListRow($linea, 'TIPO_PRECIO', $tipo_precio,array('empty'=>'Seleccione')); ?>
+            <?php echo $form->hiddenField($linea,'PORC_IMPUESTO', array('class'=>'calculos_form_lineas')); ?>
+            <?php echo $form->hiddenField($linea,'VALOR_IMPUESTO', array('readonly'=>'true')); ?>            
             <?php echo $form->textAreaRow($linea,'COMENTARIO'); ?>
             <?php echo CHtml::hiddenField('TOTAL', $total); ?>
             <?php //echo CHtml::hiddenField('CAMPO_ACTUALIZA',$campoActualiza); ?>

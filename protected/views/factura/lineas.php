@@ -8,9 +8,8 @@
 ?>
 <script>
     $(document).ready(function(){
-        var contador ;
-        var model;
-        var id;
+        var total_resta = new Array();
+        var cantidad,precio,descuento,iva,contador, model,id,total,total_mercaderia,total_facturar,total_descuento,total_iva,anticipo,flete,seguro,gran_total;
         
         
         $('.cambiar').live('dblclick',function(){
@@ -27,7 +26,13 @@
                     $('#LineaNuevo_'+contador+'_UNIDAD').focus();
                     break;
                 case 'tipoprecio':
-                    $('#LineaNuevo_'+contador+'_TIPO_PRECIO').focus();
+                    $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&tipo='+$('#LineaNuevo_'+contador+'_TIPO_PRECIO').val(),
+                        function(data){
+                             $('#NOMBRE_TIPO_PRECIO').val('');
+                             $('#NOMBRE_TIPO_PRECIO').val(data.NOMBRE);
+                             $('#preciounitario_'+contador).text('$ '+data.PRECIO);
+                             $('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
+                     });
                     break;
                 case 'preciounitario':
                     $('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').focus();
@@ -47,6 +52,10 @@
                     $('#cantidad_'+contador).text($(this).val());
                     $('#campo_cantidad_'+contador).hide('fast');
                     $('#cantidad_'+contador).show('fast');
+                    total_resta['mercaderia'] = parseInt($('#LineaNuevo_'+contador+'_PRE-CANTIDAD').val(), 10) * parseInt($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(), 10);
+                    $('#LineaNuevo_'+contador+'_PRE-CANTIDAD').val($(this).val());
+                    //calcular el total
+                    calcularTotal(contador,'LineaNuevo',true,total_resta);
                 break;
                 case 'unidad':
                     $('#unidad_'+contador).text($('#NOMBRE_UNIDAD').val());
@@ -61,11 +70,24 @@
                 case 'preciounitario':
                     $('#preciounitario_'+contador).text('$ '+$(this).val());
                     $('#campo_preciounitario_'+contador).hide('fast');
+                    total_resta['mercaderia'] = parseInt($('#LineaNuevo_'+contador+'_CANTIDAD').val(), 10) * parseInt($('#LineaNuevo_'+contador+'_PRE-PRECIO').val(), 10);
+                     $('#LineaNuevo_'+contador+'_PRE-PRECIO').val($(this).val());
+                    //calcular el total
+                    calcularTotal(contador,'LineaNuevo',true,total_resta);
                     $('#preciounitario_'+contador).show('fast');
                 break;
                 case 'porcdescuento':
                     $('#porcdescuento_'+contador).text($(this).val()+' %');
+                    precio = parseInt($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(), 10);
+                    descuento = (precio * $(this).val())/100;
+                    $('#LineaNuevo_'+contador+'_MONTO_DESCUENTO').val(descuento);
+                    total_resta['descuento'] = (precio * parseInt($('#LineaNuevo_'+contador+'_PRE-DESCUENTO').val(), 10))/100;
+                    total_resta['mercaderia'] = parseInt($('#LineaNuevo_'+contador+'_CANTIDAD').val(), 10) * precio;
+                    $('#LineaNuevo_'+contador+'_PRE-DESCUENTO').val($(this).val());
+                    //calcular el total
+                    calcularTotal(contador,'LineaNuevo',true,total_resta);
                     $('#campo_porcdescuento_'+contador).hide('fast');
+                    
                     $('#porcdescuento_'+contador).show('fast');
                break;
             }
@@ -79,14 +101,18 @@
                  });
         });
         $('.tipo_precio').live('change',function(){
-            
-             modelo = $(this).attr('id').split('_')[0];
+             contador =  $(this).attr('id').split('_')[1];
+             var modelo = $(this).attr('id').split('_')[0];
             $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&tipo='+$(this).val(),
                     function(data){
                          $('#NOMBRE_TIPO_PRECIO').val('');
                          $('#NOMBRE_TIPO_PRECIO').val(data.NOMBRE);
                          $('#preciounitario_'+contador).text('$ '+data.PRECIO);
                          $('#'+modelo+'_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
+                         total_resta['mercaderia'] = parseInt($('#'+modelo+'_'+contador+'_CANTIDAD').val(), 10) * parseInt($('#'+modelo+'_'+contador+'_PRE-PRECIO').val(), 10);
+                         $('#LineaNuevo_'+contador+'_PRE-PRECIO').val(data.PRECIO);
+                         //calcular el total
+                         calcularTotal(contador,modelo,true,total_resta);
                  });
         });
         
@@ -97,28 +123,14 @@
                 var impuesto;
                 var tipo_precio = $('#Factura_NIVEL_PRECIO').val();
                 
-                $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&art='+$('#Factura_ARTICULO').val()+'&tipo='+tipo_precio,
-                    function(data){
-                         $('#tipoprecio_'+contador).text(data.NOMBRE);
-                         $('#preciounitario_'+contador).text('$ '+data.PRECIO);
-                         $('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
-                         
-                         $('select[id$='+model+'_'+contador+'_TIPO_PRECIO]>option').remove();
-                         
-                         $.each(data.COMBO, function(value, name) {
-                                tipo_precio = data.SELECCION;
-                                if(value == tipo_precio)
-                                    $('#'+model+'_'+contador+'_TIPO_PRECIO').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
-                                else
-                                    $('#'+model+'_'+contador+'_TIPO_PRECIO').append("<option value='"+value+"'>"+name+"</option>");
-                                    
-                                    
-                        });
-                         
-                 });
-                 $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$('#Factura_ARTICULO').val(),
+                agregarCampos(contador,model);
+                $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$('#Factura_ARTICULO').val(),
                     function(data){
                          impuesto = data.IMPUESTO;
+                         $('#unidad_'+contador).text($('#NOMBRE_UNIDAD').val());
+                        $('#porc_impuesto_'+contador).text(impuesto+" %");
+                        $('#'+model+'_'+contador+'_PORC_IMPUESTO').val(impuesto);
+                        
                          $('select[id$='+model+'_'+contador+'_UNIDAD]>option').remove();
                          
                          $.each(data.UNIDADES, function(value, name) {
@@ -127,40 +139,105 @@
                             else
                                $('#'+model+'_'+contador+'_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
                         });
-                        
-                        $('#unidad_'+contador).text($('#NOMBRE_UNIDAD').val());
-                        $('#porc_impuesto_'+contador).text(impuesto+" %");
-                        $('#'+model+'_'+contador+'_PORC_IMPUESTO').val(impuesto);
+                        //cargar tipo de precio
+                        $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&art='+$('#Factura_ARTICULO').val()+'&tipo='+tipo_precio,
+                            function(data){
+                                 $('#tipoprecio_'+contador).text(data.NOMBRE);
+                                 $('#preciounitario_'+contador).text('$ '+data.PRECIO);
+                                 $('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
+                                 $('#'+model+'_'+contador+'_PRE-PRECIO').val(data.PRECIO);
+
+                                 $('select[id$='+model+'_'+contador+'_TIPO_PRECIO]>option').remove();
+
+                                 $.each(data.COMBO, function(value, name) {
+                                        tipo_precio = data.SELECCION;
+                                        if(value == tipo_precio)
+                                            $('#'+model+'_'+contador+'_TIPO_PRECIO').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
+                                        else
+                                            $('#'+model+'_'+contador+'_TIPO_PRECIO').append("<option value='"+value+"'>"+name+"</option>");
+
+
+                                });
+                                $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val((parseInt(data.PRECIO, 10) * parseInt(impuesto, 10))/100);
+                                $('#valor_impuesto_'+contador).text((parseInt(data.PRECIO, 10) * parseInt(impuesto, 10))/100);
+                                
+                                calcularTotal(contador,model,false,null);              
+                         });
 
                   });
-                  agregarCampos(contador,model);
     });
-    
+    function calcularTotal(contador,model,restar,total_resta){
+        //lineas           
+        cantidad = parseInt($('#'+model+'_'+contador+'_CANTIDAD').val(), 10);
+        precio = parseInt($('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(), 10);
+        descuento = parseInt($('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(), 10);
+        iva =  parseInt($('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(), 10);
+        //totales
+        total_descuento =  parseInt($('#Factura_MONTO_DESCUENTO1').val(), 10);
+        total_iva =  parseInt($('#Factura_TOTAL_IMPUESTO1').val(), 10);
+        total_mercaderia =  parseInt($('#Factura_TOTAL_MERCADERIA').val(), 10);
+        total_facturar =  parseInt($('#Factura_TOTAL_A_FACTURAR').val(), 10);
+        anticipo =  parseInt($('#Factura_MONTO_ANTICIPO').val(), 10);
+        flete =  parseInt($('#Factura_MONTO_FLETE').val(), 10);
+        seguro =  parseInt($('#Factura_MONTO_SEGURO').val(), 10);
+        if(restar == true){
+            if(total_resta.descuento){
+                 total_descuento -= parseInt(total_resta.descuento, 10);
+                 total_resta['descuento'] = 0;
+            }
+             
+            if(total_resta.mercaderia){
+                total_mercaderia -= total_resta.mercaderia;
+                total_resta['mercaderia'] = 0;
+            }
+        }
+        
+        total = cantidad * precio;
+        total_mercaderia += total;
+        //total de la linea
+        total = (total-descuento)+iva;
+        $('#total_'+contador).text('$ '+total); 
+        $('#'+model+'_'+contador+'_TOTAL').val(total);
+        
+        //calculo de montos
+        total_descuento += descuento;
+        total_iva += iva;
+        total_facturar = (total_mercaderia-total_descuento)+total_iva;
+        
+        calculoGranTotal(total_facturar,anticipo,flete,seguro)
+        
+        $('#Factura_TOTAL_MERCADERIA').val(total_mercaderia);
+        $('#Factura_MONTO_DESCUENTO1').val(total_descuento);
+        $('#Factura_TOTAL_IMPUESTO1').val(total_iva);
+        $('#Factura_TOTAL_A_FACTURAR').val(total_iva);
+    }
+    function calculoGranTotal(total_facturar,anticipo,flete,seguro){
+        gran_total =(total_facturar - anticipo)+flete+seguro;
+        $('#calculos').val(gran_total);
+    }
     function agregarCampos(contador,model){
         
         var articulo = $('#Factura_ARTICULO').val();
         var descripcion = $('#Articulo_desc').val();
         var cantidad = $('#Factura_CANTIDAD').val(); 
         
+        //copia a campos ocultos
+        $('#'+model+'_'+contador+'_ARTICULO').val(articulo);
+        $('#'+model+'_'+contador+'_DESCRIPCION').val(descripcion);
+        $('#'+model+'_'+contador+'_CANTIDAD').val(cantidad);
+        $('#'+model+'_'+contador+'_PRE-CANTIDAD').val(cantidad);
+        $('#'+model+'_'+contador+'_PORC_DESCUENTO').val(0);
+        $('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(0);
+        $('#'+model+'_'+contador+'_PRE-DESCUENTO').val(0);
+        $('#'+model+'_'+contador+'_COMENTARIO').val('');
+        
         //copia a spans para visualizar detalles
         $('#linea_'+contador).text(parseInt(contador, 10) + 1);
         $('#articulo_'+contador).text(articulo);
         $('#descripcion_'+contador).text(descripcion);
         $('#cantidad_'+contador).text(cantidad);
-        $('#porcdescuento_'+contador).text(0);
+        $('#porcdescuento_'+contador).text(0+' %');
         $('#monto_descuento_'+contador).text(0);
-        $('#valor_impuesto_'+contador).text(0);0   
-        $('#total_'+contador).text(0);
-        
-        //copia a campos ocultos
-        $('#'+model+'_'+contador+'_ARTICULO').val(articulo);
-        $('#'+model+'_'+contador+'_DESCRIPCION').val(descripcion);
-        $('#'+model+'_'+contador+'_CANTIDAD').val(cantidad);
-        $('#'+model+'_'+contador+'_PORC_DESCUENTO').val(0);
-        $('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(0);
-        $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(0);
-        $('#'+model+'_'+contador+'_TOTAL').val(0);
-        $('#'+model+'_'+contador+'_COMENTARIO').val('');     
   
     }
     function strpos (haystack, needle, offset) {
@@ -279,6 +356,7 @@
                                         <td>
                                             <span id='cantidad_<?php echo '{0}';?>' class="cambiar"></span>
                                             <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][CANTIDAD]','',array('size'=>4,'class'=>'blur')); ?></span>                                        
+                                            <?php echo CHtml::hiddenField('LineaNuevo[{0}][PRE-CANTIDAD]',''); ?>                                       
                                         </td>
                                         <td>
                                             <span id='unidad_<?php echo '{0}';?>' class="cambiar"></span>
@@ -293,10 +371,12 @@
                                         <td>
                                             <span id='preciounitario_<?php echo '{0}';?>' class="cambiar"></span>
                                             <span id='campo_preciounitario_<?php echo '{0}';?>'style="display:none;" ><?php echo CHtml::textField('LineaNuevo[{0}][PRECIO_UNITARIO]','',array('size'=>10,'class'=>'blur')); ?></span>                                        
+                                            <?php echo CHtml::hiddenField('LineaNuevo[{0}][PRE-PRECIO]',''); ?>  
                                         </td>                                    
                                         <td>
                                             <span id='porcdescuento_<?php echo '{0}';?>' class="cambiar"></span>
                                             <span id='campo_porcdescuento_<?php echo '{0}';?>'style="display:none;" ><?php echo CHtml::textField('LineaNuevo[{0}][PORC_DESCUENTO]','',array('size'=>4,'class'=>'blur')); ?></span>    
+                                            <?php echo CHtml::hiddenField('LineaNuevo[{0}][PRE-DESCUENTO]',''); ?>
                                             <?php echo CHtml::hiddenField('LineaNuevo[{0}][MONTO_DESCUENTO]',''); ?>
                                         </td>
                                         <td>

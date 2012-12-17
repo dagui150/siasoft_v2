@@ -13,6 +13,8 @@ $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
                 <table style="width: 400px;">
                     <tr>
 
+
+
         <table width="100%" border='1'>
 
             <tr>

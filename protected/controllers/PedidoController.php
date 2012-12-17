@@ -91,12 +91,23 @@ class PedidoController extends Controller
 		if(isset($_POST['Pedido']))
 		{
 			$model->attributes=$_POST['Pedido'];
+                        
+                        //ACTUALIZAR CONSECUTIVO
+                            $modelConsecutivo = ConsecutivoFa::model()->findByPk($model->CONSECUTIVO);
+                            $consecutivo = substr($modelConsecutivo->MASCARA,0,4);
+                            $mascara = strlen($modelConsecutivo->MASCARA);
+                            $longitud = $mascara - 4;
+                            $count = Pedido::model()->count();
+                            $consecutivo .= str_pad(++$count, $longitud, "0", STR_PAD_LEFT);
+                            $model->PEDIDO = $consecutivo;
+                            
+                            
 			if($model->save()){
                             if(isset($_POST['LineaNuevo'])){
                                     foreach ($_POST['LineaNuevo'] as $datos){
                                         $salvar = new PedidoLinea;
                                         $salvar->ARTICULO = $datos['ARTICULO'];
-                                        $salvar->PEDIDO = $_POST['Pedido']['PEDIDO'];
+                                        $salvar->PEDIDO = $model->PEDIDO;
                                         $salvar->LINEA = $i;
                                         $salvar->UNIDAD = $datos['UNIDAD'];
                                         $salvar->CANTIDAD = $datos['CANTIDAD'];
@@ -113,6 +124,10 @@ class PedidoController extends Controller
                                         $i++;
                                     }
                             }
+                            
+                            $modelConsecutivo->VALOR_CONSECUTIVO = substr($modelConsecutivo->MASCARA,0,4).str_pad(++$count, $longitud, "0", STR_PAD_LEFT);
+                            
+                            $modelConsecutivo->save();
                             $this->redirect(array('admin'));
                         }				
                             

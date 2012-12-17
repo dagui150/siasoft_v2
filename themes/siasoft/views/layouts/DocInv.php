@@ -33,7 +33,7 @@
 
 <table width="100%" >
   <tr>
-    <td height="75" colspan="2"><table width="100%" >
+    <td height="75" colspan="2"><table width="100%" align="center">
       <tr>
         <td width="26%" rowspan="3" align="left" valign="middle"><?php 
 		$compania = Compania::model()->find();

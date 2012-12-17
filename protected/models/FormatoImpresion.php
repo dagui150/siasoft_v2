@@ -216,6 +216,45 @@ class FormatoImpresion extends CActiveRecord {
                 break;
         }
     }
+    
+    
+        public static function Prueba() {
+
+        return array(
+            array('FACT' => array(
+                    'name' => 'Facturacion',
+                    'submodulos' => array(),
+                ),
+                'COMP' => array(
+                    'name' => 'Compras',
+                    'submodulos' => array(
+                        'PROV' => array(
+                            'name' => 'Proveedor',
+                            'formatosImpresion' => array()),
+                        'SOCO' => array(
+                            'name' => 'Solicitud de Compra',
+                            'formatosImpresion' => array(
+                                'DOIN' => array(
+                                    'DocInv' => 'Plantilla 1',
+                                ),
+                            ),
+                        ),
+                        'ORCO' => array(
+                            'name' => 'Ordenes de Compra',
+                            'formatosImpresion' => array(
+                            )
+                        ),
+                        'INCO' => array(
+                            'name' => 'Ingreso de Compra',
+                            'formatosImpresion' => array()),
+                    ),
+                ),
+                'INVE' => 'Inventario',
+                'ADSI' => 'Administracion del Sistema',
+            //'REHU' => 'Recursos Humanos',
+            ),
+        );
+    }
 
     public static function Formato($submodulo) {
         switch ($submodulo) {
@@ -247,6 +286,12 @@ class FormatoImpresion extends CActiveRecord {
                 return
                         array(
                             'OrdenCompra' => 'Plantilla 1',
+                );
+                break;
+            case 'INCO' :
+                return
+                        array(
+                            'IngresoCompra' => 'Plantilla 1',
                 );
                 break;
         }

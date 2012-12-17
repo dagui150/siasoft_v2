@@ -1,4 +1,10 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Formato Impresion";?>
+<?php
+/* @var $this FormatoImpresionController */
+/* @var $model FormatoImpresion */
+?>
+
+<?php $this->pageTitle=Yii::app()->name.' - '.Yii::t('app','VIEW').' FormatoImpresion';?>
+
 <?php
 /* @var $this FormatoImpresionController */
 /* @var $model FormatoImpresion */
@@ -38,10 +44,11 @@ $this->menu=array(
 		'RUTA',
 		'TIPO',
             /*
+		'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',*/
+		'ACTUALIZADO_EL',
              * 
              */
 	),

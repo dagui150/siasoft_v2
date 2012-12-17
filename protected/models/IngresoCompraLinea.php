@@ -146,9 +146,54 @@ class IngresoCompraLinea extends CActiveRecord
 		));
 	}
         
+        public function search2($id)
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('INGRESO_COMPRA_LINEA',$this->INGRESO_COMPRA_LINEA);
+		$criteria->compare('INGRESO_COMPRA',$id,true);
+		$criteria->compare('LINEA_NUM',$this->LINEA_NUM);
+		$criteria->compare('ORDEN_COMPRA_LINEA',$this->ORDEN_COMPRA_LINEA);
+		$criteria->compare('ARTICULO',$this->ARTICULO,true);
+		$criteria->compare('BODEGA',$this->BODEGA,true);
+		$criteria->compare('CANTIDAD_ORDENADA',$this->CANTIDAD_ORDENADA,true);
+		$criteria->compare('UNIDAD_ORDENADA',$this->UNIDAD_ORDENADA);
+		$criteria->compare('CANTIDAD_ACEPTADA',$this->CANTIDAD_ACEPTADA,true);
+		$criteria->compare('CANTIDAD_RECHAZADA',$this->CANTIDAD_RECHAZADA,true);
+		$criteria->compare('PRECIO_UNITARIO',$this->PRECIO_UNITARIO,true);
+		$criteria->compare('COSTO_FISCAL_UNITARIO',$this->COSTO_FISCAL_UNITARIO,true);
+		$criteria->compare('ACTIVO','S');
+		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
+		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
+		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
+		$criteria->compare('ACTUALIZADO_EL',$this->ACTUALIZADO_EL,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+        
         public function behaviors()
 	{
+		$conf=ConfCo::model()->find();
+                $dec=isset($conf->CANTIDAD_DEC)?$conf->CANTIDAD_DEC:0;
 		return array(
+                        'defaults'=>array(
+                            'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
+                            'format'=>'db',
+                            'formats'=> array(
+                                   'CANTIDAD_ORDENADA'=>'#0.'.str_repeat('0',$dec),
+                                   'CANTIDAD_ACEPTADA'=>'#0.'.str_repeat('0',$dec),
+                                   'CANTIDAD_RECHAZADA'=>'#0.'.str_repeat('0',$dec),
+                                   'PRECIO_UNITARIO'=>'#0.'.str_repeat('0',$dec),
+                                   'COSTO_FISCAL_UNITARIO'=>'#0.'.str_repeat('0',$dec),
+                            ),
+                            
+                            'parseExpression'=> "strtr(\$value,',','.')",
+                        ),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',

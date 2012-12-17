@@ -26,7 +26,7 @@
             </tr>
             <tr>
                 <td>
-                    <?php echo $form->dropDownListRow($model2, 'ESQUEMA_TRABAJO', array('NORM'=>'Normal','MULT'=>'Multiplicador', 'MARG' => 'Margen', 'MARK' => 'Markup')); ?>
+                    <?php echo $form->dropDownListRow($model2, 'ESQUEMA_TRABAJO', array('NORM'=>'Normal','MULT'=>'Multiplicador', 'MARG' => 'Margen')); ?>
                 </td>
                 <td><?php echo $this->botonAyuda('ESQ_NIV_PRECI'); ?></td>
             </tr>

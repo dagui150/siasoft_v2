@@ -73,6 +73,7 @@ class ConfCi extends CActiveRecord
 			array('EAN13_REGLA_LOCAL', 'length', 'max'=>18),
 			array('EAN8_REGLA_LOCAL', 'length', 'max'=>3),
 			array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
+                        array('FORMATO_IMPRESION', 'numerical', 'integerOnly'=>true),
 			
 			array('EAN13_REGLA_LOCAL', 'miValidacion1'),
 			array('EAN8_REGLA_LOCAL', 'miValidacion2'),

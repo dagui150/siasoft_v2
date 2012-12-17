@@ -4,6 +4,8 @@ $(document).ready(function(){
 });
 
 function inicio(){ 
+        $('.edit').live('click',actualiza);
+    
         $('#Pedido_CONSECUTIVO').change(function(){
             $.getJSON('<?php echo $this->createUrl('/factura/cargarconsecutivo')?>&id='+$(this).val(),
                 function(data){
@@ -87,6 +89,12 @@ function cargaGrilla(grid_id){
              ),	
     )); 
     $conf = ConfFa::model()->find();
+    $text_rubros =$conf->USAR_RUBROS == 0 ? '<div class="alert alert-info"><strong>Actualmente No usa Rubros</strong></div>' : '';
+    $rubro1 =$conf->USAR_RUBROS == 1 && $conf->RUBRO1_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO1') : '';
+    $rubro2 =$conf->USAR_RUBROS == 1 && $conf->RUBRO2_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO2') : '';
+    $rubro3 =$conf->USAR_RUBROS == 1 && $conf->RUBRO3_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO3') : '';
+    $rubro4 =$conf->USAR_RUBROS == 1 && $conf->RUBRO4_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO4') : '';
+    $rubro5 =$conf->USAR_RUBROS == 1 && $conf->RUBRO5_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO5') : '';
 ?>
     
 <?php
@@ -147,6 +155,25 @@ function cargaGrilla(grid_id){
         ),  
    ), true); 
     
+    $fechaOrden = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+        'attribute'=>'FECHA_ORDEN',
+        'model'=>$model,
+	'language'=>'es',
+	'options'=>array(
+            'showAnim'=>'fadeIn', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
+            'dateFormat'=>'yy-mm-dd',
+            'changeMonth'=>true,
+            'changeYear'=>true,
+            'showOn'=>'both', // 'focus', 'button', 'both'
+            'buttonText'=>Yii::t('ui','Select form calendar'), 
+            'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
+            'buttonImageOnly'=>true,
+	),
+        'htmlOptions'=>array(
+            'style'=>'width:80px;vertical-align:top'
+        ),  
+   ), true); 
+    
     $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form, 'model'=>$model, 'ruta'=>$ruta),true);
     
 ?>
@@ -158,7 +185,7 @@ function cargaGrilla(grid_id){
             <table style="margin-left: -100px;">
                         <tr>
                             <td style="width: 315px">
-                                <?php echo $form->dropDownListRow($model,'CONSECUTIVO',CHtml::listData(ConsecutivoFa::model()->findAllByAttributes(array('ACTIVO'=>'S','CLASIFICACION'=>'F')),'CODIGO_CONSECUTIVO','DESCRIPCION'),array('empty'=>'Seleccione','style'=>'width: 100px;')); ?>
+                                <?php echo $form->dropDownListRow($model,'CONSECUTIVO',CHtml::listData(ConsecutivoFa::model()->findAllByAttributes(array('ACTIVO'=>'S','CLASIFICACION'=>'P')),'CODIGO_CONSECUTIVO','DESCRIPCION'),array('empty'=>'Seleccione','style'=>'width: 100px;')); ?>
                             </td>
                             <td style="width: 80px;">
                                 <?php echo $form->textField($model,'PEDIDO',array('size'=>15,'maxlength'=>50,'readonly'=>true)); ?>
@@ -167,11 +194,11 @@ function cargaGrilla(grid_id){
                         <tr>
                             <td colspan="2">
                                  <div class="control-group ">
-                                        <?php echo $form->labelEx($model,'FECHA_FACTURA',array('class'=>'control-label')); ?>
+                                        <?php echo $form->labelEx($model,'FECHA_PEDIDO',array('class'=>'control-label')); ?>
                                         <div class="controls">   
                                             <?php 
                                                 echo $fechaFactura; 
-                                                echo $form->error($model,'FECHA_FACTURA')
+                                                echo $form->error($model,'FECHA_PEDIDO')
                                             ?>
                                         </div>
                                 </div>
@@ -201,7 +228,7 @@ function cargaGrilla(grid_id){
                             )); ?>
                             </td>
                             <td>
-                                <?php echo CHtml::textField('Cliente_desc','',array('disabled'=>true,'size'=>35)); ?>
+                                <?php echo CHtml::textField('Cliente_desc','',array('disabled'=>true,'size'=>32)); ?>
                             </td>
                         </tr>
                         <tr>
@@ -216,6 +243,7 @@ function cargaGrilla(grid_id){
                         <tr>
                             <td>
                                  <?php echo $form->dropDownListRow($model,'NIVEL_PRECIO', CHtml::listData(NivelPrecio::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 150px;','empty'=>'Seleccione','options'=>array($model->isNewRecord && $conf->NIVEL_PRECIO!= '' ? $conf->NIVEL_PRECIO : ''=>array('selected'=>'selected'))));?>
+                                <?php echo CHtml::hiddenField('NOMBRE_TIPO_PRECIO','');?>
                             </td>
                         </tr>
 
@@ -228,36 +256,68 @@ function cargaGrilla(grid_id){
                 'tabs'=>array( 
                     array('label'=>'Líneas', 'content'=>$renderLineas, 'active'=>true),
                     array('label'=>'Otros', 'content'=>
-                        '<div class="row">
-                            <div class="control-group ">'
-                                .$form->labelEx($model,'FECHA_DESPACHO',array('class'=>'control-label'))
-                                .'<div class="controls">'   
-                                .$fechaDespacho
-                                .'</div>
-                            </div>'
-                            .'<div class="control-group ">'
-                                .$form->labelEx($model,'FECHA_ENTREGA',array('class'=>'control-label'))
-                                .'<div class="controls">'   
-                                .$fechaEntrega
-                                .'</div>
-                            </div>'
-                        .'</div>'
-                        .$form->textFieldRow($model,'RUBRO1',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'RUBRO2',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'RUBRO3',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'RUBRO4',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'RUBRO5',array('size'=>50,'maxlength'=>50))
-                        .$form->textFieldRow($model,'COMENTARIOS_CXC',array('size'=>50,'maxlength'=>50))
-                        .$form->textAreaRow($model,'OBSERVACIONES',array('rows'=>6, 'cols'=>50))
-                        ),
+                        '<table>
+                            <tr>
+                                <td style="width: 380px;">
+                                    <fieldset >
+                                        <legend ><font face="arial" size=3 >Fechas</font></legend>
+                                        <div class="control-group ">'
+                                            .$form->labelEx($model,'FECHA_DESPACHO',array('class'=>'control-label'))
+                                            .'<div class="controls">'   
+                                            .$fechaDespacho
+                                            .'</div>
+                                        </div>'
+                                        .'<div class="control-group ">'
+                                            .$form->labelEx($model,'FECHA_ENTREGA',array('class'=>'control-label'))
+                                            .'<div class="controls">'   
+                                            .$fechaEntrega
+                                            .'</div>
+                                        </div>'
+                                   .'</fieldset>'
+                                   .$form->textFieldRow($model,'COMENTARIOS_CXC',array('size'=>50,'maxlength'=>50))
+                                   .$form->textAreaRow($model,'OBSERVACIONES',array('rows'=>6, 'cols'=>50))
+                               .'</td>
+                                <td>
+                                    <fieldset>
+                                        <legend ><font face="arial" size=3 >Rubros</font></legend>'
+                                        .$text_rubros
+                                        .$rubro1
+                                        .$rubro2
+                                        .$rubro3
+                                        .$rubro4
+                                        .$rubro5
+                                    .'</fieldset>
+                               </td>
+                            </tr>
+                       </table>
+                       <fieldset>
+                               <legend ><font face="arial" size=3 >Orden de Compra</font></legend>
+                               <table>
+                                    <tr>
+                                        <td style="width: 380px;">'
+                                            .$form->textFieldRow($model,'ORDEN_COMPRA',array('size'=>30,'maxlength'=>50))
+                                         .'</td>
+                                        <td>
+                                            <div class="control-group ">'
+                                                .$form->labelEx($model,'FECHA_ORDEN',array('class'=>'control-label'))
+                                                .'<div class="controls">'   
+                                                    .$fechaOrden
+                                                .'</div>
+                                            </div>
+                                        </td>
+                                    <tr>
+                            </table>
+                      </fieldset>'
+                    ),
                     array('label'=>'Montos', 'content'=>
-                        $form->textFieldRow($model,'TOTAL_MERCADERIA',array('size'=>28,'maxlength'=>28, 'readonly'=>true))
+                        $form->textFieldRow($model,'TOTAL_MERCADERIA',array('size'=>28,'maxlength'=>28, 'readonly'=>true, 'value'=>'0'))
                         .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('size'=>28,'maxlength'=>28, 'readonly'=>true, 'value'=>'0'))
-                        .$form->textFieldRow($model,'MONTO_ANTICIPO',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos'))
-                        .$form->textFieldRow($model,'MONTO_FLETE',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos'))
-                        .$form->textFieldRow($model,'MONTO_SEGURO',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos'))
+                        .$form->textFieldRow($model,'MONTO_ANTICIPO',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos', 'value'=>'0'))
+                        .$form->textFieldRow($model,'MONTO_FLETE',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos', 'value'=>'0'))
+                        .$form->textFieldRow($model,'MONTO_SEGURO',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos', 'value'=>'0'))
                         .$form->textFieldRow($model,'TOTAL_IMPUESTO1', array('size'=>28,'maxlength'=>28, 'value'=>'0', 'readonly'=>true))
-                        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('size'=>28,'maxlength'=>28, 'readonly'=>true))
+                        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('size'=>28,'maxlength'=>28, 'readonly'=>true, 'value'=>'0'))
+                        .$form->textFieldRow($model,'ESTADO',array('size'=>28,'maxlength'=>28, 'readonly'=>true, 'value'=>'N'))
                         .$form->textFieldRow($model,'REMITIDO',array('size'=>1,'maxlength'=>1, 'value'=>'N', 'readonly'=>true))
                         .$form->textFieldRow($model,'RESERVADO',array('size'=>1,'maxlength'=>1, 'value'=>'N', 'readonly'=>true))
                         .'<div class="control-group "><label for="total_grande" class="control-label">Gran total: </label><div class="controls">'

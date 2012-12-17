@@ -74,7 +74,7 @@ class ConfFa extends CActiveRecord
 			array('OBSERVACIONES', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('ID, COND_PAGO_CONTADO, BODEGA_DEFECTO, CATEGORIA_CLIENTE, NIVEL_PRECIO, DECIMALES_PRECIO, DESCUENTO_PRECIO, DESCUENTO_AFECTA_IMP, FORMATO_PEDIDO, FORMATO_FACTURA, FORMATO_REMISION, USAR_RUBROS, OBSERVACIONES, RUBRO1_NOMBRE, RUBRO2_NOMBRE, RUBRO3_NOMBRE, RUBRO4_NOMBRE, RUBRO5_NOMBRE, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
+			array('ID, COND_PAGO_CONTADO, BODEGA_DEFECTO, CATEGORIA_CLIENTE, NIVEL_PRECIO, DECIMALES_PRECIO, FORMATO_PEDIDO, FORMATO_FACTURA, FORMATO_REMISION, USAR_RUBROS, OBSERVACIONES, RUBRO1_NOMBRE, RUBRO2_NOMBRE, RUBRO3_NOMBRE, RUBRO4_NOMBRE, RUBRO5_NOMBRE, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -108,8 +108,6 @@ class ConfFa extends CActiveRecord
 			'CATEGORIA_CLIENTE' => 'Categoria Cliente',
 			'NIVEL_PRECIO' => 'Nivel Precio',
 			'DECIMALES_PRECIO' => 'Decimales Precio',
-			'DESCUENTO_PRECIO' => 'Descuento Precio',
-			'DESCUENTO_AFECTA_IMP' => 'Descuento Afecta Imp',
 			'FORMATO_PEDIDO' => 'Formato Pedido',
 			'FORMATO_FACTURA' => 'Formato Factura',
 			'FORMATO_REMISION' => 'Formato Remision',
@@ -162,8 +160,6 @@ class ConfFa extends CActiveRecord
 		$criteria->compare('CATEGORIA_CLIENTE',$this->CATEGORIA_CLIENTE);
 		$criteria->compare('NIVEL_PRECIO',$this->NIVEL_PRECIO,true);
 		$criteria->compare('DECIMALES_PRECIO',$this->DECIMALES_PRECIO);
-		$criteria->compare('DESCUENTO_PRECIO',$this->DESCUENTO_PRECIO,true);
-		$criteria->compare('DESCUENTO_AFECTA_IMP',$this->DESCUENTO_AFECTA_IMP,true);
 		$criteria->compare('FORMATO_PEDIDO',$this->FORMATO_PEDIDO);
 		$criteria->compare('FORMATO_FACTURA',$this->FORMATO_FACTURA);
 		$criteria->compare('FORMATO_REMISION',$this->FORMATO_REMISION);

@@ -58,7 +58,8 @@ class SolicitudOcLinea extends CActiveRecord
 			array('SOLICITUD_OC', 'length', 'max'=>10),
 			array('ARTICULO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('DESCRIPCION', 'length', 'max'=>128),
-			array('CANTIDAD, SALDO', 'length', 'max'=>28),
+			//array('CANTIDAD, SALDO', 'length', 'max'=>28),
+                        array('CANTIDAD, SALDO','numerical','numberPattern'=>'/^\s*[-+]?([0-9]{0,3}).*\,*[0-9]*?[0-9]+([eE][-+]?[0-9]+)?\s*$/'),
 			array('ESTADO', 'length', 'max'=>1),
 			array('COMENTARIO', 'safe'),
 			// The following rule is used by search().
@@ -200,7 +201,20 @@ class SolicitudOcLinea extends CActiveRecord
         
         public function behaviors()
 	{
+                $conf=ConfCo::model()->find();
+                $dec=isset($conf->CANTIDAD_DEC)?$conf->CANTIDAD_DEC:0;
 		return array(
+                        'defaults'=>array(
+                            'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
+                            'format'=>'db',
+                            'formats'=> array(
+                                   'CANTIDAD'=>'#0.'.str_repeat('0',$dec),
+                                   'SALDO'=>'#0.'.str_repeat('0',$dec),
+
+                            ),
+                            
+                            'parseExpression'=> "strtr(\$value,',','.')",
+                        ),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',
