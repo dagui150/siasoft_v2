@@ -371,14 +371,14 @@ class Articulo extends CActiveRecord
 		));
 	}
         
-       public function searchKit()
+       public function searchKit($id)
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('ARTICULO',$this->ARTICULO,true);
+		$criteria->condition = 'ARTICULO <> "'.$id.'"';
 		$criteria->compare('NOMBRE',$this->NOMBRE,true);
 		$criteria->compare('ORIGEN_CORP',$this->ORIGEN_CORP,true);
 		$criteria->compare('CLASE_ABC',$this->CLASE_ABC,true);

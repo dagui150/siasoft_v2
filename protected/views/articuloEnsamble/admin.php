@@ -63,8 +63,7 @@ $this->breadcrumbs=array(
 <?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
 
 <div class="modal-header">
-    <a class="close" data-dismiss="modal">&times;</a>
-    <h3>Ver detalle</h3>
+    <a class="close" data-dismiss="modal">&times;</a>    
 </div>
 
     <?php echo $this->renderPartial('_view'); ?>

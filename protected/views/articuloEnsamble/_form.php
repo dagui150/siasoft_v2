@@ -41,7 +41,7 @@
             contador = $(this).attr('id').split('_')[1];
             nombreDescripcion = nombreClase2 + '_' + contador + '_' + 'DESCRIPCION';
             nombreUnidad = nombreClase2 + '_' + contador + '_' + 'UNIDAD';
-            nombreCantidad = nombreClase + '_' + contador + '_' + 'CANTIDAD';
+            nombreCantidad = nombreClase2 + '_' + contador + '_' + 'CANTIDAD';
             var retorna = verificar($(this).attr('value'), nombreCantidad);
             
             if(retorna == false){
@@ -54,7 +54,13 @@
                                 error(nombreCantidad);
                             }
                             else{                            
-                                $('#' + nombreUnidad).val(data.UNIDAD);
+                                $('select[id$=' + nombreUnidad).remove();                    
+                            $.each(data.UNIDADES, function(value, name) {
+                                    if(value == data.UNIDAD)
+                                      $('#'+ nombreUnidad).append("<option selected='selected' value='"+value+"'>"+name+"</option>");
+                                    else
+                                       $('#' + nombreUnidad).append("<option value='"+value+"'>"+name+"</option>");
+                                });
                                 $('#' + nombreDescripcion).val(data.DESCRIPCION);
                                 exito(nombreCantidad);
                             }
@@ -160,6 +166,13 @@
                         }
                         else{
                             $('#' + nombreUnidad).val(data.UNIDAD);
+                            $('select[id$=' + nombreUnidad).remove();                    
+                            $.each(data.UNIDADES, function(value, name) {
+                                    if(value == data.UNIDAD)
+                                      $('#'+ nombreUnidad).append("<option selected='selected' value='"+value+"'>"+name+"</option>");
+                                    else
+                                       $('#' + nombreUnidad).append("<option value='"+value+"'>"+name+"</option>");
+                                });
                             $('#' + nombreDescripcion).val(data.DESCRIPCION);
                             $('#' + nombreClase + '_' + contador + '_' + 'ARTICULO_HIJO').val(id);  
                             exito(nombreCantidad);
@@ -180,7 +193,7 @@
            
            nombreCantidad = nombreClase + '_' + contador + '_' + 'CANTIDAD';
            nombreDescripcion = nombreClase2 + '_' + contador + '_' + 'DESCRIPCION';
-           nombreUnidad = nombreClase + '_' + contador + '_' + 'UNIDAD';
+           nombreUnidad = nombreClase2 + '_' + contador + '_' + 'UNIDAD';
 
             $.getJSON(
                 '<?php echo $this->createUrl('CargaArticulo'); ?>&id='+id,
@@ -190,7 +203,13 @@
                             error(nombreCantidad);
                         }
                         else{
-                            $('#' + nombreUnidad).val(data.UNIDAD);
+                            $('select[id$=' + nombreUnidad).remove();                    
+                            $.each(data.UNIDADES, function(value, name) {
+                                    if(value == data.UNIDAD)
+                                      $('#'+ nombreUnidad).append("<option selected='selected' value='"+value+"'>"+name+"</option>");
+                                    else
+                                       $('#' + nombreUnidad).append("<option value='"+value+"'>"+name+"</option>");
+                                });
                             $('#' + nombreDescripcion).val(data.DESCRIPCION);
                             $('#' + nombreClase + '_' + contador + '_' + 'ARTICULO_HIJO').val(id);  
                             exito(nombreCantidad);
@@ -346,7 +365,7 @@
                             <?php echo $form->textField($item,"[$i]CANTIDAD", array()); ?>
                         </td>
                         <td>
-                            <?php echo CHtml::dropDownList("Campo[$i]_UNIDAD",'', array(), array('empty'=>'Seleccione')); ?>
+                            <?php echo $form->dropDownList($item,"[$i]UNIDAD", CHtml::listData(UnidadMedida::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>$item->uNIDADALMACEN->TIPO)),'ID','NOMBRE'), array('empty'=>'Seleccione')); ?>
                         </td>
                         <td>
                             <div id="remover" class="remove">
@@ -395,7 +414,7 @@
             'type'=>'striped bordered condensed',
             'id'=>'articulo-grid',
             'template'=>"{items} {pager}",
-            'dataProvider'=>$articulo->searchKit(),
+            'dataProvider'=>$articulo->searchKit($_GET['id']),
             'selectionChanged'=>'cargaArticuloGrilla',
             'filter'=>$articulo,
             'columns'=>array(
@@ -433,7 +452,7 @@
             'type'=>'striped bordered condensed',
             'id'=>'actualiza-grid',
             'template'=>"{items} {pager}",
-            'dataProvider'=>$articulo->searchKit(),
+            'dataProvider'=>$articulo->searchKit($_GET['id']),
             'selectionChanged'=>'cargaArticuloActualiza',
             'filter'=>$articulo,
             'columns'=>array(

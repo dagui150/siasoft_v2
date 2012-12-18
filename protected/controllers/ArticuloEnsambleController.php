@@ -88,6 +88,7 @@ class ArticuloEnsambleController extends Controller
                                 $linea = ArticuloEnsamble::model()->findByPk($act['ID']);
                                 $linea->ARTICULO_HIJO = $act['ARTICULO_HIJO'];                                
                                 $linea->CANTIDAD = $act['CANTIDAD'];
+                                $linea->UNIDAD = $act['UNIDAD'];
                                 $linea->save();
                             }
                         }
@@ -98,6 +99,7 @@ class ArticuloEnsambleController extends Controller
                                 $linea->ARTICULO_HIJO = $datos['ARTICULO_HIJO'];
                                 $linea->ARTICULO_PADRE = $_POST['ARTICULO_PADRE'];
                                 $linea->CANTIDAD = $datos['CANTIDAD'];
+                                $linea->UNIDAD = $datos['UNIDAD'];
                                 $linea->ACTIVO = "S";
                                 $linea->save();
                             }
@@ -121,19 +123,24 @@ class ArticuloEnsambleController extends Controller
             if($_POST['check'] != ''){
                 $id = $_POST['check'];
                 $consulta = ArticuloEnsamble::model()->findAll('ACTIVO = "S" AND ARTICULO_PADRE = "'.$id.'"');
+                $padre = Articulo::model()->findByPk($id, 'ACTIVO = "S"');
                 if(!$consulta){
                     echo '<div id="alert" class="alert alert-warning" data-dismiss="modal">
                             <h2 align="center">Este articulo no tiene componentes asociados</h2>
                             </div>';
                 }
                 else{
-                    echo '<table align="center" class="table table-bordered" >
+                    echo '
+                        <h2>Detalle para el articulo: '.$padre->NOMBRE.'</h2>
+                        <table align="center" class="table table-bordered" >
                         <tr>
                             <td><b>Articulo</b></td>
+                            <td><b>Unidad</b></td>
                             <td><b>Cantidad</b></td>
                         </tr>';
                     foreach($consulta as $con){                    
                         echo '<tr><td>'.$con->aRTICULOHIJO->NOMBRE.'</td>';
+                        echo '<td>'.$con->uNIDADALMACEN->NOMBRE.'</td>';
                         echo '<td>'.$con->CANTIDAD.'</td></tr>';
                     }
                     echo '</table>';
@@ -206,22 +213,15 @@ class ArticuloEnsambleController extends Controller
         public function actionCargaArticulo() {
             
             $item_id = $_GET['id'];
-            $bus = Articulo::model()->findByPk($item_id, 'ACTIVO = "S"');
-            if($bus){
-                $bus2 = UnidadMedida::model()->find('ID = "'.$bus->UNIDAD_ALMACEN.'"');
-                $res = array(
+            $bus = Articulo::model()->findByPk($item_id, 'ACTIVO = "S"');           
+            $res = array(
                      'DESCRIPCION'=>$bus->NOMBRE,
-                     'UNIDAD'=>$bus2->NOMBRE,
+                     'UNIDAD' => $bus->UNIDAD_ALMACEN,
+                     'UNIDAD_NOMBRE' => $bus->uNIDADALMACEN->NOMBRE,
+                     'UNIDADES' => CHtml::listData(UnidadMedida::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>$bus->uNIDADALMACEN->TIPO)),'ID','NOMBRE'),
+           
                      'ID'=>$bus->ARTICULO,                     
-                );           
-             $bus2= '';          
-            }
-            else{
-                $res = array(
-                 'DESCRIPCION'=>'Ninguno',
-                 'UNIDAD'=>'',
-                );
-            }            
+            );           
             echo CJSON::encode($res);
         }
         

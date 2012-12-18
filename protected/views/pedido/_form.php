@@ -20,8 +20,7 @@ function inicio(){
             $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$(this).val(),
                 function(data){
                     $("#Articulo_desc").val(data.NOMBRE);
-                     $('select[id$=Pedido_UNIDAD]>option').remove();
-                    
+                    $('select[id$=Pedido_UNIDAD]>option').remove();                    
                     $.each(data.UNIDADES, function(value, name) {
                             if(value == data.UNIDAD)
                               $('#Pedido_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");

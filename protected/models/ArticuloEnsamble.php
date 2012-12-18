@@ -46,13 +46,13 @@ class ArticuloEnsamble extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('CANTIDAD', 'required'),
+			array('CANTIDAD, UNIDAD', 'required'),
 			array('ARTICULO_PADRE, ARTICULO_HIJO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('CANTIDAD', 'length', 'max'=>28),
 			array('ACTIVO', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('ID, ARTICULO_PADRE, ARTICULO_HIJO, CANTIDAD, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
+			array('ID, ARTICULO_PADRE, ARTICULO_HIJO, CANTIDAD, UNIDAD, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,6 +66,7 @@ class ArticuloEnsamble extends CActiveRecord
 		return array(
 			'aRTICULOPADRE' => array(self::BELONGS_TO, 'Articulo', 'ARTICULO_PADRE'),
 			'aRTICULOHIJO' => array(self::BELONGS_TO, 'Articulo', 'ARTICULO_HIJO'),
+                        'uNIDADALMACEN' => array(self::BELONGS_TO, 'UnidadMedida', 'UNIDAD'),
 		);
 	}
 
@@ -79,6 +80,7 @@ class ArticuloEnsamble extends CActiveRecord
 			'ARTICULO_PADRE' => 'Articulo Padre',
 			'ARTICULO_HIJO' => 'Articulo Hijo',
 			'CANTIDAD' => 'Cantidad',
+                        'UNIDAD'=>'Unidad',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',
@@ -102,6 +104,7 @@ class ArticuloEnsamble extends CActiveRecord
 		$criteria->compare('ARTICULO_PADRE',$this->ARTICULO_PADRE,true);
 		$criteria->compare('ARTICULO_HIJO',$this->ARTICULO_HIJO,true);
 		$criteria->compare('CANTIDAD',$this->CANTIDAD,true);
+                $criteria->compare('UNIDAD',$this->UNIDAD,true);
 		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);

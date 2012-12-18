@@ -215,7 +215,7 @@ class PedidoController extends Controller
         }
         
         protected function CargarArticulo($item_id){            
-            $bus = Articulo::model()->findByPk($item_id);
+            $bus = Articulo::model()->findByPk($item_id, 'ACTIVO = "S"');
             $res = array(
                 'ID' => $bus->ARTICULO,
                 'NOMBRE' => $bus->NOMBRE,
