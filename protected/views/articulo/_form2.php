@@ -431,7 +431,9 @@
                     
                     $funcion = 'updateImpuesto';
                     $id = 'impuesto-grid';
-                    echo $this->renderPartial('impuesto', array('impuesto'=>$impuesto,'funcion'=>$funcion,'id'=>$id));
+                    $data=$impuesto->search(); 
+                    $data->pagination = array('pageSize'=>5);
+                    echo $this->renderPartial('impuesto', array('impuesto'=>$impuesto,'funcion'=>$funcion,'id'=>$id,'data'=>$data));
                 ?>
 	</div>
         <div class="modal-footer">
@@ -453,9 +455,11 @@
                 <br>
 		<?php 
                     
-                    $funcion = 'updateImpuesto2';
+                     $funcion = 'updateImpuesto2';
                     $id = 'impuesto-grid2';
-                    echo $this->renderPartial('impuesto', array('impuesto'=>$impuesto,'funcion'=>$funcion,'id'=>$id));
+                    $data=$impuesto->search(); 
+                    $data->pagination = array('pageSize'=>5);
+                    echo $this->renderPartial('impuesto', array('impuesto'=>$impuesto,'funcion'=>$funcion,'id'=>$id,'data'=>$data));
                 ?>
 	</div>
         <div class="modal-footer">
@@ -479,7 +483,8 @@
                     
                     $funcion = 'updateRetencion';
                     $id = 'retencion-grid';
-                    echo $this->renderPartial('retencion', array('retencion'=>$retencion,'funcion'=>$funcion,'id'=>$id));
+                    $data=$retencion->search();
+                    echo $this->renderPartial('retencion', array('retencion'=>$retencion,'funcion'=>$funcion,'id'=>$id,'data'=>$data));
                 ?>
 	</div>
         <div class="modal-footer">
@@ -501,7 +506,8 @@
 		<?php
                     $funcion = 'updateRetencion2';
                     $id = 'retencion-grid2';
-                    echo $this->renderPartial('retencion', array('retencion'=>$retencion,'funcion'=>$funcion,'id'=>$id));
+                    $data=$retencion->search();
+                    echo $this->renderPartial('retencion', array('retencion'=>$retencion,'funcion'=>$funcion,'id'=>$id,'data'=>$data));
                 ?>
 	</div>
         <div class="modal-footer">

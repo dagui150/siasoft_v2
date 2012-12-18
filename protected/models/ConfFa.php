@@ -128,7 +128,7 @@ class ConfFa extends CActiveRecord
         public function behaviors()
 	{
 		return array(
-			'CTimestampBehavior' => array(
+                        'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',
 				'updateAttribute' => 'ACTUALIZADO_EL',

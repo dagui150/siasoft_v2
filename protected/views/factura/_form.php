@@ -1,9 +1,67 @@
 <script>
     $(document).ready(inicio);
+    
+    function calcularTotal(contador,model,restar,total_resta){
+        var cantidad,precio,descuento,iva,total,total_mercaderia,total_facturar,total_descuento,total_iva,anticipo,flete,seguro;
 
+        //lineas         
+        cantidad = parseInt($('#'+model+'_'+contador+'_CANTIDAD').val(), 10);
+        precio = parseInt($('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(), 10);
+        descuento = parseInt($('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(), 10);
+        iva =  parseInt($('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(), 10);
+        //totales
+        total_descuento =  parseInt($('#Factura_MONTO_DESCUENTO1').val(), 10);
+        total_iva =  parseInt($('#Factura_TOTAL_IMPUESTO1').val(), 10);
+        total_mercaderia =  parseInt($('#Factura_TOTAL_MERCADERIA').val(), 10);
+        total_facturar =  parseInt($('#Factura_TOTAL_A_FACTURAR').val(), 10);
+        anticipo =  parseInt($('#Factura_MONTO_ANTICIPO').val(), 10);
+        flete =  parseInt($('#Factura_MONTO_FLETE').val(), 10);
+        seguro =  parseInt($('#Factura_MONTO_SEGURO').val(), 10);
+        if(restar == true){
+             if(total_resta.descuentos){
+                  total_descuento -= total_resta.descuentos;
+                  total_resta['descuentos'] = 0;
+             }
+             
+            if(total_resta.mercaderia){
+              total_mercaderia -= total_resta.mercaderia;
+              total_resta['mercaderia'] = 0;
+            }
+        }
+        total = cantidad * precio;
+        total_mercaderia += total;
+        //total de la linea
+        total = (total-descuento)+iva;
+        $('#total_'+contador).text('$ '+total); 
+        $('#'+model+'_'+contador+'_TOTAL').val(total);
+        
+        //calculo de montos
+        total_descuento += descuento;
+        total_iva += iva;
+        total_facturar = (total_mercaderia-total_descuento)+total_iva;
+        
+        calculoGranTotal(total_facturar,anticipo,flete,seguro);
+        
+        $('#Factura_TOTAL_MERCADERIA').val(total_mercaderia);
+        $('#Factura_MONTO_DESCUENTO1').val(total_descuento);
+        $('#Factura_TOTAL_IMPUESTO1').val(total_iva);
+        $('#Factura_TOTAL_A_FACTURAR').val(total_facturar);
+    }
+    function calculoGranTotal(total_facturar,anticipo,flete,seguro){
+        var gran_total =(total_facturar - anticipo)+flete+seguro;
+        $('#calculos').val(gran_total);
+    }
+    
     function inicio(){
             $('.edit').live('click',actualiza);
-            
+            $('#FacturaLinea_TIPO_PRECIO').live('change',function(){
+                $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&tipo='+$(this).val(),
+                    function(data){
+                         $('#NOMBRE_TIPO_PRECIO').val('');
+                         $('#NOMBRE_TIPO_PRECIO').val(data.NOMBRE);
+                         $('#FacturaLinea_PRECIO_UNITARIO').val(data.PRECIO);
+                 });
+            });
             $('#Factura_CONSECUTIVO').change(function(){
                 $.getJSON('<?php echo $this->createUrl('cargarconsecutivo')?>&id='+$(this).val(),
                     function(data){
@@ -95,6 +153,9 @@
              ),	
     )); 
     $conf = ConfFa::model()->find();
+    $confAs = ConfFa::model()->find();
+    echo CHtml::hiddenField('dec_precio');
+    echo CHtml::hiddenField('dec_porcentaje');
     $text_rubros =$conf->USAR_RUBROS == 0 ? '<div class="alert alert-info"><strong>Actualmente No usa Rubros</strong></div>' : '';
     $rubro1 =$conf->USAR_RUBROS == 1 && $conf->RUBRO1_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO1') : '';
     $rubro2 =$conf->USAR_RUBROS == 1 && $conf->RUBRO2_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO2') : '';

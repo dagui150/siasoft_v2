@@ -9,4 +9,4 @@ $this->breadcrumbs=array(
 
 <h1>Crear Factura</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model, 'bodega'=>$bodega, 'condicion'=>$condicion, 'linea'=>$linea, 'cliente'=>$cliente, 'articulo'=>$articulo, 'ruta'=>$ruta,'ruta2'=>$ruta2,)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'linea'=>$linea, 'cliente'=>$cliente, 'articulo'=>$articulo, 'ruta'=>$ruta,'ruta2'=>$ruta2,)); ?>
