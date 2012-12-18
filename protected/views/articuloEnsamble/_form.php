@@ -142,20 +142,45 @@
        
            var contador = $('#oculto').get(0).value;
            var id = $.fn.yiiGridView.getSelection(grid_id);
-           var nombreClase = $(this).attr('id').split('_')[0];
-           if(nombreClase != 'Nuevo'){
-                var nombreClase2 = 'Campo';
+           var nombreClase = 'Nuevo';          
+           var nombreDescripcion;
+           var nombreUnidad;
+           var nombreCantidad;
+           
+           nombreCantidad = nombreClase + '_' + contador + '_' + 'CANTIDAD';
+           nombreDescripcion = nombreClase + '_' + contador + '_' + 'DESCRIPCION';
+           nombreUnidad = nombreClase + '_' + contador + '_' + 'UNIDAD';
+
+            $.getJSON(
+                '<?php echo $this->createUrl('CargaArticulo'); ?>&id='+id,
+                function(data)
+                  {
+                        if(data.DESCRIPCION == 'Ninguno'){                            
+                            error(nombreCantidad);
+                        }
+                        else{
+                            $('#' + nombreUnidad).val(data.UNIDAD);
+                            $('#' + nombreDescripcion).val(data.DESCRIPCION);
+                            $('#' + nombreClase + '_' + contador + '_' + 'ARTICULO_HIJO').val(id);  
+                            exito(nombreCantidad);
+                        }
+		  })
+
             }
-            else{
-                var nombreClase2 = 'Nuevo';
-            }
+            
+        function cargaArticuloActualiza (grid_id){
+       
+           var contador = $('#oculto').get(0).value;
+           var id = $.fn.yiiGridView.getSelection(grid_id);
+           var nombreClase = 'ArticuloEnsamble';
+           var nombreClase2 = 'Campo';
            var nombreDescripcion;
            var nombreUnidad;
            var nombreCantidad;
            
            nombreCantidad = nombreClase + '_' + contador + '_' + 'CANTIDAD';
            nombreDescripcion = nombreClase2 + '_' + contador + '_' + 'DESCRIPCION';
-           nombreUnidad = nombreClase2 + '_' + contador + '_' + 'UNIDAD';
+           nombreUnidad = nombreClase + '_' + contador + '_' + 'UNIDAD';
 
             $.getJSON(
                 '<?php echo $this->createUrl('CargaArticulo'); ?>&id='+id,
@@ -214,7 +239,6 @@
                 </table> 
     
     
-    <div style="overflow-x: scroll; width: 850px; margin-bottom: 10px;">
                     <div class="complex">
                     <div class="panel">
                         <table class="templateFrame grid table table-bordered" cellspacing="0">
@@ -274,7 +298,7 @@
                                                     <?php echo CHtml::textField('Nuevo[{0}][CANTIDAD]','',array('class' => 'required')); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][UNIDAD]','',array('readonly'=>true)); ?>
+                                                    <?php echo CHtml::dropDownList('Nuevo[{0}][UNIDAD]','', array(), array('empty'=>'Seleccione')); ?>
                                                 </td>                                                
                                                 <td>
                                                     <div id="remover" class="remove">
@@ -310,7 +334,7 @@
                                         <?php $this->widget('bootstrap.widgets.BootButton', array(
                                                             'type'=>'info',
                                                             'size'=>'mini',
-                                                            'url'=>'#articulo',
+                                                            'url'=>'#actualiza',
                                                             'icon'=>'search',
                                                             'htmlOptions'=>array('data-toggle'=>'modal', 'class' => 'emergente', 'name' => "$i", 'id'=>'ArticuloEnsamble'),
                                                         )); ?>
@@ -322,7 +346,7 @@
                             <?php echo $form->textField($item,"[$i]CANTIDAD", array()); ?>
                         </td>
                         <td>
-                            <?php echo CHtml::textField("Campo[$i]_UNIDAD",$item->aRTICULOHIJO->uNIDADALMACEN->NOMBRE , array('readonly'=>true)); ?>
+                            <?php echo CHtml::dropDownList("Campo[$i]_UNIDAD",'', array(), array('empty'=>'Seleccione')); ?>
                         </td>
                         <td>
                             <div id="remover" class="remove">
@@ -346,7 +370,6 @@
          </div><!--panel-->
       </div><!--complex-->
       <?php echo CHtml::HiddenField('oculto',''); ?>
-    </div>
 	<div align="center" id="botones">
             <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
             <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('articuloEnsamble/admin'), 'icon' => 'remove'));  ?>
@@ -374,6 +397,44 @@
             'template'=>"{items} {pager}",
             'dataProvider'=>$articulo->searchKit(),
             'selectionChanged'=>'cargaArticuloGrilla',
+            'filter'=>$articulo,
+            'columns'=>array(
+                array(  'name'=>'ARTICULO',
+                        'header'=>'Codigo Articulo',
+                        'htmlOptions'=>array('data-dismiss'=>'modal'),
+                        'type'=>'raw',
+                        'value'=>'CHtml::link($data->ARTICULO,"#")'
+                    ),
+                    'NOMBRE',
+                    'TIPO_ARTICULO',
+            ),
+    ));
+      ?>
+	</div>
+        <div class="modal-footer">
+
+            <?php $this->widget('bootstrap.widgets.BootButton', array(
+                'label'=>'Cerrar',
+                'url'=>'#',
+                'htmlOptions'=>array('data-dismiss'=>'modal'),
+            )); ?>
+        </div>
+ 
+<?php $this->endWidget(); ?>
+
+<?php 
+    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'actualiza')); ?>
+ 
+	<div class="modal-body">
+                <a class="close" data-dismiss="modal">&times;</a>
+                <br>
+          <?php 
+            $this->widget('bootstrap.widgets.BootGridView', array(
+            'type'=>'striped bordered condensed',
+            'id'=>'actualiza-grid',
+            'template'=>"{items} {pager}",
+            'dataProvider'=>$articulo->searchKit(),
+            'selectionChanged'=>'cargaArticuloActualiza',
             'filter'=>$articulo,
             'columns'=>array(
                 array(  'name'=>'ARTICULO',

@@ -6,7 +6,6 @@
     $cs->registerScriptFile(XHtml::jsUrl('jquery.validate.js'), CClientScript::POS_HEAD);
 ?>
 <?php $i=-1; ?>
-    <div style="overflow-x: scroll; width: 850px; margin-bottom: 10px;">
                     <div class="complex">
                     <div class="panel">
                         <table class="templateFrame grid table table-bordered" cellspacing="0">
@@ -103,4 +102,3 @@
          </div><!--panel-->
       </div><!--complex-->
       <?php echo CHtml::HiddenField('ciclos',$i); ?>
-    </div>

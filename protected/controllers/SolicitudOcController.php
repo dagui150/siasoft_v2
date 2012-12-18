@@ -78,7 +78,7 @@ class SolicitudOcController extends SBaseController
 		{
 			$model->attributes=$_POST['SolicitudOc'];
                         
-			if($model->save())
+			if($model->save()){
                             if(isset($_POST['Nuevo'])){
                                 $trans = array('.' => '');
                                 $trans2 = array(',' => '.');
@@ -106,7 +106,7 @@ class SolicitudOcController extends SBaseController
                             }
 				$this->redirect(array('admin'));
 		}
-
+                }
 		$this->render('create',array(
 			'model'=>$model,
                         'linea'=>$linea,
