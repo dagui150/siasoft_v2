@@ -26,8 +26,8 @@ return array(
 		'application.extensions.helpers.*',
 		'application.modules.srbac.controllers.SBaseController',
                 'application.extensions.PdfGrid.*',
-            
-        'ext.helpers.*',
+                'ext.bootstrap.widgets.BootPager',
+                'ext.helpers.*',
 	),
 	'modules'=>array(
 		'srbac'=>array(

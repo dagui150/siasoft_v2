@@ -291,31 +291,13 @@ function cargaNitGrilla(grid_id){
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
                 <br>
-          <?php 
-            $this->widget('bootstrap.widgets.BootGridView', array(
-            'type'=>'striped bordered condensed',
-            'id'=>'articulo-grid',
-            'template'=>"{items} {pager}",
-            'dataProvider'=>$nit->search(),
-            'selectionChanged'=>'cargaNitGrilla',
-            'filter'=>$nit,
-            'columns'=>array(
-                array(  'name'=>'ID',
-                        'header'=>'Nit',
-                        'htmlOptions'=>array('data-dismiss'=>'modal'),
-                        'type'=>'raw',
-                        'value'=>'CHtml::link($data->ID,"#")'
-                    ),
-                    'TIIPO_DOCUMENTO',
-                    'RAZON_SOCIAL',
-                    array(
-                            'class'=>'bootstrap.widgets.BootButtonColumn',
-                            'htmlOptions'=>array('style'=>'width: 50px'),
-                            'template'=>'',
-                    ),
-            ),
-    ));
-      ?>
+          <?php
+                    $funcion = 'cargaNitGrilla';
+                    $id = 'articulo-grid';
+                    $data=$nit->search();
+                    $data->pagination = array('pageSize'=>4);
+                    $this->renderPartial('/nit/nits', array('nit'=>$nit,'funcion'=>$funcion,'id'=>$id,'data'=>$data,'check'=>false));
+                ?>
 	</div>
         <div class="modal-footer">
 

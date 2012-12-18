@@ -4,7 +4,8 @@
             'id'=>$id,
             'pager' => array('class'=>'BootPager','maxButtonCount' => 6),
             'template'=>'{items}{pager}',
-            'dataProvider'=>$articulo->searchModal(),
+        // Estaban con $articulo->searchModal()
+            'dataProvider'=>$data,
             'selectionChanged'=>$funcion,
             'filter'=>$articulo,
             'columns'=>array(

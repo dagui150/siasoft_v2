@@ -47,7 +47,7 @@ $this->breadcrumbs=array(
  
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
-		<h3>Crear Valor - Clasificaciónr</h3>
+		<h3>Crear Valor - Clasificación</h3>
 		<p class="note">Los Campos con <span class="required">*</span> Son requeridos.</p>
 	</div>
 	 

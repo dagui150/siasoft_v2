@@ -1,7 +1,10 @@
 <script>
     $(document).ready(function(){
         inicio();
-        rubros();
+        rubros();  
+        updateCampos('cargarNomCond');
+        updateCampos('cargarNomBod');
+        updateCampos('cargarNomCat');
     });
     
     function rubros(){
@@ -30,29 +33,55 @@
     
     //DAR VALORES A CAMPOS CON SELECCION DE GRILLA
     function updateCampos(id_grilla){
-        var id = $.fn.yiiGridView.getSelection(id_grilla);
+        var id;
         var url;
         var campo;
         var campo_nombre;
         
-        if(id_grilla == 'bodega-grid'){
+        if(id_grilla == 'cargarNomBod'){
             
-            url = '<?php echo $this->createUrl('agregarlinea');?>&idBodega='+id;
             campo = '#ConfFa_BODEGA_DEFECTO';
             campo_nombre = '#Bodega2';
+            id=$(campo).val();
+            url = '<?php echo $this->createUrl('CargarBod');?>&buscar='+id;
             
-        }else if(id_grilla == 'categoria-grid'){
+        } else if(id_grilla == 'cargarNomCat'){
             
-            url = '<?php echo $this->createUrl('agregarlinea');?>&idCategoria='+id;
             campo = '#ConfFa_CATEGORIA_CLIENTE';
             campo_nombre = '#Categoria2';
+            id=$(campo).val();
+            url = '<?php echo $this->createUrl('CargarCat');?>&buscar='+id;
             
-        }else if(id_grilla == 'condicion-grid'){
+        } else if(id_grilla == 'cargarNomCond'){
             
-            url = '<?php echo $this->createUrl('agregarlinea');?>&idCondicion='+id;
             campo = '#ConfFa_COND_PAGO_CONTADO';
             campo_nombre = '#Condicion2';
+            id=$(campo).val();
+            url = '<?php echo $this->createUrl('CargarCond');?>&buscar='+id;
             
+        }else {
+            
+            id = $.fn.yiiGridView.getSelection(id_grilla);
+
+            if(id_grilla == 'bodega-grid'){
+
+                url = '<?php echo $this->createUrl('agregarlinea');?>&idBodega='+id;
+                campo = '#ConfFa_BODEGA_DEFECTO';
+                campo_nombre = '#Bodega2';
+
+            }else if(id_grilla == 'categoria-grid'){
+
+                url = '<?php echo $this->createUrl('agregarlinea');?>&idCategoria='+id;
+                campo = '#ConfFa_CATEGORIA_CLIENTE';
+                campo_nombre = '#Categoria2';
+
+            }else if(id_grilla == 'condicion-grid'){
+
+                url = '<?php echo $this->createUrl('agregarlinea');?>&idCondicion='+id;
+                campo = '#ConfFa_COND_PAGO_CONTADO';
+                campo_nombre = '#Condicion2';
+
+            }
         }
         
         $.getJSON(url,function(data){

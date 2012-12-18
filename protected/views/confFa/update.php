@@ -10,5 +10,5 @@ $this->breadcrumbs=array(
 ?>
 
 <h1>Configuracion de Facturación</h1>
-
+<div id="mensaje"></div>
 <?php echo $this->renderPartial('_form', array('model'=>$model, 'condicion'=>$condicion, 'categoria'=>$categoria, 'bodega'=>$bodega)); ?>

@@ -5,7 +5,8 @@
            'id'=>$id,
            'pager' => array('class'=>'BootPager','maxButtonCount' => 6),
            'template'=>"{items}{pager}",
-           'dataProvider'=>$bodega->searchModal(),
+        //Para los que se esten editando y den error, esta estaba con $bodega->searchModal()
+           'dataProvider'=>$data,
            'filter'=>$bodega,
            'selectionChanged'=>$funcion,
            'selectableRows'=>1,

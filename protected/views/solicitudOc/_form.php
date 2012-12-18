@@ -286,7 +286,9 @@ $(document).ready(function(){
 		<?php 
                     $funcion = 'cargaArticuloGrilla';
                     $id = 'articulo-grid';
-                    echo $this->renderPartial('modal', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id));
+                    $data=$articulo->search();
+                    $data->pagination = array('pageSize'=>4);
+                    echo $this->renderPartial('/articulo/articulos', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id,'data'=>$data,'check'=>false));
                 ?>
 	</div>
         <div class="modal-footer">

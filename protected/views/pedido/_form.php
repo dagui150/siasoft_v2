@@ -390,7 +390,8 @@ function cargaGrilla(grid_id){
           <?php
             $funcion = 'cargaGrilla';
             $id = 'articulo-grid';
-            $this->renderPartial('/articulo/articulos', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id,'check'=>false));
+            $data=$articulo->searchModal();
+            $this->renderPartial('/articulo/articulos', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id,'data'=>$data,'check'=>false));
       ?>
 	</div>
         <div class="modal-footer">
