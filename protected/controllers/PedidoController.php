@@ -219,8 +219,8 @@ class PedidoController extends Controller
             $res = array(
                 'ID' => $bus->ARTICULO,
                 'NOMBRE' => $bus->NOMBRE,
+                'IMPUESTO' => $bus->iMPUESTOVENTA->PROCENTAJE,
                 'UNIDAD' => $bus->UNIDAD_ALMACEN,
-                'UNIDADES' => CHtml::listData(UnidadMedida::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>$unidad->TIPO)),'ID','NOMBRE'),
                 'UNIDAD_NOMBRE' => $bus->uNIDADALMACEN->NOMBRE,
                 'UNIDADES' => CHtml::listData(UnidadMedida::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>$bus->uNIDADALMACEN->TIPO)),'ID','NOMBRE'),
             );            

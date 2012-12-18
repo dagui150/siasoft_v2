@@ -1,78 +1,87 @@
 <script>
-$(document).ready(function(){
-    inicio();
-});
+    $(document).ready(inicio);
 
-function inicio(){ 
-        $('#Factura_CONSECUTIVO').change(function(){
-            $.getJSON('<?php echo $this->createUrl('cargarconsecutivo')?>&id='+$(this).val(),
-                function(data){
-                    
-                    $('#Factura_FACTURA').val(data.VALOR);
-                    
-                }
-            );
-        });
-        
-    $('#Factura_ARTICULO').change(function(){
-            $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$(this).val(),
-                function(data){
-                    $("#Articulo_desc").val(data.NOMBRE);
-                     $('select[id$=Factura_UNIDAD]>option').remove();
-                    
-                    $.each(data.UNIDADES, function(value, name) {
-                            if(value == data.UNIDAD)
-                              $('#Factura_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
-                            else
-                               $('#Factura_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
-                        });
-                    $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
-                    $('#agregar').attr('disabled', false);
-                    
-            );
-        });
-        
-    $('#Factura_CLIENTE').change(function(){
-            $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=CL&ID='+$(this).val(),
-                function(data){
-                    $("#Cliente_desc").val(data.NOMBRE);
-                    
-                }
-            );
-        });   
-}
+    function inicio(){
+            $('.edit').live('click',actualiza);
+            
+            $('#Factura_CONSECUTIVO').change(function(){
+                $.getJSON('<?php echo $this->createUrl('cargarconsecutivo')?>&id='+$(this).val(),
+                    function(data){
 
-function cargaGrilla(grid_id){
-    var ID = $.fn.yiiGridView.getSelection(grid_id);
-    var url;
-    var campo;
-    var campo_nombre;
+                        $('#Factura_FACTURA').val(data.VALOR);
+
+                    }
+                );
+            });
+
+            $('#Factura_ARTICULO').change(function(){
+                $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$(this).val(),
+                    function(data){
+                        $("#Articulo_desc").val(data.NOMBRE);
+                         $('select[id$=Factura_UNIDAD]>option').remove();
+
+                        $.each(data.UNIDADES, function(value, name) {
+                                if(value == data.UNIDAD)
+                                  $('#Factura_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
+                                else
+                                   $('#Factura_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
+                            });
+                        $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
+                        $('#agregar').attr('disabled', false);
+                 });     
+
+            });
+
+            $('#Factura_CLIENTE').change(function(){
+                $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=CL&ID='+$(this).val(),
+                    function(data){
+                        $("#Cliente_desc").val(data.NOMBRE);
+
+                    }
+                );
+            });   
+    }
     
-    if (grid_id == 'cliente-grid'){
-        url = '<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=CL&ID='+ID;
-        campo = '#Factura_CLIENTE';
-        campo_nombre = '#Cliente_desc';
+    function cargaGrilla(grid_id){
+        var ID = $.fn.yiiGridView.getSelection(grid_id);
+        var url;
+        var campo;
+        var campo_nombre;
+
+        if (grid_id == 'cliente-grid'){
+            url = '<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=CL&ID='+ID;
+            campo = '#Factura_CLIENTE';
+            campo_nombre = '#Cliente_desc';
+        }
+        else if (grid_id == 'articulo-grid'){
+            url = '<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+ID;
+            campo = '#Factura_ARTICULO';
+            campo_nombre = '#Articulo_desc';
+            $('#agregar').attr('disabled', false);
+        }
+        $.getJSON(url,function(data){
+                    $(campo).val(ID);
+                    $(campo_nombre).val(data.NOMBRE); 
+                    if(data.UNIDAD){
+
+                         $('select[id$=Factura_UNIDAD]>option').remove();
+
+                        $.each(data.UNIDADES, function(value, name) {
+                                  $('#Factura_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
+                            });
+                        $("#Factura_UNIDAD").val(data.UNIDAD);
+                    }
+                });    
     }
-    else if (grid_id == 'articulo-grid'){
-        url = '<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+ID;
-        campo = '#Factura_ARTICULO';
-        campo_nombre = '#Articulo_desc';
-        $('#agregar').attr('disabled', false);
+    
+    function formato(input){
+        var num = input.value.replace(/\./g,'');
+        if(!/,/.test(num)){
+            num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+            num = num.split('').reverse().join('').replace(/^[\.]/,'');
+            input.value = num;
+        }
     }
-    $.getJSON(url,function(data){
-                $(campo).val(ID);
-                $(campo_nombre).val(data.NOMBRE); 
-                if(data.UNIDAD){
-                    
-                     $('select[id$=Factura_UNIDAD]>option').remove();
-                    
-                    $.each(data.UNIDADES, function(value, name) {
-                              $('#Factura_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
-                        });
-                    $("#Factura_UNIDAD").val(data.UNIDAD);
-                }
-            });    
-}
 </script>
 <div class="form">
 
@@ -110,7 +119,8 @@ function cargaGrilla(grid_id){
             'buttonImageOnly'=>true,
 	),
         'htmlOptions'=>array(
-            'style'=>'width:80px;vertical-align:top'
+            'style'=>'width:80px;vertical-align:top',
+            'value'=>date('Y-m-d'),
         ),  
    ), true);
     
@@ -170,7 +180,7 @@ function cargaGrilla(grid_id){
         ),  
    ), true); 
     
-    $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form, 'model'=>$model, 'ruta'=>$ruta),true);
+    $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form, 'model'=>$model,'ruta2'=>$ruta2,),true);
     
 ?>
 
@@ -306,13 +316,23 @@ function cargaGrilla(grid_id){
                       </fieldset>'
                     ),
                     array('label'=>'Montos', 'content'=>
-                        $form->textFieldRow($model,'TOTAL_MERCADERIA',array('size'=>28,'maxlength'=>28,'value'=>0))
-                        .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('size'=>28,'maxlength'=>28,'value'=>0))
-                        .$form->textFieldRow($model,'TOTAL_IMPUESTO1',array('size'=>28,'maxlength'=>28,'value'=>0))
-                        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('size'=>28,'maxlength'=>28,'value'=>0))
-                        .$form->textFieldRow($model,'MONTO_ANTICIPO',array('size'=>28,'maxlength'=>28,'value'=>0))
-                        .$form->textFieldRow($model,'MONTO_FLETE',array('size'=>28,'maxlength'=>28,'value'=>0))
-                        .$form->textFieldRow($model,'MONTO_SEGURO',array('size'=>28,'maxlength'=>28,'value'=>0))
+                        '<table>
+                                 <tr>
+                                      <td style="width: 380px;">'
+                                            .$form->textFieldRow($model,'TOTAL_MERCADERIA',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true))
+                                            .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true))
+                                            .$form->textFieldRow($model,'TOTAL_IMPUESTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true))
+                                            .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true))
+                                     .'</td>
+                                      <td>'
+                                           .$form->textFieldRow($model,'MONTO_ANTICIPO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>0,'class'=>'montos'))
+                                           .$form->textFieldRow($model,'MONTO_FLETE',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>0,'class'=>'montos'))
+                                           .$form->textFieldRow($model,'MONTO_SEGURO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>0,'class'=>'montos'))
+                                     .'</td>
+                                 <tr>
+                        </table>'
+                        
+                    ),
                 )
             )); ?>
 
@@ -379,7 +399,8 @@ function cargaGrilla(grid_id){
           <?php
             $funcion = 'cargaGrilla';
             $id = 'articulo-grid';
-            $this->renderPartial('/articulo/articulos', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id,'check'=>false));
+            $data=$articulo->searchModal();
+            $this->renderPartial('/articulo/articulos', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id,'check'=>false,'data'=>$data));
       ?>
 	</div>
         <div class="modal-footer">
