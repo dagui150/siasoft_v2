@@ -74,6 +74,13 @@ class ArticuloController extends SBaseController
                     
                         $model->attributes=$_POST['Articulo']; 
                         
+<<<<<<< HEAD
+                        $model->EXISTENCIA_MINIMA = unformat($_POST['Articulo']['EXISTENCIA_MINIMA']);
+                        $model->PUNTO_REORDEN = strtr(strtr($_POST['Articulo']['PUNTO_REORDEN'], $trans), $trans2);
+                        $model->EXISTENCIA_MAXIMA = strtr(strtr($_POST['Articulo']['EXISTENCIA_MAXIMA'], $trans), $trans2);
+                        $model->FACTOR_VENTA = strtr(strtr($_POST['Articulo']['FACTOR_VENTA'], $trans), $trans2);
+                        $model->FACTOR_EMPAQUE = strtr(strtr($_POST['Articulo']['FACTOR_EMPAQUE'], $trans), $trans2);
+=======
                         $model->EXISTENCIA_MINIMA = SBaseController::unformat($_POST['Articulo']['EXISTENCIA_MINIMA']);
                         $model->PUNTO_REORDEN = SBaseController::unformat($_POST['Articulo']['PUNTO_REORDEN']);
                         $model->EXISTENCIA_MAXIMA = SBaseController::unformat($_POST['Articulo']['EXISTENCIA_MAXIMA']);
@@ -82,6 +89,7 @@ class ArticuloController extends SBaseController
                         $model->PESO_NETO = SBaseController::unformat($_POST['Articulo']['PESO_NETO']);
                         $model->PESO_BRUTO = SBaseController::unformat($_POST['Articulo']['PESO_BRUTO']);
                         $model->VOLUMEN = SBaseController::unformat($_POST['Articulo']['VOLUMEN']);
+>>>>>>> 1e1f780a926f2bd99b63777f0c0285c4b5899d5c
                         
                         if($_POST['Articulo']['IMPUESTO_COMPRA'] === '')
                             $model->IMPUESTO_COMPRA = NULL;

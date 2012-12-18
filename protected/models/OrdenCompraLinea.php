@@ -225,17 +225,17 @@ class OrdenCompraLinea extends CActiveRecord
 		return array(
                         'defaults'=>array(
                             'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
-                            'format'=>'db',
+                            //'format'=>'db',
                             'formats'=> array(
-                                   'MONTO_DESCUENTO'=>'#0.'.str_repeat('0',$dec),
-                                   'PRECIO_UNITARIO'=>'#0.'.str_repeat('0',$dec),
-                                   'VALOR_IMPUESTO'=>'#0.'.str_repeat('0',$dec),
-                                   'CANTIDAD_ORDENADA'=>'#0.'.str_repeat('0',$dec),
-                                   'CANTIDAD_RECIBIDA'=>'#0.'.str_repeat('0',$dec),
-                                   'CANTIDAD_RECHAZADA'=>'#0.'.str_repeat('0',$dec),
+                                   'MONTO_DESCUENTO'=>'###,##0.'.str_repeat('0',$dec),
+                                   'PRECIO_UNITARIO'=>'###,##0.'.str_repeat('0',$dec),
+                                   'VALOR_IMPUESTO'=>'###,##0.'.str_repeat('0',$dec),
+                                   'CANTIDAD_ORDENADA'=>'###,##0.'.str_repeat('0',$dec),
+                                   'CANTIDAD_RECIBIDA'=>'###,##0.'.str_repeat('0',$dec),
+                                   'CANTIDAD_RECHAZADA'=>'###,##0.'.str_repeat('0',$dec),
                             ),
                             
-                            'parseExpression'=> "strtr(\$value,',','.')",
+                            //'parseExpression'=> "strtr(\$value,',','.')",
                         ),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',

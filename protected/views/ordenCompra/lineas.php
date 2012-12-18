@@ -575,28 +575,28 @@ $(document).ready(function(){
                                                     <?php echo CHtml::textField('Nuevo[{0}][PRECIO_UNITARIO]','0',array('class'=>'calculos', 'onFocus'=> "if (this.value=='0') this.value='';", 'size' => '10')); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][CANTIDAD_ORDENADA]','0',array('class'=>'calculos', 'onFocus'=> "if (this.value=='0') this.value='';", 'size' => '5')); ?>
+                                                    <?php echo CHtml::textField('Nuevo[{0}][CANTIDAD_ORDENADA]','0',array('class'=>'calculos', 'onFocus'=> "if (this.value=='0') this.value='';", 'size' => '5','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
                                                 </td>
                                                 <td>
                                                     <?php echo CHtml::textField('Nuevo[{0}][PORC_DESCUENTO]','0',array('class'=>'calculos', 'onFocus'=> "if (this.value=='0') this.value='';", 'size' => '5')); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][MONTO_DESCUENTO]','0',array('readonly'=>true, 'size' => '10')); ?>
+                                                    <?php echo CHtml::textField('Nuevo[{0}][MONTO_DESCUENTO]','0',array('readonly'=>true, 'size' => '10','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][IMPORTE]','0',array('readonly'=>true, 'size' => '10')); ?>
+                                                    <?php echo CHtml::textField('Nuevo[{0}][IMPORTE]','0',array('readonly'=>true, 'size' => '10','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
                                                 </td>
                                                 <td>
                                                     <?php echo CHtml::textField('Nuevo[{0}][PORC_IMPUESTO]','0',array('readonly'=>true, 'size' => '10')); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][VALOR_IMPUESTO]','0',array('readonly'=>true, 'size' => '10')); ?>
+                                                    <?php echo CHtml::textField('Nuevo[{0}][VALOR_IMPUESTO]','0',array('readonly'=>true, 'size' => '10','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
                                                 </td>                                           
                                                 <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][CANTIDAD_RECIBIDA]','0',array('readonly'=>true, 'size' => '5')); ?>
+                                                    <?php echo CHtml::textField('Nuevo[{0}][CANTIDAD_RECIBIDA]','0',array('readonly'=>true, 'size' => '5','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][CANTIDAD_RECHAZADA]','0',array('readonly'=>true, 'size' => '5')); ?>
+                                                    <?php echo CHtml::textField('Nuevo[{0}][CANTIDAD_RECHAZADA]','0',array('readonly'=>true, 'size' => '5','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
                                                 </td>
                                                 <td>
                                                     <?php echo CHtml::textField('Nuevo[{0}][FECHA]','',array('class' => 'fecha', 'size'=>'10')); ?>
@@ -670,31 +670,31 @@ $(document).ready(function(){
                             <?php echo $form->textField($person,"[$i]FACTURA",array()); ?>
                         </td>
                         <td>
-                            <?php echo $form->textField($person,"[$i]PRECIO_UNITARIO",array('class'=>'calculos', 'onFocus'=> "if (this.value=='0') this.value='';", 'size' => '10')); ?>
+                            <?php echo $form->textField($person,"[$i]PRECIO_UNITARIO",array('class'=>'calculos', 'onFocus'=> "if (this.value=='0') this.value='';", 'size' => '10','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
                         </td>
                         <td>
-                            <?php echo $form->textField($person,"[$i]CANTIDAD_ORDENADA",array('class'=>'calculos', 'onFocus'=> "if (this.value=='0') this.value='';", 'size' => '5')); ?>
+                            <?php echo $form->textField($person,"[$i]CANTIDAD_ORDENADA",array('class'=>'calculos', 'onFocus'=> "if (this.value=='0') this.value='';", 'size' => '5','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
                         </td>
                         <td>
                             <?php echo $form->textField($person,"[$i]PORC_DESCUENTO",array('class'=>'calculos', 'onFocus'=> "if (this.value=='0') this.value='';", 'size' => '5')); ?>
                         </td>
                         <td>
-                            <?php echo $form->textField($person,"[$i]MONTO_DESCUENTO",array('readonly'=>true, 'size' => '10')); ?>
+                            <?php echo $form->textField($person,"[$i]MONTO_DESCUENTO",array('readonly'=>true, 'size' => '10','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
                         </td>
                         <td>
-                            <?php echo CHtml::textField("OrdenCompraLinea[$i][IMPORTE]", $value, array('readonly' => true, 'size' => '10')); ?>
+                            <?php echo CHtml::textField("OrdenCompraLinea[$i][IMPORTE]", $value, array('readonly' => true, 'size' => '10','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
                         </td>
                         <td>
                             <?php echo $form->textField($person,"[$i]PORC_IMPUESTO",array('readonly'=>true, 'size' => '10')); ?>                            
                         </td>
                         <td>
-                            <?php echo $form->textField($person,"[$i]VALOR_IMPUESTO",array('readonly'=>true, 'value'=>'0', 'size' => '10')); ?>
+                            <?php echo $form->textField($person,"[$i]VALOR_IMPUESTO",array('readonly'=>true, 'value'=>'0', 'size' => '10','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
                         </td>                       
                         <td>
-                            <?php echo $form->textField($person,"[$i]CANTIDAD_RECIBIDA",array('readonly'=>true, 'size' => '5')); ?>
+                            <?php echo $form->textField($person,"[$i]CANTIDAD_RECIBIDA",array('readonly'=>true, 'size' => '5','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
                         </td>
                         <td>
-                            <?php echo $form->textField($person,"[$i]CANTIDAD_RECHAZADA",array('readonly'=>true, 'size' => '5')); ?>
+                            <?php echo $form->textField($person,"[$i]CANTIDAD_RECHAZADA",array('readonly'=>true, 'size' => '5','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
                         </td>
                         <td>
                             <?php echo $form->textField($person,"[$i]FECHA",array('class' => 'fecha', 'size'=>'10')); ?>
