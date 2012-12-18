@@ -72,7 +72,7 @@ class FacturaController extends SBaseController
 	}
         public function actionAgregarlinea(){
             $linea = new FacturaLinea;
-            $linea->attributes = $_POST['PedidoLinea'];
+            $linea->attributes = $_POST['FacturaLinea'];
             $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
             
             if($linea->validate()){

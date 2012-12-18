@@ -177,15 +177,10 @@
     }
 </script>
 <?php 
-    /*$nombre_bodega = isset($Pnombre_bodega) ? $Pnombre_bodega : '';
-    $nombre_bodega_destino = isset($Pnombre_bodega_destino) ? $Pnombre_bodega_destino : '';
-    $nombre_articulo = isset($Pnombre_articulo) ? $Pnombre_articulo : '';
-    $subtipos = isset($Psubtipos) ? $Psubtipos : array();
-    $cantidades = isset($Pcantidades) ? $Pcantidades : array();*/
     $total = isset($_POST['TOTAL'])? $_POST['TOTAL'] : '';
     $actualiza = isset($_POST['ACTUALIZA'])? $_POST['ACTUALIZA'] : '1';
-    $tipo_precio = isset($_POST['PedidoLinea']['TIPO_PRECIO']) && isset($_POST['PedidoLinea']['ARTICULO'])? CHtml::ListData(ArticuloPrecio::model()->findAll('ARTICULO = "'.$_POST['PedidoLinea']['ARTICULO'].'" AND ACTIVO = "S"'),'ID','NIVEL_PRECIO') : array();
-    $unidad = isset($_POST['PedidoLinea']['UNIDAD'])? CHtml::ListData(UnidadMedida::model()->findAll('ID = "'.$_POST['PedidoLinea']['UNIDAD'].'" AND ACTIVO = "S"'),'ID','NOMBRE') : array();
+    $tipo_precio = isset($_POST['FacturaLinea']['TIPO_PRECIO']) && isset($_POST['FacturaLinea']['ARTICULO'])? CHtml::ListData(ArticuloPrecio::model()->findAll('ARTICULO = "'.$_POST['FacturaLinea']['ARTICULO'].'" AND ACTIVO = "S"'),'ID','NIVEL_PRECIO') : array();
+    $unidad = isset($_POST['FacturaLinea']['UNIDAD'])? CHtml::ListData(UnidadMedida::model()->findAll('ID = "'.$_POST['FacturaLinea']['UNIDAD'].'" AND ACTIVO = "S"'),'ID','NOMBRE') : array();
     
     //$campoActualiza = isset($PcampoActualiza) ? $PcampoActualiza : '';    
     //$actualiza = isset($Pactualiza) ? $Pactualiza : 0;
