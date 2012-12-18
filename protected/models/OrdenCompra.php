@@ -247,15 +247,15 @@ class OrdenCompra extends CActiveRecord
 		return array(
                         'defaults'=>array(
                             'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
-                            'format'=>'db',
+                            //'format'=>'db',
                             'formats'=> array(
-                                   'MONTO_FLETE'=>'#0.'.str_repeat('0',$dec),
-                                   'MONTO_SEGURO'=>'#0.'.str_repeat('0',$dec),
-                                   'MONTO_ANTICIPO'=>'#0.'.str_repeat('0',$dec),
-                                   'TOTAL_A_COMPRAR'=>'#0.'.str_repeat('0',$dec),
+                                   'MONTO_FLETE'=>'###,##0.'.str_repeat('0',$dec),
+                                   'MONTO_SEGURO'=>'###,##0.'.str_repeat('0',$dec),
+                                   'MONTO_ANTICIPO'=>'###,##0.'.str_repeat('0',$dec),
+                                   'TOTAL_A_COMPRAR'=>'###,##0.'.str_repeat('0',$dec),
                             ),
                             
-                            'parseExpression'=> "strtr(\$value,',','.')",
+                            //'parseExpression'=> "strtr(\$value,',','.')",
                         ),
                     
 			'CTimestampBehavior' => array(

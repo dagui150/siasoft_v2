@@ -398,16 +398,16 @@ class SolicitudOcController extends SBaseController
                         
 			if($model->save())
                             if(isset($_POST['SolicitudOcLinea'])){
-                                foreach ($_POST['SolicitudOcLinea'] as $datos){
+                                foreach ($_POST['SolicitudOcLinea'] as $datos){                                    
                                     $linea=SolicitudOcLinea::model()->findByPk($datos['SOLICITUD_OC_LINEA']);
                                     $linea->SOLICITUD_OC = $_POST['SolicitudOc']['SOLICITUD_OC'];
                                     $linea->ARTICULO = $datos['ARTICULO'];
                                     $linea->DESCRIPCION = $datos['DESCRIPCION'];
                                     $linea->UNIDAD = $datos['UNIDAD'];
-                                    $linea->CANTIDAD = $datos['CANTIDAD'];
+                                    $linea->CANTIDAD = SBaseController::unformat($datos['CANTIDAD']);
                                     $linea->FECHA_REQUERIDA = $datos['FECHA_REQUERIDA'];
                                     $linea->COMENTARIO = $datos ['COMENTARIO'];
-                                    $linea->SALDO = $datos ['SALDO'];
+                                    $linea->SALDO = SBaseController::unformat($datos ['SALDO']);
                                     $linea->LINEA_NUM = $i;
                                     $linea->ESTADO = $datos ['ESTADO'];
                                     $linea->save();

@@ -19,15 +19,6 @@
         });
     }
     
-    function formato(input)
-            {	
-                var num = input.value.replace(/\./g,'');	
-                if(!/,/.test(num)){
-                    num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
-                    num = num.split('').reverse().join('').replace(/^[\.]/,'');
-                    input.value = num;
-                }
-            }
     
     function updateBodega(grid_id){
         var id=$.fn.yiiGridView.getSelection(grid_id);

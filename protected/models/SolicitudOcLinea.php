@@ -201,19 +201,17 @@ class SolicitudOcLinea extends CActiveRecord
         
         public function behaviors()
 	{
-                $conf=ConfCo::model()->find();
-                $dec=isset($conf->CANTIDAD_DEC)?$conf->CANTIDAD_DEC:0;
-		return array(
-                        'defaults'=>array(
-                            'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
-                            'format'=>'db',
-                            'formats'=> array(
-                                   'CANTIDAD'=>'#0.'.str_repeat('0',$dec),
-                                   'SALDO'=>'#0.'.str_repeat('0',$dec),
-
+                    $conf = ConfCo::model()->find();
+                    $dec = isset($conf->CANTIDAD_DEC) ? $conf->CANTIDAD_DEC : 0;
+                    return array(
+                        'defaults' => array(
+                            'class' => 'ext.decimali18nbehavior.DecimalI18NBehavior',
+                            //'format'=>'db',
+                            'formats' => array(
+                                'CANTIDAD' => '###,##0.' . str_repeat('0', $dec),
+                                'SALDO' => '###,##0.' . str_repeat('0', $dec),
                             ),
-                            
-                            'parseExpression'=> "strtr(\$value,',','.')",
+                        //'parseExpression'=> "strtr(\$value,',','.')",
                         ),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
