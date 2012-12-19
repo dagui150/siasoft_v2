@@ -152,9 +152,10 @@ class ArticuloPrecioController extends Controller
         public function actionIniciar(){
             $item_id = $_GET['id'];
             $bus = Articulo::model()->findByPk($item_id, 'ACTIVO = "S"');
+            $costo = Articulo::darCosto($item_id);
             $res = array(
                      'DESCRIPCION'=>$bus->NOMBRE,
-                     'COSTO_ESTANDAR'=>$bus->COSTO_ESTANDAR,
+                     'COSTO_ESTANDAR'=>$costo,
                 ); 
             echo CJSON::encode($res);
         }
