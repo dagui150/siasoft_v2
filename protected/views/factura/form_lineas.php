@@ -6,7 +6,6 @@
     //agregar una linea
     function agregar(span){
         var contador = $('#CAMPO_ACTUALIZA').val();
-        var actualiza = $('#ACTUALIZA').val();
         var model = 'LineaNuevo';
         
         if(span == 'U')
@@ -53,9 +52,7 @@
         $('#cantidad'+span+'_'+contador).text(cantidad);
         $('#preciounitario'+span+'_'+contador).text('$ '+precio_unitario);
         $('#porcdescuento'+span+'_'+contador).text(porc_descuento+' %');
-        $('#monto_descuento'+span+'_'+contador).text(monto_descuento);
-        $('#porc_impuesto'+span+'_'+contador).text(porc_impuesto+' %');
-        $('#comentario'+span+'_'+contador).text(comentario);   
+        $('#porc_impuesto'+span+'_'+contador).text(porc_impuesto+' %'); 
         
         //copia a campos ocultos
         $('#'+model+'_'+contador+'_UNIDAD').val(unidad);

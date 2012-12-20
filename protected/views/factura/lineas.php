@@ -185,11 +185,7 @@
      });
     
     $('.montos').blur(function(){
-        total_facturar =  parseInt($('#Factura_TOTAL_A_FACTURAR').val(), 10);
-        anticipo =  parseInt($('#Factura_MONTO_ANTICIPO').val(), 10);
-        flete =  parseInt($('#Factura_MONTO_FLETE').val(), 10);
-        seguro =  parseInt($('#Factura_MONTO_SEGURO').val(), 10);
-        calculoGranTotal(total_facturar,anticipo,flete,seguro);
+        calculoGranTotal(false);
     });
     
     $('.eliminaLinea').live('click',function(){
@@ -197,27 +193,46 @@
         model = 'LineaNuevo';
            
         $('#remover_'+contador).click();
-        var contadorMax = parseInt($('body').find('.rowIndex').max(), 10)+1;
+        var contadorMax = $('body').find('.rowIndex').max();
         var contFor = parseInt(contador, 10)+1;
-        alert(contFor+','+contadorMax);
+        var linea = parseInt(contador, 10); 
+        //cambiar ids y span
         for(var i = contFor ; i <=contadorMax; i++){
-            var linea = parseInt(contador, 10);
-            var campos = ['ARTICULO','UNIDAD','TIPO_PRECIO','CANTIDAD','PRECIO_UNITARIO','PORC_DESCUENTO','MONTO_DESCUENTO','PORC_IMPUESTO','VALOR_IMPUESTO','COMENTARIO','TOTAL'];
-            var span = {};
-            alert(linea)
+            var campos = ['ARTICULO','DESCRIPCION','UNIDAD','TIPO_PRECIO','CANTIDAD','PRECIO_UNITARIO','PORC_DESCUENTO','MONTO_DESCUENTO','PORC_IMPUESTO','VALOR_IMPUESTO','COMENTARIO','TOTAL'];
+            var span = ['linea','articulo','descripcion','cantidad','campo_cantidad','unidad','campo_unidad','tipoprecio','campo_tipoprecio','preciounitario','campo_preciounitario','porcdescuento','campo_porcdescuento','porc_impuesto','valor_impuesto','total','remover','edit','eliminaLinea','rowIndex'];
+            //CAMBIAR IDS DE LOS SPAN
+            for(var x =0 ; x<=span.length;x++){
+                switch(span[x]){
+                    case 'edit':
+                        $('#'+span[x]+'_'+i).attr('name',linea);
+                    break
+                    case 'eliminaLinea':
+                        $('#'+span[x]+'_'+i).attr('name',linea);
+                    break
+                    case 'rowIndex':
+                         $('[name="'+span[x]+'_'+i+'"]').attr({
+                        name: span[x]+'_'+linea,
+                        value:linea
+                    });
+                    break
+                }
+                $('#'+span[x]+'_'+i).attr('id',span[x]+'_'+linea);
+                     
+                 
+            }
+            //CAMBIAR IDS Y NAMES DE LOS CAMPOS DE LAS LINEAS
+            for(var y =0 ; y<=campos.length;y++){
+               /* alert('editar :'+model+'_'+i+'_'+campos[y]);
+                alert('editado :'+model+'_'+linea+'_'+campos[y]);*/
+                 $('#'+model+'_'+i+'_'+campos[y]).attr({
+                    id: model+'_'+linea+'_'+campos[y],
+                    name: model+'['+linea+']['+campos[y]+']'
+                });
+            }
             contador++;
-            $('#articulo_'+i).attr('id','articulo_'+linea);
-            $('#'+model+'_'+i+'_ARTICULO').attr({
-                id: model+'_'+linea+'_ARTICULO',
-                name: model+'['+linea+'][ARTICULO]'
-            });
+            linea++;
         }
-        calcularTotal(contador,model); 
-        
-        $('#Factura_TOTAL_MERCADERIA').val(total_mercaderia);
-        $('#Factura_MONTO_DESCUENTO1').val(total_descuento);
-        $('#Factura_TOTAL_IMPUESTO1').val(total_iva);
-        $('#Factura_TOTAL_A_FACTURAR').val(total_facturar);
+        calculoGranTotal(model);
         
     });
     
@@ -348,8 +363,7 @@
                                         </td>
                                         <td>
                                             <span id='cantidad_<?php echo '{0}';?>' class="cambiar"></span>
-                                            <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][CANTIDAD]','',array('size'=>4,'class'=>'blur')); ?></span>                                                                      
-                                            <?php echo CHtml::hiddenField('LineaNuevo[{0}][PRE-CANTIDAD]',''); ?>                                       
+                                            <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][CANTIDAD]','',array('size'=>4,'class'=>'blur')); ?></span>                                                                                                            
                                         </td>
                                         <td>
                                             <span id='unidad_<?php echo '{0}';?>' class="cambiar"></span>
@@ -361,13 +375,11 @@
                                         </td>
                                         <td style="width: 74px;">
                                             <span id='preciounitario_<?php echo '{0}';?>' class="cambiar"></span>
-                                            <span id='campo_preciounitario_<?php echo '{0}';?>'style="display:none;" ><?php echo CHtml::textField('LineaNuevo[{0}][PRECIO_UNITARIO]','',array('size'=>10,'class'=>'blur')); ?></span>                                        
-                                            <?php echo CHtml::hiddenField('LineaNuevo[{0}][PRE-PRECIO]',''); ?>  
+                                            <span id='campo_preciounitario_<?php echo '{0}';?>'style="display:none;" ><?php echo CHtml::textField('LineaNuevo[{0}][PRECIO_UNITARIO]','',array('size'=>10,'class'=>'blur')); ?></span>                                         
                                         </td>                                    
                                         <td style="width: 74px;">
                                             <span id='porcdescuento_<?php echo '{0}';?>' class="cambiar"></span>
-                                            <span id='campo_porcdescuento_<?php echo '{0}';?>'style="display:none;" ><?php echo CHtml::textField('LineaNuevo[{0}][PORC_DESCUENTO]','',array('size'=>4,'class'=>'blur')); ?></span>    
-                                            <?php echo CHtml::hiddenField('LineaNuevo[{0}][PRE-DESCUENTO]',''); ?>
+                                            <span id='campo_porcdescuento_<?php echo '{0}';?>'style="display:none;" ><?php echo CHtml::textField('LineaNuevo[{0}][PORC_DESCUENTO]','',array('size'=>4,'class'=>'blur')); ?></span>
                                             <?php echo CHtml::hiddenField('LineaNuevo[{0}][MONTO_DESCUENTO]',''); ?>
                                         </td>
                                         <td style="width: 74px;">
@@ -390,7 +402,7 @@
                                                                  'type'=>'normal',
                                                                  'size'=>'mini',
                                                                  'icon'=>'pencil',
-                                                                 'htmlOptions'=>array('class'=>'edit','name'=>'{0}')
+                                                                 'htmlOptions'=>array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')
                                                              ));
                                                 ?>
                                             </span>
@@ -401,11 +413,11 @@
                                                              'type'=>'danger',
                                                              'size'=>'mini',
                                                              'icon'=>'minus white',
-                                                             'htmlOptions'=>array('class'=>'eliminaLinea','name'=>'{0}')
+                                                             'htmlOptions'=>array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}')
                                                          ));
                                                    ?>
                                             </div>
-                                            <input type="hidden" class="rowIndex" value="{0}" />
+                                            <input name="rowIndex_{0}" type="hidden" class="rowIndex" value="{0}" />
                                        </td>
                                     </tr>
                              </textarea>
