@@ -97,8 +97,9 @@
             $('#Factura_CLIENTE').change(function(){
                 $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=CL&ID='+$(this).val(),
                     function(data){
+                        /*if(!confirm("Esta seguro ?  \n Esta es su última oportunidad .\n 
+              \n Se abrirá otra ventana \n para evitarle molestias.")) {return false;} */
                         $("#Cliente_desc").val(data.NOMBRE);
-
                     }
                 );
             });   

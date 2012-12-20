@@ -67,10 +67,6 @@ class FacturaController extends SBaseController
                             $model->REMITIDO = 'N';   
                             $model->RESERVADO = 'N';   
                             $model->ESTADO = 'N';
-                            echo '<pre>';
-                            print_r($_POST);
-                            echo '</pre>';
-                            //Yii::app()->end();
                             $model->save();
                             if(isset($_POST['LineaNuevo'])){
                                   $i = 1;

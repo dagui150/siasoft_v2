@@ -10,7 +10,6 @@ $this->breadcrumbs=array(
 
 <div align="right">
 <?php 
-
 $this->widget('bootstrap.widgets.BootButton', array(
     'label'=>'Nuevo',
     'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
