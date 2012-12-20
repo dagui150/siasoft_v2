@@ -317,12 +317,4 @@ class PedidoController extends Controller
                 echo CJSON::encode($res);
             }
         }
-        
-        public function actionCargarUnidad($id){
-            $bus = UnidadMedida::model()->findByPk($id);
-            $res = array(
-                'NOMBRE'=>$bus->NOMBRE
-            );
-            echo CJSON::encode($res);            
-        }
 }

@@ -5,9 +5,8 @@
     
     //agregar una linea
     function agregar(span){
-        var contador,precio,total_resta= new Array() ;
+        var contador = $('#CAMPO_ACTUALIZA').val();
         var actualiza = $('#ACTUALIZA').val();
-        var suma = true;
         var model = 'LineaNuevo';
         
         if(span == 'U')
@@ -15,29 +14,10 @@
         
         $('.close').click();
         
-        if(actualiza == 0){
-            //$('.add').click();
-            contador = $('body').find('.rowIndex').max();
-            
-        }else{
-            contador = $('#CAMPO_ACTUALIZA').val();
-            suma = false;            
-            //$('#ACTUALIZA').val('0');
-        }
-                
-        copiarCampos(contador,model,span,suma);
-        precio = parseInt($('#'+model+'_'+contador+'_PRE-PRECIO').val(), 10);
-        total_resta['descuentos'] = (precio * parseInt($('#'+model+'_'+contador+'_PRE-DESCUENTO').val(), 10))/100;
-        total_resta['mercaderia'] = parseInt($('#'+model+'_'+contador+'_PRE-CANTIDAD').val(), 10) * precio;
+        copiarCampos(contador,model,span);
         
-        calcularTotal(contador,model,true,total_resta);
-        $('#'+model+'_'+contador+'_PRE-PRECIO').val($('#FacturaLinea_PRECIO_UNITARIO').val());
-        $('#'+model+'_'+contador+'_PRE-DESCUENTO').val($('#FacturaLinea_PORC_DESCUENTO').val());
-        $('#'+model+'_'+contador+'_PRE-CANTIDAD').val($('#FacturaLinea_CANTIDAD').val());
-        
-        if(actualiza == 0)
-            //add();
-                
+        calcularTotal(contador,model);
+                        
         $('#alert').remove();
         $('#resetear').click();
         $('#form-cargado').slideDown('slow');
@@ -56,7 +36,11 @@
         var cantidad = $('#FacturaLinea_CANTIDAD').val();
         var precio_unitario = $('#FacturaLinea_PRECIO_UNITARIO').val();
         var porc_descuento = $('#FacturaLinea_PORC_DESCUENTO').val();
-        var monto_descuento = parseFloat($('#FacturaLinea_MONTO_DESCUENTO').val());
+        //volver a calcular el monto descuento
+        var total = parseInt(precio_unitario, 10) * parseInt(cantidad, 10);
+        var descuento = (total * parseInt(porc_descuento, 10))/100;
+        var monto_descuento = descuento
+        
         var porc_impuesto = $('#FacturaLinea_PORC_IMPUESTO').val();
         var valor_impuesto = parseFloat($('#FacturaLinea_VALOR_IMPUESTO').val());
         var comentario = $('#FacturaLinea_COMENTARIO').val();
@@ -85,21 +69,6 @@
         $('#'+model+'_'+contador+'_COMENTARIO').val(comentario);
         $('#alert').remove();
         
-        add();
-        resetAgregar();
-    }
-    
-    function resetAgregar(){
-        $('#Articulo').val('');
-        $('#Articulo_desc').val('');
-        $('#btn-nuevo').attr('disabled', true);
-        $('#ACTUALIZA').val('1');
-    }
-    
-    function add(){
-        var cuentaLineas = $('#CAMPO_ACTUALIZA').val();
-        cuentaLineas = parseInt(cuentaLineas, 10) + 1;        
-        $('#CAMPO_ACTUALIZA').val(cuentaLineas);
     }
     
     //limpiar formulario
@@ -161,11 +130,7 @@
     }
 </script>
 <?php 
-    /*$nombre_bodega = isset($Pnombre_bodega) ? $Pnombre_bodega : '';
-    $nombre_bodega_destino = isset($Pnombre_bodega_destino) ? $Pnombre_bodega_destino : '';
-    $nombre_articulo = isset($Pnombre_articulo) ? $Pnombre_articulo : '';
-    $subtipos = isset($Psubtipos) ? $Psubtipos : array();
-    $cantidades = isset($Pcantidades) ? $Pcantidades : array();*/
+    $campoActualiza = isset($_POST['CAMPO_ACTUALIZA'])? $_POST['CAMPO_ACTUALIZA'] : '';
     $total = isset($_POST['TOTAL'])? $_POST['TOTAL'] : '';
     $actualiza = isset($_POST['ACTUALIZA'])? $_POST['ACTUALIZA'] : '1';
     $tipo_precio = isset($_POST['FacturaLinea']['TIPO_PRECIO']) && isset($_POST['FacturaLinea']['ARTICULO'])? CHtml::ListData(ArticuloPrecio::model()->findAll('ARTICULO = "'.$_POST['FacturaLinea']['ARTICULO'].'" AND ACTIVO = "S"'),'ID','nIVELPRECIO.DESCRIPCION') : array();
@@ -199,7 +164,7 @@
             <?php echo $form->hiddenField($linea,'PORC_IMPUESTO'); ?>
             <?php echo $form->hiddenField($linea,'VALOR_IMPUESTO'); ?>            
             <?php echo $form->textAreaRow($linea,'COMENTARIO'); ?>
-            <?php //echo CHtml::hiddenField('CAMPO_ACTUALIZA',$campoActualiza); ?>
+            <?php echo CHtml::hiddenField('CAMPO_ACTUALIZA',$campoActualiza); ?>
             <?php echo CHtml::hiddenField('ACTUALIZA',$actualiza); ?>
             <?php echo CHtml::hiddenField('SPAN',''); ?>
      </div>

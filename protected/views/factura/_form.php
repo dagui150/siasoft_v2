@@ -1,7 +1,7 @@
 <script>
     $(document).ready(inicio);
     
-    function calcularTotal(contador,model,restar,total_resta){
+    function calcularTotal(contador,model){
         var cantidad,precio,descuento,iva,total,total_mercaderia,total_facturar,total_descuento,total_iva,anticipo,flete,seguro;
 
         //lineas         
@@ -10,35 +10,35 @@
         descuento = parseInt($('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(), 10);
         iva =  parseInt($('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(), 10);
         //totales
-        total_descuento =  parseInt($('#Factura_MONTO_DESCUENTO1').val(), 10);
-        total_iva =  parseInt($('#Factura_TOTAL_IMPUESTO1').val(), 10);
-        total_mercaderia =  parseInt($('#Factura_TOTAL_MERCADERIA').val(), 10);
-        total_facturar =  parseInt($('#Factura_TOTAL_A_FACTURAR').val(), 10);
+        total_mercaderia = 0;
+        total_descuento =  0;
+        total_iva =  0;
+        total_facturar = 0;
         anticipo =  parseInt($('#Factura_MONTO_ANTICIPO').val(), 10);
         flete =  parseInt($('#Factura_MONTO_FLETE').val(), 10);
         seguro =  parseInt($('#Factura_MONTO_SEGURO').val(), 10);
-        if(restar == true){
-             if(total_resta.descuentos){
-                  total_descuento -= total_resta.descuentos;
-                  total_resta['descuentos'] = 0;
-             }
-             
-            if(total_resta.mercaderia){
-              total_mercaderia -= total_resta.mercaderia;
-              total_resta['mercaderia'] = 0;
-            }
-        }
+        
         total = cantidad * precio;
-        total_mercaderia += total;
         //total de la linea
         total = (total-descuento)+iva;
         $('#total_'+contador).text('$ '+total); 
         $('#'+model+'_'+contador+'_TOTAL').val(total);
         
         //calculo de montos
-        total_descuento += descuento;
-        total_iva += iva;
-        total_facturar = (total_mercaderia-total_descuento)+total_iva;
+        contador = $('body').find('.rowIndex').max();
+        for(var i = 0 ; i <=contador; i++){
+            //lineas         
+            cantidad = parseInt($('#'+model+'_'+i+'_CANTIDAD').val(), 10);
+            precio = parseInt($('#'+model+'_'+i+'_PRECIO_UNITARIO').val(), 10);
+            descuento = parseInt($('#'+model+'_'+i+'_MONTO_DESCUENTO').val(), 10);
+            iva =  parseInt($('#'+model+'_'+i+'_VALOR_IMPUESTO').val(), 10);
+            total = cantidad * precio;
+            
+            total_mercaderia += total;
+            total_descuento += descuento;
+            total_iva += iva;
+            total_facturar = (total_mercaderia-total_descuento)+total_iva;
+        }
         
         calculoGranTotal(total_facturar,anticipo,flete,seguro);
         
