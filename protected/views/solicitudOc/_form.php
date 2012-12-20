@@ -20,7 +20,10 @@ $(document).ready(function(){
     });
 });
 </script>
-<div class="form">
+<?php
+    ($model->ESTADO != 'C') ? $readonly = false : $readonly = true;
+?>
+ <div class="form">
     
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'solicitud-oc-form',
@@ -109,7 +112,8 @@ $(document).ready(function(){
 			'buttonImageOnly'=>true,
 		),
     'htmlOptions'=>array(
-        'style'=>'width:80px;vertical-align:top'
+        'style'=>'width:80px;vertical-align:top',
+        'disabled' => $readonly
     ),  
 ), true); 
                 
@@ -128,7 +132,8 @@ $(document).ready(function(){
 			'buttonImageOnly'=>true,
 		),
     'htmlOptions'=>array(
-        'style'=>'width:80px;vertical-align:top'
+        'style'=>'width:80px;vertical-align:top',
+        'disabled' => $readonly
     ),  
 ), true); ?>
 
@@ -154,7 +159,7 @@ $(document).ready(function(){
             else{
                 $retorna = $model->SOLICITUD_OC;
                 $render = 'lineas';
-                $pestana = $this->renderPartial($render, array('form'=>$form, 'linea'=>$linea, 'items'=>$items, 'linea2'=>$linea2, 'model'=>$model),true);
+                $pestana = $this->renderPartial($render, array('form'=>$form, 'linea'=>$linea, 'items'=>$items, 'linea2'=>$linea2, 'model'=>$model, 'readonly'=>$readonly),true);
             }
 ?>
     
@@ -211,7 +216,7 @@ $(document).ready(function(){
                             <tr>
                                 <td width="50%">'
                     .$form->labelEx($model,'DEPARTAMENTO')
-                    .$form->dropDownList($model,'DEPARTAMENTO', CHtml::listData(Departamento::model()->findAll(),'ID','DESCRIPCION'),array('empty'=>'Seleccione...'))
+                    .$form->dropDownList($model,'DEPARTAMENTO', CHtml::listData(Departamento::model()->findAll(),'ID','DESCRIPCION'),array('empty'=>'Seleccione...', 'disabled'=>$readonly))
                     .$form->error($model,'DEPARTAMENTO')
                     .'</td>'
                     .'<td>'
@@ -221,14 +226,14 @@ $(document).ready(function(){
                         <tr>
                             <td>'
                     .$form->labelEx($model,'PRIORIDAD')
-                    .$form->dropDownList($model,'PRIORIDAD',array('A'=>'Alta','M'=>'Media','B'=>'Baja'))
+                    .$form->dropDownList($model,'PRIORIDAD',array('A'=>'Alta','M'=>'Media','B'=>'Baja'), array('disabled' => $readonly))
                     .$form->error($model,'PRIORIDAD')
                             .'</td><td>'
                     .'<b>Fecha Requerida:</b> '.$tab2.' '.$form->error($model,'FECHA_REQUERIDA').''
                     .'</td></tr></table></div>'
                     .'<div class="row">'
                     .$form->labelEx($model,'COMENTARIO')
-                    .$form->textArea($model,'COMENTARIO',array('rows'=>6, 'cols'=>50))
+                    .$form->textArea($model,'COMENTARIO',array('rows'=>6, 'cols'=>50, 'readonly' => $readonly))
                     .$form->error($model,'COMENTARIO')
                     .'</div>'),
                                  
@@ -271,7 +276,9 @@ $(document).ready(function(){
         )); ?>
         
 	<div align="center">
-    	<?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
+        <?php if($readonly == false){ ?>
+            <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
+        <?php } ?>    
         <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('solicitudOc/admin'), 'icon' => 'remove'));  ?>
 	</div>
 

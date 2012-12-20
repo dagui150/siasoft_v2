@@ -276,7 +276,7 @@ function add(){
                                                         'type'=>'success',
                                                         'label'=>'Nuevo',
                                                         'icon'=>'plus white',
-                                                        'htmlOptions' => array('onClick' => 'add()'),
+                                                        'htmlOptions' => array('onClick' => 'add()', 'disabled'=>$readonly),
                                                   ));
                                             
                                             ?>
@@ -348,7 +348,7 @@ function add(){
                                 
                                 <tr class="templateContent">
                                     <td>
-                            <?php echo $form->textField($item,"[$i]ARTICULO", array('class'=>'tonces2')); ?>
+                            <?php echo $form->textField($item,"[$i]ARTICULO", array('class'=>'tonces2', 'readonly'=>$readonly)); ?>
                             		</td>
                                     <td>
                                         <?php $this->widget('bootstrap.widgets.BootButton', array(
@@ -356,26 +356,26 @@ function add(){
                                                             'size'=>'mini',
                                                             'url'=>'#articulo2',
                                                             'icon'=>'search',
-                                                            'htmlOptions'=>array('data-toggle'=>'modal', 'class' => 'emergente', 'name' => "$i"),
+                                                            'htmlOptions'=>array('data-toggle'=>'modal', 'class' => 'emergente', 'name' => "$i", 'disabled'=>$readonly),
                                                         )); ?>
                         </td>
                         <td>
-                            <?php echo $form->textField($item,"[$i]DESCRIPCION",array('class'=>'required')); ?>
+                            <?php echo $form->textField($item,"[$i]DESCRIPCION",array('class'=>'required', 'readonly'=>$readonly)); ?>
                         </td>
                         <td>
-                            <?php echo $form->dropDownList($item,"[$i]UNIDAD", $linea->getCombo($item->ARTICULO), array('prompt'=>'Seleccione articulo')); ?>
+                            <?php echo $form->dropDownList($item,"[$i]UNIDAD", $linea->getCombo($item->ARTICULO), array('prompt'=>'Seleccione articulo', 'disabled'=>$readonly)); ?>
                         </td>
                         <td>
                             <?php echo $form->textField($item,"[$i]ESTADO",array('readonly'=>true, 'size'=>'1')); ?>
                         </td>
                         <td>
-                            <?php echo $form->textField($item,"[$i]CANTIDAD",array('size'=>'5', 'class' => 'cantidad','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
+                            <?php echo $form->textField($item,"[$i]CANTIDAD",array('size'=>'5', 'class' => 'cantidad','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)', 'readonly'=>$readonly)); ?>
                         </td>
                         <td>
-                            <?php echo $form->textField($item,"[$i]FECHA_REQUERIDA",array('class' => 'fecha', 'size'=>'10')); ?>
+                            <?php echo $form->textField($item,"[$i]FECHA_REQUERIDA",array('class' => 'fecha', 'size'=>'10', 'readonly'=>$readonly)); ?>
                         </td>
                         <td>
-                            <?php echo $form->textField($item,"[$i]COMENTARIO",array()); ?>
+                            <?php echo $form->textField($item,"[$i]COMENTARIO",array('readonly'=>$readonly)); ?>
                         </td>
                         <td>
                             <?php echo $form->textField($item,"[$i]SALDO",array('readonly'=>true, 'size'=>'5')); ?>
@@ -393,7 +393,7 @@ function add(){
                                                              'type'=>'danger',
                                                              'label'=>'',
                                                              'icon'=>'minus white',
-                                                             'htmlOptions' => array('id'=>$item["SOLICITUD_OC_LINEA"], 'onClick'=>'Eliminar(id)'),
+                                                             'htmlOptions' => array('id'=>$item["SOLICITUD_OC_LINEA"], 'onClick'=>'Eliminar(id)', 'disabled'=>$readonly),
                                                   ));
 
                                              ?>

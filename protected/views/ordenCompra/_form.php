@@ -75,6 +75,9 @@ $(document).ready(function(){
            
         });        
 </script>
+<?php
+($model->ESTADO != 'C' && $model->ESTADO != 'E') ? $readonly = false : $readonly = true;
+?>
 <div class="form">
 
 <?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
