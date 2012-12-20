@@ -54,6 +54,10 @@
     
     function inicio(){
             $('.edit').live('click',actualiza);
+            $('#Factura_UNIDAD').live('change',function(){
+                var nombre = $('#Factura_UNIDAD option:selected').html()
+                $('#NOMBRE_UNIDAD').val(nombre);
+            });
             $('#FacturaLinea_TIPO_PRECIO').live('change',function(){
                 $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&tipo='+$(this).val(),
                     function(data){

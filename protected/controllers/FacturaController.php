@@ -52,8 +52,8 @@ class FacturaController extends SBaseController
 
 		if(isset($_POST['Factura']))
 		{
-                        $transaction = $model->dbConnection->beginTransaction();
 			$model->attributes=$_POST['Factura'];
+                        $transaction = $model->dbConnection->beginTransaction();
                         try{
                             //ACTUALIZAR CONSECUTIVO
                                 $modelConsecutivo = ConsecutivoFa::model()->findByPk($model->CONSECUTIVO);
@@ -66,37 +66,41 @@ class FacturaController extends SBaseController
 
                             $model->REMITIDO = 'N';   
                             $model->RESERVADO = 'N';   
-                            $model->ESTADO = 'N';   
-                            if($model->save()){
-                                if(isset($_POST['LineaNuevo'])){
-                                        $i = 0;
-                                        foreach ($_POST['LineaNuevo'] as $datos){
-                                            $salvar = new PedidoLinea;
-                                            $salvar->ARTICULO = $datos['ARTICULO'];
-                                            $salvar->PEDIDO = $model->FACTURA;
-                                            $salvar->LINEA = $i;
-                                            $salvar->UNIDAD = $datos['UNIDAD'];
-                                            $salvar->CANTIDAD = $datos['CANTIDAD'];
-                                            $salvar->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
-                                            $salvar->PORC_DESCUENTO = $datos['PORC_DESCUENTO'];
-                                            $salvar->MONTO_DESCUENTO = $datos['MONTO_DESCUENTO'];
-                                            $salvar->PORC_IMPUESTO = $datos['PORC_IMPUESTO'];
-                                            $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
-                                            $salvar->TIPO_PRECIO = $datos['TIPO_PRECIO'];
-                                            $salvar->COMENTARIO = $datos['COMENTARIO'];
-                                            $salvar->ESTADO = 'N';
-                                            $salvar->ACTIVO = 'S';
-                                            $salvar->save();
-                                            $i++;
-                                        }
-                                }
+                            $model->ESTADO = 'N';
+                            echo '<pre>';
+                            print_r($_POST);
+                            echo '</pre>';
+                            //Yii::app()->end();
+                            $model->save();
+                            if(isset($_POST['LineaNuevo'])){
+                                  $i = 1;
+                                  foreach ($_POST['LineaNuevo'] as $datos){
+                                        $salvar = new FacturaLinea;
+                                        $salvar->FACTURA = $model->FACTURA;
+                                        $salvar->ARTICULO = $datos['ARTICULO'];
+                                        $salvar->LINEA = $i;
+                                        $salvar->UNIDAD = $datos['UNIDAD'];
+                                        $salvar->CANTIDAD = $datos['CANTIDAD'];
+                                        $salvar->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
+                                        $salvar->PORC_DESCUENTO = $datos['PORC_DESCUENTO'];
+                                        $salvar->MONTO_DESCUENTO = $datos['MONTO_DESCUENTO'];
+                                        $salvar->PORC_IMPUESTO = $datos['PORC_IMPUESTO'];
+                                        $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
+                                        $salvar->TIPO_PRECIO = $datos['TIPO_PRECIO'];
+                                        $salvar->COMENTARIO = $datos['COMENTARIO'];
+                                        $salvar->TOTAL = $datos['TOTAL'];
+                                        $salvar->ESTADO = 'N';
+                                        $salvar->ACTIVO = 'S';
+                                        $salvar->save();
+                                        $i++;
+                                 }
+                             }
 
-                                $modelConsecutivo->VALOR_CONSECUTIVO = substr($modelConsecutivo->MASCARA,0,4).str_pad(++$count, $longitud, "0", STR_PAD_LEFT);
+                            $modelConsecutivo->VALOR_CONSECUTIVO = substr($modelConsecutivo->MASCARA,0,4).str_pad(++$count, $longitud, "0", STR_PAD_LEFT);
 
-                                $modelConsecutivo->save();
-                                $this->redirect(array('admin'));
-                            }
+                            $modelConsecutivo->save();
                             $transaction->commit();
+                            $this->redirect(array('admin'));
                         }catch(Exception $e){
                             echo $e;
                             $transaction->rollback();

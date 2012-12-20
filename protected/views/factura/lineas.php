@@ -297,7 +297,7 @@
                <table style="margin-left: -100px;margin-top:-4px;">
                    <tr>
                        <td>
-                            <?php echo $form->dropDownListRow($model,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px;','class'=>'unidad'));?>
+                            <?php echo $form->dropDownListRow($model,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px;'));?>
                             <?php echo CHtml::hiddenField('NOMBRE_UNIDAD','');?>
                        </td>
                        <td>
