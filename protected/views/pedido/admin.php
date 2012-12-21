@@ -33,8 +33,16 @@ $this->widget('bootstrap.widgets.BootButton', array(
 		'PEDIDO',
 		'CLIENTE',
 		'BODEGA',
-		'CONDICION_PAGO',
-		'NIVEL_PRECIO',
+                array(
+                    'name'=>'CONDICION_PAGO',
+                    'header'=>'Condicion de pago',
+                    'value'=>'$data->cONDICIONPAGO->DESCRIPCION'
+                ),
+                array(
+                    'name'=>'NIVEL_PRECIO',
+                    'header'=>'Tipo de precio',
+                    'value'=>'$data->nIVELPRECIO->DESCRIPCION'
+                ),
 		'FECHA_PEDIDO',
 		/*
 		'FECHA_PROMETIDA',

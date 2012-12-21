@@ -15,4 +15,4 @@ $this->menu=array(
 
 <h1>Create Pedido</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model, 'bodega'=>$bodega, 'condicion'=>$condicion, 'linea'=>$linea, 'cliente'=>$cliente, 'articulo'=>$articulo, 'ruta'=>$ruta)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'bodega'=>$bodega, 'condicion'=>$condicion, 'linea'=>$linea, 'modelLinea'=>$modelLinea, 'ruta2'=>$ruta2, 'cliente'=>$cliente, 'articulo'=>$articulo, 'ruta'=>$ruta)); ?>

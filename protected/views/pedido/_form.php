@@ -1,80 +1,150 @@
 <script>
-$(document).ready(function(){
-    inicio();
-});
-
-function inicio(){ 
-        $('.edit').live('click',actualiza);
+    $(document).ready(inicio);
     
-        $('#Pedido_CONSECUTIVO').change(function(){
-            $.getJSON('<?php echo $this->createUrl('/factura/cargarconsecutivo')?>&id='+$(this).val(),
-                function(data){
-                    
-                    $('#Pedido_PEDIDO').val(data.VALOR);
-                    
-                }
-            );
-        });
+    function calcularTotal(contador,model){
+        var total;
         
-    $('#Pedido_ARTICULO').change(function(){
-            $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$(this).val(),
-                function(data){
-                    $("#Articulo_desc").val(data.NOMBRE);
-                    $('select[id$=Pedido_UNIDAD]>option').remove();                    
-                    $.each(data.UNIDADES, function(value, name) {
-                            if(value == data.UNIDAD)
-                              $('#Pedido_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
-                            else
-                               $('#Pedido_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
-                        });
-                    $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
-                    $('#agregar').attr('disabled', false);
-                    
-                }
-            );
-        });
+        var cantidad = parseInt($('#'+model+'_'+contador+'_CANTIDAD').val(), 10);
+        var precio = parseInt($('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(), 10);
+        var descuento = parseInt($('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(), 10);
+        var iva =  parseInt($('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(), 10);
         
-    $('#Pedido_CLIENTE').change(function(){
-            $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=CL&ID='+$(this).val(),
-                function(data){
-                    $("#Cliente_desc").val(data.NOMBRE);
-                    
-                }
-            );
-        });   
-}
+        total = ((cantidad * precio)-descuento)+iva;
+        $('#total_'+contador).text('$ '+total); 
+        $('#'+model+'_'+contador+'_TOTAL').val(total);
+                
+        calculoGranTotal(model);
+    }
+    function calculoGranTotal(model){
+        
+        var total_mercaderia =  parseInt($('#Pedido_TOTAL_MERCADERIA').val(), 10);
+        var total_descuento =  parseInt($('#Pedido_MONTO_DESCUENTO1').val(), 10);
+        var total_iva =  parseInt($('#Pedido_TOTAL_IMPUESTO1').val(), 10);
+        var total_facturar =  parseInt($('#Pedido_TOTAL_A_FACTURAR').val(), 10);
+        var anticipo =  parseInt($('#Pedido_MONTO_ANTICIPO').val(), 10);
+        var flete =  parseInt($('#Pedido_MONTO_FLETE').val(), 10);
+        var seguro =  parseInt($('#Pedido_MONTO_SEGURO').val(), 10);
+        
+        if(model != false){
+            var total_mercaderia =0,total_facturar=0,total_descuento=0,total_iva=0;
+            var cantidad,precio,descuento,iva,total;
+            var contador = $('body').find('.rowIndex').max();
+            for(var i = 0 ; i <=contador; i++){
+                //lineas         
+                cantidad = parseInt($('#'+model+'_'+i+'_CANTIDAD').val(), 10);
+                precio = parseInt($('#'+model+'_'+i+'_PRECIO_UNITARIO').val(), 10);
+                descuento = parseInt($('#'+model+'_'+i+'_MONTO_DESCUENTO').val(), 10);
+                iva =  parseInt($('#'+model+'_'+i+'_VALOR_IMPUESTO').val(), 10);
+                total = cantidad * precio;
 
-function cargaGrilla(grid_id){
-    var ID = $.fn.yiiGridView.getSelection(grid_id);
-    var url;
-    var campo;
-    var campo_nombre;
+                total_mercaderia += total;
+                total_descuento += descuento;
+                total_iva += iva;
+                total_facturar = (total_mercaderia-total_descuento)+total_iva;
+                $('#linea_'+i).text(parseInt(i, 10) + 1);
+            }
+            $('#Pedido_TOTAL_MERCADERIA').val(total_mercaderia);
+            $('#Pedido_MONTO_DESCUENTO1').val(total_descuento);
+            $('#Pedido_TOTAL_IMPUESTO1').val(total_iva);
+            $('#Pedido_TOTAL_A_FACTURAR').val(total_facturar);
+        }
+        var gran_total =(total_facturar - anticipo)+flete+seguro;        
+        $('#calculos').val(gran_total);
+    }
     
-    if (grid_id == 'cliente-grid'){
-        url = '<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=CL&ID='+ID;
-        campo = '#Pedido_CLIENTE';
-        campo_nombre = '#Cliente_desc';
+    function inicio(){
+            $('.edit').live('click',actualiza);
+            $('#Pedido_UNIDAD').live('change',function(){
+                var nombre = $('#Pedido_UNIDAD option:selected').html()
+                $('#NOMBRE_UNIDAD').val(nombre);
+            });
+            $('#PedidoLinea_TIPO_PRECIO').live('change',function(){
+                $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&tipo='+$(this).val(),
+                    function(data){
+                         $('#NOMBRE_TIPO_PRECIO').val('');
+                         $('#NOMBRE_TIPO_PRECIO').val(data.NOMBRE);
+                         $('#PedidoLinea_PRECIO_UNITARIO').val(data.PRECIO);
+                 });
+            });
+            $('#Pedido_CONSECUTIVO').change(function(){
+                $.getJSON('<?php echo $this->createUrl('/factura/cargarconsecutivo')?>&id='+$(this).val(),
+                    function(data){
+
+                        $('#Pedido_PEDIDO').val(data.VALOR);
+
+                    }
+                );
+            });
+
+            $('#Pedido_ARTICULO').change(function(){
+                $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$(this).val(),
+                    function(data){
+                        $("#Articulo_desc").val(data.NOMBRE);
+                         $('select[id$=Pedido_UNIDAD]>option').remove();
+
+                        $.each(data.UNIDADES, function(value, name) {
+                                if(value == data.UNIDAD)
+                                  $('#Pedido_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
+                                else
+                                   $('#Pedido_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
+                            });
+                        $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
+                        $('#agregar').attr('disabled', false);
+                 });     
+
+            });
+
+            $('#Pedido_CLIENTE').change(function(){
+                $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=CL&ID='+$(this).val(),
+                    function(data){
+                        /*if(!confirm("Esta seguro ?  \n Esta es su última oportunidad .\n 
+              \n Se abrirá otra ventana \n para evitarle molestias.")) {return false;} */
+                        $("#Cliente_desc").val(data.NOMBRE);
+                    }
+                );
+            });   
     }
-    else if (grid_id == 'articulo-grid'){
-        url = '<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+ID;
-        campo = '#Pedido_ARTICULO';
-        campo_nombre = '#Articulo_desc';
-        $('#agregar').attr('disabled', false);
+    
+    function cargaGrilla(grid_id){
+        var ID = $.fn.yiiGridView.getSelection(grid_id);
+        var url;
+        var campo;
+        var campo_nombre;
+
+        if (grid_id == 'cliente-grid'){
+            url = '<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=CL&ID='+ID;
+            campo = '#Pedido_CLIENTE';
+            campo_nombre = '#Cliente_desc';
+        }
+        else if (grid_id == 'articulo-grid'){
+            url = '<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+ID;
+            campo = '#Pedido_ARTICULO';
+            campo_nombre = '#Articulo_desc';
+            $('#agregar').attr('disabled', false);
+        }
+        $.getJSON(url,function(data){
+                    $(campo).val(ID);
+                    $(campo_nombre).val(data.NOMBRE); 
+                    if(data.UNIDAD){
+
+                         $('select[id$=Pedido_UNIDAD]>option').remove();
+
+                        $.each(data.UNIDADES, function(value, name) {
+                                  $('#Pedido_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
+                            });
+                        $("#Pedido_UNIDAD").val(data.UNIDAD);
+                    }
+                });    
     }
-    $.getJSON(url,function(data){
-                $(campo).val(ID);
-                $(campo_nombre).val(data.NOMBRE); 
-                if(data.UNIDAD){
-                    
-                     $('select[id$=Pedido_UNIDAD]>option').remove();
-                    
-                    $.each(data.UNIDADES, function(value, name) {
-                              $('#Pedido_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
-                        });
-                    $("#Pedido_UNIDAD").val(data.UNIDAD);
-                }
-            });    
-}
+    
+    function formato(input){
+        var num = input.value.replace(/\./g,'');
+        if(!/,/.test(num)){
+            num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+            num = num.split('').reverse().join('').replace(/^[\.]/,'');
+            input.value = num;
+        }
+    }
 </script>
 <div class="form">
 
@@ -88,6 +158,9 @@ function cargaGrilla(grid_id){
              ),	
     )); 
     $conf = ConfFa::model()->find();
+    $confAs = ConfFa::model()->find();
+    echo CHtml::hiddenField('dec_precio');
+    echo CHtml::hiddenField('dec_porcentaje');
     $text_rubros =$conf->USAR_RUBROS == 0 ? '<div class="alert alert-info"><strong>Actualmente No usa Rubros</strong></div>' : '';
     $rubro1 =$conf->USAR_RUBROS == 1 && $conf->RUBRO1_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO1') : '';
     $rubro2 =$conf->USAR_RUBROS == 1 && $conf->RUBRO2_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO2') : '';
@@ -96,6 +169,20 @@ function cargaGrilla(grid_id){
     $rubro5 =$conf->USAR_RUBROS == 1 && $conf->RUBRO5_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO5') : '';
 ?>
     
+<?php
+    if($model->isNewRecord){
+        $calculos = $form->textFieldRow($model,'TOTAL_MERCADERIA',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true))
+        .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true))
+        .$form->textFieldRow($model,'TOTAL_IMPUESTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true))
+        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true));
+    }
+    else{
+        $calculos = $form->textFieldRow($model,'TOTAL_MERCADERIA',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true))
+        .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true))
+        .$form->textFieldRow($model,'TOTAL_IMPUESTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true))
+        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true));    
+    }
+?>
 <?php
     $fechaFactura = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
         'attribute'=>'FECHA_PEDIDO',
@@ -112,7 +199,8 @@ function cargaGrilla(grid_id){
             'buttonImageOnly'=>true,
 	),
         'htmlOptions'=>array(
-            'style'=>'width:80px;vertical-align:top'
+            'style'=>'width:80px;vertical-align:top',
+            'value'=>date('Y-m-d'),
         ),  
    ), true);
     
@@ -153,7 +241,6 @@ function cargaGrilla(grid_id){
             'style'=>'width:80px;vertical-align:top'
         ),  
    ), true); 
-    
     $fechaOrden = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
         'attribute'=>'FECHA_ORDEN',
         'model'=>$model,
@@ -173,7 +260,7 @@ function cargaGrilla(grid_id){
         ),  
    ), true); 
     
-    $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form, 'model'=>$model, 'ruta'=>$ruta),true);
+    $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form, 'model'=>$model,'ruta2'=>$ruta2,'modelLinea'=>$modelLinea),true);
     
 ?>
 
@@ -227,7 +314,7 @@ function cargaGrilla(grid_id){
                             )); ?>
                             </td>
                             <td>
-                                <?php echo CHtml::textField('Cliente_desc','',array('disabled'=>true,'size'=>32)); ?>
+                                <?php echo CHtml::textField('Cliente_desc','',array('disabled'=>true,'size'=>35)); ?>
                             </td>
                         </tr>
                         <tr>
@@ -261,13 +348,13 @@ function cargaGrilla(grid_id){
                                     <fieldset >
                                         <legend ><font face="arial" size=3 >Fechas</font></legend>
                                         <div class="control-group ">'
-                                            .$form->labelEx($model,'FECHA_DESPACHO',array('class'=>'control-label'))
+                                            .$form->labelEx($model,'FECHA_PROMETIDA',array('class'=>'control-label'))
                                             .'<div class="controls">'   
                                             .$fechaDespacho
                                             .'</div>
                                         </div>'
                                         .'<div class="control-group ">'
-                                            .$form->labelEx($model,'FECHA_ENTREGA',array('class'=>'control-label'))
+                                            .$form->labelEx($model,'FECHA_EMBARQUE',array('class'=>'control-label'))
                                             .'<div class="controls">'   
                                             .$fechaEntrega
                                             .'</div>
@@ -309,20 +396,22 @@ function cargaGrilla(grid_id){
                       </fieldset>'
                     ),
                     array('label'=>'Montos', 'content'=>
-                        $form->textFieldRow($model,'TOTAL_MERCADERIA',array('size'=>28,'maxlength'=>28, 'readonly'=>true, 'value'=>'0'))
-                        .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('size'=>28,'maxlength'=>28, 'readonly'=>true, 'value'=>'0'))
-                        .$form->textFieldRow($model,'MONTO_ANTICIPO',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos', 'value'=>'0'))
-                        .$form->textFieldRow($model,'MONTO_FLETE',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos', 'value'=>'0'))
-                        .$form->textFieldRow($model,'MONTO_SEGURO',array('size'=>28,'maxlength'=>28, 'class'=>'calculos_montos', 'value'=>'0'))
-                        .$form->textFieldRow($model,'TOTAL_IMPUESTO1', array('size'=>28,'maxlength'=>28, 'value'=>'0', 'readonly'=>true))
-                        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('size'=>28,'maxlength'=>28, 'readonly'=>true, 'value'=>'0'))
-                        .$form->textFieldRow($model,'ESTADO',array('size'=>28,'maxlength'=>28, 'readonly'=>true, 'value'=>'N'))
-                        .$form->textFieldRow($model,'REMITIDO',array('size'=>1,'maxlength'=>1, 'value'=>'N', 'readonly'=>true))
-                        .$form->textFieldRow($model,'RESERVADO',array('size'=>1,'maxlength'=>1, 'value'=>'N', 'readonly'=>true))
-                        .'<div class="control-group "><label for="total_grande" class="control-label">Gran total: </label><div class="controls">'
-                        .CHtml::textField('total_grande', '0', array('readonly'=>true))
-                        .'</div></div>'
-                        ),
+                        '<table>
+                                 <tr>
+                                      <td style="width: 380px;">'
+                                            .$calculos.'</td>
+                                      <td>'
+                                           .$form->textFieldRow($model,'MONTO_ANTICIPO',array('prepend'=>'$','size'=>15,'maxlength'=>28,$model->isNewRecord ? 0 : '','class'=>'montos'))
+                                           .$form->textFieldRow($model,'MONTO_FLETE',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>$model->isNewRecord ? 0 : '','class'=>'montos'))
+                                           .$form->textFieldRow($model,'MONTO_SEGURO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>$model->isNewRecord ? 0 : '','class'=>'montos'))
+                                           .$form->hiddenField($model, 'REMITIDO', array('value'=>'N'))
+                                           .$form->hiddenField($model, 'RESERVADO', array('value'=>'N'))
+                                           .$form->hiddenField($model, 'ESTADO', array('value'=>'N'))
+                                     .'</td>
+                                 <tr>
+                        </table>'
+                        
+                    ),
                 )
             )); ?>
 
@@ -390,7 +479,7 @@ function cargaGrilla(grid_id){
             $funcion = 'cargaGrilla';
             $id = 'articulo-grid';
             $data=$articulo->searchModal();
-            $this->renderPartial('/articulo/articulos', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id,'data'=>$data,'check'=>false));
+            $this->renderPartial('/articulo/articulos', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id,'check'=>false,'data'=>$data));
       ?>
 	</div>
         <div class="modal-footer">
@@ -403,94 +492,7 @@ function cargaGrilla(grid_id){
         </div>
  
 <?php $this->endWidget(); ?>
-
-    <?php 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'bodega')); ?>
- 
-	<div class="modal-body">
-                <a class="close" data-dismiss="modal">&times;</a>
-                <br>
-          <?php 
-            $this->widget('bootstrap.widgets.BootGridView', array(
-            'type'=>'striped bordered condensed',
-            'id'=>'bodega-grid',
-            'template'=>"{items} {pager}",
-            'dataProvider'=>$bodega->search(),
-            'selectionChanged'=>'cargaGrilla',
-            'filter'=>$bodega,
-            'columns'=>array(
-                array(  'name'=>'ID',
-                        'header'=>'Codigo',
-                        'htmlOptions'=>array('data-dismiss'=>'modal'),
-                        'type'=>'raw',
-                        'value'=>'CHtml::link($data->ID,"#")'
-                    ),
-                    'DESCRIPCION',
-                    'TELEFONO',
-                    array(
-                            'class'=>'bootstrap.widgets.BootButtonColumn',
-                            'htmlOptions'=>array('style'=>'width: 50px'),
-                            'template'=>'',
-                    ),
-            ),
-    ));
-      ?>
-	</div>
-        <div class="modal-footer">
-
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
-                'label'=>'Cerrar',
-                'url'=>'#',
-                'htmlOptions'=>array('data-dismiss'=>'modal'),
-            )); ?>
-        </div>
- 
-<?php $this->endWidget(); ?>
-
-    <?php 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'condicion')); ?>
- 
-	<div class="modal-body">
-                <a class="close" data-dismiss="modal">&times;</a>
-                <br>
-          <?php 
-            $this->widget('bootstrap.widgets.BootGridView', array(
-            'type'=>'striped bordered condensed',
-            'id'=>'condicion-grid',
-            'template'=>"{items} {pager}",
-            'dataProvider'=>$condicion->search(),
-            'selectionChanged'=>'cargaGrilla',
-            'filter'=>$condicion,
-            'columns'=>array(
-                array(  'name'=>'ID',
-                        'header'=>'Codigo',
-                        'htmlOptions'=>array('data-dismiss'=>'modal'),
-                        'type'=>'raw',
-                        'value'=>'CHtml::link($data->ID,"#")'
-                    ),
-                    'DESCRIPCION',
-                    'DIAS_NETO',
-                    array(
-                            'class'=>'bootstrap.widgets.BootButtonColumn',
-                            'htmlOptions'=>array('style'=>'width: 50px'),
-                            'template'=>'',
-                    ),
-            ),
-    ));
-      ?>
-	</div>
-        <div class="modal-footer">
-
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
-                'label'=>'Cerrar',
-                'url'=>'#',
-                'htmlOptions'=>array('data-dismiss'=>'modal'),
-            )); ?>
-        </div>
- 
-<?php $this->endWidget(); ?>
-
-
+    
 <?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'nuevo')); ?>
  
 	<div class="modal-header">

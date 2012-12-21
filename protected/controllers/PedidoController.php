@@ -22,7 +22,7 @@ class PedidoController extends Controller
         public function actionAgregarlinea(){
             $linea = new PedidoLinea;
             $linea->attributes = $_POST['PedidoLinea'];
-            $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
+            $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';            
             
             if($linea->validate()){
                      echo '<div id="alert" class="alert alert-success" data-dismiss="modal">
@@ -52,7 +52,7 @@ class PedidoController extends Controller
                     $this->renderPartial('form_lineas', 
                         array(
                             'linea'=>$linea,
-                            'ruta'=>$ruta,
+                            'ruta'=>$ruta,                            
                         )
                     );
                     Yii::app()->end();
@@ -82,7 +82,9 @@ class PedidoController extends Controller
                 $condicion = new CodicionPago;
                 $linea = new PedidoLinea;
                 $articulo = new Articulo;
+                $modelLinea = '';
                 $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
+                $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
                 $i = 1;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -141,6 +143,8 @@ class PedidoController extends Controller
                         'cliente'=>$cliente,
                         'articulo'=>$articulo,
                         'ruta'=>$ruta,
+                        'ruta2'=>$ruta2,
+                        'modelLinea'=>'',
 		));
 	}
 
@@ -151,15 +155,16 @@ class PedidoController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
-		$bodega = new Bodega;
-        $cliente = new Cliente;
-        $condicion = new CodicionPago;
-        $linea = new PedidoLinea;
-        $articulo = new Articulo;
-		$modelLinea = PedidoLinea::model()->findAll('PEDIDO ="'.$model->PEDIDO.'"');
-        $countLineas = PedidoLinea::model()->count('PEDIDO ="'.$model->PEDIDO.'"');
-        $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
+            $model=$this->loadModel($id);
+            $bodega = new Bodega;
+            $cliente = new Cliente;
+            $condicion = new CodicionPago;
+            $linea = new PedidoLinea;
+            $articulo = new Articulo;
+            $modelLinea = PedidoLinea::model()->findAll('PEDIDO ="'.$model->PEDIDO.'"');
+            $countLineas = PedidoLinea::model()->count('PEDIDO ="'.$model->PEDIDO.'"');
+            $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
+            $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -181,6 +186,7 @@ class PedidoController extends Controller
 			'modelLinea'=>$modelLinea,
 			'countLineas'=>$countLineas,
 			'ruta'=>$ruta,
+                        'ruta2'=>$ruta2,
 		));
 	}
         
