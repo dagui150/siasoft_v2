@@ -56,7 +56,7 @@ class ClienteController extends SBaseController
 	 */
 	public function actionCreate()
 	{
-		$model= new Cliente;
+		$model= new Cliente('insert');
 		$nit= new Nit('search');
 		$impuesto= new Impuesto('search');
 		$regimen= new RegimenTributario('search');

@@ -56,7 +56,7 @@
                     
                     //volver a calcular el monto descuento
                     precio = parseInt($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(), 10);
-                    tOtal = precio * parseInt($(this).val(), 10);
+                    total = precio * parseInt($(this).val(), 10);
                     descuento = (total * parseInt($('#LineaNuevo_'+contador+'_PORC_DESCUENTO').val(), 10))/100;
                     $('#LineaNuevo_'+contador+'_MONTO_DESCUENTO').val(descuento);
                         

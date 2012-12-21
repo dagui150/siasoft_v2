@@ -95,14 +95,43 @@
             });
 
             $('#Factura_CLIENTE').change(function(){
-                $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=CL&ID='+$(this).val(),
+                var value = $(this).val()
+                $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=CL&ID='+value,
                     function(data){
-                        /*if(!confirm("Esta seguro ?  \n Esta es su última oportunidad .\n 
-              \n Se abrirá otra ventana \n para evitarle molestias.")) {return false;} */
-                        $("#Cliente_desc").val(data.NOMBRE);
+                        if(data.EXISTE){
+                            $("#Cliente_desc").val(data.NOMBRE);
+                            $('#editaCliente').slideUp('slow');
+                            $('#Cliente_CLIENTE').val(0);
+                            $('#Cliente_NOMBRE').val(0);
+                            $('#Cliente_DIRECCION_COBRO').val(0);
+                            $('#Cliente_TELEFONO1').val(0);
+                        }else{
+                            $("#Cliente_desc").val('Ninguno');
+                            if(confirm('Cliente "'+value+'" no Existe ¿Desea crearlo?')) {
+                                $('#clienteNuevo').modal();
+                                $('#Cliente_CLIENTE').val(value);
+                                $('#Cliente_NOMBRE').val('');
+                                $('#Cliente_DIRECCION_COBRO').val('');
+                                $('#Cliente_TELEFONO1').val('');
+                                $('#editaCliente').slideDown('slow');
+                            }
+                        }
                     }
                 );
-            });   
+            });
+            $('#Cliente_UBICACION_GEOGRAFICA1').change(function(){
+
+                $.getJSON('<?php echo $this->createUrl('/proveedor/cargarubicacion')?>&ubicacion='+$(this).val(),
+                    function(data){
+
+                         $('select[id$=Cliente_UBICACION_GEOGRAFICA2 ] > option').remove();
+                          $('#Cliente_UBICACION_GEOGRAFICA2').append("<option value=''>Seleccione</option>");
+
+                        $.each(data, function(value, name) {
+                                  $('#Cliente_UBICACION_GEOGRAFICA2').append("<option value='"+value+"'>"+name+"</option>");
+                            });
+                    });
+           });
     }
     
     function cargaGrilla(grid_id){
@@ -250,7 +279,7 @@
     
 ?>
 
-	<?php echo $form->errorSummary($model); ?>
+	<?php echo $form->errorSummary(array($model,$cliente)); ?>
         <table>
             <tr>
                 <td>
@@ -301,6 +330,16 @@
                             </td>
                             <td>
                                 <?php echo CHtml::textField('Cliente_desc','',array('disabled'=>true,'size'=>35)); ?>
+                            </td>
+                            <td>
+                                 <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                               'buttonType'=>'button',
+                                               'type'=>'normal',
+                                               'size'=>'mini',
+                                               'icon'=>'pencil',
+                                               'htmlOptions'=>array('style'=>'margin: 5px -25px 0 -3px; display:none','id'=>'editaCliente','onclick'=>'$("#clienteNuevo").modal();')
+                                       ));
+                                 ?>
                             </td>
                         </tr>
                         <tr>
@@ -406,14 +445,48 @@
             <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
             <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('pedido/admin'), 'icon' => 'remove'));  ?>
 	</div>
+    
+        <?php 
+            $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'clienteNuevo')); ?>
+                <div class="modal-header">
+                        <a class="close" data-dismiss="modal">&times;</a>
+                        <h3>Cliente Nuevo</h3>
+                </div>
+                <div class="modal-body">
+                        <br>
+                  <?php 
+                    echo $form->textFieldRow($cliente,'CLIENTE',array('maxlength'=>20,'value'=>0));
+                    echo $form->textFieldRow($cliente,'NOMBRE',array('maxlength'=>60,'value'=>0));
+                    echo $form->dropDownListRow($cliente,'UBICACION_GEOGRAFICA1',CHtml::listData(UbicacionGeografica1::model()->findAllByAttributes(array('ACTIVO'=>'S')),'ID','NOMBRE'),array('empty'=>'Seleccione','options'=>array('73'=>array('selected'=>'selected'))));
+                    echo $form->dropDownListRow($cliente,'UBICACION_GEOGRAFICA2',CHtml::listData(UbicacionGeografica2::model()->findAllByAttributes(array('ACTIVO'=>'S','UBICACION_GEOGRAFICA1'=>'73')),'ID','NOMBRE'),array('empty'=>'Seleccione','options'=>array('73001'=>array('selected'=>'selected'))));
+                    echo $form->textFieldRow($cliente,'DIRECCION_COBRO',array('maxlength'=>128,'size'=>50,'value'=>0));
+                    echo '<table>
+                                <tr>
+                                     <td width="50px;">'.$form->textFieldRow($cliente,'TELEFONO1', array('maxlength'=>16,'value'=>0)).'</td>      
+                                     <td>'.$form->textField($cliente,'TELEFONO2', array('maxlength'=>16)).'</td>
+                                </tr>
+                          </table>';
 
-<?php $this->endWidget(); ?>
+                  ?>
+                </div>
+                <div class="modal-footer">
 
+                    <?php $this->widget('bootstrap.widgets.BootButton', array(
+                        'label'=>'Aceptar',
+                        'icon'=>'ok',
+                        'url'=>'#',
+                        'htmlOptions'=>array('data-dismiss'=>'modal'),
+                    )); ?>
+                </div>
+        <?php $this->endWidget(); ?>
+    
 </div><!-- form -->
 
+<?php $this->endWidget(); ?>
 <!--ventanas modales-->
 
-    <?php 
+ 
+<?php     
     $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'cliente')); ?>
  
 	<div class="modal-body">
@@ -487,7 +560,7 @@
  
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
-		<h3>Nueva Línea</h3>
+		<h3>Línea</h3>
 		<p class="note">Los Campos con <span class="required">*</span> Son requeridos.</p>
 	</div>
         <div id="form-lineas">

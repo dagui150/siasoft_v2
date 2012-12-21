@@ -36,14 +36,14 @@ class FacturaController extends SBaseController
 	public function actionCreate()
 	{
 		$model=new Factura;
-                $cliente = new Cliente;
+                $cliente = new Cliente('factura');
                 $linea = new FacturaLinea;
                 $articulo = new Articulo;
                 $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
                 $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
 
 		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model);
+		$this->performAjaxValidation(array($model,$cliente));
                 if(isset($_POST['ajax']) && $_POST['ajax']==='factura-linea-form')
 		{
 			echo CActiveForm::validate($linea);
@@ -53,20 +53,19 @@ class FacturaController extends SBaseController
 		if(isset($_POST['Factura']))
 		{
 			$model->attributes=$_POST['Factura'];
+                        $modelConsecutivo = ConsecutivoFa::model()->findByPk($model->CONSECUTIVO);
+                        $model->FACTURA = $modelConsecutivo->VALOR_CONSECUTIVO;
+                        $model->REMITIDO = 'N';   
+                        $model->RESERVADO = 'N';   
+                        $model->ESTADO = 'N';
+                        
+			$cliente->attributes=$_POST['Cliente'];
                         $transaction = $model->dbConnection->beginTransaction();
                         try{
-                            //ACTUALIZAR CONSECUTIVO
-                                $modelConsecutivo = ConsecutivoFa::model()->findByPk($model->CONSECUTIVO);
-                                $consecutivo = substr($modelConsecutivo->MASCARA,0,4);
-                                $mascara = strlen($modelConsecutivo->MASCARA);
-                                $longitud = $mascara - 4;
-                                $count = Factura::model()->count();
-                                $consecutivo .= str_pad(++$count, $longitud, "0", STR_PAD_LEFT);
-                                $model->FACTURA = $consecutivo;
-
-                            $model->REMITIDO = 'N';   
-                            $model->RESERVADO = 'N';   
-                            $model->ESTADO = 'N';
+                            if($cliente->CLIENTE != '0'){
+                                $cliente->PAIS = 'COL';
+                                $cliente->save();
+                            }
                             $model->save();
                             if(isset($_POST['LineaNuevo'])){
                                   $i = 1;
@@ -91,12 +90,15 @@ class FacturaController extends SBaseController
                                         $i++;
                                  }
                              }
+                             //ACTUALIZAR SIGUIENTE VALOR
+                             $separados = ConsecutivoFa::extractNum($modelConsecutivo->VALOR_CONSECUTIVO);
+                             $longitud = strlen($separados[1]);
+                             $count = Factura::model()->count('CONSECUTIVO = "'.$model->CONSECUTIVO.'"');
+                             $modelConsecutivo->VALOR_CONSECUTIVO = $separados[0].str_pad(++$count, $longitud, "0", STR_PAD_LEFT);
 
-                            $modelConsecutivo->VALOR_CONSECUTIVO = substr($modelConsecutivo->MASCARA,0,4).str_pad(++$count, $longitud, "0", STR_PAD_LEFT);
-
-                            $modelConsecutivo->save();
-                            $transaction->commit();
-                            $this->redirect(array('admin'));
+                             $modelConsecutivo->save();
+                             $transaction->commit();
+                             $this->redirect(array('admin'));
                         }catch(Exception $e){
                             echo $e;
                             $transaction->rollback();

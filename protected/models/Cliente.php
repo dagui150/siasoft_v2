@@ -88,7 +88,8 @@ class Cliente extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('CLIENTE, NOMBRE, ACTIVO', 'required'),
+			array('CLIENTE, NOMBRE, TELEFONO1,DIRECCION_COBRO', 'required','on'=>'insert'),
+			array('CLIENTE, NOMBRE, TELEFONO1,DIRECCION_COBRO,UBICACION_GEOGRAFICA1,UBICACION_GEOGRAFICA2', 'required','on'=>'factura','message'=>'{attribute} Cliente no puede ser nulo.'),
 			array('TELEFONO1, TELEFONO2,FAX', 'numerical', 'integerOnly'=>true),
 			array('INTERES_CORRIENTE, INTERES_MORA, DESCUENTO, LIMITE_CREDITO,', 'numerical'),
 			array('REGIMEN, TIPO_PRECIO', 'length', 'max'=>12),
@@ -158,7 +159,7 @@ class Cliente extends CActiveRecord
 	{
             $conf_fa = ConfFa::model()->find();
 		return array(
-			'CLIENTE' => 'Cliente',
+			'CLIENTE' => 'Identificación',
 			'REGIMEN' => 'Regimen',
 			'CATEGORIA' => 'Categoría',
 			'IMPUESTO' => 'Impuesto',
