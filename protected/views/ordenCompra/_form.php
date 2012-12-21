@@ -114,7 +114,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>date("Y-m-d")),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>date("Y-m-d"), 'disabled'=>$readonly),  
             ), true); 
             
             $fecha2 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -131,7 +131,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top'),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'disabled'=>$readonly),  
             ), true); 
             
             $fecha3 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -148,7 +148,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top'),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'disabled'=>$readonly),  
             ), true); 
             
             $fecha4 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -165,7 +165,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top'),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'disabled'=>$readonly),  
             ), true); 
             
             $fecha5 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -182,7 +182,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top'),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'disabled'=>$readonly),  
             ), true); 
         ?>
     
@@ -237,10 +237,10 @@ $(document).ready(function(){
     
     <?php
         if ($config->IMP1_AFECTA_DESCTO == 'A'){
-            $porcentaje = $form->textFieldRow($model,'PORC_DESCUENTO',array('size'=>6,'maxlength'=>28, 'class'=>'ambos', 'onFocus'=> "if (this.value=='0') this.value='';"));
+            $porcentaje = $form->textFieldRow($model,'PORC_DESCUENTO',array('size'=>6,'maxlength'=>28, 'readonly'=>$readonly, 'class'=>'ambos', 'onFocus'=> "if (this.value=='0') this.value='';"));
         }
         else{
-            $porcentaje = $form->textFieldRow($model,'PORC_DESCUENTO',array('size'=>6,'maxlength'=>28, 'class'=>'calculoMonto', 'onFocus'=> "if (this.value=='0') this.value='';"));
+            $porcentaje = $form->textFieldRow($model,'PORC_DESCUENTO',array('size'=>6,'maxlength'=>28, 'class'=>'calculoMonto', 'readonly'=>$readonly, 'onFocus'=> "if (this.value=='0') this.value='';"));
         }
     ?>
     <?php       
@@ -272,14 +272,14 @@ $(document).ready(function(){
         <table>
             <tr>
                 <td><?php echo $form->textFieldRow($model,'ORDEN_COMPRA',array('size'=>10,'maxlength'=>10, 'readonly' => true, 'value' => $retorna)); ?></td>
-                <td width="10%"><?php echo $form->textFieldRow($model,'PROVEEDOR',array('size'=>20,'maxlength'=>20, 'class'=>'escritoProv')); ?></td>
+                <td width="10%"><?php echo $form->textFieldRow($model,'PROVEEDOR',array('size'=>20,'maxlength'=>20, 'class'=>'escritoProv', 'readonly'=>$readonly)); ?></td>
                 <td width="25%"><?php echo CHtml::textField('ProvNombre2','', array('readonly' => true)); ?>
                 <?php $this->widget('bootstrap.widgets.BootButton', array(
                           'type'=>'info',
                           'size'=>'mini',
                           'url'=>'#proveedor',
                           'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal'),
+                          'htmlOptions'=>array('data-toggle'=>'modal', 'disabled'=>$readonly),
                     )); ?></td>
             </tr>
         </table>
