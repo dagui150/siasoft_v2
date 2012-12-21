@@ -36,9 +36,7 @@ class FacturaController extends SBaseController
 	public function actionCreate()
 	{
 		$model=new Factura;
-                $bodega = new Bodega;
                 $cliente = new Cliente;
-                $condicion = new CodicionPago;
                 $linea = new FacturaLinea;
                 $articulo = new Articulo;
                 $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
@@ -55,14 +53,60 @@ class FacturaController extends SBaseController
 		if(isset($_POST['Factura']))
 		{
 			$model->attributes=$_POST['Factura'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->FACTURA));
-		}
+                        $transaction = $model->dbConnection->beginTransaction();
+                        try{
+                            //ACTUALIZAR CONSECUTIVO
+                                $modelConsecutivo = ConsecutivoFa::model()->findByPk($model->CONSECUTIVO);
+                                $consecutivo = substr($modelConsecutivo->MASCARA,0,4);
+                                $mascara = strlen($modelConsecutivo->MASCARA);
+                                $longitud = $mascara - 4;
+                                $count = Factura::model()->count();
+                                $consecutivo .= str_pad(++$count, $longitud, "0", STR_PAD_LEFT);
+                                $model->FACTURA = $consecutivo;
+
+                            $model->REMITIDO = 'N';   
+                            $model->RESERVADO = 'N';   
+                            $model->ESTADO = 'N';
+                            $model->save();
+                            if(isset($_POST['LineaNuevo'])){
+                                  $i = 1;
+                                  foreach ($_POST['LineaNuevo'] as $datos){
+                                        $salvar = new FacturaLinea;
+                                        $salvar->FACTURA = $model->FACTURA;
+                                        $salvar->ARTICULO = $datos['ARTICULO'];
+                                        $salvar->LINEA = $i;
+                                        $salvar->UNIDAD = $datos['UNIDAD'];
+                                        $salvar->CANTIDAD = $datos['CANTIDAD'];
+                                        $salvar->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
+                                        $salvar->PORC_DESCUENTO = $datos['PORC_DESCUENTO'];
+                                        $salvar->MONTO_DESCUENTO = $datos['MONTO_DESCUENTO'];
+                                        $salvar->PORC_IMPUESTO = $datos['PORC_IMPUESTO'];
+                                        $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
+                                        $salvar->TIPO_PRECIO = $datos['TIPO_PRECIO'];
+                                        $salvar->COMENTARIO = $datos['COMENTARIO'];
+                                        $salvar->TOTAL = $datos['TOTAL'];
+                                        $salvar->ESTADO = 'N';
+                                        $salvar->ACTIVO = 'S';
+                                        $salvar->save();
+                                        $i++;
+                                 }
+                             }
+
+                            $modelConsecutivo->VALOR_CONSECUTIVO = substr($modelConsecutivo->MASCARA,0,4).str_pad(++$count, $longitud, "0", STR_PAD_LEFT);
+
+                            $modelConsecutivo->save();
+                            $transaction->commit();
+                            $this->redirect(array('admin'));
+                        }catch(Exception $e){
+                            echo $e;
+                            $transaction->rollback();
+                            Yii::app()->end();
+                        }				
+                            
+                }
 
 		$this->render('create',array(
 			'model'=>$model,
-                        'bodega'=>$bodega,
-                        'condicion'=>$condicion,
                         'linea'=>$linea,
                         'cliente'=>$cliente,
                         'articulo'=>$articulo,

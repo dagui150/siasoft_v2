@@ -58,12 +58,10 @@ class FacturaLinea extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ARTICULO, UNIDAD, CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, PORC_IMPUESTO, VALOR_IMPUESTO, TIPO_PRECIO', 'required'),
-			array('LINEA, UNIDAD, TIPO_PRECIO', 'numerical', 'integerOnly'=>true),
+			array('UNIDAD, CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, PORC_IMPUESTO, VALOR_IMPUESTO, TIPO_PRECIO', 'required'),
 			array('FACTURA', 'length', 'max'=>50),
 			array('ARTICULO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, PORC_IMPUESTO, VALOR_IMPUESTO', 'length', 'max'=>28),
-			array('ESTADO, ACTIVO', 'length', 'max'=>1),
 			array('COMENTARIO', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

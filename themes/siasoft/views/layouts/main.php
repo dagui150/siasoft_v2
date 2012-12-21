@@ -16,6 +16,30 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/tables.css" />
 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+        <script language="JavaScript">
+            $(document).ready(function(){
+
+                /*$('input').blur(function(){
+                    $(this).val(format($(this).val()));
+                });
+                
+                function format(value) {	
+                    var num = value.replace(/\./g,'');	
+
+                    if(!/,/.test(num)){
+                        num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+                        num = num.split('').reverse().join('').replace(/^[\.]/,'');
+                        return num;
+                    }else{
+                        var num2 = num.toString().split(',')[0];
+                        num2 = num2.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+                        num2 = num2.split('').reverse().join('').replace(/^[\.]/,'');
+                        var num3 = num2+','+num.toString().split(',')[1] 
+                        return num3;
+                    }
+                }*/
+            });
+        </script>
     </head>
 
     <body>

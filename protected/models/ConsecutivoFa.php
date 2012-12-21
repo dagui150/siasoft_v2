@@ -177,4 +177,9 @@ class ConsecutivoFa extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        public static function extractNum($text) {
+            preg_match("/[0-9]*$/", $text,$num);
+            return $num[0];
+        }
+
 }

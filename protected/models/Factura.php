@@ -76,15 +76,10 @@ class Factura extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('CONSECUTIVO,CLIENTE,FACTURA, FECHA_FACTURA, TOTAL_MERCADERIA, MONTO_ANTICIPO, MONTO_FLETE, MONTO_SEGURO, MONTO_DESCUENTO1, TOTAL_IMPUESTO1, TOTAL_A_FACTURAR, REMITIDO, RESERVADO, ESTADO', 'required'),
+			array('CONSECUTIVO,CLIENTE,FACTURA, FECHA_FACTURA, TOTAL_MERCADERIA, MONTO_ANTICIPO, MONTO_FLETE, MONTO_SEGURO, MONTO_DESCUENTO1, TOTAL_IMPUESTO1, TOTAL_A_FACTURAR', 'required'),
 			array('FACTURA, PEDIDO, RUBRO1, RUBRO2, RUBRO3, RUBRO4, RUBRO5, COMENTARIOS_CXC', 'length', 'max'=>50),
-			array('CLIENTE, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
-			array('BODEGA, CONDICION_PAGO', 'length', 'max'=>4),
-			array('NIVEL_PRECIO', 'length', 'max'=>12),
 			array('ORDEN_COMPRA', 'length', 'max'=>30),
                         array('ARTICULO', 'exist', 'attributeName'=>'ARTICULO', 'className'=>'Articulo','allowEmpty'=>true),
-			array('TOTAL_MERCADERIA, MONTO_ANTICIPO, MONTO_FLETE, MONTO_SEGURO, MONTO_DESCUENTO1, TOTAL_IMPUESTO1, TOTAL_A_FACTURAR', 'length', 'max'=>28),
-			array('REMITIDO, RESERVADO, ESTADO', 'length', 'max'=>1),
 			array('FECHA_DESPACHO, FECHA_ENTREGA, FECHA_ORDEN, OBSERVACIONES', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -94,6 +89,7 @@ class Factura extends CActiveRecord
 
         public function behaviors()
 	{
+                $conf= ConfFa::model()->find();
 		return array(
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',

@@ -19,16 +19,6 @@
         });
     }
     
-    function formato(input)
-            {	
-                var num = input.value.replace(/\./g,'');	
-                if(!/,/.test(num)){
-                    num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
-                    num = num.split('').reverse().join('').replace(/^[\.]/,'');
-                    input.value = num;
-                }
-            }
-    
     function updateBodega(grid_id){
         var id=$.fn.yiiGridView.getSelection(grid_id);
         
@@ -192,9 +182,9 @@
                                     <td>
                                         <fieldset style="width: 380px;">
                                             <legend ><font face="arial" size=3 >Existencias</font></legend>'
-                                                  .$form->textFieldRow($model,'EXISTENCIA_MINIMA',array('maxlength'=>28,'onkeyup'=>'formato(this)', 'onchange'=>'formato(this)'))
-                                                  .$form->textFieldRow($model,'PUNTO_REORDEN',array('maxlength'=>28,'onkeyup'=>'formato(this)', 'onchange'=>'formato(this)'))
-                                                  .$form->textFieldRow($model,'EXISTENCIA_MAXIMA',array('maxlength'=>28,'onkeyup'=>'formato(this)', 'onchange'=>'formato(this)'))
+                                                  .$form->textFieldRow($model,'EXISTENCIA_MINIMA',array('maxlength'=>28,))
+                                                  .$form->textFieldRow($model,'PUNTO_REORDEN',array('maxlength'=>28,))
+                                                  .$form->textFieldRow($model,'EXISTENCIA_MAXIMA',array('maxlength'=>28,))
                                         .'</fieldset>
                                     </td>
                                 </tr>
@@ -431,7 +421,9 @@
                     
                     $funcion = 'updateImpuesto';
                     $id = 'impuesto-grid';
-                    echo $this->renderPartial('impuesto', array('impuesto'=>$impuesto,'funcion'=>$funcion,'id'=>$id));
+                    $data=$impuesto->search(); 
+                    $data->pagination = array('pageSize'=>5);
+                    echo $this->renderPartial('impuesto', array('impuesto'=>$impuesto,'funcion'=>$funcion,'id'=>$id,'data'=>$data));
                 ?>
 	</div>
         <div class="modal-footer">
@@ -453,9 +445,11 @@
                 <br>
 		<?php 
                     
-                    $funcion = 'updateImpuesto2';
+                     $funcion = 'updateImpuesto2';
                     $id = 'impuesto-grid2';
-                    echo $this->renderPartial('impuesto', array('impuesto'=>$impuesto,'funcion'=>$funcion,'id'=>$id));
+                    $data=$impuesto->search(); 
+                    $data->pagination = array('pageSize'=>5);
+                    echo $this->renderPartial('impuesto', array('impuesto'=>$impuesto,'funcion'=>$funcion,'id'=>$id,'data'=>$data));
                 ?>
 	</div>
         <div class="modal-footer">
@@ -479,7 +473,8 @@
                     
                     $funcion = 'updateRetencion';
                     $id = 'retencion-grid';
-                    echo $this->renderPartial('retencion', array('retencion'=>$retencion,'funcion'=>$funcion,'id'=>$id));
+                    $data=$retencion->search();
+                    echo $this->renderPartial('retencion', array('retencion'=>$retencion,'funcion'=>$funcion,'id'=>$id,'data'=>$data));
                 ?>
 	</div>
         <div class="modal-footer">
@@ -501,7 +496,8 @@
 		<?php
                     $funcion = 'updateRetencion2';
                     $id = 'retencion-grid2';
-                    echo $this->renderPartial('retencion', array('retencion'=>$retencion,'funcion'=>$funcion,'id'=>$id));
+                    $data=$retencion->search();
+                    echo $this->renderPartial('retencion', array('retencion'=>$retencion,'funcion'=>$funcion,'id'=>$id,'data'=>$data));
                 ?>
 	</div>
         <div class="modal-footer">

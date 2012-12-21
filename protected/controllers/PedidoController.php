@@ -192,12 +192,6 @@ class PedidoController extends Controller
                 case 'AR':
                     $this->CargarArticulo($_GET['ID']);
                 break;
-                case 'BO':
-                    $this->CargarBodega($_GET['ID']);
-                break;
-                case 'CO':
-                    $this->CargarCondicion($_GET['ID']);
-                break;
             }
         }
         
@@ -207,8 +201,9 @@ class PedidoController extends Controller
         protected function CargarCliente($item_id){            
             $bus = Cliente::model()->findByPk($item_id);
             $res = array(
-                'ID' => $bus->CLIENTE,
-                'NOMBRE' => $bus->NOMBRE,
+                'EXISTE' => $bus ? true : false,
+                'ID' => $bus ? $bus->CLIENTE : '',
+                'NOMBRE' => $bus ?  $bus->NOMBRE : '',
             );
             
             echo CJSON::encode($res);
@@ -316,13 +311,5 @@ class PedidoController extends Controller
                 );
                 echo CJSON::encode($res);
             }
-        }
-        
-        public function actionCargarUnidad($id){
-            $bus = UnidadMedida::model()->findByPk($id);
-            $res = array(
-                'NOMBRE'=>$bus->NOMBRE
-            );
-            echo CJSON::encode($res);            
         }
 }
