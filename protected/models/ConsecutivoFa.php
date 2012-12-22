@@ -179,7 +179,10 @@ class ConsecutivoFa extends CActiveRecord
 	}
         public static function extractNum($text) {
             preg_match("/[0-9]*$/", $text,$num);
-            return $num[0];
+            $res[0] = preg_replace("/([0-9]*$)(.*)/",'', $text);
+            $res[1]=$num[0];
+            return $res;
         }
+
 
 }

@@ -360,7 +360,7 @@
                                         </table>'
                                     ,
                                ),
-                               array(
+                               /*array(
                                     'label'=>'Rubros Valores FA',
                                     'content'=>
                                         '<fieldset >
@@ -372,7 +372,7 @@
                                                .$form->textFieldRow($model,'RUBRO5_FA',array('maxlength'=>64, 'disabled'=>$this->conf->USAR_RUBROS && $this->conf->RUBRO5_NOMBRE != '' ? false : true))
                                         .'<br><br></fieldset>'
                                     ,
-                               ),
+                               ),*/
                             ),
                 ));
             ?>
@@ -513,7 +513,8 @@
                     
                     $funcion = 'updateImpuesto';
                     $id = 'impuesto-grid';
-                    echo $this->renderPartial('/articulo/impuesto', array('impuesto'=>$impuesto,'funcion'=>$funcion,'id'=>$id));
+                    $data=$impuesto->search(); 
+                    echo $this->renderPartial('/articulo/impuesto', array('impuesto'=>$impuesto,'funcion'=>$funcion,'id'=>$id,'data'=>$data));
                 ?>
 	</div>
         <div class="modal-footer">
