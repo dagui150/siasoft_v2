@@ -175,12 +175,20 @@
         .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true))
         .$form->textFieldRow($model,'TOTAL_IMPUESTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true))
         .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true));
+        
+        $calculos2 = $form->textFieldRow($model,'MONTO_ANTICIPO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>0,'class'=>'montos'))
+        .$form->textFieldRow($model,'MONTO_FLETE',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>0,'class'=>'montos'))
+        .$form->textFieldRow($model,'MONTO_SEGURO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>0,'class'=>'montos'));        
     }
     else{
         $calculos = $form->textFieldRow($model,'TOTAL_MERCADERIA',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true))
         .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true))
         .$form->textFieldRow($model,'TOTAL_IMPUESTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true))
-        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true));    
+        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true));   
+        
+        $calculos2 = $form->textFieldRow($model,'MONTO_ANTICIPO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'class'=>'montos'))
+        .$form->textFieldRow($model,'MONTO_FLETE',array('prepend'=>'$','size'=>15,'maxlength'=>28,'class'=>'montos'))
+        .$form->textFieldRow($model,'MONTO_SEGURO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'class'=>'montos'));
     }
 ?>
 <?php
@@ -401,12 +409,10 @@
                                       <td style="width: 380px;">'
                                             .$calculos.'</td>
                                       <td>'
-                                           .$form->textFieldRow($model,'MONTO_ANTICIPO',array('prepend'=>'$','size'=>15,'maxlength'=>28,$model->isNewRecord ? 0 : '','class'=>'montos'))
-                                           .$form->textFieldRow($model,'MONTO_FLETE',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>$model->isNewRecord ? 0 : '','class'=>'montos'))
-                                           .$form->textFieldRow($model,'MONTO_SEGURO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>$model->isNewRecord ? 0 : '','class'=>'montos'))
-                                           .$form->hiddenField($model, 'REMITIDO', array('value'=>'N'))
-                                           .$form->hiddenField($model, 'RESERVADO', array('value'=>'N'))
-                                           .$form->hiddenField($model, 'ESTADO', array('value'=>'N'))
+                                            .$calculos2
+                                            .$form->hiddenField($model, 'REMITIDO', array('value'=>'N'))
+                                            .$form->hiddenField($model, 'RESERVADO', array('value'=>'N'))
+                                            .$form->hiddenField($model, 'ESTADO', array('value'=>'N'))
                                      .'</td>
                                  <tr>
                         </table>'
