@@ -77,39 +77,44 @@ class PedidoController extends Controller
 	public function actionCreate()
 	{
 		$model=new Pedido;
-                $bodega = new Bodega;
-                $cliente = new Cliente;
-                $condicion = new CodicionPago;
+                $cliente = new Cliente('factura');
                 $linea = new PedidoLinea;
                 $articulo = new Articulo;
                 $modelLinea = '';
                 $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
                 $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
-                $i = 1;
 
 		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model);
+		$this->performAjaxValidation(array($model,$cliente));
+                if(isset($_POST['ajax']) && $_POST['ajax']==='pedido-linea-form')
+		{
+			echo CActiveForm::validate($linea);
+			Yii::app()->end();
+		}
 
 		if(isset($_POST['Pedido']))
 		{
 			$model->attributes=$_POST['Pedido'];
+                        $modelConsecutivo = ConsecutivoFa::model()->findByPk($model->CONSECUTIVO);
+                        $model->PEDIDO = $modelConsecutivo->VALOR_CONSECUTIVO;
+                        $model->REMITIDO = 'N';   
+                        $model->RESERVADO = 'N';   
+                        $model->ESTADO = 'N';
                         
-                        //ACTUALIZAR CONSECUTIVO
-                            $modelConsecutivo = ConsecutivoFa::model()->findByPk($model->CONSECUTIVO);
-                            $consecutivo = substr($modelConsecutivo->MASCARA,0,4);
-                            $mascara = strlen($modelConsecutivo->MASCARA);
-                            $longitud = $mascara - 4;
-                            $count = Pedido::model()->count();
-                            $consecutivo .= str_pad(++$count, $longitud, "0", STR_PAD_LEFT);
-                            $model->PEDIDO = $consecutivo;
-                            
-                            
-			if($model->save()){
+			$cliente->attributes=$_POST['Cliente'];
+                        $transaction = $model->dbConnection->beginTransaction();
+                        try{
+                            if($cliente->CLIENTE != '0'){
+                                $cliente->PAIS = 'COL';
+                                $cliente->save();
+                            }
+                            $model->save();
                             if(isset($_POST['LineaNuevo'])){
-                                    foreach ($_POST['LineaNuevo'] as $datos){
+                                  $i = 1;
+                                  foreach ($_POST['LineaNuevo'] as $datos){
                                         $salvar = new PedidoLinea;
-                                        $salvar->ARTICULO = $datos['ARTICULO'];
                                         $salvar->PEDIDO = $model->PEDIDO;
+                                        $salvar->ARTICULO = $datos['ARTICULO'];
                                         $salvar->LINEA = $i;
                                         $salvar->UNIDAD = $datos['UNIDAD'];
                                         $salvar->CANTIDAD = $datos['CANTIDAD'];
@@ -120,31 +125,38 @@ class PedidoController extends Controller
                                         $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
                                         $salvar->TIPO_PRECIO = $datos['TIPO_PRECIO'];
                                         $salvar->COMENTARIO = $datos['COMENTARIO'];
+                                        $salvar->TOTAL = $datos['TOTAL'];
                                         $salvar->ESTADO = 'N';
                                         $salvar->ACTIVO = 'S';
                                         $salvar->save();
                                         $i++;
-                                    }
-                            }
-                            
-                            $modelConsecutivo->VALOR_CONSECUTIVO = substr($modelConsecutivo->MASCARA,0,4).str_pad(++$count, $longitud, "0", STR_PAD_LEFT);
-                            
-                            $modelConsecutivo->save();
-                            $this->redirect(array('admin'));
+                                 }
+                             }
+                             //ACTUALIZAR SIGUIENTE VALOR
+                             $separados = ConsecutivoFa::extractNum($modelConsecutivo->MASCARA);
+                             $longitud = strlen($separados[1]);
+                             $count = Pedido::model()->count('CONSECUTIVO = "'.$model->CONSECUTIVO.'"');
+                             $modelConsecutivo->VALOR_CONSECUTIVO = $separados[0].str_pad(++$count, $longitud, "0", STR_PAD_LEFT);
+
+                             $modelConsecutivo->update();
+                             $transaction->commit();
+                             $this->redirect(array('admin'));
+                        }catch(Exception $e){
+                            echo $e;
+                            $transaction->rollback();
+                            Yii::app()->end();
                         }				
                             
                 }
 
 		$this->render('create',array(
 			'model'=>$model,
-                        'bodega'=>$bodega,
-                        'condicion'=>$condicion,
                         'linea'=>$linea,
                         'cliente'=>$cliente,
                         'articulo'=>$articulo,
                         'ruta'=>$ruta,
                         'ruta2'=>$ruta2,
-                        'modelLinea'=>'',
+                        'modelLinea'=>$modelLinea = '',
 		));
 	}
 

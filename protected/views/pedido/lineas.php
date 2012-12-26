@@ -438,6 +438,10 @@
                                    <td> 
                                             <?php echo '<span id="descripcionU_'.$i.'">'.'</span>'; ?>                                            
                                    </td>
+                                   <td> 
+                                            <?php echo '<span id="cantidadU_'.$i.'">'.$linea->CANTIDAD.'</span>'; ?>    
+                                            <?php echo CHtml::activeHiddenField($linea,"[$i]CANTIDAD"); ?>
+                                   </td>
                                    <td>
                                             <?php echo '<span id="unidadU_'.$i.'">'.$linea->UNIDAD.'</span>'; ?>
                                             <?php echo CHtml::activeHiddenField($linea,"[$i]UNIDAD"); ?>
@@ -452,39 +456,40 @@
                                     </td>                                
                                     <td>
                                             <?php echo '<span id="porc_descuentoU_'.$i.'">'.$linea->PORC_DESCUENTO.'</span>'; ?>
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]PORC_DESCUENTO"); ?>                                        
-                                    </td>
-                                    <td>
-                                            <?php echo '<span id="monto_descuentoU_'.$i.'">'.$linea->MONTO_DESCUENTO.'</span>'; ?>
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]PORC_DESCUENTO"); ?>                                        
+                                            <?php echo CHtml::activeHiddenField($linea,"[$i]PORC_DESCUENTO"); ?>  
+                                            <?php echo CHtml::activeHiddenField($linea,"[$i]MONTO_DESCUENTO"); ?>   
                                     </td>
                                     <td>
                                             <?php echo '<span id="porc_impuestoU_'.$i.'">'.$linea->PORC_IMPUESTO.'</span>'; ?>
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]PORC_DESCUENTO"); ?>                                        
+                                            <?php echo CHtml::activeHiddenField($linea,"[$i]PORC_IMPUESTO"); ?>                                          
                                     </td>
                                     <td>
-                                            <?php echo '<span id="valor_impuestoU_'.$i.'">'.$linea->VALOR_IMPUESTO.'</span>'; ?>
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]PORC_DESCUENTO"); ?>                                        
+                                            <?php echo '<span id="porc_impuestoU_'.$i.'">'.$linea->VALOR_IMPUESTO.'</span>'; ?>
+                                            <?php echo CHtml::activeHiddenField($linea,"[$i]VALOR_IMPUESTO"); ?>    
                                     </td>
                                     <td>
-                                            <?php echo '<span id="estadoU_'.$i.'">'.$linea->ESTADO.'</span>'; ?>
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]ESTADO"); ?>                                        
+                                            <?php echo '<span id="totalU_'.$i.'">'.$linea->TOTAL.'</span>'; ?>
+                                            <?php echo CHtml::activeHiddenField($linea,"[$i]ESTADO"); ?>    
+                                            <?php echo CHtml::activeHiddenField($linea,"[$i]COMENTARIO"); ?>
                                     </td>
-                                    <td>
-                                            <?php echo '<span id="comentarioU_'.$i.'">'.$linea->COMENTARIO.'</span>'; ?>
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]COMENTARIO"); ?>                                        
-                                    </td>
-                                    <td>
-                                            <?php echo '<span id="totalU_'.$i.'">'.$linea->ESTADO.'</span>'; ?>
-                                    </td>
-                                    <td>                                     
+                                    <td>            
+                                            <span style="float: left">
+                                                <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                                 'buttonType'=>'button',
+                                                                 'type'=>'normal',
+                                                                 'size'=>'mini',
+                                                                 'icon'=>'pencil',
+                                                                 'htmlOptions'=>array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')
+                                                             ));
+                                                ?>
+                                            </span>
                                            <div class="remove" id ="remover" style="float: left; margin-left: 5px;">
                                                       <?php $this->widget('bootstrap.widgets.BootButton', array(
                                                                      'buttonType'=>'button',
                                                                      'type'=>'danger',
                                                                      'size'=>'mini',
                                                                      'icon'=>'minus white',
-                                                                     'htmlOptions'=>array('id'=>'btn-remover','class'=>'eliminaRegistro','name'=>$i,'disabled'=>$model->ESTADO == 'P' ? false : true)
+                                                                     'htmlOptions'=>array('id'=>'btn-remover','class'=>'eliminaRegistro','name'=>$i)
 
                                                              ));
                                                      ?>
