@@ -84,17 +84,17 @@
                                                         .$form->textFieldRow($model,'LONGITUD',array('maxlength'=>2,'size'=>4))
                                                         .$form->radioButtonListRow($model,'TIPO',array('N'=>'Numérico','A'=>'Alfanumérico'))
                                                         .$form->textFieldRow($model,'MASCARA')
-                                                        .$form->textFieldRow($model,'VALOR_CONSECUTIVO')
-                                                        .$form->textFieldRow($model,'VALOR_MAXIMO')
+                                                        .$form->textFieldRow($model,'VALOR_CONSECUTIVO',array('disabled'=>$model->isNewRecord ? false : true))
+                                                        .$form->textFieldRow($model,'VALOR_MAXIMO',array('disabled'=>$model->isNewRecord ? false : true))
                                                         .$form->dropDownListRow($model,'CLASIFICACION',array('P'=>'Pedido','R'=>'Remisión','F'=>'Factura'),array('empty'=>'Seleccione'))
                                                         .$form->dropDownListRow($model,'FORMATO_IMPRESION',CHtml::listData(FormatoImpresion::model()->findAllByAttributes(array('MODULO'=>'FACT')), 'ID', 'NOMBRE'),array('empty'=>'Seleccione'))
                                                     .'</td>
-                                                    <td>
-                                                        <fieldset style="width: 315px; height: 140px; ">
+                                                    <td>'
+                                                        /*<fieldset style="width: 315px; height: 140px; ">
                                                             <legend ><font face="arial" size=3 >Propiedades</font></legend>'
                                                             .$form->checkBoxRow($model,'USA_ESQUEMA_CAJAS')
                                                             .$form->checkBoxRow($model,'USA_DESPACHOS')
-                                                        .'<br><br></fieldset>'
+                                                        .'<br><br></fieldset>'*/
                                                         .$form->textFieldRow($model,'RESOLUCION',array('maxlength'=>64))
                                                     .'</td>
                                                 </tr>

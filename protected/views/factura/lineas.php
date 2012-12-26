@@ -174,6 +174,12 @@
                                 
                                 calcularTotal(contador,model);              
                          });
+                         $('#Factura_ARTICULO').val('');
+                        $('#Articulo_desc').val('');
+                        $('#Factura_CANTIDAD').val('');
+                        $('select[id$=Factura_UNIDAD]>option').remove();
+                        $('#Factura_UNIDAD').append("<option value=''>Seleccione</option>");
+                        $('#Factura_ARTICULO').focus();
 
                 });
                 $('#carga').ajaxSend(function(){
@@ -185,6 +191,9 @@
      });
     
     $('.montos').blur(function(){
+        if($(this).val()== '')
+            $(this).val(0);
+        
         calculoGranTotal(false);
     });
     

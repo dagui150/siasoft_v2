@@ -99,6 +99,7 @@
                 $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=CL&ID='+value,
                     function(data){
                         if(data.EXISTE){
+                            $('#Factura_CLIENTE_EXISTE').val('1');
                             $("#Cliente_desc").val(data.NOMBRE);
                             $('#editaCliente').slideUp('slow');
                             $('#Cliente_CLIENTE').val(0);
@@ -107,13 +108,17 @@
                             $('#Cliente_TELEFONO1').val(0);
                         }else{
                             $("#Cliente_desc").val('Ninguno');
+                             $('#Factura_CLIENTE').val('');
+                             $('#Factura_CLIENTE').focus();
                             if(confirm('Cliente "'+value+'" no Existe ¿Desea crearlo?')) {
                                 $('#clienteNuevo').modal();
+                                $('#Factura_CLIENTE_EXISTE').val('0');
                                 $('#Cliente_CLIENTE').val(value);
                                 $('#Cliente_NOMBRE').val('');
                                 $('#Cliente_DIRECCION_COBRO').val('');
                                 $('#Cliente_TELEFONO1').val('');
                                 $('#editaCliente').slideDown('slow');
+                                $('#Factura_CLIENTE').val(value);
                             }
                         }
                     }
@@ -144,6 +149,12 @@
             url = '<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=CL&ID='+ID;
             campo = '#Factura_CLIENTE';
             campo_nombre = '#Cliente_desc';
+            $('#editaCliente').slideUp('slow');
+            $('#Factura_CLIENTE_EXISTE').val('1');
+            $('#Cliente_CLIENTE').val(0);
+            $('#Cliente_NOMBRE').val(0);
+            $('#Cliente_DIRECCION_COBRO').val(0);
+            $('#Cliente_TELEFONO1').val(0);
         }
         else if (grid_id == 'articulo-grid'){
             url = '<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+ID;
@@ -164,15 +175,6 @@
                         $("#Factura_UNIDAD").val(data.UNIDAD);
                     }
                 });    
-    }
-    
-    function formato(input){
-        var num = input.value.replace(/\./g,'');
-        if(!/,/.test(num)){
-            num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
-            num = num.split('').reverse().join('').replace(/^[\.]/,'');
-            input.value = num;
-        }
     }
 </script>
 <div class="form">
