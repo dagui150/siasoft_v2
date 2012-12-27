@@ -36,8 +36,8 @@
         var precio_unitario = $('#FacturaLinea_PRECIO_UNITARIO').val();
         var porc_descuento = $('#FacturaLinea_PORC_DESCUENTO').val();
         //volver a calcular el monto descuento
-        var total = parseInt(precio_unitario, 10) * parseInt(cantidad, 10);
-        var descuento = (total * parseInt(porc_descuento, 10))/100;
+        var total = parseFloat(precio_unitario, 10) * parseFloat(cantidad, 10);
+        var descuento = (total * parseFloat(porc_descuento, 10))/100;
         var monto_descuento = descuento
         
         var porc_impuesto = $('#FacturaLinea_PORC_IMPUESTO').val();

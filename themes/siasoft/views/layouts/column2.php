@@ -7,12 +7,6 @@
                key = e.which; //firefox      
           return (key != 13);
      }
-    
-    function unformat($text){
-        var $value = $text.toString().replace(/\./g,'');
-        $value = $value.toString().replace(/\,/g,'.');
-        return $value;
-    }
  </script>
 <?php $this->beginContent('//layouts/main'); ?>
 <div id="content" OnKeyPress="return disableKeyPress(event)">

@@ -52,12 +52,12 @@
                 case 'cantidad':
                     $('#cantidad_'+contador).text($(this).val());
                     $('#campo_cantidad_'+contador).hide('fast');
-                    precio = parseInt($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(),10);
+                    precio = parseFloat($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(),10);
                     
                     //volver a calcular el monto descuento
-                    precio = parseInt($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(), 10);
-                    total = precio * parseInt($(this).val(), 10);
-                    descuento = (total * parseInt($('#LineaNuevo_'+contador+'_PORC_DESCUENTO').val(), 10))/100;
+                    precio = parseFloat($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(), 10);
+                    total = precio * parseFloat($(this).val(), 10);
+                    descuento = (total * parseFloat($('#LineaNuevo_'+contador+'_PORC_DESCUENTO').val(), 10))/100;
                     $('#LineaNuevo_'+contador+'_MONTO_DESCUENTO').val(descuento);
                         
                     //calcular el total
@@ -78,8 +78,8 @@
                     $('#preciounitario_'+contador).text('$ '+$(this).val());
                     $('#campo_preciounitario_'+contador).hide('fast');
                     //volver a calcular el monto descuento
-                    total = parseInt($(this).val(), 10) * parseInt($('#LineaNuevo_'+contador+'_CANTIDAD').val(), 10);
-                    descuento = (total * parseInt($('#LineaNuevo_'+contador+'_PORC_DESCUENTO').val(), 10))/100;
+                    total = parseFloat($(this).val(), 10) * parseFloat($('#LineaNuevo_'+contador+'_CANTIDAD').val(), 10);
+                    descuento = (total * parseFloat($('#LineaNuevo_'+contador+'_PORC_DESCUENTO').val(), 10))/100;
                     $('#LineaNuevo_'+contador+'_MONTO_DESCUENTO').val(descuento);
                         
                      //calcular el total
@@ -89,8 +89,8 @@
                 case 'porcdescuento':
                     $('#porcdescuento_'+contador).text($(this).val()+' %');
                     $('#campo_porcdescuento_'+contador).hide('fast'); 
-                    precio = parseInt($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(), 10);
-                    total = precio * parseInt($('#LineaNuevo_'+contador+'_CANTIDAD').val(), 10);
+                    precio = parseFloat($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(), 10);
+                    total = precio * parseFloat($('#LineaNuevo_'+contador+'_CANTIDAD').val(), 10);
                     descuento = (total * $(this).val())/100;
                     $('#LineaNuevo_'+contador+'_MONTO_DESCUENTO').val(descuento);                       
                     //calcular el total
@@ -118,8 +118,8 @@
                          $('#'+modelo+'_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
                          
                          //volver a calcular el monto descuento
-                         total = parseInt(data.PRECIO, 10) * parseInt($('#'+modelo+'_'+contador+'_CANTIDAD').val(), 10);
-                         descuento = (total * parseInt($('#'+modelo+'_'+contador+'_PORC_DESCUENTO').val(), 10))/100;
+                         total = parseFloat(data.PRECIO, 10) * parseFloat($('#'+modelo+'_'+contador+'_CANTIDAD').val(), 10);
+                         descuento = (total * parseFloat($('#'+modelo+'_'+contador+'_PORC_DESCUENTO').val(), 10))/100;
                          $('#'+modelo+'_'+contador+'_MONTO_DESCUENTO').val(descuento);
                          
                          //calcular el total
@@ -168,7 +168,7 @@
 
 
                                 });
-                                valor_impuesto = (parseInt(data.PRECIO, 10) * parseInt(impuesto, 10))/100;
+                                valor_impuesto = (parseFloat(data.PRECIO, 10) * parseFloat(impuesto, 10))/100;
                                 $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(valor_impuesto);
                                 $('#valor_impuesto_'+contador).text('$ '+valor_impuesto);
                                 
@@ -203,8 +203,8 @@
            
         $('#remover_'+contador).click();
         var contadorMax = $('body').find('.rowIndex').max();
-        var contFor = parseInt(contador, 10)+1;
-        var linea = parseInt(contador, 10); 
+        var contFor = parseFloat(contador, 10)+1;
+        var linea = parseFloat(contador, 10); 
         //cambiar ids y span
         for(var i = contFor ; i <=contadorMax; i++){
             var campos = ['ARTICULO','DESCRIPCION','UNIDAD','TIPO_PRECIO','CANTIDAD','PRECIO_UNITARIO','PORC_DESCUENTO','MONTO_DESCUENTO','PORC_IMPUESTO','VALOR_IMPUESTO','COMENTARIO','TOTAL'];
@@ -261,7 +261,7 @@
         $('#'+model+'_'+contador+'_COMENTARIO').val('');
         
         //copia a spans para visualizar detalles
-        $('#linea_'+contador).text(parseInt(contador, 10) + 1);
+        $('#linea_'+contador).text(parseFloat(contador, 10) + 1);
         $('#articulo_'+contador).text(articulo);
         $('#descripcion_'+contador).text(descripcion);
         $('#cantidad_'+contador).text(cantidad);
