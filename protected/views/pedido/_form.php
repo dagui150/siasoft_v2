@@ -1,7 +1,7 @@
 <script>
     $(document).ready(inicio);
     
-    function calcularTotal(contador,model){
+    function calcularTotal(contador,model, model2){
         var total;
         
         var cantidad = parseInt($('#'+model+'_'+contador+'_CANTIDAD').val(), 10);
@@ -13,9 +13,9 @@
         $('#total_'+contador).text('$ '+total); 
         $('#'+model+'_'+contador+'_TOTAL').val(total);
                 
-        calculoGranTotal(model);
+        calculoGranTotal(model, model2);
     }
-    function calculoGranTotal(model){
+    function calculoGranTotal(model, model2){
         
         var total_mercaderia =  parseInt($('#Pedido_TOTAL_MERCADERIA').val(), 10);
         var total_descuento =  parseInt($('#Pedido_MONTO_DESCUENTO1').val(), 10);
@@ -35,6 +35,30 @@
                 precio = parseInt($('#'+model+'_'+i+'_PRECIO_UNITARIO').val(), 10);
                 descuento = parseInt($('#'+model+'_'+i+'_MONTO_DESCUENTO').val(), 10);
                 iva =  parseInt($('#'+model+'_'+i+'_VALOR_IMPUESTO').val(), 10);
+                total = cantidad * precio;
+
+                total_mercaderia += total;
+                total_descuento += descuento;
+                total_iva += iva;
+                total_facturar = (total_mercaderia-total_descuento)+total_iva;
+                $('#linea_'+i).text(parseInt(i, 10) + 1);
+            }
+            $('#Pedido_TOTAL_MERCADERIA').val(total_mercaderia);
+            $('#Pedido_MONTO_DESCUENTO1').val(total_descuento);
+            $('#Pedido_TOTAL_IMPUESTO1').val(total_iva);
+            $('#Pedido_TOTAL_A_FACTURAR').val(total_facturar);
+        }
+        if(model2 != false){
+           
+            //var total_mercaderia =0,total_facturar=0,total_descuento=0,total_iva=0;
+           // var cantidad,precio,descuento,iva,total;
+            var contador = $('body').find('.rowIndexU').max();
+            for(var i = 0 ; i <=contador; i++){                 
+                //lineas         
+                cantidad = parseInt($('#'+model2+'_'+i+'_CANTIDAD').val(), 10);
+                precio = parseInt($('#'+model2+'_'+i+'_PRECIO_UNITARIO').val(), 10);
+                descuento = parseInt($('#'+model2+'_'+i+'_MONTO_DESCUENTO').val(), 10);
+                iva =  parseInt($('#'+model2+'_'+i+'_VALOR_IMPUESTO').val(), 10);
                 total = cantidad * precio;
 
                 total_mercaderia += total;

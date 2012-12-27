@@ -131,6 +131,7 @@
                 $('.clonar').click();
                 contador = $('body').find('.rowIndex').max();
                 model ='LineaNuevo';
+                model2 ='PedidoLinea';
                 var impuesto;
                 var tipo_precio = $('#Pedido_NIVEL_PRECIO').val();
                 
@@ -172,7 +173,7 @@
                                 $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(valor_impuesto);
                                 $('#valor_impuesto_'+contador).text('$ '+valor_impuesto);
                                 
-                                calcularTotal(contador,model);              
+                                calcularTotal(contador,model, model2);              
                          });
 
                 });
@@ -185,12 +186,13 @@
      });
     
     $('.montos').blur(function(){
-        calculoGranTotal(false);
+        calculoGranTotal(false, false);
     });
     
     $('.eliminaLinea').live('click',function(){
         contador = $(this).attr('name');
-        model = 'LineaNuevo';
+        var model = 'LineaNuevo';
+        var model2 = <?php $model->isNewRecord ? false : 'PedidoLinea' ?>
            
         $('#remover_'+contador).click();
         var contadorMax = $('body').find('.rowIndex').max();
@@ -232,7 +234,56 @@
             contador++;
             linea++;
         }
-        calculoGranTotal(model);
+        calculoGranTotal(model, model2);
+        
+    });
+    
+    $('.eliminaLineaU').live('click',function(){
+        contador = $(this).attr('name');
+        var model = 'LineaNuevo';
+        var model2 = 'PedidoLinea';
+           
+        $('#remover_'+contador).click();
+        var contadorMax = $('body').find('.rowIndexU').max();
+        var contFor = parseInt(contador, 10)+1;
+        var linea = parseInt(contador, 10); 
+        //cambiar ids y span
+        for(var i = contFor ; i <=contadorMax; i++){
+            var campos = ['ARTICULO','DESCRIPCION','UNIDAD','TIPO_PRECIO','CANTIDAD','PRECIO_UNITARIO','PORC_DESCUENTO','MONTO_DESCUENTO','PORC_IMPUESTO','VALOR_IMPUESTO','COMENTARIO','TOTAL'];
+            var span = ['lineaU','articuloU','descripcionU','cantidadU','campo_cantidadU','unidadU','campo_unidadU','tipoprecioU','campo_tipoprecioU','preciounitarioU','campo_preciounitarioU','porcdescuentoU','campo_porcdescuentoU','porc_impuestoU','valor_impuestoU','totalU','removerU','editU','eliminaLineaU','rowIndexU'];
+            //CAMBIAR IDS DE LOS SPAN
+            for(var x =0 ; x<=span.length;x++){
+                switch(span[x]){
+                    case 'editU':
+                        $('#'+span[x]+'_'+i).attr('name',linea);
+                    break
+                    case 'eliminaLineaU':
+                        $('#'+span[x]+'_'+i).attr('name',linea);
+                    break
+                    case 'rowIndexU':
+                         $('[name="'+span[x]+'_'+i+'"]').attr({
+                        name: span[x]+'_'+linea,
+                        value:linea
+                    });
+                    break
+                }
+                $('#'+span[x]+'_'+i).attr('id',span[x]+'_'+linea);
+                     
+                 
+            }
+            //CAMBIAR IDS Y NAMES DE LOS CAMPOS DE LAS LINEAS
+            for(var y =0 ; y<=campos.length;y++){
+               /* alert('editar :'+model+'_'+i+'_'+campos[y]);
+                alert('editado :'+model+'_'+linea+'_'+campos[y]);*/
+                 $('#'+model2+'_'+i+'_'+campos[y]).attr({
+                    id: model2+'_'+linea+'_'+campos[y],
+                    name: model2+'['+linea+']['+campos[y]+']'
+                });
+            }
+            contador++;
+            linea++;
+        }
+        calculoGranTotal(model, model2);
         
     });
     
@@ -469,6 +520,7 @@
                                     </td>
                                     <td>
                                             <?php echo '<span id="totalU_'.$i.'">'.$linea->TOTAL.'</span>'; ?>
+                                            <?php echo CHtml::activeHiddenField($linea,"[$i]TOTAL"); ?>    
                                             <?php echo CHtml::activeHiddenField($linea,"[$i]ESTADO"); ?>    
                                             <?php echo CHtml::activeHiddenField($linea,"[$i]COMENTARIO"); ?>
                                     </td>
@@ -485,15 +537,15 @@
                                             </span>
                                            <div class="remove" id ="remover" style="float: left; margin-left: 5px;">
                                                       <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                                                     'buttonType'=>'button',
-                                                                     'type'=>'danger',
-                                                                     'size'=>'mini',
-                                                                     'icon'=>'minus white',
-                                                                     'htmlOptions'=>array('id'=>'btn-remover','class'=>'eliminaRegistro','name'=>$i)
-
-                                                             ));
-                                                     ?>
+                                                             'buttonType'=>'button',
+                                                             'type'=>'danger',
+                                                             'size'=>'mini',
+                                                             'icon'=>'minus white',
+                                                             'htmlOptions'=>array('id'=>"eliminaLinea_$i",'class'=>'eliminaLineaU','name'=>"$i")
+                                                         ));
+                                                   ?>
                                            </div>
+                                        <?php echo CHtml::hiddenField("rowIndexU_$i", $i, array('class'=>'rowIndexU')); ?>                                         
                                        </td>
                              </tr>
                        <?php  endforeach; ?>
