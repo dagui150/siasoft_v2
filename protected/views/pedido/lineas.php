@@ -192,7 +192,7 @@
     $('.eliminaLinea').live('click',function(){
         contador = $(this).attr('name');
         var model = 'LineaNuevo';
-        var model2 = <?php $model->isNewRecord ? false : 'PedidoLinea' ?>
+        var model2 =  'PedidoLinea';
            
         $('#remover_'+contador).click();
         var contadorMax = $('body').find('.rowIndex').max();
@@ -243,7 +243,7 @@
         var model = 'LineaNuevo';
         var model2 = 'PedidoLinea';
            
-        $('#remover_'+contador).click();
+        $('#removerU_'+contador).click();
         var contadorMax = $('body').find('.rowIndexU').max();
         var contFor = parseInt(contador, 10)+1;
         var linea = parseInt(contador, 10); 
@@ -487,18 +487,18 @@
                                             <?php echo CHtml::activeHiddenField($linea,"[$i]ARTICULO"); ?>
                                    </td>
                                    <td> 
-                                            <?php echo '<span id="descripcionU_'.$i.'">'.'</span>'; ?>                                            
+                                            <?php echo '<span id="descripcionU_'.$i.'">'.$linea->aRTICULO->NOMBRE.'</span>'; ?>                                            
                                    </td>
                                    <td> 
                                             <?php echo '<span id="cantidadU_'.$i.'">'.$linea->CANTIDAD.'</span>'; ?>    
                                             <?php echo CHtml::activeHiddenField($linea,"[$i]CANTIDAD"); ?>
                                    </td>
                                    <td>
-                                            <?php echo '<span id="unidadU_'.$i.'">'.$linea->UNIDAD.'</span>'; ?>
+                                            <?php echo '<span id="unidadU_'.$i.'">'.$linea->uNIDAD->NOMBRE.'</span>'; ?>
                                             <?php echo CHtml::activeHiddenField($linea,"[$i]UNIDAD"); ?>
                                     </td>
                                    <td>
-                                            <?php echo '<span id="tipo_precioU_'.$i.'">'.$linea->TIPO_PRECIO.'</span>'; ?>
+                                            <?php echo '<span id="tipo_precioU_'.$i.'">'.$linea->tIPOPRECIO->nIVELPRECIO->DESCRIPCION.'</span>'; ?>
                                             <?php echo CHtml::activeHiddenField($linea,"[$i]TIPO_PRECIO"); ?>
                                     </td>
                                     <td>
@@ -531,17 +531,17 @@
                                                                  'type'=>'normal',
                                                                  'size'=>'mini',
                                                                  'icon'=>'pencil',
-                                                                 'htmlOptions'=>array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')
+                                                                 'htmlOptions'=>array('class'=>'editU','name'=>"$i",'id'=>"editU_$i")
                                                              ));
                                                 ?>
                                             </span>
-                                           <div class="remove" id ="remover" style="float: left; margin-left: 5px;">
+                                           <div class="remove" id ="removerU" style="float: left; margin-left: 5px;">
                                                       <?php $this->widget('bootstrap.widgets.BootButton', array(
                                                              'buttonType'=>'button',
                                                              'type'=>'danger',
                                                              'size'=>'mini',
                                                              'icon'=>'minus white',
-                                                             'htmlOptions'=>array('id'=>"eliminaLinea_$i",'class'=>'eliminaLineaU','name'=>"$i")
+                                                             'htmlOptions'=>array('id'=>"eliminaLineaU_$i",'class'=>'eliminaLineaU','name'=>"$i")
                                                          ));
                                                    ?>
                                            </div>

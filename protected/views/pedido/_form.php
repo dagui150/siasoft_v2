@@ -77,6 +77,8 @@
     }
     
     function inicio(){
+        
+            $('#calculos').val($('#Pedido_TOTAL_A_FACTURAR').val());
             var cliente = $('#Pedido_CLIENTE').val();
             $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=CL&ID='+cliente,
                     function(data){
