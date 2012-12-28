@@ -25,7 +25,12 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1>Zonas</h1>
-
+<?php 
+if (isset($_GET['men'])){
+    SBaseController::mensaje($_GET['men']);
+}
+?>
+<div id="mensaje"></div>
 <div align="right">
     
             <?php 
@@ -85,13 +90,13 @@ $this->widget('bootstrap.widgets.BootButton', array(
 		'ACTUALIZADO_POR',
 		'ACTUALIZADO_EL',
 		*/
-        array(
-            'class'=>'bootstrap.widgets.BootButtonColumn',
-            'htmlOptions'=>array('style'=>'width: 50px'),
-	),
-    ),
+            array(
+                'class'=>'bootstrap.widgets.BootButtonColumn',
+                'htmlOptions'=>array('style'=>'width: 50px'),
+                'afterDelete'=>SBaseController::mensajeBorrar(),
+            ),
+        ),
 )); ?>
-
 <?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
  
 <div class="modal-header">

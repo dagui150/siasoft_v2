@@ -138,7 +138,8 @@ class ArticuloPrecioController extends Controller
                                     }
                                 }
                         
-				$this->redirect(array('admin'));
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S002'));
 		}
 
 		$this->render('update',array(

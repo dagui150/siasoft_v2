@@ -22,6 +22,11 @@ $this->breadcrumbs=array(
 ?>
 
 <h1>Precios de Articulos</h1>
+<?php 
+if (isset($_GET['men'])){
+    SBaseController::mensaje($_GET['men']);
+}
+?>
 <?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array()); ?>
     <?php echo CHtml::HiddenField('check',''); ?>
 <div align="right">

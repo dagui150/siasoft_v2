@@ -56,8 +56,12 @@ class ProveedorController extends SBaseController
                             $model->UBICACION_GEOGRAFICA2 = NULL;
                             $model->UBICACION_GEOGRAFICA1 = NULL;
                         }
-			if($model->save())
-				$this->redirect(array('admin'));
+			if($model->save()){
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
                 if(isset($_GET['Nit']))
 			$nit->attributes=$_GET['Nit'];
@@ -95,8 +99,12 @@ class ProveedorController extends SBaseController
                             $model->UBICACION_GEOGRAFICA2 = NULL;
                             $model->UBICACION_GEOGRAFICA1 = NULL;
                         }
-			if($model->save())
-				$this->redirect(array('admin'));
+			if($model->save()){
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
                 
                 if(isset($_GET['Nit']))

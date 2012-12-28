@@ -43,7 +43,7 @@ class MensajeSistema extends CActiveRecord
 		return array(
 			array('CODIGO, TIPO, MENSAJE, ACTIVO', 'required'),
 			array('CODIGO', 'length', 'max'=>4),
-			array('TIPO, ACTIVO', 'length', 'max'=>1),
+			array('ACTIVO', 'length', 'max'=>1),
 			array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

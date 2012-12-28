@@ -107,7 +107,8 @@ class ArticuloEnsambleController extends Controller
                             echo $e;
                             $transaction->rollBack();
                         }
-			$this->redirect(array('admin'));
+			//$this->redirect(array('admin'));
+                        $this->redirect(array('admin&men=S002'));
 		}
 
 		$this->render('update',array(

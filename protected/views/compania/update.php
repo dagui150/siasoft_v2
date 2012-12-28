@@ -8,5 +8,9 @@ $this->breadcrumbs=array(
 <?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." Datos Empresa";?>
 
 <h1><?php echo Yii::t('app','UPDATE').' '.Yii::t('app','COMPANY'); ?></h1>
-
+<?php 
+if (isset($_GET['men'])){
+    SBaseController::mensaje($_GET['men']);
+}
+?>
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

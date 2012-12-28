@@ -64,11 +64,11 @@ class ConfFa extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('DECIMALES_PRECIO, DESCUENTO_PRECIO, DESCUENTO_AFECTA_IMP', 'required'),
-			array('CATEGORIA_CLIENTE, DECIMALES_PRECIO, FORMATO_PEDIDO, FORMATO_FACTURA, FORMATO_REMISION', 'numerical', 'integerOnly'=>true),
+			array('DECIMALES_PRECIO', 'required'),
+			array('CATEGORIA_CLIENTE,FORMATO_PEDIDO, FORMATO_FACTURA, FORMATO_REMISION', 'numerical', 'integerOnly'=>true),
 			array('COND_PAGO_CONTADO, BODEGA_DEFECTO', 'length', 'max'=>4),
 			array('NIVEL_PRECIO', 'length', 'max'=>12),
-			array('DESCUENTO_PRECIO, DESCUENTO_AFECTA_IMP, USAR_RUBROS', 'length', 'max'=>1),
+			array('USAR_RUBROS', 'length', 'max'=>1),
 			array('RUBRO1_NOMBRE, RUBRO2_NOMBRE, RUBRO3_NOMBRE, RUBRO4_NOMBRE, RUBRO5_NOMBRE', 'length', 'max'=>15),
 			array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('OBSERVACIONES', 'safe'),

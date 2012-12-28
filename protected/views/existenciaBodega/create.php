@@ -17,7 +17,7 @@ $('.search-button').click(function(){
 ?>
 
 <h1>Bodegas de Articulo "<?php echo $articulo.' - '.$barticulo->NOMBRE?>"</h1>
-
+<div id="mensaje"></div>
     <br>
     <div align="right">
          <?php
@@ -46,8 +46,9 @@ $('.search-button').click(function(){
 		'CANT_RESERVADA',
 		'CANT_REMITIDA',
 		array(
-			 'class'=>'bootstrap.widgets.BootButtonColumn',
-                         'template'=>'{update}{delete}'
+                    'class'=>'bootstrap.widgets.BootButtonColumn',
+                    'template'=>'{update}{delete}',
+                    'afterDelete'=>SBaseController::mensajeBorrar(),
 		),
 	),
     ));

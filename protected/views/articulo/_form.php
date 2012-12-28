@@ -372,6 +372,7 @@
                     $funcion = 'updateBodega';
                     $id = 'bodega-grid';
                     $data=$bodega->search();
+                    $data->pagination = array('pageSize'=>5);
                     $this->renderPartial('/bodega/bodegas', array('bodega'=>$bodega,'funcion'=>$funcion,'id'=>$id,'data'=>$data,'check'=>false));
                 ?>
 	</div>

@@ -76,14 +76,15 @@ class BodegaController extends SBaseController
 		{
 			$model2->attributes=$_POST['Bodega'];
 			if($model2->save()){
-                            $mensaje = "sdfhnsdkjfhjds1111";
-                            $this->render('admin', array('alerta'=>$mensaje));
+                            //$mensaje = "sdfhnsdkjfhjds1111";
+                            //$this->render('admin', array('alerta'=>$mensaje));
 			    //$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S003'));
                         }else{
-                            $mensaje = "sdfjhsdjkfhsd22222";
-                            $this->render('admin', array('alerta'=>$mensaje));
-                            
+                            //$mensaje = "sdfjhsdjkfhsd22222";
+                            //$this->render('admin', array('alerta'=>$mensaje));
                             //$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=E003'));
                         }
 		}
 
@@ -120,8 +121,12 @@ class BodegaController extends SBaseController
 		if(isset($_POST['Bodega']))
 		{
 			$model2->attributes=$_POST['Bodega'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(
@@ -218,11 +223,13 @@ class BodegaController extends SBaseController
                                // $mensaje = MensajeSistema::mensaje('S001');
                                 //$tipo = "success";
 				//$this->redirect(array('admin', 'mensaje'=>$mensaje, 'tipo'=>$tipo));
+                            $this->redirect(array('admin&men=S003'));
                         }
                         else{
                             //$mensaje = MensajeSistema::mensaje('E001');
                             //$tipo = "error";
                             //$this->render('admin', array('mensaje'=>$mensaje, 'tipo'=>$tipo));
+                            $this->redirect(array('admin&men=E003'));
                         }
 		}
 		if(isset($_GET['Bodega']))

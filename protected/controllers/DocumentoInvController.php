@@ -95,7 +95,8 @@ class DocumentoInvController extends SBaseController
                             
                             $modelConsecutivo->save();
                             
-                            $this->redirect(array('admin'));
+                            //$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S003'));
                         }
 			
 		}
@@ -378,7 +379,8 @@ class DocumentoInvController extends SBaseController
                                 }
                             }
                             
-                            $this->redirect(array('view','id'=>$model->DOCUMENTO_INV));
+                            //$this->redirect(array('view','id'=>$model->DOCUMENTO_INV));
+                            $this->redirect(array('view&id='.$id.'&men=S002'));
                         }
 				
 		}

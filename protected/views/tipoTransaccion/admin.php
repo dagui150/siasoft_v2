@@ -9,6 +9,12 @@ $this->breadcrumbs=array(
 ?>
 
 <h1>Tipos de Transacción</h1>
+<?php 
+if (isset($_GET['men'])){
+    SBaseController::mensaje($_GET['men']);
+}
+?>
+<div id="mensaje"></div>
 <br>
 <div align="right"> 
 <?php 
@@ -62,6 +68,7 @@ $this->breadcrumbs=array(
                     'class'=>'bootstrap.widgets.BootButtonColumn',
                     'deleteButtonUrl'=>'Yii::app()->controller->createUrl("delete",array("id"=>($data->TRANSACCION_FIJA == \'N\') ? $data->TIPO_TRANSACCION : 0 ))',
                     'htmlOptions'=>array('style'=>'width: 50px'),
+                    'afterDelete'=>SBaseController::mensajeBorrar(),
 		),
 	),
     )); 

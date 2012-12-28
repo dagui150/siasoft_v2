@@ -70,8 +70,12 @@ class EntidadFinancieraController extends SBaseController
 		if(isset($_POST['EntidadFinanciera']))
 		{
 			$model2->attributes=$_POST['EntidadFinanciera'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
 
 		$this->render('create',array(
@@ -95,8 +99,12 @@ class EntidadFinancieraController extends SBaseController
 		if(isset($_POST['EntidadFinanciera']))
 		{
 			$model2->attributes=$_POST['EntidadFinanciera'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(
@@ -172,8 +180,12 @@ class EntidadFinancieraController extends SBaseController
 		if(isset($_POST['EntidadFinanciera']))
 		{
 			$model2->attributes=$_POST['EntidadFinanciera'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
 		if(isset($_GET['EntidadFinanciera']))
 			$model->attributes=$_GET['EntidadFinanciera'];

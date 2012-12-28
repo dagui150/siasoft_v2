@@ -43,6 +43,11 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1>Administrar Ordenes de Compras</h1>
+<?php 
+if (isset($_GET['men'])){
+    SBaseController::mensaje($_GET['men']);
+}
+?>
 <br />
 <div id="mensaje"></div>
 <div align="right">

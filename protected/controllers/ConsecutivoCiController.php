@@ -40,8 +40,12 @@ class ConsecutivoCiController extends SBaseController
 		if(isset($_POST['ConsecutivoCi']))
 		{
 			$model2->attributes=$_POST['ConsecutivoCi'];
-			if($model2->save())
-				$this->redirect(array('admin',));
+			if($model2->save()){
+				//$this->redirect(array('admin',));
+                                $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
 
 		$this->render('create',array(
@@ -66,7 +70,7 @@ class ConsecutivoCiController extends SBaseController
 		if(isset($_POST['ConsecutivoCi']))
 		{
 			$model2->attributes=$_POST['ConsecutivoCi'];
-			if($model2->save())
+			if($model2->save()){
                             //ACTUALIZAR REGISTROS
                             if(isset($_POST['ConsecCiTipoTrans'])){
                                 foreach ($_POST['ConsecCiTipoTrans'] as $datos){
@@ -127,8 +131,9 @@ class ConsecutivoCiController extends SBaseController
                                          $conUsuario->save();
                                     }
                             }
-                            
-                            $this->redirect(array('view','id'=>$model2->ID));
+                        }
+                            //$this->redirect(array('view','id'=>$model2->ID));
+                        $this->redirect(array('view&id='.$id.'&men=S002'));
 		}
 
 		$this->render('update',array(
@@ -185,7 +190,7 @@ class ConsecutivoCiController extends SBaseController
 		if(isset($_POST['ConsecutivoCi']))
 		{
 			$model2->attributes=$_POST['ConsecutivoCi'];
-			if($model2->save())
+			if($model2->save()){
                             
                             if(isset($_POST['ConsecCiTipoTransNuevo'])){
                                 foreach ($_POST['ConsecCiTipoTransNuevo'] as $datos){
@@ -208,7 +213,9 @@ class ConsecutivoCiController extends SBaseController
                                     }
                                }
                             }
-                           $this->redirect(array('admin',));
+                        }
+                           //$this->redirect(array('admin',));
+                        $this->redirect(array('admin&men=S003'));
 		}
                 
 		if(isset($_GET['ConsecutivoCi']))

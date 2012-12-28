@@ -8,6 +8,11 @@ $this->breadcrumbs=array(
 ?>
 
 <h1>Ver Consecutivo "<?php echo $model->DESCRIPCION; ?>"</h1>
+<?php 
+if (isset($_GET['men'])){
+    SBaseController::mensaje($_GET['men']);
+}
+?>
 <BR>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

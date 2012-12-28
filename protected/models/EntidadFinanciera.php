@@ -45,7 +45,7 @@ class EntidadFinanciera extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID, NIT, DESCRIPCION', 'required'),
-                        array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'Entidad financiera','allowEmpty'=>false),
+                        array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'EntidadFinanciera','allowEmpty'=>false),
 			array('ID', 'numerical', 'integerOnly'=>true),
 			array('NIT, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('DESCRIPCION', 'length', 'max'=>64),

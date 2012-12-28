@@ -514,7 +514,7 @@ class OrdenCompraController extends SBaseController
 		if(isset($_POST['OrdenCompra']))
 		{
 			$model->attributes=$_POST['OrdenCompra'];
-			if($model->save())
+			if($model->save()){
                             if(isset($_POST['Nuevo'])){
                                 foreach ($_POST['Nuevo'] as $datos){
                                     
@@ -561,7 +561,9 @@ class OrdenCompraController extends SBaseController
                                     }                                       
                                 }
                             }
-				$this->redirect(array('admin'));
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S003'));
+                        }
 		}
                 if(isset($_GET['Proveedor']))
 			$proveedor->attributes=$_GET['Proveedor'];
@@ -607,7 +609,7 @@ class OrdenCompraController extends SBaseController
                                 }
                             }
                         }
-			if($model->save()) 
+			if($model->save()) {
                             if(isset($_POST['OrdenCompraLinea'])){
                                 foreach ($_POST['OrdenCompraLinea'] as $datos2){
                                     
@@ -678,8 +680,9 @@ class OrdenCompraController extends SBaseController
                                     $i++;
                                 }
                             }
-                            
-                            	$this->redirect(array('admin'));
+                            	//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S002'));
+                        }
 		}
 
 		$this->render('update',array(

@@ -44,7 +44,7 @@ class Zona extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('NOMBRE', 'required'),
+			array('NOMBRE, PAIS', 'required'),
 			array('PAIS', 'length', 'max'=>4),
 			array('NOMBRE', 'length', 'max'=>64),
 			array('ACTIVO', 'length', 'max'=>1),

@@ -71,8 +71,12 @@ class RetencionController extends SBaseController
 		if(isset($_POST['Retencion']))
 		{
 			$model->attributes=$_POST['Retencion'];
-			if($model->save())
-				$this->redirect(array('admin'));
+			if($model->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
 
 		$this->render('create',array(
@@ -113,8 +117,12 @@ class RetencionController extends SBaseController
 		if(isset($_POST['Retencion']))
 		{
 			$model->attributes=$_POST['Retencion'];
-			if($model->save())
-				$this->redirect(array('admin'));
+			if($model->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(

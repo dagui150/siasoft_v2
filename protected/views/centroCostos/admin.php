@@ -24,8 +24,12 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1>Centro de Costos</h1>
-
-
+<?php 
+if (isset($_GET['men'])){
+    SBaseController::mensaje($_GET['men']);
+}
+?>
+<div id="mensaje"></div>
 <div align="right">
                     <?php 
 
@@ -89,6 +93,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
 		array(
                     'class'=>'bootstrap.widgets.BootButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),
+                    'afterDelete'=>SBaseController::mensajeBorrar(),
 		),
 	),
 )); ?>

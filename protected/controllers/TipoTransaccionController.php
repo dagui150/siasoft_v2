@@ -40,8 +40,12 @@ class TipoTransaccionController extends SBaseController
 		if(isset($_POST['TipoTransaccion']))
 		{
 			$model2->attributes=$_POST['TipoTransaccion'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
 
 		$this->render('create',array(
@@ -66,7 +70,7 @@ class TipoTransaccionController extends SBaseController
 		if(isset($_POST['TipoTransaccion']))
 		{
 			$model2->attributes=$_POST['TipoTransaccion'];
-			if($model2->save())
+			if($model2->save()){
                             //  ACTUALIZAR REGISTROS
                             if(isset($_POST['SubtipoTransaccion'])){
                                 foreach ($_POST['SubtipoTransaccion'] as $datos){
@@ -123,7 +127,8 @@ class TipoTransaccionController extends SBaseController
                                      $cantidad->save();
                                 }
                             }
-                            $this->redirect(array('admin',));
+                        $this->redirect(array('admin&men=S002'));
+                        }
 		}
 
 		$this->render('update',array(
@@ -206,7 +211,7 @@ class TipoTransaccionController extends SBaseController
                                      $cantidad->save();
                                 }
                             }
-                            $this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S003'));
                         }
 		}
                 

@@ -7,6 +7,12 @@ $this->breadcrumbs=array(
 
 ?>
 <h1>Clasificaciónes</h1>
+<?php 
+if (isset($_GET['men'])){
+    SBaseController::mensaje($_GET['men']);
+}
+?>
+<div id="mensaje"></div>
 <br>
 <div align="right">
 <?php 
@@ -39,8 +45,9 @@ $this->breadcrumbs=array(
                         ),
 			'POSICION',
 			array(
-				'class'=>'bootstrap.widgets.BootButtonColumn',
-                                'template'=>'{update}{delete}',
+                            'class'=>'bootstrap.widgets.BootButtonColumn',
+                            'template'=>'{update}{delete}',
+                            'afterDelete'=>SBaseController::mensajeBorrar(),
 			),
 		),
 	)); 

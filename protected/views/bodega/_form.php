@@ -9,7 +9,7 @@ $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
 		'validateOnSubmit'=>true,
 	),	
 )); ?>
-        <?php echo $form->errorSummary($model2); ?>,
+        <?php echo $form->errorSummary($model2); ?>
                 <table style="width: 400px;">
                     <tr>
 

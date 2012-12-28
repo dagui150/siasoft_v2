@@ -252,7 +252,7 @@ class IngresoCompraController extends Controller
 		{
 			$model->attributes=$_POST['IngresoCompra'];
                         $_POST['IngresoCompra']['TIENE_FACTURA'] == 1 ? $model->TIENE_FACTURA = 'S' : $model->TIENE_FACTURA = 'N';
-			if($model->save())
+			if($model->save()){
                             if(isset($_POST['LineaNuevo'])){
                                 foreach ($_POST['LineaNuevo'] as $datos){
                                     $salvar = new IngresoCompraLinea;
@@ -278,7 +278,9 @@ class IngresoCompraController extends Controller
                                     $i++;
                                 }
                             }
-				$this->redirect(array('admin'));
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S003'));
+                        }
 		}
 
 		$this->render('create',array(
@@ -308,8 +310,12 @@ class IngresoCompraController extends Controller
 		if(isset($_POST['IngresoCompra']))
 		{
 			$model->attributes=$_POST['IngresoCompra'];
-			if($model->save())
-				$this->redirect(array('admin'));
+			if($model->save()){
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(
