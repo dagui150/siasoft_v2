@@ -5,7 +5,10 @@
 ?>
 
 <script>
-    $(document).ready(inicio);
+    $(document).ready(function(){
+        inicio();
+    });
+    //$(document).ready(inicio);
     
     function inicio(){
         

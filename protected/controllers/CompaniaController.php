@@ -102,18 +102,28 @@ class CompaniaController extends SBaseController
 			if($_POST['eliminar'] == '1'){
                             unlink(Yii::getPathOfAlias('webroot').'/logo/'.$logo);
                             $model->LOGO = '';
-                            $model->save();
+                            if($model->save()){
+                                $this->redirect(array('update&id=30&men=S002'));
+                            }else{
+                                $this->redirect(array('update&id=30&men=E002'));
+                            }
                         }
                         else{
                             if($model->LOGO == ''){
                                 $model->LOGO = $logo;
-                                $model->save();
+                                if($model->save()){
+                                    $this->redirect(array('update&id=30&men=S002'));
+                                }else{
+                                    $this->redirect(array('update&id=30&men=E002'));
+                                }
                             }
                             else{
                                 if($model->save() || $_FILES['Compania']['LOGO'] != ''){
                                         $model->LOGO->saveAs(Yii::getPathOfAlias('webroot').'/logo/'.$model->LOGO);
-                                        $this->redirect(array('index'));
-                                        
+                                        //$this->redirect(array('index'));
+                                        $this->redirect(array('update&id=30&men=S002'));
+                                }else{
+                                    $this->redirect(array('update&id=30&men=E002'));
                                 }
                             }
                         }

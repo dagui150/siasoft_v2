@@ -94,8 +94,12 @@ class ConfAsController extends SBaseController
 		if(isset($_POST['ConfAs']))
 		{
 			$model2->attributes=$_POST['ConfAs'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('update&id=1&men=S002'));
+                        } else {
+                            $this->redirect(array('update&id=1&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(

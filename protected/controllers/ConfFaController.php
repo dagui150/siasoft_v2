@@ -106,8 +106,12 @@ class ConfFaController extends Controller
 		if(isset($_POST['ConfFa']))
 		{
 			$model->attributes=$_POST['ConfFa'];
-			if($model->save())
-				$this->redirect(Yii::app()->user->returnUrl);
+			if($model->save()) {
+				//$this->redirect(Yii::app()->user->returnUrl);
+				$this->redirect(array('update&id=1&men=S002'));
+                        } else {
+                            $this->redirect(array('update&id=1&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(

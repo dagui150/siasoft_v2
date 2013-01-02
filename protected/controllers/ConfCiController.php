@@ -88,8 +88,12 @@ class ConfCiController extends SBaseController
                                 $model->UCC12_REGLA_LOCAL=$_POST['ConfCi']['UCC12_REGLA_LOCAL'].''.$_POST['PRODUCTO_UCC12'];
                         }
                         
-			if($model->save())
-				$this->redirect(Yii::app()->user->returnUrl);
+			if($model->save()){
+				//$this->redirect(Yii::app()->user->returnUrl);
+                                $this->redirect(array('update&id=0&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(

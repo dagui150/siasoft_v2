@@ -46,8 +46,12 @@ class ImpuestoController extends SBaseController
 		if(isset($_POST['Impuesto']))
 		{
 			$model2->attributes=$_POST['Impuesto'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
 
 		$this->render('create',array(
@@ -70,8 +74,12 @@ class ImpuestoController extends SBaseController
 		if(isset($_POST['Impuesto']))
 		{
 			$model2->attributes=$_POST['Impuesto'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(
@@ -144,8 +152,12 @@ class ImpuestoController extends SBaseController
 		if(isset($_POST['Impuesto']))
 		{
 			$model2->attributes=$_POST['Impuesto'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
 		if(isset($_GET['Impuesto']))
 			$model->attributes=$_GET['Impuesto'];

@@ -104,8 +104,9 @@ class SolicitudOcController extends SBaseController
                                     $i++;
                                 }
                             }
-				$this->redirect(array('admin'));
-		}
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S003'));
+                        }
                 }
 		$this->render('create',array(
 			'model'=>$model,
@@ -396,7 +397,7 @@ class SolicitudOcController extends SBaseController
                             }
                         }
                         
-			if($model->save())
+			if($model->save()){
                             if(isset($_POST['SolicitudOcLinea'])){
                                 foreach ($_POST['SolicitudOcLinea'] as $datos){                                    
                                     $linea=SolicitudOcLinea::model()->findByPk($datos['SOLICITUD_OC_LINEA']);
@@ -432,8 +433,9 @@ class SolicitudOcController extends SBaseController
                                     $i++;
                                 }
                             }
-                            
-				$this->redirect(array('admin'));
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S002'));
+                        }
 		}
 
 		$this->render('update',array(

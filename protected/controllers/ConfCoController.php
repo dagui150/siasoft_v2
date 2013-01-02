@@ -70,8 +70,12 @@ class ConfCoController extends SBaseController
 		if(isset($_POST['ConfCo']))
 		{
 			$model->attributes=$_POST['ConfCo'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->ID));
+			if($model->save()){
+				//$this->redirect(array('view','id'=>$model->ID));
+                                $this->redirect(array('view&id='.$id.'&men=S003'));
+                        } else {
+                            $this->redirect(array('view&id='.$id.'&men=E003'));
+                        }
 		}
 
 		$this->render('create',array(
@@ -94,8 +98,12 @@ class ConfCoController extends SBaseController
 		if(isset($_POST['ConfCo']))
 		{
 			$model->attributes=$_POST['ConfCo'];
-			if($model->save())
-				$this->redirect(array('/site/index'));
+			if($model->save()){
+				//$this->redirect(array('/site/index'));
+                                $this->redirect(array('update&id=1&men=S002'));
+                        } else {
+                            $this->redirect(array('update&id=1&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(

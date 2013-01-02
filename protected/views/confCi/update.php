@@ -7,7 +7,11 @@ $this->breadcrumbs=array(
 ?>
 
 <h1>Configuración de Inventario</h1>
-
+<?php 
+if (isset($_GET['men'])){
+    SBaseController::mensaje($_GET['men']);
+}
+?>
 <?php echo $this->renderPartial('_form2',
         array(
             'model'=>$model,

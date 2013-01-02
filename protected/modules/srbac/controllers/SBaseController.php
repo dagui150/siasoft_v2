@@ -34,6 +34,32 @@ class SBaseController extends CController {
         return $boton;
     }
     
+    public function mensaje($men_){
+            $mensaje_ = MensajeSistema::model()->findByPk($men_);
+            $img_=substr($men_, 0,1);
+            switch ($img_){
+                case 'S':
+                    $img_url="/images/success.png";
+                    break;
+                case 'E':
+                    $img_url="/images/error.png";
+                    break;
+            }
+            Yii::app()->user->setFlash($mensaje_->TIPO, '<font size="5" align="left">&nbsp &nbsp<img src='.Yii::app()->baseUrl.$img_url.'>&nbsp &nbsp'.$mensaje_->MENSAJE.'.</font>');
+            $this->widget('bootstrap.widgets.BootAlert');
+    }
+    
+    public function mensajeBorrar(){
+        $borrar_success = MensajeSistema::model()->findByPk('S004');
+        $borrar_error = MensajeSistema::model()->findByPk('E004');
+        $mensaje_p1='$("#mensaje").html("<div class=';
+        $mensaje_p2='><button type=\'button\' class=\'close\' data-dismiss=\'alert\'>&times;</button><font size=\'5\' align=\'left\'>&nbsp &nbsp';
+        $mensaje_p3='.</font></div> ");';
+        $mensaje_success=$mensaje_p1.'\'alert alert-success\''.$mensaje_p2.'<img src='.Yii::app()->baseUrl."/images/success.png".'>&nbsp&nbsp'.$borrar_success->MENSAJE.$mensaje_p3;
+        $mensaje_error=$mensaje_p1.'\'alert alert-error\''.$mensaje_p2.'<img src='.Yii::app()->baseUrl."/images/error.png".'>&nbsp&nbsp'.$borrar_error->MENSAJE.$mensaje_p3;
+        return 'function(link,success,data){ if(success){'.$mensaje_success.'}else{window.alert = null;'.$mensaje_error.'}}';
+    }
+
     public static function unformat($valor){
         $trans = array('.' => '');
         $trans2 = array(',' => '.');

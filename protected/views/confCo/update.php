@@ -15,5 +15,9 @@ $this->menu=array(
 ?> 	
 
 <h1>Configuración de compras</h1>
-
+<?php 
+if (isset($_GET['men'])){
+    SBaseController::mensaje($_GET['men']);
+}
+?>
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

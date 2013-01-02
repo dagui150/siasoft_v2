@@ -82,7 +82,11 @@ class NitController extends SBaseController
                                 $model->OBSERVACIONES = $datos['OBSERVACIONES'];
                                 $model->ACTIVO = 'S';
                                 
-                                $model->save();
+                                if($model->save()){
+                                    $this->redirect(array('admin&men=S003'));
+                                } else {
+                                    $this->redirect(array('admin&men=E003'));
+                                }
                                // $model->unsetAttributes();
                         }
                         
@@ -117,8 +121,12 @@ class NitController extends SBaseController
 		if(isset($_POST['Nit']))
 		{
 			$model2->attributes=$_POST['Nit'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(

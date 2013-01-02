@@ -44,8 +44,12 @@ class RegimenTributarioController extends Controller
 		if(isset($_POST['RegimenTributario']))
 		{
 			$model2->attributes=$_POST['RegimenTributario'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
 
 		$this->render('create',array(
@@ -68,8 +72,12 @@ class RegimenTributarioController extends Controller
 		if(isset($_POST['RegimenTributario']))
 		{
 			$model2->attributes=$_POST['RegimenTributario'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(
@@ -84,11 +92,17 @@ class RegimenTributarioController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow deletion via POST request
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
         
         public function actionRestaurar($id)
@@ -121,7 +135,11 @@ class RegimenTributarioController extends Controller
                 if(isset($_POST['RegimenTributario']))
 		{
 			$model2->attributes=$_POST['RegimenTributario'];
-			$model2->save();
+			if($model2->save()){
+                            $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
                 }
 		if(isset($_GET['RegimenTributario']))
 			$model->attributes=$_GET['RegimenTributario'];

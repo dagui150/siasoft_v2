@@ -114,7 +114,8 @@ class ArticuloController extends SBaseController
                                      $adi->save();
                                 }
                             }
-                            $this->redirect(array('admin'));
+                            //$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S003'));
                         }else{
                         $model->attributes=$_POST['Articulo'];
                 }
@@ -241,7 +242,8 @@ class ArticuloController extends SBaseController
                                 }
                                 
                              }
-                            $this->redirect(array('admin'));
+                                //$this->redirect(array('admin'));
+                             $this->redirect(array('admin&men=S002'));
                         }else{
                         $model->attributes=$_POST['Articulo'];
                         }

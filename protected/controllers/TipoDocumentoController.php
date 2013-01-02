@@ -70,8 +70,12 @@ class TipoDocumentoController extends SBaseController
 		if(isset($_POST['TipoDocumento']))
 		{
 			$model2->attributes=$_POST['TipoDocumento'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
 
 		$this->render('create',array(
@@ -94,8 +98,12 @@ class TipoDocumentoController extends SBaseController
 		if(isset($_POST['TipoDocumento']))
 		{
 			$model2->attributes=$_POST['TipoDocumento'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(
@@ -175,8 +183,12 @@ class TipoDocumentoController extends SBaseController
 		if(isset($_POST['TipoDocumento']))
 		{
 			$model2->attributes=$_POST['TipoDocumento'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
 		if(isset($_GET['TipoDocumento']))
 			$model->attributes=$_GET['TipoDocumento'];

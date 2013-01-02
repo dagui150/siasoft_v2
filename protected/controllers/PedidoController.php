@@ -184,8 +184,12 @@ class PedidoController extends Controller
 		if(isset($_POST['Pedido']))
 		{
 			$model->attributes=$_POST['Pedido'];
-			if($model->save())
-				$this->redirect(array('admin'));
+			if($model->save()){
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(

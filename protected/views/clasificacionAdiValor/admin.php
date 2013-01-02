@@ -7,6 +7,12 @@ $this->breadcrumbs=array(
 
 ?>
 <h1>Valores - Clasificaciónes</h1>
+<?php 
+if (isset($_GET['men'])){
+    SBaseController::mensaje($_GET['men']);
+}
+?>
+<div id="mensaje"></div>
 <br>
 <div align="right">
 
@@ -32,14 +38,15 @@ $this->breadcrumbs=array(
 		'filter'=>$model,
 		'columns'=>array(
 			array(
-				'name'=>'CLASIFICACION',
-				'header'=>'Clasificación',
-				'value'=>'$data->cLASIFICACION->NOMBRE',
+                            'name'=>'CLASIFICACION',
+                            'header'=>'Clasificación',
+                            'value'=>'$data->cLASIFICACION->NOMBRE',
 			),
                         'VALOR',
 			array(
-				'class'=>'bootstrap.widgets.BootButtonColumn',
-                                'template'=>'{update}{delete}',
+                            'class'=>'bootstrap.widgets.BootButtonColumn',
+                            'template'=>'{update}{delete}',
+                            'afterDelete'=>SBaseController::mensajeBorrar(),
 			),
 		),
 	)); 
