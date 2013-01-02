@@ -154,4 +154,21 @@ class NivelPrecio extends CActiveRecord
 			),
 		);
 	}
+        
+                public function searchPapelera()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		
+		$criteria->compare('ACTIVO','N');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'pagination'=>false,
+			'sort'=>false,
+		));
+	}
 }

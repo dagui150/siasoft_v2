@@ -90,6 +90,12 @@ class RegimenTributarioController extends Controller
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
+        
+        public function actionRestaurar($id)
+	{
+            $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
+		
+	}
 
 	/**
 	 * Lists all models.

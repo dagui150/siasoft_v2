@@ -61,7 +61,7 @@
 
 		<?php echo $form->textFieldRow($model2,'NOMBRE'); ?>
 		<?php echo $form->textFieldRow($model2,'OBSERVACION'); ?>
-		<?php echo $form->dropDownListRow($model2,'MODULO',  FormatoImpresion::Modulos(), array('empty' => 'Seleccione')); ?>        
+		<?php echo $form->dropDownListRow($model2,'MODULO', CHtml::listData(Modulo::model()->findAll('ACTIVO="S"'),'ID','NOMBRE'), array('empty' => 'Seleccione')); ?>        
 		<?php echo $form->dropDownListRow($model2,'SUBMODULO',array(), array('empty' => 'Seleccione')); ?>
 		<?php echo $form->dropDownListRow($model2,'RUTA',array(), array('empty' => 'Seleccione')); ?>
 		<?php echo $form->textFieldRow($model2,'TIPO'); ?>

@@ -128,6 +128,11 @@ class FormatoImpresionController extends SBaseController
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
 	
 	}
+        public function actionRestaurar($id)
+	{
+            $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
+		
+	}
 
 	/**
 	 * Lists all models.
@@ -202,11 +207,11 @@ class FormatoImpresionController extends SBaseController
 	}
         
         public function actionSubmodulo(){
-            echo CJSON::encode((FormatoImpresion::SubModulos($_GET['modulo'])));
+            echo CJSON::encode(CHtml::listData(SubModulo::model()->findAll('ACTIVO="S" AND REPORTE="S" AND MODULO="'.$_GET['modulo'].'"'),'ID','NOMBRE'));  
         }
         
         public function actionFormato(){
-            echo CJSON::encode((FormatoImpresion::Formato($_GET['submodulo']))); 
+            echo CJSON::encode(CHtml::listData(Plantilla::model()->findAll('ACTIVO="S" AND SUBMODULO="'.$_GET['submodulo'].'"'),'ID','NOMBRE'));
         }
         
 }

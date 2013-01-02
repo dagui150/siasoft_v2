@@ -157,6 +157,12 @@ class ConsecutivoCiController extends SBaseController
 		else
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
 	}
+        
+        public function actionRestaurar($id)
+	{
+            $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
+		
+	}
 
 	/**
 	 * Lists all models.

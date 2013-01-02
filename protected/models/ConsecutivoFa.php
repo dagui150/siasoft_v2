@@ -177,12 +177,21 @@ class ConsecutivoFa extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-        public static function extractNum($text) {
-            preg_match("/[0-9]*$/", $text,$num);
-            $res[0] = preg_replace("/([0-9]*$)(.*)/",'', $text);
-            $res[1]=$num[0];
-            return $res;
-        }
+        
+                public function searchPapelera()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
 
+		$criteria=new CDbCriteria;
 
+		
+		$criteria->compare('ACTIVO','N');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'pagination'=>false,
+			'sort'=>false,
+		));
+	}
 }

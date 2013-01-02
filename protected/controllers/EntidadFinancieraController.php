@@ -124,6 +124,12 @@ class EntidadFinancieraController extends SBaseController
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
+        
+        public function actionRestaurar($id)
+	{
+            $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
+		
+	}
 
 	/**
 	 * Lists all models.

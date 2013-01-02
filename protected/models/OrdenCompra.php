@@ -243,7 +243,9 @@ class OrdenCompra extends CActiveRecord
         public function behaviors()
 	{
 		$conf=ConfCo::model()->find();
+                $conf2=ConfAs::model()->find();
                 $dec=isset($conf->CANTIDAD_DEC)?$conf->CANTIDAD_DEC:0;
+                $decP=isset($conf2->PORCENTAJE_DEC)?$conf2->PORCENTAJE_DEC:0;
 		return array(
                         'defaults'=>array(
                             'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
@@ -253,8 +255,8 @@ class OrdenCompra extends CActiveRecord
                                    'MONTO_SEGURO'=>'###,##0.'.str_repeat('0',$dec),
                                    'MONTO_ANTICIPO'=>'###,##0.'.str_repeat('0',$dec),
                                    'TOTAL_A_COMPRAR'=>'###,##0.'.str_repeat('0',$dec),
+                                   'PORC_DESCUENTO'=>'#0.'.str_repeat('0',$decP),
                             ),
-                            
                             //'parseExpression'=> "strtr(\$value,',','.')",
                         ),
                     

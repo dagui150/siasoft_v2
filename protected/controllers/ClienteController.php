@@ -158,7 +158,7 @@ class ClienteController extends SBaseController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			Cliente::model()->updateByPk($id, array('ACTIVO'=>'S'));
+			Cliente::model()->updateByPk($id, array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -168,6 +168,11 @@ class ClienteController extends SBaseController
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
 	}
 
+        public function actionRestaurar($id)
+	{
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
+		
+	}
 
 	/**
 	 * Manages all models.
