@@ -19,11 +19,11 @@
         <script language="JavaScript">
             $(document).ready(function(){
 
-                /*$('input').blur(function(){
+                $('.decimal').blur(function(){
                     $(this).val(format($(this).val()));
-                });
-                
-                function format(value) {	
+                });                
+            });
+            function format(value) {
                     var num = value.replace(/\./g,'');	
 
                     if(!/,/.test(num)){
@@ -37,8 +37,13 @@
                         var num3 = num2+','+num.toString().split(',')[1] 
                         return num3;
                     }
-                }*/
-            });
+            }
+                
+            function unformat($text){
+                var $value = $text.toString().replace(/\./g,'');
+                $value = $value.toString().replace(/\,/g,'.');
+                return $value;
+            }
         </script>
     </head>
 

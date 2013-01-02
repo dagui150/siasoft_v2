@@ -42,7 +42,6 @@ class FacturaController extends SBaseController
                 $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
                 $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
 
-		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation(array($model,$cliente));
                 if(isset($_POST['ajax']) && $_POST['ajax']==='factura-linea-form')
 		{
@@ -90,13 +89,13 @@ class FacturaController extends SBaseController
                                         $i++;
                                  }
                              }
-                             //ACTUALIZAR SIGUIENTE VALOR
-                             $separados = ConsecutivoFa::extractNum($modelConsecutivo->VALOR_CONSECUTIVO);
-                             $longitud = strlen($separados[1]);
-                             $count = Factura::model()->count('CONSECUTIVO = "'.$model->CONSECUTIVO.'"');
-                             $modelConsecutivo->VALOR_CONSECUTIVO = $separados[0].str_pad(++$count, $longitud, "0", STR_PAD_LEFT);
+                              //ACTUALIZAR SIGUIENTE VALOR
+                                $separados = ConsecutivoFa::extractNum($modelConsecutivo->MASCARA);
+                                $longitud = strlen($separados[1]);
+                                $count = Factura::model()->count('CONSECUTIVO = "'.$model->CONSECUTIVO.'"');
+                                $modelConsecutivo->VALOR_CONSECUTIVO = $separados[0].str_pad(++$count, $longitud, "0", STR_PAD_LEFT);
 
-                             $modelConsecutivo->save();
+                             $modelConsecutivo->update();
                              $transaction->commit();
                              $this->redirect(array('admin'));
                         }catch(Exception $e){
