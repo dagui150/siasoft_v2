@@ -81,7 +81,7 @@
     }
     
     //actualizar una linea
-    function actualiza(model){
+    function actualiza(){
     
         limpiarForm();
         

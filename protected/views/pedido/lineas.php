@@ -131,7 +131,7 @@
                 $('.clonar').click();
                 contador = $('body').find('.rowIndex').max();
                 model ='LineaNuevo';
-                model2 ='PedidoLinea';
+                var model2 ='PedidoLinea';
                 var impuesto;
                 var tipo_precio = $('#Pedido_NIVEL_PRECIO').val();
                 
@@ -219,8 +219,6 @@
                     break
                 }
                 $('#'+span[x]+'_'+i).attr('id',span[x]+'_'+linea);
-                     
-                 
             }
             //CAMBIAR IDS Y NAMES DE LOS CAMPOS DE LAS LINEAS
             for(var y =0 ; y<=campos.length;y++){
@@ -235,14 +233,14 @@
             linea++;
         }
         calculoGranTotal(model, model2);
-        
     });
     
     $('.eliminaLineaU').live('click',function(){
         contador = $(this).attr('name');
         var model = 'LineaNuevo';
         var model2 = 'PedidoLinea';
-           
+        var numLinea = parseInt($('#CAMPO_ACTUALIZA').val(), 10);
+        $('#CAMPO_ACTUALIZA').val(numLinea - 1);
         $('#removerU_'+contador).click();
         var contadorMax = $('body').find('.rowIndexU').max();
         var contFor = parseInt(contador, 10)+1;
@@ -284,9 +282,7 @@
             linea++;
         }
         calculoGranTotal(model, model2);
-        
     });
-    
     
     function agregarCampos(contador,model){
         
@@ -309,14 +305,8 @@
         $('#cantidad_'+contador).text(cantidad);
         $('#porcdescuento_'+contador).text(0+' %');
         $('#monto_descuento_'+contador).text(0);
-  
-    } 
-        
-    
+    }
 });
-
-
-
 </script>
 <table style="margin-left: -100px;">
          <tr>
@@ -382,7 +372,7 @@
                     <td style="width: 74px;"><strong>% Iva</strong></td>
                     <td><strong>Iva</strong></td>
                     <td><strong>Total</strong></td>
-                    <td></td>
+                    <td>&nbsp;</td>
                </tr>
          </thead>
          <tfoot style="display:none;">

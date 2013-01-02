@@ -28,7 +28,8 @@
         if(model != false){
             var total_mercaderia =0,total_facturar=0,total_descuento=0,total_iva=0;
             var cantidad,precio,descuento,iva,total;
-            var contador = $('body').find('.rowIndex').max();
+            var contador = $('body').find('.rowIndex').max();           
+            var numLinea = parseInt($('#CAMPO_ACTUALIZA').val(), 10);
             for(var i = 0 ; i <=contador; i++){
                 //lineas         
                 cantidad = parseInt($('#'+model+'_'+i+'_CANTIDAD').val(), 10);
@@ -41,7 +42,7 @@
                 total_descuento += descuento;
                 total_iva += iva;
                 total_facturar = (total_mercaderia-total_descuento)+total_iva;
-                $('#linea_'+i).text(parseInt(i, 10) + 1);
+                $('#linea_'+i).text(parseInt(i, 10) + 1 + numLinea);
             }
             $('#Pedido_TOTAL_MERCADERIA').val(total_mercaderia);
             $('#Pedido_MONTO_DESCUENTO1').val(total_descuento);
@@ -51,9 +52,10 @@
         if(model2 != false){
            
             //var total_mercaderia =0,total_facturar=0,total_descuento=0,total_iva=0;
-           // var cantidad,precio,descuento,iva,total;
-            var contador = $('body').find('.rowIndexU').max();
-            for(var i = 0 ; i <=contador; i++){                 
+            //var cantidad,precio,descuento,iva,total;
+            var contador = $('body').find('.rowIndexU').max();            
+            var numLinea = parseInt($('#CAMPO_ACTUALIZA').val(), 10);
+            for(var i = 0 ; i <=contador; i++){      
                 //lineas         
                 cantidad = parseInt($('#'+model2+'_'+i+'_CANTIDAD').val(), 10);
                 precio = parseInt($('#'+model2+'_'+i+'_PRECIO_UNITARIO').val(), 10);
@@ -65,7 +67,7 @@
                 total_descuento += descuento;
                 total_iva += iva;
                 total_facturar = (total_mercaderia-total_descuento)+total_iva;
-                $('#linea_'+i).text(parseInt(i, 10) + 1);
+                $('#linea_'+i).text(parseInt(i, 10) + 1 + numLinea);
             }
             $('#Pedido_TOTAL_MERCADERIA').val(total_mercaderia);
             $('#Pedido_MONTO_DESCUENTO1').val(total_descuento);
