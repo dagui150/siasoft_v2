@@ -102,6 +102,7 @@
                                     array('label' => 'Retención', 'url' => array('/retencion/admin')),
                                     array('label'=>'Regimen Tributario', 'url'=>array('/regimenTributario/admin')),
                                     array('label' => 'Administración de Reportes', 'url' => array('/formatoImpresion/admin')),
+                                    array('label' => 'Papelera', 'url' => array('/Papelera/index')),
                             )),
                             /*array('label' => 'Recursos Humanos', 'url' => '#',
                                 'items' => array(

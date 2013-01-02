@@ -47,6 +47,13 @@
             <td><?php echo $this->botonAyuda('SIMB_MONEDA'); ?></td>
             </td>
         </tr>
+        <tr>
+            <td>
+        	<?php echo $form->textFieldRow($model2,'PORCENTAJE_DEC',array('size'=>6,'maxlength'=>6)); ?>
+            </td>
+            <td></td>
+            </td>
+        </tr>
         </table>
 		
 		

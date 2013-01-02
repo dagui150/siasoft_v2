@@ -1,31 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "formato_impresion".
+ * This is the model class for table "modulo".
  *
- * The followings are the available columns in table 'formato_impresion':
- * @property integer $ID
+ * The followings are the available columns in table 'modulo':
+ * @property string $ID
  * @property string $NOMBRE
- * @property string $OBSERVACION
- * @property string $MODULO
- * @property string $SUBMODULO
- * @property string $RUTA
- * @property string $TIPO
  * @property string $ACTIVO
  * @property string $CREADO_POR
  * @property string $CREADO_EL
  * @property string $ACTUALIZADO_POR
  * @property string $ACTUALIZADO_EL
- *
- * The followings are the available model relations:
- * @property ConsecutivoCi[] $consecutivoCis
  */
-class FormatoImpresion extends CActiveRecord {
+class Modulo extends CActiveRecord {
 
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return FormatoImpresion the static model class
+     * @return Cargo the static model class
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
@@ -35,7 +27,7 @@ class FormatoImpresion extends CActiveRecord {
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'formato_impresion';
+        return 'modulo';
     }
 
     /**
@@ -45,17 +37,10 @@ class FormatoImpresion extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array(' NOMBRE, MODULO, SUBMODULO, RUTA, TIPO', 'required'),
-            array('ID', 'numerical', 'integerOnly' => true),
-            array('NOMBRE', 'length', 'max' => 64),
-            array('MODULO, SUBMODULO, TIPO', 'length', 'max' => 4),
-            array('RUTA', 'length', 'max' => 128),
-            array('ACTIVO', 'length', 'max' => 1),
-            array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max' => 20),
-            array('OBSERVACION', 'safe'),
+            array('NOMBRE', 'required'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('ID, NOMBRE, OBSERVACION, MODULO, SUBMODULO, RUTA, TIPO, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on' => 'search'),
+            array('NOMBRE ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on' => 'search'),
         );
     }
 
@@ -66,7 +51,6 @@ class FormatoImpresion extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'consecutivoCis' => array(self::HAS_MANY, 'ConsecutivoCi', 'FORMATO_IMPRESION'),
         );
     }
 
@@ -75,13 +59,8 @@ class FormatoImpresion extends CActiveRecord {
      */
     public function attributeLabels() {
         return array(
-            'ID' => 'ID',
+            'ID' => 'Id',
             'NOMBRE' => 'Nombre',
-            'OBSERVACION' => 'Observacion',
-            'MODULO' => 'Modulo',
-            'SUBMODULO' => 'Submodulo',
-            'RUTA' => 'Formato',
-            'TIPO' => 'Tipo',
             'ACTIVO' => 'Activo',
             'CREADO_POR' => 'Creado Por',
             'CREADO_EL' => 'Creado El',
@@ -100,13 +79,8 @@ class FormatoImpresion extends CActiveRecord {
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('ID', $this->ID);
+        $criteria->compare('ID', $this->ID, true);
         $criteria->compare('NOMBRE', $this->NOMBRE, true);
-        $criteria->compare('OBSERVACION', $this->OBSERVACION, true);
-        $criteria->compare('MODULO', $this->MODULO, true);
-        $criteria->compare('SUBMODULO', $this->SUBMODULO, true);
-        $criteria->compare('RUTA', $this->RUTA, true);
-        $criteria->compare('TIPO', $this->TIPO, true);
         $criteria->compare('ACTIVO', 'S');
         $criteria->compare('CREADO_POR', $this->CREADO_POR, true);
         $criteria->compare('CREADO_EL', $this->CREADO_EL, true);
@@ -117,22 +91,21 @@ class FormatoImpresion extends CActiveRecord {
                     'criteria' => $criteria,
                 ));
     }
-    
-            public function searchPapelera()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
 
-		$criteria=new CDbCriteria;
-
-		
-		$criteria->compare('ACTIVO','N');
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-			'pagination'=>false,
-			'sort'=>false,
-		));
-	}
+    public function behaviors() {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'CREADO_EL',
+                'updateAttribute' => 'ACTUALIZADO_EL',
+                'setUpdateOnCreate' => true,
+            ),
+            'BlameableBehavior' => array(
+                'class' => 'application.components.BlameableBehavior',
+                'createdByColumn' => 'CREADO_POR',
+                'updatedByColumn' => 'ACTUALIZADO_POR',
+            ),
+        );
+    }
 
 }

@@ -388,27 +388,11 @@
                 <a class="close" data-dismiss="modal">&times;</a>
                 <br>
 		<?php 
-                    $this->widget('bootstrap.widgets.BootGridView', array(
-                             'type'=>'striped bordered condensed',
-                             'id'=>'bodega-grid',
-                             'template'=>"{items}",
-                             'dataProvider'=>$bodega->search(),
-                             'filter'=>$bodega,
-                             'selectionChanged'=>'updateBodega',
-                             'columns'=>array(
-                                   array(
-                                        'type'=>'raw',
-                                        'name'=>'ID',
-                                        'header'=>'Código Bodega',
-                                        'value'=>'CHtml::link($data->ID,"#")',
-                                        'htmlOptions'=>array('data-dismiss'=>'modal'),
-                                   ),
-                                   'DESCRIPCION',
-                                   'TIPO',
-                                   'TELEFONO',
-                                   'DIRECCION',
-                             ),
-                  ));
+                    $funcion = 'updateBodega';
+                    $id = 'bodega-grid';
+                    $data=$bodega->search();
+                    $data->pagination = array('pageSize'=>5);
+                    $this->renderPartial('/bodega/bodegas', array('bodega'=>$bodega,'funcion'=>$funcion,'id'=>$id,'data'=>$data,'check'=>false));
              ?>
 	</div>
         <div class="modal-footer">
@@ -431,7 +415,9 @@
                     
                     $funcion = 'updateImpuesto';
                     $id = 'impuesto-grid';
-                    echo $this->renderPartial('impuesto', array('impuesto'=>$impuesto,'funcion'=>$funcion,'id'=>$id));
+                    $data=$impuesto->search(); 
+                    $data->pagination = array('pageSize'=>5);
+                    echo $this->renderPartial('impuesto', array('impuesto'=>$impuesto,'funcion'=>$funcion,'id'=>$id,'data'=>$data));
                 ?>
 	</div>
         <div class="modal-footer">
@@ -455,7 +441,9 @@
                     
                     $funcion = 'updateImpuesto2';
                     $id = 'impuesto-grid2';
-                    echo $this->renderPartial('impuesto', array('impuesto'=>$impuesto,'funcion'=>$funcion,'id'=>$id));
+                    $data=$impuesto->search(); 
+                    $data->pagination = array('pageSize'=>5);
+                    echo $this->renderPartial('impuesto', array('impuesto'=>$impuesto,'funcion'=>$funcion,'id'=>$id,'data'=>$data));
                 ?>
 	</div>
         <div class="modal-footer">
@@ -479,7 +467,9 @@
                     
                     $funcion = 'updateRetencion';
                     $id = 'retencion-grid';
-                    echo $this->renderPartial('retencion', array('retencion'=>$retencion,'funcion'=>$funcion,'id'=>$id));
+                    $data=$retencion->search();
+                    $data->pagination = array('pageSize'=>5);
+                    echo $this->renderPartial('retencion', array('retencion'=>$retencion,'funcion'=>$funcion,'id'=>$id,'data'=>$data));
                 ?>
 	</div>
         <div class="modal-footer">
@@ -501,7 +491,9 @@
 		<?php
                     $funcion = 'updateRetencion2';
                     $id = 'retencion-grid2';
-                    echo $this->renderPartial('retencion', array('retencion'=>$retencion,'funcion'=>$funcion,'id'=>$id));
+                    $data=$retencion->search();
+                    $data->pagination = array('pageSize'=>5);
+                    echo $this->renderPartial('retencion', array('retencion'=>$retencion,'funcion'=>$funcion,'id'=>$id,'data'=>$data));
                 ?>
 	</div>
         <div class="modal-footer">
