@@ -240,6 +240,19 @@ class BodegaController extends SBaseController
 			'model2'=>$model2,
 		));
 	}
+        
+        // Inventario
+        public function actionInventario()
+	{
+		$model=new Bodega('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Bodega']))
+			$model->attributes=$_GET['Bodega'];
+
+		$this->render('inventario',array(
+			'model'=>$model,
+		));
+	}
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
