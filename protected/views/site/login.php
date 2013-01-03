@@ -3,6 +3,7 @@ $this->pageTitle=Yii::app()->name . ' - Login';
 $this->breadcrumbs=array(
 	'Login',
 );
+
 ?>
 <div id = "login">
 	
@@ -88,3 +89,4 @@ $this->breadcrumbs=array(
 	<?php $this->endWidget(); ?>
 	</div><!-- form -->
 </div>
+?>

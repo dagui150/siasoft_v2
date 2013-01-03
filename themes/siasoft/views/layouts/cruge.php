@@ -18,13 +18,22 @@
   </tr>
   <tr>
     <td class="form_medio">&nbsp;</td>
-    <td class="form_medio"><?php echo $content; ?></td>
-    <td class="form_medio">&nbsp;</td>
-  </tr>
-  <tr>
-    <td class="form_medio">&nbsp;</td>
-    <td class="form_medio">&nbsp;</td>
-    <td class="form_medio">&nbsp;</td>
+    <td class="form_medio" style="width:620px;"><?php echo $content; ?></td>
+    <td class="form_medio" style="width:250px;">
+		<?php if(Yii::app()->user->checkAccess('admin')) { ?>	
+			<div class="span-5 last ">
+				<div id="sidebar">
+					<?php
+						$this->widget('bootstrap.widgets.BootMenu', array(
+							'type'=>'list',
+							'items'=>Yii::app()->user->ui->adminItems,
+							'htmlOptions'=>array('class'=>'well')
+						));
+					?>
+				</div><!-- sidebar -->
+			</div>
+		<?php } ?>
+	</td>
   </tr>
 </table>
 

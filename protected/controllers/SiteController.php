@@ -2,6 +2,7 @@
 
 class SiteController extends Controller
 {
+	public $layout='//layouts/column2';
 	/**
 	 * Declares class-based actions.
 	 */
@@ -47,7 +48,7 @@ class SiteController extends Controller
 					$this->redirect(Yii::app()->user->returnUrl);
 			}
 			// display the login form
-			$this->render('login',array('model'=>$model));
+			$this->redirect('index.php?r=cruge/ui/login');
 			
 		}
 		else{
