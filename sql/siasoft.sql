@@ -78,7 +78,7 @@ CREATE TABLE `articulo` (
 
 INSERT INTO `articulo` (`ARTICULO`, `NOMBRE`, `ORIGEN_CORP`, `CLASE_ABC`, `TIPO_ARTICULO`, `TIPO_COD_BARRAS`, `CODIGO_BARRAS`, `EXISTENCIA_MINIMA`, `EXISTENCIA_MAXIMA`, `PUNTO_REORDEN`, `COSTO_FISCAL`, `COSTO_ESTANDAR`, `COSTO_PROMEDIO`, `COSTO_ULTIMO`, `PRECIO_BASE`, `DESCRIPCION_COMPRA`, `IMPUESTO_COMPRA`, `BODEGA`, `IMP1_AFECTA_COSTO`, `RETENCION_COMPRA`, `NOTAS`, `FRECUENCIA_CONTEO`, `PESO_NETO`, `PESO_NETO_UNIDAD`, `PESO_BRUTO`, `PESO_BRUTO_UNIDAD`, `VOLUMEN`, `VOLUMEN_UNIDAD`, `UNIDAD_ALMACEN`, `UNIDAD_EMPAQUE`, `UNIDAD_VENTA`, `FACTOR_EMPAQUE`, `FACTOR_VENTA`, `IMPUESTO_VENTA`, `RETENCION_VENTA`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 ('001',	'Articulo de ejemplo ',	'T',	'',	16,	NULL,	NULL,	1451414.00000000,	145154154.00000000,	10.00000000,	'Último',	0.00000000,	0.00000000,	500.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	5,	45.00000000,	3,	54.00000000,	3,	24.00000000,	5,	3,	2,	2,	5.00000000,	4.00000000,	'NING',	NULL,	'S',	'admin',	'2012-06-26 09:48:20',	'admin',	'2012-12-15 10:46:30'),
-('1',	'arroz',	'T',	'',	2,	NULL,	NULL,	1.00000000,	5.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
+('1',	'arroz',	'T',	'',	2,	NULL,	NULL,	1.00000000,	5.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	4,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
 ('10',	'pimienta',	'T',	'',	2,	NULL,	NULL,	1.00000000,	3.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
 ('11',	'color',	'T',	'',	2,	NULL,	NULL,	1.00000000,	2.00000000,	0.00000000,	'Estándar',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-07-10 05:20:20'),
 ('12',	'huevo',	'T',	'',	2,	NULL,	NULL,	1.00000000,	10.00000000,	0.00000000,	'Promedio',	1000.00000000,	23.33333333,	0.00000000,	80.00000000,	'',	NULL,	NULL,	'',	NULL,	'',	0,	0.00000000,	2,	0.00000000,	2,	0.00000000,	4,	3,	3,	3,	0.00000000,	0.00000000,	'NING',	NULL,	'S',	'admin',	'2012-07-10 05:20:20',	'admin',	'2012-10-05 15:04:28'),
@@ -895,6 +895,7 @@ CREATE TABLE `articulo_ensamble` (
   `ARTICULO_PADRE` varchar(20) DEFAULT NULL,
   `ARTICULO_HIJO` varchar(20) DEFAULT NULL,
   `CANTIDAD` decimal(28,8) NOT NULL,
+  `UNIDAD` int(11) NOT NULL,
   `ACTIVO` varchar(1) NOT NULL,
   `CREADO_POR` varchar(20) NOT NULL,
   `CREADO_EL` datetime NOT NULL,
@@ -903,12 +904,15 @@ CREATE TABLE `articulo_ensamble` (
   PRIMARY KEY (`ID`),
   KEY `FK_ARTICULO_HIJO` (`ARTICULO_HIJO`),
   KEY `FK_ARTICULO_PADRE` (`ARTICULO_PADRE`),
+  KEY `UNIDAD` (`UNIDAD`),
+  CONSTRAINT `articulo_ensamble_ibfk_1` FOREIGN KEY (`UNIDAD`) REFERENCES `unidad_medida` (`ID`),
   CONSTRAINT `FK_ARTICULO_HIJO` FOREIGN KEY (`ARTICULO_HIJO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `FK_ARTICULO_PADRE` FOREIGN KEY (`ARTICULO_PADRE`) REFERENCES `articulo` (`ARTICULO`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Almacena los articulos que permiten ensamblar un arituculo t';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Almacena los articulos que permiten ensamblar un arituculo t';
 
-INSERT INTO `articulo_ensamble` (`ID`, `ARTICULO_PADRE`, `ARTICULO_HIJO`, `CANTIDAD`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'001',	'12',	1.00000000,	'S',	'admin',	'2012-12-12 10:42:33',	'admin',	'2012-12-12 10:42:33');
+INSERT INTO `articulo_ensamble` (`ID`, `ARTICULO_PADRE`, `ARTICULO_HIJO`, `CANTIDAD`, `UNIDAD`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
+(1,	'001',	'12',	1.00000000,	3,	'S',	'admin',	'2012-12-12 10:42:33',	'admin',	'2012-12-18 15:28:46'),
+(2,	'001',	'10',	2000.00000000,	4,	'S',	'admin',	'2012-12-18 15:28:46',	'admin',	'2012-12-18 15:28:46');
 
 DROP TABLE IF EXISTS `articulo_multimedia`;
 CREATE TABLE `articulo_multimedia` (
@@ -1907,8 +1911,9 @@ CREATE TABLE `conf_as` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `IMPUESTO1_DESC` varchar(10) DEFAULT NULL COMMENT 'Se debe digitar el nombre que se desea aparezca en los reportes bajo el concepto de impuesto 1. Generalmente se utiliza “Consumo” o “Servicio”. No existe una tabla asociada a este campo, solamente es un campo de texto en el cual el usuario indica al siste',
   `IMPUESTO2_DESC` varchar(10) DEFAULT NULL COMMENT 'Se debe digitar el nombre que se desea aparezca en los reportes bajo el concepto de impuesto 2. Generalmente se utiliza "Ventas", pero si existen otros varios tipos de impuestos, se recomienda definir el mismo como Otros para poder utilizarlo de comodín. ',
-  `PATRON_CCOSTO` varchar(25) DEFAULT NULL COMMENT 'es el formato que se utiliza para definir el código de los Centros de Costo.\n            La idea del patrón, es organizar los centros de costo por niveles, su funcionalidad es similar a lo que se definirá para las cuentas contables.\n            Así por ej',
+  `PATRON_CCOSTO` varchar(25) DEFAULT NULL COMMENT 'es el formato que se utiliza para definir el código de los Centros de Costo. La idea del patrón, es organizar los centros de costo por niveles, su funcionalidad es similar a lo que se definirá para las cuentas contables. Así por ej',
   `SIMBOLO_MONEDA` varchar(3) DEFAULT NULL,
+  `PORCENTAJE_DEC` smallint(6) DEFAULT NULL,
   `CREADO_POR` varchar(20) NOT NULL,
   `CREADO_EL` datetime NOT NULL,
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
@@ -1916,8 +1921,8 @@ CREATE TABLE `conf_as` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena la configuración para el modulo administr';
 
-INSERT INTO `conf_as` (`ID`, `IMPUESTO1_DESC`, `IMPUESTO2_DESC`, `PATRON_CCOSTO`, `SIMBOLO_MONEDA`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'Iva',	'',	'1',	'$',	'admin',	'2012-05-11 11:32:22',	'admin',	'2012-05-11 11:32:22');
+INSERT INTO `conf_as` (`ID`, `IMPUESTO1_DESC`, `IMPUESTO2_DESC`, `PATRON_CCOSTO`, `SIMBOLO_MONEDA`, `PORCENTAJE_DEC`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
+(1,	'Iva',	'',	'1',	'$',	NULL,	'admin',	'2012-05-11 11:32:22',	'admin',	'2012-05-11 11:32:22');
 
 DROP TABLE IF EXISTS `conf_ci`;
 CREATE TABLE `conf_ci` (
@@ -2162,7 +2167,7 @@ CREATE TABLE `consecutivo_fa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena los consecutivos de documentos que se usan en el mo';
 
 INSERT INTO `consecutivo_fa` (`CODIGO_CONSECUTIVO`, `FORMATO_IMPRESION`, `CLASIFICACION`, `DESCRIPCION`, `TIPO`, `LONGITUD`, `VALOR_CONSECUTIVO`, `MASCARA`, `USA_DESPACHOS`, `USA_ESQUEMA_CAJAS`, `VALOR_MAXIMO`, `NUMERO_COPIAS`, `ORIGINAL`, `COPIA1`, `COPIA2`, `COPIA3`, `COPIA4`, `COPIA5`, `RESOLUCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('cp',	NULL,	'P',	'pedido',	'A',	10,	'PED-000005',	'PED-9999?9',	'0',	'0',	'',	1,	'',	'',	NULL,	NULL,	NULL,	NULL,	'',	'S',	'admin',	'2012-12-07 16:55:33',	'admin',	'2012-12-13 15:39:13'),
+('cp',	NULL,	'P',	'pedido',	'A',	10,	'PED-000008',	'PED-9999?9',	'0',	'0',	'',	1,	'',	'',	NULL,	NULL,	NULL,	NULL,	'',	'S',	'admin',	'2012-12-07 16:55:33',	'admin',	'2012-12-22 10:14:21'),
 ('cv',	NULL,	'F',	'ejemplo',	'A',	7,	'FAC-001',	'FAC-999',	'0',	'0',	'FAC-999',	2,	'Empresa',	'cnb',	'cvb',	'asdf',	NULL,	NULL,	'',	'S',	'admin',	'2012-10-26 11:02:07',	'admin',	'2012-12-05 14:55:00');
 
 DROP TABLE IF EXISTS `departamento`;
@@ -2337,7 +2342,7 @@ DROP TABLE IF EXISTS `factura`;
 CREATE TABLE `factura` (
   `FACTURA` varchar(50) NOT NULL,
   `CONSECUTIVO` varchar(10) NOT NULL,
-  `CLIENTE` varchar(20) DEFAULT NULL,
+  `CLIENTE` varchar(20) NOT NULL,
   `BODEGA` varchar(4) DEFAULT NULL,
   `CONDICION_PAGO` varchar(4) DEFAULT NULL COMMENT 'identificación alfanumérica de la condicion de pago',
   `NIVEL_PRECIO` varchar(12) DEFAULT NULL COMMENT 'identificación alfanumérica del nivel de precio.',
@@ -2992,7 +2997,10 @@ INSERT INTO `pedido` (`PEDIDO`, `CONSECUTIVO`, `CLIENTE`, `BODEGA`, `CONDICION_P
 ('PED-000001',	'cp',	'123456',	'23',	'1',	'1',	'2012-12-14',	'2012-12-13',	'2012-12-14',	NULL,	NULL,	'',	'',	'',	'',	'',	'',	'',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'N',	'N',	'N',	'admin',	'2012-12-13 15:33:56',	'admin',	'2012-12-13 15:33:56'),
 ('PED-000002',	'cp',	'123456',	'23',	'1',	'1',	'2012-12-14',	'0000-00-00',	'0000-00-00',	NULL,	NULL,	'',	'',	'',	'',	'',	'',	'',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'N',	'N',	'N',	'admin',	'2012-12-13 15:36:47',	'admin',	'2012-12-13 15:36:47'),
 ('PED-000003',	'cp',	'123456',	'23',	'1',	'1',	'2012-12-14',	'0000-00-00',	'0000-00-00',	NULL,	NULL,	'',	'',	'',	'',	'',	'',	'',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'N',	'N',	'N',	'admin',	'2012-12-13 15:38:46',	'admin',	'2012-12-13 15:38:46'),
-('PED-000004',	'cp',	'123456',	'23',	'1',	'1',	'2012-12-13',	'0000-00-00',	'0000-00-00',	NULL,	NULL,	'',	'',	'',	'',	'',	'',	'',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'N',	'N',	'N',	'admin',	'2012-12-13 15:39:13',	'admin',	'2012-12-13 15:39:13');
+('PED-000004',	'cp',	'123456',	'23',	'1',	'1',	'2012-12-13',	'0000-00-00',	'0000-00-00',	NULL,	NULL,	'',	'',	'',	'',	'',	'',	'',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'N',	'N',	'N',	'admin',	'2012-12-13 15:39:13',	'admin',	'2012-12-13 15:39:13'),
+('PED-000005',	'cp',	'123456',	'23',	'1',	'1',	'2012-12-21',	'2012-12-12',	'2012-12-15',	'safdsdf',	'2012-12-21',	NULL,	NULL,	NULL,	NULL,	NULL,	'asdad',	'asdad',	1600.00000000,	20.00000000,	20.00000000,	20.00000000,	320.00000000,	0.00000000,	1280.00000000,	'N',	'N',	'N',	'admin',	'2012-12-21 11:09:12',	'admin',	'2012-12-21 11:09:12'),
+('PED-000006',	'cp',	'123456',	'23',	'1',	'1',	'2012-12-22',	'0000-00-00',	'0000-00-00',	'',	'0000-00-00',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	1600.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	1600.00000000,	'N',	'N',	'N',	'admin',	'2012-12-22 10:11:45',	'admin',	'2012-12-22 10:11:45'),
+('PED-000007',	'cp',	'123456',	'23',	'1',	'1',	'2012-12-22',	'0000-00-00',	'0000-00-00',	'',	'0000-00-00',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	2880.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	2880.00000000,	'N',	'N',	'N',	'admin',	'2012-12-22 10:14:21',	'admin',	'2012-12-22 10:14:21');
 
 DROP TABLE IF EXISTS `pedido_linea`;
 CREATE TABLE `pedido_linea` (
@@ -3025,12 +3033,17 @@ CREATE TABLE `pedido_linea` (
   CONSTRAINT `FK_LINEA_PEDIDO` FOREIGN KEY (`PEDIDO`) REFERENCES `pedido` (`PEDIDO`),
   CONSTRAINT `FK_UNIDAD_LINEA_PEDIDO` FOREIGN KEY (`UNIDAD`) REFERENCES `unidad_medida` (`ID`),
   CONSTRAINT `pedido_linea_ibfk_1` FOREIGN KEY (`TIPO_PRECIO`) REFERENCES `articulo_precio` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Almacena las lineas de un pedido';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COMMENT='Almacena las lineas de un pedido';
 
 INSERT INTO `pedido_linea` (`ID`, `ARTICULO`, `PEDIDO`, `LINEA`, `UNIDAD`, `CANTIDAD`, `PRECIO_UNITARIO`, `PORC_DESCUENTO`, `MONTO_DESCUENTO`, `PORC_IMPUESTO`, `VALOR_IMPUESTO`, `TIPO_PRECIO`, `TOTAL`, `COMENTARIO`, `ESTADO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (3,	'12',	'PED-000002',	1,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	0.00000000,	'',	'N',	'S',	'admin',	'2012-12-13 15:36:47',	'admin',	'2012-12-13 15:36:47'),
 (4,	'12',	'PED-000003',	1,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	0.00000000,	'',	'N',	'S',	'admin',	'2012-12-13 15:38:46',	'admin',	'2012-12-13 15:38:46'),
-(5,	'12',	'PED-000004',	1,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	0.00000000,	'',	'N',	'S',	'admin',	'2012-12-13 15:39:13',	'admin',	'2012-12-13 15:39:13');
+(5,	'12',	'PED-000004',	1,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	0.00000000,	'',	'N',	'S',	'admin',	'2012-12-13 15:39:13',	'admin',	'2012-12-13 15:39:13'),
+(6,	'12',	'PED-000005',	1,	3,	20.00000000,	80.00000000,	20.00000000,	320.00000000,	0.00000000,	0.00000000,	130,	0.00000000,	'',	'N',	'S',	'admin',	'2012-12-21 11:09:12',	'admin',	'2012-12-21 11:09:12'),
+(7,	'12',	'PED-000006',	1,	3,	20.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	1600.00000000,	'',	'N',	'S',	'admin',	'2012-12-22 10:11:45',	'admin',	'2012-12-22 10:11:45'),
+(8,	'12',	'PED-000007',	1,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	960.00000000,	'',	'N',	'S',	'admin',	'2012-12-22 10:14:21',	'admin',	'2012-12-22 10:14:21'),
+(9,	'12',	'PED-000007',	2,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	960.00000000,	'',	'N',	'S',	'admin',	'2012-12-22 10:14:21',	'admin',	'2012-12-22 10:14:21'),
+(10,	'12',	'PED-000007',	3,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	960.00000000,	'',	'N',	'S',	'admin',	'2012-12-22 10:14:21',	'admin',	'2012-12-22 10:14:21');
 
 DROP TABLE IF EXISTS `proveedor`;
 CREATE TABLE `proveedor` (
@@ -3228,7 +3241,7 @@ INSERT INTO `solicitud_oc` (`SOLICITUD_OC`, `DEPARTAMENTO`, `FECHA_SOLICITUD`, `
 ('SC0008',	'1',	'2012-07-17',	'2012-07-17',	NULL,	NULL,	'A',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'P',	'admin',	'2012-07-17 15:58:26',	'admin',	'2012-07-17 15:58:26'),
 ('SC0009',	'1',	'2012-08-17',	'2012-08-17',	'',	'0000-00-00 00:00:00',	'A',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'P',	'admin',	'2012-08-16 11:27:28',	'admin',	'2012-10-01 11:21:59'),
 ('SC0010',	'1',	'2012-08-17',	'2012-08-16',	NULL,	NULL,	'A',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'P',	'admin',	'2012-08-16 11:29:15',	'admin',	'2012-08-16 11:29:15'),
-('SC0011',	'1',	'2012-08-18',	'2012-08-16',	NULL,	NULL,	'A',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'P',	'admin',	'2012-08-16 11:30:09',	'admin',	'2012-08-16 11:30:09'),
+('SC0011',	'1',	'2012-08-18',	'2012-08-16',	NULL,	NULL,	'A',	0,	'',	'admin',	'2012-12-20 15:03:07',	NULL,	NULL,	NULL,	NULL,	NULL,	'C',	'admin',	'2012-08-16 11:30:09',	'admin',	'2012-12-20 10:03:07'),
 ('SC0012',	'1',	'2012-09-06',	'2012-09-06',	'admin',	'2012-10-02 20:44:05',	'M',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'A',	'admin',	'2012-09-06 15:24:43',	'admin',	'2012-10-02 15:44:05'),
 ('SC0013',	'1',	'2012-09-14',	'2012-09-16',	'',	'0000-00-00 00:00:00',	'A',	0,	'',	'admin',	'2012-09-07 14:26:09',	NULL,	NULL,	NULL,	NULL,	NULL,	'C',	'admin',	'2012-09-07 09:15:17',	'admin',	'2012-09-07 09:26:09'),
 ('SC0014',	'1',	'2012-09-19',	'2012-09-14',	'admin',	'2012-10-02 20:44:06',	'A',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'A',	'admin',	'2012-09-07 15:22:17',	'admin',	'2012-10-02 15:44:06'),
@@ -4892,4 +4905,4 @@ INSERT INTO `zona` (`ID`, `PAIS`, `NOMBRE`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`,
 (1,	'COL',	'Centro',	'S',	'admin',	'2012-11-01 09:56:03',	'admin',	'2012-11-01 09:56:03'),
 (2,	'COL',	'Sur',	'S',	'admin',	'2012-11-01 09:56:19',	'admin',	'2012-11-01 09:56:19');
 
--- 2012-12-17 17:27:14
+-- 2013-01-02 17:33:30
