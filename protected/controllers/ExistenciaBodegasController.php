@@ -91,6 +91,7 @@ class ExistenciaBodegasController extends SBaseController
 	 */
 	public function actionUpdate($id)
 	{
+            /*                
 		$model=$this->loadModel($id);
                 $model2=new ExistenciaBodegas('search');
 		$bodega=new Bodega;
@@ -118,6 +119,79 @@ class ExistenciaBodegasController extends SBaseController
                         'articulo'=>$articulo,
                         'barticulo'=>$barticulo,
 			'bodega'=>$bodega,
+		));
+             * 
+             */
+                
+                $linea= new ExistenciaBodegas;
+                $i = 1;
+                // retrieve items to be updated in a batch mode
+                // assuming each item is of model class 'Item'
+                $items = $linea->model()->findAll('BODEGA = '.$id);
+                
+                
+                //$model=$this->loadModel($id);
+                $model = ExistenciaBodegas::model()->findAll('BODEGA = '.$id);
+                $i = 1;
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation(array($model));
+                
+                if(isset($_POST['ExistenciaBodegas']))
+		{
+			$model->attributes=$_POST['ExistenciaBodegas'];
+                         if($_POST['eliminar'] != ''){
+                            $eliminar = explode(",", $_POST['eliminar']);
+                            foreach($eliminar as $elimina){
+                                if($elimina != -1){
+                                    $borra = ExistenciaBodegas::model()->deleteByPk($elimina);
+                                }
+                            }
+                        }
+                        
+			if($model->save()){
+                            if(isset($_POST['ExistenciaBodegas'])){
+                                foreach ($_POST['ExistenciaBodegas'] as $datos){                                    
+                                    $linea=ExistenciaBodegas::model()->findByPk($datos['SOLICITUD_OC_LINEA']);
+                                    $linea->SOLICITUD_OC = $_POST['SolicitudOc']['SOLICITUD_OC'];
+                                    $linea->ARTICULO = $datos['ARTICULO'];
+                                    $linea->DESCRIPCION = $datos['DESCRIPCION'];
+                                    $linea->UNIDAD = $datos['UNIDAD'];
+                                    $linea->CANTIDAD = SBaseController::unformat($datos['CANTIDAD']);
+                                    $linea->FECHA_REQUERIDA = $datos['FECHA_REQUERIDA'];
+                                    $linea->COMENTARIO = $datos ['COMENTARIO'];
+                                    $linea->SALDO = SBaseController::unformat($datos ['SALDO']);
+                                    $linea->LINEA_NUM = $i;
+                                    $linea->ESTADO = $datos ['ESTADO'];
+                                    $linea->save();
+                                    $i++;
+                                }
+                            }
+                            
+                            if(isset($_POST['Nuevo'])){
+                                foreach ($_POST['Nuevo'] as $datos2){
+                                    $linea2=new SolicitudOcLinea;
+                                    $linea2->SOLICITUD_OC = $_POST['SolicitudOc']['SOLICITUD_OC'];
+                                    $linea2->ARTICULO = $datos2['ARTICULO'];
+                                    $linea2->DESCRIPCION = $datos2['DESCRIPCION'];
+                                    $linea2->UNIDAD = $datos2['UNIDAD'];
+                                    $linea2->CANTIDAD = $datos2['CANTIDAD'];
+                                    $linea2->FECHA_REQUERIDA = $datos2['FECHA_REQUERIDA'];
+                                    $linea2->COMENTARIO = $datos2 ['COMENTARIO'];
+                                    $linea2->SALDO = $datos2 ['SALDO'];
+                                    $linea2->LINEA_NUM = $i;
+                                    $linea2->ESTADO = $datos2 ['ESTADO'];
+                                    $linea2->save();
+                                    $i++;
+                                }
+                            }
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S002'));
+                        }
+		}
+
+		$this->render('update',array(
+			'model'=>$model,
+                        'id'=>$id,
 		));
 	}
 
