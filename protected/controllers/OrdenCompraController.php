@@ -90,8 +90,7 @@ class OrdenCompraController extends SBaseController
             $id = $_GET['id'];
             $this->orden = OrdenCompra::model()->findByPk($id);
             $lineas = new OrdenCompraLinea;
-            $this->layout = ConfCo::model()->find()->fORMATOORDEN->RUTA;
-
+            $this->layout = ConfCo::model()->find()->fORMATOORDEN->pLANTILLA->RUTA;
             $footer = '<table width="100%">
                         <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>
                             <td align="center" valign="middle"><span class="piePagina"><b>Generado el:</b> ' . date('Y/m/d') . '</span></td>

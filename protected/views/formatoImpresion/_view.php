@@ -25,8 +25,8 @@
 	<?php echo CHtml::encode($data->SUBMODULO); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('RUTA')); ?>:</b>
-	<?php echo CHtml::encode($data->RUTA); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('PLANTILLA')); ?>:</b>
+	<?php echo CHtml::encode($data->PLANTILLA); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('TIPO')); ?>:</b>

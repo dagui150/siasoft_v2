@@ -57,9 +57,23 @@ if (isset($_GET['men'])){
 	'columns'=>array(
 		'NOMBRE',
 		'OBSERVACION',
-                'MODULO',
-		'SUBMODULO',
-		'RUTA',
+            array(
+                'name'=>'MODULO',
+                'header'=>'Modulo',
+                'value'=>'$data->mODULO->NOMBRE',
+                
+            ),
+            array(
+                'name'=>'SUBMODULO',
+                'header'=>'SubModulo',
+                'value'=>'$data->sUBMODULO->NOMBRE',
+                
+            ),
+            array(
+                'name'=>'PLANTILLA',
+                'value'=>'$data->pLANTILLA->NOMBRE',
+                
+            ),
 		/*
 		'TIPO',
 		'ACTIVO',

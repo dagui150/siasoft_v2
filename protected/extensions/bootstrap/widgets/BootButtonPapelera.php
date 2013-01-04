@@ -88,17 +88,7 @@ class BootButtonPapelera extends CButtonColumn
 			if (strpos($button['icon'], 'icon') === false)
                         $button['icon'] = 'icon-'.implode(' icon-', explode(' ', $button['icon']));
                         $ajaxOptions = array('update'=>'#papelera','type'=>'GET','data' =>array('id'=>$row));
-                        //echo '<pre>';
-                       // print_r($ajaxOptions);
-                       // echo '</pre>';
-                        //Yii::app()->end();
-			//echo CHtml::ajaxLink('<i class="'.$button['icon'].'"></i>',array('restaurar'),$ajaxOptions, $options);
                         echo CHtml::link('<i class="'.$button['icon'].'"></i>','#', $options);
 		}
-		//else if (isset($button['imageUrl']) && is_string($button['imageUrl']))
-                    
-			//echo CHtml::link(CHtml::image($button['imageUrl'], $label), $url, $options);
-		//else
-			//echo CHtml::link($label, $url, $options);
 	}
 }

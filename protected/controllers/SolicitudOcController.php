@@ -123,7 +123,7 @@ class SolicitudOcController extends SBaseController
             
             $this->solicitud = SolicitudOc::model()->findByPk($id);
             $lineas = new SolicitudOcLinea;
-            $this->layout = ConfCo::model()->find()->fORMATOSOLICITUD->RUTA;
+            $this->layout = ConfCo::model()->find()->fORMATOSOLICITUD->pLANTILLA->RUTA;
             
             $footer = '<table width="100%">
                     <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>

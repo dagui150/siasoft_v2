@@ -20,8 +20,8 @@
                      $('select[id$=FormatoImpresion_SUBMODULO] > option').remove();
                       $('#FormatoImpresion_SUBMODULO').append("<option value=''>Seleccione</option>");
                       
-                      $('select[id$=FormatoImpresion_RUTA] > option').remove();
-                      $('#FormatoImpresion_RUTA').append("<option value=''>Seleccione</option>");
+                      $('select[id$=FormatoImpresion_PLANTILLA] > option').remove();
+                      $('#FormatoImpresion_PLANTILLA').append("<option value=''>Seleccione</option>");
                     
                     $.each(data, function(value, name) {
                               $('#FormatoImpresion_SUBMODULO').append("<option value='"+value+"'>"+name+"</option>");
@@ -34,11 +34,11 @@
             $.getJSON('<?php echo $this->createUrl('Formato')?>&submodulo='+$(this).val(),
                 function(data){
                     
-                     $('select[id$=FormatoImpresion_RUTA] > option').remove();
-                      $('#FormatoImpresion_RUTA').append("<option value=''>Seleccione</option>");
+                     $('select[id$=FormatoImpresion_PLANTILLA] > option').remove();
+                      $('#FormatoImpresion_PLANTILLA').append("<option value=''>Seleccione</option>");
                     
                     $.each(data, function(value, name) {
-                              $('#FormatoImpresion_RUTA').append("<option value='"+value+"'>"+name+"</option>");
+                              $('#FormatoImpresion_PLANTILLA').append("<option value='"+value+"'>"+name+"</option>");
                         });
                 });
         });
@@ -66,7 +66,7 @@
 		<?php echo $form->textFieldRow($model2,'OBSERVACION'); ?>
 		<?php echo $form->dropDownListRow($model2,'MODULO', CHtml::listData(Modulo::model()->findAll('ACTIVO="S"'),'ID','NOMBRE'), array('empty' => 'Seleccione')); ?>        
 		<?php echo $form->dropDownListRow($model2,'SUBMODULO',array(), array('empty' => 'Seleccione')); ?>
-		<?php echo $form->dropDownListRow($model2,'RUTA',array(), array('empty' => 'Seleccione')); ?>
+		<?php echo $form->dropDownListRow($model2,'PLANTILLA',array(), array('empty' => 'Seleccione')); ?>
 		<?php echo $form->textFieldRow($model2,'TIPO'); ?>
 
 <?php echo CHtml::activeHiddenField($model2, 'ACTIVO', array('value' => 'S')); ?>

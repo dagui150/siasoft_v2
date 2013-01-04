@@ -169,7 +169,7 @@ class IngresoCompraController extends Controller
             
             $this->ingreso = IngresoCompra::model()->findByPk($id);
             $lineas = new IngresoCompraLinea;
-            $this->layout = ConfCo::model()->find()->fORMATOINGRESO->RUTA;
+            $this->layout = ConfCo::model()->find()->fORMATOINGRESO->pLANTILLA->RUTA;
             
             $footer = '<table width="100%">
                     <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>
