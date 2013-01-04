@@ -10,6 +10,10 @@ class PapeleraController extends Controller {
     public $menu = array();
     public $layout = '//layouts/column2';
 
+    public function filters(){
+            return array(array('CrugeAccessControlFilter'), );
+    }
+    
     public function actionCargaGrilla(){
         $count = 0;
         $col=array();

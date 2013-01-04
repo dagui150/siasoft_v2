@@ -15,6 +15,7 @@
  * @property string $EXISTENCIA_MAXIMA
  * @property string $PUNTO_REORDEN
  * @property string $COSTO_FISCAL
+ * @property integer $COSTO_ESTANDAR
  * @property string $DESCRIPCION_COMPRA
  * @property string $IMPUESTO$IMPUESTO_COMPRA
  * @property string $BODEGA
@@ -111,8 +112,8 @@ class Articulo extends CActiveRecord
 	}
         
         public function miValidacion3($attribute,$params){
-            $min = SBaseController::unformat($this->EXISTENCIA_MINIMA);
-            $max = SBaseController::unformat($this->EXISTENCIA_MAXIMA);
+            $min = Controller::unformat($this->EXISTENCIA_MINIMA);
+            $max = Controller::unformat($this->EXISTENCIA_MAXIMA);
 		if ($max <= $min){
                     $this->addError('EXISTENCIA_MAXIMA','Debe ser mayor a Mínima');
                 }
@@ -465,7 +466,7 @@ class Articulo extends CActiveRecord
             
             switch ($articulo->COSTO_FISCAL){
                 case 'Promedio':
-                    $transacciones = TransaccionInvDetalle::model()->findAllByAttributes(array('ARTICULO'=>$id));
+                    $transacciones = TransaccionInvDetalle::model()->findAllByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$id,'NATURALEZA'=>'E'));
                     $costoTotal = 0;
                     $cantTotal = 0;
                     
@@ -478,7 +479,7 @@ class Articulo extends CActiveRecord
                     
                break;     
                 case 'Último':
-                    $transacciones = TransaccionInvDetalle::model()->findByAttributes(array('ARTICULO'=>$id),array('order'=>'TRANSACCION_INV_DETALLE DESC'));
+                    $transacciones = TransaccionInvDetalle::model()->findByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$id,'NATURALEZA'=>'E'),array('order'=>'TRANSACCION_INV_DETALLE DESC'));
                     Articulo::model()->updateByPk($id, array('COSTO_ULTIMO'=>$transacciones->COSTO_UNITARIO));
                break;     
                     

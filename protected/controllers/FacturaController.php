@@ -49,6 +49,7 @@ class FacturaController extends Controller
 
 		if(isset($_POST['Factura']))
 		{
+                        $transaccionInv = new TransaccionInv;
 			$model->attributes=$_POST['Factura'];
                         $modelConsecutivo = ConsecutivoFa::model()->findByPk($model->CONSECUTIVO);
                         $model->FACTURA = $modelConsecutivo->VALOR_CONSECUTIVO;
@@ -64,29 +65,59 @@ class FacturaController extends Controller
                                 $cliente->save();
                             }
                             $model->save();
-                            if(isset($_POST['LineaNuevo'])){
-                                  $i = 1;
-                                  foreach ($_POST['LineaNuevo'] as $datos){
-                                        $salvar = new FacturaLinea;
-                                        $salvar->FACTURA = $model->FACTURA;
-                                        $salvar->ARTICULO = $datos['ARTICULO'];
-                                        $salvar->LINEA = $i;
-                                        $salvar->UNIDAD = $datos['UNIDAD'];
-                                        $salvar->CANTIDAD = $datos['CANTIDAD'];
-                                        $salvar->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
-                                        $salvar->PORC_DESCUENTO = $datos['PORC_DESCUENTO'];
-                                        $salvar->MONTO_DESCUENTO = $datos['MONTO_DESCUENTO'];
-                                        $salvar->PORC_IMPUESTO = $datos['PORC_IMPUESTO'];
-                                        $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
-                                        $salvar->TIPO_PRECIO = $datos['TIPO_PRECIO'];
-                                        $salvar->COMENTARIO = $datos['COMENTARIO'];
-                                        $salvar->TOTAL = $datos['TOTAL'];
-                                        $salvar->ESTADO = 'N';
-                                        $salvar->ACTIVO = 'S';
-                                        $salvar->save();
-                                        $i++;
+                            $transaccionInv->CONSECUTIVO_FA = $model->FACTURA;
+                            $transaccionInv->MODULO_ORIGEN = 'FA';
+                            $transaccionInv->REFERENCIA = 'Transacción generada por Factura';
+                            $transaccionInv->ACTIVO = 'S';
+
+                            if($transaccionInv->save()){
+                                 if(isset($_POST['LineaNuevo'])){
+                                      $i = 1;
+                                      foreach ($_POST['LineaNuevo'] as $datos){
+                                            $transaccionInvDetalle = new TransaccionInvDetalle;
+                                          //GUARDAR LINEAS DE FACTURA
+                                            
+                                            $salvar = new FacturaLinea;
+                                            $salvar->FACTURA = $model->FACTURA;
+                                            $salvar->ARTICULO = $datos['ARTICULO'];
+                                            $salvar->LINEA = $i;
+                                            $salvar->UNIDAD = $datos['UNIDAD'];
+                                            $salvar->CANTIDAD = $datos['CANTIDAD'];
+                                            $salvar->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
+                                            $salvar->PORC_DESCUENTO = $datos['PORC_DESCUENTO'];
+                                            $salvar->MONTO_DESCUENTO = $datos['MONTO_DESCUENTO'];
+                                            $salvar->PORC_IMPUESTO = $datos['PORC_IMPUESTO'];
+                                            $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
+                                            $salvar->TIPO_PRECIO = $datos['TIPO_PRECIO'];
+                                            $salvar->COMENTARIO = $datos['COMENTARIO'];
+                                            $salvar->TOTAL = $datos['TOTAL'];
+                                            $salvar->ESTADO = 'N';
+                                            $salvar->ACTIVO = 'S';
+                                            $salvar->save();
+                                         //ACTUALIZAR EL INVENTARIO
+                                            $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos['ARTICULO'],'BODEGA'=>$model->BODEGA));
+                                            $cantidad = $this->darCantidad($existenciaBodega, $datos['CANTIDAD'], $datos['UNIDAD']);
+                                            $existenciaBodega->CANT_DISPONIBLE -= $cantidad;
+                                            $existenciaBodega->update();
+                                         //GUARDAR LINEAS DE TRANSACCION
+                            
+                                            $transaccionInvDetalle->TRANSACCION_INV = $transaccionInv->TRANSACCION_INV;
+                                            $transaccionInvDetalle->LINEA = $i;
+                                            $transaccionInvDetalle->TIPO_TRANSACCION_CANTIDAD = 'D';
+                                            $transaccionInvDetalle->ARTICULO = $datos['ARTICULO'];
+                                            $transaccionInvDetalle->UNIDAD = $datos['UNIDAD'];
+                                            $transaccionInvDetalle->NATURALEZA = 'S';
+                                            $transaccionInvDetalle->CANTIDAD = $cantidad;
+                                            $transaccionInvDetalle->BODEGA = $model->BODEGA;
+                                            $transaccionInvDetalle->COSTO_UNITARIO = 0;
+                                            $transaccionInvDetalle->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
+                                            $transaccionInvDetalle->ACTIVO = 'S';
+                                            $transaccionInvDetalle->save();
+                                          //
+                                            $i++;
+                                     }
                                  }
-                             }
+                            }
                               //ACTUALIZAR SIGUIENTE VALOR
                                 $separados = ConsecutivoFa::extractNum($modelConsecutivo->MASCARA);
                                 $longitud = strlen($separados[1]);

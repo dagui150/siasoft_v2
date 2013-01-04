@@ -25,15 +25,19 @@ class Controller extends CController
 	*	@param $texto 
 	*/
 	public function botonAyuda($texto) {
-        $boton = $this->widget('bootstrap.widgets.BootButton', array(
-                    'type' => 'nommal', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-                    'size' => 'mini', // '', 'large', 'small' or 'mini'
-                    'icon' => 'info-sign',
-                    'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>Yii::t('ayuda',$texto), 'rel'=>'popover'),
-                ),true);
-        return $boton;
-    }
-	
+            $boton = $this->widget('bootstrap.widgets.BootButton', array(
+                        'type' => 'nommal', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+                        'size' => 'mini', // '', 'large', 'small' or 'mini'
+                        'icon' => 'info-sign',
+                        'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>Yii::t('ayuda',$texto), 'rel'=>'popover'),
+                    ),true);
+            return $boton;
+        }
+	/*
+         *  este metodo sera lamado para mostrar el mensaje al momento de borrar un 
+         * registro
+         * @return Mensaje de error
+         */
 	public function mensajeBorrar(){
 		$borrar_success = MensajeSistema::model()->findByPk('S004');
 		$borrar_error = MensajeSistema::model()->findByPk('E004');
@@ -44,7 +48,10 @@ class Controller extends CController
 		$mensaje_error=$mensaje_p1.'\'alert alert-error\''.$mensaje_p2.'<img src='.Yii::app()->baseUrl."/images/error.png".'>&nbsp&nbsp'.$borrar_error->MENSAJE.$mensaje_p3;
 		return 'function(link,success,data){ if(success){'.$mensaje_success.'}else{window.alert = null;'.$mensaje_error.'}}';
 	}
-	
+	/*
+         * este metodo retorna un mensaje segun la operacion que se este haciendo
+         * @param $men_
+         */
 	public function mensaje($men_){
 		$mensaje_ = MensajeSistema::model()->findByPk($men_);
 		$img_=substr($men_, 0,1);
@@ -59,16 +66,17 @@ class Controller extends CController
 		Yii::app()->user->setFlash($mensaje_->TIPO, '<font size="5" align="left">&nbsp &nbsp<img src='.Yii::app()->baseUrl.$img_url.'>&nbsp &nbsp'.$mensaje_->MENSAJE.'.</font>');
 		$this->widget('bootstrap.widgets.BootAlert');
 	}
-    /*
+        /*
 	*	este metodo sera llamado para desformatear un numero que venga con comas(,) y puntos (.)
 	*	@param $valor 
+        *       @return $valorunformat
 	*/
-    public static function unformat($valor){
-        $trans = array('.' => '');
-        $trans2 = array(',' => '.');
-        $valorunformat=strtr(strtr($valor, $trans), $trans2);
-        return $valorunformat;
-    }
+        public static function unformat($valor){
+            $trans = array('.' => '');
+            $trans2 = array(',' => '.');
+            $valorunformat=strtr(strtr($valor, $trans), $trans2);
+            return $valorunformat;
+        }
 	
 	/*
 	*	este metodo sera llamado para retornar el menu del sistema
@@ -80,8 +88,7 @@ class Controller extends CController
 		$this->menu[]= array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false);
 		$this->menu[]=array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>Yii::app()->user->ui->logoutUrl,'visible'=>!Yii::app()->user->isGuest);
 		*/
-		
-		
+	
         $com = ConfCo::model()->find();
         $fac = ConfFa::model()->find();
         $compa = Compania::model()->find();
@@ -112,7 +119,7 @@ class Controller extends CController
                             array('label' => 'Inventario', 'url' => '#',
                                 'items' => array(
                                     array('label' => 'Artíulos', 'url' => array('/articulo/admin')),
-									array('label' => 'Artículos Bodega', 'url' => array('/bodega/inventario')),
+				    array('label' => 'Artículos Bodega', 'url' => array('/bodega/inventario')),
                                     array('label' => 'Clasificaciones', 'url' => array('/clasificacionAdi/admin')),
                                     array('label' => 'Valores para Clasificaciones ', 'url' => array('/clasificacionAdiValor/admin')),
                                     array('label' => 'Tipo de artículo', 'url' => array('/tipoArticulo/admin')),
@@ -148,7 +155,7 @@ class Controller extends CController
                                     array('label' => 'Retención', 'url' => array('/retencion/admin')),
                                     array('label'=>'Regimen Tributario', 'url'=>array('/regimenTributario/admin')),
                                     array('label' => 'Administración de Reportes', 'url' => array('/formatoImpresion/admin')),
-									array('label' => 'Papelera', 'url' => array('/Papelera/index')),
+                                    array('label' => 'Papelera', 'url' => array('/Papelera/index')),
                             )),
                             /*array('label' => 'Recursos Humanos', 'url' => '#',
                                 'items' => array(
@@ -173,47 +180,18 @@ class Controller extends CController
 		
 	}
 	
-	//Funcion que actualiza el inventario de un articulo
-	function upd_inventario($arti_id, $cantidad, $unidad_id, $operacion)
+	//Funcion que retorna la cantidad exacta a restar al inventario
+	public function darCantidad($existenciaBodega, $cantidad, $id_unidad)
 	{
-		$query_unidad_articulo = "SELECT UNIDAD_ID, ARTI_TIPO FROM articulo WHERE arti_id = $arti_id";
-		$res_unidad_articulo = mysql_query($query_unidad_articulo, $enlace) or die(rollback());
-		$row_unidad_articulo = mysql_fetch_assoc($res_unidad_articulo);
-		
+                $unidad = UnidadMedida::model()->findByPk($id_unidad);
+                $cantidad_equiv =$cantidad;
 		//Si es tipo servicio no se actualiza el inventario
-		if($row_unidad_articulo['ARTI_TIPO'] == 'S')
-		{
-			return true;	
-		}
-		
-		$cantidad_equiv = $cantidad;
-		
-		if($row_unidad_articulo['UNIDAD_ID'] != $unidad_id)
-		{
-			//equivalencia
-			$factor = factor_conversion($unidad_id, $row_unidad_articulo['UNIDAD_ID'], $db, $enlace);
-			$cantidad_equiv = $cantidad * $factor;
-		}
-
-		//...	y otras cosas mas q no nos interesan.
+		if($existenciaBodega->aRTICULO->UNIDAD_ALMACEN != $id_unidad && $existenciaBodega->aRTICULO->uNIDADALMACEN->TIPO != 'S'){
+                            //equivalencia
+                            $factor = $unidad->EQUIVALENCIA/$existenciaBodega->aRTICULO->uNIDADALMACEN->EQUIVALENCIA;
+                            $cantidad_equiv = $cantidad * $factor;
+                    
+                }
+                return $cantidad_equiv;
 	}
-	
-	//Funcion que retorna factor de conversi�n de una unidad a otra
-	function factor_conversion($unidad_origen, $unidad_destino, $db, $enlace)
-	{
-		mysql_select_db($db, $enlace);
-		
-		$query_datos_und_origen = "SELECT UNIDAD_EQUIV FROM unidad WHERE UNIDAD_ID = $unidad_origen";
-		$res_datos_und_origen = mysql_query($query_datos_und_origen, $enlace) or die(rollback());
-		$row_datos_und_origen = mysql_fetch_assoc($res_datos_und_origen);
-		
-		$query_datos_und_destino = "SELECT UNIDAD_EQUIV FROM unidad WHERE UNIDAD_ID = $unidad_destino";
-		$res_datos_und_destino = mysql_query($query_datos_und_destino, $enlace) or die(rollback());
-		$row_datos_und_destino = mysql_fetch_assoc($res_datos_und_destino);
-
-		$factor = $row_datos_und_origen['UNIDAD_EQUIV'] / $row_datos_und_destino['UNIDAD_EQUIV'];
-		
-		return $factor;
-	}
-	
 }
