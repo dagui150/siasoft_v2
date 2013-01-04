@@ -1,177 +1,149 @@
-<script>
-    function updateBodega(grid_id){
-        var id=$.fn.yiiGridView.getSelection(grid_id);
-        
-        $.getJSON(
-            '<?php echo $this->createUrl('bodega/cargarbodega'); ?>&id='+id,
-            function(data){
-                $('#ExistenciaBodega_BODEGA').val(data.ID);
-                $('#BODEGA2').val(data.DESCRIPCION);
+<div class="form">
 
+<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+	'id'=>'existencia-bodegas-form',
+        'type'=>'horizontal',
+	'enableAjaxValidation'=>true,
+	'clientOptions'=>array(
+		'validateOnSubmit'=>true,
+	),
+)); ?>
+
+    <?php       
+            //Consecutivo
+    /*
+            if($model->ORDEN_COMPRA == ''){
+                $mascara = $config->ULT_ORDEN_COMPRA_M;
+                $retorna = substr($mascara,0,2);
+                $mascara = strlen($mascara);
+                $longitud = $mascara - 2;
+                $sql = "SELECT count(ORDEN_COMPRA) FROM orden_compra";
+                $consulta = OrdenCompra::model()->findAllBySql($sql);
+                $connection=Yii::app()->db;
+                $command=$connection->createCommand($sql);
+                $row=$command->queryRow();
+                $bandera=$row['count(ORDEN_COMPRA)'];
+                $retorna .= str_pad($bandera, $longitud, "0", STR_PAD_LEFT);
+              
+                $pestana = $this->renderPartial('lineas', array('form'=>$form, 'linea'=>$linea, 'model'=>$model),true);
             }
-        );
-    }
-    function updateArticulo(grid_id){
-        var id=$.fn.yiiGridView.getSelection(grid_id);
-        
-        $.getJSON(
-            '<?php echo $this->createUrl('articulo/cargararticulo'); ?>&id='+id,
-            function(data){
-                $('#ExistenciaBodega_ARTICULO').val(data.ID);
-                $('#ARTICULO2').val(data.NOMBRE);
-
-            }
-        );
-    }
-</script>
-
-<div class="wide form" style="background-color: white;">
-
-<?php 
-    $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
-            'id'=>'existencia-bodega-form',
-            'enableAjaxValidation'=>true,
-            'clientOptions'=>array(
-                            'validateOnSubmit'=>true,
-            ),
-            'type'=>'horizontal',
-    ));
-    
-    $boton = $this->widget('bootstrap.widgets.BootButton', array(
-                'type'=>'info',
-                'size'=>'mini',
-                'url'=>'#bodega',
-                'icon'=>'search',
-                'htmlOptions'=>array('data-toggle'=>'modal',),
-            ),true);
-    $boton2 = $this->widget('bootstrap.widgets.BootButton', array(
-                'type'=>'info',
-                'size'=>'mini',
-                'url'=>'#articulo',
-                'icon'=>'search',
-                'htmlOptions'=>array('data-toggle'=>'modal',),
-            ),true);
-?>
-
-	<?php 
-            $bbodega = Bodega::model()->findByPk($model->BODEGA);
-            $vbodega = $model->isNewRecord? '' : $bbodega->DESCRIPCION;
-            echo $form->errorSummary($model); 
-        ?>
-
-	<div class="row">
-            <table>
-                 <tr>
-                       <td><?php echo $form->textFieldRow($model,'BODEGA',array('maxlength'=>4,'size'=>4,'ajax'=>array('type' => 'POST','url' => CController::createUrl('existenciaBodega/cargarAjax'),'update' => '#BODEGAA')));?></td> 
-                       <td><div id="BODEGAA" style="margin: 0 0 0 -497px"><?php echo CHtml::textField('BODEGA2',$vbodega,array('size'=>18,'disabled'=>true)); ?></div></td> 
-                       <td><div style="margin: 5px 0 0 -360px"><?php echo $boton; ?></div></td> 
-                 
-                       <td><div style="margin: 0 0 0 -352px"><?php echo $form->textFieldRow($model,'ARTICULO',array('value'=>$articulo,'readonly'=>true,'maxlength'=>4,'size'=>4,'ajax'=>array('type' => 'POST','url' => CController::createUrl('existenciaBodega/cargarAjax2'),'update' => '#ARTICULOO')));?></div></td> 
-                       <td><div id="ARTICULOO" style="margin: 0 0 0 -157px"><?php echo CHtml::textField('ARTICULO2',$barticulo->NOMBRE,array('size'=>18,'disabled'=>true)); ?></div></td> 
-                 </tr>
-            </table>
-            <fieldset style="float: left;width: 300px;">
-                 <legend ><font face="arial" size=3 >Existencias en Bodega</font></legend>
-                 <?php echo $form->textFieldRow($model,'EXISTENCIA_MINIMA',array('size'=>4,'maxlength'=>28)); ?>
-
-                 <?php echo $form->textFieldRow($model,'PUNTO_REORDEN',array('size'=>4,'maxlength'=>28)); ?>
-
-                 <?php echo $form->textFieldRow($model,'EXISTENCIA_MAXIMA',array('size'=>4,'maxlength'=>28)); ?>
-
-           </fieldset>
-            
-           <fieldset style="float: left; margin: 0 0 0 30px; width: 310px; height: 218px;">
-                <legend ><font face="arial" size=3 >Cantidades</font></legend>
-                <table>
-                    <tr>
-                        <td>
-                            <?php echo $form->textFieldRow($model,'CANT_DISPONIBLE',array('value'=>0,'size'=>4,'maxlength'=>28,'readonly'=>true)); ?>
-                        </td>
-                        <td>
-                            <?php echo $form->textFieldRow($model,'CANT_CUARENTENA',array('value'=>0,'size'=>4,'maxlength'=>28,'readonly'=>true)); ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <?php echo $form->textFieldRow($model,'CANT_REMITIDA',array('value'=>0,'size'=>4,'maxlength'=>28,'readonly'=>true)); ?>
-                        </td>
-                        <td>
-                            <?php echo $form->textFieldRow($model,'CANT_VENCIDA',array('value'=>0,'size'=>4,'maxlength'=>28,'readonly'=>true)); ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <?php echo $form->textFieldRow($model,'CANT_RESERVADA',array('value'=>0,'size'=>4,'maxlength'=>28,'readonly'=>true)); ?>
-                        </td>
-                        <td></td>
-                    </tr>
-                </table>
-           </fieldset>
-            
-            <?php echo CHtml::activeHiddenField($model,'ACTIVO',array('value'=>'S')); ?>
-            <br>
-            <div class="row buttons" align ="center" style="margin: 0 0 0 -132px">
-                <?php 
-                        $this->widget('bootstrap.widgets.BootButton', array(
-                                    'label'=>$model->isNewRecord ? 'Crear' : 'Guardar',
-                                    'buttonType'=>'submit',
-                                    'type'=>'primary',
-                                    'icon'=>$model->isNewRecord ? 'ok-circle white' : 'pencil white',
-                            )
-                        );
-                ?>
+            else{
+     * 
+     */
+                $this->renderPartial('lineas', array('form'=>$form, 'model'=>$model),true);
                 
-                <?php
-                    $this->widget('bootstrap.widgets.BootButton', array(
-                                   'label'=>'Cancelar',
-                                   'type'=>'action',
-                                   'icon'=>'remove ', 
-                                   'url'=>array('articulo/admin'),
-                                )
-                   );
-                ?>
-            </div>
+                
+          //  }
+    ?>
+
+	<?php echo $form->errorSummary($model); ?>
+
+	<div align="center">
+            <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
+            <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('solicitudOc/admin'), 'icon' => 'remove'));  ?>
+	</div>
+
+<?php $this->endWidget(); ?>
+    
+     <?php 
+    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'articulo')); ?>
+ 
+	<div class="modal-body">
+                <a class="close" data-dismiss="modal">&times;</a>
+                <br>
+          <?php 
+                    $funcion = 'cargaArticuloGrilla';
+                    $id = 'articulo-grid';
+                    $data=$articulo->search();
+                    $data->pagination = array('pageSize'=>4);
+                    echo $this->renderPartial('/articulo/articulos', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id,'data'=>$data,'check'=>false));
+      ?>
+	</div>
+        <div class="modal-footer">
+
+            <?php $this->widget('bootstrap.widgets.BootButton', array(
+                'label'=>'Cerrar',
+                'url'=>'#',
+                'htmlOptions'=>array('data-dismiss'=>'modal'),
+            )); ?>
         </div>
+ 
+<?php $this->endWidget(); ?>
+    
+ <?php 
+    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'articulo2')); ?>
+ 
+	<div class="modal-body">
+                <a class="close" data-dismiss="modal">&times;</a>
+                <br>
+          <?php 
+            $this->widget('bootstrap.widgets.BootGridView', array(
+            'type'=>'striped bordered condensed',
+            'id'=>'articulo-grid2',
+            'template'=>"{items} {pager}",
+            'dataProvider'=>$articulo->search(),
+            'selectionChanged'=>'cargaArticuloGrilla2',
+            'filter'=>$articulo,
+            'columns'=>array(
+                array(  'name'=>'ARTICULO',
+                        'header'=>'Código Artículo',
+                        'htmlOptions'=>array('data-dismiss'=>'modal'),
+                        'type'=>'raw',
+                        'value'=>'CHtml::link($data->ARTICULO,"#")'
+                    ),
+                    'NOMBRE',
+                    'TIPO_ARTICULO',
+            ),
+    ));
+      ?>
+	</div>
+        <div class="modal-footer">
 
-    <?php 
-        $this->endWidget(); 
-        $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'bodega')); ?>
+            <?php $this->widget('bootstrap.widgets.BootButton', array(
+                'label'=>'Cerrar',
+                'url'=>'#',
+                'htmlOptions'=>array('data-dismiss'=>'modal'),
+            )); ?>
+        </div>
+ 
+<?php $this->endWidget(); ?>
+    
+<?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'lineas')); ?>
+    <div class="modal-body">
+                <a class="close" data-dismiss="modal">&times;</a>
+                <br>
+                <?php 
+            $this->widget('bootstrap.widgets.BootGridView', array(
+            'type'=>'striped bordered condensed',
+            'id'=>'lineas-grid',
+            'selectableRows'=>2,
+            'selectionChanged'=>'obtenerSeleccion',
+            'template'=>"{items} {pager}",
+            'dataProvider'=>$solicitudLinea->search2(),
+            'filter'=>$solicitudLinea,
+            'columns'=>array(
+                array('class'=>'CCheckBoxColumn'),
+                array(  'name'=>'SOLICITUD_OC_LINEA',
+                        'header'=>'Código Solicitud'),
+                    'SOLICITUD_OC',
+                    array('name' => 'ARTICULO', 'value'=>'$data->aRTICULO->NOMBRE'),
+                    'FECHA_REQUERIDA',
 
-            <div class="modal-body">
-                    <a class="close" data-dismiss="modal">&times;</a>
-                    <br>
-                    <?php 
-                        $this->widget('bootstrap.widgets.BootGridView', array(
-                                 'type'=>'striped bordered condensed',
-                                 'id'=>'bodega-grid',
-                                 'template'=>"{items}",
-                                 'dataProvider'=>$bodega->search(),
-                                 'filter'=>$bodega,
-                                 'selectionChanged'=>'updateBodega',
-                                 'columns'=>array(
-                                       array(
-                                            'type'=>'raw',
-                                            'name'=>'ID',
-                                            'header'=>'Código Bodega',
-                                            'value'=>'CHtml::link($data->ID,"#")',
-                                            'htmlOptions'=>array('data-dismiss'=>'modal'),
-                                       ),
-                                       'DESCRIPCION',
-                                       'TIPO',
-                                       'TELEFONO',
-                                       'DIRECCION',
-                                 ),
-                      ));
-                 ?>
-            </div>
-            <div class="modal-footer">
-
-                <?php $this->widget('bootstrap.widgets.BootButton', array(
-                    'label'=>'Cerrar',
-                    'url'=>'#',
-                    'htmlOptions'=>array('data-dismiss'=>'modal'),
-                )); ?>
-            </div>
-
-    <?php  $this->endWidget();?>
+            ),
+    ));
+             ?>
+	</div>
+        <div class="modal-footer">
+        <?php $this->widget('bootstrap.widgets.BootButton', array(
+                'label'=>'Cargar Líneas',
+                'url'=>'#',
+                'htmlOptions'=>array('data-dismiss'=>'modal', 'onclick' => 'cargaSolicitud()'),
+            )); ?>
+        </div>
+    <?php $this->endWidget(); ?>
+    <?php echo CHtml::HiddenField('check',''); ?>
+    <?php echo CHtml::HiddenField('contador', '0'); ?>
+    <?php echo CHtml::hiddenField('oculto', ''); ?>
+    <?php echo CHtml::hiddenField('afecta', $config->IMP1_AFECTA_DESCTO); ?>
+    <?php echo CHtml::hiddenField('numLineas', $config->MAXIMO_LINORDEN); ?>    
 </div><!-- form -->
