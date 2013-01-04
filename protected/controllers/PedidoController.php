@@ -145,8 +145,7 @@ class PedidoController extends Controller
                             echo $e;
                             $transaction->rollback();
                             Yii::app()->end();
-                        }				
-                            
+                        }		
                 }
 
 		$this->render('create',array(
@@ -177,6 +176,7 @@ class PedidoController extends Controller
             $countLineas = PedidoLinea::model()->count('PEDIDO ="'.$model->PEDIDO.'"');
             $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
             $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
+            $i = 1;
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -184,8 +184,59 @@ class PedidoController extends Controller
 		if(isset($_POST['Pedido']))
 		{
 			$model->attributes=$_POST['Pedido'];
+                        if($_POST['eliminar'] != ''){
+                            $eliminar = explode(",", $_POST['eliminar']);
+                            foreach($eliminar as $elimina){                                
+                                    $borra = PedidoLinea::model()->deleteByPk($elimina);                                
+                            }
+                        }
 			if($model->save()){
-				//$this->redirect(array('admin'));
+				if(isset($_POST['PedidoLinea'])){
+                                foreach ($_POST['PedidoLinea'] as $datos2){
+                                    
+                                    $salvar2 = PedidoLinea::model()->findByPk($datos2['ID']);
+                                    $salvar2->PEDIDO = $model->PEDIDO;
+                                    $salvar2->ARTICULO = $datos2['ARTICULO'];
+                                    $salvar2->LINEA = $i;
+                                    $salvar2->UNIDAD = $datos2['UNIDAD'];
+                                    $salvar2->CANTIDAD = $datos2['CANTIDAD'];
+                                    $salvar2->PRECIO_UNITARIO = $datos2['PRECIO_UNITARIO'];
+                                    $salvar2->PORC_DESCUENTO = $datos2['PORC_DESCUENTO'];
+                                    $salvar2->MONTO_DESCUENTO = $datos2['MONTO_DESCUENTO'];
+                                    $salvar2->PORC_IMPUESTO = $datos2['PORC_IMPUESTO'];
+                                    $salvar2->VALOR_IMPUESTO = $datos2['VALOR_IMPUESTO'];
+                                    $salvar2->TIPO_PRECIO = $datos2['TIPO_PRECIO'];
+                                    $salvar2->COMENTARIO = $datos2['COMENTARIO'];
+                                    $salvar2->TOTAL = $datos2['TOTAL'];
+                                    $salvar2->ESTADO = 'N';
+                                    $salvar2->ACTIVO = 'S';
+                                    $salvar2->save();
+                                    $i++;
+                                }
+                            }
+                            
+                            if(isset($_POST['LineaNuevo'])){                                  
+                                  foreach ($_POST['LineaNuevo'] as $datos){
+                                        $salvar = new PedidoLinea;
+                                        $salvar->PEDIDO = $model->PEDIDO;
+                                        $salvar->ARTICULO = $datos['ARTICULO'];
+                                        $salvar->LINEA = $i;
+                                        $salvar->UNIDAD = $datos['UNIDAD'];
+                                        $salvar->CANTIDAD = $datos['CANTIDAD'];
+                                        $salvar->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
+                                        $salvar->PORC_DESCUENTO = $datos['PORC_DESCUENTO'];
+                                        $salvar->MONTO_DESCUENTO = $datos['MONTO_DESCUENTO'];
+                                        $salvar->PORC_IMPUESTO = $datos['PORC_IMPUESTO'];
+                                        $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
+                                        $salvar->TIPO_PRECIO = $datos['TIPO_PRECIO'];
+                                        $salvar->COMENTARIO = $datos['COMENTARIO'];
+                                        $salvar->TOTAL = $datos['TOTAL'];
+                                        $salvar->ESTADO = 'N';
+                                        $salvar->ACTIVO = 'S';
+                                        $salvar->save();
+                                        $i++;
+                                 }
+                             }
                                 $this->redirect(array('admin&men=S002'));
                         } else {
                             $this->redirect(array('admin&men=E002'));

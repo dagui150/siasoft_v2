@@ -10,7 +10,7 @@
         var iva =  parseInt($('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(), 10);
         
         total = ((cantidad * precio)-descuento)+iva;
-        $('#total_'+contador).text('$ '+total); 
+        $('#total_'+contador).text(total); 
         $('#'+model+'_'+contador+'_TOTAL').val(total);
                 
         calculoGranTotal(model, model2);
@@ -94,7 +94,16 @@
                     }
              );            
             
-            $('.edit').live('click',actualiza);
+            $('.edit').live('click',function(){
+                $('#SPAN').val('');
+                $('#NAME').val($(this).attr('name'));
+                actualiza();
+            });
+            $('.editU').live('click',function(){
+                $('#SPAN').val('U');
+                $('#NAME').val($(this).attr('name'));
+                actualiza();
+            });
             $('#Pedido_UNIDAD').live('change',function(){
                 var nombre = $('#Pedido_UNIDAD option:selected').html()
                 $('#NOMBRE_UNIDAD').val(nombre);

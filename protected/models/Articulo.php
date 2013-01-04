@@ -125,7 +125,7 @@ class Articulo extends CActiveRecord
                         'defaults'=>array(
                             'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
                             //'format'=>'db',
-                            'formats'=> array(
+                           'formats'=> array(
                                    'EXISTENCIA_MINIMA'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
                                    'EXISTENCIA_MAXIMA'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
                                    'PUNTO_REORDEN'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 

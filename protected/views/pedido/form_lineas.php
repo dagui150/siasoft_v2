@@ -6,16 +6,19 @@
     //agregar una linea
     function agregar(span){
         var contador = $('#CAMPO_ACTUALIZA').val();
+        var span = $('#SPAN').val();        
         var model = 'LineaNuevo';
+        var model2 = 'PedidoLinea';
         
         if(span == 'U')
             model = 'PedidoLinea';
+        
         
         $('.close').click();
         
         copiarCampos(contador,model,span);
         
-        calcularTotal(contador,model);
+        calcularTotal(contador,model, model2);
                         
         $('#alert').remove();
         $('#resetear').click();
@@ -35,7 +38,7 @@
         var cantidad = $('#PedidoLinea_CANTIDAD').val();
         var precio_unitario = $('#PedidoLinea_PRECIO_UNITARIO').val();
         var porc_descuento = $('#PedidoLinea_PORC_DESCUENTO').val();
-        //volver a calcular el monto descuento
+        //volver a calcular el monto descuento        
         var total = parseInt(precio_unitario, 10) * parseInt(cantidad, 10);
         var descuento = (total * parseInt(porc_descuento, 10))/100;
         var monto_descuento = descuento
@@ -50,9 +53,9 @@
         $('#unidad'+span+'_'+contador).text(unidad_span);
         $('#tipoprecio'+span+'_'+contador).text(tipo_precio_span);
         $('#cantidad'+span+'_'+contador).text(cantidad);
-        $('#preciounitario'+span+'_'+contador).text('$ '+precio_unitario);
-        $('#porcdescuento'+span+'_'+contador).text(porc_descuento+' %');
-        $('#porc_impuesto'+span+'_'+contador).text(porc_impuesto+' %'); 
+        $('#preciounitario'+span+'_'+contador).text(precio_unitario);
+        $('#porcdescuento'+span+'_'+contador).text(porc_descuento);
+        $('#porc_impuesto'+span+'_'+contador).text(porc_impuesto); 
         
         //copia a campos ocultos
         $('#'+model+'_'+contador+'_UNIDAD').val(unidad);
@@ -84,10 +87,14 @@
     function actualiza(){
     
         limpiarForm();
-        
-        var contador = $(this).attr('name');
-        var model = 'LineaNuevo';
-        
+        var contador = $('#NAME').val();
+        var span = $('#SPAN').val();
+        if (span == 'U'){
+            var model = 'PedidoLinea';
+        }
+        else{
+            var model = 'LineaNuevo';
+        }
         //values de los campos ocultos de la fila para actualizar
         var articulo = $('#'+model+'_'+contador+'_ARTICULO').val();
         var unidad = $('#'+model+'_'+contador+'_UNIDAD').val();
@@ -129,6 +136,7 @@
 <?php 
     $campoActualiza = isset($_POST['CAMPO_ACTUALIZA'])? $_POST['CAMPO_ACTUALIZA'] : '';
     $total = isset($_POST['TOTAL'])? $_POST['TOTAL'] : '';
+    $span = isset($_POST['SPAN'])? $_POST['SPAN'] : '';
     $actualiza = isset($_POST['ACTUALIZA'])? $_POST['ACTUALIZA'] : '1';
     $tipo_precio = isset($_POST['PedidoLinea']['TIPO_PRECIO']) && isset($_POST['PedidoLinea']['ARTICULO'])? CHtml::ListData(ArticuloPrecio::model()->findAll('ARTICULO = "'.$_POST['PedidoLinea']['ARTICULO'].'" AND ACTIVO = "S"'),'ID','nIVELPRECIO.DESCRIPCION') : array();
     $unidad = isset($_POST['PedidoLinea']['UNIDAD'])? CHtml::ListData(UnidadMedida::model()->findAll('ID = "'.$_POST['PedidoLinea']['UNIDAD'].'" AND ACTIVO = "S"'),'ID','NOMBRE') : array();
@@ -163,7 +171,7 @@
             <?php echo $form->textAreaRow($linea,'COMENTARIO'); ?>
             <?php echo CHtml::hiddenField('CAMPO_ACTUALIZA',$campoActualiza); ?>
             <?php echo CHtml::hiddenField('ACTUALIZA',$actualiza); ?>
-            <?php echo CHtml::hiddenField('SPAN',''); ?>
+            <?php echo CHtml::hiddenField('SPAN',$span); ?>
      </div>
     <div class="modal-footer">
                  <?php

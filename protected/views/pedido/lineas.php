@@ -29,7 +29,7 @@
                         function(data){
                              $('#NOMBRE_TIPO_PRECIO').val('');
                              $('#NOMBRE_TIPO_PRECIO').val(data.NOMBRE);
-                             $('#preciounitario_'+contador).text('$ '+data.PRECIO);
+                             $('#preciounitario_'+contador).text(data.PRECIO);
                              $('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
                              //calcular el total
                              calcularTotal(contador,'LineaNuevo');
@@ -75,7 +75,7 @@
                     $('#tipoprecio_'+contador).show('fast');
                 break;
                 case 'preciounitario':
-                    $('#preciounitario_'+contador).text('$ '+$(this).val());
+                    $('#preciounitario_'+contador).text($(this).val());
                     $('#campo_preciounitario_'+contador).hide('fast');
                     //volver a calcular el monto descuento
                     total = parseInt($(this).val(), 10) * parseInt($('#LineaNuevo_'+contador+'_CANTIDAD').val(), 10);
@@ -87,7 +87,7 @@
                     $('#preciounitario_'+contador).show('fast');
                 break;
                 case 'porcdescuento':
-                    $('#porcdescuento_'+contador).text($(this).val()+' %');
+                    $('#porcdescuento_'+contador).text($(this).val());
                     $('#campo_porcdescuento_'+contador).hide('fast'); 
                     precio = parseInt($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(), 10);
                     total = precio * parseInt($('#LineaNuevo_'+contador+'_CANTIDAD').val(), 10);
@@ -114,7 +114,7 @@
                     function(data){
                          $('#NOMBRE_TIPO_PRECIO').val('');
                          $('#NOMBRE_TIPO_PRECIO').val(data.NOMBRE);
-                         $('#preciounitario_'+contador).text('$ '+data.PRECIO);
+                         $('#preciounitario_'+contador).text(data.PRECIO);
                          $('#'+modelo+'_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
                          
                          //volver a calcular el monto descuento
@@ -138,9 +138,9 @@
                 agregarCampos(contador,model);
                 $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$('#Pedido_ARTICULO').val(),
                     function(data){
-                         impuesto = data.IMPUESTO;
-                         $('#unidad_'+contador).text($('#NOMBRE_UNIDAD').val());
-                        $('#porc_impuesto_'+contador).text(impuesto+" %");
+                        impuesto = data.IMPUESTO;
+                        $('#unidad_'+contador).text($('#NOMBRE_UNIDAD').val());
+                        $('#porc_impuesto_'+contador).text(impuesto);
                         $('#'+model+'_'+contador+'_PORC_IMPUESTO').val(impuesto);
                         
                          $('select[id$='+model+'_'+contador+'_UNIDAD]>option').remove();
@@ -155,7 +155,7 @@
                         $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&art='+$('#Pedido_ARTICULO').val()+'&tipo='+tipo_precio,
                             function(data){
                                  $('#tipoprecio_'+contador).text(data.NOMBRE);
-                                 $('#preciounitario_'+contador).text('$ '+data.PRECIO);
+                                 $('#preciounitario_'+contador).text(data.PRECIO);
                                  $('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
 
                                  $('select[id$='+model+'_'+contador+'_TIPO_PRECIO]>option').remove();
@@ -171,7 +171,7 @@
                                 });
                                 valor_impuesto = (parseInt(data.PRECIO, 10) * parseInt(impuesto, 10))/100;
                                 $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(valor_impuesto);
-                                $('#valor_impuesto_'+contador).text('$ '+valor_impuesto);
+                                $('#valor_impuesto_'+contador).text(valor_impuesto);
                                 
                                 calcularTotal(contador,model, model2);              
                          });
@@ -240,6 +240,9 @@
         var model = 'LineaNuevo';
         var model2 = 'PedidoLinea';
         var numLinea = parseInt($('#CAMPO_ACTUALIZA').val(), 10);
+        var eliminar = $('#eliminar').val();
+        eliminar = eliminar + ',' + $('#PedidoLinea_'+contador+'_ID').val();
+        $('#eliminar').val(eliminar);
         $('#CAMPO_ACTUALIZA').val(numLinea - 1);
         $('#removerU_'+contador).click();
         var contadorMax = $('body').find('.rowIndexU').max();
@@ -283,7 +286,7 @@
         }
         calculoGranTotal(model, model2);
     });
-    
+       
     function agregarCampos(contador,model){
         
         var articulo = $('#Pedido_ARTICULO').val();
@@ -303,7 +306,7 @@
         $('#articulo_'+contador).text(articulo);
         $('#descripcion_'+contador).text(descripcion);
         $('#cantidad_'+contador).text(cantidad);
-        $('#porcdescuento_'+contador).text(0+' %');
+        $('#porcdescuento_'+contador).text(0);
         $('#monto_descuento_'+contador).text(0);
     }
 });
@@ -471,6 +474,7 @@
                                 <tr class="templateContent">
                                     <td>
                                             <?php echo '<span id="lineaU_'.$i.'">'.$linea->LINEA.'</span>'; ?>
+                                            <?php echo CHtml::activeHiddenField($linea, "[$i]ID"); ?>
                                    </td>
                                    <td>
                                             <?php echo '<span id="articuloU_'.$i.'">'.$linea->ARTICULO.'</span>'; ?>
@@ -485,18 +489,18 @@
                                    </td>
                                    <td>
                                             <?php echo '<span id="unidadU_'.$i.'">'.$linea->uNIDAD->NOMBRE.'</span>'; ?>
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]UNIDAD"); ?>
+                                            <div style="display:none;"><?php echo CHtml::activeDropDownList($linea,"[$i]UNIDAD",CHtml::listData(UnidadMedida::model()->findAll('ACTIVO = "S" AND TIPO = "'.$linea->uNIDAD->TIPO.'"'), 'ID', 'NOMBRE'),array('style'=>'width:65px;', 'options'=>array($linea->UNIDAD => array('selected'=>'selected')))); ?></div>
                                     </td>
                                    <td>
-                                            <?php echo '<span id="tipo_precioU_'.$i.'">'.$linea->tIPOPRECIO->nIVELPRECIO->DESCRIPCION.'</span>'; ?>
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]TIPO_PRECIO"); ?>
+                                            <?php echo '<span id="tipoprecioU_'.$i.'">'.$linea->tIPOPRECIO->nIVELPRECIO->DESCRIPCION.'</span>'; ?>
+                                            <div style="display:none;"><?php echo CHtml::activeDropDownList($linea,"[$i]TIPO_PRECIO",CHtml::listData(ArticuloPrecio::model()->findAll('ACTIVO = "S"'), 'ID', 'nIVELPRECIO.DESCRIPCION'),array('style'=>'width:80px;', 'display'=>'none', 'options'=>array($linea->TIPO_PRECIO => array('selected'=>'selected')))); ?></div>
                                     </td>
                                     <td>
-                                            <?php echo '<span id="precio_unitarioU_'.$i.'">'.$linea->PRECIO_UNITARIO.'</span>'; ?>
+                                            <?php echo '<span id="preciounitarioU_'.$i.'">'.$linea->PRECIO_UNITARIO.'</span>'; ?>
                                             <?php echo CHtml::activeHiddenField($linea,"[$i]PRECIO_UNITARIO"); ?>                                        
                                     </td>                                
                                     <td>
-                                            <?php echo '<span id="porc_descuentoU_'.$i.'">'.$linea->PORC_DESCUENTO.'</span>'; ?>
+                                            <?php echo '<span id="porcdescuentoU_'.$i.'">'.$linea->PORC_DESCUENTO.'</span>'; ?>
                                             <?php echo CHtml::activeHiddenField($linea,"[$i]PORC_DESCUENTO"); ?>  
                                             <?php echo CHtml::activeHiddenField($linea,"[$i]MONTO_DESCUENTO"); ?>   
                                     </td>
@@ -545,3 +549,5 @@
 </table>
 <?php $model->isNewRecord ? $i=0 : $i++; ?>
 <?php echo CHtml::HiddenField('CAMPO_ACTUALIZA', $i); ?>
+<?php echo CHtml::HiddenField('NAME', ''); ?>
+<?php echo CHtml::hiddenField('eliminar',''); ?>
