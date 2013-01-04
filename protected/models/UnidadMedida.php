@@ -8,6 +8,7 @@
  * @property string $NOMBRE
  * @property string $ABREVIATURA
  * @property string $TIPO
+ * @property string $BASE
  * @property integer $UNIDAD_BASE
  * @property string $EQUIVALENCIA
  * @property string $ACTIVO
@@ -49,7 +50,7 @@ class UnidadMedida extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('NOMBRE, ABREVIATURA, TIPO, ACTIVO', 'required'),
+			array('NOMBRE, ABREVIATURA, TIPO, ACTIVO,UNIDAD_BASE, EQUIVALENCIA', 'required'),
 			array('EQUIVALENCIA', 'numerical',),
 			array('NOMBRE', 'length', 'max'=>64),
 			array('ABREVIATURA', 'length', 'max'=>5),
@@ -167,6 +168,9 @@ class UnidadMedida extends CActiveRecord
                     break;
                 case 'V':
                     return 'Volumen';
+                    break;
+                case 'S':
+                    return 'Servicio';
                     break;
             }
             

@@ -37,7 +37,7 @@ class Controller extends CController
 	*	este metodo sera llamado para desformatear un numero que venga con comas(,) y puntos (.)
 	*	@param $valor 
 	*/
-    public function unformat($valor){
+    public static function unformat($valor){
         $trans = array('.' => '');
         $trans2 = array(',' => '.');
         $valorunformat=strtr(strtr($valor, $trans), $trans2);
@@ -63,9 +63,9 @@ class Controller extends CController
 				
 		$this->menu = array(
                             array('label' => 'Inicio', 'url' => array('/site/index')),
-                            array('label' => 'Facturaci髇', 'url' => '#',
+                            array('label' => 'Facturaci贸n', 'url' => '#',
                                 'items' => array(
-                                    array('label' => 'Configuracion de Facturaci髇', 'url' => $fac ? array('/confFa/update', 'id' => $fac->ID) : array('/confFa/create')),
+                                    array('label' => 'Configuraci贸n', 'url' => $fac ? array('/confFa/update', 'id' => $fac->ID) : array('/confFa/create')),
                                     array('label'=>'Ensamble de articulos', 'url'=>array('/articuloEnsamble/admin')),
                                     array('label'=>'Precio de articulos', 'url'=>array('/articuloPrecio/admin')),
                                     array('label'=>'Pedidos', 'url'=>array('/pedido/admin')),
@@ -76,7 +76,7 @@ class Controller extends CController
 							),
                             array('label' => 'Compras', 'url' => '#',
                                 'items' => array(
-                                    array('label' => 'Configuraci髇 de Compras', 'url' => $com ? array('/confCo/update', 'id' => $com->ID) : array('/confCo/create')),
+                                    array('label' => 'Configuraci贸n de Compras', 'url' => $com ? array('/confCo/update', 'id' => $com->ID) : array('/confCo/create')),
                                     array('label' => 'Proveedor', 'url' => array('/proveedor/admin')),
                                     array('label' => 'Solicitud de compra', 'url' => array('/solicitudOc/admin')),
                                     array('label' => 'Ordenes de compra', 'url' => array('/ordenCompra/admin')),
@@ -85,16 +85,16 @@ class Controller extends CController
                             ),
                             array('label' => 'Inventario', 'url' => '#',
                                 'items' => array(
-                                    array('label' => 'Art韈ulos', 'url' => array('/articulo/admin')),
+                                    array('label' => 'Art铆ulos', 'url' => array('/articulo/admin')),
                                     array('label' => 'Clasificaciones', 'url' => array('/clasificacionAdi/admin')),
                                     array('label' => 'Valores para Clasificaciones ', 'url' => array('/clasificacionAdiValor/admin')),
-                                    array('label' => 'Tipo de art韈ulo', 'url' => array('/tipoArticulo/admin')),
+                                    array('label' => 'Tipo de art铆culo', 'url' => array('/tipoArticulo/admin')),
                                     array('label' => 'Unidades de medida', 'url' => array('/unidadMedida/admin')),
                                     array('label' => 'Metodo Valuacion', 'url' => array('/metodoValuacionInv/admin')),
-                                    array('label' => 'Tipo de Transacci髇', 'url' => array('/tipoTransaccion/admin')),
+                                    array('label' => 'Tipo de Transacci贸n', 'url' => array('/tipoTransaccion/admin')),
                                     array('label' => 'Consecutivos', 'url' => array('/consecutivoCi/admin')),
                                     array('label' => 'Documentos de Inventario', 'url' => array('/documentoInv/admin')),
-                                    array('label' => 'Configuraci髇', 'url' => array('/confCi/create')),
+                                    array('label' => 'Configuraci贸n', 'url' => array('/confCi/create')),
                                 )
                             ),
 							
@@ -107,20 +107,20 @@ class Controller extends CController
                                     array('label' => 'Municipio', 'url' => array('/ubicacionGeografica2/admin')),
                                     array('label' => Yii::t('app', 'AREA'), 'url' => array('/zona/admin')),
                                     array('label' => 'Bodega', 'url' => array('/bodega/admin')),
-                                    array('label' => 'Categor韆s clientes y proveedor', 'url' => array('/categoria/admin')),
+                                    array('label' => 'Categor铆as clientes y proveedor', 'url' => array('/categoria/admin')),
                                     array('label' => 'Centro de costos', 'url' => array('/centroCostos/admin')),
-                                    array('label' => 'Condici髇 de pago', 'url' => array('/codicionPago/admin')),
+                                    array('label' => 'Condici贸n de pago', 'url' => array('/codicionPago/admin')),
                                     array('label' => 'Dependencia', 'url' => array('/departamento/admin')),
                                     array('label' => 'Tipo de documento', 'url' => array('/tipoDocumento/admin')),
-                                    array('label' => 'Relaci髇 de Nits', 'url' => array('nit/admin')),
+                                    array('label' => 'Relaci贸n de Nits', 'url' => array('nit/admin')),
                                     array('label' => 'Entidad financiera', 'url' => array('/entidadFinanciera/admin')),
-                                                        array('label'=>'Tipos de precio', 'url'=>array('/nivelPrecio/admin')),
+                                    array('label'=>'Tipos de precio', 'url'=>array('/nivelPrecio/admin')),
                                     array('label' => 'Tipo de tarjeta', 'url' => array('/tipoTarjeta/admin')),
-                                    array('label' => 'D韆 feriado', 'url' => array('/diaFeriado/admin')),
+                                    array('label' => 'D铆a feriado', 'url' => array('/diaFeriado/admin')),
                                     array('label' => 'Impuesto', 'url' => array('/impuesto/admin')),
-                                    array('label' => 'Retenci髇', 'url' => array('/retencion/admin')),
+                                    array('label' => 'Retenci贸n', 'url' => array('/retencion/admin')),
                                     array('label'=>'Regimen Tributario', 'url'=>array('/regimenTributario/admin')),
-                                    array('label' => 'Administraci髇 de Reportes', 'url' => array('/formatoImpresion/admin')),
+                                    array('label' => 'Administraci贸n de Reportes', 'url' => array('/formatoImpresion/admin')),
                             )),
                             /*array('label' => 'Recursos Humanos', 'url' => '#',
                                 'items' => array(
@@ -139,7 +139,7 @@ class Controller extends CController
                                     ),
                             ),*/
                             array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false),
-							array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>Yii::app()->user->ui->logoutUrl,'visible'=>!Yii::app()->user->isGuest),
+                            array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>Yii::app()->user->ui->logoutUrl,'visible'=>!Yii::app()->user->isGuest),
                         );
 		return $this->menu;
 		
@@ -170,7 +170,7 @@ class Controller extends CController
 		//...	y otras cosas mas q no nos interesan.
 	}
 	
-	//Funcion que retorna factor de conversi髇 de una unidad a otra
+	//Funcion que retorna factor de conversi锟絥 de una unidad a otra
 	function factor_conversion($unidad_origen, $unidad_destino, $db, $enlace)
 	{
 		mysql_select_db($db, $enlace);

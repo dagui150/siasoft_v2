@@ -34,7 +34,7 @@ $this->breadcrumbs=array(
 			'ABREVIATURA',
                         array(
                             'name'=>'TIPO',
-                            'filter'=>array('U'=>'Unidad','L'=>'Longitud','P'=>'Peso','V'=>'Volumen'),
+                            'filter'=>array('U'=>'Unidad','L'=>'Longitud','P'=>'Peso','V'=>'Volumen','S'=>'Servicio',),
                             'value'=>'UnidadMedida::darTipo($data->TIPO)'
                         ),
                         /*array(
@@ -45,6 +45,8 @@ $this->breadcrumbs=array(
 			'EQUIVALENCIA',
 			array(
 				'class'=>'bootstrap.widgets.BootButtonColumn',
+                                'deleteButtonUrl'=>'"index.php?r=unidadMedida/delete&id=".$data->ID',
+                                'updateButtonUrl'=>'($data->BASE == "S") ? "#" : "index.php?r=unidadMedida/update&id=".$data->ID',
                                 'htmlOptions'=>array('style'=>'width: 50px'),
 			),
 		),

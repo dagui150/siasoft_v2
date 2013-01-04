@@ -24,11 +24,11 @@
 		'DESCR_TIP_TARJE' => 'Breve descripción del tipo de Tarjeta.',
             
             //MODULO - INVENTARIO
-		'NOM_UNID_MED' => 'Ej.: Kilogramo.',
-		'ABRE_UNID_MED' => 'Ej.: KG.',
+		'NOM_UNID_MED' => 'Ej.: Libra.',
+		'ABRE_UNID_MED' => 'Ej.: LB.',
 		'TIPO_UNID_MED' => 'Ej.: Peso.',
-		'UBASE_UNID_MED' => 'Ej.: Kilogramo o Gramo.',
-		'EQUI_UNID_MED' => 'Ej.: 1 o 1000. (Segun sea kg o gr).',
+		'UBASE_UNID_MED' => 'Unidad, Metro, Metro Cubico, Kilogramo o Servicio ',
+		'EQUI_UNID_MED' => 'Ej.: 2 LB son 1 KG',
 		'CLAS_ADI_VAL_CLAS' => 'Este campo depende del submenú "Clasificaciones". Ej.: Talla.',
 		'CLAS_ADI_VAL_VAL' => 'En este campo se asigna un valor según la clasificación seleccionada. Ej.: S.',
 		'CLAS_NOM' => 'De este campo depende el submenú "Valores para Clasificaciones".',

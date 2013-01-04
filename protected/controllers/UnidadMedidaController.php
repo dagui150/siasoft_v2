@@ -40,6 +40,7 @@ class UnidadMedidaController extends Controller
 		if(isset($_POST['UnidadMedida']))
 		{
 			$model2->attributes=$_POST['UnidadMedida'];
+                        $model2->BASE = 'N';
 			if($model2->save())
 				$this->redirect(array('admin',));
 		}
@@ -83,11 +84,14 @@ class UnidadMedidaController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                        $model =$this->loadModel($id);
+                        if($model->BASE != 'S'){
+                            $model->updateByPk($id,array('ACTIVO'=>'N'));
+                            if(!isset($_GET['ajax']))
+                                    $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                            }
+                        else
+                            throw new CHttpException(500,'Solicitud Invalida. No se puede eliminar unidad Base.');
 		}
 		else
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
@@ -109,6 +113,7 @@ class UnidadMedidaController extends Controller
 		if(isset($_POST['UnidadMedida']))
 		{
 			$model2->attributes=$_POST['UnidadMedida'];
+                        $model2->BASE = 'N';
 			if($model2->save())
 				$this->redirect(array('admin',));
 		}
@@ -149,8 +154,12 @@ class UnidadMedidaController extends Controller
 	}
         
         public function actionCargarbase(){
-            
-            echo CJSON::encode(CHtml::ListData(UnidadMedida::model()->findAll('TIPO = "'.$_GET['tipo'].'"'),'ID','NOMBRE'));
+            $bus = UnidadMedida::model()->findByAttributes(array('ACTIVO'=>'S','BASE'=>'S','TIPO'=>$_GET['tipo']));
+            $res =array(
+                'ID'=>$bus->ID,
+                'NOMBRE'=>$bus->NOMBRE
+            );
+            echo CJSON::encode($res);
             
         }
 }

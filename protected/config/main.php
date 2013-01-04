@@ -24,9 +24,9 @@ return array(
 		'application.controllers.*',
 		'application.components.*',
 		'application.extensions.helpers.*',
-        'application.extensions.PdfGrid.*',
-        'ext.bootstrap.widgets.BootPager',
-        'ext.helpers.*',
+                'application.extensions.PdfGrid.*',
+                'ext.bootstrap.widgets.BootPager',
+                'ext.helpers.*',
 		'application.modules.cruge.components.*',
 		'application.modules.cruge.extensions.crugemailer.*',
 	),
@@ -46,8 +46,8 @@ return array(
 			// MIENTRAS INSTALAS..PONLO EN: false
 			// lee mas abajo respecto a 'Encriptando las claves'
 			'useEncryptedPassword' => false,
-			// Algoritmo de la función hash que deseas usar
-			// Los valores admitidos están en: http://www.php.net/manual/en/function.hash-algos.php
+			// Algoritmo de la funciï¿½n hash que deseas usar
+			// Los valores admitidos estï¿½n en: http://www.php.net/manual/en/function.hash-algos.php
 			'hash' => 'md5',
 			// a donde enviar al usuario tras iniciar sesion, cerrar sesion o al expirar la sesion.
 		    //
@@ -63,13 +63,13 @@ return array(
 			'afterSessionExpiredUrl'=>null,
 			// manejo del layout con cruge.
 			//
-			'loginLayout'=>'//layouts/cruge',
+			'loginLayout'=>'//layouts/cruge_login',
 			'registrationLayout'=>'//layouts/column2',
 			'activateAccountLayout'=>'//layouts/column2',
 			'editProfileLayout'=>'//layouts/column2',
 			// en la siguiente puedes especificar el valor "ui" o "column2" para que use el layout
 			// de fabrica, es basico pero funcional.  si pones otro valor considera que cruge
-			// requerirá de un portlet para desplegar un menu con las opciones de administrador.
+			// requerirï¿½ de un portlet para desplegar un menu con las opciones de administrador.
 			//
 			'generalUserManagementLayout'=>'//layouts/cruge',
 			'defaultSessionFilter'=>'application.components.MiSesionCruge',
@@ -115,7 +115,7 @@ return array(
 			'class' => 'application.components.UiManager',
 		),
         //  IMPORTANTE:  asegurate de que la entrada 'user' (y format) que por defecto trae Yii
-			//               sea sustituida por estas a continuación:
+			//               sea sustituida por estas a continuaciï¿½n:
 			//
 		'user'=>array(
 			'allowAutoLogin'=>true,
@@ -152,7 +152,7 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=siasoft_sincroniza',
+			'connectionString' => 'mysql:host=localhost;dbname=siasoft',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => '',
