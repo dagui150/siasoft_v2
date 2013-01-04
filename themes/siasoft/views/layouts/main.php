@@ -68,8 +68,7 @@
                         'type' => 'pills', // '', 'tabs', 'pills' (or 'list')
                         'stacked' => false, // whether this is a stacked menu
                         'items' =>$this->menu(),
-                                    array('label' => 'Artículos Bodega', 'url' => array('/bodega/inventario')),
-                                    array('label' => 'Papelera', 'url' => array('/Papelera/index')),
+                                    
                     ));
                 }
                 ?>

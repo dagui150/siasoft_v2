@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 <h1>Unidades de Medida</h1>
 <?php 
 if (isset($_GET['men'])){
-    SBaseController::mensaje($_GET['men']);
+   $this->mensaje($_GET['men']);
 }
 ?>
 <div id="mensaje"></div>
@@ -54,7 +54,7 @@ if (isset($_GET['men'])){
                                 'deleteButtonUrl'=>'"index.php?r=unidadMedida/delete&id=".$data->ID',
                                 'updateButtonUrl'=>'($data->BASE == "S") ? "#" : "index.php?r=unidadMedida/update&id=".$data->ID',
                             'htmlOptions'=>array('style'=>'width: 50px'),
-                            'afterDelete'=>SBaseController::mensajeBorrar(),
+                            'afterDelete'=>$this->mensajeBorrar(),
 			),
 		),
 	));

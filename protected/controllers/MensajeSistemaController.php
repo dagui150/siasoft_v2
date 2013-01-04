@@ -1,6 +1,6 @@
 <?php
 
-class MensajeSistemaController extends SBaseController
+class MensajeSistemaController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning

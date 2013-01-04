@@ -33,6 +33,32 @@ class Controller extends CController
                 ),true);
         return $boton;
     }
+	
+	public function mensajeBorrar(){
+		$borrar_success = MensajeSistema::model()->findByPk('S004');
+		$borrar_error = MensajeSistema::model()->findByPk('E004');
+		$mensaje_p1='$("#mensaje").html("<div class=';
+		$mensaje_p2='><button type=\'button\' class=\'close\' data-dismiss=\'alert\'>&times;</button><font size=\'5\' align=\'left\'>&nbsp &nbsp';
+		$mensaje_p3='.</font></div> ");';
+		$mensaje_success=$mensaje_p1.'\'alert alert-success\''.$mensaje_p2.'<img src='.Yii::app()->baseUrl."/images/success.png".'>&nbsp&nbsp'.$borrar_success->MENSAJE.$mensaje_p3;
+		$mensaje_error=$mensaje_p1.'\'alert alert-error\''.$mensaje_p2.'<img src='.Yii::app()->baseUrl."/images/error.png".'>&nbsp&nbsp'.$borrar_error->MENSAJE.$mensaje_p3;
+		return 'function(link,success,data){ if(success){'.$mensaje_success.'}else{window.alert = null;'.$mensaje_error.'}}';
+	}
+	
+	public function mensaje($men_){
+		$mensaje_ = MensajeSistema::model()->findByPk($men_);
+		$img_=substr($men_, 0,1);
+		switch ($img_){
+			case 'S':
+			$img_url="/images/success.png";
+			break;
+			case 'E':
+			$img_url="/images/error.png";
+			break;
+		}
+		Yii::app()->user->setFlash($mensaje_->TIPO, '<font size="5" align="left">&nbsp &nbsp<img src='.Yii::app()->baseUrl.$img_url.'>&nbsp &nbsp'.$mensaje_->MENSAJE.'.</font>');
+		$this->widget('bootstrap.widgets.BootAlert');
+	}
     /*
 	*	este metodo sera llamado para desformatear un numero que venga con comas(,) y puntos (.)
 	*	@param $valor 
@@ -86,6 +112,7 @@ class Controller extends CController
                             array('label' => 'Inventario', 'url' => '#',
                                 'items' => array(
                                     array('label' => 'Artíulos', 'url' => array('/articulo/admin')),
+									array('label' => 'Artículos Bodega', 'url' => array('/bodega/inventario')),
                                     array('label' => 'Clasificaciones', 'url' => array('/clasificacionAdi/admin')),
                                     array('label' => 'Valores para Clasificaciones ', 'url' => array('/clasificacionAdiValor/admin')),
                                     array('label' => 'Tipo de artículo', 'url' => array('/tipoArticulo/admin')),
@@ -121,6 +148,7 @@ class Controller extends CController
                                     array('label' => 'Retención', 'url' => array('/retencion/admin')),
                                     array('label'=>'Regimen Tributario', 'url'=>array('/regimenTributario/admin')),
                                     array('label' => 'Administración de Reportes', 'url' => array('/formatoImpresion/admin')),
+									array('label' => 'Papelera', 'url' => array('/Papelera/index')),
                             )),
                             /*array('label' => 'Recursos Humanos', 'url' => '#',
                                 'items' => array(

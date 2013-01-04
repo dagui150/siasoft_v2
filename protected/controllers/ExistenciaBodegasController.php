@@ -1,6 +1,6 @@
 <?php
 
-class ExistenciaBodegasController extends SBaseController
+class ExistenciaBodegasController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -156,10 +156,10 @@ class ExistenciaBodegasController extends SBaseController
                                     $linea->ARTICULO = $datos['ARTICULO'];
                                     $linea->DESCRIPCION = $datos['DESCRIPCION'];
                                     $linea->UNIDAD = $datos['UNIDAD'];
-                                    $linea->CANTIDAD = SBaseController::unformat($datos['CANTIDAD']);
+                                    $linea->CANTIDAD = Controller::unformat($datos['CANTIDAD']);
                                     $linea->FECHA_REQUERIDA = $datos['FECHA_REQUERIDA'];
                                     $linea->COMENTARIO = $datos ['COMENTARIO'];
-                                    $linea->SALDO = SBaseController::unformat($datos ['SALDO']);
+                                    $linea->SALDO = Controller::unformat($datos ['SALDO']);
                                     $linea->LINEA_NUM = $i;
                                     $linea->ESTADO = $datos ['ESTADO'];
                                     $linea->save();
