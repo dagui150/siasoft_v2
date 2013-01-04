@@ -444,7 +444,8 @@ class DocumentoInvController extends SBaseController
             $this->doc = $model = DocumentoInv::model()->findByPk($id);
             $model2 = new DocumentoInvLinea;
             
-            $this->layout = ConsecutivoCi::model()->find('ID = "'.$model->CONSECUTIVO.'"')->fORMATOIMPRESION->RUTA;
+            $this->layout = ConsecutivoCi::model()->find('ID = "'.$model->CONSECUTIVO.'"')->fORMATOIMPRESION->pLANTILLA->RUTA;
+            
             
             $footer = '<table width="100%">
                     <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>

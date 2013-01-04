@@ -72,5 +72,14 @@ $this->widget('bootstrap.widgets.BootButton', array(
                     'class'=>'bootstrap.widgets.BootButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),
 		),
+            array(
+                         'class'=>'CLinkColumn',
+			 //'header'=>'Pedidos',
+			 'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
+			 //'labelExpression'=>'$data->ID',
+			 'urlExpression'=>'CController::createUrl("/Pedido/formatoPDF", array("id"=>$data->PEDIDO))',
+			 'htmlOptions'=>array('style'=>'text-align:center;'),
+			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),
+                ),
 	),
 )); ?>

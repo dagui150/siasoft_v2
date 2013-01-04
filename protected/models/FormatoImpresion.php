@@ -45,17 +45,17 @@ class FormatoImpresion extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array(' NOMBRE, MODULO, SUBMODULO, RUTA, TIPO', 'required'),
+            array(' NOMBRE, MODULO, SUBMODULO, PLANTILLA, TIPO', 'required'),
             array('ID', 'numerical', 'integerOnly' => true),
             array('NOMBRE', 'length', 'max' => 64),
             array('MODULO, SUBMODULO, TIPO', 'length', 'max' => 4),
-            array('RUTA', 'length', 'max' => 128),
+            array('PLANTILLA', 'length', 'max' => 128),
             array('ACTIVO', 'length', 'max' => 1),
             array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max' => 20),
             array('OBSERVACION', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('ID, NOMBRE, OBSERVACION, MODULO, SUBMODULO, RUTA, TIPO, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on' => 'search'),
+            array('ID, NOMBRE, OBSERVACION, MODULO, SUBMODULO, PLANTILLA, TIPO, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on' => 'search'),
         );
     }
 
@@ -67,6 +67,9 @@ class FormatoImpresion extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'consecutivoCis' => array(self::HAS_MANY, 'ConsecutivoCi', 'FORMATO_IMPRESION'),
+            'pLANTILLA' => array(self::BELONGS_TO, 'Plantilla', 'PLANTILLA'),
+            'mODULO' => array(self::BELONGS_TO, 'Modulo', 'MODULO'),
+            'sUBMODULO' => array(self::BELONGS_TO, 'SubModulo', 'SUBMODULO'),
         );
     }
 
@@ -80,7 +83,7 @@ class FormatoImpresion extends CActiveRecord {
             'OBSERVACION' => 'Observacion',
             'MODULO' => 'Modulo',
             'SUBMODULO' => 'Submodulo',
-            'RUTA' => 'Formato',
+            'PLANTILLA' => 'Formato',
             'TIPO' => 'Tipo',
             'ACTIVO' => 'Activo',
             'CREADO_POR' => 'Creado Por',
@@ -105,7 +108,7 @@ class FormatoImpresion extends CActiveRecord {
         $criteria->compare('OBSERVACION', $this->OBSERVACION, true);
         $criteria->compare('MODULO', $this->MODULO, true);
         $criteria->compare('SUBMODULO', $this->SUBMODULO, true);
-        $criteria->compare('RUTA', $this->RUTA, true);
+        $criteria->compare('PLANTILLA', $this->PLANTILLA, true);
         $criteria->compare('TIPO', $this->TIPO, true);
         $criteria->compare('ACTIVO', 'S');
         $criteria->compare('CREADO_POR', $this->CREADO_POR, true);

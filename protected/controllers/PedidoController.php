@@ -7,6 +7,7 @@ class PedidoController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
+        public $pedido;
 
 	/**
 	 * @return array action filters
@@ -255,6 +256,30 @@ class PedidoController extends Controller
 			'dataProvider'=>$dataProvider,
 		));
 	}
+        
+        public function actionformatoPDF() 
+        {
+
+            $id = $_GET['id'];
+            
+            $this->pedido = Pedido::model()->findByPk($id);
+            $lineas = new PedidoLinea;
+            $this->layout =ConfFa::model()->find()->fORMATOPEDIDO->pLANTILLA->RUTA;
+            $footer = '<table width="100%">
+                    <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>
+                        <td align="center" valign="middle"><span class="piePagina"><b>Generado el:</b> ' . date('Y/m/d') . '</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center" valign="middle">Desarrollado por Tramasoft Soluciones TIC - <a href="http://www.tramasoft.com">www.tramasoft.com</a></td>
+                    </tr>
+                    </table>';
+            $mPDF1 = Yii::app()->ePdf->mpdf();
+            $mPDF1->WriteHTML($this->render('pdf', array('model' => $this->pedido,'model2'=>$lineas), true));
+            $mPDF1->SetHTMLFooter($footer);
+
+            $mPDF1->Output();
+            Yii::app()->end();
+        }
 
 	/**
 	 * Manages all models.

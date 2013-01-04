@@ -36,12 +36,23 @@ $this->menu=array(
 		'ID',
 		'NOMBRE',
 		'OBSERVACION',
-                array(
-                    'name'=>'MODULO',
-                    'value'=>FormatoImpresion::getModulo($model->MODULO),
-                ),
-		'SUBMODULO',
-		'RUTA',
+            array(
+                'name'=>'MODULO',
+                'header'=>'Modulo',
+                'value'=>$model->mODULO->NOMBRE,
+                
+            ),
+            array(
+                'name'=>'SUBMODULO',
+                'header'=>'SubModulo',
+                'value'=>$model->sUBMODULO->NOMBRE,
+                
+            ),
+            array(
+                'name'=>'PLANTILLA',
+                'value'=>$model->pLANTILLA->NOMBRE,
+                
+            ),
 		'TIPO',
             /*
 		'ACTIVO',

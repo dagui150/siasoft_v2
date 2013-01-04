@@ -37,8 +37,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'RUTA'); ?>
-		<?php echo $form->textField($model,'RUTA',array('size'=>60,'maxlength'=>128)); ?>
+		<?php echo $form->label($model,'PLANTILLA'); ?>
+		<?php echo $form->textField($model,'PLANTILLA',array('size'=>60,'maxlength'=>128)); ?>
 	</div>
 
 	<div class="row">
