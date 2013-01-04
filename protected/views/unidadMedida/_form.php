@@ -7,13 +7,8 @@
             
             $.getJSON('<?php echo $this->createUrl('cargarbase')?>&tipo='+$(this).val(),
                 function(data){
-                    
-                     $('select[id$=UnidadMedida_UNIDAD_BASE ] > option').remove();
-                      $('#UnidadMedida_UNIDAD_BASE').append("<option value=''>Seleccione</option>");
-                    
-                    $.each(data, function(value, name) {
-                              $('#UnidadMedida_UNIDAD_BASE').append("<option value='"+value+"'>"+name+"</option>");
-                        });
+                    $('#UnidadMedida_UNIDAD_BASE').val(data.ID);
+                    $('#UNIDAD_BASE').val(data.NOMBRE);
                 });
         });
     }
@@ -49,13 +44,19 @@
                         </tr>
                         <tr>
                             <td>
-                                <?php echo $form->dropDownListRow($model2,'TIPO',array(''=>'Seleccione','U'=>'Unidad','L'=>'Longitud','V'=>'Volumen','P'=>'Peso')); ?>
+                                <?php echo $form->dropDownListRow($model2,'TIPO',array(''=>'Seleccione','U'=>'Unidad','L'=>'Longitud','V'=>'Volumen','P'=>'Peso','S'=>'Servicio')); ?>
                             </td>
                             <td><?php echo $this->botonAyuda('TIPO_UNID_MED'); ?></td>
                         </tr>
                         <tr>
                             <td>
-                                <?php echo $form->dropDownListRow($model2,'UNIDAD_BASE',array(),array('empty'=>'Seleccione')); ?>
+                                <?php echo $form->hiddenField($model2,'UNIDAD_BASE'); ?>
+                                 <div class="control-group ">
+                                        <?php echo $form->labelEx($model2,'UNIDAD_BASE',array('class'=>'control-label')); ?>
+                                        <div class="controls">   
+                                             <?php echo CHtml::textField('UNIDAD_BASE',!$model2->isNewRecord ? $model2->uNIDADBASE->NOMBRE : '',array('disabled'=>true)); ?>
+                                        </div>
+                                </div>
                             </td>
                             <td>
                                 <?php echo $this->botonAyuda('UBASE_UNID_MED'); ?>

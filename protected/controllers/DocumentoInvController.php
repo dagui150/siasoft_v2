@@ -1,6 +1,6 @@
 <?php
 
-class DocumentoInvController extends SBaseController
+class DocumentoInvController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -9,19 +9,16 @@ class DocumentoInvController extends SBaseController
         public $modulo='Invetario';
         public $submodulo='Documentos Inventario';
 	public $layout='//layouts/column2';
-        public $breadcrumbs=array();
-	public $menu=array();
         public $doc;
 
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
+	public function filters(){
+      return array(
+				array('CrugeAccessControlFilter'),
+			);
+    }
 
 	/**
 	 * Displays a particular model.

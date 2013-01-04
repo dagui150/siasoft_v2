@@ -1,79 +1,86 @@
-<?php
-/**
- * Controller is the customized base controller class.
- * All controller classes for this application should extend from this base class.
- */
-class Controller extends CController
-{
-	/**
-	 * @var string the default layout for the controller view. Defaults to '//layouts/column1',
-	 * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
-	 */
-	public $layout='//layouts/column1';
-	/**
-	 * @var array context menu items. This property will be assigned to {@link CMenu::items}.
-	 */
-	public $menu=array();
-	/**
-	 * @var array the breadcrumbs of the current page. The value of this property will
-	 * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
-	 * for more details on how to specify this property.
-	 */
-	public $breadcrumbs=array();
-	/*
-	*	este metodo sera llamado para retornar un boton de ayuda
-	*	@param $texto 
-	*/
-	public function botonAyuda($texto) {
-        $boton = $this->widget('bootstrap.widgets.BootButton', array(
-                    'type' => 'nommal', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-                    'size' => 'mini', // '', 'large', 'small' or 'mini'
-                    'icon' => 'info-sign',
-                    'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>Yii::t('ayuda',$texto), 'rel'=>'popover'),
-                ),true);
-        return $boton;
-    }
-    /*
-	*	este metodo sera llamado para desformatear un numero que venga con comas(,) y puntos (.)
-	*	@param $valor 
-	*/
-    public static function unformat($valor){
-        $trans = array('.' => '');
-        $trans2 = array(',' => '.');
-        $valorunformat=strtr(strtr($valor, $trans), $trans2);
-        return $valorunformat;
-    }
-	
-	/*
-	*	este metodo sera llamado para retornar el menu del sistema
-	*	con los items desplegados por cruge y extras como logout
-	*	@return "menu del sistema para el usuario"
-	*/
-	public function menu(){
-		/*$this->menu = Yii::app()->user->rbac->getMenu();
-		$this->menu[]= array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false);
-		$this->menu[]=array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>Yii::app()->user->ui->logoutUrl,'visible'=>!Yii::app()->user->isGuest);
-		*/
-		
-		
-        $com = ConfCo::model()->find();
-        $fac = ConfFa::model()->find();
-        $compa = Compania::model()->find();
-        $admin = ConfAs::model()->find();
-				
-		$this->menu = array(
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHtml::encode(Yii::app()->charset); ?>" />
+        <meta name="language" content="<?php echo CHtml::encode(Yii::app()->language); ?>" />
+
+        <!-- blueprint CSS framework -->
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/screen.css" media="screen, projection" />
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/print.css" media="print" />
+        <!--[if lt IE 8]>
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
+        <![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/form.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/tables.css" />
+
+        <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+        <script language="JavaScript">
+            $(document).ready(function(){
+
+                $('.decimal').blur(function(){
+                    $(this).val(format($(this).val()));
+                });                
+            });
+            function format(value) {
+                    var num = value.replace(/\./g,'');	
+
+                    if(!/,/.test(num)){
+                        num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+                        num = num.split('').reverse().join('').replace(/^[\.]/,'');
+                        return num;
+                    }else{
+                        var num2 = num.toString().split(',')[0];
+                        num2 = num2.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+                        num2 = num2.split('').reverse().join('').replace(/^[\.]/,'');
+                        var num3 = num2+','+num.toString().split(',')[1] 
+                        return num3;
+                    }
+            }
+                
+            function unformat($text){
+                var $value = $text.toString().replace(/\./g,'');
+                $value = $value.toString().replace(/\,/g,'.');
+                return $value;
+            }
+        </script>
+    </head>
+
+    <body>
+
+        <div class="container" id="page">
+
+            <table width="960" align="center" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td id="cabecera_sup" height="57">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td id="cabecera" height="56">&nbsp;</td>
+                </tr>
+            </table><!-- header -->
+            <div id="menu">
+
+                <?php
+                if (!Yii::app()->user->isGuest) {
+
+                    $this->widget('bootstrap.widgets.BootMenu', array(
+                        'type' => 'pills', // '', 'tabs', 'pills' (or 'list')
+                        'stacked' => false, // whether this is a stacked menu
+<<<<<<< HEAD
+                        'items' => array(
                             array('label' => 'Inicio', 'url' => array('/site/index')),
                             array('label' => 'Facturación', 'url' => '#',
                                 'items' => array(
-                                    array('label' => 'Configuración', 'url' => $fac ? array('/confFa/update', 'id' => $fac->ID) : array('/confFa/create')),
+                                    array('label' => 'Configuracion de Facturación', 'url' => $fac ? array('/confFa/update', 'id' => $fac->ID) : array('/confFa/create')),
                                     array('label'=>'Ensamble de articulos', 'url'=>array('/articuloEnsamble/admin')),
                                     array('label'=>'Precio de articulos', 'url'=>array('/articuloPrecio/admin')),
                                     array('label'=>'Pedidos', 'url'=>array('/pedido/admin')),
                                     array('label'=>'Facturas', 'url'=>array('/factura/admin')),
                                     array('label'=>'Consecutivos', 'url'=>array('/consecutivoFa/admin')),	
                                     array('label'=>'Clientes', 'url'=>array('/cliente/admin')),	
-								)
-							),
+				)
+			    ),
                             array('label' => 'Compras', 'url' => '#',
                                 'items' => array(
                                     array('label' => 'Configuración de Compras', 'url' => $com ? array('/confCo/update', 'id' => $com->ID) : array('/confCo/create')),
@@ -85,7 +92,8 @@ class Controller extends CController
                             ),
                             array('label' => 'Inventario', 'url' => '#',
                                 'items' => array(
-                                    array('label' => 'Artíulos', 'url' => array('/articulo/admin')),
+                                    array('label' => 'Artículos', 'url' => array('/articulo/admin')),
+                                    array('label' => 'Artículos Bodega', 'url' => array('/bodega/inventario')),
                                     array('label' => 'Clasificaciones', 'url' => array('/clasificacionAdi/admin')),
                                     array('label' => 'Valores para Clasificaciones ', 'url' => array('/clasificacionAdiValor/admin')),
                                     array('label' => 'Tipo de artículo', 'url' => array('/tipoArticulo/admin')),
@@ -97,7 +105,6 @@ class Controller extends CController
                                     array('label' => 'Configuración', 'url' => array('/confCi/create')),
                                 )
                             ),
-							
                             array('label' => 'Sistema', 'url' => '#',
                                 'items' => array(
                                     array('label' => Yii::t('app', 'COMPANY'), 'url' => $compa ? array('/compania/update', 'id' => $compa->ID) : array('/compania/create')),
@@ -114,13 +121,14 @@ class Controller extends CController
                                     array('label' => 'Tipo de documento', 'url' => array('/tipoDocumento/admin')),
                                     array('label' => 'Relación de Nits', 'url' => array('nit/admin')),
                                     array('label' => 'Entidad financiera', 'url' => array('/entidadFinanciera/admin')),
-                                    array('label'=>'Tipos de precio', 'url'=>array('/nivelPrecio/admin')),
+                                                        array('label'=>'Tipos de precio', 'url'=>array('/nivelPrecio/admin')),
                                     array('label' => 'Tipo de tarjeta', 'url' => array('/tipoTarjeta/admin')),
                                     array('label' => 'Día feriado', 'url' => array('/diaFeriado/admin')),
                                     array('label' => 'Impuesto', 'url' => array('/impuesto/admin')),
                                     array('label' => 'Retención', 'url' => array('/retencion/admin')),
                                     array('label'=>'Regimen Tributario', 'url'=>array('/regimenTributario/admin')),
                                     array('label' => 'Administración de Reportes', 'url' => array('/formatoImpresion/admin')),
+                                    array('label' => 'Papelera', 'url' => array('/Papelera/index')),
                             )),
                             /*array('label' => 'Recursos Humanos', 'url' => '#',
                                 'items' => array(
@@ -138,54 +146,49 @@ class Controller extends CController
                                     
                                     ),
                             ),*/
-                            array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false),
-                            array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>Yii::app()->user->ui->logoutUrl,'visible'=>!Yii::app()->user->isGuest),
-                        );
-		return $this->menu;
-		
-	}
-	
-	//Funcion que actualiza el inventario de un articulo
-	function upd_inventario($arti_id, $cantidad, $unidad_id, $operacion)
-	{
-		$query_unidad_articulo = "SELECT UNIDAD_ID, ARTI_TIPO FROM articulo WHERE arti_id = $arti_id";
-		$res_unidad_articulo = mysql_query($query_unidad_articulo, $enlace) or die(rollback());
-		$row_unidad_articulo = mysql_fetch_assoc($res_unidad_articulo);
-		
-		//Si es tipo servicio no se actualiza el inventario
-		if($row_unidad_articulo['ARTI_TIPO'] == 'S')
-		{
-			return true;	
-		}
-		
-		$cantidad_equiv = $cantidad;
-		
-		if($row_unidad_articulo['UNIDAD_ID'] != $unidad_id)
-		{
-			//equivalencia
-			$factor = factor_conversion($unidad_id, $row_unidad_articulo['UNIDAD_ID'], $db, $enlace);
-			$cantidad_equiv = $cantidad * $factor;
-		}
+                            array('label' => 'Usuarios', 'url' => array('/usuarios/admin')),
+                            array('label' => Yii::t('app', 'LOGIN'), 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
+                            array('label' => Yii::t('app', 'LOGOUT (') . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
+                        ),
+=======
+                        'items' =>$this->menu(),
+>>>>>>> 6b6b1db52706f5c441d321ef013af9faf4053a6d
+                    ));
+                }
+                ?>
+            </div><!-- mainmenu -->
 
-		//...	y otras cosas mas q no nos interesan.
-	}
-	
-	//Funcion que retorna factor de conversi�n de una unidad a otra
-	function factor_conversion($unidad_origen, $unidad_destino, $db, $enlace)
-	{
-		mysql_select_db($db, $enlace);
-		
-		$query_datos_und_origen = "SELECT UNIDAD_EQUIV FROM unidad WHERE UNIDAD_ID = $unidad_origen";
-		$res_datos_und_origen = mysql_query($query_datos_und_origen, $enlace) or die(rollback());
-		$row_datos_und_origen = mysql_fetch_assoc($res_datos_und_origen);
-		
-		$query_datos_und_destino = "SELECT UNIDAD_EQUIV FROM unidad WHERE UNIDAD_ID = $unidad_destino";
-		$res_datos_und_destino = mysql_query($query_datos_und_destino, $enlace) or die(rollback());
-		$row_datos_und_destino = mysql_fetch_assoc($res_datos_und_destino);
+<?php
+if (!Yii::app()->user->isGuest) {
+    if (isset($this->breadcrumbs)):
+        $this->widget('bootstrap.widgets.BootBreadcrumbs', array(
+            'links' => $this->breadcrumbs,
+        ));
+    endif
+    ?>
+            <?php } ?>
 
-		$factor = $row_datos_und_origen['UNIDAD_EQUIV'] / $row_datos_und_destino['UNIDAD_EQUIV'];
+            <?php echo $content; ?>
+			
+            <div class="clear"></div>
+
+            <div style="width:100%; background-color:#fff; height:100px;">
+                <div style="padding-top:20px; float:left; padding-left:50px;">
+                    <img src="themes/siasoft/images/footer.png" alt="escudos" width="619" height="59" border="0" usemap="#Map">
+                        <map name="Map" id="Map">
+                            <area shape="rect" coords="95,4,250,56" href="http://www.tolima.gov.co/tolima/index.php" target="_blank" />
+                            <area shape="rect" coords="265,5,490,53" href="http://www.adtolima.org/" target="_blank" />
+                            <area shape="rect" coords="517,5,606,54" href="http://www.ccibague.org/" target="_blank" />
+                        </map>
+                    </img>
+                </div>
+                <div style="float:right; padding-top:20px; padding-right:50px;">
+                    <a href="http://www.tramasoft.com" target="_blank" title="Tramasoft - Soluciones TIC"><img src="themes/siasoft/images/logo_tramasoft.png" alt="Tramasoft - Soluciones TIC" border="0" /></a>
+                </div>
+            </div><!-- footer -->
+
+        </div><!-- page -->
 		
-		return $factor;
-	}
-	
-}
+		<?php echo Yii::app()->user->ui->displayErrorConsole(); ?>
+    </body>
+</html>

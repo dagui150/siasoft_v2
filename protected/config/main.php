@@ -24,75 +24,71 @@ return array(
 		'application.controllers.*',
 		'application.components.*',
 		'application.extensions.helpers.*',
-		'application.modules.srbac.controllers.SBaseController',
                 'application.extensions.PdfGrid.*',
                 'ext.bootstrap.widgets.BootPager',
                 'ext.helpers.*',
+		'application.modules.cruge.components.*',
+		'application.modules.cruge.extensions.crugemailer.*',
 	),
 	'modules'=>array(
-		'srbac'=>array(
-			// Your application's user class (default: User)
-			"userclass"=>"Usuarios",
-			// Your users' table user_id column (default: userid)
-			"userid"=>"ID",
-			// your users' table username column (default: username)
-			"username"=>"USERNAME",
-			// Debug mode(default: false)
-			// In debug mode every user (even guest) can admin srbac, also
-			//if you use internationalization untranslated words/phrases
-			//will be marked with a red star
-			"debug"=>true,
-			// The number of items shown in each page (default:15)
-			"pageSize"=>10,
-			// The name of the super user
-			"superUser" =>"SuperAdministrador",
-			//The css file to use
-			"css"=>"srbac.css", // must be in srbac css folder
-			//The layout to use
-			"layout"=>"webroot.themes.siasoft.views.layouts.main",
-			//The not authorized page to render when a user tries to access an page
-			//tha he's not authorized to
-			"notAuthorizedView"=>"srbac.views.authitem.unauthorized",
-			// The actions that are always allowed to every user (when using the
-			// auto create mode of srbac)
-			"alwaysAllowed"=>array(),
-			// The operationa assigned to users (when using the
-			// auto create mode of srbac)
-			"userActions"=>array(
-			"Show","View","List","Admin"
-			),
-			//The number of lines in assign listboxes (default 10)
-			"listBoxNumberOfLines" => 15,
-			'imagesPath' => 'srbac.images', // default: srbac.images 'imagesPack'=>'noia', //default: noia 'iconText'=>true, // default : false 'header'=>'srbac.views.authitem.header', //default : srbac.views.authitem.header,
-			//must be an existing alias 'footer'=>'srbac.views.authitem.footer', //default: srbac.views.authitem.footer,
-			//must be an existing alias 'showHeader'=>true, // default: false 'showFooter'=>true, // default: false
-			'alwaysAllowedPath'=>'srbac.components', // default: srbac.components
-			// must be an existing alias 
-			"imagesPack"=>"noia",
-			// Whether to show text next to the menu icons (default false)
-			"iconText"=>true,
+		'cruge'=>array(
+			'tableprefix'=>'cruge_',	
+			// para que utilice a protected.modules.cruge.models.auth.CrugeAuthDefault.php
+			// en vez de 'default' pon 'authdemo' para que utilice el demo de autenticacion alterna
+			// para saber mas lee documentacion de la clase modules/cruge/models/auth/AlternateAuthDemo.php
+			'availableAuthMethods'=>array('default'),
+			'availableAuthModes'=>array('username'),
+			'baseUrl'=>'http://coco.com/',
+			// NO OLVIDES PONER EN FALSE TRAS INSTALAR
+			'debug'=>true,
+			'rbacSetupEnabled'=>true,
+			'allowUserAlways'=>true,
+			// MIENTRAS INSTALAS..PONLO EN: false
+			// lee mas abajo respecto a 'Encriptando las claves'
+			'useEncryptedPassword' => false,
+			// Algoritmo de la funci�n hash que deseas usar
+			// Los valores admitidos est�n en: http://www.php.net/manual/en/function.hash-algos.php
+			'hash' => 'md5',
+			// a donde enviar al usuario tras iniciar sesion, cerrar sesion o al expirar la sesion.
+		    //
+			// esto va a forzar a Yii::app()->user->returnUrl cambiando el comportamiento estandar de Yii
+			// en los casos en que se usa CAccessControl como controlador
+			//
+			// ejemplo:
+			//		'afterLoginUrl'=>array('/site/welcome'),  ( !!! no olvidar el slash inicial / )
+			//		'afterLogoutUrl'=>array('/site/page','view'=>'about'),
+			//
+			'afterLoginUrl'=>null,
+			'afterLogoutUrl'=>null,
+			'afterSessionExpiredUrl'=>null,
+			// manejo del layout con cruge.
+			//
+			'loginLayout'=>'//layouts/cruge_login',
+			'registrationLayout'=>'//layouts/column2',
+			'activateAccountLayout'=>'//layouts/column2',
+			'editProfileLayout'=>'//layouts/column2',
+			// en la siguiente puedes especificar el valor "ui" o "column2" para que use el layout
+			// de fabrica, es basico pero funcional.  si pones otro valor considera que cruge
+			// requerir� de un portlet para desplegar un menu con las opciones de administrador.
+			//
+			'generalUserManagementLayout'=>'//layouts/cruge',
+			'defaultSessionFilter'=>'application.components.MiSesionCruge',
 		),
-		// uncomment the following to enable the Gii tool
-		
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>false,
 		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 			 
-			'generatorPaths'=>array(
-				'bootstrap.gii', // since 0.9.1
-			),
 		),
 		
 	),
 
 	// application components
-	'components'=>array(
-            
-                'ePdf' => array(
-                'class'         => 'ext.yii-pdf.EYiiPdf',
-                'params'        => array(
+	'components'=>array(		
+        'ePdf' => array(
+                'class'=> 'ext.yii-pdf.EYiiPdf',
+                'params'=> array(
                     'mpdf'     => array(
                         'librarySourcePath' => 'application.vendors.mpdf.*',
                         'constants'         => array(
@@ -114,24 +110,30 @@ return array(
                         )*/
                     ),                    
                 ),
-            ),
-            
-		'authManager'=>array(
-			// The type of Manager (Database)
-			'class'=>'CDbAuthManager',
-			// The database connection used
-			'connectionID'=>'db',
-			// The itemTable name (default:authitem)
-			'itemTable'=>'auth_items',
-			// The assignmentTable name (default:authassignment)
-			'assignmentTable'=>'auth_asignacion',
-			// The itemChildTable name (default:authitemchild)
-			'itemChildTable'=>'auth_relaciones',
-		),
-        'user'=>array(
-            // enable cookie-based authentication
-            'allowAutoLogin'=>true,
         ),
+		'uimanager' => array(
+			'class' => 'application.components.UiManager',
+		),
+        //  IMPORTANTE:  asegurate de que la entrada 'user' (y format) que por defecto trae Yii
+			//               sea sustituida por estas a continuaci�n:
+			//
+		'user'=>array(
+			'allowAutoLogin'=>true,
+			'class' => 'application.modules.cruge.components.CrugeWebUser',
+			'loginUrl' => array('/cruge/ui/login'),
+		),
+		'authManager' => array(
+			'class' => 'application.modules.cruge.components.CrugeAuthManager',
+		),
+		'crugemailer'=>array(
+			'class' => 'application.modules.cruge.components.CrugeMailer',
+			'mailfrom' => 'promociones@tramasoft.com',
+			'subjectprefix' => 'Tu Encabezado del asunto - ',
+			'debug' => true,
+		),
+		'format' => array(
+			'datetimeFormat'=>"d M, Y h:m:s a",
+		),
 		
 		// uncomment the following to enable URLs in path-format
 		/*
@@ -170,15 +172,12 @@ return array(
 			'routes'=>array(
 				array(
 					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
+					'levels'=>'error, warning, info, rbac',
 					//'ipFilters'=>array('127.0.0.1','192.168.0.11'),
 				),
                                  
 			),
 		),
-                    
-		
-		
 		'bootstrap'=>array(
 			'class'=>'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
 		),

@@ -1,6 +1,6 @@
 <?php
 
-class SolicitudOcController extends SBaseController
+class SolicitudOcController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -8,45 +8,16 @@ class SolicitudOcController extends SBaseController
 	 */
         public $modulo='Compras';
         public $submodulo='Solicitud de Compra';
-	public $layout='//layouts/column2';
-        public $breadcrumbs=array();
-	public $menu=array();
+		public $layout='//layouts/column2';
         public $solicitud;
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
-
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	/*public function accessRules()
-	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete', 'cargarArticulo', 'cancelar', 'autorizar', 'reversar'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
-	}*/
+	public function filters(){
+      return array(
+				array('CrugeAccessControlFilter'),
+			);
+    }
 
 	/**
 	 * Displays a particular model.
@@ -405,10 +376,10 @@ class SolicitudOcController extends SBaseController
                                     $linea->ARTICULO = $datos['ARTICULO'];
                                     $linea->DESCRIPCION = $datos['DESCRIPCION'];
                                     $linea->UNIDAD = $datos['UNIDAD'];
-                                    $linea->CANTIDAD = SBaseController::unformat($datos['CANTIDAD']);
+                                    $linea->CANTIDAD = Controller::unformat($datos['CANTIDAD']);
                                     $linea->FECHA_REQUERIDA = $datos['FECHA_REQUERIDA'];
                                     $linea->COMENTARIO = $datos ['COMENTARIO'];
-                                    $linea->SALDO = SBaseController::unformat($datos ['SALDO']);
+                                    $linea->SALDO = Controller::unformat($datos ['SALDO']);
                                     $linea->LINEA_NUM = $i;
                                     $linea->ESTADO = $datos ['ESTADO'];
                                     $linea->save();

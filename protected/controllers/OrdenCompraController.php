@@ -1,50 +1,21 @@
 <?php
 
-class OrdenCompraController extends SBaseController
+class OrdenCompraController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-        public $breadcrumbs=array();
-	public $menu=array();
         public $orden;
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
-
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	/*public function accessRules()
-	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','ActualizaImpuesto' , 'Cerrar', 'Reversar', 'Autorizar' ,'Cancelar', 'CargarProveedor', 'CargarLineas', 'CargarArticulo'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
-	}*/
+	public function filters(){
+      return array(
+				array('CrugeAccessControlFilter'),
+			);
+    }
 
 	/**
 	 * Displays a particular model.
@@ -525,15 +496,15 @@ class OrdenCompraController extends SBaseController
                                     $salvar->BODEGA = $datos['BODEGA'];
                                     $salvar->FECHA_REQUERIDA = $datos['FECHA_REQUERIDA'];
                                     $salvar->FACTURA = $datos['FACTURA'];
-                                    $salvar->CANTIDAD_ORDENADA = SBaseController::unformat($datos['CANTIDAD_ORDENADA']);
+                                    $salvar->CANTIDAD_ORDENADA = Controller::unformat($datos['CANTIDAD_ORDENADA']);
                                     $salvar->UNIDAD_COMPRA = $datos['UNIDAD_COMPRA'];
-                                    $salvar->PRECIO_UNITARIO = SBaseController::unformat($datos['PRECIO_UNITARIO']);
+                                    $salvar->PRECIO_UNITARIO = Controller::unformat($datos['PRECIO_UNITARIO']);
                                     $salvar->PORC_DESCUENTO = $datos['PORC_DESCUENTO'];
-                                    $salvar->MONTO_DESCUENTO = SBaseController::unformat($datos['MONTO_DESCUENTO']);
+                                    $salvar->MONTO_DESCUENTO = Controller::unformat($datos['MONTO_DESCUENTO']);
                                     $salvar->PORC_IMPUESTO = $datos['PORC_IMPUESTO'];
-                                    $salvar->VALOR_IMPUESTO = SBaseController::unformat($datos['VALOR_IMPUESTO']);
-                                    $salvar->CANTIDAD_RECIBIDA = SBaseController::unformat($datos['CANTIDAD_RECIBIDA']);
-                                    $salvar->CANTIDAD_RECHAZADA = SBaseController::unformat($datos['CANTIDAD_RECHAZADA']);
+                                    $salvar->VALOR_IMPUESTO = Controller::unformat($datos['VALOR_IMPUESTO']);
+                                    $salvar->CANTIDAD_RECIBIDA = Controller::unformat($datos['CANTIDAD_RECIBIDA']);
+                                    $salvar->CANTIDAD_RECHAZADA = Controller::unformat($datos['CANTIDAD_RECHAZADA']);
                                     $salvar->FECHA = $datos['FECHA'];
                                     $salvar->OBSERVACION = $datos['OBSERVACION'];
                                     $salvar->ESTADO = $datos['ESTADO'];
@@ -620,15 +591,15 @@ class OrdenCompraController extends SBaseController
                                     $salvar2->BODEGA = $datos2['BODEGA'];
                                     $salvar2->FECHA_REQUERIDA = $datos2['FECHA_REQUERIDA'];
                                     $salvar2->FACTURA = $datos2['FACTURA'];
-                                    $salvar2->CANTIDAD_ORDENADA = SBaseController::unformat($datos2['CANTIDAD_ORDENADA']);
+                                    $salvar2->CANTIDAD_ORDENADA = Controller::unformat($datos2['CANTIDAD_ORDENADA']);
                                     $salvar2->UNIDAD_COMPRA = $datos2['UNIDAD_COMPRA'];
-                                    $salvar2->PRECIO_UNITARIO = SBaseController::unformat($datos2['PRECIO_UNITARIO']);
+                                    $salvar2->PRECIO_UNITARIO = Controller::unformat($datos2['PRECIO_UNITARIO']);
                                     $salvar2->PORC_DESCUENTO = $datos2['PORC_DESCUENTO'];
-                                    $salvar2->MONTO_DESCUENTO = SBaseController::unformat($datos2['MONTO_DESCUENTO']);
+                                    $salvar2->MONTO_DESCUENTO = Controller::unformat($datos2['MONTO_DESCUENTO']);
                                     $salvar2->PORC_IMPUESTO = $datos2['PORC_IMPUESTO'];
-                                    $salvar2->VALOR_IMPUESTO = SBaseController::unformat($datos2['VALOR_IMPUESTO']);
-                                    $salvar2->CANTIDAD_RECIBIDA = SBaseController::unformat($datos2['CANTIDAD_RECIBIDA']);
-                                    $salvar2->CANTIDAD_RECHAZADA = SBaseController::unformat($datos2['CANTIDAD_RECHAZADA']);
+                                    $salvar2->VALOR_IMPUESTO = Controller::unformat($datos2['VALOR_IMPUESTO']);
+                                    $salvar2->CANTIDAD_RECIBIDA = Controller::unformat($datos2['CANTIDAD_RECIBIDA']);
+                                    $salvar2->CANTIDAD_RECHAZADA = Controller::unformat($datos2['CANTIDAD_RECHAZADA']);
                                     $salvar2->FECHA = $datos2['FECHA'];
                                     $salvar2->OBSERVACION = $datos2['OBSERVACION'];
                                     $salvar2->ESTADO = $datos2['ESTADO'];

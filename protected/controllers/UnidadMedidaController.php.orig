@@ -1,13 +1,13 @@
 <?php
 
-class UsuariosController extends Controller
+class UnidadMedidaController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-
+	
 	/**
 	 * @return array action filters
 	 */
@@ -32,17 +32,26 @@ class UsuariosController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model2=new Usuarios;
+		$model2=new UnidadMedida;
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model2);
 
-		if(isset($_POST['Usuarios']))
+		if(isset($_POST['UnidadMedida']))
 		{
-			$model2->attributes=$_POST['Usuarios'];
-			$model2->PASS = md5($model2->PASS);
+			$model2->attributes=$_POST['UnidadMedida'];
+<<<<<<< HEAD
+			if($model2->save()){
+				//$this->redirect(array('admin',));
+                            $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
+=======
+                        $model2->BASE = 'N';
 			if($model2->save())
-				$this->redirect(array('view','id'=>$model2->ID));
+				$this->redirect(array('admin',));
+>>>>>>> 6b6b1db52706f5c441d321ef013af9faf4053a6d
 		}
 
 		$this->render('create',array(
@@ -62,12 +71,15 @@ class UsuariosController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model2);
 
-		if(isset($_POST['Usuarios']))
+		if(isset($_POST['UnidadMedida']))
 		{
-			$model2->attributes=$_POST['Usuarios'];
-			$model2->PASS = md5($model2->PASS);
-			if($model2->save())
-				$this->redirect(array('admin'));
+			$model2->attributes=$_POST['UnidadMedida'];
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(
@@ -85,25 +97,22 @@ class UsuariosController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                        $model =$this->loadModel($id);
+                        if($model->BASE != 'S'){
+                            $model->updateByPk($id,array('ACTIVO'=>'N'));
+                            if(!isset($_GET['ajax']))
+                                    $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                            }
+                        else
+                            throw new CHttpException(500,'Solicitud Invalida. No se puede eliminar unidad Base.');
 		}
 		else
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
 	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
+        public function actionRestaurar($id)
 	{
-		$dataProvider=new CActiveDataProvider('Usuarios');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+            $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
+		
 	}
 
 	/**
@@ -111,24 +120,33 @@ class UsuariosController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Usuarios('search');
+		$model=new UnidadMedida('search');
 		$model->unsetAttributes();  // clear any default values
 		
-		$model2=new Usuarios;
+		$model2=new UnidadMedida;
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model2);
 
-		if(isset($_POST['Usuarios']))
+		if(isset($_POST['UnidadMedida']))
 		{
-			$model2->attributes=$_POST['Usuarios'];
-			$model2->PASS = md5($model2->PASS);
+			$model2->attributes=$_POST['UnidadMedida'];
+<<<<<<< HEAD
+			if($model2->save()){
+				//$this->redirect(array('admin',));
+                                $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
+=======
+                        $model2->BASE = 'N';
 			if($model2->save())
-				$this->redirect(array('view','id'=>$model2->ID));
+				$this->redirect(array('admin',));
+>>>>>>> 6b6b1db52706f5c441d321ef013af9faf4053a6d
 		}
 		
-		if(isset($_GET['Usuarios']))
-			$model->attributes=$_GET['Usuarios'];
+		if(isset($_GET['UnidadMedida']))
+			$model->attributes=$_GET['UnidadMedida'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -143,7 +161,7 @@ class UsuariosController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Usuarios::model()->findByPk($id);
+		$model=UnidadMedida::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'La pagina solicitada no existe.');
 		return $model;
@@ -155,10 +173,20 @@ class UsuariosController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='usuarios-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='unidad-medida-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
 	}
+        
+        public function actionCargarbase(){
+            $bus = UnidadMedida::model()->findByAttributes(array('ACTIVO'=>'S','BASE'=>'S','TIPO'=>$_GET['tipo']));
+            $res =array(
+                'ID'=>$bus->ID,
+                'NOMBRE'=>$bus->NOMBRE
+            );
+            echo CJSON::encode($res);
+            
+        }
 }

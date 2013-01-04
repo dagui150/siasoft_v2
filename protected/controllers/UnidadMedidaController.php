@@ -1,24 +1,19 @@
 <?php
 
-class UnidadMedidaController extends SBaseController
+class UnidadMedidaController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-	public $breadcrumbs=array();
-	public $menu=array();
 	
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
+	public function filters(){
+      return array(array('CrugeAccessControlFilter'));
+    }
 
 	/**
 	 * Displays a particular model.
@@ -96,11 +91,14 @@ class UnidadMedidaController extends SBaseController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                        $model =$this->loadModel($id);
+                        if($model->BASE != 'S'){
+                            $model->updateByPk($id,array('ACTIVO'=>'N'));
+                            if(!isset($_GET['ajax']))
+                                    $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                            }
+                        else
+                            throw new CHttpException(500,'Solicitud Invalida. No se puede eliminar unidad Base.');
 		}
 		else
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
@@ -171,8 +169,12 @@ class UnidadMedidaController extends SBaseController
 	}
         
         public function actionCargarbase(){
-            
-            echo CJSON::encode(CHtml::ListData(UnidadMedida::model()->findAll('TIPO = "'.$_GET['tipo'].'"'),'ID','NOMBRE'));
+            $bus = UnidadMedida::model()->findByAttributes(array('ACTIVO'=>'S','BASE'=>'S','TIPO'=>$_GET['tipo']));
+            $res =array(
+                'ID'=>$bus->ID,
+                'NOMBRE'=>$bus->NOMBRE
+            );
+            echo CJSON::encode($res);
             
         }
 }

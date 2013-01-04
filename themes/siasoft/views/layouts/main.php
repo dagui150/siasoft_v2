@@ -64,96 +64,12 @@
                 <?php
                 if (!Yii::app()->user->isGuest) {
 
-                    $com = ConfCo::model()->find();
-                    $fac = ConfFa::model()->find();
-                    $compa = Compania::model()->find();
-                    $admin = ConfAs::model()->find();
-
                     $this->widget('bootstrap.widgets.BootMenu', array(
                         'type' => 'pills', // '', 'tabs', 'pills' (or 'list')
                         'stacked' => false, // whether this is a stacked menu
-                        'items' => array(
-                            array('label' => 'Inicio', 'url' => array('/site/index')),
-                            array('label' => 'Facturación', 'url' => '#',
-                                'items' => array(
-                                    array('label' => 'Configuracion de Facturación', 'url' => $fac ? array('/confFa/update', 'id' => $fac->ID) : array('/confFa/create')),
-                                    array('label'=>'Ensamble de articulos', 'url'=>array('/articuloEnsamble/admin')),
-                                    array('label'=>'Precio de articulos', 'url'=>array('/articuloPrecio/admin')),
-                                    array('label'=>'Pedidos', 'url'=>array('/pedido/admin')),
-                                    array('label'=>'Facturas', 'url'=>array('/factura/admin')),
-                                    array('label'=>'Consecutivos', 'url'=>array('/consecutivoFa/admin')),	
-                                    array('label'=>'Clientes', 'url'=>array('/cliente/admin')),	
-				)
-			    ),
-                            array('label' => 'Compras', 'url' => '#',
-                                'items' => array(
-                                    array('label' => 'Configuración de Compras', 'url' => $com ? array('/confCo/update', 'id' => $com->ID) : array('/confCo/create')),
-                                    array('label' => 'Proveedor', 'url' => array('/proveedor/admin')),
-                                    array('label' => 'Solicitud de compra', 'url' => array('/solicitudOc/admin')),
-                                    array('label' => 'Ordenes de compra', 'url' => array('/ordenCompra/admin')),
-                                    array('label' => 'Ingreso de compra', 'url' => array('/ingresoCompra/admin')),
-                                )
-                            ),
-                            array('label' => 'Inventario', 'url' => '#',
-                                'items' => array(
-                                    array('label' => 'Artículos', 'url' => array('/articulo/admin')),
+                        'items' =>$this->menu(),
                                     array('label' => 'Artículos Bodega', 'url' => array('/bodega/inventario')),
-                                    array('label' => 'Clasificaciones', 'url' => array('/clasificacionAdi/admin')),
-                                    array('label' => 'Valores para Clasificaciones ', 'url' => array('/clasificacionAdiValor/admin')),
-                                    array('label' => 'Tipo de artículo', 'url' => array('/tipoArticulo/admin')),
-                                    array('label' => 'Unidades de medida', 'url' => array('/unidadMedida/admin')),
-                                    array('label' => 'Metodo Valuacion', 'url' => array('/metodoValuacionInv/admin')),
-                                    array('label' => 'Tipo de Transacción', 'url' => array('/tipoTransaccion/admin')),
-                                    array('label' => 'Consecutivos', 'url' => array('/consecutivoCi/admin')),
-                                    array('label' => 'Documentos de Inventario', 'url' => array('/documentoInv/admin')),
-                                    array('label' => 'Configuración', 'url' => array('/confCi/create')),
-                                )
-                            ),
-                            array('label' => 'Sistema', 'url' => '#',
-                                'items' => array(
-                                    array('label' => Yii::t('app', 'COMPANY'), 'url' => $compa ? array('/compania/update', 'id' => $compa->ID) : array('/compania/create')),
-                                    array('label' => Yii::t('app', 'ADMINISTRATION_SETTINGS'), 'url' => $admin ? array('/confAs/update', 'id' => $admin->ID) : array('/confAs/create')),
-                                    array('label' => Yii::t('app', 'COUNTRY'), 'url' => array('pais/admin')),
-                                    array('label' => 'Departamento', 'url' => array('/ubicacionGeografica1/admin')),
-                                    array('label' => 'Municipio', 'url' => array('/ubicacionGeografica2/admin')),
-                                    array('label' => Yii::t('app', 'AREA'), 'url' => array('/zona/admin')),
-                                    array('label' => 'Bodega', 'url' => array('/bodega/admin')),
-                                    array('label' => 'Categorías clientes y proveedor', 'url' => array('/categoria/admin')),
-                                    array('label' => 'Centro de costos', 'url' => array('/centroCostos/admin')),
-                                    array('label' => 'Condición de pago', 'url' => array('/codicionPago/admin')),
-                                    array('label' => 'Dependencia', 'url' => array('/departamento/admin')),
-                                    array('label' => 'Tipo de documento', 'url' => array('/tipoDocumento/admin')),
-                                    array('label' => 'Relación de Nits', 'url' => array('nit/admin')),
-                                    array('label' => 'Entidad financiera', 'url' => array('/entidadFinanciera/admin')),
-                                                        array('label'=>'Tipos de precio', 'url'=>array('/nivelPrecio/admin')),
-                                    array('label' => 'Tipo de tarjeta', 'url' => array('/tipoTarjeta/admin')),
-                                    array('label' => 'Día feriado', 'url' => array('/diaFeriado/admin')),
-                                    array('label' => 'Impuesto', 'url' => array('/impuesto/admin')),
-                                    array('label' => 'Retención', 'url' => array('/retencion/admin')),
-                                    array('label'=>'Regimen Tributario', 'url'=>array('/regimenTributario/admin')),
-                                    array('label' => 'Administración de Reportes', 'url' => array('/formatoImpresion/admin')),
                                     array('label' => 'Papelera', 'url' => array('/Papelera/index')),
-                            )),
-                            /*array('label' => 'Recursos Humanos', 'url' => '#',
-                                'items' => array(
-                                    array('label' => 'Cargo', 'url' => array('/cargo/admin')),
-                                    array('label' => 'Estado de empleados', 'url' => array('/estadoEmpleado/admin')),
-                                    array('label' => 'Horarios', 'url' => array('/horario/admin')),
-                                    array('label' => 'Tipos de Academico', 'url' => array('/tipoAcademico/admin')),
-                                    array('label' => 'Tipos de Accidente', 'url' => array('/tipoAccidente/admin')),
-                                    array('label' => 'Tipos de Ausencia', 'url' => array('/tipoAusencia/admin')),
-                                    array('label' => 'Tipos De Contrato', 'url' => array('/tipoContrato/admin')),
-                                    
-                          
-                                    
-                                    
-                                    
-                                    ),
-                            ),*/
-                            array('label' => 'Usuarios', 'url' => array('/usuarios/admin')),
-                            array('label' => Yii::t('app', 'LOGIN'), 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
-                            array('label' => Yii::t('app', 'LOGOUT (') . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
-                        ),
                     ));
                 }
                 ?>
@@ -170,7 +86,7 @@ if (!Yii::app()->user->isGuest) {
             <?php } ?>
 
             <?php echo $content; ?>
-
+			
             <div class="clear"></div>
 
             <div style="width:100%; background-color:#fff; height:100px;">
@@ -189,6 +105,7 @@ if (!Yii::app()->user->isGuest) {
             </div><!-- footer -->
 
         </div><!-- page -->
-
+		
+		<?php echo Yii::app()->user->ui->displayErrorConsole(); ?>
     </body>
 </html>

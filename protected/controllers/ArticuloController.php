@@ -1,29 +1,19 @@
 <?php
 
-class ArticuloController extends SBaseController
+class ArticuloController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-        public $breadcrumbs=array();
-	public $menu=array();
+    public $breadcrumbs=array();
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
-
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
+	public function filters(){
+      return array(array('CrugeAccessControlFilter'));
+    }
 	/*
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
@@ -74,14 +64,14 @@ class ArticuloController extends SBaseController
                     
                         $model->attributes=$_POST['Articulo']; 
                         
-                        $model->EXISTENCIA_MINIMA = SBaseController::unformat($_POST['Articulo']['EXISTENCIA_MINIMA']);
-                        $model->PUNTO_REORDEN = SBaseController::unformat($_POST['Articulo']['PUNTO_REORDEN']);
-                        $model->EXISTENCIA_MAXIMA = SBaseController::unformat($_POST['Articulo']['EXISTENCIA_MAXIMA']);
-                        $model->FACTOR_VENTA = SBaseController::unformat($_POST['Articulo']['FACTOR_VENTA']);
-                        $model->FACTOR_EMPAQUE = SBaseController::unformat($_POST['Articulo']['FACTOR_EMPAQUE']);
-                        $model->PESO_NETO = SBaseController::unformat($_POST['Articulo']['PESO_NETO']);
-                        $model->PESO_BRUTO = SBaseController::unformat($_POST['Articulo']['PESO_BRUTO']);
-                        $model->VOLUMEN = SBaseController::unformat($_POST['Articulo']['VOLUMEN']);
+                        $model->EXISTENCIA_MINIMA = Controller::unformat($_POST['Articulo']['EXISTENCIA_MINIMA']);
+                        $model->PUNTO_REORDEN = Controller::unformat($_POST['Articulo']['PUNTO_REORDEN']);
+                        $model->EXISTENCIA_MAXIMA = Controller::unformat($_POST['Articulo']['EXISTENCIA_MAXIMA']);
+                        $model->FACTOR_VENTA = Controller::unformat($_POST['Articulo']['FACTOR_VENTA']);
+                        $model->FACTOR_EMPAQUE = Controller::unformat($_POST['Articulo']['FACTOR_EMPAQUE']);
+                        $model->PESO_NETO = Controller::unformat($_POST['Articulo']['PESO_NETO']);
+                        $model->PESO_BRUTO = Controller::unformat($_POST['Articulo']['PESO_BRUTO']);
+                        $model->VOLUMEN = Controller::unformat($_POST['Articulo']['VOLUMEN']);
                         
                         if($_POST['Articulo']['IMPUESTO_COMPRA'] === '')
                             $model->IMPUESTO_COMPRA = NULL;
@@ -190,14 +180,14 @@ class ArticuloController extends SBaseController
 		{
 			$model->attributes=$_POST['Articulo'];
                         
-                        $model->EXISTENCIA_MINIMA = SBaseController::unformat($_POST['Articulo']['EXISTENCIA_MINIMA']);
-                        $model->PUNTO_REORDEN = SBaseController::unformat($_POST['Articulo']['PUNTO_REORDEN']);
-                        $model->EXISTENCIA_MAXIMA = SBaseController::unformat($_POST['Articulo']['EXISTENCIA_MAXIMA']);
-                        $model->FACTOR_VENTA = SBaseController::unformat($_POST['Articulo']['FACTOR_VENTA']);
-                        $model->FACTOR_EMPAQUE = SBaseController::unformat($_POST['Articulo']['FACTOR_EMPAQUE']);
-                        $model->PESO_NETO = SBaseController::unformat($_POST['Articulo']['PESO_NETO']);
-                        $model->PESO_BRUTO = SBaseController::unformat($_POST['Articulo']['PESO_BRUTO']);
-                        $model->VOLUMEN = SBaseController::unformat($_POST['Articulo']['VOLUMEN']);
+                        $model->EXISTENCIA_MINIMA = Controller::unformat($_POST['Articulo']['EXISTENCIA_MINIMA']);
+                        $model->PUNTO_REORDEN = Controller::unformat($_POST['Articulo']['PUNTO_REORDEN']);
+                        $model->EXISTENCIA_MAXIMA = Controller::unformat($_POST['Articulo']['EXISTENCIA_MAXIMA']);
+                        $model->FACTOR_VENTA = Controller::unformat($_POST['Articulo']['FACTOR_VENTA']);
+                        $model->FACTOR_EMPAQUE = Controller::unformat($_POST['Articulo']['FACTOR_EMPAQUE']);
+                        $model->PESO_NETO = Controller::unformat($_POST['Articulo']['PESO_NETO']);
+                        $model->PESO_BRUTO = Controller::unformat($_POST['Articulo']['PESO_BRUTO']);
+                        $model->VOLUMEN = Controller::unformat($_POST['Articulo']['VOLUMEN']);
                             
                         
                         if($_POST['Articulo']['IMPUESTO_COMPRA'] === '')

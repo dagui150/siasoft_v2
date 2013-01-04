@@ -50,11 +50,16 @@ if (isset($_GET['men'])){
                         ),*/
 			'EQUIVALENCIA',
 			array(
+<<<<<<< HEAD
                             'class'=>'bootstrap.widgets.BootButtonColumn',
-                                'deleteButtonUrl'=>'"index.php?r=unidadMedida/delete&id=".$data->ID',
-                                'updateButtonUrl'=>'($data->BASE == "S") ? "#" : "index.php?r=unidadMedida/update&id=".$data->ID',
                             'htmlOptions'=>array('style'=>'width: 50px'),
                             'afterDelete'=>SBaseController::mensajeBorrar(),
+=======
+				'class'=>'bootstrap.widgets.BootButtonColumn',
+                                'deleteButtonUrl'=>'"index.php?r=unidadMedida/delete&id=".$data->ID',
+                                'updateButtonUrl'=>'($data->BASE == "S") ? "#" : "index.php?r=unidadMedida/update&id=".$data->ID',
+                                'htmlOptions'=>array('style'=>'width: 50px'),
+>>>>>>> 6b6b1db52706f5c441d321ef013af9faf4053a6d
 			),
 		),
 	));
