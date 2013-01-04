@@ -48,7 +48,7 @@ $('.search-button').click(function(){
 		array(
                     'class'=>'bootstrap.widgets.BootButtonColumn',
                     'template'=>'{update}{delete}',
-                    'afterDelete'=>SBaseController::mensajeBorrar(),
+                    'afterDelete'=>$this->mensajeBorrar(),
 		),
 	),
     ));

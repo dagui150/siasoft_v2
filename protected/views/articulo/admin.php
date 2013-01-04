@@ -24,7 +24,7 @@ $('.form').submit(function(){
 <h1>Artículos</h1>
 <?php 
 if (isset($_GET['men'])){
-    SBaseController::mensaje($_GET['men']);
+    $this->mensaje($_GET['men']);
 }
 ?>
 <br>

@@ -11,7 +11,7 @@ $this->breadcrumbs=array(
 <h1>Pedidos</h1>
 <?php 
 if (isset($_GET['men'])){
-    SBaseController::mensaje($_GET['men']);
+    $this->mensaje($_GET['men']);
 }
 ?>
 <div id="mensaje"></div>
@@ -84,7 +84,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
 		array(
                     'class'=>'bootstrap.widgets.BootButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),
-                    'afterDelete'=>SBaseController::mensajeBorrar(),
+                    'afterDelete'=>$this->mensajeBorrar(),
 		),
             array(
                          'class'=>'CLinkColumn',

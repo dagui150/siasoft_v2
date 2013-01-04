@@ -31,7 +31,7 @@ $('.search-form form').submit(function(){
 <h1>Administración de Reportes</h1>
 <?php 
 if (isset($_GET['men'])){
-    SBaseController::mensaje($_GET['men']);
+    $this->mensaje($_GET['men']);
 }
 ?>
 <div id="mensaje"></div>
@@ -85,7 +85,7 @@ if (isset($_GET['men'])){
 		array(
                     'class' => 'bootstrap.widgets.BootButtonColumn',
                     'htmlOptions' => array('style' => 'width: 50px'),
-                    'afterDelete'=>SBaseController::mensajeBorrar(),
+                    'afterDelete'=>$this->mensajeBorrar(),
         ),
 	),
 )); ?>

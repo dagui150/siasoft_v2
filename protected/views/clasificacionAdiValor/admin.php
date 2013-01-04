@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 <h1>Valores - Clasificaciónes</h1>
 <?php 
 if (isset($_GET['men'])){
-    SBaseController::mensaje($_GET['men']);
+    $this->mensaje($_GET['men']);
 }
 ?>
 <div id="mensaje"></div>
@@ -46,7 +46,7 @@ if (isset($_GET['men'])){
 			array(
                             'class'=>'bootstrap.widgets.BootButtonColumn',
                             'template'=>'{update}{delete}',
-                            'afterDelete'=>SBaseController::mensajeBorrar(),
+                            'afterDelete'=>$this->mensajeBorrar(),
 			),
 		),
 	)); 

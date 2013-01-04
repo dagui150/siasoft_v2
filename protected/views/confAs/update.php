@@ -18,7 +18,7 @@ $this->menu=array(
 <h1><?php echo Yii::t('app','ADMINISTRATION_SETTINGS') ?></h1>
 <?php 
 if (isset($_GET['men'])){
-    SBaseController::mensaje($_GET['men']);
+    $this->mensaje($_GET['men']);
 }
 ?>
 <?php echo $this->renderPartial('_form', array('model2'=>$model2)); ?>

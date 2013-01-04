@@ -10,7 +10,7 @@ $this->breadcrumbs=array(
 <h1>Ver Documento "<?php echo $model->DOCUMENTO_INV; ?>"</h1>
 <?php 
 if (isset($_GET['men'])){
-    SBaseController::mensaje($_GET['men']);
+    $this->mensaje($_GET['men']);
 }
 ?>
 <?php $this->widget('zii.widgets.CDetailView', array(

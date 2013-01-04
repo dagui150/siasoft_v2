@@ -30,7 +30,7 @@ $this->breadcrumbs=array(
 <h1>Documentos</h1>
 <?php 
 if (isset($_GET['men'])){
-    SBaseController::mensaje($_GET['men']);
+    $this->mensaje($_GET['men']);
 }
 ?>
 <br>
