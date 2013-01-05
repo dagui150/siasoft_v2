@@ -53,6 +53,8 @@
     }
     
     function inicio(){
+        
+            $('#Factura_CONSECUTIVO').focus();
             $('.edit').live('click',actualiza);
             $('#ok-cliente').click(function(){
                 $('#Cliente_desc').val($('#Cliente_NOMBRE').val());
@@ -115,6 +117,7 @@
                              $('#Factura_CLIENTE').focus();
                             if(confirm('Cliente "'+value+'" no Existe ¿Desea crearlo?')) {
                                 $('#clienteNuevo').modal();
+                                $('#Cliente_CLIENTE').focus();
                                 $('#Factura_CLIENTE_EXISTE').val('0');
                                 $('#Cliente_CLIENTE').val(value);
                                 $('#Cliente_NOMBRE').val('');
@@ -288,7 +291,7 @@
             <table style="margin-left: -100px;">
                         <tr>
                             <td style="width: 315px">
-                                <?php echo $form->dropDownListRow($model,'CONSECUTIVO',CHtml::listData(ConsecutivoFa::model()->findAllByAttributes(array('ACTIVO'=>'S','CLASIFICACION'=>'F')),'CODIGO_CONSECUTIVO','DESCRIPCION'),array('empty'=>'Seleccione','style'=>'width: 100px;')); ?>
+                                <?php echo $form->dropDownListRow($model,'CONSECUTIVO',CHtml::listData(ConsecutivoFa::model()->findAllByAttributes(array('ACTIVO'=>'S','CLASIFICACION'=>'F')),'CODIGO_CONSECUTIVO','DESCRIPCION'),array('empty'=>'Seleccione','style'=>'width: 100px;','tabindex'=>'1')); ?>
                             </td>
                             <td style="width: 80px;">
                                 <?php echo $form->textField($model,'FACTURA',array('size'=>15,'maxlength'=>50,'readonly'=>true)); ?>
@@ -319,7 +322,7 @@
             <table style="margin-left: -140px;">
                         <tr>
                             <td style="width: 315px">
-                                <?php echo $form->textFieldRow($model,'CLIENTE',array('size'=>18,'maxlength'=>20)); ?>
+                                <?php echo $form->textFieldRow($model,'CLIENTE',array('size'=>18,'maxlength'=>20,'tabindex'=>'2')); ?>
                             </td>
                             <td style="width: 28px;padding-top:11px;">
                                 <?php $this->widget('bootstrap.widgets.BootButton', array(
@@ -350,7 +353,7 @@
                             </td>
                             <td rowspan="2" colspan="2">
                                   <span style="background-color:#EEEEEE;line-height:20px;text-align:center; text-shadow:#FFFFFF 0 1px 0;padding-left:5px;padding-top:9px;width:26px;height:28px;margin-top:57px;float:left;font-size: 42px;border:1px solid #CCCCCC;">$</span>
-                                  <?php echo CHtml::textField('calculos','0',array('disabled'=>true,'style'=>'width:254px;height:40px;font-size: 34px;margin-top:56px;text-align:right;'));?>
+                                  <?php echo CHtml::textField('calculos','0',array('disabled'=>true,'style'=>'width:237px;height:31px;font-size: 34px;margin-top:56px;text-align:right;'));?>
                             </td>
                         </tr>
                         <tr>

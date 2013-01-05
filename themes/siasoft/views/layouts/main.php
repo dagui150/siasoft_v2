@@ -21,7 +21,9 @@
 
                 $('.decimal').blur(function(){
                     $(this).val(format($(this).val()));
-                });                
+                });
+                $('form input[type="text"]').keypress(function(e){return e.which!=13});
+                
             });
             function format(value) {
                     var num = value.replace(/\./g,'');	
