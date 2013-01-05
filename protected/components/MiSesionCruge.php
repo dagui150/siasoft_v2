@@ -1,7 +1,7 @@
 <?php
 /***
 	Esta clase sirve para personalizar las acciones de inicio y cierre
-	de sesión.
+	de sesiÃ³n.
 
 	requiere que la registres en config/main dentro de cruge setup:
 
@@ -18,7 +18,7 @@ class MiSesionCruge extends DefaultSessionFilter {
 		retorno.
 
 		si quieres controlar a un usuario que ha sido autenticado entonces
-		deberás trabajar en el método aqui provisto: startSession. mas abajo.
+		deberÃ¡s trabajar en el mÃ©todo aqui provisto: startSession. mas abajo.
 		Una cosa es la sesion otra la autenticacion, aqui solo se notifica que
 		un usuario existe.
 	*/
@@ -41,6 +41,7 @@ class MiSesionCruge extends DefaultSessionFilter {
 	public function onLogout(ICrugeSession $model) {
 		parent::onLogout($model);
 		Yii::log("PASANDO POR ONLOGOUT","info");
+                Yii::app()->getController()->redirect(array("/site/index"));
 	}
 
 	/**
@@ -55,7 +56,7 @@ class MiSesionCruge extends DefaultSessionFilter {
 
 	/**
 		Este metodo es invocado por el core de Cruge cuando se requiere una
-		nueva sesion para un usuario que ha iniciado sesión. El proposito aqui
+		nueva sesion para un usuario que ha iniciado sesiï¿½n. El proposito aqui
 		es que tu puedas tomar tus propias acciones y decisiones al momento de
 		otorgar una sesion a un usuario, pudiendo revocarla si lo deseas
 		usando a:
@@ -70,7 +71,7 @@ class MiSesionCruge extends DefaultSessionFilter {
 		CrugeSession lo hace y normalmente es la instancia que aqui se retorna)
 
 		la implementacion base de startSession usara las siguientes funciones
-		del API para hallar y crear una sesion según sea el caso:
+		del API para hallar y crear una sesion segï¿½n sea el caso:
 
 			$sesion = Yii::app()->user->um->findSession($user);
 		y

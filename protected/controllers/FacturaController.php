@@ -53,6 +53,7 @@ class FacturaController extends Controller
 			$model->attributes=$_POST['Factura'];
                         $modelConsecutivo = ConsecutivoFa::model()->findByPk($model->CONSECUTIVO);
                         $model->FACTURA = $modelConsecutivo->VALOR_CONSECUTIVO;
+                        $model->BODEGA = $_POST['Factura']['BODEGA'];   
                         $model->REMITIDO = 'N';   
                         $model->RESERVADO = 'N';   
                         $model->ESTADO = 'N';

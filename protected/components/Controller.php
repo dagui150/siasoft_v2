@@ -188,7 +188,7 @@ class Controller extends CController
 		//Si es tipo servicio no se actualiza el inventario
 		if($existenciaBodega->aRTICULO->UNIDAD_ALMACEN != $id_unidad && $existenciaBodega->aRTICULO->uNIDADALMACEN->TIPO != 'S'){
                             //equivalencia
-                            $factor = $unidad->EQUIVALENCIA/$existenciaBodega->aRTICULO->uNIDADALMACEN->EQUIVALENCIA;
+                            $factor = $existenciaBodega->aRTICULO->uNIDADALMACEN->EQUIVALENCIA/$unidad->EQUIVALENCIA;
                             $cantidad_equiv = $cantidad * $factor;
                     
                 }

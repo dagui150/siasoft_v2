@@ -54,6 +54,9 @@
     
     function inicio(){
             $('.edit').live('click',actualiza);
+            $('#ok-cliente').click(function(){
+                $('#Cliente_desc').val($('#Cliente_NOMBRE').val());
+            });
             $('#Factura_UNIDAD').live('change',function(){
                 var nombre = $('#Factura_UNIDAD option:selected').html()
                 $('#NOMBRE_UNIDAD').val(nombre);
@@ -474,7 +477,7 @@
                         'label'=>'Aceptar',
                         'icon'=>'ok',
                         'url'=>'#',
-                        'htmlOptions'=>array('data-dismiss'=>'modal'),
+                        'htmlOptions'=>array('data-dismiss'=>'modal','id'=>'ok-cliente'),
                     )); ?>
                 </div>
         <?php $this->endWidget(); ?>
