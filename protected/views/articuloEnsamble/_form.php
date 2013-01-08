@@ -264,7 +264,7 @@
                             <thead>
                                 <tr>
                                     <td>
-                                        <label>Componente</label>
+                                        <label>Articulo</label>
                                     </td>
                                     <td>
                                        &nbsp;

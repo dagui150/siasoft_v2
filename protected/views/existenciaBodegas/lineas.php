@@ -153,8 +153,8 @@ function cargaArticuloGrilla (grid_id){
        
        var contador = $('#oculto').get(0).value;
        var buscar = $.fn.yiiGridView.getSelection(grid_id);
-       //var nombreClase = '<?php //echo get_class($linea); ?>';
-       var nombreClase = 'lineaa';
+       var nombreClase = '<?php echo get_class($linea); ?>';
+       //var nombreClase = 'lineaa';
        var nombreDescripcion;
        var nombreUnidad;
        var nombreArticulo;
@@ -236,34 +236,34 @@ function add(){
                             <thead>
                                 <tr>
                                     <td>
-                                        <?php echo $form->labelEx($model,'ARTICULO');?>
+                                        <?php echo $form->labelEx($linea,'ARTICULO');?>
                                     </td>
                                     <td>
                                        &nbsp;
                                     </td>
                                     <td>
-                                        <?php echo $form->labelEx($model,'EXISTENCIA_MINIMA');?>
+                                        <?php echo $form->labelEx($linea,'EXISTENCIA_MINIMA');?>
                                     </td>
                                     <td>
-                                        <?php echo $form->labelEx($model,'EXISTENCIA_MAXIMA');?>
+                                        <?php echo $form->labelEx($linea,'EXISTENCIA_MAXIMA');?>
                                     </td>
                                     <td>
-                                        <?php echo $form->labelEx($model,'PUNTO_REORDEN');?>
+                                        <?php echo $form->labelEx($linea,'PUNTO_REORDEN');?>
                                     </td>
                                     <td>
-                                        <?php echo $form->labelEx($model,'CANT_DISPONIBLE');?>
+                                        <?php echo $form->labelEx($linea,'CANT_DISPONIBLE');?>
                                     </td>
                                     <td>
-                                        <?php echo $form->labelEx($model,'CANT_RESERVADA');?>
+                                        <?php echo $form->labelEx($linea,'CANT_RESERVADA');?>
                                     </td>
                                     <td>
-                                        <?php echo $form->labelEx($model,'CANT_REMITIDA');?>
+                                        <?php echo $form->labelEx($linea,'CANT_REMITIDA');?>
                                     </td>
                                     <td>
-                                        <?php echo $form->labelEx($model,'CANT_CUARENTENA');?>
+                                        <?php echo $form->labelEx($linea,'CANT_CUARENTENA');?>
                                     </td>
                                     <td>
-                                        <?php echo $form->labelEx($model,'CANT_VENCIDA');?>
+                                        <?php echo $form->labelEx($linea,'CANT_VENCIDA');?>
                                     </td>
                                 </tr>
                             </thead>
@@ -278,7 +278,7 @@ function add(){
                                                         'type'=>'success',
                                                         'label'=>'Nuevo',
                                                         'icon'=>'plus white',
-                                                        'htmlOptions' => array('onClick' => 'add()', 'disabled'=>$readonly),
+                                                        'htmlOptions' => array('onClick' => 'add()'),
                                                   ));
                                             
                                             ?>
@@ -351,7 +351,7 @@ function add(){
                                 
                                 <tr class="templateContent">
                                     <td>
-                            <?php echo $form->textField($item,"[$i]ARTICULO", array('class'=>'tonces2', 'readonly'=>$readonly)); ?>
+                                            <?php //echo $form->textField($item,"[$i]ARTICULO", array('class'=>'tonces2')); ?>
                             		</td>
                                     <td>
                                         <?php $this->widget('bootstrap.widgets.BootButton', array(
@@ -359,15 +359,15 @@ function add(){
                                                             'size'=>'mini',
                                                             'url'=>'#articulo2',
                                                             'icon'=>'search',
-                                                            'htmlOptions'=>array('data-toggle'=>'modal', 'class' => 'emergente', 'name' => "$i", 'disabled'=>$readonly),
+                                                            'htmlOptions'=>array('data-toggle'=>'modal', 'class' => 'emergente', 'name' => "$i"),
                                                         )); ?>
                         </td>
                         <td>
-                            <?php echo $form->textField($item,"[$i]EXISTENCIA_MINIMA",array('class'=>'required', 'readonly'=>$readonly)); ?>
+                            <?php echo $form->textField($item,"[$i]EXISTENCIA_MINIMA",array('class'=>'required')); ?>
                         </td>
                         <td>
                             <?php //echo $form->dropDownList($item,"[$i]UNIDAD", $linea->getCombo($item->ARTICULO), array('prompt'=>'Seleccione articulo', 'disabled'=>$readonly)); ?>
-                            <?php echo $form->textField($item,"[$i]EXISTENCIA_MAXIMA",array('class'=>'required', 'readonly'=>$readonly)); ?>
+                            <?php echo $form->textField($item,"[$i]EXISTENCIA_MAXIMA",array('class'=>'required')); ?>
                         </td>
                         <td>
                             <?php echo $form->textField($item,"[$i]PUNTO_REORDEN",array('readonly'=>true, 'size'=>'1')); ?>
@@ -376,7 +376,7 @@ function add(){
                             <?php echo $form->textField($item,"[$i]CANT_DISPONIBLE",array('size'=>'5')); ?>
                         </td>
                         <td>
-                            <?php echo $form->textField($item,"[$i]CANT_RESERVADA",array('class' => 'fecha', 'size'=>'10', 'readonly'=>$readonly)); ?>
+                            <?php echo $form->textField($item,"[$i]CANT_RESERVADA",array('class' => 'fecha', 'size'=>'10')); ?>
                         </td>
                         <td>
                             <?php echo $form->textField($item,"[$i]CANT_REMITIDA",array('readonly'=>$readonly)); ?>
@@ -397,7 +397,7 @@ function add(){
                                                              'type'=>'danger',
                                                              'label'=>'',
                                                              'icon'=>'minus white',
-                                                             'htmlOptions' => array('id'=>$item["SOLICITUD_OC_LINEA"], 'onClick'=>'Eliminar(id)', 'disabled'=>$readonly),
+                                                             'htmlOptions' => array('id'=>$item["SOLICITUD_OC_LINEA"], 'onClick'=>'Eliminar(id)'),
                                                   ));
 
                                              ?>
