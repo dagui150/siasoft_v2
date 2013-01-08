@@ -11,7 +11,7 @@ $this->breadcrumbs=array(
 
 <h1>Actualizar Pedido <?php echo $model->ID; ?></h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model,
+<?php echo $this->renderPartial('form_articulos', array('model'=>$model,
 			'bodega'=>$bodega,
 			'linea'=>$linea,
 			'articulo'=>$articulo,

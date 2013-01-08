@@ -92,9 +92,9 @@ if (!Yii::app()->user->isGuest) {
                 <div style="padding-top:20px; float:left; padding-left:50px;">
                     <img src="themes/siasoft/images/footer.png" alt="escudos" width="619" height="59" border="0" usemap="#Map">
                         <map name="Map" id="Map">
-                            <area shape="rect" coords="95,4,250,56" href="http://www.tolima.gov.co/tolima/index.php" target="_blank" />
-                            <area shape="rect" coords="265,5,490,53" href="http://www.adtolima.org/" target="_blank" />
-                            <area shape="rect" coords="517,5,606,54" href="http://www.ccibague.org/" target="_blank" />
+                            <area shape="rect" coords="85,4,220,56" href="http://www.tolima.gov.co/tolima/index.php" target="_blank" />
+                            <area shape="rect" coords="235,5,440,53" href="http://www.adtolima.org/" target="_blank" />
+                            <area shape="rect" coords="450,5,615,54" href="http://www.ccibague.org/" target="_blank" />
                         </map>
                     </img>
                 </div>

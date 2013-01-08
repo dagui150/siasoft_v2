@@ -248,38 +248,19 @@
     
 ?>
 
-	<?php echo $form->errorSummary(array($model,$cliente)); ?>
+	<?php echo $form->errorSummary(array($model)); ?>
         <table>
             <tr>
                 <td>
             <table style="margin-left: -100px;">
                         <tr>
                             <td style="width: 315px">
-                                <?php echo $form->dropDownListRow($model,'CONSECUTIVO',CHtml::listData(ConsecutivoFa::model()->findAllByAttributes(array('ACTIVO'=>'S','CLASIFICACION'=>'P')),'CODIGO_CONSECUTIVO','DESCRIPCION'),array('empty'=>'Seleccione','style'=>'width: 100px;')); ?>
+                                <?php //echo $form->dropDownListRow($model,'CONSECUTIVO',CHtml::listData(ConsecutivoFa::model()->findAllByAttributes(array('ACTIVO'=>'S','CLASIFICACION'=>'P')),'CODIGO_CONSECUTIVO','DESCRIPCION'),array('empty'=>'Seleccione','style'=>'width: 100px;')); ?>
                             </td>
                             <td style="width: 80px;">
-                                <?php echo $form->textField($model,'PEDIDO',array('size'=>15,'maxlength'=>50,'readonly'=>true)); ?>
+                                <?php //echo $form->textField($model,'PEDIDO',array('size'=>15,'maxlength'=>50,'readonly'=>true)); ?>
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan="2">
-                                 <div class="control-group ">
-                                        <?php echo $form->labelEx($model,'FECHA_PEDIDO',array('class'=>'control-label')); ?>
-                                        <div class="controls">   
-                                            <?php 
-                                                echo $fechaFactura; 
-                                                echo $form->error($model,'FECHA_PEDIDO')
-                                            ?>
-                                        </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                 <?php echo $form->dropDownListRow($model,'CONDICION_PAGO',CHtml::listData(CodicionPago::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 239px;','empty'=>'Seleccione','options'=>array($model->isNewRecord && $conf->COND_PAGO_CONTADO!= '' ? $conf->COND_PAGO_CONTADO : ''=>array('selected'=>'selected'))));?>
-                            </td>
-                        </tr>
-
                     </table>
                 </td>
                 <td>
