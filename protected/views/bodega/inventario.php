@@ -30,7 +30,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Bodegas</h1>
+<h1>Asociación de artículos a Bodegas</h1>
 <br>
 <?php
 
