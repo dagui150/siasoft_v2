@@ -60,7 +60,7 @@ class ConsecutivoFa extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('CODIGO_CONSECUTIVO, RESOLUCION,DESCRIPCION, TIPO, LONGITUD, VALOR_CONSECUTIVO, MASCARA, USA_DESPACHOS, USA_ESQUEMA_CAJAS, NUMERO_COPIAS, ACTIVO', 'required'),
+			array('CODIGO_CONSECUTIVO, RESOLUCION,DESCRIPCION, TIPO, LONGITUD, VALOR_CONSECUTIVO, MASCARA, NUMERO_COPIAS, ACTIVO', 'required'),
 			array('FORMATO_IMPRESION, NUMERO_COPIAS', 'numerical', 'integerOnly'=>true,),
 			array('LONGITUD,', 'numerical', 'integerOnly'=>true,'max'=>10,'min'=>1),
 			array('NUMERO_COPIAS,', 'numerical', 'integerOnly'=>true,'max'=>5,'min'=>0),

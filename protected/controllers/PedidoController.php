@@ -294,9 +294,19 @@ class PedidoController extends Controller
          */
         protected function CargarArticulo($item_id){            
             $bus = Articulo::model()->findByPk($item_id, 'ACTIVO = "S"');
+            $cant_valida ='';
             $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$bus->ARTICULO,'BODEGA'=>isset($_GET['bodega']) ? $_GET['bodega'] :''));
+            
+            if($existenciaBodega && isset($_GET['cantidad'])){
+                $cantidad = Controller::darCantidad($existenciaBodega, isset($_GET['cantidad']), isset($_GET['unidad']));
+                if($_GET['cantidad'] > $existenciaBodega->CANT_DISPONIBLE)
+                    $cant_valida = 'N';
+                else
+                    $cant_valida = 'S';
+            }
             $res = array(
                 'EXISTE'=>$existenciaBodega ? 'S' : 'N',
+                'CANT_VALIDA'=>$cant_valida,
                 'ID' => $bus->ARTICULO,
                 'NOMBRE' => $bus->NOMBRE,
                 'IMPUESTO' => $bus->iMPUESTOVENTA->PROCENTAJE,

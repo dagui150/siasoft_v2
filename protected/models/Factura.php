@@ -97,6 +97,7 @@ class Factura extends CActiveRecord
                         array('ARTICULO','validarBodega'),
                         array('CANTIDAD','numerical'),
                         array('CANTIDAD','validarExistencias'),
+                        array('UNIDAD','validarExistencias'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('FACTURA, CLIENTE, BODEGA, CONDICION_PAGO, NIVEL_PRECIO, PEDIDO, FECHA_FACTURA, FECHA_DESPACHO, FECHA_ENTREGA, ORDEN_COMPRA, FECHA_ORDEN, RUBRO1, RUBRO2, RUBRO3, RUBRO4, RUBRO5, COMENTARIOS_CXC, OBSERVACIONES, TOTAL_MERCADERIA, MONTO_ANTICIPO, MONTO_FLETE, MONTO_SEGURO, MONTO_DESCUENTO1, TOTAL_IMPUESTO1, TOTAL_A_FACTURAR, REMITIDO, RESERVADO, ESTADO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
@@ -110,9 +111,15 @@ class Factura extends CActiveRecord
          * @param mixed $params 
          */
         public function validarExistencias($attribute,$params){
+            /**
+             * Busqueda de la bodega y articulo
+             * @var ExistenciaBodega
+             */
             $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$this->ARTICULO,'BODEGA'=>$this->BODEGA));
 	    if ($existenciaBodega){
-                $this->addError('CANTIDAD','Nada');
+                $cantidad = Controller::darCantidad($existenciaBodega, $this->CANTIDAD, $this->UNIDAD);
+                if($cantidad > $existenciaBodega->CANT_DISPONIBLE)
+                    $this->addError('CANTIDAD','Solo hay '.$existenciaBodega->CANT_DISPONIBLE.' '.$existenciaBodega->aRTICULO->uNIDADALMACEN->NOMBRE.'(s) disponible(s)');
             }
 	}
         /**
@@ -123,6 +130,10 @@ class Factura extends CActiveRecord
          * @param mixed $params 
          */
         public function validarBodega($attribute,$params){
+            /**
+             * Busqueda de la bodega y articulo
+             * @var ExistenciaBodega
+             */
             $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$this->ARTICULO,'BODEGA'=>$this->BODEGA));
 	    if (!$existenciaBodega){
                 $this->addError('ARTICULO','No existe en la bodega "'.$this->bODEGA->DESCRIPCION.'"');

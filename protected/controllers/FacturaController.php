@@ -41,9 +41,10 @@ class FacturaController extends Controller
                 $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
                 $conf = ConfFa::model()->find();
 
-                $model->CONDICION_PAGO = $conf->COND_PAGO_CONTADO!= '' ? $conf->COND_PAGO_CONTADO:'';
-                $model->BODEGA = $conf->BODEGA_DEFECTO!= '' ? $conf->BODEGA_DEFECTO:'';
-                $model->NIVEL_PRECIO = $conf->NIVEL_PRECIO!= '' ? $conf->NIVEL_PRECIO:'';
+                $model->CONDICION_PAGO = !isset($_POST['Factura']['CONDICION_PAGO']) && $conf->COND_PAGO_CONTADO!= '' ? $conf->COND_PAGO_CONTADO:$_POST['Factura']['CONDICION_PAGO'];
+                $model->BODEGA = !isset($_POST['Factura']['BODEGA']) && $conf->BODEGA_DEFECTO!= '' ? $conf->BODEGA_DEFECTO:$_POST['Factura']['BODEGA'];
+                $model->NIVEL_PRECIO =!isset($_POST['Factura']['NIVEL_PRECIO']) &&  $conf->NIVEL_PRECIO!= '' ? $conf->NIVEL_PRECIO:$_POST['Factura']['NIVEL_PRECIO'];
+                $model->UNIDAD =isset($_POST['Factura']['UNIDAD'])  ? $_POST['Factura']['UNIDAD'] :'';
                 
 		$this->performAjaxValidation(array($model,$cliente));
                 if(isset($_POST['ajax']) && $_POST['ajax']==='factura-linea-form')
@@ -68,6 +69,7 @@ class FacturaController extends Controller
                         try{
                             if($cliente->CLIENTE != '0'){
                                 $cliente->PAIS = 'COL';
+                                $cliente->ACTIVO = 'S';
                                 $cliente->save();
                             }
                             $model->save();
@@ -281,7 +283,7 @@ class FacturaController extends Controller
 	}
         /**
          * Este metodo retorna por medio de un objeto JSON el valor del proximo consecutivo a usar
-         * @param int $id 
+         * @param integer $id 
          * @return CJSON respuesta
          */
         public function actionCargarconsecutivo($id){

@@ -80,7 +80,19 @@
                     }
                 );
             });
-
+            
+            $('#Factura_CANTIDAD').change(function(){
+                $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$('#Factura_ARTICULO').val()+'&bodega='+$('#Factura_BODEGA').val()+'&cantidad='+$(this).val()+'&unidad='+$('#Factura_BODEGA').val(),
+                    function(data){
+                        if(data.CANT_VALIDA == 'S' && $('#Articulo_existe').val() == 'S')
+                            $('#agregar').attr('disabled',false);
+                        else{
+                            $('#agregar').attr('disabled',true);                            
+                            $(this).focus();
+                        }
+                    });
+            });
+            
             $('#Factura_ARTICULO').change(function(){
                 $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$(this).val()+'&bodega='+$('#Factura_BODEGA').val(),
                     function(data){
@@ -95,7 +107,9 @@
                             });
                         $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
                         if(data.EXISTE == 'S')
-                            $('#agregar').attr('disabled', false);
+                            $('#Articulo_existe').val('S');
+                        else
+                            $('#Articulo_existe').val('N');
                  });     
 
             });
@@ -195,7 +209,7 @@
                   'validateOnSubmit'=>true,
              ),	
     )); 
-    
+    echo CHtml::hiddenField('Articulo_existe','');
     $text_rubros =$conf->USAR_RUBROS == 0 ? '<div class="alert alert-info"><strong>Actualmente No usa Rubros</strong></div>' : '';
     $rubro1 =$conf->USAR_RUBROS == 1 && $conf->RUBRO1_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO1') : '';
     $rubro2 =$conf->USAR_RUBROS == 1 && $conf->RUBRO2_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO2') : '';

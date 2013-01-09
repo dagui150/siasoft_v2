@@ -183,11 +183,11 @@ class Controller extends CController
 	/**
          * Este metodo convierte una unidad a otra segun su equivalencia
          * @param ExistenciaBodega $existenciaBodega
-         * @param int $cantidad
-         * @param int $id_unidad
-         * @return int cantidad equivalente a restar en el inventario 
+         * @param integer $cantidad
+         * @param integer $id_unidad
+         * @return integer cantidad equivalente a restar en el inventario 
          */
-	public function darCantidad($existenciaBodega, $cantidad, $id_unidad)
+	public static function darCantidad($existenciaBodega, $cantidad, $id_unidad)
 	{
                 $unidad = UnidadMedida::model()->findByPk($id_unidad);
                 $cantidad_equiv =$cantidad;

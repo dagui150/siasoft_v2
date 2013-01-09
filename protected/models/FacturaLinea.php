@@ -17,6 +17,7 @@
  * @property string $VALOR_IMPUESTO
  * @property integer $TIPO_PRECIO
  * @property string $COMENTARIO
+ * @property integer $TOTAL
  * @property string $ESTADO
  * @property string $ACTIVO
  * @property string $CREADO_POR
@@ -63,12 +64,32 @@ class FacturaLinea extends CActiveRecord
 			array('ARTICULO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, PORC_IMPUESTO, VALOR_IMPUESTO', 'length', 'max'=>28),
 			array('COMENTARIO', 'safe'),
+			array('CANTIDAD', 'validarExistencias'),
+			array('UNIDAD', 'validarExistencias'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('ID, FACTURA, ARTICULO, LINEA, UNIDAD, CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, PORC_IMPUESTO, VALOR_IMPUESTO, TIPO_PRECIO, COMENTARIO, ESTADO, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
 	}
-
+        /**
+         *  valida que la cantidad del articulo
+         * 
+         *  verifica que la cantidad digitada exista en la bodega
+         * @param string $attribute
+         * @param mixed $params 
+         */
+        public function validarExistencias($attribute,$params){
+            /**
+             * Busqueda de la bodega y articulo
+             * @var ExistenciaBodega
+             */
+            $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$this->ARTICULO,'BODEGA'=>$this->BODEGA));
+	    if ($existenciaBodega){
+                $cantidad = Controller::darCantidad($existenciaBodega, $this->CANTIDAD, $this->UNIDAD);
+                if($cantidad > $existenciaBodega->CANT_DISPONIBLE)
+                    $this->addError('CANTIDAD','Solo hay '.$existenciaBodega->CANT_DISPONIBLE.' '.$existenciaBodega->aRTICULO->uNIDADALMACEN->NOMBRE.'(s) disponible(s)');
+            }
+	}
         public function behaviors()
 	{
 		return array(
