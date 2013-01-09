@@ -17,7 +17,9 @@ class PedidoController extends Controller
 				array('CrugeAccessControlFilter'),
 			);
     }
-        
+        /**
+         * Este metod hace las opertaciones necesarias para agregar una linea
+         */
         public function actionAgregarlinea(){
             $linea = new PedidoLinea;
             $linea->attributes = $_POST['PedidoLinea'];
@@ -269,7 +271,12 @@ class PedidoController extends Controller
         
         
         //Inicio funciones que cargan info por JSON
-              
+         /**
+          * Carga el cliente
+          * Si el cliente existe retorna id y nombre
+          * @param string $item_id id del cliente
+          * @return CJSON respuesta
+          */     
         protected function CargarCliente($item_id){            
             $bus = Cliente::model()->findByPk($item_id);
             $res = array(
@@ -280,10 +287,16 @@ class PedidoController extends Controller
             
             echo CJSON::encode($res);
         }
-        
+        /**
+         * Carga ciertos atributos de un articulo
+         * @param string $item_id id del articulo
+         * @return CJSON respuesta
+         */
         protected function CargarArticulo($item_id){            
             $bus = Articulo::model()->findByPk($item_id, 'ACTIVO = "S"');
+            $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$bus->ARTICULO,'BODEGA'=>isset($_GET['bodega']) ? $_GET['bodega'] :''));
             $res = array(
+                'EXISTE'=>$existenciaBodega ? 'S' : 'N',
                 'ID' => $bus->ARTICULO,
                 'NOMBRE' => $bus->NOMBRE,
                 'IMPUESTO' => $bus->iMPUESTOVENTA->PROCENTAJE,

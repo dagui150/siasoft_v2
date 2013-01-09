@@ -47,14 +47,27 @@
  */
 class Factura extends CActiveRecord
 {
+    
+        /**
+         * Articulo para la linea de la factura
+         * @var string 
+         */
+         public $ARTICULO;
+         /**
+         * Unidad para la linea de la factura
+         * @var int 
+         */
+         public $UNIDAD;
+         /**
+         * Cantidad para la linea de la factura
+         * @var int 
+         */
+         public $CANTIDAD;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
 	 * @return Factura the static model class
 	 */
-         public $ARTICULO;
-         public $UNIDAD;
-         public $CANTIDAD;
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -81,12 +94,41 @@ class Factura extends CActiveRecord
 			array('ORDEN_COMPRA', 'length', 'max'=>30),
                         array('ARTICULO', 'exist', 'attributeName'=>'ARTICULO', 'className'=>'Articulo','allowEmpty'=>true),
 			array('FECHA_DESPACHO, FECHA_ENTREGA, FECHA_ORDEN, OBSERVACIONES', 'safe'),
+                        array('ARTICULO','validarBodega'),
+                        array('CANTIDAD','numerical'),
+                        array('CANTIDAD','validarExistencias'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('FACTURA, CLIENTE, BODEGA, CONDICION_PAGO, NIVEL_PRECIO, PEDIDO, FECHA_FACTURA, FECHA_DESPACHO, FECHA_ENTREGA, ORDEN_COMPRA, FECHA_ORDEN, RUBRO1, RUBRO2, RUBRO3, RUBRO4, RUBRO5, COMENTARIOS_CXC, OBSERVACIONES, TOTAL_MERCADERIA, MONTO_ANTICIPO, MONTO_FLETE, MONTO_SEGURO, MONTO_DESCUENTO1, TOTAL_IMPUESTO1, TOTAL_A_FACTURAR, REMITIDO, RESERVADO, ESTADO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
 	}
-
+        /**
+         *  valida que la cantidad del articulo
+         * 
+         *  verifica que la cantidad digitada exista en la bodega
+         * @param string $attribute
+         * @param mixed $params 
+         */
+        public function validarExistencias($attribute,$params){
+            $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$this->ARTICULO,'BODEGA'=>$this->BODEGA));
+	    if ($existenciaBodega){
+                $this->addError('CANTIDAD','Nada');
+            }
+	}
+        /**
+         *  valida que el articulo este en la bodega
+         * 
+         *  verifica que el articulo exista en la bodega
+         * @param string $attribute
+         * @param mixed $params 
+         */
+        public function validarBodega($attribute,$params){
+            $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$this->ARTICULO,'BODEGA'=>$this->BODEGA));
+	    if (!$existenciaBodega){
+                $this->addError('ARTICULO','No existe en la bodega "'.$this->bODEGA->DESCRIPCION.'"');
+            }
+	}
+        
         public function behaviors()
 	{
                 $conf= ConfFa::model()->find();

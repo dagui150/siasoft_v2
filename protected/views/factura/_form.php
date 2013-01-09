@@ -82,7 +82,7 @@
             });
 
             $('#Factura_ARTICULO').change(function(){
-                $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$(this).val(),
+                $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$(this).val()+'&bodega='+$('#Factura_BODEGA').val(),
                     function(data){
                         $("#Articulo_desc").val(data.NOMBRE);
                          $('select[id$=Factura_UNIDAD]>option').remove();
@@ -94,7 +94,8 @@
                                    $('#Factura_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
                             });
                         $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
-                        $('#agregar').attr('disabled', false);
+                        if(data.EXISTE == 'S')
+                            $('#agregar').attr('disabled', false);
                  });     
 
             });
@@ -194,7 +195,7 @@
                   'validateOnSubmit'=>true,
              ),	
     )); 
-    $conf = ConfFa::model()->find();
+    
     $text_rubros =$conf->USAR_RUBROS == 0 ? '<div class="alert alert-info"><strong>Actualmente No usa Rubros</strong></div>' : '';
     $rubro1 =$conf->USAR_RUBROS == 1 && $conf->RUBRO1_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO1') : '';
     $rubro2 =$conf->USAR_RUBROS == 1 && $conf->RUBRO2_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO2') : '';
@@ -312,7 +313,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                 <?php echo $form->dropDownListRow($model,'CONDICION_PAGO',CHtml::listData(CodicionPago::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 239px;','empty'=>'Seleccione','options'=>array($model->isNewRecord && $conf->COND_PAGO_CONTADO!= '' ? $conf->COND_PAGO_CONTADO : ''=>array('selected'=>'selected'))));?>
+                                 <?php echo $form->dropDownListRow($model,'CONDICION_PAGO',CHtml::listData(CodicionPago::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 239px;','empty'=>'Seleccione'));?>
                             </td>
                         </tr>
 
@@ -349,7 +350,7 @@
                         </tr>
                         <tr>
                             <td>
-                                 <?php echo $form->dropDownListRow($model,'BODEGA',CHtml::listData(Bodega::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 150px;','empty'=>'Seleccione','options'=>array($model->isNewRecord && $conf->BODEGA_DEFECTO!= '' ? $conf->BODEGA_DEFECTO : ''=>array('selected'=>'selected'))));?>
+                                 <?php echo $form->dropDownListRow($model,'BODEGA',CHtml::listData(Bodega::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 150px;','empty'=>'Seleccione'));?>
                             </td>
                             <td rowspan="2" colspan="2">
                                   <span style="background-color:#EEEEEE;line-height:20px;text-align:center; text-shadow:#FFFFFF 0 1px 0;padding-left:5px;padding-top:9px;width:26px;height:28px;margin-top:57px;float:left;font-size: 42px;border:1px solid #CCCCCC;">$</span>
@@ -358,7 +359,7 @@
                         </tr>
                         <tr>
                             <td>
-                                 <?php echo $form->dropDownListRow($model,'NIVEL_PRECIO', CHtml::listData(NivelPrecio::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 150px;','empty'=>'Seleccione','options'=>array($model->isNewRecord && $conf->NIVEL_PRECIO!= '' ? $conf->NIVEL_PRECIO : ''=>array('selected'=>'selected'))));?>
+                                 <?php echo $form->dropDownListRow($model,'NIVEL_PRECIO', CHtml::listData(NivelPrecio::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 150px;','empty'=>'Seleccione'));?>
                                 <?php echo CHtml::hiddenField('NOMBRE_TIPO_PRECIO','');?>
                             </td>
                         </tr>

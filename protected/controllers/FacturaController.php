@@ -29,7 +29,7 @@ class FacturaController extends Controller
 
 	/**
 	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * If creation is successful, the browser will be redirected to the 'admin' page.
 	 */
 	public function actionCreate()
 	{
@@ -39,7 +39,12 @@ class FacturaController extends Controller
                 $articulo = new Articulo;
                 $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
                 $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
+                $conf = ConfFa::model()->find();
 
+                $model->CONDICION_PAGO = $conf->COND_PAGO_CONTADO!= '' ? $conf->COND_PAGO_CONTADO:'';
+                $model->BODEGA = $conf->BODEGA_DEFECTO!= '' ? $conf->BODEGA_DEFECTO:'';
+                $model->NIVEL_PRECIO = $conf->NIVEL_PRECIO!= '' ? $conf->NIVEL_PRECIO:'';
+                
 		$this->performAjaxValidation(array($model,$cliente));
                 if(isset($_POST['ajax']) && $_POST['ajax']==='factura-linea-form')
 		{
@@ -135,16 +140,20 @@ class FacturaController extends Controller
                         }				
                             
                 }
-
+                
 		$this->render('create',array(
 			'model'=>$model,
                         'linea'=>$linea,
                         'cliente'=>$cliente,
                         'articulo'=>$articulo,
+                        'conf'=>$conf,
                         'ruta'=>$ruta,
                         'ruta2'=>$ruta2,
 		));
 	}
+        /**
+         * Este metod hace las opertaciones necesarias para agregar una linea
+         */
         public function actionAgregarlinea(){
             $linea = new FacturaLinea;
             $linea->attributes = $_POST['FacturaLinea'];
@@ -270,7 +279,11 @@ class FacturaController extends Controller
 			Yii::app()->end();
 		}
 	}
-        
+        /**
+         * Este metodo retorna por medio de un objeto JSON el valor del proximo consecutivo a usar
+         * @param int $id 
+         * @return CJSON respuesta
+         */
         public function actionCargarconsecutivo($id){
              $bus =ConsecutivoFa::model()->findByPk($id);
             $res=array(

@@ -20,10 +20,11 @@ class Controller extends CController
 	 * for more details on how to specify this property.
 	 */
 	public $breadcrumbs=array();
-	/*
-	*	este metodo sera llamado para retornar un boton de ayuda
-	*	@param $texto 
-	*/
+	/**
+         * Este metodo sera llamado para retornar un boton de ayuda
+         * @param string $texto
+         * @return string Boton de bootstrap popover 
+         */
 	public function botonAyuda($texto) {
             $boton = $this->widget('bootstrap.widgets.BootButton', array(
                         'type' => 'nommal', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
@@ -33,10 +34,9 @@ class Controller extends CController
                     ),true);
             return $boton;
         }
-	/*
-         *  este metodo sera lamado para mostrar el mensaje al momento de borrar un 
-         * registro
-         * @return Mensaje de error
+	/**
+         * este metodo sera lamado para mostrar el mensaje al momento de borrar un registro
+         * @return string Funcion js para validar mensaje de error 
          */
 	public function mensajeBorrar(){
 		$borrar_success = MensajeSistema::model()->findByPk('S004');
@@ -48,9 +48,9 @@ class Controller extends CController
 		$mensaje_error=$mensaje_p1.'\'alert alert-error\''.$mensaje_p2.'<img src='.Yii::app()->baseUrl."/images/error.png".'>&nbsp&nbsp'.$borrar_error->MENSAJE.$mensaje_p3;
 		return 'function(link,success,data){ if(success){'.$mensaje_success.'}else{window.alert = null;'.$mensaje_error.'}}';
 	}
-	/*
+	/**
          * este metodo retorna un mensaje segun la operacion que se este haciendo
-         * @param $men_
+         * @param string $men_ 
          */
 	public function mensaje($men_){
 		$mensaje_ = MensajeSistema::model()->findByPk($men_);
@@ -66,11 +66,11 @@ class Controller extends CController
 		Yii::app()->user->setFlash($mensaje_->TIPO, '<font size="5" align="left">&nbsp &nbsp<img src='.Yii::app()->baseUrl.$img_url.'>&nbsp &nbsp'.$mensaje_->MENSAJE.'.</font>');
 		$this->widget('bootstrap.widgets.BootAlert');
 	}
-        /*
-	*	este metodo sera llamado para desformatear un numero que venga con comas(,) y puntos (.)
-	*	@param $valor 
-        *       @return $valorunformat
-	*/
+        /**
+         * Este metodo sera llamado para desformatear un numero que venga con comas(,) y puntos (.)
+         * @param string $valor
+         * @return string Texto sin comas ni puntos 
+         */
         public static function unformat($valor){
             $trans = array('.' => '');
             $trans2 = array(',' => '.');
@@ -78,11 +78,11 @@ class Controller extends CController
             return $valorunformat;
         }
 	
-	/*
-	*	este metodo sera llamado para retornar el menu del sistema
-	*	con los items desplegados por cruge y extras como logout
-	*	@return "menu del sistema para el usuario"
-	*/
+	/**
+         * Este metodo sera llamado para retornar el menu del sistema
+	 * con los items desplegados por cruge y extras como logout
+         * @return array con los items para un menu 
+         */
 	public function menu(){
 		/*$this->menu = Yii::app()->user->rbac->getMenu();
 		$this->menu[]= array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false);
@@ -180,7 +180,13 @@ class Controller extends CController
 		
 	}
 	
-	//Funcion que retorna la cantidad exacta a restar al inventario
+	/**
+         * Este metodo convierte una unidad a otra segun su equivalencia
+         * @param ExistenciaBodega $existenciaBodega
+         * @param int $cantidad
+         * @param int $id_unidad
+         * @return int cantidad equivalente a restar en el inventario 
+         */
 	public function darCantidad($existenciaBodega, $cantidad, $id_unidad)
 	{
                 $unidad = UnidadMedida::model()->findByPk($id_unidad);

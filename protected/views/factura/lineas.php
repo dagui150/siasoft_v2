@@ -129,6 +129,7 @@
         
         $('#agregar').click(function(){
                 $('.clonar').click();
+                $(this).attr('disabled',true);
                 contador = $('body').find('.rowIndex').max();
                 model ='LineaNuevo';
                 var impuesto;
