@@ -71,6 +71,7 @@ class NumText {
         $matmil[16] = 'millones de billones de trillones';
 
         //Zi hack
+        $num = preg_replace("/[0]*$/",'', $num);
         $float = explode('.', $num);
         $num = $float[0];
 
@@ -188,7 +189,7 @@ class NumText {
         $tex = $neg . substr($tex, 1) . $fin;
         //Zi hack --> return ucfirst($tex);
 
-        if (isset($float[1]) || $float[1] > 0) {
+        if (isset($float[1]) && $float[1] > 0) {
             $end_num = ucfirst($tex) . ' ' . $moneda[0] . ' con ' . NumText::convert($float[1], false, true, true);
         } else if ($ing == false) {
             $end_num = ucfirst($tex) . ' ' . $moneda[0];
@@ -199,5 +200,4 @@ class NumText {
     }
 
 }
-
 ?> 

@@ -314,7 +314,7 @@
                                                     <?php echo CHtml::textField('Nuevo[{0}][DESCRIPCION]','',array('readonly' => true)); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][CANTIDAD]','',array('class' => 'required')); ?>
+                                                    <?php echo CHtml::textField('Nuevo[{0}][CANTIDAD]','',array('class' => 'decimal')); ?>
                                                 </td>
                                                 <td>
                                                     <?php echo CHtml::dropDownList('Nuevo[{0}][UNIDAD]','', array(), array('empty'=>'Seleccione')); ?>
@@ -362,7 +362,7 @@
                             <?php echo CHtml::textField("Campo[$i]_DESCRIPCION",$item->aRTICULOHIJO->NOMBRE,array('readonly' => true)); ?>
                         </td>
                         <td>
-                            <?php echo $form->textField($item,"[$i]CANTIDAD", array()); ?>
+                            <?php echo $form->textField($item,"[$i]CANTIDAD", array('class'=>'decimal')); ?>
                         </td>
                         <td>
                             <?php echo $form->dropDownList($item,"[$i]UNIDAD", CHtml::listData(UnidadMedida::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>$item->uNIDADALMACEN->TIPO)),'ID','NOMBRE'), array('empty'=>'Seleccione')); ?>

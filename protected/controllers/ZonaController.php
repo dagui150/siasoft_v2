@@ -102,8 +102,13 @@ class ZonaController extends Controller
         
         public function actionRestaurar($id)
 	{
-            $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
-		
+            if($this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'))){
+                $mensaje = MensajeSistema::model()->findByPk('R001');
+            }else{
+                $mensaje = MensajeSistema::model()->findByPk('R002');
+            }
+            Yii::app()->user->setFlash($mensaje->TIPO, '<font size="5" align="left">&nbsp &nbsp'.$mensaje->MENSAJE.'.</font>');
+            $this->widget('bootstrap.widgets.BootAlert');
 	}
 
 	/**

@@ -59,7 +59,7 @@ class ArticuloEnsambleController extends Controller
                             foreach ($_POST['ArticuloEnsamble'] as $act){
                                 $linea = ArticuloEnsamble::model()->findByPk($act['ID']);
                                 $linea->ARTICULO_HIJO = $act['ARTICULO_HIJO'];                                
-                                $linea->CANTIDAD = $act['CANTIDAD'];
+                                $linea->CANTIDAD = Controller::unformat($act['CANTIDAD']);
                                 $linea->UNIDAD = $act['UNIDAD'];
                                 $linea->save();
                             }
@@ -70,7 +70,7 @@ class ArticuloEnsambleController extends Controller
                                 $linea = new ArticuloEnsamble;
                                 $linea->ARTICULO_HIJO = $datos['ARTICULO_HIJO'];
                                 $linea->ARTICULO_PADRE = $_POST['ARTICULO_PADRE'];
-                                $linea->CANTIDAD = $datos['CANTIDAD'];
+                                $linea->CANTIDAD = Controller::unformat($datos['CANTIDAD']);
                                 $linea->UNIDAD = $datos['UNIDAD'];
                                 $linea->ACTIVO = "S";
                                 $linea->save();

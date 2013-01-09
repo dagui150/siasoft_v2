@@ -174,9 +174,9 @@
                                     <td>
                                         <fieldset style="width: 380px;">
                                             <legend ><font face="arial" size=3 >Existencias</font></legend>'
-                                                  .$form->textFieldRow($model,'EXISTENCIA_MINIMA',array('maxlength'=>28,'onkeyup'=>'formato(this)', 'onchange'=>'formato(this)'))
-                                                  .$form->textFieldRow($model,'PUNTO_REORDEN',array('maxlength'=>28,'onkeyup'=>'formato(this)', 'onchange'=>'formato(this)'))
-                                                  .$form->textFieldRow($model,'EXISTENCIA_MAXIMA',array('maxlength'=>28,'onkeyup'=>'formato(this)', 'onchange'=>'formato(this)'))
+                                                  .$form->textFieldRow($model,'EXISTENCIA_MINIMA',array('maxlength'=>28,'class'=>'decimal'))
+                                                  .$form->textFieldRow($model,'PUNTO_REORDEN',array('maxlength'=>28,'class'=>'decimal'))
+                                                  .$form->textFieldRow($model,'EXISTENCIA_MAXIMA',array('maxlength'=>28,'class'=>'decimal'))
                                         .'</fieldset>
                                     </td>
                                 </tr>
@@ -192,7 +192,7 @@
                                         <fieldset style="width: 380px; height: 163px;">
                                             <legend ><font face="arial" size=3 >Costos</font></legend>'
                                              .$form->dropDownListRow($model,'COSTO_FISCAL',MetodoValuacionInv::getMetodo(),array('empty'=>'Seleccione','options'=>array($conf->COSTO_FISCAL=>array('selected'=>'selected'))))
-                                             .'<span id="estandar" style="display: block">'.$form->textFieldRow($model,'COSTO_ESTANDAR',array('prepend'=>'$','size'=>9,'disabled'=>$conf->COSTO_FISCAL == 'Estándar' ? false :true)).'</span>'     
+                                             .'<span id="estandar" style="display: block">'.$form->textFieldRow($model,'COSTO_ESTANDAR',array('prepend'=>'$','size'=>9,'class'=>'decimal','disabled'=>$conf->COSTO_FISCAL == 'Estándar' ? false :true)).'</span>'     
                                         .'</fieldset>
                                     </td>
                                 </tr>
@@ -267,15 +267,15 @@
                                        <br><fieldset >
                                            <table>
                                                <tr>
-                                                    <td width="10">'.$form->textFieldRow($model,'PESO_NETO',array('size'=>6)).'</td> 
+                                                    <td width="10">'.$form->textFieldRow($model,'PESO_NETO',array('size'=>6,'class'=>'decimal')).'</td> 
                                                     <td>'.$form->dropDownList($model,'PESO_NETO_UNIDAD',UnidadMedida::getPeso(),array('empty'=>'--UND--')).'</td> 
                                                </tr>
                                                <tr>
-                                                    <td>'.$form->textFieldRow($model,'PESO_BRUTO',array('size'=>6)).'</td> 
+                                                    <td>'.$form->textFieldRow($model,'PESO_BRUTO',array('size'=>6,'class'=>'decimal')).'</td> 
                                                     <td>'.$form->dropDownList($model,'PESO_BRUTO_UNIDAD',UnidadMedida::getPeso(),array('empty'=>'--UND--')).'</td> 
                                                </tr>
                                                <tr>
-                                                    <td>'.$form->textFieldRow($model,'VOLUMEN',array('size'=>6)).'</td> 
+                                                    <td>'.$form->textFieldRow($model,'VOLUMEN',array('size'=>6,'class'=>'decimal')).'</td> 
                                                     <td>'.$form->dropDownList($model,'VOLUMEN_UNIDAD',UnidadMedida::getVolumen(),array('empty'=>'--UND--')).'</td> 
                                                </tr>
                                           </table>
@@ -291,12 +291,12 @@
                                                </tr>
                                                <tr>
                                                     <td>'.$form->dropDownListRow($model,'UNIDAD_EMPAQUE',UnidadMedida::getUnidad(),array('empty'=>'Seleccione')).'</td> 
-                                                    <td>'.$form->textField($model,'FACTOR_EMPAQUE',array('size'=>6,'onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')).'</td>
+                                                    <td>'.$form->textField($model,'FACTOR_EMPAQUE',array('size'=>6,'class'=>'decimal')).'</td>
                                                    
                                                </tr>
                                                <tr>
                                                     <td>'.$form->dropDownListRow($model,'UNIDAD_VENTA',UnidadMedida::getUnidad(),array('empty'=>'Seleccione')).'</td>  
-                                                    <td>'.$form->textField($model,'FACTOR_VENTA',array('size'=>6,'onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')).'</td>
+                                                    <td>'.$form->textField($model,'FACTOR_VENTA',array('size'=>6,'class'=>'decimal')).'</td>
                                                     
                                                </tr>
                                           </table>
