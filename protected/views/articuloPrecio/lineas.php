@@ -53,7 +53,8 @@
                                     <?php foreach($cargar as $i=>$item): ?>
                                 <tr class="templateContent">
                                     <td>
-                            <?php echo CHtml::textField("NivelPrecio[$i]_ID", $item->nIVELPRECIO->DESCRIPCION, array('readonly'=>true)); ?>
+                            <?php echo CHtml::textField("precio[$i]_ID", $item->nIVELPRECIO->DESCRIPCION, array('readonly'=>true)); ?>
+                            <?php echo CHtml::hiddenField("NivelPrecio[$i]_ID", $item->NIVEL_PRECIO, array('readonly'=>true)); ?>
                             		</td>
                         <td>
                             <?php echo CHtml::textField("NivelPrecio2[$i]_ESQUEMA_TRABAJO",$item->ESQUEMA_TRABAJO,array('readonly' => true)); ?>
@@ -67,12 +68,12 @@
                                 else{ ?>
                                     <span style="background-color:#EEEEEE;line-height:30px;text-align:center; text-shadow:#FFFFFF 0 1px 0;padding-left:5px;padding-top:0px;width:16px;height:24px;margin-top:2px;float:left;font-size: 14px;border:1px solid #CCCCCC;">%</span>
                                 <?php
-                                    echo CHtml::textField("NivelPrecio3[$i]_MARGEN_MULTIPLICADOR", $item->MARGEN_MULTIPLICADOR, array('class'=>'calculosGen')); 
+                                    echo CHtml::textField("NivelPrecio3[$i]_MARGEN_MULTIPLICADOR", $item->MARGEN_MULTIPLICADOR, array('class'=>'calculosGen decimal')); 
                                 }
                             ?>
                         </td>
                         <td>
-                            <?php echo CHtml::textField("NivelPrecio4[$i]_PRECIO", $item->PRECIO, array('readonly'=>true)); ?>
+                            <?php echo CHtml::textField("NivelPrecio4[$i]_PRECIO", $item->PRECIO, array('readonly'=>true, 'class'=> 'decimal')); ?>
                         </td>
                       </tr>                      
                       <?php endforeach; ?> 

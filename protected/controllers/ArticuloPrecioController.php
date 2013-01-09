@@ -115,8 +115,8 @@ class ArticuloPrecioController extends Controller
                             foreach ($_POST['NivelPrecio'] as $nivel){
                                 $linea = ArticuloPrecio::model()->find('ACTIVO = "S" AND ARTICULO = "'.$_POST['ArticuloPrecio']['ARTICULO'].'" AND NIVEL_PRECIO = "'.$nivel.'"');
                                 if($linea){                                    
-                                        $linea->updateAll(array('MARGEN_MULTIPLICADOR'=>$_POST['NivelPrecio3'][$i], 'PRECIO'=>$_POST['NivelPrecio4'][$i]), 'NIVEL_PRECIO = "'.$nivel.'" AND ARTICULO = "'.$_POST['ArticuloPrecio']['ARTICULO'].'"');
-                                        $articulo->updateByPk($_POST['ArticuloPrecio']['ARTICULO'], array('PRECIO_BASE'=>$_POST['Precio_base']));
+                                        $linea->updateAll(array('MARGEN_MULTIPLICADOR' => Controller::unformat($_POST['NivelPrecio3'][$i]) , 'PRECIO' => Controller::unformat($_POST['NivelPrecio4'][$i])), 'NIVEL_PRECIO = "'.$nivel.'" AND ARTICULO = "'.$_POST['ArticuloPrecio']['ARTICULO'].'"');
+                                        $articulo->updateByPk($_POST['ArticuloPrecio']['ARTICULO'], array('PRECIO_BASE' => Controller::unformat($_POST['Precio_base'])));
                                         $i++;
                                    
                                 }
@@ -125,17 +125,28 @@ class ArticuloPrecioController extends Controller
                                         $linea->ARTICULO = $_POST['ArticuloPrecio']['ARTICULO'];
                                         $linea->NIVEL_PRECIO = $nivel;
                                         $linea->ESQUEMA_TRABAJO = $_POST['NivelPrecio2'][$i];
-                                        $linea->MARGEN_MULTIPLICADOR = $_POST['NivelPrecio3'][$i];
-                                        $linea->PRECIO = $_POST['NivelPrecio4'][$i];
+                                        $linea->MARGEN_MULTIPLICADOR = Controller::unformat ($_POST['NivelPrecio3'][$i]);
+                                        $linea->PRECIO = Controller::unformat ($_POST['NivelPrecio4'][$i]);
                                         $linea->ACTIVO = 'S';
-                                        $linea->CREADO_POR = Yii::app()->user->name;
-                                        $linea->ACTUALIZADO_POR = Yii::app()->user->name; 
-                                        $articulo->updateByPk($_POST['ArticuloPrecio']['ARTICULO'], array('PRECIO_BASE'=>$_POST['Precio_base']));
-                                        $linea->insert();
+                                        
+                                        $articulo->updateByPk($_POST['ArticuloPrecio']['ARTICULO'], array('PRECIO_BASE'=>  Controller::unformat($_POST['Precio_base'])));
+                                        if($linea->save()){
+                                            echo 'guarda';
+                                            echo '<pre>';
+                                            print_r ($linea->getErrors());
+                                            echo '<pre/>';
+                                        }
+                                        else{
+                                            echo '<pre>';
+                                            print_r ($linea->getErrors());
+                                            echo '<pre/>';
+                                            echo '<br/>no guarda';
+                                        }
+                                        
                                         $i++;
                                     }
                                 }
-                        
+                        //Yii::app()->end();  
 				//$this->redirect(array('admin'));
                                 $this->redirect(array('admin&men=S002'));
 		}

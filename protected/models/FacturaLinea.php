@@ -186,4 +186,36 @@ class FacturaLinea extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+              public function search3($id)
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('ID',$this->ID);
+		$criteria->compare('FACTURA',$id,true);
+		$criteria->compare('ARTICULO',$this->ARTICULO,true);
+		$criteria->compare('LINEA',$this->LINEA);
+		$criteria->compare('UNIDAD',$this->UNIDAD);
+		$criteria->compare('CANTIDAD',$this->CANTIDAD,true);
+		$criteria->compare('PRECIO_UNITARIO',$this->PRECIO_UNITARIO,true);
+		$criteria->compare('PORC_DESCUENTO',$this->PORC_DESCUENTO,true);
+		$criteria->compare('MONTO_DESCUENTO',$this->MONTO_DESCUENTO,true);
+		$criteria->compare('PORC_IMPUESTO',$this->PORC_IMPUESTO,true);
+		$criteria->compare('VALOR_IMPUESTO',$this->VALOR_IMPUESTO,true);
+		$criteria->compare('TIPO_PRECIO',$this->TIPO_PRECIO);
+		$criteria->compare('COMENTARIO',$this->COMENTARIO,true);
+		$criteria->compare('ESTADO',$this->ESTADO,true);
+		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
+		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
+		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
+		$criteria->compare('ACTUALIZADO_EL',$this->ACTUALIZADO_EL,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'keyAttribute'=>'FACTURA',
+		));
+	}
 }

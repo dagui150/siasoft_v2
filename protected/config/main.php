@@ -9,7 +9,7 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Siasoft V2',
 	'charset' => 'utf-8',
-	'language' => 'es',
+	'language' => 'es',                
 	'theme' => 'siasoft',
 
 	// preloading 'log' component

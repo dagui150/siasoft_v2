@@ -128,21 +128,21 @@ class Articulo extends CActiveRecord
                 $conf=ConfCi::model()->find();
 		return array(
                         'defaults'=>array(
-                            'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
-                            //'format'=>'db',
+                           'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
                            'formats'=> array(
                                    'EXISTENCIA_MINIMA'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
                                    'EXISTENCIA_MAXIMA'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
                                    'PUNTO_REORDEN'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
-                                   'PESO_BRUTO'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
                                    'VOLUMEN'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
                                    'FACTOR_EMPAQUE'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC),  
                                    'FACTOR_VENTA'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
                                    'PESO_NETO'=>'###,##0.'.str_repeat('0',$conf->PESOS_DEC), 
                                    'PESO_BRUTO'=>'###,##0.'.str_repeat('0',$conf->PESOS_DEC), 
-                                   'COSTO_PROMEDIO'=>'###,##0.'.str_repeat('0',$conf->COSTOS_DEC), 
+                                   'COSTO_PROMEDIO'=>'###,##0.'.str_repeat('0',$conf->COSTOS_DEC),
+                                   'COSTO_ESTANDAR'=>'###,##0.'.str_repeat('0',$conf->COSTOS_DEC),
+                                   'COSTO_ULTIMO'=>'###,##0.'.str_repeat('0',$conf->COSTOS_DEC),
+                                   'PRECIO_BASE'=>'###,##0.'.str_repeat('0',$conf->COSTOS_DEC),
                             ),
-                            //'parseExpression'=> "strtr(\$value,',','.')",
                         ),
                         
                         'CTimestampBehavior' => array(

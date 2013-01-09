@@ -241,7 +241,7 @@
         var model2 = 'PedidoLinea';
         var numLinea = parseInt($('#CAMPO_ACTUALIZA').val(), 10);
         var eliminar = $('#eliminar').val();
-        eliminar = eliminar + ',' + $('#PedidoLinea_'+contador+'_ID').val();
+        eliminar = eliminar + $('#PedidoLinea_'+contador+'_ID').val() + ',';
         $('#eliminar').val(eliminar);
         $('#CAMPO_ACTUALIZA').val(numLinea - 1);
         $('#removerU_'+contador).click();
@@ -250,7 +250,7 @@
         var linea = parseInt(contador, 10); 
         //cambiar ids y span
         for(var i = contFor ; i <=contadorMax; i++){
-            var campos = ['ARTICULO','DESCRIPCION','UNIDAD','TIPO_PRECIO','CANTIDAD','PRECIO_UNITARIO','PORC_DESCUENTO','MONTO_DESCUENTO','PORC_IMPUESTO','VALOR_IMPUESTO','COMENTARIO','TOTAL'];
+            var campos = ['ID','ARTICULO','DESCRIPCION','UNIDAD','TIPO_PRECIO','CANTIDAD','PRECIO_UNITARIO','PORC_DESCUENTO','MONTO_DESCUENTO','PORC_IMPUESTO','VALOR_IMPUESTO','COMENTARIO','TOTAL', 'ESTADO'];
             var span = ['lineaU','articuloU','descripcionU','cantidadU','campo_cantidadU','unidadU','campo_unidadU','tipoprecioU','campo_tipoprecioU','preciounitarioU','campo_preciounitarioU','porcdescuentoU','campo_porcdescuentoU','porc_impuestoU','valor_impuestoU','totalU','removerU','editU','eliminaLineaU','rowIndexU'];
             //CAMBIAR IDS DE LOS SPAN
             for(var x =0 ; x<=span.length;x++){
@@ -542,12 +542,11 @@
                                         <?php echo CHtml::hiddenField("rowIndexU_$i", $i, array('class'=>'rowIndexU')); ?>                                         
                                        </td>
                              </tr>
-                       <?php  endforeach; ?>
-                       <?php echo CHtml::hiddenField('eliminar','' ); ?>
+                       <?php  endforeach; ?>                       
               <?php endif; ?>
         </tbody>
 </table>
 <?php $model->isNewRecord ? $i=0 : $i++; ?>
 <?php echo CHtml::HiddenField('CAMPO_ACTUALIZA', $i); ?>
 <?php echo CHtml::HiddenField('NAME', ''); ?>
-<?php echo CHtml::hiddenField('eliminar',''); ?>
+<?php echo CHtml::hiddenField('eliminar','' ); ?>

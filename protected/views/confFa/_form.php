@@ -238,7 +238,7 @@
 
             array('label'=>'Impresión', 'content'=>
                  $form->dropDownListRow($model,'FORMATO_PEDIDO', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND SUBMODULO = "PEDI"'), 'ID', 'NOMBRE'),array('empty'=>'Seleccione...'))
-                .$form->dropDownListRow($model,'FORMATO_FACTURA', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND SUBMODULO = "FACT"'), 'ID', 'NOMBRE'),array('empty'=>'Seleccione...'))
+                .$form->dropDownListRow($model,'FORMATO_FACTURA', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND SUBMODULO = "FAAS"'), 'ID', 'NOMBRE'),array('empty'=>'Seleccione...'))
                 .$form->dropDownListRow($model,'FORMATO_REMISION', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND SUBMODULO = "REMI"'), 'ID', 'NOMBRE'),array('empty'=>'Seleccione...'))),
 
 

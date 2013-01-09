@@ -27,7 +27,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Mensaje Sistemas</h1>
+<h1>Administración Mensaje Sistemas</h1>
 <?php 
 if (isset($_GET['men'])){
     $this->mensaje($_GET['men']);

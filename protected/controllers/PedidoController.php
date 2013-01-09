@@ -184,37 +184,30 @@ class PedidoController extends Controller
 
 		if(isset($_POST['Pedido']))
 		{
-			$model->attributes=$_POST['Pedido'];
-                        if($_POST['eliminar'] != ''){
-                            $eliminar = explode(",", $_POST['eliminar']);
-                            foreach($eliminar as $elimina){                                
-                                    $borra = PedidoLinea::model()->deleteByPk($elimina);                                
-                            }
-                        }
+			$model->attributes=$_POST['Pedido'];                        
 			if($model->save()){
 				if(isset($_POST['PedidoLinea'])){
-                                foreach ($_POST['PedidoLinea'] as $datos2){
-                                    
-                                    $salvar2 = PedidoLinea::model()->findByPk($datos2['ID']);
-                                    $salvar2->PEDIDO = $model->PEDIDO;
-                                    $salvar2->ARTICULO = $datos2['ARTICULO'];
-                                    $salvar2->LINEA = $i;
-                                    $salvar2->UNIDAD = $datos2['UNIDAD'];
-                                    $salvar2->CANTIDAD = $datos2['CANTIDAD'];
-                                    $salvar2->PRECIO_UNITARIO = $datos2['PRECIO_UNITARIO'];
-                                    $salvar2->PORC_DESCUENTO = $datos2['PORC_DESCUENTO'];
-                                    $salvar2->MONTO_DESCUENTO = $datos2['MONTO_DESCUENTO'];
-                                    $salvar2->PORC_IMPUESTO = $datos2['PORC_IMPUESTO'];
-                                    $salvar2->VALOR_IMPUESTO = $datos2['VALOR_IMPUESTO'];
-                                    $salvar2->TIPO_PRECIO = $datos2['TIPO_PRECIO'];
-                                    $salvar2->COMENTARIO = $datos2['COMENTARIO'];
-                                    $salvar2->TOTAL = $datos2['TOTAL'];
-                                    $salvar2->ESTADO = 'N';
-                                    $salvar2->ACTIVO = 'S';
-                                    $salvar2->save();
-                                    $i++;
+                                    foreach ($_POST['PedidoLinea'] as $datos2){
+                                        $salvar2 = PedidoLinea::model()->findByPk($datos2['ID']);
+                                        $salvar2->PEDIDO = $model->PEDIDO;
+                                        $salvar2->ARTICULO = $datos2['ARTICULO'];
+                                        $salvar2->LINEA = $i;
+                                        $salvar2->UNIDAD = $datos2['UNIDAD'];
+                                        $salvar2->CANTIDAD = $datos2['CANTIDAD'];
+                                        $salvar2->PRECIO_UNITARIO = $datos2['PRECIO_UNITARIO'];
+                                        $salvar2->PORC_DESCUENTO = $datos2['PORC_DESCUENTO'];
+                                        $salvar2->MONTO_DESCUENTO = $datos2['MONTO_DESCUENTO'];
+                                        $salvar2->PORC_IMPUESTO = $datos2['PORC_IMPUESTO'];
+                                        $salvar2->VALOR_IMPUESTO = $datos2['VALOR_IMPUESTO'];
+                                        $salvar2->TIPO_PRECIO = $datos2['TIPO_PRECIO'];
+                                        $salvar2->COMENTARIO = $datos2['COMENTARIO'];
+                                        $salvar2->TOTAL = $datos2['TOTAL'];
+                                        $salvar2->ESTADO = 'N';
+                                        $salvar2->ACTIVO = 'S';
+                                        $salvar2->save();
+                                        $i++;
+                                    }
                                 }
-                            }
                             
                             if(isset($_POST['LineaNuevo'])){                                  
                                   foreach ($_POST['LineaNuevo'] as $datos){
@@ -238,6 +231,12 @@ class PedidoController extends Controller
                                         $i++;
                                  }
                              }
+                             if($_POST['eliminar'] != ''){
+                                $eliminar = explode(",", $_POST['eliminar']);
+                                foreach($eliminar as $elimina){                                
+                                        $borra = PedidoLinea::model()->deleteByPk($elimina);                                
+                                }
+                            }
                                 $this->redirect(array('admin&men=S002'));
                         } else {
                             $this->redirect(array('admin&men=E002'));
@@ -354,6 +353,32 @@ class PedidoController extends Controller
             $this->pedido = Pedido::model()->findByPk($id);
             $lineas = new PedidoLinea;
             $this->layout =ConfFa::model()->find()->fORMATOPEDIDO->pLANTILLA->RUTA;
+            $compania = Compania::model()->find();
+            if ($compania->LOGO != '') {
+                $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/" . $compania->LOGO, 'Logo');
+            } else {
+                $logo = $compania->NOMBRE;
+            }
+            $header = '<table width="100%" align="center">
+                            <tr>
+                                <td width="26%" rowspan="4" align="left" valign="middle">'.$logo.'
+                                </td>
+                                <td width="41%" align="center">'.$compania->NOMBRE_ABREV.'</td>
+                                <td width="33%" rowspan="2" align="right" valign="middle">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="center"><b>Nit:</b> '.$compania->NIT.'</td>
+                            </tr>
+                            <tr>
+                                <td align="center">Direccion  '.$compania->DIRECCION.'</td>
+
+                                <td align="right" valign="middle"><strong>Pedido Número:</strong></td>
+                            </tr>
+                            <tr>
+                                <td align="center"><b>Tels:</b> '.$compania->TELEFONO1.'-'.$compania->TELEFONO2.'</td>
+                                <td width="33%" align="right" valign="middle">'.$id.'</td>
+                            </tr>
+                        </table>';
             $footer = '<table width="100%">
                     <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>
                         <td align="center" valign="middle"><span class="piePagina"><b>Generado el:</b> ' . date('Y/m/d') . '</span></td>
@@ -363,8 +388,12 @@ class PedidoController extends Controller
                     </tr>
                     </table>';
             $mPDF1 = Yii::app()->ePdf->mpdf();
-            $mPDF1->WriteHTML($this->render('pdf', array('model' => $this->pedido,'model2'=>$lineas), true));
+            $mPDF1 = Yii::app()->ePdf->mpdf('','A4',0,'','15','15','30','','5','', 'P');
+            $mPDF1->w=210;   //manually set width
+            $mPDF1->h=148.5; //manually set height
+            $mPDF1->SetHTMLHeader($header);
             $mPDF1->SetHTMLFooter($footer);
+            $mPDF1->WriteHTML($this->render('pdf', array('model' => $this->pedido,'model2'=>$lineas), true));
 
             $mPDF1->Output();
             Yii::app()->end();

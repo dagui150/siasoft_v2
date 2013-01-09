@@ -118,8 +118,8 @@ class Controller extends CController
                             ),
                             array('label' => 'Inventario', 'url' => '#',
                                 'items' => array(
-                                    array('label' => 'Artíulos', 'url' => array('/articulo/admin')),
-				    array('label' => 'Artículos Bodega', 'url' => array('/bodega/inventario')),
+                                    array('label' => 'Artículos', 'url' => array('/articulo/admin')),
+                                    array('label' => 'Asociación de artículos a Bodegas', 'url' => array('/bodega/inventario')),
                                     array('label' => 'Clasificaciones', 'url' => array('/clasificacionAdi/admin')),
                                     array('label' => 'Valores para Clasificaciones ', 'url' => array('/clasificacionAdiValor/admin')),
                                     array('label' => 'Tipo de artículo', 'url' => array('/tipoArticulo/admin')),

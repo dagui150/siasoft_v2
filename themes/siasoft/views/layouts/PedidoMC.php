@@ -31,41 +31,11 @@
         <div class="container" id="page" >
 
             <table width="100%" >
-                <tr>
-                    <td height="75" colspan="3">
-                        <table width="100%" align="center" >
-                            <tr>
-                                <td width="26%" rowspan="4" align="left" valign="middle"><?php
-                                    $compania = Compania::model()->find();
-                                    if ($compania->LOGO != '') {
-                                        echo CHtml::image(Yii::app()->request->baseUrl . "/logo/" . $compania->LOGO, 'Logo');
-                                    } else {
-                                        echo $compania->NOMBRE;
-                                    }
-                                    ?>
-                                </td>
-                                <?php $compania = Compania::model()->find(); ?>
-                                <td width="41%" align="center"><?php echo $compania->NOMBRE_ABREV; ?></td>
-                                <td width="33%" rowspan="2" align="right" valign="middle">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td align="center"><?php echo '<b>Nit:</b> ' . $compania->NIT; ?></td>
-                            </tr>
-                            <tr>
-                                <td align="center">Direccion  <?php echo $compania->DIRECCION; ?></td>
-
-                                <td align="right" valign="middle"><strong>Pedido Número:</strong></td>
-                            </tr>
-                            <tr>
-                                <td align="center"><?php echo '<b>Tels:</b> ' . $compania->TELEFONO1 . '-' . $compania->TELEFONO2; ?></td>
-                                <td width="33%" align="right" valign="middle"><?php echo $this->pedido->PEDIDO; ?></td>
-                            </tr>
-                        </table></td>
-                </tr>
+                
                 <tr>
                     <td height="74" colspan="3" align="center" valign="middle">
 
-                        <table width="100%" >
+                        <table width="100%" border="1">
                             <tr>
                                 <td width="80%" align="left" valign="middle" ><strong>Señores:</strong></td>
                                 <td colspan="4" align="center" valign="middle"><strong>Fecha Pedido</strong></td>
@@ -100,9 +70,9 @@
 
                 <tr>
                     <td colspan="3">
-                        <table width="100%" >
-                            <tr>
-                                <td width="70%" rowspan="3"><strong>Son:</strong><?php echo NumText::convert($this->pedido->TOTAL_A_FACTURAR); ?></td>
+                        <table width="100%" cellspacing="10px" border="1" style>
+                            <tr >
+                                <td width="70%" rowspan="3" ><strong>Son:</strong><?php echo NumText::convert($this->pedido->TOTAL_A_FACTURAR); ?></td>
                                 <td width="14%" colspan="-1"><strong>SUBTOTAL $</strong></td>
                                 <td width="14%" colspan="-1"><?php echo $this->pedido->TOTAL_MERCADERIA - $this->pedido->MONTO_DESCUENTO1 ?></td>
                             </tr>
