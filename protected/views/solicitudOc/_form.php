@@ -25,12 +25,13 @@ $(document).ready(function(){
 ?>
  <div class="form">
     
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
 	'id'=>'solicitud-oc-form',
-	'enableAjaxValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
-	),
+	'type'=>'horizontal',
+            'enableAjaxValidation'=>true,
+            'clientOptions'=>array(
+                  'validateOnSubmit'=>true,
+             ),	
 )); ?>
 
     
@@ -154,7 +155,7 @@ $(document).ready(function(){
                 
                 $render = 'lineas';
                 $items = '';
-                $pestana = $this->renderPartial($render, array('form'=>$form, 'linea'=>$linea, 'items'=>$items, 'model'=>$model),true);
+                $pestana = $this->renderPartial($render, array('form'=>$form, 'linea'=>$linea, 'items'=>$items, 'model'=>$model, 'readonly'=>$readonly, 'form'=>$form),true);
             }
             else{
                 $retorna = $model->SOLICITUD_OC;
