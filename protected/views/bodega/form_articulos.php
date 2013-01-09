@@ -244,236 +244,43 @@
 ?>
     
 <?php
-    //$renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form, 'model'=>$model,'ruta2'=>$ruta2,'modelLinea'=>$modelLinea),true);
+    $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form, 'model'=>$model,'ruta2'=>$ruta2,'modelLinea'=>$modelLinea, 'articulo'=>$articulo),true);
     
 ?>
 
 	<?php echo $form->errorSummary(array($model)); ?>
-        <table>
-            <tr>
-                <td>
-            <table style="margin-left: -100px;">
-                        <tr>
-                            <td style="width: 315px">
-                                <?php //echo $form->dropDownListRow($model,'CONSECUTIVO',CHtml::listData(ConsecutivoFa::model()->findAllByAttributes(array('ACTIVO'=>'S','CLASIFICACION'=>'P')),'CODIGO_CONSECUTIVO','DESCRIPCION'),array('empty'=>'Seleccione','style'=>'width: 100px;')); ?>
-                            </td>
-                            <td style="width: 80px;">
-                                <?php //echo $form->textField($model,'PEDIDO',array('size'=>15,'maxlength'=>50,'readonly'=>true)); ?>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td>
-            <table style="margin-left: -140px;">
-                        <tr>
-                            <td style="width: 315px">
-                                <?php echo $form->textFieldRow($model,'CLIENTE',array('size'=>18,'maxlength'=>20)); ?>
-                            </td>
-                            <td style="width: 28px;padding-top:11px;">
-                                <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                  'type'=>'info',
-                                  'size'=>'mini',
-                                  'url'=>'#cliente',
-                                  'icon'=>'search',
-                                  'htmlOptions'=>array('data-toggle'=>'modal'),
-                            )); ?>
-                            </td>
-                            <td>
-                                <?php echo CHtml::textField('Cliente_desc','',array('disabled'=>true,'size'=>31)); ?>
-                            </td>
-                            <td>
-                                 <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                               'buttonType'=>'button',
-                                               'type'=>'normal',
-                                               'size'=>'mini',
-                                               'icon'=>'pencil',
-                                               'htmlOptions'=>array('style'=>'margin: 5px -25px 0 -3px; display:none','id'=>'editaCliente','onclick'=>'$("#clienteNuevo").modal();')
-                                       ));
-                                 ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                 <?php echo $form->dropDownListRow($model,'BODEGA',CHtml::listData(Bodega::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 150px;','empty'=>'Seleccione','options'=>array($model->isNewRecord && $conf->BODEGA_DEFECTO!= '' ? $conf->BODEGA_DEFECTO : ''=>array('selected'=>'selected'))));?>
-                            </td>
-                            <td rowspan="2" colspan="2">
-                                  <span style="background-color:#EEEEEE;line-height:20px;text-align:center; text-shadow:#FFFFFF 0 1px 0;padding-left:5px;padding-top:9px;width:26px;height:28px;margin-top:57px;float:left;font-size: 42px;border:1px solid #CCCCCC;">$</span>
-                                  <?php echo CHtml::textField('calculos','0',array('disabled'=>true,'style'=>'width:254px;height:40px;font-size: 34px;margin-top:56px;text-align:right;'));?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                 <?php echo $form->dropDownListRow($model,'NIVEL_PRECIO', CHtml::listData(NivelPrecio::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 150px;','empty'=>'Seleccione','options'=>array($model->isNewRecord && $conf->NIVEL_PRECIO!= '' ? $conf->NIVEL_PRECIO : ''=>array('selected'=>'selected'))));?>
-                                <?php echo CHtml::hiddenField('NOMBRE_TIPO_PRECIO','');?>
-                            </td>
-                        </tr>
-
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <?php $this->widget('bootstrap.widgets.BootTabbable', array(
+            <table  style="width: 250px">
+            <!-- <table style="margin-left: -100px;"> -->
+                <tr>
+                    <td>
+                        <?php //echo $form->dropDownListRow($model,'CONSECUTIVO',CHtml::listData(ConsecutivoFa::model()->findAllByAttributes(array('ACTIVO'=>'S','CLASIFICACION'=>'P')),'CODIGO_CONSECUTIVO','DESCRIPCION'),array('empty'=>'Seleccione','style'=>'width: 100px;')); ?>
+                        <?php echo $form->textFieldRow($model,'ID',array('size'=>15,'readonly'=>true)); ?>
+                    </td>
+                    <td>
+                        <?php //echo $form->textField($model,'PEDIDO',array('size'=>15,'maxlength'=>50,'readonly'=>true)); ?>
+                        <?php echo $form->textFieldRow($model,'DESCRIPCION',array('size'=>30,'readonly'=>true)); ?>
+                    </td>
+                </tr>
+            </table>
+        <?php /*$this->widget('bootstrap.widgets.BootTabbable', array(
                 'type'=>'tabs', // 'tabs' or 'pills'
                 'tabs'=>array( 
                     array('label'=>'Líneas', 'content'=>$renderLineas, 'active'=>true),
-                    array('label'=>'Otros', 'content'=>
-                        '<table>
-                            <tr>
-                                <td style="width: 380px;">
-                                    <fieldset >
-                                        <legend ><font face="arial" size=3 >Fechas</font></legend>
-                                        <div class="control-group ">'
-                                            .$form->labelEx($model,'FECHA_PROMETIDA',array('class'=>'control-label'))
-                                            .'<div class="controls">'   
-                                            .$fechaDespacho
-                                            .'</div>
-                                        </div>'
-                                        .'<div class="control-group ">'
-                                            .$form->labelEx($model,'FECHA_EMBARQUE',array('class'=>'control-label'))
-                                            .'<div class="controls">'   
-                                            .$fechaEntrega
-                                            .'</div>
-                                        </div>'
-                                   .'</fieldset>'
-                                   .$form->textFieldRow($model,'COMENTARIOS_CXC',array('size'=>50,'maxlength'=>50))
-                                   .$form->textAreaRow($model,'OBSERVACIONES',array('rows'=>6, 'cols'=>50))
-                               .'</td>
-                                <td>
-                                    <fieldset>
-                                        <legend ><font face="arial" size=3 >Rubros</font></legend>'
-                                        .$text_rubros
-                                        .$rubro1
-                                        .$rubro2
-                                        .$rubro3
-                                        .$rubro4
-                                        .$rubro5
-                                    .'</fieldset>
-                               </td>
-                            </tr>
-                       </table>
-                       <fieldset>
-                               <legend ><font face="arial" size=3 >Orden de Compra</font></legend>
-                               <table>
-                                    <tr>
-                                        <td style="width: 380px;">'
-                                            .$form->textFieldRow($model,'ORDEN_COMPRA',array('size'=>30,'maxlength'=>50))
-                                         .'</td>
-                                        <td>
-                                            <div class="control-group ">'
-                                                .$form->labelEx($model,'FECHA_ORDEN',array('class'=>'control-label'))
-                                                .'<div class="controls">'   
-                                                    .$fechaOrden
-                                                .'</div>
-                                            </div>
-                                        </td>
-                                    <tr>
-                            </table>
-                      </fieldset>'
-                    ),
-                    array('label'=>'Montos', 'content'=>
-                        '<table>
-                                 <tr>
-                                      <td style="width: 380px;">'
-                                            .$calculos.'</td>
-                                      <td>'
-                                            .$calculos2
-                                            .$form->hiddenField($model, 'REMITIDO', array('value'=>'N'))
-                                            .$form->hiddenField($model, 'RESERVADO', array('value'=>'N'))
-                                            .$form->hiddenField($model, 'ESTADO', array('value'=>'N'))
-                                     .'</td>
-                                 <tr>
-                        </table>'
-                        
-                    ),
                 )
-            )); ?>
+            )); */
+        
+        echo $renderLineas;
+        ?>
 
         <div align="center">
             <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
             <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('pedido/admin'), 'icon' => 'remove'));  ?>
 	</div>
 
-<?php 
-            $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'clienteNuevo')); ?>
-                <div class="modal-header">
-                        <a class="close" data-dismiss="modal">&times;</a>
-                        <h3>Cliente Nuevo</h3>
-                </div>
-                <div class="modal-body">
-                        <br>
-                  <?php 
-                    echo $form->textFieldRow($cliente,'CLIENTE',array('maxlength'=>20,'value'=>0));
-                    echo $form->textFieldRow($cliente,'NOMBRE',array('maxlength'=>60,'value'=>0));
-                    echo $form->dropDownListRow($cliente,'UBICACION_GEOGRAFICA1',CHtml::listData(UbicacionGeografica1::model()->findAllByAttributes(array('ACTIVO'=>'S')),'ID','NOMBRE'),array('empty'=>'Seleccione','options'=>array('73'=>array('selected'=>'selected'))));
-                    echo $form->dropDownListRow($cliente,'UBICACION_GEOGRAFICA2',CHtml::listData(UbicacionGeografica2::model()->findAllByAttributes(array('ACTIVO'=>'S','UBICACION_GEOGRAFICA1'=>'73')),'ID','NOMBRE'),array('empty'=>'Seleccione','options'=>array('73001'=>array('selected'=>'selected'))));
-                    echo $form->textFieldRow($cliente,'DIRECCION_COBRO',array('maxlength'=>128,'size'=>50,'value'=>0));
-                    echo '<table>
-                                <tr>
-                                     <td width="50px;">'.$form->textFieldRow($cliente,'TELEFONO1', array('maxlength'=>16,'value'=>0)).'</td>      
-                                     <td>'.$form->textField($cliente,'TELEFONO2', array('maxlength'=>16)).'</td>
-                                </tr>
-                          </table>';
-
-                  ?>
-                </div>
-                <div class="modal-footer">
-
-                    <?php $this->widget('bootstrap.widgets.BootButton', array(
-                        'label'=>'Aceptar',
-                        'icon'=>'ok',
-                        'url'=>'#',
-                        'htmlOptions'=>array('data-dismiss'=>'modal'),
-                    )); ?>
-                </div>
-        <?php $this->endWidget(); ?>
-
 </div><!-- form -->
 
 <?php $this->endWidget(); ?>
 <!--ventanas modales-->
-
-    <?php 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'cliente')); ?>
- 
-	<div class="modal-body">
-                <a class="close" data-dismiss="modal">&times;</a>
-                <br>
-          <?php 
-            $this->widget('bootstrap.widgets.BootGridView', array(
-            'type'=>'striped bordered condensed',
-            'id'=>'cliente-grid',
-            'template'=>"{items} {pager}",
-            'dataProvider'=>$cliente->search(),
-            'selectionChanged'=>'cargaGrilla',
-            'filter'=>$cliente,
-            'columns'=>array(
-                array(  'name'=>'CLIENTE',
-                        'header'=>'Codigo',
-                        'htmlOptions'=>array('data-dismiss'=>'modal'),
-                        'type'=>'raw',
-                        'value'=>'CHtml::link($data->CLIENTE,"#")'
-                    ),
-                    'NOMBRE',
-                    'NIT',
-                    array(
-                            'class'=>'bootstrap.widgets.BootButtonColumn',
-                            'htmlOptions'=>array('style'=>'width: 50px'),
-                            'template'=>'',
-                    ),
-            ),
-    ));
-      ?>
-	</div>
-        <div class="modal-footer">
-
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
-                'label'=>'Cerrar',
-                'url'=>'#',
-                'htmlOptions'=>array('data-dismiss'=>'modal'),
-            )); ?>
-        </div>
- 
-<?php $this->endWidget(); ?>
 
     <?php 
     $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'articulo')); ?>
@@ -507,13 +314,13 @@
 		<p class="note">Los Campos con <span class="required">*</span> Son requeridos.</p>
 	</div>
         <div id="form-lineas">
-            <?php  $this->renderPartial('form_lineas', 
+            <?php /* $this->renderPartial('form_lineas', 
                         array(
                             'model'=>$model,
                             'linea'=>$linea,
                             'ruta'=>$ruta,
                         )
-                    ); ?>
+                    );*/ ?>
         </div>
  
 <?php $this->endWidget(); ?>

@@ -133,7 +133,7 @@ class BodegaController extends Controller
                                     $borra = PedidoLinea::model()->deleteByPk($elimina);                                
                             }
                         }
-			if($model->save()){
+			if($model->save()){/*
 				if(isset($_POST['PedidoLinea'])){
                                 foreach ($_POST['PedidoLinea'] as $datos2){
                                     
@@ -182,7 +182,7 @@ class BodegaController extends Controller
                              }
                                 $this->redirect(array('admin&men=S002'));
                         } else {
-                            $this->redirect(array('admin&men=E002'));
+                            $this->redirect(array('admin&men=E002'));*/
                         }
 		}
 
