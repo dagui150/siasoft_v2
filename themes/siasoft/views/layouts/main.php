@@ -17,14 +17,16 @@
 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <script language="JavaScript">
+            $(function(){$('form input[type="text"]').keypress(function(e){return e.which!=13})})
             $(document).ready(function(){
 
-                $('.decimal').blur(function(){
+                $('.decimal').live('blur',function(){
                     $(this).val(format($(this).val()));
-                });                
+                });
             });
             function format(value) {
-                    var num = value.replace(/\./g,'');	
+                    //var num = value.replace(/\./g,'');
+                    var num = value.toString().replace(/\./g,'');
 
                     if(!/,/.test(num)){
                         num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
@@ -39,10 +41,10 @@
                     }
             }
                 
-            function unformat($text){
-                var $value = $text.toString().replace(/\./g,'');
-                $value = $value.toString().replace(/\,/g,'.');
-                return $value;
+            function unformat(text){
+                var value = text.toString().replace(/\./g,'');
+                value = value.toString().replace(/\,/g,'.');
+                return value;
             }
         </script>
     </head>

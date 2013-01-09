@@ -22,6 +22,7 @@
             }
 
         </style>
+  
 
 
     </head>
@@ -31,32 +32,32 @@
         <div class="container" id="page" >
 
             <table width="100%" >
-                
                 <tr>
                     <td height="74" colspan="3" align="center" valign="middle">
 
-                        <table width="100%" border="1">
+                        <table width="100%" style="border: 1px solid #000;" >
                             <tr>
                                 <td width="80%" align="left" valign="middle" ><strong>Señores:</strong></td>
                                 <td colspan="4" align="center" valign="middle"><strong>Fecha Pedido</strong></td>
                             </tr>
                             <tr>
-                                <?php
+                                <?php /*
                                 $arr = explode("-", $this->pedido->FECHA_PEDIDO);
                                 $ano = $arr[0];
                                 $mes = $arr[1];
                                 $dia = $arr[2];
+								*/
                                 ?>
-                                <td align="left" valign="middle"><?php echo $this->pedido->cLIENTE->NOMBRE ?></td>
+                                <td align="left" valign="middle"><?php //echo $this->pedido->cLIENTE->NOMBRE ?></td>
                                 <td width="6%" align="center" valign="middle"><strong>Dia</strong> </td>
                                 <td width="6%" align="center" valign="middle"><strong>Mes</strong></td>
                                 <td width="6%" colspan="2" align="center" valign="middle"><strong>Año</strong></td>
                             </tr>
                             <tr>
-                                <td align="left" valign="middle"><strong>Nit/CC No</strong>:<?php echo $this->pedido->CLIENTE ?></td>
-                                <td align="center" valign="middle"><?php echo $dia ?></td>
-                                <td align="center" valign="middle"><?php echo $mes ?></td>
-                                <td colspan="2" align="center" valign="middle"><?php echo $ano ?></td>
+                                <td align="left" valign="middle"><strong>Nit/CC No</strong>:<?php //echo $this->pedido->CLIENTE ?></td>
+                                <td align="center" valign="middle"><?php //echo $dia ?></td>
+                                <td align="center" valign="middle"><?php //echo $mes ?></td>
+                                <td colspan="2" align="center" valign="middle"><?php //echo $ano ?></td>
                             </tr>
 
                         </table></td>
@@ -70,28 +71,27 @@
 
                 <tr>
                     <td colspan="3">
-                        <table width="100%" cellspacing="10px" border="1" style>
-                            <tr >
-                                <td width="70%" rowspan="3" ><strong>Son:</strong><?php echo NumText::convert($this->pedido->TOTAL_A_FACTURAR); ?></td>
+                        <table width="100%" >
+                            <tr>
+                                <td width="70%" rowspan="3" class="borde-redondeado"><strong>Son:</strong><?php //echo NumText::convert($this->pedido->TOTAL_A_FACTURAR); ?></td>
                                 <td width="14%" colspan="-1"><strong>SUBTOTAL $</strong></td>
-                                <td width="14%" colspan="-1"><?php echo $this->pedido->TOTAL_MERCADERIA - $this->pedido->MONTO_DESCUENTO1 ?></td>
+                                <td width="14%" colspan="-1"><?php //echo $this->pedido->TOTAL_MERCADERIA - $this->pedido->MONTO_DESCUENTO1 ?></td>
                             </tr>
                             <tr>
                                 <td colspan="-1"><strong>IVA $</strong></td>
-                                <td colspan="-1"><?php echo $this->pedido->TOTAL_IMPUESTO1 ?></td>
+                                <td colspan="-1"><?php //echo $this->pedido->TOTAL_IMPUESTO1 ?></td>
                             </tr>
                             <tr>
                                 <td colspan="-1"><strong>VALOR TOTAL $</strong></td>
-                                <td colspan="-1"><?php echo $this->pedido->TOTAL_A_FACTURAR ?></td>
+                                <td colspan="-1"><?php //echo $this->pedido->TOTAL_A_FACTURAR ?></td>
                             </tr>
                         </table></td>
                 </tr>
                 <tr>
                     <td width="50%"><strong>Notas:</strong></td>
-                    <td width="50%"><strong>Elaborador por:</strong> <?php echo $this->pedido->CREADO_POR ?></td>
+                    <td width="50%"><strong>Elaborador por:</strong> <?php //echo $this->pedido->CREADO_POR ?></td>
                 </tr>
             </table>
-
 
         </div><!-- page -->
 

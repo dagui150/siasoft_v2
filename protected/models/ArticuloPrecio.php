@@ -51,7 +51,7 @@ class ArticuloPrecio extends CActiveRecord
 			array('ARTICULO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('NIVEL_PRECIO', 'length', 'max'=>12),
 			array('PRECIO, MARGEN_MULTIPLICADOR', 'length', 'max'=>28),
-			array('ESQUEMA_TRABAJO, ACTIVO', 'length', 'max'=>1),
+			array('ESQUEMA_TRABAJO, ACTIVO', 'length', 'max'=>5),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('ID, ARTICULO, NIVEL_PRECIO, PRECIO, ESQUEMA_TRABAJO, MARGEN_MULTIPLICADOR, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
@@ -121,19 +121,29 @@ class ArticuloPrecio extends CActiveRecord
         
         public function behaviors()
 	{
+            $conf=ConfAs::model()->find();//PORCENTAJE_DEC
+            $conf2=ConfFa::model()->find();//DECIMALES_PRECIO
 		return array(
-			'CTimestampBehavior' => array(
-				'class' => 'zii.behaviors.CTimestampBehavior',
-				'createAttribute' => 'CREADO_EL',
-				'updateAttribute' => 'ACTUALIZADO_EL',
-				'setUpdateOnCreate' => true,
-			),
-			
-			'BlameableBehavior' => array(
-				'class' => 'application.components.BlameableBehavior',
-				'createdByColumn' => 'CREADO_POR',
-				'updatedByColumn' => 'ACTUALIZADO_POR',
-			),
+                    
+                        'defaults'=>array(
+                           'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
+                           'formats'=> array(
+                                   'PRECIO'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO), 
+                                   'MARGEN_MULTIPLICADOR'=>'###,##0.'.str_repeat('0',$conf->PORCENTAJE_DEC), 
+                            ),
+                        ),
+                        
+                        'CTimestampBehavior' => array(
+                             'class' => 'zii.behaviors.CTimestampBehavior',
+                             'createAttribute' => 'CREADO_EL',
+                             'updateAttribute' => 'ACTUALIZADO_EL',
+                             'setUpdateOnCreate' => true,
+                        ),
+                        'BlameableBehavior' => array(
+                             'class' => 'application.components.BlameableBehavior',
+                             'createdByColumn' => 'CREADO_POR',
+                             'updatedByColumn' => 'ACTUALIZADO_POR',
+                       ),
 		);
 	}
 }

@@ -18,7 +18,7 @@ class PapeleraController extends Controller {
         $model = new $submodulo->MODELO;
         
         foreach ($model->tableSchema->columns as $column) {
-            if($column->name=='ACTIVO'||$column->name=='CREADO_POR'){
+            if($count>1){
                 break;
                 
             }else{
@@ -36,8 +36,8 @@ class PapeleraController extends Controller {
             'columns' => array(
                 isset($col[1]) ? $col[1] :array('name'=>'CREADO_POR','visible'=>false),
                 isset($col[2]) ? $col[2] : array('name'=>'CREADO_POR','visible'=>false),
-                isset($col[3]) ? $col[3] : array('name'=>'CREADO_POR','visible'=>false),
-                isset($col[4]) ? $col[4] : array('name'=>'CREADO_POR','visible'=>false),
+                isset($col[3]) ? $col[3] : array('name'=>'ACTUALIZADO_POR','visible'=>TRUE),
+                isset($col[4]) ? $col[4] : array('name'=>'ACTUALIZADO_EL','visible'=>TRUE),
 
                 array(
                     'class' => 'bootstrap.widgets.BootButtonPapelera',

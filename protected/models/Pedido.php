@@ -198,19 +198,28 @@ class Pedido extends CActiveRecord
 	}
         public function behaviors()
 	{
+            $conf=ConfAs::model()->find();//PORCENTAJE_DEC
+            $conf2=ConfFa::model()->find();//DECIMALES_PRECIO
 		return array(
-			'CTimestampBehavior' => array(
-				'class' => 'zii.behaviors.CTimestampBehavior',
-				'createAttribute' => 'CREADO_EL',
-				'updateAttribute' => 'ACTUALIZADO_EL',
-				'setUpdateOnCreate' => true,
-			),
-			
-			'BlameableBehavior' => array(
-				'class' => 'application.components.BlameableBehavior',
-				'createdByColumn' => 'CREADO_POR',
-				'updatedByColumn' => 'ACTUALIZADO_POR',
-			),
+                    
+                        'defaults'=>array(
+                           'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
+                           'formats'=> array(
+                                   //'CANTIDAD'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO), 
+                            ),
+                        ),
+                        
+                        'CTimestampBehavior' => array(
+                             'class' => 'zii.behaviors.CTimestampBehavior',
+                             'createAttribute' => 'CREADO_EL',
+                             'updateAttribute' => 'ACTUALIZADO_EL',
+                             'setUpdateOnCreate' => true,
+                        ),
+                        'BlameableBehavior' => array(
+                             'class' => 'application.components.BlameableBehavior',
+                             'createdByColumn' => 'CREADO_POR',
+                             'updatedByColumn' => 'ACTUALIZADO_POR',
+                       ),
 		);
 	}
 }

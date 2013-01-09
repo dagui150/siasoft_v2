@@ -72,6 +72,11 @@ class ArticuloController extends Controller
                         $model->PESO_NETO = Controller::unformat($_POST['Articulo']['PESO_NETO']);
                         $model->PESO_BRUTO = Controller::unformat($_POST['Articulo']['PESO_BRUTO']);
                         $model->VOLUMEN = Controller::unformat($_POST['Articulo']['VOLUMEN']);
+                        $model->COSTO_ESTANDAR = Controller::unformat($_POST['Articulo']['COSTO_ESTANDAR']);
+                        if(isset($_POST['Articulo']['COSTO_ULTIMO'])){
+                        $model->COSTO_ULTIMO = Controller::unformat($_POST['Articulo']['COSTO_ULTIMO']);
+                        }
+                        
                         
                         if($_POST['Articulo']['IMPUESTO_COMPRA'] === '')
                             $model->IMPUESTO_COMPRA = NULL;
@@ -188,6 +193,12 @@ class ArticuloController extends Controller
                         $model->PESO_NETO = Controller::unformat($_POST['Articulo']['PESO_NETO']);
                         $model->PESO_BRUTO = Controller::unformat($_POST['Articulo']['PESO_BRUTO']);
                         $model->VOLUMEN = Controller::unformat($_POST['Articulo']['VOLUMEN']);
+                        $model->COSTO_ESTANDAR = Controller::unformat($_POST['Articulo']['COSTO_ESTANDAR']);
+                        
+                        if(isset($_POST['Articulo']['COSTO_ULTIMO'])){
+                        $model->COSTO_ULTIMO = Controller::unformat($_POST['Articulo']['COSTO_ULTIMO']);
+                        }
+                        
                             
                         
                         if($_POST['Articulo']['IMPUESTO_COMPRA'] === '')

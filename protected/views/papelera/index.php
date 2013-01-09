@@ -10,7 +10,11 @@
                   url:'/siasoft_v2/index.php?r='+$(this).attr('modelo')+'/restaurar&id='+$(this).attr('id'),
                   success:function(html){
                         $("#papelera").html(html);
-                        $('#'+sub).click();
+                        setTimeout(function(){
+                             $('#'+sub).click();
+                        }, 5000);
+                        
+                       
                   },
                   beforeSend:cargando()
            });

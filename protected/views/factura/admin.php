@@ -63,5 +63,14 @@ $this->widget('bootstrap.widgets.BootButton', array(
 		array(
 			'class'=>'CButtonColumn',
 		),
+            array(
+                         'class'=>'CLinkColumn',
+			 //'header'=>'FACTURAS',
+			 'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
+			 //'labelExpression'=>'$data->ID',
+			 'urlExpression'=>'CController::createUrl("/Factura/formatoPDF", array("id"=>$data->FACTURA))',
+			 'htmlOptions'=>array('style'=>'text-align:center;'),
+			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),
+                ),
 	),
 )); ?>

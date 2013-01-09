@@ -196,18 +196,12 @@ class ConsecutivoFa extends CActiveRecord
 	}
 <<<<<<< HEAD
         
+=======
+>>>>>>> ab88db6d8199d8ac0d26f051f7f45f1983ffa667
         public static function extractNum($text) {
             preg_match("/[0-9]*$/", $text,$num);
             $res[0] = preg_replace("/([0-9]*$)(.*)/",'', $text);
             $res[1]=$num[0];
             return $res;
         }
-=======
-        public static function extractNum($text) {
-                preg_match("/[0-9]*$/", $text,$num);
-             $res[0] = preg_replace("/([0-9]$)(.)/",'', $text);
-             $res[1]=$num[0];
-             return $res;
-      }
->>>>>>> 0922ef876f6e892e1d1eb474544759df0cc5c141
 }
