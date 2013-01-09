@@ -82,7 +82,7 @@
             });
             
             $('#Factura_CANTIDAD').change(function(){
-                $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$('#Factura_ARTICULO').val()+'&bodega='+$('#Factura_BODEGA').val()+'&cantidad='+$(this).val()+'&unidad='+$('#Factura_BODEGA').val(),
+                $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$('#Factura_ARTICULO').val()+'&bodega='+$('#Factura_BODEGA').val()+'&cantidad='+$(this).val()+'&unidad='+$('#Factura_UNIDAD').val(),
                     function(data){
                         if(data.CANT_VALIDA == 'S' && $('#Articulo_existe').val() == 'S')
                             $('#agregar').attr('disabled',false);
@@ -234,6 +234,7 @@
             'buttonImageOnly'=>true,
 	),
         'htmlOptions'=>array(
+            'tabindex'=>'3',
             'style'=>'width:80px;vertical-align:top',
             'value'=>date('Y-m-d'),
         ),  
@@ -327,7 +328,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                 <?php echo $form->dropDownListRow($model,'CONDICION_PAGO',CHtml::listData(CodicionPago::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 239px;','empty'=>'Seleccione'));?>
+                                 <?php echo $form->dropDownListRow($model,'CONDICION_PAGO',CHtml::listData(CodicionPago::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 239px;','empty'=>'Seleccione','tabindex'=>'5'));?>
                             </td>
                         </tr>
 
@@ -364,7 +365,7 @@
                         </tr>
                         <tr>
                             <td>
-                                 <?php echo $form->dropDownListRow($model,'BODEGA',CHtml::listData(Bodega::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 150px;','empty'=>'Seleccione'));?>
+                                 <?php echo $form->dropDownListRow($model,'BODEGA',CHtml::listData(Bodega::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 150px;','empty'=>'Seleccione','tabindex'=>'4'));?>
                             </td>
                             <td rowspan="2" colspan="2">
                                   <span style="background-color:#EEEEEE;line-height:20px;text-align:center; text-shadow:#FFFFFF 0 1px 0;padding-left:5px;padding-top:9px;width:26px;height:28px;margin-top:57px;float:left;font-size: 42px;border:1px solid #CCCCCC;">$</span>
@@ -373,7 +374,7 @@
                         </tr>
                         <tr>
                             <td>
-                                 <?php echo $form->dropDownListRow($model,'NIVEL_PRECIO', CHtml::listData(NivelPrecio::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 150px;','empty'=>'Seleccione'));?>
+                                 <?php echo $form->dropDownListRow($model,'NIVEL_PRECIO', CHtml::listData(NivelPrecio::model()->findAll('ACTIVO = "S"'),'ID','DESCRIPCION'),array('style'=>'width: 150px;','empty'=>'Seleccione','tabindex'=>'6'));?>
                                 <?php echo CHtml::hiddenField('NOMBRE_TIPO_PRECIO','');?>
                             </td>
                         </tr>

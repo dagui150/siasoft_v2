@@ -298,8 +298,8 @@ class PedidoController extends Controller
             $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$bus->ARTICULO,'BODEGA'=>isset($_GET['bodega']) ? $_GET['bodega'] :''));
             
             if($existenciaBodega && isset($_GET['cantidad'])){
-                $cantidad = Controller::darCantidad($existenciaBodega, isset($_GET['cantidad']), isset($_GET['unidad']));
-                if($_GET['cantidad'] > $existenciaBodega->CANT_DISPONIBLE)
+                $cantidad = $this->darCantidad($existenciaBodega, $_GET['cantidad'],$_GET['unidad']);
+                if($_GET['cantidad'] > $this->unformat($existenciaBodega->CANT_DISPONIBLE))
                     $cant_valida = 'N';
                 else
                     $cant_valida = 'S';

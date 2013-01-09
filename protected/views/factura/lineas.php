@@ -8,7 +8,7 @@
 ?>
 <script>
     $(document).ready(function(){
-        var cantidad,precio,descuento,iva,valor_impuesto,contador, model,id,total,total_mercaderia,total_facturar,total_descuento,total_iva,anticipo,flete,seguro;
+        var cantidad,precio,descuento,valor_impuesto,contador, model,id,total;
 
         
         $('.cambiar').live('dblclick',function(){
@@ -280,7 +280,7 @@
 <table style="margin-left: -100px;">
          <tr>
              <td style="width: 289px">
-                <?php echo $form->textFieldRow($model,'ARTICULO',array('size'=>15)); ?>
+                <?php echo $form->textFieldRow($model,'ARTICULO',array('size'=>15,'tabindex'=>'7')); ?>
              </td>
              <td style="width: 28px;">
                  <?php $this->widget('bootstrap.widgets.BootButton', array(
@@ -298,7 +298,7 @@
                <table style="margin-left: -100px;margin-top:-4px;">
                    <tr>
                        <td style="width: 289px;">
-                            <?php echo $form->textFieldRow($model,'CANTIDAD',array('size'=>4));?>
+                            <?php echo $form->textFieldRow($model,'CANTIDAD',array('size'=>4,'tabindex'=>'8'));?>
                        </td>
                    </tr>
                </table>
@@ -307,7 +307,7 @@
                <table style="margin-left: -100px;margin-top:-4px;">
                    <tr>
                        <td>
-                            <?php echo $form->dropDownListRow($model,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px;'));?>
+                            <?php echo $form->dropDownListRow($model,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px;','tabindex'=>'9'));?>
                             <?php echo CHtml::hiddenField('NOMBRE_UNIDAD','');?>
                        </td>
                        <td>
@@ -317,7 +317,7 @@
                                             'type'=>'success',
                                             'icon'=>'white plus',
                                             'size'=>'mini',
-                                            'htmlOptions'=>array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;')
+                                            'htmlOptions'=>array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;','tabindex'=>'10')
                                  ));    
                             ?> 
                        </td>

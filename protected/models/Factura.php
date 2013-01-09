@@ -118,7 +118,7 @@ class Factura extends CActiveRecord
             $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$this->ARTICULO,'BODEGA'=>$this->BODEGA));
 	    if ($existenciaBodega){
                 $cantidad = Controller::darCantidad($existenciaBodega, $this->CANTIDAD, $this->UNIDAD);
-                if($cantidad > $existenciaBodega->CANT_DISPONIBLE)
+                if($cantidad > Controller::unformat($existenciaBodega->CANT_DISPONIBLE))
                     $this->addError('CANTIDAD','Solo hay '.$existenciaBodega->CANT_DISPONIBLE.' '.$existenciaBodega->aRTICULO->uNIDADALMACEN->NOMBRE.'(s) disponible(s)');
             }
 	}

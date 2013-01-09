@@ -52,7 +52,7 @@ class LoginForm extends CFormModel
 		{
 			$this->_identity=new CrugeUser($this->username,$this->password);
 			if(!$this->_identity->authenticate())
-				$this->addError('password',utf8_encode('Usuario o Contraseña Incorrectos'));
+				$this->addError('password','Usuario o Contraseña Incorrectos');
 		}
 	}
 
