@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 
 ?>
 <h1>Ingreso al sistema</h1>
-<div id = "login" style="margin-left: -70px; margin-top:23px;">
+<div id = "login" style="margin-left: -92px; margin-top:23px;">
 	
 
 	<div class="form">
@@ -19,15 +19,9 @@ $this->breadcrumbs=array(
                 'type'=>'horizontal',
 	)); ?>
 	
-	<?php //echo $form->labelEx($model,'username'); ?>
         <?php echo $form->textFieldRow($model,'username', array('size'=>15)); ?>
-	<?php //echo $form->error($model,'username'); ?>
-        
-	<?php //echo $form->labelEx($model,'password'); ?>
 	<?php echo $form->passwordFieldRow($model,'password', array('size'=>15)); ?>
-	<?php //echo $form->error($model,'password'); ?>
-        <div class="row" style="margin-left: -80px">
-		<?php //echo $form->labelEx($model,'rememberMe'); ?>
+        <div style="margin-left: -80px">
                 <?php echo $form->checkBoxRow($model,'rememberMe'); ?>	
 			
 	</div>

@@ -66,7 +66,7 @@
      <tfoot>
            <tr>
               <td colspan="4">
-                    <div class="add" style="width: 80px;">
+                    <div class="add" style="width: 85px;">
                            <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                  'buttonType'=>'button',
                                                  'type'=>'success',

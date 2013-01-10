@@ -28,7 +28,7 @@ class Controller extends CController
 	public function botonAyuda($texto) {
             $boton = $this->widget('bootstrap.widgets.TbButton', array(
                         'type' => 'nommal', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-                        'size' => 'mini', // '', 'large', 'small' or 'mini'
+                        'size' => 'normal', // '', 'large', 'small' or 'mini'
                         'icon' => 'info-sign',
                         'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>Yii::t('ayuda',$texto), 'rel'=>'popover'),
                     ),true);
@@ -141,7 +141,7 @@ class Controller extends CController
                                     array('label' => 'Municipio', 'url' => array('/ubicacionGeografica2/admin')),
                                     array('label' => Yii::t('app', 'AREA'), 'url' => array('/zona/admin')),
                                     array('label' => 'Bodega', 'url' => array('/bodega/admin')),
-                                    array('label' => 'Categorías clientes y proveedor', 'url' => array('/categoria/admin')),
+                                    array('label' => 'Categorías clientes y proveedores', 'url' => array('/categoria/admin')),
                                     array('label' => 'Centro de costos', 'url' => array('/centroCostos/admin')),
                                     array('label' => 'Condición de pago', 'url' => array('/codicionPago/admin')),
                                     array('label' => 'Dependencia', 'url' => array('/departamento/admin')),
@@ -173,7 +173,8 @@ class Controller extends CController
                                     
                                     ),
                             ),*/
-                            array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false),
+                            array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false,
+                                'items'=>Yii::app()->user->ui->adminItems),
                             array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>Yii::app()->user->ui->logoutUrl,'visible'=>!Yii::app()->user->isGuest),
                         );
 		return $this->menu;
@@ -200,4 +201,25 @@ class Controller extends CController
                 }
                 return $cantidad_equiv;
 	}
+        /**
+         *
+         * @param string $label Label del Boton
+         * @param string $type Type del Boton
+         * @param string $size Size del Boton
+         * @param mixed $url Url del Boton
+         * @param string $icon Icono del Boton
+         * @param array $htmlOptions Opciones HTML del Boton
+         * @param string $string Define si el boton es un String o no
+         * @return TbButton 
+         */
+        public  function darBoton($label,$type,$size,$url,$icon,$htmlOptions = array(),$string = false){
+            return $this->widget('bootstrap.widgets.TbButton', array(
+                                  'label'=>$label,
+                                  'type'=>$type,
+                                  'size'=>$size,
+                                  $url ? 'url' : 'label'=>$url,
+                                  'icon'=>$icon,
+                                  'htmlOptions'=>$htmlOptions,
+                            ),$string);
+        }
 }

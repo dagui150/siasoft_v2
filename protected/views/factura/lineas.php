@@ -283,16 +283,13 @@
                 <?php echo $form->textFieldRow($model,'ARTICULO',array('size'=>15,'tabindex'=>'7')); ?>
              </td>
              <td style="width: 28px;">
-                 <?php $this->widget('bootstrap.widgets.TbButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#articulo',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal','style'=>'margin-top: 5px;'),
-                 )); ?>
+                 <?php
+                    $htmlOptions = array('data-toggle'=>'modal','style'=>'margin-top: 5px;');
+                    $this->darBoton(false, 'info', 'normal', '#articulo', 'search white',$htmlOptions);
+                 ?>
             </td>
             <td>
-                 <?php echo CHtml::textField('Articulo_desc','',array('disabled'=>true,'size'=>30)); ?>
+                 <?php echo CHtml::textField('Articulo_desc','',array('disabled'=>true,'size'=>18)); ?>
            </td>
            <td>
                <table style="margin-left: -100px;margin-top:-4px;">
@@ -304,7 +301,7 @@
                </table>
            </td>
            <td>
-               <table style="margin-left: -100px;margin-top:-4px;">
+               <table style="margin-left: -120px;margin-top:-4px;">
                    <tr>
                        <td>
                             <?php echo $form->dropDownListRow($model,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px;','tabindex'=>'9'));?>
@@ -312,13 +309,8 @@
                        </td>
                        <td>
                            <?php
-                                $this->widget('bootstrap.widgets.TbButton', array(
-                                            'buttonType'=>'button',
-                                            'type'=>'success',
-                                            'icon'=>'white plus',
-                                            'size'=>'mini',
-                                            'htmlOptions'=>array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;','tabindex'=>'10')
-                                 ));    
+                                $htmlOptions = array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;','tabindex'=>'10');
+                                $this->darBoton(false, 'success', 'normal', false, 'plus white',$htmlOptions);
                             ?> 
                        </td>
                    </tr>

@@ -72,7 +72,7 @@ return array(
 			// de fabrica, es basico pero funcional.  si pones otro valor considera que cruge
 			// requerir� de un portlet para desplegar un menu con las opciones de administrador.
 			//
-			'generalUserManagementLayout'=>'//layouts/cruge',
+			'generalUserManagementLayout'=>'//layouts/column2',
 			'defaultSessionFilter'=>'application.components.MiSesionCruge',
 		),
 		'gii'=>array(

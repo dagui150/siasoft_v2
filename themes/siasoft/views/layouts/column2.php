@@ -8,7 +8,7 @@
   </tr>
   <tr>
     <td class="form_medio">&nbsp;</td>
-    <td class="form_medio"><?php echo $content; ?></td>
+    <td class="form_medio"><div style="width:870px;"><?php echo $content; ?></div></td>
     <td class="form_medio">&nbsp;</td>
   </tr>
   <tr>
