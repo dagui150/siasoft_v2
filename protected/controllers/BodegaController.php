@@ -123,58 +123,68 @@ class BodegaController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
-
+                
+                
+		if(isset($_POST['Pedido']))
+		{
+                echo $_POST['Pedido'];
+                echo '<br />';
+                Yii::app()->end();
+                    
+                }
+		if(isset($_POST['ExistenciaBodegas']))
+		{
+                echo $_POST['ExistenciaBodegas'];
+                echo '<br />';
+                Yii::app()->end();
+                    
+                }
+		if(isset($_POST['Bodega']))
+		{
+                    echo $_POST['Bodega'];
+                    echo '<br />';
+                    Yii::app()->end();  
+                }
 		if(isset($_POST['Pedido']))
 		{
 			$model->attributes=$_POST['Pedido'];
                         if($_POST['eliminar'] != ''){
                             $eliminar = explode(",", $_POST['eliminar']);
                             foreach($eliminar as $elimina){                                
-                                    $borra = PedidoLinea::model()->deleteByPk($elimina);                                
+                                    $borra = ExistenciaBodegas::model()->deleteByPk($elimina);                                
                             }
                         }
-			if($model->save()){/*
-				if(isset($_POST['PedidoLinea'])){
-                                foreach ($_POST['PedidoLinea'] as $datos2){
+			if($model->save()){
+				if(isset($_POST['ExistenciaBodegas'])){
+                                foreach ($_POST['ExistenciaBodegas'] as $datos2){
                                     
                                     $salvar2 = PedidoLinea::model()->findByPk($datos2['ID']);
-                                    $salvar2->PEDIDO = $model->PEDIDO;
+                                    $salvar2->ID = $model->ID;
                                     $salvar2->ARTICULO = $datos2['ARTICULO'];
-                                    $salvar2->LINEA = $i;
-                                    $salvar2->UNIDAD = $datos2['UNIDAD'];
-                                    $salvar2->CANTIDAD = $datos2['CANTIDAD'];
-                                    $salvar2->PRECIO_UNITARIO = $datos2['PRECIO_UNITARIO'];
-                                    $salvar2->PORC_DESCUENTO = $datos2['PORC_DESCUENTO'];
-                                    $salvar2->MONTO_DESCUENTO = $datos2['MONTO_DESCUENTO'];
-                                    $salvar2->PORC_IMPUESTO = $datos2['PORC_IMPUESTO'];
-                                    $salvar2->VALOR_IMPUESTO = $datos2['VALOR_IMPUESTO'];
-                                    $salvar2->TIPO_PRECIO = $datos2['TIPO_PRECIO'];
-                                    $salvar2->COMENTARIO = $datos2['COMENTARIO'];
-                                    $salvar2->TOTAL = $datos2['TOTAL'];
-                                    $salvar2->ESTADO = 'N';
+                                    $salvar2->BODEGA = $datos2['BODEGA'];
+                                    $salvar2->EXISTENCIA_MINIMA = $datos2['EXISTENCIA_MINIMA'];
+                                    $salvar2->EXISTENCIA_MAXIMA = $datos2['EXISTENCIA_MAXIMA'];
+                                    $salvar2->PUNTO_REORDEN = $datos2['PUNTO_REORDEN'];
+                                    $salvar2->CANT_DISPONIBLE = $datos2['CANT_DISPONIBLE'];
+                                    $salvar2->CANT_RESERVADA = $datos2['CANT_RESERVADA'];
+                                    $salvar2->CANT_REMITIDA = $datos2['CANT_REMITIDA'];
                                     $salvar2->ACTIVO = 'S';
                                     $salvar2->save();
-                                    $i++;
                                 }
                             }
                             
-                            if(isset($_POST['LineaNuevo'])){                                  
+                            if(isset($_POST['LineaNuevo'])){
                                   foreach ($_POST['LineaNuevo'] as $datos){
-                                        $salvar = new PedidoLinea;
-                                        $salvar->PEDIDO = $model->PEDIDO;
-                                        $salvar->ARTICULO = $datos['ARTICULO'];
-                                        $salvar->LINEA = $i;
-                                        $salvar->UNIDAD = $datos['UNIDAD'];
-                                        $salvar->CANTIDAD = $datos['CANTIDAD'];
-                                        $salvar->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
-                                        $salvar->PORC_DESCUENTO = $datos['PORC_DESCUENTO'];
-                                        $salvar->MONTO_DESCUENTO = $datos['MONTO_DESCUENTO'];
-                                        $salvar->PORC_IMPUESTO = $datos['PORC_IMPUESTO'];
-                                        $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
-                                        $salvar->TIPO_PRECIO = $datos['TIPO_PRECIO'];
-                                        $salvar->COMENTARIO = $datos['COMENTARIO'];
-                                        $salvar->TOTAL = $datos['TOTAL'];
-                                        $salvar->ESTADO = 'N';
+                                        $salvar = new ExistenciaBodegas;
+                                        $salvar->ID = $model->ID;
+                                        $salvar->ARTICULO = $datos2['ARTICULO'];
+                                        $salvar->BODEGA = $datos2['BODEGA'];
+                                        $salvar->EXISTENCIA_MINIMA = $datos2['EXISTENCIA_MINIMA'];
+                                        $salvar->EXISTENCIA_MAXIMA = $datos2['EXISTENCIA_MAXIMA'];
+                                        $salvar->PUNTO_REORDEN = $datos2['PUNTO_REORDEN'];
+                                        $salvar->CANT_DISPONIBLE = $datos2['CANT_DISPONIBLE'];
+                                        $salvar->CANT_RESERVADA = $datos2['CANT_RESERVADA'];
+                                        $salvar->CANT_REMITIDA = $datos2['CANT_REMITIDA'];
                                         $salvar->ACTIVO = 'S';
                                         $salvar->save();
                                         $i++;
@@ -182,7 +192,7 @@ class BodegaController extends Controller
                              }
                                 $this->redirect(array('admin&men=S002'));
                         } else {
-                            $this->redirect(array('admin&men=E002'));*/
+                            $this->redirect(array('admin&men=E002'));
                         }
 		}
 
@@ -214,13 +224,51 @@ class BodegaController extends Controller
             $res = array(
                 'ID' => $bus->ARTICULO,
                 'NOMBRE' => $bus->NOMBRE,
-                'IMPUESTO' => $bus->iMPUESTOVENTA->PROCENTAJE,
-                'UNIDAD' => $bus->UNIDAD_ALMACEN,
-                'UNIDAD_NOMBRE' => $bus->uNIDADALMACEN->NOMBRE,
-                'UNIDADES' => CHtml::listData(UnidadMedida::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>$bus->uNIDADALMACEN->TIPO)),'ID','NOMBRE'),
             );            
             echo CJSON::encode($res);
         }
+        
+        public function actionAgregarlinea(){
+            $linea = new ExistenciaBodegas;
+            $linea->attributes = $_POST['ExistenciaBodegas'];
+            $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';            
+            
+            if($linea->validate()){
+                     echo '<div id="alert" class="alert alert-success" data-dismiss="modal">
+                            <h2 align="center">Operacion Satisfactoria</h2>
+                            </div>
+                     <span id="form-cargado" style="display:none">';
+                          $this->renderPartial('form_lineas', 
+                            array(
+                                'linea'=>$linea,
+                                'ruta'=>$ruta,
+                                'Pactualiza'=>isset($_POST['ACTUALIZA']) ? $_POST['ACTUALIZA'] : 0,
+                            )
+                        );
+                     echo '</span>
+                         
+                         <div id="boton-cargado" class="modal-footer">';
+                            $this->widget('bootstrap.widgets.BootButton', array(
+                                 'buttonType'=>'button',
+                                 'type'=>'normal',
+                                 'label'=>'Aceptar',
+                                 'icon'=>'ok',
+                                 'htmlOptions'=>array('id'=>'nuevo','onclick'=>'agregar("'.$_POST['SPAN'].'")')
+                              ));
+                     echo '</div>';
+                     Yii::app()->end();
+                    }else{
+                    $this->renderPartial('form_lineas', 
+                        array(
+                            'linea'=>$linea,
+                            'ruta'=>$ruta,                            
+                        )
+                    );
+                    Yii::app()->end();
+                }
+        }
+        
+        
 
 	/**
 	 * Deletes a particular model.
