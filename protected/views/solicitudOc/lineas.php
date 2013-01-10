@@ -1,97 +1,24 @@
 <script>
-$(document).ready(function(){
-    
-        var nombreClase = "Nuevo";
-        var nombreDescripcion;
-        var nombreUnidad;
-        var nombreClase2 = '<?php echo get_class($linea); ?>';
-        var nombreDescripcion2;
-        var nombreUnidad2;
-        var contador;
-        var nombreFecha;
-        var nombreFecha2;
-        var nombreLinea;
-        var evalua;
-        
-       $("body").delegate("input", "click", function(e){
-                contador = $(this).attr('id').split('_')[1];
-                nombreFecha = nombreClase + '_' + contador + '_' + 'FECHA_REQUERIDA';
-                nombreFecha2 = nombreClase2 + '_' + contador + '_' + 'FECHA_REQUERIDA';
-                nombreLinea = nombreClase + '_' + contador + '_' + 'LINEA_NUM';
-                contador = $('#siempreSuma').val();
-                       
-                $(function() {
-                    $( "#" + nombreFecha ).datepicker({dateFormat: 'yy-mm-dd'});
-                    $( "#" + nombreFecha2 ).datepicker({dateFormat: 'yy-mm-dd'});
-                    $.datepicker.setDefaults($.datepicker.regional['es']);
-                    evalua = $("#" + nombreLinea ).val();
-                    if(evalua == 0){
-                        $("#" + nombreLinea ).val(contador);
-                    }
-                })
-            }
-        )
-        
 	$(".tonces").live("change", function (e) {
-
-            //Obtenemos el numero del campo
-            contador = $(this).attr('id').split('_')[1];
-            nombreDescripcion = nombreClase + '_' + contador + '_' + 'DESCRIPCION';
-            nombreUnidad = nombreClase + '_' + contador + '_' + 'UNIDAD';
-            
+            var nombreDescripcion = 'Articulo_desc';
+            var contador = $('body').find('.rowIndex').max();
             $.getJSON(
             '<?php echo $this->createUrl('solicitudOc/CargarArticulo'); ?>&buscar='+$(this).attr('value'),
             
 		  function(data)
                   {
-                        $('select[id$=' + nombreUnidad + '] > option').remove();
                         $('#' + nombreDescripcion).val(data.DESCRIPCION);
-                        
-                        if(data.UNIDAD){
-             $(data.UNIDAD).each(function()
-             {
-                 var option = $('<option />');
-                 option.attr('value', this.ID).text(this.NOMBRE);
-                 $('#' + nombreUnidad).append(option);
-             });
-             }
-             else{
-                  $('select[id$=' + nombreUnidad + '] > option').remove();
-             }
-		  });
-            
-    });
-    
-    $(".tonces2").live("change", function (e) {
-            //Obtenemos el numero del campo
-            contador = $(this).attr('id').split('_')[1];
-            nombreDescripcion2 = nombreClase2 + '_' + contador + '_' + 'DESCRIPCION';
-            nombreUnidad2 = nombreClase2 + '_' + contador + '_' + 'UNIDAD';
-            
-            $.getJSON(
-            '<?php echo $this->createUrl('solicitudOc/CargarArticulo'); ?>&buscar='+$(this).attr('value'),
-            
-		  function(data)
-                  {
-                        $('select[id$=' + nombreUnidad2 + '] > option').remove();
-                        $('#' + nombreDescripcion2).val(data.DESCRIPCION);
-                        
-                        if(data.UNIDAD){
-             $(data.UNIDAD).each(function()
-             {
-                 var option = $('<option />');
-                 option.attr('value', this.ID).text(this.NOMBRE);
+                        $('select[id$=SolicitudOcLinea_UNIDAD]>option').remove();
 
-                 $('#' + nombreUnidad2).append(option);
-             });
-             }
-             else{
-                  $('select[id$=' + nombreUnidad2 + '] > option').remove();
-             }
+                        $.each(data.UNIDADES, function(value, name) {
+                                if(value == data.UNIDAD)
+                                  $('#SolicitudOcLinea_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
+                                else
+                                   $('#SolicitudOcLinea_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
+                            });
+                        $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
 		  });
-            
     });
-}) 
 </script>
 <script>
 $(document).ready(function(){
@@ -110,111 +37,77 @@ $(document).ready(function(){
             $('#linea').val(contador);
         });
         
-        
-}) 
+        $('#agregar').click(function(){
+            
+                $('.clonar').click();
+                var contador = $('body').find('.rowIndex').max();
+                var model ='Nuevo'; 
+                agregarCampos(contador,model);
+                $('#carga').ajaxSend(function(){
+                    $("#carga").html('<div align="left" style="margin-bottom: 9px; margin-left: 7px;"><?php echo CHtml::image($ruta2);?></div>');
+                });
+                $('#carga').ajaxComplete(function(){
+                    $('#carga').html('');
+                });
+     });
+    }) 
 
-function cargaArticuloGrilla (grid_id){
-       
-       var contador = $('#oculto').get(0).value;
-       var buscar = $.fn.yiiGridView.getSelection(grid_id);
-       var nombreClase = "Nuevo";
-       var nombreDescripcion;
-       var nombreUnidad;
-       var nombreArticulo;
-        
-        nombreDescripcion = nombreClase + '_' + contador + '_' + 'DESCRIPCION';
-        nombreUnidad = nombreClase + '_' + contador + '_' + 'UNIDAD';
-        nombreArticulo = nombreClase + '_' + contador + '_' + 'ARTICULO';
-        $.getJSON(
-            '<?php echo $this->createUrl('solicitudOc/CargarArticulo'); ?>&buscar='+buscar,
-            function(data)
-                  {
-                        $('select[id$=' + nombreUnidad + '] > option').remove();
+    function cargaArticuloGrilla (grid_id){
+       var nombreDescripcion = 'Articulo_desc'; 
+       var articulo = 'SolicitudOcLinea_ARTICULO';
+            $.getJSON(
+            '<?php echo $this->createUrl('solicitudOc/CargarArticulo'); ?>&buscar='+$(this).attr('value'),
+            
+		  function(data)
+                  {                        
                         $('#' + nombreDescripcion).val(data.DESCRIPCION);
-                        $('#' + nombreArticulo).val(data.ID);
-                        if(data.UNIDAD){
-             $(data.UNIDAD).each(function()
-             {
-                 var option = $('<option />');
-                 option.attr('value', this.ID).text(this.NOMBRE);
-
-                 $('#' + nombreUnidad).append(option);
-             });
-             }
-             else{
-                  $('select[id$=' + nombreUnidad + '] > option').remove();
-             }
-		  })
+                        $('#' + articulo).val(data.ID);
+		  });
+    }
+	
+	function Eliminar (id){
+		var eliminar = $('#eliminar').get(0).value;
+		var cuentaLineas;
+		
+		eliminar = eliminar + id + ",";
+		$('#eliminar').val(eliminar);
+		cuentaLineas = $('#contadorCrea').val();
+		
+		if (cuentaLineas <= '1'){
+			$('#remover').removeClass('remove');
+		}
+		else{
+			cuentaLineas = parseInt(cuentaLineas, 10) - 1;
+			$('#contadorCrea').val(cuentaLineas);
+		}
+	}
+     function agregarCampos(contador,model){
         
-    }
-    
-    function cargaArticuloGrilla2 (grid_id){
-       
-       var contador = $('#oculto').get(0).value;
-       var buscar = $.fn.yiiGridView.getSelection(grid_id);
-       var nombreClase = '<?php echo get_class($linea); ?>';
-       var nombreDescripcion;
-       var nombreUnidad;
-       var nombreArticulo;
+        var articulo = $('#SolicitudOcLinea_ARTICULO').val();
+        var descripcion = $('#Articulo_desc').val();
+        var cantidad = $('#SolicitudOcLinea_CANTIDAD').val();
+        var requerida = $('#SolicitudOcLinea_FECHA_REQUERIDA').val();
         
-        nombreDescripcion = nombreClase + '_' + contador + '_' + 'DESCRIPCION';
-        nombreUnidad = nombreClase + '_' + contador + '_' + 'UNIDAD';
-        nombreArticulo = nombreClase + '_' + contador + '_' + 'ARTICULO';
-        $.getJSON(
-            '<?php echo $this->createUrl('solicitudOc/CargarArticulo'); ?>&buscar='+buscar,
-            function(data)
-                  {
-                        $('select[id$=' + nombreUnidad + '] > option').remove();
-                        $('#' + nombreDescripcion).val(data.DESCRIPCION);
-                        $('#' + nombreArticulo).val(data.ID);
-                        if(data.UNIDAD){
-             $(data.UNIDAD).each(function()
-             {
-                 var option = $('<option />');
-                 option.attr('value', this.ID).text(this.NOMBRE);
-
-                 $('#' + nombreUnidad).append(option);
-             });
-             }
-             else{
-                  $('select[id$=' + nombreUnidad + '] > option').remove();
-             }
-		  })
+        //copia a campos ocultos
+        $('#'+model+'_'+contador+'_ARTICULO').val(articulo);
+        $('#'+model+'_'+contador+'_DESCRIPCION').val(descripcion);
+        $('#'+model+'_'+contador+'_CANTIDAD').val(cantidad);
+        $('#'+model+'_'+contador+'_FECHA_REQUERIDA').val(requerida);
+        $('#'+model+'_'+contador+'_SALDO').val(0);
+        $('#'+model+'_'+contador+'_ESTADO').val('P')
+        $('#'+model+'_'+contador+'_COMENTARIO').val('');
         
+        //copia a spans para visualizar detalles
+        $('#numero_'+contador).text(parseInt(contador, 10) + 1);
+        $('#articulo_'+contador).text(articulo);
+        $('#descripcion_'+contador).text(descripcion);
+        $('#fecha_requerida_'+contador).text(requerida);
+        $('#cantidad_'+contador).text(cantidad);
+        $('#saldo_'+contador).text(0);
+        $('#estado_'+contador).text('P');
+        $('#porcdescuento_'+contador).text(0);
+        $('#monto_descuento_'+contador).text(0);
     }
-
-function Eliminar (id){
-    var eliminar = $('#eliminar').get(0).value;
-    var cuentaLineas;
-    
-    eliminar = eliminar + id + ",";
-    $('#eliminar').val(eliminar);
-    cuentaLineas = $('#contadorCrea').val();
-    
-    if (cuentaLineas <= '1'){
-        $('#remover').removeClass('remove');
-    }
-    else{
-        cuentaLineas = parseInt(cuentaLineas, 10) - 1;
-        $('#contadorCrea').val(cuentaLineas);
-    }
-}
-
-
-function add(){
-    var cuentaLineas = $('#contadorCrea').val();
-    var siempreSuma = $('#siempreSuma').val();
-    if (cuentaLineas < '0'){
-        $('#contadorCrea').val(1);
-        $('#remover').addClass('remove');
-    }
-    else{
-        cuentaLineas = parseInt(cuentaLineas, 10) + 1;
-        siempreSuma = parseInt(siempreSuma, 10) + 1;
-        $('#contadorCrea').val(cuentaLineas);
-        $('#siempreSuma').val(siempreSuma);
-    }
-}
 </script>
 <?php
     // lineas para playground
@@ -227,7 +120,7 @@ function add(){
 <table style="margin-left: -80px;">
     <tr>
         <td>
-            <?php echo $form->textFieldRow($linea,'ARTICULO',array('size'=>15)); ?>
+            <?php echo $form->textFieldRow($linea,'ARTICULO',array('size'=>15, 'class'=>'tonces')); ?>
         </td>
         <td>
             <?php $this->widget('bootstrap.widgets.BootButton', array(
@@ -239,7 +132,7 @@ function add(){
              )); ?>
         </td>
         <td>
-            <?php echo CHtml::textField('Articulo_desc','',array('disabled'=>true,'size'=>20)); ?>
+            <?php echo CHtml::textField('Articulo_desc','',array('readonly'=>true,'size'=>20)); ?>
         </td>
         <td>
             <table style="margin-left: -80px;margin-top:-4px;">
@@ -251,16 +144,46 @@ function add(){
             </table>
         </td>       
         <td>
-            <?php echo $form->textField($linea,'FECHA_REQUERIDA',array('size'=>4)); ?>
+            <table style="margin-left: -80px;margin-top:-4px; width: 300px">
+                <tr>
+                    <td>
+                        <div class="control-group "><label for="SolicitudOcLinea_CANTIDAD" class="control-label required">Requerida</label><div class="controls">
+                        <?php
+                        $tab = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                            'attribute'=>'FECHA_REQUERIDA',
+                            'model'=>$linea,
+                            'language'=>'es',
+                            'options'=>array(
+                                    'showAnim'=>'fadeIn', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
+                                    'dateFormat'=>'yy-mm-dd',
+                                    'changeMonth'=>true,
+                                    'changeYear'=>true,
+                                    'showOn'=>'both', // 'focus', 'button', 'both'
+                                    'buttonText'=>Yii::t('ui','Select form calendar'), 
+                                    'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
+                                    'buttonImageOnly'=>true,
+                            ),
+                            'htmlOptions'=>array(
+                                'style'=>'width:80px;vertical-align:top',
+                                'disabled' => $readonly
+                            ),  
+                        ));
+                        ?>
+                        </div></div>
+                    </td>
+                </tr>
+            </table>
         </td>
         <td>
+            <?php echo $form->dropDownList($linea,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px; display: none'));?>
+            <?php echo CHtml::hiddenField('NOMBRE_UNIDAD','');?>
             <?php
                 $this->widget('bootstrap.widgets.BootButton', array(
                     'buttonType'=>'button',
                     'type'=>'success',
                     'icon'=>'white plus',
                     'size'=>'mini',
-                    'htmlOptions'=>array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;')
+                    'htmlOptions'=>array('id'=>'agregar','style'=>'margin-top: 5px;')
                     ));    
             ?> 
         </td>
@@ -294,17 +217,28 @@ function add(){
                                     <td>
                                        Saldo
                                     </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <td>
-                                        <div id="add" class="add"></div>
+                                        <div id="add" class="add"><?php 
+						$this->widget('bootstrap.widgets.BootButton', array(
+							'buttonType'=>'button',
+							'type'=>'success',
+							'label'=>'Nuevo',
+							'icon'=>'plus white',
+							'htmlOptions' => array('class'=>'clonar', 'style'=>'display:none'),
+                                                ));
+									   ?></div>
                                         <textarea class="template" rows="0" cols="0" style="display: none;" >
                                             <tr class="templateContent">
                                                 <td>
                                                     <span id="numero_<?php echo '{0}';?>"></span>
-                                                    <span id='campo_numero_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][LINEA_NUM]','0',array('readonly'=>true, 'size'=>'5')); ?></span>
+                                                    <span id='campo_numero_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][LINEA_NUM]','',array('readonly'=>true, 'size'=>'5')); ?></span>
                                                 </td>
                                                 <td>
                                                     <span id="articulo_<?php echo '{0}';?>"></span>
@@ -321,23 +255,20 @@ function add(){
                                                 </td>
                                                 <td>
                                                     <span id="estado_<?php echo '{0}';?>"></span>
-                                                    <span id='campo_estado_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][ESTADO]','P',array('readonly'=>true, 'size'=>'1')); ?></span>
+                                                    <span id='campo_estado_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][ESTADO]','',array('readonly'=>true, 'size'=>'1')); ?></span>
                                                 </td>
                                                 <td>
                                                     <span id="cantidad_<?php echo '{0}';?>"></span>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][CANTIDAD]','',array('size'=>'5', 'class' => 'cantidad','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
+                                                    <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][CANTIDAD]','',array('size'=>'5', 'class' => 'cantidad','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?></span>
                                                 </td>
                                                 <td>
                                                     <span id="fecha_requerida_<?php echo '{0}';?>"></span>
                                                     <span id='campo_fecha_requerida_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][FECHA_REQUERIDA]','',array('class' => 'fecha', 'size'=>'10')); ?>
-                                                </td>
-                                                <td>
-                                                    <span id="comentario_<?php echo '{0}';?>"></span>
                                                     <?php echo CHtml::hiddenField('Nuevo[{0}][COMENTARIO]','',array()); ?>
                                                 </td>
                                                 <td>
                                                     <span id="saldo_<?php echo '{0}';?>"></span>
-                                                    <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][SALDO]','0',array('readonly'=>true, 'size'=>'5')); ?></span>
+                                                    <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][SALDO]','',array('readonly'=>true, 'size'=>'5')); ?></span>
                                                 </td>
                                                 <td>
                                                     <div id="remover" class="remove">
@@ -348,8 +279,7 @@ function add(){
                                                                     'type'=>'danger',
                                                                     'label'=>'',
                                                                     'icon'=>'minus white',
-                                                                    'size' => 'normal',
-                                                                    'htmlOptions'=> array('id'=>'-1', 'onClick'=>'Eliminar(id)'),
+                                                                    'size' => 'normal',                                                                    
                                                                     
                                                               ));
                                                          ?>

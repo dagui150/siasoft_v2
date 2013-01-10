@@ -143,9 +143,9 @@
                         $('#porc_impuesto_'+contador).text(impuesto);
                         $('#'+model+'_'+contador+'_PORC_IMPUESTO').val(impuesto);
                         
-                         $('select[id$='+model+'_'+contador+'_UNIDAD]>option').remove();
+                        $('select[id$='+model+'_'+contador+'_UNIDAD]>option').remove();
                          
-                         $.each(data.UNIDADES, function(value, name) {
+                        $.each(data.UNIDADES, function(value, name) {
                             if(value == $('#Pedido_UNIDAD').val())
                                $('#'+model+'_'+contador+'_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
                             else

@@ -13,10 +13,10 @@ class PedidoController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(
-				array('CrugeAccessControlFilter'),
-			);
-    }
+            return array(
+                array('CrugeAccessControlFilter'),
+            );
+        }
         
         public function actionAgregarlinea(){
             $linea = new PedidoLinea;

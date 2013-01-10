@@ -41,6 +41,7 @@ class SolicitudOcController extends Controller
                 $articulo = new Articulo;
                 $config = ConfCo::model()->find();
                 $i = 1;
+                $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -84,6 +85,7 @@ class SolicitudOcController extends Controller
                         'linea'=>$linea,
                         'articulo'=>$articulo,
                         'config' => $config,
+                        'ruta2'=>$ruta2
                         
 		));
 	}
@@ -115,28 +117,14 @@ class SolicitudOcController extends Controller
         public function actionCargarArticulo(){
             
             $item_id = $_GET['buscar'];
-            $bus = Articulo::model()->findByPk($item_id);
-            if($bus){
-            $bus2 = UnidadMedida::model()->find('ID = "'.$bus->UNIDAD_ALMACEN.'"');
-            $bus3 = UnidadMedida::model()->findAll('TIPO = "'.$bus2->TIPO.'"');
-            
+            $bus = Articulo::model()->findByPk($item_id,  'ACTIVO = "S"');
             $res = array(
                  'DESCRIPCION'=>$bus->NOMBRE,
-                 'UNIDAD'=>$bus3,
+                 'UNIDAD' => $bus->UNIDAD_ALMACEN,
+                 'UNIDAD_NOMBRE' => $bus->uNIDADALMACEN->NOMBRE,
+                 'UNIDADES' => CHtml::listData(UnidadMedida::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>$bus->uNIDADALMACEN->TIPO)),'ID','NOMBRE'),
                  'ID'=>$bus->ARTICULO,
-                  
-            );
-           
-             $bus2= '';
-             $bus3= '';
-            
-            }
-            else{
-                $res = array(
-                 'DESCRIPCION'=>'Ninguno',
-                 'UNIDAD'=>'',
                 );
-            }
              echo CJSON::encode($res);
             
             
@@ -347,8 +335,8 @@ class SolicitudOcController extends Controller
                 $model = $this->loadModel($id);
                 $linea= new SolicitudOcLinea;
                 $articulo = new Articulo;
-                $config = new ConfCo;
-                $linea2 = new SolicitudOcLinea2;
+                $config = new ConfCo;                
+                $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
                 $i = 1;
                 // retrieve items to be updated in a batch mode
                 // assuming each item is of model class 'Item'
@@ -415,7 +403,7 @@ class SolicitudOcController extends Controller
                         'articulo'=>$articulo,
                         'config'=>$config,
                         'items'=>$items,
-                        'linea2'=>$linea2,
+                        'ruta2'=>$ruta2,
 		));
 	}
 

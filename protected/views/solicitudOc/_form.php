@@ -155,12 +155,12 @@ $(document).ready(function(){
                 
                 $render = 'lineas';
                 $items = '';
-                $pestana = $this->renderPartial($render, array('form'=>$form, 'linea'=>$linea, 'items'=>$items, 'model'=>$model, 'readonly'=>$readonly, 'form'=>$form),true);
+                $pestana = $this->renderPartial($render, array('form'=>$form, 'linea'=>$linea, 'items'=>$items, 'model'=>$model, 'readonly'=>$readonly, 'form'=>$form, 'ruta2'=>$ruta2),true);
             }
             else{
                 $retorna = $model->SOLICITUD_OC;
                 $render = 'lineas';
-                $pestana = $this->renderPartial($render, array('form'=>$form, 'linea'=>$linea, 'items'=>$items, 'linea2'=>$linea2, 'model'=>$model, 'readonly'=>$readonly),true);
+                $pestana = $this->renderPartial($render, array('form'=>$form, 'linea'=>$linea, 'items'=>$items, 'ruta2'=>$ruta2, 'model'=>$model, 'readonly'=>$readonly),true);
             }
 ?>
     
