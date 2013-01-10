@@ -320,7 +320,7 @@
                 <?php echo $form->textFieldRow($articulo,'ARTICULO',array('size'=>10)); ?>
              </td>
              <td style="width: 28px;">
-                 <?php $this->widget('bootstrap.widgets.BootButton', array(
+                 <?php $this->widget('bootstrap.widgets.TbButton', array(
                           'type'=>'info',
                           'size'=>'mini',
                           'url'=>'#articulo',
@@ -359,7 +359,7 @@
                        </td>
                        <td>
                            <?php
-                                $this->widget('bootstrap.widgets.BootButton', array(
+                                $this->widget('bootstrap.widgets.TbButton', array(
                                             'buttonType'=>'button',
                                             'type'=>'success',
                                             'icon'=>'white plus',
@@ -400,7 +400,7 @@
                     <td colspan="12">
                         <div id="add" class="add">
                            <?php 
-                                $this->widget('bootstrap.widgets.BootButton', array(
+                                $this->widget('bootstrap.widgets.TbButton', array(
                                                             'buttonType'=>'button',
                                                             'type'=>'success',
                                                             'label'=>'Nuevo',
@@ -461,7 +461,7 @@
                                              */ ?>
                                         <td width="40px">
                                              <span style="float: left">
-                                                <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                                  'buttonType'=>'button',
                                                                  'type'=>'normal',
                                                                  'size'=>'mini',
@@ -472,7 +472,7 @@
                                             </span>
                                             <div class="remove" id ="remover_<?php echo '{0}';?>" style="float: left; margin-left: 5px; display: none"></div>
                                             <div style="float: left; margin-left: 5px;">
-                                                <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                              'buttonType'=>'button',
                                                              'type'=>'danger',
                                                              'size'=>'mini',
@@ -562,7 +562,7 @@
                                     */ ?>
                                     <td>            
                                             <span style="float: left">
-                                                <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                                  'buttonType'=>'button',
                                                                  'type'=>'normal',
                                                                  'size'=>'mini',
@@ -572,7 +572,7 @@
                                                 ?>
                                             </span>
                                            <div class="remove" id ="removerU" style="float: left; margin-left: 5px;">
-                                                      <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                      <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                              'buttonType'=>'button',
                                                              'type'=>'danger',
                                                              'size'=>'mini',

@@ -21,7 +21,7 @@ $('.search-button').click(function(){
     <br>
     <div align="right">
          <?php
-            $this->widget('bootstrap.widgets.BootButton', array(
+            $this->widget('bootstrap.widgets.TbButton', array(
                     'type'=>'success',
                     'size'=>'mini',
                     'label'=>'Nuevo',
@@ -32,7 +32,7 @@ $('.search-button').click(function(){
    </div>
     
   <?php   
-     $this->widget('bootstrap.widgets.BootGridView', array(
+     $this->widget('bootstrap.widgets.TbGridView', array(
         'type'=>'striped bordered condensed',
 	'id'=>'existencia-bodega-grid',
 	'dataProvider'=>$model2->search2($articulo),
@@ -46,7 +46,7 @@ $('.search-button').click(function(){
 		'CANT_RESERVADA',
 		'CANT_REMITIDA',
 		array(
-                    'class'=>'bootstrap.widgets.BootButtonColumn',
+                    'class'=>'bootstrap.widgets.TbButtonColumn',
                     'template'=>'{update}{delete}',
                     'afterDelete'=>$this->mensajeBorrar(),
 		),

@@ -26,7 +26,7 @@ class Controller extends CController
          * @return string Boton de bootstrap popover 
          */
 	public function botonAyuda($texto) {
-            $boton = $this->widget('bootstrap.widgets.BootButton', array(
+            $boton = $this->widget('bootstrap.widgets.TbButton', array(
                         'type' => 'nommal', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
                         'size' => 'mini', // '', 'large', 'small' or 'mini'
                         'icon' => 'info-sign',

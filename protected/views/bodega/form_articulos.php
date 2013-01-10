@@ -233,7 +233,7 @@
 <div class="form">
 
 <?php
-    $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+    $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'id'=>'pedido-form',
             'type'=>'horizontal',
             'enableAjaxValidation'=>true,
@@ -262,7 +262,7 @@
                     </td>
                 </tr>
             </table>
-        <?php /*$this->widget('bootstrap.widgets.BootTabbable', array(
+        <?php /*$this->widget('bootstrap.widgets.TbTabs', array(
                 'type'=>'tabs', // 'tabs' or 'pills'
                 'tabs'=>array( 
                     array('label'=>'Líneas', 'content'=>$renderLineas, 'active'=>true),
@@ -273,8 +273,8 @@
         ?>
 
         <div align="center">
-            <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-            <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('pedido/admin'), 'icon' => 'remove'));  ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('pedido/admin'), 'icon' => 'remove'));  ?>
 	</div>
 
 </div><!-- form -->
@@ -283,7 +283,7 @@
 <!--ventanas modales-->
 
     <?php 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'articulo')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'articulo')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -297,7 +297,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -306,7 +306,7 @@
  
 <?php $this->endWidget(); ?>
     
-<?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'nuevo')); ?>
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'nuevo')); ?>
  
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>

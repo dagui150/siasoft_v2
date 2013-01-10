@@ -6,7 +6,7 @@
     $cs->registerScriptFile(XHtml::jsUrl('template.js'), CClientScript::POS_HEAD);
     $cs->registerScriptFile(XHtml::jsUrl('jquery.validate.js'), CClientScript::POS_HEAD);
 ?>
-<?php $this->widget('bootstrap.widgets.BootButton', array(
+<?php $this->widget('bootstrap.widgets.TbButton', array(
     'type'=>'',
     'size'=>'mini',
     'url'=>'#lineas',
@@ -97,7 +97,7 @@
                                                     <?php echo CHtml::textField('OrdenCompraLinea[{0}][ARTICULO]','',array('class' => 'tonces')); ?>
                                                 </td>
                                                 <td>
-                                                    <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                    <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                             'type'=>'info',
                                                             'size'=>'mini',
                                                             'url'=>'#articulo',
@@ -243,7 +243,7 @@
                                         <div id="remover" class="remove">
                                               <?php 
                                                 
-                                                 $this->widget('bootstrap.widgets.BootButton', array(
+                                                 $this->widget('bootstrap.widgets.TbButton', array(
                                                              'buttonType'=>'button',
                                                              'type'=>'danger',
                                                              'label'=>'',

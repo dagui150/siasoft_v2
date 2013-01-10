@@ -18,7 +18,7 @@ if (isset($_GET['men'])){
 <div align="right">
 <?php 
 
-		$this->widget('bootstrap.widgets.BootButton', array(
+		$this->widget('bootstrap.widgets.TbButton', array(
 			'label'=>'Nuevo',
 			'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
 			'size'=>'mini', // '', 'large', 'small' or 'mini'
@@ -30,7 +30,7 @@ if (isset($_GET['men'])){
 	?>
 </div>
 <?php 
-	$this->widget('bootstrap.widgets.BootGridView', array(
+	$this->widget('bootstrap.widgets.TbGridView', array(
                 'type'=>'striped bordered condensed',
 		'id'=>'unidad-medida-grid',
 		'dataProvider'=>$model->search(),
@@ -50,7 +50,7 @@ if (isset($_GET['men'])){
                         ),*/
 			'EQUIVALENCIA',
 			array(
-                            'class'=>'bootstrap.widgets.BootButtonColumn',
+                            'class'=>'bootstrap.widgets.TbButtonColumn',
                                 'deleteButtonUrl'=>'"index.php?r=unidadMedida/delete&id=".$data->ID',
                                 'updateButtonUrl'=>'($data->BASE == "S") ? "#" : "index.php?r=unidadMedida/update&id=".$data->ID',
                             'htmlOptions'=>array('style'=>'width: 50px'),
@@ -58,7 +58,7 @@ if (isset($_GET['men'])){
 			),
 		),
 	));
-	$this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
+	$this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
  
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>

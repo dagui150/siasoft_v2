@@ -230,7 +230,7 @@ function add(){
             <?php echo $form->textFieldRow($linea,'ARTICULO',array('size'=>15)); ?>
         </td>
         <td>
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'type'=>'info',
                 'size'=>'mini',
                 'url'=>'#articulo',
@@ -255,7 +255,7 @@ function add(){
         </td>
         <td>
             <?php
-                $this->widget('bootstrap.widgets.BootButton', array(
+                $this->widget('bootstrap.widgets.TbButton', array(
                     'buttonType'=>'button',
                     'type'=>'success',
                     'icon'=>'white plus',
@@ -343,7 +343,7 @@ function add(){
                                                     <div id="remover" class="remove">
                                                         <?php 
                                                 
-                                                            $this->widget('bootstrap.widgets.BootButton', array(
+                                                            $this->widget('bootstrap.widgets.TbButton', array(
                                                                     'buttonType'=>'button',
                                                                     'type'=>'danger',
                                                                     'label'=>'',
@@ -370,7 +370,7 @@ function add(){
                             <?php echo $form->textField($item,"[$i]ARTICULO", array('class'=>'tonces2', 'readonly'=>$readonly)); ?>
                             		</td>
                                     <td>
-                                        <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                        <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                             'type'=>'info',
                                                             'size'=>'mini',
                                                             'url'=>'#articulo2',
@@ -407,7 +407,7 @@ function add(){
                                         <div id="remover" class="remove">
                                               <?php 
                                                 
-                                                 $this->widget('bootstrap.widgets.BootButton', array(
+                                                 $this->widget('bootstrap.widgets.TbButton', array(
                                                              'buttonType'=>'button',
                                                              'type'=>'danger',
                                                              'label'=>'',

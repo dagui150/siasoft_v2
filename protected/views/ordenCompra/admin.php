@@ -51,11 +51,11 @@ if (isset($_GET['men'])){
 <br />
 <div id="mensaje"></div>
 <div align="right">
-    <?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array()); ?>
+    <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array()); ?>
     <?php echo CHtml::HiddenField('check',''); ?>
     
 <?php 
-    $this->widget('bootstrap.widgets.BootButton', array(
+    $this->widget('bootstrap.widgets.TbButton', array(
         'label'=>'Cancelar',
         'buttonType'=>'ajaxSubmit',
         'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
@@ -72,7 +72,7 @@ if (isset($_GET['men'])){
     ?>
     
 <?php 
-    $this->widget('bootstrap.widgets.BootButton', array(
+    $this->widget('bootstrap.widgets.TbButton', array(
         'label'=>'Cerrar',
         'buttonType'=>'ajaxSubmit',
         'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
@@ -89,7 +89,7 @@ if (isset($_GET['men'])){
     ?>
     
         <?php 
-    $this->widget('bootstrap.widgets.BootButton', array(
+    $this->widget('bootstrap.widgets.TbButton', array(
         'label'=>'Autorizar',
         'buttonType'=>'ajaxSubmit',
         'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
@@ -106,7 +106,7 @@ if (isset($_GET['men'])){
     ?>
     
    <?php 
-    $this->widget('bootstrap.widgets.BootButton', array(
+    $this->widget('bootstrap.widgets.TbButton', array(
         'label'=>'Rev Autorización',
         'buttonType'=>'ajaxSubmit',
         'type'=>'info', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
@@ -124,7 +124,7 @@ if (isset($_GET['men'])){
     
 <?php 
 
-$this->widget('bootstrap.widgets.BootButton', array(
+$this->widget('bootstrap.widgets.TbButton', array(
     'label'=>'Nuevo',
     'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
     'size'=>'mini', // '', 'large', 'small' or 'mini'
@@ -135,7 +135,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
 ?>
 </div>
 
-<?php $this->widget('bootstrap.widgets.BootGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
         'type'=>'striped bordered condensed',
 	'id'=>'orden-compra-grid',
         'selectableRows'=>2,
@@ -197,7 +197,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
 		'ACTUALIZADO_EL',
 		*/
 		array(
-                    'class'=>'bootstrap.widgets.BootButtonColumn',
+                    'class'=>'bootstrap.widgets.TbButtonColumn',
                     'template'=>'{update}',
 		),
                 array(

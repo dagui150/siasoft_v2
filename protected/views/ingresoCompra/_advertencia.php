@@ -3,7 +3,7 @@
 </div>
 <div class="modal-footer">
     <?php
-        $this->widget('bootstrap.widgets.BootButton', array(
+        $this->widget('bootstrap.widgets.TbButton', array(
                          'buttonType'=>'button',
                          'type'=>'normal',
                          'label'=>'Cancelar',

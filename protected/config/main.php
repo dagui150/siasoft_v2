@@ -1,7 +1,8 @@
 <?php
 
-// uncomment the following to define a path alias
-// Yii::setPathOfAlias('local','path/to/local-folder');
+// Define a path alias for the Bootstrap extension as it's used internally.
+// In this example we assume that you unzipped the extension under protected/extensions.
+Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
@@ -25,7 +26,7 @@ return array(
 		'application.components.*',
 		'application.extensions.helpers.*',
                 'application.extensions.PdfGrid.*',
-                'ext.bootstrap.widgets.BootPager',
+                'bootstrap.widgets.*',
                 'ext.helpers.*',
 		'application.modules.cruge.components.*',
 		'application.modules.cruge.extensions.crugemailer.*',
@@ -179,7 +180,7 @@ return array(
 			),
 		),
 		'bootstrap'=>array(
-			'class'=>'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
+			'class'=>'bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
 		),
             
             

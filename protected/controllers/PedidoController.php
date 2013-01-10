@@ -40,7 +40,7 @@ class PedidoController extends Controller
                      echo '</span>
                          
                          <div id="boton-cargado" class="modal-footer">';
-                            $this->widget('bootstrap.widgets.BootButton', array(
+                            $this->widget('bootstrap.widgets.TbButton', array(
                                  'buttonType'=>'button',
                                  'type'=>'normal',
                                  'label'=>'Aceptar',

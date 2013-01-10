@@ -87,7 +87,7 @@
 
 <div class="form">
 
-<?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'articulo-form',
 	'enableAjaxValidation'=>true,
 	'clientOptions'=>array(
@@ -115,7 +115,7 @@
 	<?php echo $form->errorSummary($model);?>
         <?php    
         
-            $boton = $this->widget('bootstrap.widgets.BootButton', array(
+            $boton = $this->widget('bootstrap.widgets.TbButton', array(
                 'type'=>'info',
                 'size'=>'mini',
                 'url'=>'#bodega',
@@ -123,7 +123,7 @@
                 'htmlOptions'=>array('data-toggle'=>'modal',),
             ),true);
             
-            $boton2 = $this->widget('bootstrap.widgets.BootButton', array(
+            $boton2 = $this->widget('bootstrap.widgets.TbButton', array(
                 'type'=>'info',
                 'size'=>'mini',
                 'url'=>'#impuesto',
@@ -131,7 +131,7 @@
                 'htmlOptions'=>array('data-toggle'=>'modal',),
             ),true);
             
-            $boton3 = $this->widget('bootstrap.widgets.BootButton', array(
+            $boton3 = $this->widget('bootstrap.widgets.TbButton', array(
                 'type'=>'info',
                 'size'=>'mini',
                 'url'=>'#impuesto2',
@@ -139,14 +139,14 @@
                 'htmlOptions'=>array('data-toggle'=>'modal',),
             ),true);
             
-            $boton4 = $this->widget('bootstrap.widgets.BootButton', array(
+            $boton4 = $this->widget('bootstrap.widgets.TbButton', array(
                 'type'=>'info',
                 'size'=>'mini',
                 'url'=>'#retencion',
                 'icon'=>'search',
                 'htmlOptions'=>array('data-toggle'=>'modal',),
             ),true);
-            $boton5 = $this->widget('bootstrap.widgets.BootButton', array(
+            $boton5 = $this->widget('bootstrap.widgets.TbButton', array(
                 'type'=>'info',
                 'size'=>'mini',
                 'url'=>'#retencion2',
@@ -156,7 +156,7 @@
             
             $clas = ClasificacionAdi::model()->findAll();
             
-            $this->widget('bootstrap.widgets.BootTabbable', array(
+            $this->widget('bootstrap.widgets.TbTabs', array(
                 'type'=>'tabs', // 'tabs' or 'pills'
                 'tabs'=>array(
                     array(
@@ -339,7 +339,7 @@
     
 	<div align="center"> 
 		<?php 
-			$this->widget('bootstrap.widgets.BootButton', array(
+			$this->widget('bootstrap.widgets.TbButton', array(
 						'label'=>'Crear',
 						'buttonType'=>'submit',
 						'type'=>'primary',
@@ -348,7 +348,7 @@
 			);
 		?>
 		<?php
-			$this->widget('bootstrap.widgets.BootButton', array(
+			$this->widget('bootstrap.widgets.TbButton', array(
 						'label'=>'Cancelar',
 						'type'=>'action',
 						'icon'=>'remove', 
@@ -363,7 +363,7 @@
 <?php $this->endWidget(); ?>
     
 <?php 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'bodega')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'bodega')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -378,7 +378,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -387,7 +387,7 @@
     
 <?php $this->endWidget(); 
 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'impuesto')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'impuesto')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -402,7 +402,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -412,7 +412,7 @@
 <?php
     $this->endWidget();
     
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'impuesto2')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'impuesto2')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -427,7 +427,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -437,7 +437,7 @@
 <?php
     $this->endWidget(); 
     
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'retencion')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'retencion')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -452,7 +452,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -461,7 +461,7 @@
  
 <?php $this->endWidget(); 
     
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'retencion2')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'retencion2')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -475,7 +475,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),

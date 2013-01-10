@@ -72,12 +72,12 @@ if (isset($_GET['men'])){
 <div id="mensaje"></div>
 <div align="right">
     
-    <?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array()); ?>
+    <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array()); ?>
     <?php echo CHtml::HiddenField('check',''); ?>
     
       
 <?php 
-    $this->widget('bootstrap.widgets.BootButton', array(
+    $this->widget('bootstrap.widgets.TbButton', array(
         'label'=>'Cancelar',
         'buttonType'=>'ajaxSubmit',
         'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
@@ -94,7 +94,7 @@ if (isset($_GET['men'])){
 ?>
     
 <?php 
-    $this->widget('bootstrap.widgets.BootButton', array(
+    $this->widget('bootstrap.widgets.TbButton', array(
         'label'=>'Recibir',
         'buttonType'=>'ajaxSubmit',
         'type'=>'info', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
@@ -111,7 +111,7 @@ if (isset($_GET['men'])){
 ?>
     
 <?php
-    $this->widget('bootstrap.widgets.BootButton', array(
+    $this->widget('bootstrap.widgets.TbButton', array(
         'label'=>'Nuevo',
         'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
         'size'=>'mini', // '', 'large', 'small' or 'mini'
@@ -122,7 +122,7 @@ if (isset($_GET['men'])){
 ?>
     
 </div>
-<?php $this->widget('bootstrap.widgets.BootGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
         'type'=>'striped bordered condensed',
 	'id'=>'ingreso-compra-grid',
         'selectableRows'=>2,
@@ -178,7 +178,7 @@ if (isset($_GET['men'])){
         
 )); ?>
 
-<?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'advertencia')); ?>
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'advertencia')); ?>
         
 <div class="modal-header"><a class="close" data-dismiss="modal">&times;</a></div>
 <div id="cargando">

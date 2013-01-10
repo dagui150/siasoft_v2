@@ -1,9 +1,9 @@
 <?php
 
-    $this->widget('bootstrap.widgets.BootGridView', array(
+    $this->widget('bootstrap.widgets.TbGridView', array(
            'type'=>'striped bordered condensed',
            'id'=>$id,
-           'pager' => array('class'=>'BootPager','maxButtonCount' => 6),
+           'pager' => array('class'=>'TbPager','maxButtonCount' => 6),
            'template'=>"{items}{pager}",
         //Para los que se esten editando y den error, esta estaba con $bodega->searchModal()
            'dataProvider'=>$data,

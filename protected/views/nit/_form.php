@@ -44,7 +44,7 @@
 <div class="form">
 
     <?php
-        $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+        $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'id' => 'nit-form',
             'type' => 'horizontal',
             'enableAjaxValidation' => true,
@@ -60,8 +60,8 @@
 
 
     <div class="row-buttons" align="center">
-        <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'ok-circle white', 'size' => 'small', 'label' => $model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-        <?php $this->widget('bootstrap.widgets.BootButton', array('label' => 'Cancelar', 'size' => 'small', 'url' => array('/nit/admin'), 'icon' => 'remove', 'htmlOptions' => array('data-dismiss' => 'modal'))); ?>
+        <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'ok-circle white', 'size' => 'small', 'label' => $model->isNewRecord ? 'Crear' : 'Guardar')); ?>
+        <?php $this->widget('bootstrap.widgets.TbButton', array('label' => 'Cancelar', 'size' => 'small', 'url' => array('/nit/admin'), 'icon' => 'remove', 'htmlOptions' => array('data-dismiss' => 'modal'))); ?>
     </div>
 
 

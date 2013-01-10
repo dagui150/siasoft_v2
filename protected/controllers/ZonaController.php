@@ -108,7 +108,7 @@ class ZonaController extends Controller
                 $mensaje = MensajeSistema::model()->findByPk('R002');
             }
             Yii::app()->user->setFlash($mensaje->TIPO, '<font size="5" align="left">&nbsp &nbsp'.$mensaje->MENSAJE.'.</font>');
-            $this->widget('bootstrap.widgets.BootAlert');
+            $this->widget('bootstrap.widgets.TbAlert');
 	}
 
 	/**

@@ -11,7 +11,7 @@ $this->breadcrumbs=array(
 
 
 <?php 
-    $this->widget('bootstrap.widgets.BootGridView', array(
+    $this->widget('bootstrap.widgets.TbGridView', array(
             'type'=>'striped bordered condensed',
             'id'=>'tipo-articulo-grid',
             'dataProvider'=>$model->search(),

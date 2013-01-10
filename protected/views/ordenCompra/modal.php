@@ -1,5 +1,5 @@
 <?php 
-    $this->widget('bootstrap.widgets.BootGridView', array(
+    $this->widget('bootstrap.widgets.TbGridView', array(
             'type'=>'striped bordered condensed',
             'id'=>$id,
             'template'=>"{items}",
@@ -16,7 +16,7 @@
                     'NOMBRE',
                     'CATEGORIA',
                     array(
-                            'class'=>'bootstrap.widgets.BootButtonColumn',
+                            'class'=>'bootstrap.widgets.TbButtonColumn',
                             'htmlOptions'=>array('style'=>'width: 50px'),
                             'template'=>'',
                     ),

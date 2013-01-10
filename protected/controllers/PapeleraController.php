@@ -44,7 +44,7 @@ class PapeleraController extends Controller {
                 isset($col[4]) ? $col[4] : array('name'=>'ACTUALIZADO_EL','visible'=>TRUE),
 
                 array(
-                    'class' => 'bootstrap.widgets.BootButtonPapelera',
+                    'class' => 'bootstrap.widgets.TbButtonPapelera',
                     'template'=>'{Restaurar}',
                 ),
             ),

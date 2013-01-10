@@ -1,6 +1,6 @@
 <div class="form">
 
-<?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'usuarios-form',
 	'enableAjaxValidation'=>true,
 	'clientOptions'=>array(
@@ -20,7 +20,7 @@
 	
 	<div class="row buttons" align="center">
 		<?php
-			$this->widget('bootstrap.widgets.BootButton', array(
+			$this->widget('bootstrap.widgets.TbButton', array(
 						'label'=>$model2->isNewRecord ? 'Crear' : 'Guardar',
 						'buttonType'=>'submit',
 						'type'=>'primary',
@@ -29,7 +29,7 @@
 			);
 		?>
 		<?php
-			$this->widget('bootstrap.widgets.BootButton', array(
+			$this->widget('bootstrap.widgets.TbButton', array(
 						'label'=>'Cancelar',
 						//'buttonType'=>'submit',
 						'type'=>'action',

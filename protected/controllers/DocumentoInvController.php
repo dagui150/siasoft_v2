@@ -267,7 +267,7 @@ class DocumentoInvController extends Controller
                      echo '</span>
                          
                          <div id="boton-cargado" class="modal-footer">';
-                            $this->widget('bootstrap.widgets.BootButton', array(
+                            $this->widget('bootstrap.widgets.TbButton', array(
                                  'buttonType'=>'button',
                                  'type'=>'normal',
                                  'label'=>'Aceptar',
@@ -532,7 +532,7 @@ class DocumentoInvController extends Controller
             if($contWarning !=0)
                 Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Documento(s) ya Aprobados<br>('.$warning.')</h3>');
             
-           $this->widget('bootstrap.widgets.BootAlert');
+           $this->widget('bootstrap.widgets.TbAlert');
         }
         
         public function actionReversar(){
@@ -581,7 +581,7 @@ class DocumentoInvController extends Controller
             if($contWarning !=0)
                 Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Documento(s) ya Reversado(s)<br>('.$warning.')</h3>');
             
-           $this->widget('bootstrap.widgets.BootAlert');
+           $this->widget('bootstrap.widgets.TbAlert');
             
         }
         public function actionCancelar(){
@@ -630,7 +630,7 @@ class DocumentoInvController extends Controller
             if($contWarning !=0)
                 Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Documento(s) ya Cancelados<br>('.$warning.')</h3>');
             
-           $this->widget('bootstrap.widgets.BootAlert');
+           $this->widget('bootstrap.widgets.TbAlert');
             
         }
         
@@ -692,7 +692,7 @@ class DocumentoInvController extends Controller
             if($contWarning !=0)
                 Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Documento(s) ya Aplicados<br>('.$warning.')</h3>');
             
-           $this->widget('bootstrap.widgets.BootAlert');
+           $this->widget('bootstrap.widgets.TbAlert');
             
         }
         
