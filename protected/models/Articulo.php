@@ -15,6 +15,7 @@
  * @property string $EXISTENCIA_MAXIMA
  * @property string $PUNTO_REORDEN
  * @property string $COSTO_FISCAL
+ * @property integer $COSTO_ESTANDAR
  * @property string $DESCRIPCION_COMPRA
  * @property string $IMPUESTO$IMPUESTO_COMPRA
  * @property string $BODEGA
@@ -103,14 +104,18 @@ class Articulo extends CActiveRecord
                         array('IMPUESTO_VENTA', 'exist', 'attributeName'=>'ID', 'className'=>'Impuesto','allowEmpty'=>true,),
                     
                         array('ARTICULO', 'unique', 'attributeName'=>'ARTICULO', 'className'=>'Articulo','allowEmpty'=>false),
-                        array('EXISTENCIA_MAXIMA', 'miValidacion3', ),
+                        array('EXISTENCIA_MAXIMA', 'validarMaxima', ),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('ARTICULO, NOMBRE, ORIGEN_CORP, CLASE_ABC, TIPO_ARTICULO, TIPO_COD_BARRAS, CODIGO_BARRAS, EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN, COSTO_FISCAL, DESCRIPCION_COMPRA, IMPUESTO, BODEGA, IMP1_AFECTA_COSTO, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
 	}
-        
-        public function miValidacion3($attribute,$params){
+        /**
+         * Valida que la existencia maxima sea mas que la minima
+         * @param string $attribute
+         * @param array $params 
+         */
+        public function validarMaxima($attribute,$params){
             $min = Controller::unformat($this->EXISTENCIA_MINIMA);
             $max = Controller::unformat($this->EXISTENCIA_MAXIMA);
 		if ($max <= $min){
@@ -465,7 +470,7 @@ class Articulo extends CActiveRecord
             
             switch ($articulo->COSTO_FISCAL){
                 case 'Promedio':
-                    $transacciones = TransaccionInvDetalle::model()->findAllByAttributes(array('ARTICULO'=>$id));
+                    $transacciones = TransaccionInvDetalle::model()->findAllByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$id,'NATURALEZA'=>'E'));
                     $costoTotal = 0;
                     $cantTotal = 0;
                     
@@ -478,7 +483,7 @@ class Articulo extends CActiveRecord
                     
                break;     
                 case 'Último':
-                    $transacciones = TransaccionInvDetalle::model()->findByAttributes(array('ARTICULO'=>$id),array('order'=>'TRANSACCION_INV_DETALLE DESC'));
+                    $transacciones = TransaccionInvDetalle::model()->findByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$id,'NATURALEZA'=>'E'),array('order'=>'TRANSACCION_INV_DETALLE DESC'));
                     Articulo::model()->updateByPk($id, array('COSTO_ULTIMO'=>$transacciones->COSTO_UNITARIO));
                break;     
                     

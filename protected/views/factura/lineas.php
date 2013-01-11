@@ -8,7 +8,7 @@
 ?>
 <script>
     $(document).ready(function(){
-        var cantidad,precio,descuento,iva,valor_impuesto,contador, model,id,total,total_mercaderia,total_facturar,total_descuento,total_iva,anticipo,flete,seguro;
+        var cantidad,precio,descuento,valor_impuesto,contador, model,id,total;
 
         
         $('.cambiar').live('dblclick',function(){
@@ -129,6 +129,7 @@
         
         $('#agregar').click(function(){
                 $('.clonar').click();
+                $(this).attr('disabled',true);
                 contador = $('body').find('.rowIndex').max();
                 model ='LineaNuevo';
                 var impuesto;
@@ -279,45 +280,37 @@
 <table style="margin-left: -100px;">
          <tr>
              <td style="width: 289px">
-                <?php echo $form->textFieldRow($model,'ARTICULO',array('size'=>15)); ?>
+                <?php echo $form->textFieldRow($model,'ARTICULO',array('size'=>15,'tabindex'=>'7')); ?>
              </td>
              <td style="width: 28px;">
-                 <?php $this->widget('bootstrap.widgets.BootButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#articulo',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal','style'=>'margin-top: 5px;'),
-                 )); ?>
+                 <?php
+                    $htmlOptions = array('data-toggle'=>'modal','style'=>'margin-top: 5px;');
+                    $this->darBoton(false, 'info', 'normal', '#articulo', 'search white',$htmlOptions);
+                 ?>
             </td>
             <td>
-                 <?php echo CHtml::textField('Articulo_desc','',array('disabled'=>true,'size'=>30)); ?>
+                 <?php echo CHtml::textField('Articulo_desc','',array('disabled'=>true,'size'=>18)); ?>
            </td>
            <td>
                <table style="margin-left: -100px;margin-top:-4px;">
                    <tr>
                        <td style="width: 289px;">
-                            <?php echo $form->textFieldRow($model,'CANTIDAD',array('size'=>4));?>
+                            <?php echo $form->textFieldRow($model,'CANTIDAD',array('size'=>4,'tabindex'=>'8'));?>
                        </td>
                    </tr>
                </table>
            </td>
            <td>
-               <table style="margin-left: -100px;margin-top:-4px;">
+               <table style="margin-left: -120px;margin-top:-4px;">
                    <tr>
                        <td>
-                            <?php echo $form->dropDownListRow($model,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px;'));?>
+                            <?php echo $form->dropDownListRow($model,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px;','tabindex'=>'9'));?>
                             <?php echo CHtml::hiddenField('NOMBRE_UNIDAD','');?>
                        </td>
                        <td>
                            <?php
-                                $this->widget('bootstrap.widgets.BootButton', array(
-                                            'buttonType'=>'button',
-                                            'type'=>'success',
-                                            'icon'=>'white plus',
-                                            'size'=>'mini',
-                                            'htmlOptions'=>array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;')
-                                 ));    
+                                $htmlOptions = array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;','tabindex'=>'10');
+                                $this->darBoton(false, 'success', 'normal', false, 'plus white',$htmlOptions);
                             ?> 
                        </td>
                    </tr>
@@ -348,7 +341,7 @@
                     <td colspan="12">
                         <div id="add" class="add">
                            <?php 
-                                $this->widget('bootstrap.widgets.BootButton', array(
+                                $this->widget('bootstrap.widgets.TbButton', array(
                                                             'buttonType'=>'button',
                                                             'type'=>'success',
                                                             'label'=>'Nuevo',
@@ -406,7 +399,7 @@
                                         </td>                                            
                                         <td width="40px">
                                              <span style="float: left">
-                                                <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                                  'buttonType'=>'button',
                                                                  'type'=>'normal',
                                                                  'size'=>'mini',
@@ -417,7 +410,7 @@
                                             </span>
                                             <div class="remove" id ="remover_<?php echo '{0}';?>" style="float: left; margin-left: 5px; display: none"></div>
                                             <div style="float: left; margin-left: 5px;">
-                                                <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                              'buttonType'=>'button',
                                                              'type'=>'danger',
                                                              'size'=>'mini',
@@ -489,7 +482,7 @@
                                     </td>
                                     <td>                                     
                                            <div class="remove" id ="remover" style="float: left; margin-left: 5px;">
-                                                      <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                      <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                                      'buttonType'=>'button',
                                                                      'type'=>'danger',
                                                                      'size'=>'mini',

@@ -135,7 +135,7 @@
 </script>
 <div class="form">
 
-<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'conf-fa-form',
 	'type'=>'horizontal',
 	'enableAjaxValidation'=>true,
@@ -180,7 +180,7 @@
     ), true);
     ?>
     
-    <?php $modalCond = $this->widget('bootstrap.widgets.BootButton', array(
+    <?php $modalCond = $this->widget('bootstrap.widgets.TbButton', array(
                           'type'=>'info',
                           'size'=>'mini',
                           'url'=>'#condicion',
@@ -188,7 +188,7 @@
                           'htmlOptions'=>array('data-toggle'=>'modal'),
                     ), true); ?>
     
-    <?php $modalBod = $this->widget('bootstrap.widgets.BootButton', array(
+    <?php $modalBod = $this->widget('bootstrap.widgets.TbButton', array(
                           'type'=>'info',
                           'size'=>'mini',
                           'url'=>'#bodega',
@@ -198,7 +198,7 @@
     
 	<?php echo $form->errorSummary($model); ?>
     
-    <?php $modalCat = $this->widget('bootstrap.widgets.BootButton', array(
+    <?php $modalCat = $this->widget('bootstrap.widgets.TbButton', array(
                           'type'=>'info',
                           'size'=>'mini',
                           'url'=>'#categoria',
@@ -208,7 +208,7 @@
     
 	<?php echo $form->errorSummary($model); ?>
     
-        <?php $this->widget('bootstrap.widgets.BootTabbable', array(
+        <?php $this->widget('bootstrap.widgets.TbTabs', array(
         'type'=>'tabs', // 'tabs' or 'pills'
         'tabs'=>array(
 
@@ -255,14 +255,14 @@
     )); ?>
 
 	<div align="center">
-            <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-            <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('confCo/admin'), 'icon' => 'remove'));  ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('confCo/admin'), 'icon' => 'remove'));  ?>
 	</div>
 
 <?php $this->endWidget(); 
 
     
-$this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'condicion')); ?>
+$this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'condicion')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -271,7 +271,7 @@ $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'condicion')); ?>
                     
                     $funcion = 'updateCondicion';
                     $id = 'condicion-grid';
-                    $this->widget('bootstrap.widgets.BootGridView', array(
+                    $this->widget('bootstrap.widgets.TbGridView', array(
                         'type'=>'striped bordered condensed',
                         'id'=>'condicion-grid',
                         'template'=>'{items}{pager}',
@@ -294,7 +294,7 @@ $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'condicion')); ?>
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -304,7 +304,7 @@ $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'condicion')); ?>
 <?php
     $this->endWidget();
     
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'bodega')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'bodega')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -313,7 +313,7 @@ $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'condicion')); ?>
                     
                     $funcion = 'updateBodega';
                     $id = 'bodega-grid';
-                    $this->widget('bootstrap.widgets.BootGridView', array(
+                    $this->widget('bootstrap.widgets.TbGridView', array(
                     'type'=>'striped bordered condensed',
                     'id'=>'bodega-grid',                    
                     'template'=>'{items}{pager}',
@@ -337,7 +337,7 @@ $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'condicion')); ?>
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -347,7 +347,7 @@ $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'condicion')); ?>
 <?php
     $this->endWidget();
     
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'categoria')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'categoria')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -356,7 +356,7 @@ $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'condicion')); ?>
                     
                     $funcion = 'updateCategoria';
                     $id = 'categoria-grid';
-                    $this->widget('bootstrap.widgets.BootGridView', array(
+                    $this->widget('bootstrap.widgets.TbGridView', array(
                     'type'=>'striped bordered condensed',
                     'id'=>'categoria-grid',
                     'template'=>'{items}{pager}',
@@ -379,7 +379,7 @@ $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'condicion')); ?>
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),

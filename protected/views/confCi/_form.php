@@ -49,7 +49,7 @@ function inicio(){
 </script>
 <div class="form">
 
-<?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'conf-ci-form',
 	'enableAjaxValidation'=>true,
 	'clientOptions'=>array(
@@ -59,7 +59,7 @@ function inicio(){
 )); ?>
 	<?php echo $form->errorSummary($model); ?>
 	<?php 
-		$this->widget('bootstrap.widgets.BootTabbable', array(
+		$this->widget('bootstrap.widgets.TbTabs', array(
 			'type'=>'tabs', // 'tabs' or 'pills'
 			'tabs'=>array(
 				array(
@@ -177,7 +177,7 @@ function inicio(){
 	?>
 	<div align="center">
 		<?php 
-			$this->widget('bootstrap.widgets.BootButton', array(
+			$this->widget('bootstrap.widgets.TbButton', array(
 						'label'=>'Guardar',
 						'buttonType'=>'submit',
 						'type'=>'primary',
@@ -186,7 +186,7 @@ function inicio(){
 			);
 		?>
 		<?php
-			$this->widget('bootstrap.widgets.BootButton', array(
+			$this->widget('bootstrap.widgets.TbButton', array(
 						'label'=>'Cancelar',
 						'type'=>'action',
 						'icon'=>'remove', 

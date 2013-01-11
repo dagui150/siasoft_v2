@@ -199,7 +199,6 @@ class ArticuloController extends Controller
                         $model->COSTO_ULTIMO = Controller::unformat($_POST['Articulo']['COSTO_ULTIMO']);
                         }
                         
-                            
                         
                         if($_POST['Articulo']['IMPUESTO_COMPRA'] === '')
                             $model->IMPUESTO_COMPRA = NULL;

@@ -13,7 +13,7 @@ $this->breadcrumbs=array(
 
 <?php
     Yii::app()->user->setFlash('warning', '<h3 align="center">Realize su configuración antes de continuar...</h3>');            
-    $this->widget('bootstrap.widgets.BootAlert');
+    $this->widget('bootstrap.widgets.TbAlert');
     $bus=ConfFa::model()->find();
     
     if(ConfFa::darConf())

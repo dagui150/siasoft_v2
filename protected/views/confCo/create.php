@@ -16,7 +16,7 @@ $this->menu=array(
 
 <?php Yii::app()->user->setFlash('warning', '<h3 align="center">Realice su configuración antes de continuar...</h3>');
             
-    $this->widget('bootstrap.widgets.BootAlert'); 
+    $this->widget('bootstrap.widgets.TbAlert'); 
 
     $bus= ConfCo::model()->find();
     

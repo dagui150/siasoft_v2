@@ -50,9 +50,26 @@ class Pedido extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Pedido the static model class
 	 */
-	public $ARTICULO;
-    public $UNIDAD;
-    public $CANTIDAD;
+	/**
+         * Articulo para la linea de la factura
+         * @var string 
+         */
+         public $ARTICULO;
+         /**
+         * Unidad para la linea de la factura
+         * @var int 
+         */
+         public $UNIDAD;
+         /**
+         * Cantidad para la linea de la factura
+         * @var int 
+         */
+         public $CANTIDAD;
+	/**
+	 * Returns the static model of the specified AR class.
+	 * @param string $className active record class name.
+	 * @return Factura the static model class
+         */
 	
 	public static function model($className=__CLASS__)
 	{
@@ -146,6 +163,7 @@ class Pedido extends CActiveRecord
 			'CREADO_EL' => 'Creado El',
 			'ACTUALIZADO_POR' => 'Actualizado Por',
 			'ACTUALIZADO_EL' => 'Actualizado El',
+                        'CANTIDAD' => 'Cant.',
 		);
 	}
 

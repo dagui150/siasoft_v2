@@ -3,3 +3,4 @@ protected/runtime/
 themes/classic/views/
 /nbproject/private/
 nbproject
+/protected/extensions/bootstrap/.idea/

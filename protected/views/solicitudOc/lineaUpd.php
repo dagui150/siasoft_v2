@@ -294,7 +294,7 @@ function add(){
                                                     <?php echo CHtml::textField('SolicitudOcLinea[{0}][ARTICULO]','',array('class' => 'tonces')); ?>
                                                 </td>
                                                 <td>
-                                                    <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                    <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                             'type'=>'info',
                                                             'size'=>'mini',
                                                             'url'=>'#articulo',
@@ -330,7 +330,7 @@ function add(){
                                                 <td>
                                                     <div id="remover" class="remove">
                                                         <?php 
-                                                            $this->widget('bootstrap.widgets.BootButton', array(
+                                                            $this->widget('bootstrap.widgets.TbButton', array(
                                                                     'buttonType'=>'button',
                                                                     'type'=>'danger',
                                                                     'label'=>'',
@@ -357,7 +357,7 @@ function add(){
                             <?php echo $form->textField($item,"[$i]ARTICULO", array('class'=>'tonces')); ?>
                             		</td>
                                     <td>
-                                        <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                        <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                             'type'=>'info',
                                                             'size'=>'mini',
                                                             'url'=>'#articulo',
@@ -394,7 +394,7 @@ function add(){
                                         <div id="remover" class="remove">
                                               <?php 
                                                 
-                                                 $this->widget('bootstrap.widgets.BootButton', array(
+                                                 $this->widget('bootstrap.widgets.TbButton', array(
                                                              'buttonType'=>'button',
                                                              'type'=>'danger',
                                                              'label'=>'',
@@ -429,7 +429,7 @@ function add(){
                                         <div id="add" class="add">
                                             <?php 
                                                 
-                                                $this->widget('bootstrap.widgets.BootButton', array(
+                                                $this->widget('bootstrap.widgets.TbButton', array(
                                                         'buttonType'=>'button',
                                                         'type'=>'success',
                                                         'label'=>'Nuevo',
@@ -445,7 +445,7 @@ function add(){
                                                     <?php echo CHtml::textField('SolicitudOcLinea2[{0}][ARTICULO]','',array('class' => 'tonces2')); ?>
                                                 </td>
                                                 <td>
-                                                    <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                    <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                             'type'=>'info',
                                                             'size'=>'mini',
                                                             'url'=>'#articulo2',
@@ -481,7 +481,7 @@ function add(){
                                                     <div id="remover" class="remove">
                                                         <?php 
                                                 
-                                                            $this->widget('bootstrap.widgets.BootButton', array(
+                                                            $this->widget('bootstrap.widgets.TbButton', array(
                                                                     'buttonType'=>'button',
                                                                     'type'=>'danger',
                                                                     'label'=>'',
@@ -506,7 +506,7 @@ function add(){
                                 <tr class="templateContent">
                                     <td>
                             <?php echo $form->textField($person,"[$i]ARTICULO",array('style'=>'width:100px')); ?>
-                                        <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                        <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                             'type'=>'info',
                                                             'size'=>'mini',
                                                             'url'=>'#articulo2',
@@ -542,7 +542,7 @@ function add(){
                                         <div id="remover" class="remove">
                                               <?php 
                                                 
-                                                 $this->widget('bootstrap.widgets.BootButton', array(
+                                                 $this->widget('bootstrap.widgets.TbButton', array(
                                                              'buttonType'=>'button',
                                                              'type'=>'danger',
                                                              'label'=>'Eliminar',

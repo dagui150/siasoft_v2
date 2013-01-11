@@ -123,7 +123,7 @@ $(document).ready(function(){
             <?php echo $form->textFieldRow($linea,'ARTICULO',array('size'=>15, 'class'=>'tonces')); ?>
         </td>
         <td>
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'type'=>'info',
                 'size'=>'mini',
                 'url'=>'#articulo',
@@ -178,7 +178,7 @@ $(document).ready(function(){
             <?php echo $form->dropDownList($linea,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px; display: none'));?>
             <?php echo CHtml::hiddenField('NOMBRE_UNIDAD','');?>
             <?php
-                $this->widget('bootstrap.widgets.BootButton', array(
+                $this->widget('bootstrap.widgets.TbButton', array(
                     'buttonType'=>'button',
                     'type'=>'success',
                     'icon'=>'white plus',
@@ -274,7 +274,7 @@ $(document).ready(function(){
                                                     <div id="remover" class="remove">
                                                         <?php 
                                                 
-                                                            $this->widget('bootstrap.widgets.BootButton', array(
+                                                            $this->widget('bootstrap.widgets.TbButton', array(
                                                                     'buttonType'=>'button',
                                                                     'type'=>'danger',
                                                                     'label'=>'',
@@ -300,7 +300,7 @@ $(document).ready(function(){
                             <?php echo $form->textField($item,"[$i]ARTICULO", array('class'=>'tonces2', 'readonly'=>$readonly)); ?>
                             		</td>
                                     <td>
-                                        <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                        <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                             'type'=>'info',
                                                             'size'=>'mini',
                                                             'url'=>'#articulo2',
@@ -337,7 +337,7 @@ $(document).ready(function(){
                                         <div id="remover" class="remove">
                                               <?php 
                                                 
-                                                 $this->widget('bootstrap.widgets.BootButton', array(
+                                                 $this->widget('bootstrap.widgets.TbButton', array(
                                                              'buttonType'=>'button',
                                                              'type'=>'danger',
                                                              'label'=>'',

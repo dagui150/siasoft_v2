@@ -437,7 +437,7 @@ $(document).ready(function(){
     $cs->registerScriptFile(XHtml::jsUrl('template.js'), CClientScript::POS_HEAD);
     $cs->registerScriptFile(XHtml::jsUrl('jquery.validate.js'), CClientScript::POS_HEAD);
 ?>
-<?php $this->widget('bootstrap.widgets.BootButton', array(
+<?php $this->widget('bootstrap.widgets.TbButton', array(
     'type'=>'',
     'size'=>'mini',
     'url'=>'#lineas',
@@ -527,7 +527,7 @@ $(document).ready(function(){
                                         <div id="nuevo" class="add">
                                             <?php 
                                                 
-                                                $this->widget('bootstrap.widgets.BootButton', array(
+                                                $this->widget('bootstrap.widgets.TbButton', array(
                                                         'buttonType'=>'button',
                                                         'type'=>'success',
                                                         'label'=>'Nuevo',
@@ -545,7 +545,7 @@ $(document).ready(function(){
                                                     <?php echo CHtml::hiddenField('Nuevo[{0}][RESTA_CANT]', ''); ?>
                                                 </td>
                                                 <td>
-                                                    <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                    <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                             'type'=>'info',
                                                             'size'=>'mini',
                                                             'url'=>'#articulo',
@@ -615,7 +615,7 @@ $(document).ready(function(){
                                                     <div id="remover" class="remove">
                                                         <?php 
                                                 
-                                                            $this->widget('bootstrap.widgets.BootButton', array(
+                                                            $this->widget('bootstrap.widgets.TbButton', array(
                                                                     'buttonType'=>'button',
                                                                     'type'=>'danger',
                                                                     'label'=>'',
@@ -643,7 +643,7 @@ $(document).ready(function(){
                                     <td>
                                         <?php echo CHtml::hiddenField("[$i]ID_SOLICITUD_LINEA", $value); ?>
                                         <?php echo CHtml::hiddenField("[$i]RESTA_CANT", $value); ?>
-                                        <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                        <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                             'type'=>'info',
                                                             'size'=>'mini',
                                                             'url'=>'#articulo2',
@@ -713,7 +713,7 @@ $(document).ready(function(){
                                         <div id="remover" class="remove">
                                               <?php 
                                                 
-                                                 $this->widget('bootstrap.widgets.BootButton', array(
+                                                 $this->widget('bootstrap.widgets.TbButton', array(
                                                              'buttonType'=>'button',
                                                              'type'=>'danger',
                                                              'label'=>'',

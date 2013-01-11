@@ -87,7 +87,9 @@
 
 <div class="form">
 
-<?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php
+/* @var $this ArticuloController*/
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'articulo-form',
 	'enableAjaxValidation'=>true,
 	'clientOptions'=>array(
@@ -114,49 +116,20 @@
        </table>  
 	<?php echo $form->errorSummary($model);?>
         <?php    
-        
-            $boton = $this->widget('bootstrap.widgets.BootButton', array(
-                'type'=>'info',
-                'size'=>'mini',
-                'url'=>'#bodega',
-                'icon'=>'search',
-                'htmlOptions'=>array('data-toggle'=>'modal',),
-            ),true);
             
-            $boton2 = $this->widget('bootstrap.widgets.BootButton', array(
-                'type'=>'info',
-                'size'=>'mini',
-                'url'=>'#impuesto',
-                'icon'=>'search',
-                'htmlOptions'=>array('data-toggle'=>'modal',),
-            ),true);
+            $boton = $this->darBoton(false, 'info', 'normal', '#bodega', 'search white', array('data-toggle'=>'modal',),true);
             
-            $boton3 = $this->widget('bootstrap.widgets.BootButton', array(
-                'type'=>'info',
-                'size'=>'mini',
-                'url'=>'#impuesto2',
-                'icon'=>'search',
-                'htmlOptions'=>array('data-toggle'=>'modal',),
-            ),true);
+            $boton2 = $this->darBoton(false, 'info', 'normal', '#impuesto', 'search white', array('data-toggle'=>'modal',),true);
             
-            $boton4 = $this->widget('bootstrap.widgets.BootButton', array(
-                'type'=>'info',
-                'size'=>'mini',
-                'url'=>'#retencion',
-                'icon'=>'search',
-                'htmlOptions'=>array('data-toggle'=>'modal',),
-            ),true);
-            $boton5 = $this->widget('bootstrap.widgets.BootButton', array(
-                'type'=>'info',
-                'size'=>'mini',
-                'url'=>'#retencion2',
-                'icon'=>'search',
-                'htmlOptions'=>array('data-toggle'=>'modal',),
-            ),true);
+            $boton3 = $this->darBoton(false, 'info', 'normal', '#impuesto2', 'search white', array('data-toggle'=>'modal',),true);
+            
+            $boton4 = $this->darBoton(false, 'info', 'normal', '#retencion', 'search white', array('data-toggle'=>'modal',),true);
+            
+            $boton5 = $this->darBoton(false, 'info', 'normal', '#retencion2', 'search white', array('data-toggle'=>'modal',),true);
             
             $clas = ClasificacionAdi::model()->findAll();
             
-            $this->widget('bootstrap.widgets.BootTabbable', array(
+            $this->widget('bootstrap.widgets.TbTabs', array(
                 'type'=>'tabs', // 'tabs' or 'pills'
                 'tabs'=>array(
                     array(
@@ -165,7 +138,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <fieldset style="width: 380px; height: 220px;"><br><br><br>
+                                        <fieldset style="width: 380px; height: 258px;"><br><br><br>
                                             <legend ><font face="arial" size=3 >Tipo de Artículo</font></legend>'
                                             .$form->dropDownListRow($model,'TIPO_ARTICULO',  CHtml::listData(TipoArticulo::model()->findAll(),'ID','NOMBRE'),array('empty'=>'Seleccione'))
                                             .$form->checkBoxRow($model,'ACTIVO',array('value'=>'S'))
@@ -189,7 +162,7 @@
                                         .'</fieldset>
                                     </td>
                                     <td>
-                                        <fieldset style="width: 380px; height: 163px;">
+                                        <fieldset style="width: 380px; height: 198px;">
                                             <legend ><font face="arial" size=3 >Costos</font></legend>'
                                              .$form->dropDownListRow($model,'COSTO_FISCAL',MetodoValuacionInv::getMetodo(),array('empty'=>'Seleccione','options'=>array($conf->COSTO_FISCAL=>array('selected'=>'selected'))))
                                              .'<span id="estandar" style="display: block">'.$form->textFieldRow($model,'COSTO_ESTANDAR',array('prepend'=>'$','size'=>9,'class'=>'decimal','disabled'=>$conf->COSTO_FISCAL == 'Estándar' ? false :true)).'</span>'     
@@ -212,13 +185,13 @@
                                 
                                 <tr>
                                     <td>
-                                        <fieldset style="width: 380px;  height: 90px;">
+                                        <fieldset style="width: 380px;  height: 111px;">
                                             <legend><font face="arial" size=3 >Origen</font></legend>'
                                             .$form->radioButtonListInlineRow($model,'ORIGEN_CORP',array('T'=>'Tercero','C'=>'Propio'))
                                         .'</fieldset>
                                     </td>
                                     <td>
-                                        <fieldset style="width: 380px; height: 90px;">
+                                        <fieldset style="width: 380px; height: 111px;">
                                             <legend><font face="arial" size=3 >Clase</font></legend>'
                                              .$form->radioButtonListInlineRow($model,'CLASE_ABC',array('A'=>'A','B'=>'B','C'=>'C','D'=>'D',))
                                         .'</fieldset>
@@ -248,7 +221,7 @@
                                     <td><div style="margin: 5px 0 0 -398px">'.$boton5.'</div></td> 
                                </tr>
                              </table>'
-                            .' <fieldset style="width: 380px; height: 90px;">
+                            .' <fieldset style="width: 380px; height: 110px;">
                                       <legend><font face="arial" size=3 >Impuesto 1 Afecta Costos</font></legend>'
                                      .$form->radioButtonListInlineRow($model,'IMP1_AFECTA_COSTO',array('S'=>'Si','N'=>'No'))
                             .'</fieldset>'
@@ -264,8 +237,9 @@
                                </tr>
                                <tr>
                                    <td>
-                                       <br><fieldset >
-                                           <table>
+                                        <fieldset style="width: 380px; height: 284px;">
+                                           <legend><font face="arial" size=3 >Unidades</font></legend>
+                                           <table style="margin-left: -20px;">
                                                <tr>
                                                     <td width="10">'.$form->textFieldRow($model,'PESO_NETO',array('size'=>6,'class'=>'decimal')).'</td> 
                                                     <td>'.$form->dropDownList($model,'PESO_NETO_UNIDAD',UnidadMedida::getPeso(),array('empty'=>'--UND--')).'</td> 
@@ -309,7 +283,7 @@
                                             <tr>
                                                 <td width="10">'.$form->textFieldRow($model,'IMPUESTO_VENTA',array('size'=>4,'ajax'=>array('type' => 'POST','url' => CController::createUrl('Articulo/cargarAjax3'),'update' => '#IMPUESTOO2'))).'</td> 
                                                 <td><div id="IMPUESTOO2">'.CHtml::textField('IMPUESTO3','',array('disabled'=>true)).'</div></td> 
-                                                <td><div style="margin: 5px 0 0 -405px">'.$boton3.'</div></td> 
+                                                <td><div style="margin: 5px 0 0 -390px">'.$boton3.'</div></td> 
                                             </tr>
                                         </table>
                                     </td>
@@ -319,8 +293,8 @@
                                         <table>
                                             <tr>
                                                 <td>'.$form->textFieldRow($model,'RETENCION_VENTA',array('size'=>4,'ajax'=>array('type' => 'POST','url' => CController::createUrl('Articulo/cargarAjax4'),'update' => '#RETENCIOON'))).'</td> 
-                                                <td><div id="RETENCIOON" style="margin: 0 0 0 -550px">'.CHtml::textField('RETENCION2','',array('disabled'=>true)).'</div></td> 
-                                                <td><div style="margin: 5px 0 0 -405px">'.$boton4.'</div></td> 
+                                                <td><div id="RETENCIOON" style="margin: 0 0 0 -537px">'.CHtml::textField('RETENCION2','',array('disabled'=>true)).'</div></td> 
+                                                <td><div style="margin: 5px 0 0 -390px">'.$boton4.'</div></td> 
                                             </tr>
                                         </table>
                                     </td>
@@ -339,7 +313,7 @@
     
 	<div align="center"> 
 		<?php 
-			$this->widget('bootstrap.widgets.BootButton', array(
+			$this->widget('bootstrap.widgets.TbButton', array(
 						'label'=>'Crear',
 						'buttonType'=>'submit',
 						'type'=>'primary',
@@ -348,7 +322,7 @@
 			);
 		?>
 		<?php
-			$this->widget('bootstrap.widgets.BootButton', array(
+			$this->widget('bootstrap.widgets.TbButton', array(
 						'label'=>'Cancelar',
 						'type'=>'action',
 						'icon'=>'remove', 
@@ -363,7 +337,7 @@
 <?php $this->endWidget(); ?>
     
 <?php 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'bodega')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'bodega')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -378,7 +352,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -387,7 +361,7 @@
     
 <?php $this->endWidget(); 
 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'impuesto')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'impuesto')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -402,7 +376,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -412,7 +386,7 @@
 <?php
     $this->endWidget();
     
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'impuesto2')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'impuesto2')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -427,7 +401,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -437,7 +411,7 @@
 <?php
     $this->endWidget(); 
     
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'retencion')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'retencion')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -452,7 +426,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -461,7 +435,7 @@
  
 <?php $this->endWidget(); 
     
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'retencion2')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'retencion2')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -475,7 +449,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),

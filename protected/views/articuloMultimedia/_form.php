@@ -1,6 +1,6 @@
 <div class="form">
 
-<?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'articulo-multimedia-form',
 	'enableAjaxValidation'=>true,
             'clientOptions'=>array(
@@ -31,7 +31,7 @@
 
                 <div class="row buttons" align ="center" style="margin: 0 0 0 -132px">
                         <?php 
-                                $this->widget('bootstrap.widgets.BootButton', array(
+                                $this->widget('bootstrap.widgets.TbButton', array(
                                             'label'=>$model->isNewRecord ? 'Crear' : 'Guardar',
                                             'buttonType'=>'submit',
                                             'type'=>'primary',

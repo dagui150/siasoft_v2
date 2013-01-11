@@ -24,7 +24,7 @@
 		'DESCR_TIP_TARJE' => 'Breve descripción del tipo de Tarjeta.',
             
             //MODULO - INVENTARIO
-		'NOM_UNID_MED' => 'Ej.: Libra.',
+		'NOM_UNID_MED' => 'Nombre en singular Ej.: Libra.',
 		'ABRE_UNID_MED' => 'Ej.: LB.',
 		'TIPO_UNID_MED' => 'Ej.: Peso.',
 		'UBASE_UNID_MED' => 'Unidad, Metro, Metro Cubico, Kilogramo o Servicio ',

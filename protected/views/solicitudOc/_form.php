@@ -25,7 +25,7 @@ $(document).ready(function(){
 ?>
  <div class="form">
     
-<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'solicitud-oc-form',
 	'type'=>'horizontal',
             'enableAjaxValidation'=>true,
@@ -37,7 +37,7 @@ $(document).ready(function(){
     
     <?php
     // Boton modal
-           $boton = $this->widget('bootstrap.widgets.BootButton', array(
+           $boton = $this->widget('bootstrap.widgets.TbButton', array(
                 'type'=>'info',
                 'size'=>'mini',
                 'url'=>'#articulo',
@@ -204,7 +204,7 @@ $(document).ready(function(){
     
 	<?php echo $form->errorSummary($model); ?>
 
-        <?php $this->widget('bootstrap.widgets.BootTabbable', array(
+        <?php $this->widget('bootstrap.widgets.TbTabs', array(
             'type'=>'tabs', // 'tabs' or 'pills'
             'tabs'=>array(
                 array('label'=>'Líneas', 'content'=>
@@ -278,15 +278,15 @@ $(document).ready(function(){
         
 	<div align="center">
         <?php if($readonly == false){ ?>
-            <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
         <?php } ?>    
-        <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('solicitudOc/admin'), 'icon' => 'remove'));  ?>
+        <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('solicitudOc/admin'), 'icon' => 'remove'));  ?>
 	</div>
 
 <?php $this->endWidget(); ?>
    
     <?php 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'articulo')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'articulo')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -301,7 +301,7 @@ $(document).ready(function(){
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -313,7 +313,7 @@ $(document).ready(function(){
      if($model->SOLICITUD_OC != ''){ ?>
         
     
-    <?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'articulo2')); ?>
+    <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'articulo2')); ?>
     <div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
                 <br>
@@ -325,7 +325,7 @@ $(document).ready(function(){
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),

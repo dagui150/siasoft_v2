@@ -232,7 +232,7 @@
     $i = ''; 
     $repetir = '';
 ?>
-<?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'articulo-ensamble-form',
 	'type'=>'horizontal',
                 'enableAjaxValidation'=>true,
@@ -286,7 +286,7 @@
                                         <div id="add" class="add">
                                             <?php 
                                                 
-                                                $this->widget('bootstrap.widgets.BootButton', array(
+                                                $this->widget('bootstrap.widgets.TbButton', array(
                                                         'buttonType'=>'button',
                                                         'type'=>'success',
                                                         'label'=>'Nuevo',
@@ -302,7 +302,7 @@
                                                     <?php echo CHtml::textField('Nuevo[{0}][ARTICULO_HIJO]','',array('class' => 'tonces')); ?>
                                                 </td>
                                                 <td>
-                                                    <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                    <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                             'type'=>'info',
                                                             'size'=>'mini',
                                                             'url'=>'#articulo',
@@ -323,7 +323,7 @@
                                                     <div id="remover" class="remove">
                                                         <?php 
                                                 
-                                                            $this->widget('bootstrap.widgets.BootButton', array(
+                                                            $this->widget('bootstrap.widgets.TbButton', array(
                                                                     'buttonType'=>'button',
                                                                     'type'=>'danger',
                                                                     'label'=>'',
@@ -350,7 +350,7 @@
                             <?php echo $form->hiddenField($item,"[$i]ID"); ?>
                             		</td>
                                     <td>
-                                        <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                        <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                             'type'=>'info',
                                                             'size'=>'mini',
                                                             'url'=>'#actualiza',
@@ -370,7 +370,7 @@
                         <td>
                             <div id="remover" class="remove">
                             <?php 
-                                $this->widget('bootstrap.widgets.BootButton', array(
+                                $this->widget('bootstrap.widgets.TbButton', array(
                                     'buttonType'=>'button',
                                     'type'=>'danger',
                                     'label'=>'',
@@ -390,8 +390,8 @@
       </div><!--complex-->
       <?php echo CHtml::HiddenField('oculto',''); ?>
 	<div align="center" id="botones">
-            <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-            <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('articuloEnsamble/admin'), 'icon' => 'remove'));  ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('articuloEnsamble/admin'), 'icon' => 'remove'));  ?>
 	</div>
         
         <?php echo CHtml::hiddenField('enter', ''); ?>
@@ -404,13 +404,13 @@
 </div><!-- form -->
 
 <?php 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'articulo')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'articulo')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
                 <br>
           <?php 
-            $this->widget('bootstrap.widgets.BootGridView', array(
+            $this->widget('bootstrap.widgets.TbGridView', array(
             'type'=>'striped bordered condensed',
             'id'=>'articulo-grid',
             'template'=>"{items} {pager}",
@@ -432,7 +432,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -442,13 +442,13 @@
 <?php $this->endWidget(); ?>
 
 <?php 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'actualiza')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'actualiza')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
                 <br>
           <?php 
-            $this->widget('bootstrap.widgets.BootGridView', array(
+            $this->widget('bootstrap.widgets.TbGridView', array(
             'type'=>'striped bordered condensed',
             'id'=>'actualiza-grid',
             'template'=>"{items} {pager}",
@@ -470,7 +470,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),

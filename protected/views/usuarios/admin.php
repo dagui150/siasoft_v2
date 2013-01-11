@@ -24,7 +24,7 @@ $('.search-form form').submit(function(){
 <div align="right">
     <?php 
 
-	$this->widget('bootstrap.widgets.BootButton', array(
+	$this->widget('bootstrap.widgets.TbButton', array(
 			'label'=>'Permisos',
 			'type'=>'action', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
 			'size'=>'mini', // '', 'large', 'small' or 'mini'
@@ -36,7 +36,7 @@ $('.search-form form').submit(function(){
     
     <?php 
 
-            $this->widget('bootstrap.widgets.BootButton', array(
+            $this->widget('bootstrap.widgets.TbButton', array(
                     'label'=>'Listar',
                     'type'=>'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
                     'size'=>'mini', // '', 'large', 'small' or 'mini'
@@ -48,7 +48,7 @@ $('.search-form form').submit(function(){
 
     <?php 
 
-            $this->widget('bootstrap.widgets.BootButton', array(
+            $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Nuevo',
                 'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
                 'size'=>'mini', // '', 'large', 'small' or 'mini'
@@ -62,7 +62,7 @@ $('.search-form form').submit(function(){
 </div>
 
 <?php
-	 $this->widget('bootstrap.widgets.BootGridView', array(
+	 $this->widget('bootstrap.widgets.TbGridView', array(
                 'type'=>'striped bordered condensed',
 		'id'=>'usuarios-grid',
 		'dataProvider'=>$model->search(),
@@ -73,13 +73,13 @@ $('.search-form form').submit(function(){
 			'PASS',
 			//'ACTIVO',
 			array(
-				'class'=>'bootstrap.widgets.BootButtonColumn',
+				'class'=>'bootstrap.widgets.TbButtonColumn',
                                 'htmlOptions'=>array('style'=>'width: 50px'),
 			),
 		),
 	));
 	
-	$this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
+	$this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
  
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
@@ -92,7 +92,7 @@ $('.search-form form').submit(function(){
 	</div>
 	 
 	<div class="modal-footer">
-		<?php $this->widget('bootstrap.widgets.BootButton', array(
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
 			'label'=>'Cerrar',
 			'url'=>'#',
 			'htmlOptions'=>array('data-dismiss'=>'modal'),

@@ -1,6 +1,6 @@
 <div class="form">
     <div class="modal-body">
-        <?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+        <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'id'=>'tipo-transaccion-form',
             'enableAjaxValidation'=>true,
             'clientOptions'=>array(
@@ -20,7 +20,7 @@
                 echo $form->errorSummary($model2);
                 if(!$model2->isNewRecord)
                     echo $form->hiddenField($model2,'TRANSACCION_BASE'); 
-                $this->widget('bootstrap.widgets.BootTabbable', array(
+                $this->widget('bootstrap.widgets.TbTabs', array(
                             'type'=>'tabs',
                             'tabs'=>array(
                                 array(
@@ -79,7 +79,7 @@
     <div class="row-buttons" align="center">
     <?php endif ?>
               <?php
-                     $this->widget('bootstrap.widgets.BootButton', array(
+                     $this->widget('bootstrap.widgets.TbButton', array(
                                'label'=>$model2->isNewRecord ? 'Crear' : 'Guardar',
                                'buttonType'=>'submit',
                                'type'=>'primary',
@@ -89,7 +89,7 @@
              ?>
               <?php
                     if($model2->isNewRecord){
-                         $this->widget('bootstrap.widgets.BootButton', array(
+                         $this->widget('bootstrap.widgets.TbButton', array(
                                    'label'=>'Cancelar',
                                    'buttonType'=>'reset',
                                    'type'=>'action',
@@ -99,7 +99,7 @@
                         );
                     }
                     else{
-                         $this->widget('bootstrap.widgets.BootButton', array(
+                         $this->widget('bootstrap.widgets.TbButton', array(
                                    'label'=>'Cancelar',
                                    'type'=>'action',
                                    'icon'=>'remove ', 

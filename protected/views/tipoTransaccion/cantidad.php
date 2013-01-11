@@ -142,7 +142,7 @@
                             </td>
                                 <td>
                                      <div class="remove">
-                                          <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                          <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                             'buttonType'=>'button',
                                                             'type'=>'danger',
                                                             'label'=>'Eliminar',
@@ -187,7 +187,7 @@
                         <td colspan="4">
                              <div id="nuevo" class="add" style='width: 80px;<?php if($model2->isNewRecord) echo 'display: none';?>'>
                                   
-                                   <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                   <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                  'buttonType'=>'button',
                                                  'type'=>'success',
                                                  'label'=>'Nuevo',
@@ -204,7 +204,7 @@
                                     </td>
                                     <td>
                                         <div id='remueve_<?php echo '{0}';?>' class="remove">
-                                               <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                               <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                          'buttonType'=>'button',
                                                          'type'=>'danger',
                                                          'label'=>'Eliminar',
@@ -229,7 +229,7 @@
                             </td>
                             <td>
                                  <div id="remueve_<?echo $i;?>" class="remove">
-                                      <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                      <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                         'buttonType'=>'button',
                                                         'type'=>'danger',
                                                         'label'=>'Eliminar',

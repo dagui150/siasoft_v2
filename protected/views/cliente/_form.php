@@ -148,7 +148,7 @@
 </script>
 <div class="form">
 
-<?php  $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php  $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'cliente-form',
 	'enableAjaxValidation'=>true,
         'clientOptions'=>array(
@@ -225,21 +225,21 @@
                     ),
                 ), true);
                 
-                $botonNit = $this->widget('bootstrap.widgets.BootButton', array(
+                $botonNit = $this->widget('bootstrap.widgets.TbButton', array(
                           'type'=>'info',
                           'size'=>'mini',
                           'url'=>'#nit',
                           'icon'=>'search',
                           'htmlOptions'=>array('data-toggle'=>'modal'),
                     ), true);
-                $botonImpuesto = $this->widget('bootstrap.widgets.BootButton', array(
+                $botonImpuesto = $this->widget('bootstrap.widgets.TbButton', array(
                           'type'=>'info',
                           'size'=>'mini',
                           'url'=>'#impuesto',
                           'icon'=>'search',
                           'htmlOptions'=>array('data-toggle'=>'modal'),
                     ), true);
-                $botonRegimen = $this->widget('bootstrap.widgets.BootButton', array(
+                $botonRegimen = $this->widget('bootstrap.widgets.TbButton', array(
                           'type'=>'info',
                           'size'=>'mini',
                           'url'=>'#regimen',
@@ -247,7 +247,7 @@
                           'htmlOptions'=>array('data-toggle'=>'modal'),
                     ), true);
                 
-                $this->widget('bootstrap.widgets.BootTabbable', array(
+                $this->widget('bootstrap.widgets.TbTabs', array(
                             'type'=>'tabs',
                             'tabs'=>array(
                                 array(
@@ -412,7 +412,7 @@
 
 	<div class="row buttons" align="center">
 		<?php
-                     $this->widget('bootstrap.widgets.BootButton', array(
+                     $this->widget('bootstrap.widgets.TbButton', array(
                                'label'=>$model->isNewRecord ? 'Crear' : 'Guardar',
                                'buttonType'=>'submit',
                                'type'=>'primary',
@@ -421,7 +421,7 @@
                     );
              ?>
               <?php
-                    $this->widget('bootstrap.widgets.BootButton', array(
+                    $this->widget('bootstrap.widgets.TbButton', array(
                                    'label'=>'Cancelar',
                                    'type'=>'action',
                                    'icon'=>'remove ', 
@@ -434,7 +434,7 @@
 <?php $this->endWidget(); ?>
 
 <?php 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'nit')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'nit')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -443,7 +443,7 @@
             $dataprovider = $nit->search();
             $dataprovider->pagination = array('pageSize'=>5);
             
-            $this->widget('bootstrap.widgets.BootGridView', array(
+            $this->widget('bootstrap.widgets.TbGridView', array(
             'type'=>'striped bordered condensed',
             'id'=>'articulo-grid',
             'template'=>"{items} {pager}",
@@ -460,7 +460,7 @@
                     'TIIPO_DOCUMENTO',
                     'RAZON_SOCIAL',
                     array(
-                            'class'=>'bootstrap.widgets.BootButtonColumn',
+                            'class'=>'bootstrap.widgets.TbButtonColumn',
                             'htmlOptions'=>array('style'=>'width: 50px'),
                             'template'=>'',
                     ),
@@ -470,7 +470,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -480,7 +480,7 @@
 <?php 
     $this->endWidget(); 
 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'regimen')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'regimen')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -494,7 +494,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -504,7 +504,7 @@
 <?php
     $this->endWidget(); 
     
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'impuesto')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'impuesto')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -519,7 +519,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
