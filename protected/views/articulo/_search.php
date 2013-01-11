@@ -1,6 +1,6 @@
 <div class="wide form">
 
-<?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
         'type'=>'horizontal',
@@ -35,7 +35,7 @@
         <div class="modal-footer">
             
                 <?php 
-                    $this->widget('bootstrap.widgets.BootButton', array(
+                    $this->widget('bootstrap.widgets.TbButton', array(
 				'label'=>'Buscar',
 				'buttonType'=>'submit',
 				'type'=>'primary',
@@ -45,7 +45,7 @@
                     );
                 ?>
             
-		<?php $this->widget('bootstrap.widgets.BootButton', array(
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
 			'label'=>'Cancelar',
 			'url'=>'#',
 			'icon'=>'remove',

@@ -43,7 +43,7 @@
     $cs->registerScriptFile(XHtml::jsUrl('jquery.maskedinput.js'), CClientScript::POS_HEAD);
     $cs->registerScriptFile(XHtml::jsUrl('jquery.validate.js'), CClientScript::POS_HEAD);
     
-    $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'id'=>'consecutivo-fa-form',
             'enableAjaxValidation'=>true,
                    'clientOptions'=>array(
@@ -72,7 +72,7 @@
        </table>  
 
         <?php
-                $this->widget('bootstrap.widgets.BootTabbable', array(
+                $this->widget('bootstrap.widgets.TbTabs', array(
                             'type'=>'tabs',
                             'tabs'=>array(
                                 array(
@@ -123,7 +123,7 @@
 
 	<div class="row buttons" align="center">
 		<?php
-                     $this->widget('bootstrap.widgets.BootButton', array(
+                     $this->widget('bootstrap.widgets.TbButton', array(
                                'label'=>$model->isNewRecord ? 'Crear' : 'Guardar',
                                'buttonType'=>'submit',
                                'type'=>'primary',
@@ -132,7 +132,7 @@
                     );
              ?>
               <?php
-                    $this->widget('bootstrap.widgets.BootButton', array(
+                    $this->widget('bootstrap.widgets.TbButton', array(
                                    'label'=>'Cancelar',
                                    'type'=>'action',
                                    'icon'=>'remove ', 

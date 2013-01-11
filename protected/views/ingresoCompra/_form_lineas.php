@@ -112,7 +112,7 @@
 <?php 
       $actualiza = isset($Pactualiza) ? $Pactualiza : '';
 
-      $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+      $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'ingreso-compra-linea-form',
 	'type'=>'horizontal',
 	'enableAjaxValidation'=>true,
@@ -143,7 +143,7 @@
     
 	<div class="modal-footer">
 		<?php
-                    $this->widget('bootstrap.widgets.BootButton', array(
+                    $this->widget('bootstrap.widgets.TbButton', array(
                          'buttonType'=>'ajaxSubmit',
                          'type'=>'primary',
                          'label'=>'Aceptar',
@@ -158,7 +158,7 @@
                       ));
                 ?>
                  <?php
-                    $this->widget('bootstrap.widgets.BootButton', array(
+                    $this->widget('bootstrap.widgets.TbButton', array(
                          'buttonType'=>'button',
                          'type'=>'normal',
                          'label'=>'Cancelar',

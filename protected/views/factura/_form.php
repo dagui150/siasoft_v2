@@ -201,7 +201,8 @@
 <div class="form">
 
 <?php
-    $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+    /* @var $this FacturaController*/
+    $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'id'=>'factura-form',
             'type'=>'horizontal',
             'enableAjaxValidation'=>true,
@@ -235,7 +236,7 @@
 	),
         'htmlOptions'=>array(
             'tabindex'=>'3',
-            'style'=>'width:80px;vertical-align:top',
+            'style'=>'width:80px !important;vertical-align:top',
             'value'=>date('Y-m-d'),
         ),  
    ), true);
@@ -255,7 +256,7 @@
             'buttonImageOnly'=>true,
 	),
         'htmlOptions'=>array(
-            'style'=>'width:80px;vertical-align:top'
+            'style'=>'width:80px !important;vertical-align:top'
         ),  
    ), true); 
     
@@ -274,7 +275,7 @@
             'buttonImageOnly'=>true,
 	),
         'htmlOptions'=>array(
-            'style'=>'width:80px;vertical-align:top'
+            'style'=>'width:80px !important;vertical-align:top'
         ),  
    ), true); 
     $fechaOrden = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -287,12 +288,12 @@
             'changeMonth'=>true,
             'changeYear'=>true,
             'showOn'=>'both', // 'focus', 'button', 'both'
-            'buttonText'=>Yii::t('ui','Select form calendar'), 
+            'buttonText'=>Yii::t('app','Select form calendar'), 
             'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
             'buttonImageOnly'=>true,
 	),
         'htmlOptions'=>array(
-            'style'=>'width:80px;vertical-align:top'
+            'style'=>'width:80px !important;vertical-align:top'
         ),  
    ), true); 
     
@@ -335,31 +336,21 @@
                     </table>
                 </td>
                 <td>
-            <table style="margin-left: -140px;">
+            <table style="margin-left: -115px;">
                         <tr>
                             <td style="width: 315px">
                                 <?php echo $form->textFieldRow($model,'CLIENTE',array('size'=>18,'maxlength'=>20,'tabindex'=>'2')); ?>
                             </td>
                             <td style="width: 28px;padding-top:11px;">
-                                <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                  'type'=>'info',
-                                  'size'=>'mini',
-                                  'url'=>'#cliente',
-                                  'icon'=>'search',
-                                  'htmlOptions'=>array('data-toggle'=>'modal'),
-                            )); ?>
+                                <?php $this->darBoton(false, 'info', 'normal', '#cliente', 'search white',array('data-toggle'=>'modal')); ?>
                             </td>
                             <td>
-                                <?php echo CHtml::textField('Cliente_desc','',array('disabled'=>true,'size'=>35)); ?>
+                                <?php echo CHtml::textField('Cliente_desc','',array('disabled'=>true,'size'=>30)); ?>
                             </td>
                             <td>
-                                 <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                               'buttonType'=>'button',
-                                               'type'=>'normal',
-                                               'size'=>'mini',
-                                               'icon'=>'pencil',
-                                               'htmlOptions'=>array('style'=>'margin: 5px -25px 0 -3px; display:none','id'=>'editaCliente','onclick'=>'$("#clienteNuevo").modal();')
-                                       ));
+                                 <?php 
+                                     $htmlOptions = array('style'=>'margin: 5px -25px 0 -3px; display:none','id'=>'editaCliente','onclick'=>'$("#clienteNuevo").modal();');
+                                     $this->darBoton(false, 'normal', 'normal', '#cliente', 'pencil',$htmlOptions);
                                  ?>
                             </td>
                         </tr>
@@ -369,7 +360,7 @@
                             </td>
                             <td rowspan="2" colspan="2">
                                   <span style="background-color:#EEEEEE;line-height:20px;text-align:center; text-shadow:#FFFFFF 0 1px 0;padding-left:5px;padding-top:9px;width:26px;height:28px;margin-top:57px;float:left;font-size: 42px;border:1px solid #CCCCCC;">$</span>
-                                  <?php echo CHtml::textField('calculos','0',array('disabled'=>true,'style'=>'width:237px;height:31px;font-size: 34px;margin-top:56px;text-align:right;'));?>
+                                  <?php echo CHtml::textField('calculos','0',array('disabled'=>true,'style'=>'width: 227px !important;height:31px;font-size: 34px;margin-top:56px;text-align:right;'));?>
                             </td>
                         </tr>
                         <tr>
@@ -383,7 +374,7 @@
                 </td>
             </tr>
         </table>
-        <?php $this->widget('bootstrap.widgets.BootTabbable', array(
+        <?php $this->widget('bootstrap.widgets.TbTabs', array(
                 'type'=>'tabs', // 'tabs' or 'pills'
                 'tabs'=>array( 
                     array('label'=>'Líneas', 'content'=>$renderLineas, 'active'=>true),
@@ -463,12 +454,12 @@
             )); ?>
 
         <div align="center">
-            <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-            <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('pedido/admin'), 'icon' => 'remove'));  ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('pedido/admin'), 'icon' => 'remove'));  ?>
 	</div>
     
         <?php 
-            $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'clienteNuevo')); ?>
+            $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'clienteNuevo')); ?>
                 <div class="modal-header">
                         <a class="close" data-dismiss="modal">&times;</a>
                         <h3>Cliente Nuevo</h3>
@@ -492,7 +483,7 @@
                 </div>
                 <div class="modal-footer">
 
-                    <?php $this->widget('bootstrap.widgets.BootButton', array(
+                    <?php $this->widget('bootstrap.widgets.TbButton', array(
                         'label'=>'Aceptar',
                         'icon'=>'ok',
                         'url'=>'#',
@@ -508,13 +499,13 @@
 
  
 <?php     
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'cliente')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'cliente')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
                 <br>
           <?php 
-            $this->widget('bootstrap.widgets.BootGridView', array(
+            $this->widget('bootstrap.widgets.TbGridView', array(
             'type'=>'striped bordered condensed',
             'id'=>'cliente-grid',
             'template'=>"{items} {pager}",
@@ -530,18 +521,13 @@
                     ),
                     'NOMBRE',
                     'NIT',
-                    array(
-                            'class'=>'bootstrap.widgets.BootButtonColumn',
-                            'htmlOptions'=>array('style'=>'width: 50px'),
-                            'template'=>'',
-                    ),
             ),
     ));
       ?>
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -551,7 +537,7 @@
 <?php $this->endWidget(); ?>
 
     <?php 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'articulo')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'articulo')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -565,7 +551,7 @@
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -577,7 +563,7 @@
     
 
 
-<?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'nuevo')); ?>
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'nuevo')); ?>
  
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>

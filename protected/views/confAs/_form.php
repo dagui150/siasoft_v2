@@ -1,6 +1,6 @@
 <div class="form">
 
-<?php $form= $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form= $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'conf-as-form',
 	'type'=>'horizontal',
 	'enableAjaxValidation'=>true,
@@ -10,7 +10,7 @@
 )); ?>
         <?php
         /*
-            $this->widget('bootstrap.widgets.BootTabbable', array(
+            $this->widget('bootstrap.widgets.TbTabs', array(
             'type' => 'tabs', // 'tabs' or 'pills'
             'tabs' => array(
             array('label' => 'General', 'content' =>
@@ -58,8 +58,8 @@
 		
 		
 	<div class="row-buttons" align="center">
-    	<?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model2->isNewRecord ? 'Crear' : 'Guardar')); ?>
-        <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('site/index'), 'icon' => 'remove'));  ?>	
+    	<?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model2->isNewRecord ? 'Crear' : 'Guardar')); ?>
+        <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('site/index'), 'icon' => 'remove'));  ?>	
 	</div>
 
 

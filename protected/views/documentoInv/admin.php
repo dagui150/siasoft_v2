@@ -39,11 +39,11 @@ if (isset($_GET['men'])){
 
     <?php
            
-            $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array());
+            $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array());
 
             echo CHtml::hiddenField('seleccion');
             
-            $this->widget('bootstrap.widgets.BootButton', array(
+            $this->widget('bootstrap.widgets.TbButton', array(
                     'buttonType'=>'ajaxSubmit',
                     'label'=>'Aprobar',
                     'size'=>'mini', 
@@ -60,7 +60,7 @@ if (isset($_GET['men'])){
     ?>
     <?php 
 
-            $this->widget('bootstrap.widgets.BootButton', array(
+            $this->widget('bootstrap.widgets.TbButton', array(
                     'buttonType'=>'ajaxSubmit',
                     'label'=>'Rev. Aprobación',
                     'type'=>'inverse', 
@@ -78,7 +78,7 @@ if (isset($_GET['men'])){
     ?>
     <?php 
 
-            $this->widget('bootstrap.widgets.BootButton', array(
+            $this->widget('bootstrap.widgets.TbButton', array(
                     'buttonType'=>'ajaxSubmit',
                     'label'=>'Cancelar',
                     'type'=>'danger', 
@@ -96,7 +96,7 @@ if (isset($_GET['men'])){
     ?>
     <?php 
 
-            $this->widget('bootstrap.widgets.BootButton', array(
+            $this->widget('bootstrap.widgets.TbButton', array(
                     'buttonType'=>'ajaxSubmit',
                     'label'=>'Aplicar',
                     'type'=>'info', 
@@ -115,7 +115,7 @@ if (isset($_GET['men'])){
     
     <?php 
 
-            $this->widget('bootstrap.widgets.BootButton', array(
+            $this->widget('bootstrap.widgets.TbButton', array(
                     'label'=>'Nuevo',
                     'type'=>'success', 
                     'size'=>'mini', 
@@ -127,7 +127,7 @@ if (isset($_GET['men'])){
 </div>
 
 <?php 
-    $this->widget('bootstrap.widgets.BootGridView', array(
+    $this->widget('bootstrap.widgets.TbGridView', array(
         'type'=>'striped bordered condensed',
 	'id'=>'documento-inv-grid',
 	'dataProvider'=>$model->search(),
@@ -152,7 +152,7 @@ if (isset($_GET['men'])){
                     'filter'=>array('P'=>'Pendiente','A'=>'Aprobado','L'=>'Aplicado','C'=>'Cancelado')
                 ),
 		array(
-			'class'=>'bootstrap.widgets.BootButtonColumn',
+			'class'=>'bootstrap.widgets.TbButtonColumn',
                         'template'=>'{update}'
 		),
              array(

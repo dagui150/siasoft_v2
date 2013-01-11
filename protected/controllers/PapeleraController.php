@@ -32,7 +32,7 @@ class PapeleraController extends Controller {
                 }
         }
         
-        $this->widget('bootstrap.widgets.BootGridView', array(
+        $this->widget('bootstrap.widgets.TbGridView', array(
             'type' => 'striped bordered condensed',
             'id' => $_GET['id'].'-grid',
             'dataProvider' => $model->searchPapelera(),
@@ -40,11 +40,11 @@ class PapeleraController extends Controller {
             'columns' => array(
                 isset($col[1]) ? $col[1] :array('name'=>'CREADO_POR','visible'=>false),
                 isset($col[2]) ? $col[2] : array('name'=>'CREADO_POR','visible'=>false),
-                isset($col[3]) ? $col[3] : array('name'=>'ACTUALIZADO_POR','visible'=>TRUE),
-                isset($col[4]) ? $col[4] : array('name'=>'ACTUALIZADO_EL','visible'=>TRUE),
+                isset($col[3]) ? $col[3] : array('name'=>'ACTUALIZADO_POR','header'=>'Eliminado Por', 'visible'=>TRUE),
+                isset($col[4]) ? $col[4] : array('name'=>'ACTUALIZADO_EL','header'=>'Eliminado El', 'visible'=>TRUE),
 
                 array(
-                    'class' => 'bootstrap.widgets.BootButtonPapelera',
+                    'class' => 'application.components.ButtonPapelera',
                     'template'=>'{Restaurar}',
                 ),
             ),

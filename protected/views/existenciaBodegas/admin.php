@@ -33,7 +33,7 @@ if (isset($_GET['men'])){
 <div id="mensaje"></div>
 <br>
 
-<?php $this->widget('bootstrap.widgets.BootGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
         'type'=>'striped bordered condensed',
 	'id'=>'existencia-bodega-grid',
 	'dataProvider'=>$model2->search2($bodega),
@@ -55,7 +55,7 @@ if (isset($_GET['men'])){
 		'ACTUALIZADO_POR',
 		'ACTUALIZADO_EL',
 		array(
-                    'class'=>'bootstrap.widgets.BootButtonColumn',
+                    'class'=>'bootstrap.widgets.TbButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),
                     'afterDelete'=>$this->mensajeBorrar(),
 		),

@@ -1,8 +1,8 @@
 <?php
-    $this->widget('bootstrap.widgets.BootGridView', array(
+    $this->widget('bootstrap.widgets.TbGridView', array(
             'type'=>'striped bordered condensed',
             'id'=>$id,
-            'pager' => array('class'=>'BootPager','maxButtonCount' => 6),
+            'pager' => array('class'=>'TbPager','maxButtonCount' => 6),
             'template'=>'{items}{pager}',
         // Estaban con $articulo->searchModal()
             'dataProvider'=>$data,

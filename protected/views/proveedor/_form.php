@@ -81,7 +81,7 @@ function cargaNitGrilla(grid_id){
 </script>
 <div class="form">
     
-<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'proveedor-form',
         'type'=>'horizontal',
 	'enableAjaxValidation'=>true,
@@ -111,7 +111,7 @@ function cargaNitGrilla(grid_id){
         </tr>        
     </table>
     
-                <?php $grilla = $this->widget('bootstrap.widgets.BootGridView', array(
+                <?php $grilla = $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',
 	'id'=>'tipo-cuenta-grid',
 	'dataProvider'=>$cuenta->search(),
@@ -127,7 +127,7 @@ function cargaNitGrilla(grid_id){
 		'ACTUALIZADO_EL',
 		*/
 		array(
-                    'class'=>'bootstrap.widgets.BootButtonColumn',
+                    'class'=>'bootstrap.widgets.TbButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),
                     'template'=> '',
 		),
@@ -167,7 +167,7 @@ function cargaNitGrilla(grid_id){
     ), true);
     
     ?>
-    <?php $modal = $this->widget('bootstrap.widgets.BootButton', array(
+    <?php $modal = $this->widget('bootstrap.widgets.TbButton', array(
                           'type'=>'info',
                           'size'=>'mini',
                           'url'=>'#nit',
@@ -175,7 +175,7 @@ function cargaNitGrilla(grid_id){
                           'htmlOptions'=>array('data-toggle'=>'modal'),
                     ), true); ?>
     
-    <?php $this->widget('bootstrap.widgets.BootTabbable', array(
+    <?php $this->widget('bootstrap.widgets.TbTabs', array(
     'type'=>'tabs', // 'tabs' or 'pills'
     'tabs'=>array(
         
@@ -278,15 +278,15 @@ function cargaNitGrilla(grid_id){
 	</div>
 
 	<div align="center">
-            <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-            <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('proveedor/admin'), 'icon' => 'remove'));  ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('proveedor/admin'), 'icon' => 'remove'));  ?>
 	</div>
 
 
 <?php $this->endWidget(); ?>
     
     <?php 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'nit')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'nit')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -301,7 +301,7 @@ function cargaNitGrilla(grid_id){
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),

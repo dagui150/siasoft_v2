@@ -193,7 +193,7 @@ class SolicitudOcController extends Controller
             if($contWarning !=0)
                 Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Solicitud(es) ya Cancelada(s)<br>('.$warning.')</h3>');
             
-           $this->widget('bootstrap.widgets.BootAlert');
+           $this->widget('bootstrap.widgets.TbAlert');
         }
         
        public function actionAutorizar(){
@@ -260,7 +260,7 @@ class SolicitudOcController extends Controller
             if($contWarning !=0)
                 Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Solicitud(es) ya Autorizada(s)<br>('.$warning.')</h3>');
             
-           $this->widget('bootstrap.widgets.BootAlert');
+           $this->widget('bootstrap.widgets.TbAlert');
         }
         
         public function actionReversar(){
@@ -334,7 +334,7 @@ class SolicitudOcController extends Controller
             if($contWarning !=0)
                 Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Solicitud(es) ya Reversada(s)<br>('.$warning.')</h3>');
             
-           $this->widget('bootstrap.widgets.BootAlert');
+           $this->widget('bootstrap.widgets.TbAlert');
         }
         
 	/**

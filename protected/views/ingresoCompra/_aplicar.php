@@ -8,7 +8,7 @@
                     <td><div align="right"><h3>¿Desea Continuar?</h3></div></td>
                     <td>
             <?php 
-                $this->widget('bootstrap.widgets.BootButton', array(
+                $this->widget('bootstrap.widgets.TbButton', array(
                     'label'=>'Continuar',
                     'buttonType'=>'button',
                     'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
@@ -23,7 +23,7 @@
                 ));
             ?>
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                     'label'=>'Cancelar',
                     'url'=>'#',
                     'htmlOptions'=>array('data-dismiss'=>'modal'),

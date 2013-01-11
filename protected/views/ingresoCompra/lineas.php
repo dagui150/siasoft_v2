@@ -58,7 +58,7 @@
     <h2 align="center">Debe ingresar proveedor antes de introducir lineas</h2>
 </div>
 <div id="cargarLineasBoton" style="display: none;">
-<?php $this->widget('bootstrap.widgets.BootButton', array(
+<?php $this->widget('bootstrap.widgets.TbButton', array(
     'type'=>'',
     'size'=>'mini',
     'url'=>'#lineas',
@@ -102,7 +102,7 @@
                       <span class="add" id="nuevo" ></span>
                        <?php 
                             $contador = '0';
-                             $this->widget('bootstrap.widgets.BootButton', array(
+                             $this->widget('bootstrap.widgets.TbButton', array(
                                         'buttonType'=>'button',
                                         'type'=>'success',
                                         'label'=>'Nuevo',
@@ -159,7 +159,7 @@
                                     </td>
                                     <td>
                                         <span style="float: left">
-                                            <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                            <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                              'buttonType'=>'button',
                                                              'type'=>'normal',
                                                              'size'=>'mini',
@@ -169,7 +169,7 @@
                                             ?>
                                         </span>
                                         <div class="remove" id ="remover"style="float: left; margin-left: 5px;">
-                                               <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                               <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                          'buttonType'=>'button',
                                                          'type'=>'danger',
                                                          'size'=>'mini',
@@ -231,7 +231,7 @@
                                 </td>
                                   <td width="70px">
                                         <span style="float: left">
-                                                       <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                       <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                              'buttonType'=>'button',
                                                              'type'=>'normal',
                                                              'size'=>'mini',
@@ -241,7 +241,7 @@
                                                        ?>
                                         </span>
                                        <div class="remove" id ="remover" style="float: left; margin-left: 5px;">
-                                                  <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                                  <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                                  'buttonType'=>'button',
                                                                  'type'=>'danger',
                                                                  'size'=>'mini',

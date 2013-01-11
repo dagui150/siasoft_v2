@@ -108,7 +108,7 @@ function Elimina(){
                     <div class="row">
                             <?php   if($model->LOGO != NULL || $model->LOGO != ''){ ?> 
                             <div id="imagen"> <?php echo CHtml::image(Yii::app()->request->baseUrl."/logo/".$model->LOGO, 'Logo'); ?> 
-                            <?php $this->widget('bootstrap.widgets.BootButton', array(
+                            <?php $this->widget('bootstrap.widgets.TbButton', array(
                                     'buttonType'=>'button',
                                     'type'=>'danger',
                                     'label'=>'',
@@ -140,8 +140,8 @@ function Elimina(){
             </tr>
         </table>
 	<div align="center">
-    	<?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-        <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('site/index'), 'icon' => 'remove'));  ?>
+    	<?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
+        <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('site/index'), 'icon' => 'remove'));  ?>
 	</div>
 
     <?php $this->endWidget(); ?> 

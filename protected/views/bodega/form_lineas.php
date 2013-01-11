@@ -92,7 +92,7 @@
     //$campoActualiza = isset($PcampoActualiza) ? $PcampoActualiza : '';    
     //$actualiza = isset($Pactualiza) ? $Pactualiza : 0;
     
-    $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 'id'=>'existencia-bodegas-linea-form',
                 'enableAjaxValidation'=>true,
                 'clientOptions'=>array(
@@ -117,7 +117,7 @@
      </div>
     <div class="modal-footer">
                  <?php
-                    $this->widget('bootstrap.widgets.BootButton', array(
+                    $this->widget('bootstrap.widgets.TbButton', array(
                          'buttonType'=>'ajaxSubmit',
                          'type'=>'primary',
                          'label'=>'Aceptar',
@@ -133,7 +133,7 @@
                 ?>
                  <?php
                     $bolean =Yii::app()->request->isAjaxRequest ? false : true;
-                    $this->widget('bootstrap.widgets.BootButton', array(
+                    $this->widget('bootstrap.widgets.TbButton', array(
                          'buttonType'=>'button',
                          'type'=>'normal',
                          'label'=>'Cancelar',

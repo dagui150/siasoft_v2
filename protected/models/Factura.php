@@ -135,7 +135,7 @@ class Factura extends CActiveRecord
              * @var ExistenciaBodega
              */
             $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$this->ARTICULO,'BODEGA'=>$this->BODEGA));
-	    if (!$existenciaBodega){
+	    if (!$existenciaBodega && $this->ARTICULO != ''){
                 $this->addError('ARTICULO','No existe en la bodega "'.$this->bODEGA->DESCRIPCION.'"');
             }
 	}
@@ -217,6 +217,7 @@ class Factura extends CActiveRecord
 			'CREADO_EL' => 'Creado El',
 			'ACTUALIZADO_POR' => 'Actualizado Por',
 			'ACTUALIZADO_EL' => 'Actualizado El',
+			'CANTIDAD' => 'Cant.',
 		);
 	}
 
