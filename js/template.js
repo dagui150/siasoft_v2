@@ -21,7 +21,8 @@ jQuery(document).ready(function(){
 	});
 
 	$(".remove").live("click", function() {
-		$(this).parents(".templateContent:first").remove();
+		$(this).parents(".templateContent:first");
+		$(this).hide('slow').remove()
 		hideEmptyHeaders();
 	});
 });

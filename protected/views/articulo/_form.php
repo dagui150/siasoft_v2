@@ -117,15 +117,15 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	<?php echo $form->errorSummary($model);?>
         <?php    
             
-            $boton = $this->darBoton(false, 'info', 'normal', '#bodega', 'search white', array('data-toggle'=>'modal',),true);
+            $boton = $this->darBotonBuscar('#bodega',true);
             
-            $boton2 = $this->darBoton(false, 'info', 'normal', '#impuesto', 'search white', array('data-toggle'=>'modal',),true);
+            $boton2 = $this->darBotonBuscar('#bodega',true);
             
-            $boton3 = $this->darBoton(false, 'info', 'normal', '#impuesto2', 'search white', array('data-toggle'=>'modal',),true);
+            $boton3 = $this->darBotonBuscar('#bodega',true);
             
-            $boton4 = $this->darBoton(false, 'info', 'normal', '#retencion', 'search white', array('data-toggle'=>'modal',),true);
+            $boton4 = $this->darBotonBuscar('#bodega',true);
             
-            $boton5 = $this->darBoton(false, 'info', 'normal', '#retencion2', 'search white', array('data-toggle'=>'modal',),true);
+            $boton5 = $this->darBotonBuscar('#bodega',true);
             
             $clas = ClasificacionAdi::model()->findAll();
             
@@ -313,23 +313,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     
 	<div align="center"> 
 		<?php 
-			$this->widget('bootstrap.widgets.TbButton', array(
-						'label'=>'Crear',
-						'buttonType'=>'submit',
-						'type'=>'primary',
-						'icon'=>'ok-circle white',
-					)
-			);
+                    $this->darBotonEnviar($model->isNewRecord ? 'Crear' : 'Guardar');
 		?>
-		<?php
-			$this->widget('bootstrap.widgets.TbButton', array(
-						'label'=>'Cancelar',
-						'type'=>'action',
-						'icon'=>'remove', 
-						'url'=>array('admin'), 
-					)
-			);
-			
+		<?php 
+                    $this->darBotonCancelar();
 		?>
 	</div>
         

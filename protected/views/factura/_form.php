@@ -341,16 +341,21 @@
                             <td style="width: 315px">
                                 <?php echo $form->textFieldRow($model,'CLIENTE',array('size'=>18,'maxlength'=>20,'tabindex'=>'2')); ?>
                             </td>
-                            <td style="width: 28px;padding-top:11px;">
-                                <?php $this->darBoton(false, 'info', 'normal', '#cliente', 'search white',array('data-toggle'=>'modal')); ?>
+                            <td style="width: 28px;">
+                                <?php $this->darBotonBuscar('#cliente'); ?>
                             </td>
                             <td>
                                 <?php echo CHtml::textField('Cliente_desc','',array('disabled'=>true,'size'=>30)); ?>
                             </td>
                             <td>
-                                 <?php 
-                                     $htmlOptions = array('style'=>'margin: 5px -25px 0 -3px; display:none','id'=>'editaCliente','onclick'=>'$("#clienteNuevo").modal();');
-                                     $this->darBoton(false, 'normal', 'normal', '#cliente', 'pencil',$htmlOptions);
+                                 <?php $this->widget('bootstrap.widgets.TbButton', array(
+                                               'buttonType'=>'button',
+                                               'type'=>'normal',
+                                              'size'=>'mini',
+                                               'icon'=>'pencil',
+                                               'htmlOptions'=>array('style'=>'margin: 5px -25px 0 -3px; display:none','id'=>'editaCliente','onclick'=>'$("#clienteNuevo").modal();')
+                                       ));
+
                                  ?>
                             </td>
                         </tr>
@@ -360,7 +365,7 @@
                             </td>
                             <td rowspan="2" colspan="2">
                                   <span style="background-color:#EEEEEE;line-height:20px;text-align:center; text-shadow:#FFFFFF 0 1px 0;padding-left:5px;padding-top:9px;width:26px;height:28px;margin-top:57px;float:left;font-size: 42px;border:1px solid #CCCCCC;">$</span>
-                                  <?php echo CHtml::textField('calculos','0',array('disabled'=>true,'style'=>'width: 227px !important;height:31px;font-size: 34px;margin-top:56px;text-align:right;'));?>
+                                  <?php echo CHtml::textField('calculos','0',array('disabled'=>true,'style'=>'width: 221px !important;height:31px;font-size: 34px;margin-top:56px;text-align:right;'));?>
                             </td>
                         </tr>
                         <tr>
@@ -454,8 +459,8 @@
             )); ?>
 
         <div align="center">
-            <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('pedido/admin'), 'icon' => 'remove'));  ?>
+            <?php $this->darBotonEnviar($model->isNewRecord ? 'Crear' : 'Guardar');?>
+            <?php $this->darBotonCancelar(); ?>
 	</div>
     
         <?php 

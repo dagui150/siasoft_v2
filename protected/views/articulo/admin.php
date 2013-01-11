@@ -1,5 +1,6 @@
 <?php $this->pageTitle=Yii::app()->name." - Artículos";?>
 <?php
+/* @var $this ArticuloController*/
 if(!ConfCi::darConf())
      $this->redirect(array('/confCi/create'));
 $this->breadcrumbs=array(
@@ -7,18 +8,6 @@ $this->breadcrumbs=array(
 	'Artículos'
 );
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.form').submit(function(){
-	$.fn.yiiGridView.update('articulo-grid', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
 <h1>Artículos</h1>
@@ -29,17 +18,7 @@ if (isset($_GET['men'])){
 ?>
 <br>
 <div align="right">
-    <?php 
-
-        $this->widget('bootstrap.widgets.TbButton', array(
-            'label'=>'Nuevo',
-            'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-            'size'=>'mini', // '', 'large', 'small' or 'mini'
-            'icon' => 'plus white',
-            'url'=>array('create'),
-        )); 
-
-    ?>
+    <?php $this->darBotonNuevo(); ?>
 </div>
 
 <?php
@@ -116,15 +95,4 @@ if (isset($_GET['men'])){
                      ),
             ),
     ));
-    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
- 
-	<div class="modal-header">
-		<a class="close" data-dismiss="modal">&times;</a>
-                <h3>Búsqueda Avanzada</h3>
-	</div>
-	 
-	<?php echo $this->renderPartial('_search',array('model'=>$model)); ?>
-	 
-	
- 
-<?php $this->endWidget(); ?>
+?>

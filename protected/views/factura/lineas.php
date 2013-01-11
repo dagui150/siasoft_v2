@@ -277,16 +277,14 @@
 
 
 </script>
+<?php /* @var $this FacturaController*/?>
 <table style="margin-left: -100px;">
          <tr>
              <td style="width: 289px">
                 <?php echo $form->textFieldRow($model,'ARTICULO',array('size'=>15,'tabindex'=>'7')); ?>
              </td>
              <td style="width: 28px;">
-                 <?php
-                    $htmlOptions = array('data-toggle'=>'modal','style'=>'margin-top: 5px;');
-                    $this->darBoton(false, 'info', 'normal', '#articulo', 'search white',$htmlOptions);
-                 ?>
+                    <?php $this->darBotonBuscar('#articulo'); ?>;
             </td>
             <td>
                  <?php echo CHtml::textField('Articulo_desc','',array('disabled'=>true,'size'=>18)); ?>
@@ -310,7 +308,7 @@
                        <td>
                            <?php
                                 $htmlOptions = array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;','tabindex'=>'10');
-                                $this->darBoton(false, 'success', 'normal', false, 'plus white',$htmlOptions);
+                                $this->darBotonAddLinea(false,$htmlOptions);
                             ?> 
                        </td>
                    </tr>
@@ -399,25 +397,11 @@
                                         </td>                                            
                                         <td width="40px">
                                              <span style="float: left">
-                                                <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                                 'buttonType'=>'button',
-                                                                 'type'=>'normal',
-                                                                 'size'=>'mini',
-                                                                 'icon'=>'pencil',
-                                                                 'htmlOptions'=>array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')
-                                                             ));
-                                                ?>
+                                                <?php $this->darBotonUpdateLinea(array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')); ?>
                                             </span>
                                             <div class="remove" id ="remover_<?php echo '{0}';?>" style="float: left; margin-left: 5px; display: none"></div>
                                             <div style="float: left; margin-left: 5px;">
-                                                <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                             'buttonType'=>'button',
-                                                             'type'=>'danger',
-                                                             'size'=>'mini',
-                                                             'icon'=>'minus white',
-                                                             'htmlOptions'=>array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}')
-                                                         ));
-                                                   ?>
+                                                <?php $this->darBotonDeleteLinea(false,array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}')); ?>
                                             </div>
                                             <input name="rowIndex_{0}" type="hidden" class="rowIndex" value="{0}" />
                                        </td>
