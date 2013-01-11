@@ -332,7 +332,7 @@
                <table style="margin-left: -100px;margin-top:-4px;">
                    <tr>
                        <td style="width: 289px;">
-                            <?php echo $form->textFieldRow($model,'CANTIDAD',array('size'=>4));?>
+                            <?php echo $form->textFieldRow($model,'CANTIDAD',array('size'=>4,'class'=>'decimal'));?>
                        </td>
                    </tr>
                </table>
@@ -407,7 +407,7 @@
                                         </td>
                                         <td>
                                             <span id='cantidad_<?php echo '{0}';?>' class="cambiar"></span>
-                                            <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][CANTIDAD]','',array('size'=>4,'class'=>'blur')); ?></span>                                                                                                            
+                                            <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][CANTIDAD]','',array('size'=>4,'class'=>'blur decimal')); ?></span>                                                                                                            
                                         </td>
                                         <td>
                                             <span id='unidad_<?php echo '{0}';?>' class="cambiar"></span>
@@ -419,7 +419,7 @@
                                         </td>
                                         <td style="width: 74px;">
                                             <span id='preciounitario_<?php echo '{0}';?>' class="cambiar"></span>
-                                            <span id='campo_preciounitario_<?php echo '{0}';?>'style="display:none;" ><?php echo CHtml::textField('LineaNuevo[{0}][PRECIO_UNITARIO]','',array('size'=>10,'class'=>'blur')); ?></span>                                         
+                                            <span id='campo_preciounitario_<?php echo '{0}';?>'style="display:none;" ><?php echo CHtml::textField('LineaNuevo[{0}][PRECIO_UNITARIO]','',array('size'=>10,'class'=>'blur decimal')); ?></span>                                         
                                         </td>                                    
                                         <td style="width: 74px;">
                                             <span id='porcdescuento_<?php echo '{0}';?>' class="cambiar"></span>

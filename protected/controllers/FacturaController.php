@@ -235,7 +235,7 @@ class FacturaController extends Controller
             if ($compania->LOGO != '') {
                 $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/" . $compania->LOGO, 'Logo');
             } else {
-                $logo = $compania->NOMBRE;
+                $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/default.jpg", 'Logo');
             }
             $header = '<table width="100%" align="center">
                             <tr>

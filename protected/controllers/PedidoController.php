@@ -116,15 +116,15 @@ class PedidoController extends Controller
                                         $salvar->ARTICULO = $datos['ARTICULO'];
                                         $salvar->LINEA = $i;
                                         $salvar->UNIDAD = $datos['UNIDAD'];
-                                        $salvar->CANTIDAD = $datos['CANTIDAD'];
-                                        $salvar->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
+                                        $salvar->CANTIDAD = Controller::unformat($datos['CANTIDAD']);
+                                        $salvar->PRECIO_UNITARIO = Controller::unformat($datos['PRECIO_UNITARIO']);
                                         $salvar->PORC_DESCUENTO = $datos['PORC_DESCUENTO'];
-                                        $salvar->MONTO_DESCUENTO = $datos['MONTO_DESCUENTO'];
+                                        $salvar->MONTO_DESCUENTO = Controller::unformat($datos['MONTO_DESCUENTO']);
                                         $salvar->PORC_IMPUESTO = $datos['PORC_IMPUESTO'];
-                                        $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
+                                        $salvar->VALOR_IMPUESTO = Controller::unformat($datos['VALOR_IMPUESTO']);
                                         $salvar->TIPO_PRECIO = $datos['TIPO_PRECIO'];
                                         $salvar->COMENTARIO = $datos['COMENTARIO'];
-                                        $salvar->TOTAL = $datos['TOTAL'];
+                                        $salvar->TOTAL = Controller::unformat($datos['TOTAL']);
                                         $salvar->ESTADO = 'N';
                                         $salvar->ACTIVO = 'S';
                                         $salvar->save();
@@ -183,6 +183,17 @@ class PedidoController extends Controller
 		if(isset($_POST['Pedido']))
 		{
 			$model->attributes=$_POST['Pedido'];
+                        
+                        $model->TOTAL_MERCADERIA=Controller::unformat($_POST['Pedido']['TOTAL_MERCADERIA']);
+                        $model->MONTO_ANTICIPO=Controller::unformat($_POST['Pedido']['MONTO_ANTICIPO']);
+                        $model->MONTO_FLETE=Controller::unformat($_POST['Pedido']['MONTO_FLETE']);
+                        $model->MONTO_SEGURO=Controller::unformat($_POST['Pedido']['MONTO_SEGURO']);
+                        $model->MONTO_DESCUENTO1=Controller::unformat($_POST['Pedido']['MONTO_DESCUENTO1']);
+                        $model->TOTAL_IMPUESTO1=Controller::unformat($_POST['Pedido']['TOTAL_IMPUESTO1']);
+                        $model->TOTAL_A_FACTURAR=Controller::unformat($_POST['Pedido']['TOTAL_A_FACTURAR']);
+                        
+                        
+                        
                         if($_POST['eliminar'] != ''){
                             $eliminar = explode(",", $_POST['eliminar']);
                             foreach($eliminar as $elimina){                                
@@ -198,15 +209,15 @@ class PedidoController extends Controller
                                     $salvar2->ARTICULO = $datos2['ARTICULO'];
                                     $salvar2->LINEA = $i;
                                     $salvar2->UNIDAD = $datos2['UNIDAD'];
-                                    $salvar2->CANTIDAD = $datos2['CANTIDAD'];
-                                    $salvar2->PRECIO_UNITARIO = $datos2['PRECIO_UNITARIO'];
+                                    $salvar2->CANTIDAD = Controller::unformat($datos2['CANTIDAD']);
+                                    $salvar2->PRECIO_UNITARIO = Controller::unformat($datos2['PRECIO_UNITARIO']);
                                     $salvar2->PORC_DESCUENTO = $datos2['PORC_DESCUENTO'];
-                                    $salvar2->MONTO_DESCUENTO = $datos2['MONTO_DESCUENTO'];
+                                    $salvar2->MONTO_DESCUENTO = Controller::unformat($datos2['MONTO_DESCUENTO']);
                                     $salvar2->PORC_IMPUESTO = $datos2['PORC_IMPUESTO'];
-                                    $salvar2->VALOR_IMPUESTO = $datos2['VALOR_IMPUESTO'];
+                                    $salvar2->VALOR_IMPUESTO = Controller::unformat($datos2['VALOR_IMPUESTO']);
                                     $salvar2->TIPO_PRECIO = $datos2['TIPO_PRECIO'];
                                     $salvar2->COMENTARIO = $datos2['COMENTARIO'];
-                                    $salvar2->TOTAL = $datos2['TOTAL'];
+                                    $salvar2->TOTAL = Controller::unformat($datos2['TOTAL']);
                                     $salvar2->ESTADO = 'N';
                                     $salvar2->ACTIVO = 'S';
                                     $salvar2->save();
@@ -221,15 +232,15 @@ class PedidoController extends Controller
                                         $salvar->ARTICULO = $datos['ARTICULO'];
                                         $salvar->LINEA = $i;
                                         $salvar->UNIDAD = $datos['UNIDAD'];
-                                        $salvar->CANTIDAD = $datos['CANTIDAD'];
-                                        $salvar->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
+                                        $salvar->CANTIDAD = Controller::unformat($datos['CANTIDAD']);
+                                        $salvar->PRECIO_UNITARIO = Controller::unformat($datos['PRECIO_UNITARIO']);
                                         $salvar->PORC_DESCUENTO = $datos['PORC_DESCUENTO'];
-                                        $salvar->MONTO_DESCUENTO = $datos['MONTO_DESCUENTO'];
+                                        $salvar->MONTO_DESCUENTO = Controller::unformat($datos['MONTO_DESCUENTO']);
                                         $salvar->PORC_IMPUESTO = $datos['PORC_IMPUESTO'];
-                                        $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
+                                        $salvar->VALOR_IMPUESTO = Controller::unformat($datos['VALOR_IMPUESTO']);
                                         $salvar->TIPO_PRECIO = $datos['TIPO_PRECIO'];
                                         $salvar->COMENTARIO = $datos['COMENTARIO'];
-                                        $salvar->TOTAL = $datos['TOTAL'];
+                                        $salvar->TOTAL = Controller::unformat($datos['TOTAL']);
                                         $salvar->ESTADO = 'N';
                                         $salvar->ACTIVO = 'S';
                                         $salvar->save();
@@ -335,7 +346,7 @@ class PedidoController extends Controller
             if ($compania->LOGO != '') {
                 $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/" . $compania->LOGO, 'Logo');
             } else {
-                $logo = $compania->NOMBRE;
+                $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/default.jpg", 'Logo');
             }
             $header = '<table width="100%" align="center">
                             <tr>
@@ -366,7 +377,7 @@ class PedidoController extends Controller
                     </tr>
                     </table>';
             $mPDF1 = Yii::app()->ePdf->mpdf();
-            $mPDF1 = Yii::app()->ePdf->mpdf('','A4',0,'','15','15','30','','5','', 'P');
+            $mPDF1 = Yii::app()->ePdf->mpdf('','A4',0,'','15','15','30','15','5','', 'P');
             $mPDF1->w=210;   //manually set width
             $mPDF1->h=148.5; //manually set height
             $mPDF1->SetHTMLHeader($header);

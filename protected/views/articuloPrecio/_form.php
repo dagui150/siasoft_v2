@@ -28,7 +28,7 @@ function inicio(){
                 break;
                 case 'MARG':
                     if($('#Costo').val() != 0){
-                        margMul = $('#Costo').val() / (1 - (margMul/100));
+                        margMul = unformat ($('#Costo').val()) / (1 - (margMul/100));
                        
                         $('#NivelPrecio4_' + i + '_PRECIO').val(format(margMul.toFixed(0)));
                     }
