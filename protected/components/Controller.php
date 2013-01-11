@@ -84,13 +84,14 @@ class Controller extends CController
          * @return array con los items para un menu 
          */
 	public function menu(){
+            /*
 		$this->menu = Yii::app()->user->rbac->getMenu();
 		$this->menu[]=  array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false,
                                 'items'=>Yii::app()->user->ui->adminItems);
 		$this->menu[]=array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>Yii::app()->user->ui->logoutUrl,'visible'=>!Yii::app()->user->isGuest);
-		
+		*/
 	
-        /*$com = ConfCo::model()->find();
+        $com = ConfCo::model()->find();
         $fac = ConfFa::model()->find();
         $compa = Compania::model()->find();
         $admin = ConfAs::model()->find();
@@ -173,11 +174,11 @@ class Controller extends CController
                                     
                                     
                                     ),
-                            ),
+                            ),*/
                             array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false,
                                 'items'=>Yii::app()->user->ui->adminItems),
                             array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>Yii::app()->user->ui->logoutUrl,'visible'=>!Yii::app()->user->isGuest),
-                        );*/
+                        );
 		return $this->menu;
 		
 	}

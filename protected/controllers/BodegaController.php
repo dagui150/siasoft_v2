@@ -111,7 +111,7 @@ class BodegaController extends Controller
             $model=$this->loadModel($id);
             $bodega = new Bodega;
             //$linea = new PedidoLinea;
-            $linea = new ExistenciaBodegas;
+            $linea = new ExistenciaBodegas('addLinea');
             $articulo = new Articulo;
             //$modelLinea = PedidoLinea::model()->findAll('PEDIDO ="'.$model->PEDIDO.'"');
             $modelLinea = ExistenciaBodegas::model()->findAll('BODEGA ="'.$id.'"');
@@ -121,6 +121,12 @@ class BodegaController extends Controller
             $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
             $i = 1;
 
+            if(isset($_POST['ajax']) && $_POST['ajax']==='articulo-form')
+		{
+			echo CActiveForm::validate($linea);
+			Yii::app()->end();
+		}
+            
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
                 
@@ -229,7 +235,7 @@ class BodegaController extends Controller
         }
         
         public function actionAgregarlinea(){
-            $linea = new ExistenciaBodegas;
+            $linea = new ExistenciaBodegas('modalLinea');
             $linea->attributes = $_POST['ExistenciaBodegas'];
             $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';            
             

@@ -14,17 +14,13 @@
                 $('#NAME').val($(this).attr('name'));
                 actualiza();
             });
-            $('#Pedido_UNIDAD').live('change',function(){
-                var nombre = $('#Pedido_UNIDAD option:selected').html()
-                $('#NOMBRE_UNIDAD').val(nombre);
-            });
             
-            $('#Pedido_ARTICULO').change(function(){
+            $('#Articulo_ARTICULO').change(function(){
                 $.getJSON('<?php echo $this->createUrl('/bodega/dirigir'); ?>&FU=AR&ID='+$(this).val(),
                     function(data){
                         $("#Articulo_desc").val(data.NOMBRE);
-                        $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
-                        $('#agregar').attr('disabled', false);
+                        //$('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
+                        //$('#agregar').attr('disabled', false);
                  });     
 
             });
@@ -41,7 +37,6 @@
             url = '<?php echo $this->createUrl('/bodega/dirigir'); ?>&FU=AR&ID='+ID;
             campo = '#Articulo_ARTICULO';
             campo_nombre = '#Articulo_desc';
-            $('#agregar').attr('disabled', false);
         }
         $.getJSON(url,function(data){
                     $(campo).val(ID);
@@ -62,7 +57,7 @@
 
 <?php
     $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-            'id'=>'pedido-form',
+            'id'=>'articulo-form',
             'type'=>'horizontal',
             'enableAjaxValidation'=>true,
             'clientOptions'=>array(
@@ -101,7 +96,7 @@
         ?>
 
         <div align="center">
-            <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
+            <?php $this->darBoton('submit', $model->isNewRecord ? 'Crear' : 'Guardar', 'primary', 'small', false, 'ok-circle white'); ?>
             <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('pedido/admin'), 'icon' => 'remove'));  ?>
 	</div>
 

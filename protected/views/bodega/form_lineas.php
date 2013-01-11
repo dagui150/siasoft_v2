@@ -68,11 +68,15 @@
         //values de los campos ocultos de la fila para actualizar
         var articulo = $('#'+model+'_'+contador+'_ARTICULO').val();
         var existencia_minima = $('#'+model+'_'+contador+'_EXISTENCIA_MINIMA').val();      
+        var existencia_maxima = $('#'+model+'_'+contador+'_EXISTENCIA_MAXIMA').val();      
+        var punto_reorden = $('#'+model+'_'+contador+'_PUNTO_REORDEN').val();      
         
         //asignacion a los campos del formulario para su actualizacion
         $('#ExistenciaBodegas_ARTICULO').val(articulo);
 
-        $('#ExistenciaBodegas_EXISTENCIA_MINIMA').val(0);
+        $('#ExistenciaBodegas_EXISTENCIA_MINIMA').val(existencia_minima);
+        $('#ExistenciaBodegas_EXISTENCIA_MAXIMA').val(existencia_maxima);
+        $('#ExistenciaBodegas_PUNTO_REORDEN').val(punto_reorden);
 
         $('#CAMPO_ACTUALIZA').val(contador);
         $('#ACTUALIZA').val('0');
