@@ -84,12 +84,13 @@ class Controller extends CController
          * @return array con los items para un menu 
          */
 	public function menu(){
-		/*$this->menu = Yii::app()->user->rbac->getMenu();
-		$this->menu[]= array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false);
+		$this->menu = Yii::app()->user->rbac->getMenu();
+		$this->menu[]=  array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false,
+                                'items'=>Yii::app()->user->ui->adminItems);
 		$this->menu[]=array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>Yii::app()->user->ui->logoutUrl,'visible'=>!Yii::app()->user->isGuest);
-		*/
+		
 	
-        $com = ConfCo::model()->find();
+        /*$com = ConfCo::model()->find();
         $fac = ConfFa::model()->find();
         $compa = Compania::model()->find();
         $admin = ConfAs::model()->find();
@@ -172,11 +173,11 @@ class Controller extends CController
                                     
                                     
                                     ),
-                            ),*/
+                            ),
                             array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false,
                                 'items'=>Yii::app()->user->ui->adminItems),
                             array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>Yii::app()->user->ui->logoutUrl,'visible'=>!Yii::app()->user->isGuest),
-                        );
+                        );*/
 		return $this->menu;
 		
 	}
@@ -203,23 +204,27 @@ class Controller extends CController
 	}
         /**
          *
+         * @param type $buttonType
          * @param string $label Label del Boton
          * @param string $type Type del Boton
          * @param string $size Size del Boton
          * @param mixed $url Url del Boton
          * @param string $icon Icono del Boton
          * @param array $htmlOptions Opciones HTML del Boton
+         * @param array $ajaxOptions Opciones ajax del Boton
          * @param string $string Define si el boton es un String o no
          * @return TbButton 
          */
-        public  function darBoton($label,$type,$size,$url,$icon,$htmlOptions = array(),$string = false){
+        public  function darBoton($buttonType = 'button',$label = '',$type = 'normal',$size = 'normal',$url = '#',$icon = false,$htmlOptions = array(),$ajaxOptions = array(),$string = false){
             return $this->widget('bootstrap.widgets.TbButton', array(
+                                  'buttonType'=>$buttonType,
                                   'label'=>$label,
                                   'type'=>$type,
                                   'size'=>$size,
-                                  $url ? 'url' : 'label'=>$url,
+                                  'url'=>$url,
                                   'icon'=>$icon,
                                   'htmlOptions'=>$htmlOptions,
+                                  'ajaxOptions'=>$ajaxOptions,
                             ),$string);
         }
 }
