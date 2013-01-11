@@ -1,6 +1,6 @@
 <div class="form">
 
-<?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'clasificacion-adi-valor-form',
 	'enableAjaxValidation'=>true,
 	'clientOptions'=>array(
@@ -43,7 +43,7 @@
         <div class="row-buttons" align="center">
         <?php endif ?>
 		<?php
-			$this->widget('bootstrap.widgets.BootButton', array(
+			$this->widget('bootstrap.widgets.TbButton', array(
 						'label'=>$model2->isNewRecord ? 'Crear' : 'Guardar',
 						'buttonType'=>'submit',
 						'type'=>'primary',
@@ -52,7 +52,7 @@
 			);
 		?>
             
-                 <?php $this->widget('bootstrap.widgets.BootButton', array(
+                 <?php $this->widget('bootstrap.widgets.TbButton', array(
 			'label'=>'Cancelar',
 			'url'=>$model2->isNewRecord ? '#' : array('admin'),
 			'icon'=>'remove',

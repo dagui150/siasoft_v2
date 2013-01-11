@@ -7,6 +7,11 @@ class ClienteController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2'; 
+        /**
+         *
+         * @var array tendra la configuracion de facturacion
+         */
+	public $conf=array(); 
 
 	/**
 	 * @return array action filters
@@ -74,9 +79,11 @@ class ClienteController extends Controller
                         $model->IMPUESTO = ($_POST['Cliente']['NIT'] != '') ? $_POST['Cliente']['IMPUESTO'] : NULL;
                         $model->UBICACION_GEOGRAFICA1 = ($_POST['Cliente']['UBICACION_GEOGRAFICA1'] != '') ? $_POST['Cliente']['UBICACION_GEOGRAFICA1'] : NULL;
                         $model->UBICACION_GEOGRAFICA2 = ($_POST['Cliente']['UBICACION_GEOGRAFICA2'] != '') ? $_POST['Cliente']['UBICACION_GEOGRAFICA2'] : NULL;
-
-			if($model->save())
-				$this->redirect(array('admin'));
+                        $model->ACTIVO = 'S';
+                        
+			if($model->save()){
+                            $this->redirect(array('admin'));                            
+                        }
 		}
 
                 if(isset($_GET['Nit']))

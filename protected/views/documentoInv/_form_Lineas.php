@@ -455,7 +455,7 @@
     $campoActualiza = isset($PcampoActualiza) ? $PcampoActualiza : '';    
     $actualiza = isset($Pactualiza) ? $Pactualiza : 0;    
     
-    $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 'id'=>'documento-inv-linea-form',
                 'enableAjaxValidation'=>true,
                 'clientOptions'=>array(
@@ -464,21 +464,21 @@
                  'type'=>'horizontal',
      ));
      
-     $botonBodega = $this->widget('bootstrap.widgets.BootButton', array(
+     $botonBodega = $this->widget('bootstrap.widgets.TbButton', array(
                         'type'=>'info',
                         'size'=>'mini',
                         'buttonType'=>'button',
                         'icon'=>'search',
                         'htmlOptions'=>array('onclick'=>'$("#bodega").dialog("open");return false;',),
                     ),true);
-     $botonBodegaDestino = $this->widget('bootstrap.widgets.BootButton', array(
+     $botonBodegaDestino = $this->widget('bootstrap.widgets.TbButton', array(
                         'type'=>'info',
                         'size'=>'mini',
                         'buttonType'=>'button',
                         'icon'=>'search',
                         'htmlOptions'=>array('id'=>'bodega-destino','disabled'=>true,'onclick'=>'$("#bodega_destino").dialog("open");return false;',),
                     ),true);
-     $botonArticulo = $this->widget('bootstrap.widgets.BootButton', array(
+     $botonArticulo = $this->widget('bootstrap.widgets.TbButton', array(
                         'type'=>'info',
                         'size'=>'mini',
                         'buttonType'=>'button',
@@ -578,7 +578,7 @@
      </div>
     <div class="modal-footer">
                  <?php
-                    $this->widget('bootstrap.widgets.BootButton', array(
+                    $this->widget('bootstrap.widgets.TbButton', array(
                          'buttonType'=>'ajaxSubmit',
                          'type'=>'primary',
                          'label'=>'Aceptar',
@@ -594,7 +594,7 @@
                 ?>
                  <?php
                     $bolean =Yii::app()->request->isAjaxRequest ? false : true;
-                    $this->widget('bootstrap.widgets.BootButton', array(
+                    $this->widget('bootstrap.widgets.TbButton', array(
                          'buttonType'=>'button',
                          'type'=>'normal',
                          'label'=>'Cancelar',

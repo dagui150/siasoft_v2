@@ -29,7 +29,7 @@
             <td colspan="4">
                 <div class="add" style='width: 80px;'>
                     <?php
-                    $this->widget('bootstrap.widgets.BootButton', array(
+                    $this->widget('bootstrap.widgets.TbButton', array(
                         'type' => 'success',
                         'label' => 'Nuevo',
                         'icon' => 'plus white',
@@ -49,7 +49,7 @@
                                     <td>
                                         <div class="remove" style="width:80px">
                                             <?php
-                                            $this->widget('bootstrap.widgets.BootButton', array(
+                                            $this->widget('bootstrap.widgets.TbButton', array(
                                                 'type' => 'danger',
                                                 'icon' => 'minus white',
                                                 'label' => 'Eliminar',
@@ -97,7 +97,7 @@
                 <td>
                     <div class="remove">
                         <?php
-                        $this->widget('bootstrap.widgets.BootButton', array(
+                        $this->widget('bootstrap.widgets.TbButton', array(
                             'type' => 'danger',
                             'icon' => 'minus white',
                             'label' => 'Eliminar',

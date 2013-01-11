@@ -30,7 +30,7 @@ class FacturaController extends Controller
 
 	/**
 	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * If creation is successful, the browser will be redirected to the 'admin' page.
 	 */
 	public function actionCreate()
 	{
@@ -40,7 +40,13 @@ class FacturaController extends Controller
                 $articulo = new Articulo;
                 $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
                 $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
+                $conf = ConfFa::model()->find();
 
+                $model->CONDICION_PAGO = !isset($_POST['Factura']['CONDICION_PAGO']) && $conf->COND_PAGO_CONTADO!= '' ? $conf->COND_PAGO_CONTADO:$_POST['Factura']['CONDICION_PAGO'];
+                $model->BODEGA = !isset($_POST['Factura']['BODEGA']) && $conf->BODEGA_DEFECTO!= '' ? $conf->BODEGA_DEFECTO:$_POST['Factura']['BODEGA'];
+                $model->NIVEL_PRECIO =!isset($_POST['Factura']['NIVEL_PRECIO']) &&  $conf->NIVEL_PRECIO!= '' ? $conf->NIVEL_PRECIO:$_POST['Factura']['NIVEL_PRECIO'];
+                $model->UNIDAD =isset($_POST['Factura']['UNIDAD'])  ? $_POST['Factura']['UNIDAD'] :'';
+                
 		$this->performAjaxValidation(array($model,$cliente));
                 if(isset($_POST['ajax']) && $_POST['ajax']==='factura-linea-form')
 		{
@@ -50,9 +56,11 @@ class FacturaController extends Controller
 
 		if(isset($_POST['Factura']))
 		{
+                        $transaccionInv = new TransaccionInv;
 			$model->attributes=$_POST['Factura'];
                         $modelConsecutivo = ConsecutivoFa::model()->findByPk($model->CONSECUTIVO);
                         $model->FACTURA = $modelConsecutivo->VALOR_CONSECUTIVO;
+                        $model->BODEGA = $_POST['Factura']['BODEGA'];   
                         $model->REMITIDO = 'N';   
                         $model->RESERVADO = 'N';   
                         $model->ESTADO = 'N';
@@ -62,32 +70,63 @@ class FacturaController extends Controller
                         try{
                             if($cliente->CLIENTE != '0'){
                                 $cliente->PAIS = 'COL';
+                                $cliente->ACTIVO = 'S';
                                 $cliente->save();
                             }
                             $model->save();
-                            if(isset($_POST['LineaNuevo'])){
-                                  $i = 1;
-                                  foreach ($_POST['LineaNuevo'] as $datos){
-                                        $salvar = new FacturaLinea;
-                                        $salvar->FACTURA = $model->FACTURA;
-                                        $salvar->ARTICULO = $datos['ARTICULO'];
-                                        $salvar->LINEA = $i;
-                                        $salvar->UNIDAD = $datos['UNIDAD'];
-                                        $salvar->CANTIDAD = $datos['CANTIDAD'];
-                                        $salvar->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
-                                        $salvar->PORC_DESCUENTO = $datos['PORC_DESCUENTO'];
-                                        $salvar->MONTO_DESCUENTO = $datos['MONTO_DESCUENTO'];
-                                        $salvar->PORC_IMPUESTO = $datos['PORC_IMPUESTO'];
-                                        $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
-                                        $salvar->TIPO_PRECIO = $datos['TIPO_PRECIO'];
-                                        $salvar->COMENTARIO = $datos['COMENTARIO'];
-                                        $salvar->TOTAL = $datos['TOTAL'];
-                                        $salvar->ESTADO = 'N';
-                                        $salvar->ACTIVO = 'S';
-                                        $salvar->save();
-                                        $i++;
+                            $transaccionInv->CONSECUTIVO_FA = $model->FACTURA;
+                            $transaccionInv->MODULO_ORIGEN = 'FA';
+                            $transaccionInv->REFERENCIA = 'Transacción generada por Factura';
+                            $transaccionInv->ACTIVO = 'S';
+
+                            if($transaccionInv->save()){
+                                 if(isset($_POST['LineaNuevo'])){
+                                      $i = 1;
+                                      foreach ($_POST['LineaNuevo'] as $datos){
+                                            $transaccionInvDetalle = new TransaccionInvDetalle;
+                                          //GUARDAR LINEAS DE FACTURA
+                                            
+                                            $salvar = new FacturaLinea;
+                                            $salvar->FACTURA = $model->FACTURA;
+                                            $salvar->ARTICULO = $datos['ARTICULO'];
+                                            $salvar->LINEA = $i;
+                                            $salvar->UNIDAD = $datos['UNIDAD'];
+                                            $salvar->CANTIDAD = $datos['CANTIDAD'];
+                                            $salvar->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
+                                            $salvar->PORC_DESCUENTO = $datos['PORC_DESCUENTO'];
+                                            $salvar->MONTO_DESCUENTO = $datos['MONTO_DESCUENTO'];
+                                            $salvar->PORC_IMPUESTO = $datos['PORC_IMPUESTO'];
+                                            $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
+                                            $salvar->TIPO_PRECIO = $datos['TIPO_PRECIO'];
+                                            $salvar->COMENTARIO = $datos['COMENTARIO'];
+                                            $salvar->TOTAL = $datos['TOTAL'];
+                                            $salvar->ESTADO = 'N';
+                                            $salvar->ACTIVO = 'S';
+                                            $salvar->save();
+                                         //ACTUALIZAR EL INVENTARIO
+                                            $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos['ARTICULO'],'BODEGA'=>$model->BODEGA));
+                                            $cantidad = $this->darCantidad($existenciaBodega, $datos['CANTIDAD'], $datos['UNIDAD']);
+                                            $existenciaBodega->CANT_DISPONIBLE -= $cantidad;
+                                            $existenciaBodega->update();
+                                         //GUARDAR LINEAS DE TRANSACCION
+                            
+                                            $transaccionInvDetalle->TRANSACCION_INV = $transaccionInv->TRANSACCION_INV;
+                                            $transaccionInvDetalle->LINEA = $i;
+                                            $transaccionInvDetalle->TIPO_TRANSACCION_CANTIDAD = 'D';
+                                            $transaccionInvDetalle->ARTICULO = $datos['ARTICULO'];
+                                            $transaccionInvDetalle->UNIDAD = $datos['UNIDAD'];
+                                            $transaccionInvDetalle->NATURALEZA = 'S';
+                                            $transaccionInvDetalle->CANTIDAD = $cantidad;
+                                            $transaccionInvDetalle->BODEGA = $model->BODEGA;
+                                            $transaccionInvDetalle->COSTO_UNITARIO = 0;
+                                            $transaccionInvDetalle->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
+                                            $transaccionInvDetalle->ACTIVO = 'S';
+                                            $transaccionInvDetalle->save();
+                                          //
+                                            $i++;
+                                     }
                                  }
-                             }
+                            }
                               //ACTUALIZAR SIGUIENTE VALOR
                                 $separados = ConsecutivoFa::extractNum($modelConsecutivo->MASCARA);
                                 $longitud = strlen($separados[1]);
@@ -104,16 +143,20 @@ class FacturaController extends Controller
                         }				
                             
                 }
-
+                
 		$this->render('create',array(
 			'model'=>$model,
                         'linea'=>$linea,
                         'cliente'=>$cliente,
                         'articulo'=>$articulo,
+                        'conf'=>$conf,
                         'ruta'=>$ruta,
                         'ruta2'=>$ruta2,
 		));
 	}
+        /**
+         * Este metod hace las opertaciones necesarias para agregar una linea
+         */
         public function actionAgregarlinea(){
             $linea = new FacturaLinea;
             $linea->attributes = $_POST['FacturaLinea'];
@@ -134,7 +177,7 @@ class FacturaController extends Controller
                      echo '</span>
                          
                          <div id="boton-cargado" class="modal-footer">';
-                            $this->widget('bootstrap.widgets.BootButton', array(
+                            $this->widget('bootstrap.widgets.TbButton', array(
                                  'buttonType'=>'button',
                                  'type'=>'normal',
                                  'label'=>'Aceptar',
@@ -295,7 +338,11 @@ class FacturaController extends Controller
 			Yii::app()->end();
 		}
 	}
-        
+        /**
+         * Este metodo retorna por medio de un objeto JSON el valor del proximo consecutivo a usar
+         * @param integer $id 
+         * @return CJSON respuesta
+         */
         public function actionCargarconsecutivo($id){
              $bus =ConsecutivoFa::model()->findByPk($id);
             $res=array(

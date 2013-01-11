@@ -1,5 +1,7 @@
 <?php
 	return array(
+                //Calendario
+                'Select form calendar'=>'Seleccione',
 		// Traducciones del menu
 		'COMPANY' => 'Datos Empresa',
 		'ADMINISTRATION_SETTINGS' => 'Configuración General',

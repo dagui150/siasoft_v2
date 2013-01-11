@@ -18,7 +18,7 @@ if (isset($_GET['men'])){
 
     <?php 
 
-        $this->widget('bootstrap.widgets.BootButton', array(
+        $this->widget('bootstrap.widgets.TbButton', array(
             'label'=>'Nuevo',
             'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'size'=>'mini', // '', 'large', 'small' or 'mini'
@@ -31,7 +31,7 @@ if (isset($_GET['men'])){
     ?>
 </div>
 <?php 
-	$this->widget('bootstrap.widgets.BootGridView', array(
+	$this->widget('bootstrap.widgets.TbGridView', array(
                 'type'=>'striped bordered condensed',
 		'id'=>'clasificacion-adi-valor-grid',
 		'dataProvider'=>$model->search(),
@@ -44,13 +44,13 @@ if (isset($_GET['men'])){
 			),
                         'VALOR',
 			array(
-                            'class'=>'bootstrap.widgets.BootButtonColumn',
+                            'class'=>'bootstrap.widgets.TbButtonColumn',
                             'template'=>'{update}{delete}',
                             'afterDelete'=>$this->mensajeBorrar(),
 			),
 		),
 	)); 
-	$this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
+	$this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
  
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>

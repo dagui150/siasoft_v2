@@ -1,5 +1,5 @@
 <?php 
-    $this->widget('bootstrap.widgets.BootGridView', array(
+    $this->widget('bootstrap.widgets.TbGridView', array(
             'type'=>'striped bordered condensed',
             'id'=>$id,
             'template'=>"{items} {pager}",

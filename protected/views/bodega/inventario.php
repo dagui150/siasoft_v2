@@ -30,11 +30,11 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Bodegas</h1>
+<h1>Asociación de artículos a Bodegas</h1>
 <br>
 <?php
 
-     $this->widget('bootstrap.widgets.BootGridView', array(
+     $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',
 	'id'=>'bodega-grid',
 	'dataProvider'=>$model->search(),

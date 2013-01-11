@@ -1,5 +1,5 @@
 <?php 
-    $this->widget('bootstrap.widgets.bootDetailView', array(
+    $this->widget('bootstrap.widgets.TbDetailView', array(
         'type'=>'striped bordered condensed',
             'data'=>$model,
             'attributes'=>array(

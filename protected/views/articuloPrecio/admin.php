@@ -27,11 +27,11 @@ if (isset($_GET['men'])){
     $this->mensaje($_GET['men']);
 }
 ?>
-<?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array()); ?>
+<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array()); ?>
     <?php echo CHtml::HiddenField('check',''); ?>
 <div align="right">
     <?php
-        $this->widget('bootstrap.widgets.BootButton', array(
+        $this->widget('bootstrap.widgets.TbButton', array(
             'label'=>'Ver detalle',
             'buttonType'=>'ajaxSubmit',
             'url'=>array('detalle'),
@@ -46,7 +46,7 @@ if (isset($_GET['men'])){
         ));
     ?>
 </div>
-<?php $this->widget('bootstrap.widgets.BootGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
 	'id'=>'articulo-precio-grid',
         'type'=>'striped bordered condensed',
         'selectionChanged'=>'obtenerSeleccion',
@@ -58,7 +58,7 @@ if (isset($_GET['men'])){
 		'NOMBRE', 
                 'PRECIO_BASE',
 		array(
-			'class'=>'bootstrap.widgets.BootButtonColumn',
+			'class'=>'bootstrap.widgets.TbButtonColumn',
                         'template' => '{update}'
 		),
 	),
@@ -66,7 +66,7 @@ if (isset($_GET['men'])){
 
 <?php $this->endWidget(); ?>
 
-<?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
 
 <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>

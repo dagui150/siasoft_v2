@@ -138,7 +138,7 @@ function eliminarRegistro(){
                                 </td>
                                 <td>
                                      <div class="remove">
-                                          <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                          <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                             'buttonType'=>'button',
                                                             'type'=>'danger',
                                                             'label'=>'Eliminar',
@@ -180,7 +180,7 @@ function eliminarRegistro(){
                     <tr>
                         <td colspan="4">
                              <div class="add" style="width: 80px;" >
-                                   <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                   <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                  'buttonType'=>'button',
                                                  'type'=>'success',
                                                  'label'=>'Nuevo',
@@ -199,7 +199,7 @@ function eliminarRegistro(){
                                     </td>
                                     <td>
                                         <div class="remove">
-                                               <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                               <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                          'buttonType'=>'button',
                                                          'type'=>'danger',
                                                          'label'=>'Eliminar',
@@ -235,7 +235,7 @@ function eliminarRegistro(){
                             </td>
                             <td>
                                  <div class="remove">
-                                      <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                      <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                         'buttonType'=>'button',
                                                         'type'=>'danger',
                                                         'label'=>'Eliminar',

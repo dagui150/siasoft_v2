@@ -1,17 +1,7 @@
 <?php $this->beginContent('//layouts/main'); ?>
-<script language="JavaScript">
-    $(document).ready(function(){
-        $('label').addClass('control-label');
-    });
-</script>
 <div id="content" >
     <center>
-        <table width="80%" border="0" cellspacing="0" cellpadding="0" style="
-                             margin-top: 10px;-webkit-box-shadow: #CCC 0px 0px 10px;
-                            -moz-box-shadow: #CCC 0 0 10px;
-                            box-shadow:#CCC 0 0 10px;
-                            width: 340px;
-                        ">
+        <table width="80%" border="0" cellspacing="0" cellpadding="0" style="width: 290px;">
           <tr>
                 <td height="25" class="form_superior">&nbsp;</td>
                 <td class="form_superior" width="*">&nbsp;</td>

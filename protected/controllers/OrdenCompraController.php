@@ -237,7 +237,7 @@ class OrdenCompraController extends Controller
             if($contWarning !=0)
                 Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Orden(es) ya Cancelada(s) o Cerrada(s)<br>('.$warning.')</h3>');
             
-           $this->widget('bootstrap.widgets.BootAlert');        
+           $this->widget('bootstrap.widgets.TbAlert');        
             
         }
         
@@ -310,7 +310,7 @@ class OrdenCompraController extends Controller
             if($contWarning !=0)
                 Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Orden(es) ya Autorizada(s)<br>('.$warning.')</h3>');
             
-           $this->widget('bootstrap.widgets.BootAlert');
+           $this->widget('bootstrap.widgets.TbAlert');
         }
         
         public function actionReversar(){
@@ -394,7 +394,7 @@ class OrdenCompraController extends Controller
             if($contWarning !=0)
                 Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Orden(es) ya Reversada(s)<br>('.$warning.')</h3>');
             
-           $this->widget('bootstrap.widgets.BootAlert');            
+           $this->widget('bootstrap.widgets.TbAlert');            
         }
         
         public function actionCerrar(){
@@ -460,7 +460,7 @@ class OrdenCompraController extends Controller
             if($contWarning !=0)
                 Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Orden(es) pendientes de proceso antes de ser cerrada(s)<br>('.$warning.')</h3>');
             
-           $this->widget('bootstrap.widgets.BootAlert');   
+           $this->widget('bootstrap.widgets.TbAlert');   
            
         }
         

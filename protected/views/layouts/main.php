@@ -28,14 +28,14 @@
 	<div id="mainmenu">
 		<?php 
 		
-		 $this->widget('bootstrap.widgets.BootNavbar', array(
+		 $this->widget('bootstrap.widgets.TbNavbar', array(
                     'fixed'=>false,
                     'brand'=>'',
                     'brandUrl'=>'#',
                     'collapse'=>true, // requires bootstrap-responsive.css
                     'items'=>array(
                         array(
-                            'class'=>'bootstrap.widgets.BootMenu',
+                            'class'=>'bootstrap.widgets.TbMenu',
                             'items'=>array(
                                 array('label'=>'Inicio', 'url'=>array('/site/index')),
                                 array('label'=>'Sistema', 'url'=>'#', 'items'=>array(
@@ -69,7 +69,7 @@
 	
 	
 	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('bootstrap.widgets.BootBreadcrumbs', array(
+		<?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,
 		)); ?><!-- breadcrumbs -->
 	<?php endif?>

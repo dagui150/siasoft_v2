@@ -43,6 +43,8 @@ class NitController extends Controller
                     print_r($_POST['LineaNueva']);
                     echo '</pre>';
                     Yii::app()->end();*/
+                    $_c=0;
+                    $c_=0;
                     try {
                         foreach ($_POST['LineaNueva'] as $datos) {
                                 $model = new Nit;
@@ -52,16 +54,20 @@ class NitController extends Controller
                                 $model->ALIAS = $datos['ALIAS'];
                                 $model->OBSERVACIONES = $datos['OBSERVACIONES'];
                                 $model->ACTIVO = 'S';
-                                
+                                $_c=$_c+1;
                                 if($model->save()){
-                                    $this->redirect(array('admin&men=S003'));
-                                } else {
-                                    $this->redirect(array('admin&men=E003'));
+                                    $c_=$c_+1;
                                 }
                                // $model->unsetAttributes();
                         }
                         
+                        
                         $transaction->commit();
+                        if($c_==$_c){
+                            $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
                         $this->redirect(array('admin'));
                         Yii::app()->end();
                     }catch (Exception $e) {

@@ -217,114 +217,133 @@ function add(){
 }
 </script>
 <?php
-
     // lineas para playground
     $cs=Yii::app()->clientScript;
     $cs->registerScriptFile(XHtml::jsUrl('jquery.calculation.min.js'), CClientScript::POS_HEAD);
     $cs->registerScriptFile(XHtml::jsUrl('jquery.format.js'), CClientScript::POS_HEAD);
     $cs->registerScriptFile(XHtml::jsUrl('template.js'), CClientScript::POS_HEAD);
     $cs->registerScriptFile(XHtml::jsUrl('jquery.validate.js'), CClientScript::POS_HEAD);
-
 ?>
-
-     <div style="overflow-x: scroll; width: 850px; margin-bottom: 10px;">
-                    <div class="complex">
-                    <div class="panel">
+<table style="margin-left: -80px;">
+    <tr>
+        <td>
+            <?php echo $form->textFieldRow($linea,'ARTICULO',array('size'=>15)); ?>
+        </td>
+        <td>
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
+                'type'=>'info',
+                'size'=>'mini',
+                'url'=>'#articulo',
+                'icon'=>'search',
+                'htmlOptions'=>array('data-toggle'=>'modal', 'class' => 'emergente', 'name' => '{0}'),
+             )); ?>
+        </td>
+        <td>
+            <?php echo CHtml::textField('Articulo_desc','',array('disabled'=>true,'size'=>20)); ?>
+        </td>
+        <td>
+            <table style="margin-left: -80px;margin-top:-4px;">
+                <tr>
+                    <td>
+                        <?php echo $form->textFieldRow($linea,'CANTIDAD',array('size'=>4)); ?>
+                    </td>
+                </tr>
+            </table>
+        </td>       
+        <td>
+            <?php echo $form->textField($linea,'FECHA_REQUERIDA',array('size'=>4)); ?>
+        </td>
+        <td>
+            <?php
+                $this->widget('bootstrap.widgets.TbButton', array(
+                    'buttonType'=>'button',
+                    'type'=>'success',
+                    'icon'=>'white plus',
+                    'size'=>'mini',
+                    'htmlOptions'=>array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;')
+                    ));    
+            ?> 
+        </td>
+    </tr>
+</table>
+<span id="carga" style="height:30px;width:30px;"></span>
                         <table class="templateFrame grid table table-bordered" cellspacing="0">
                             <thead>
                                 <tr>
                                     <td>
-                                        <?php echo $form->labelEx($linea,'ARTICULO');?>
+                                        #
+                                    </td>                                    
+                                    <td>
+                                        Articulo
                                     </td>
                                     <td>
-                                       &nbsp;
+                                        Descripcion
                                     </td>
                                     <td>
-                                        <?php echo $form->labelEx($linea,'DESCRIPCION');?>
+                                        Unidad
                                     </td>
                                     <td>
-                                        <?php echo $form->labelEx($linea,'UNIDAD');?>
+                                        Estado
                                     </td>
                                     <td>
-                                        <?php echo $form->labelEx($linea,'ESTADO');?>
+                                        Cantidad
                                     </td>
                                     <td>
-                                        <?php echo $form->labelEx($linea,'CANTIDAD');?>
+                                        Requerida
                                     </td>
                                     <td>
-                                        <?php echo $form->labelEx($linea,'FECHA_REQUERIDA');?>
-                                    </td>
-                                    <td>
-                                        <?php echo $form->labelEx($linea,'COMENTARIO');?>
-                                    </td>
-                                    <td>
-                                        <?php echo $form->labelEx($linea,'SALDO');?>
-                                    </td>
-                                    <td>
-                                        <?php echo $form->labelEx($linea,'LINEA_NUM');?>
+                                       Saldo
                                     </td>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <td>
-                                        <div id="add" class="add">
-                                            <?php 
-                                                
-                                                $this->widget('bootstrap.widgets.BootButton', array(
-                                                        'buttonType'=>'button',
-                                                        'type'=>'success',
-                                                        'label'=>'Nuevo',
-                                                        'icon'=>'plus white',
-                                                        'htmlOptions' => array('onClick' => 'add()', 'disabled'=>$readonly),
-                                                  ));
-                                            
-                                            ?>
-                                        </div>
+                                        <div id="add" class="add"></div>
                                         <textarea class="template" rows="0" cols="0" style="display: none;" >
                                             <tr class="templateContent">
                                                 <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][ARTICULO]','',array('class' => 'tonces')); ?>
+                                                    <span id="numero_<?php echo '{0}';?>"></span>
+                                                    <span id='campo_numero_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][LINEA_NUM]','0',array('readonly'=>true, 'size'=>'5')); ?></span>
                                                 </td>
                                                 <td>
-                                                    <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                                            'type'=>'info',
-                                                            'size'=>'mini',
-                                                            'url'=>'#articulo',
-                                                            'icon'=>'search',
-                                                            'htmlOptions'=>array('data-toggle'=>'modal', 'class' => 'emergente', 'name' => '{0}'),
-                                                        )); ?>
+                                                    <span id="articulo_<?php echo '{0}';?>"></span>
+                                                    <span id='campo_articulo_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][ARTICULO]','',array('class' => 'tonces')); ?></span>
+                                                </td>
+                                                
+                                                <td>
+                                                    <span id="descripcion_<?php echo '{0}';?>"></span>
+                                                    <span id='campo_descripcion_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][DESCRIPCION]','',array('class' => 'required')); ?></span>
                                                 </td>
                                                 <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][DESCRIPCION]','',array('class' => 'required')); ?>
+                                                    <span id="unidad_<?php echo '{0}';?>"></span>
+                                                    <span id='campo_unidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::dropDownList('Nuevo[{0}][UNIDAD]','',array('prompt'=>'Seleccione articulo')); ?></span>
                                                 </td>
                                                 <td>
-                                                    <?php echo CHtml::dropDownList('Nuevo[{0}][UNIDAD]','',array('prompt'=>'Seleccione articulo')); ?>
+                                                    <span id="estado_<?php echo '{0}';?>"></span>
+                                                    <span id='campo_estado_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][ESTADO]','P',array('readonly'=>true, 'size'=>'1')); ?></span>
                                                 </td>
                                                 <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][ESTADO]','P',array('readonly'=>true, 'size'=>'1')); ?>
-                                                </td>
-                                                <td>
+                                                    <span id="cantidad_<?php echo '{0}';?>"></span>
                                                     <?php echo CHtml::textField('Nuevo[{0}][CANTIDAD]','',array('size'=>'5', 'class' => 'cantidad','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][FECHA_REQUERIDA]','',array('class' => 'fecha', 'size'=>'10')); ?>
+                                                    <span id="fecha_requerida_<?php echo '{0}';?>"></span>
+                                                    <span id='campo_fecha_requerida_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][FECHA_REQUERIDA]','',array('class' => 'fecha', 'size'=>'10')); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][COMENTARIO]','',array()); ?>
+                                                    <span id="comentario_<?php echo '{0}';?>"></span>
+                                                    <?php echo CHtml::hiddenField('Nuevo[{0}][COMENTARIO]','',array()); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][SALDO]','0',array('readonly'=>true, 'size'=>'5')); ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo CHtml::textField('Nuevo[{0}][LINEA_NUM]','0',array('readonly'=>true, 'size'=>'5')); ?>
-                                                   
+                                                    <span id="saldo_<?php echo '{0}';?>"></span>
+                                                    <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][SALDO]','0',array('readonly'=>true, 'size'=>'5')); ?></span>
                                                 </td>
                                                 <td>
                                                     <div id="remover" class="remove">
                                                         <?php 
                                                 
-                                                            $this->widget('bootstrap.widgets.BootButton', array(
+                                                            $this->widget('bootstrap.widgets.TbButton', array(
                                                                     'buttonType'=>'button',
                                                                     'type'=>'danger',
                                                                     'label'=>'',
@@ -351,7 +370,7 @@ function add(){
                             <?php echo $form->textField($item,"[$i]ARTICULO", array('class'=>'tonces2', 'readonly'=>$readonly)); ?>
                             		</td>
                                     <td>
-                                        <?php $this->widget('bootstrap.widgets.BootButton', array(
+                                        <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                             'type'=>'info',
                                                             'size'=>'mini',
                                                             'url'=>'#articulo2',
@@ -388,7 +407,7 @@ function add(){
                                         <div id="remover" class="remove">
                                               <?php 
                                                 
-                                                 $this->widget('bootstrap.widgets.BootButton', array(
+                                                 $this->widget('bootstrap.widgets.TbButton', array(
                                                              'buttonType'=>'button',
                                                              'type'=>'danger',
                                                              'label'=>'',
@@ -404,11 +423,8 @@ function add(){
                                 <?php endif; ?>
                             </tbody>
                         </table>
-                    </div><!--panel-->
-                </div><!--complex-->
                 <?php $model->isNewRecord ? $i=0 : $i++; ?>
                 <?php echo CHtml::HiddenField('contadorCrea', $i); ?>
                 <?php echo CHtml::HiddenField('oculto',''); ?>
                 <?php echo CHtml::HiddenField('eliminar',''); ?>
                 <?php echo CHtml::HiddenField('siempreSuma', $i); ?>
-    </div>

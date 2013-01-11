@@ -32,7 +32,7 @@ Yii::app()->clientScript->registerScript('search', "
 <div align="right">
     <br>
     <?php
-    $this->widget('bootstrap.widgets.BootButton', array(
+    $this->widget('bootstrap.widgets.TbButton', array(
         'label' => 'Nuevo',
         'type' => 'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
         'size' => 'mini', // '', 'large', 'small' or 'mini'
@@ -43,7 +43,7 @@ Yii::app()->clientScript->registerScript('search', "
 </div>
 
 <?php
-$this->widget('bootstrap.widgets.BootGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'id' => 'horario-grid',
     'dataProvider' => $model->search(),
@@ -57,7 +57,7 @@ $this->widget('bootstrap.widgets.BootGridView', array(
         'REDONDEO_SALIDA',
         
         array(
-            'class' => 'bootstrap.widgets.BootButtonColumn',
+            'class' => 'bootstrap.widgets.TbButtonColumn',
             'htmlOptions' => array('style' => 'width: 50px'),
         ),
     ),

@@ -1,5 +1,5 @@
 <?php
-$this->widget('bootstrap.widgets.BootGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'template' => '{items}',
     'dataProvider' => $model2->search2($model->INGRESO_COMPRA),

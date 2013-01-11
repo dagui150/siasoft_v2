@@ -14,7 +14,7 @@
 </script>
 <div class="wide form" style="background-color: white;">
 
-<?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'articulo-proveedor-form',
 	'enableAjaxValidation'=>true,
             'clientOptions'=>array(
@@ -28,7 +28,7 @@
             $bproveedor = Proveedor::model()->findByPk($model->PROVEEDOR);
             $vproveedor = $model->isNewRecord? '' : $bproveedor->NOMBRE;
             
-            $boton = $this->widget('bootstrap.widgets.BootButton', array(
+            $boton = $this->widget('bootstrap.widgets.TbButton', array(
                 'type'=>'info',
                 'size'=>'mini',
                 'url'=>'#proveedor',
@@ -61,7 +61,7 @@
                 <?php echo CHtml::activeHiddenField($model,'ACTIVO',array('value'=>'S')); ?>
                 <div class="row buttons" align ="center" style="margin: 0 0 0 -132px">
                         <?php 
-                                $this->widget('bootstrap.widgets.BootButton', array(
+                                $this->widget('bootstrap.widgets.TbButton', array(
                                             'label'=>$model->isNewRecord ? 'Crear' : 'Guardar',
                                             'buttonType'=>'submit',
                                             'type'=>'primary',
@@ -74,13 +74,13 @@
 
 <?php 
         $this->endWidget(); 
-        $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'proveedor')); ?>
+        $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'proveedor')); ?>
 
             <div class="modal-body">
                     <a class="close" data-dismiss="modal">&times;</a>
                     <br>
                     <?php 
-                        $this->widget('bootstrap.widgets.BootGridView', array(
+                        $this->widget('bootstrap.widgets.TbGridView', array(
                                  'type'=>'striped bordered condensed',
                                  'id'=>'proveedor-grid',
                                  'template'=>"{items}",
@@ -107,7 +107,7 @@
             </div>
             <div class="modal-footer">
 
-                <?php $this->widget('bootstrap.widgets.BootButton', array(
+                <?php $this->widget('bootstrap.widgets.TbButton', array(
                     'label'=>'Cerrar',
                     'url'=>'#',
                     'htmlOptions'=>array('data-dismiss'=>'modal'),

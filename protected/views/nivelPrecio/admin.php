@@ -33,7 +33,7 @@ if (isset($_GET['men'])){
 <div align="right">
     <?php 
 
-		$this->widget('bootstrap.widgets.BootButton', array(
+		$this->widget('bootstrap.widgets.TbButton', array(
 		'label'=>'EXCEL',
 		'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
 		'size'=>'mini', // '', 'large', 'small' or 'mini'
@@ -45,7 +45,7 @@ if (isset($_GET['men'])){
     
              <?php 
 
-$this->widget('bootstrap.widgets.BootButton', array(
+$this->widget('bootstrap.widgets.TbButton', array(
     'label'=>'PDF',
     'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
     'size'=>'mini', // '', 'large', 'small' or 'mini'
@@ -57,7 +57,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
         
 <?php 
 
-$this->widget('bootstrap.widgets.BootButton', array(
+$this->widget('bootstrap.widgets.TbButton', array(
     'label'=>'Nuevo',
     'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
     'size'=>'mini', // '', 'large', 'small' or 'mini'
@@ -69,7 +69,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
 ?>
 </div>
 
-<?php $this->widget('bootstrap.widgets.BootGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',
 	'id'=>'nivel-precio-grid',
 	'dataProvider'=>$model->search(),
@@ -85,14 +85,14 @@ $this->widget('bootstrap.widgets.BootButton', array(
                         'filter'=>array('NORM'=>'Normal','MULT'=>'Multiplicador', 'MARG' => 'Margen', 'MARK' => 'Markup'),
                     ),
 		array(
-                    'class'=>'bootstrap.widgets.BootButtonColumn',
+                    'class'=>'bootstrap.widgets.TbButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),
                     'afterDelete'=>$this->mensajeBorrar(),
 		),
 	),
 )); ?>
 
-<?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
  
 <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>

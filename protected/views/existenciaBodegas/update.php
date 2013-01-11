@@ -1,31 +1,21 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." Existencias en Bodegas";?>
 <?php
+/* @var $this PedidoController */
+/* @var $model Pedido */
+
 $this->breadcrumbs=array(
-	'Inventario'=>array('articulo/admin'),
-	//'Existencias en Bodegas'=>array('create', 'id'=>$model->ARTICULO),
+	'Pedidos'=>array('admin'),
 	'Actualizar',
 );
+
 ?>
 
-<h1>Actualizar ExistenciaBodega </h1>
-<?php
-echo 'Hola';
-echo '<br />'.$id;
-/*
-    $sql = "SELECT count(ORDEN_COMPRA) FROM orden_compra";
-    $consulta = OrdenCompra::model()->findAllBySql($sql);
-    $connection=Yii::app()->db;
-    $command=$connection->createCommand($sql);
-    $row=$command->queryRow();
-    echo $bandera=$row['count(ORDEN_COMPRA)'];
-    */
-?>
-<?php  echo $this->renderPartial('_form', array('model'=>$model, )); ?>
-<?php 
-/*echo $this->renderPartial('_form', array(
-            'model'=>$model,
-            'model2'=>$model2,
-            'articulo'=>$articulo,
-            'barticulo'=>$barticulo,
-            'bodega'=>$bodega,
-    ));*/ ?>
+<h1>Actualizar Pedido <?php echo $model->ID; ?></h1>
+
+<?php echo $this->renderPartial('_form', array('model'=>$model,
+			'bodega'=>$bodega,
+			'linea'=>$linea,
+			'articulo'=>$articulo,
+			'modelLinea'=>$modelLinea,
+			'countLineas'=>$countLineas,
+			'ruta'=>$ruta,
+                        'ruta2'=>$ruta2)); ?>

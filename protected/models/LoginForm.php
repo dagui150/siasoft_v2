@@ -38,7 +38,7 @@ class LoginForm extends CFormModel
 		return array(
 			'username' => 'Usuario',
 			'password' => 'Contrase&ntilde;a',
-			'rememberMe'=>'Remember me next time',
+			'rememberMe'=>'Recordarme en este equipo',
 		);
 	}
 
@@ -52,7 +52,7 @@ class LoginForm extends CFormModel
 		{
 			$this->_identity=new CrugeUser($this->username,$this->password);
 			if(!$this->_identity->authenticate())
-				$this->addError('password',utf8_encode('Usuario o Contraseña Incorrectos'));
+				$this->addError('password','Usuario o ContraseÃ±a Incorrectos');
 		}
 	}
 
@@ -69,7 +69,7 @@ class LoginForm extends CFormModel
 		}
 		if($this->_identity->errorCode===CrugeUser::ERROR_NONE)
 		{
-			$duration=$this->rememberMe ? 3600*24*30 : 0; // 30 days
+			$duration=$this->rememberMe ? 3600*24*365 : 0; // 1 year
 			Yii::app()->user->login($this->_identity,$duration);
 			return true;
 		}

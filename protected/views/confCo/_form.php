@@ -42,7 +42,7 @@
 </script>
 <div class="form">
 
-<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'conf-co-form',
 	'type' => 'horizontal',
 	'enableAjaxValidation'=>true,
@@ -94,7 +94,7 @@
 <?php echo $form->HiddenField($model,'ULT_EMBARQUE'); ?>
 <?php echo $form->HiddenField($model,'ULT_DEVOLUCION'); ?>
 	<?php echo $form->errorSummary($model); ?>
-<?php $this->widget('bootstrap.widgets.BootTabbable', array(
+<?php $this->widget('bootstrap.widgets.TbTabs', array(
     'type'=>'tabs', // 'tabs' or 'pills'
     'tabs'=>array(
         array('label'=>'General', 'content'=> 
@@ -219,8 +219,8 @@
 
 ?>
 	<div align="center">
-    	<?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-        <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('confCo/admin'), 'icon' => 'remove'));  ?>
+    	<?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
+        <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('confCo/admin'), 'icon' => 'remove'));  ?>
 	</div>
 
 <?php $this->endWidget(); ?>

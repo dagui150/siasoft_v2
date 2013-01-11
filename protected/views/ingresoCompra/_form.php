@@ -43,7 +43,7 @@ function cargaProveedorGrilla (grid_id){
 }
 </script>
 
-<?php $prov_boton = $this->widget('bootstrap.widgets.BootButton', array(
+<?php $prov_boton = $this->widget('bootstrap.widgets.TbButton', array(
                           'type'=>'info',
                           'size'=>'mini',
                           'url'=>'#proveedor',
@@ -51,7 +51,7 @@ function cargaProveedorGrilla (grid_id){
                           'htmlOptions'=>array('data-toggle'=>'modal'),
                     ), true); ?>
 <div class="form">
-    <?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+    <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'ingreso-compra-form',
 	'type'=>'horizontal',
 	'enableAjaxValidation'=>true,
@@ -171,7 +171,7 @@ function cargaProveedorGrilla (grid_id){
             <td><?php echo $form->textFieldRow($model,'INGRESO_COMPRA',array('size'=>10,'maxlength'=>10, 'value'=>$retorna, 'readonly'=>'true')); ?></td>
         </tr>
     </table>
-        <?php $this->widget('bootstrap.widgets.BootTabbable', array(
+        <?php $this->widget('bootstrap.widgets.TbTabs', array(
     'tabs'=>array(
         array('label'=>'General', 'content'=>'<table><tr>
             <td width=30%>'.$form->textFieldRow($model,'PROVEEDOR',array('size'=>20,'maxlength'=>20, 'class'=>'escritoProv'))."</td><td>".CHtml::textField('ProvNombre2','', array('readonly' => true))." ".$prov_boton."</td></tr></table>"
@@ -217,13 +217,13 @@ function cargaProveedorGrilla (grid_id){
         ?>
     
 	<div align="center">           
-            <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-            <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('ingresoCompra/admin'), 'icon' => 'remove'));  ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('ingresoCompra/admin'), 'icon' => 'remove'));  ?>
 	</div>
 
 <?php $this->endWidget(); ?>
   
-        <?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'proveedor')); ?>
+        <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'proveedor')); ?>
     <div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
                 <br>
@@ -237,7 +237,7 @@ function cargaProveedorGrilla (grid_id){
 	</div>
         <div class="modal-footer">
 
-            <?php $this->widget('bootstrap.widgets.BootButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cerrar',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal'),
@@ -245,12 +245,12 @@ function cargaProveedorGrilla (grid_id){
         </div>
  <?php $this->endWidget(); ?>
     
-    <?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'lineas')); ?>
+    <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'lineas')); ?>
     <div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
                 <br>
                 <?php 
-            $this->widget('bootstrap.widgets.BootGridView', array(
+            $this->widget('bootstrap.widgets.TbGridView', array(
                 'type'=>'striped bordered condensed',
                 'id'=>'lineas-grid',
                 'selectableRows'=>2,
@@ -269,7 +269,7 @@ function cargaProveedorGrilla (grid_id){
              ?>
 	</div>
         <div class="modal-footer">
-        <?php $this->widget('bootstrap.widgets.BootButton', array(
+        <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'label'=>'Cargar Líneas',
                 'url'=>'#',
                 'htmlOptions'=>array('data-dismiss'=>'modal', 'onclick' => 'cargaSolicitud()'),
@@ -277,7 +277,7 @@ function cargaProveedorGrilla (grid_id){
         </div>
     <?php $this->endWidget(); ?>
     
-    <?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'actualizarLinea')); ?>
+    <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'actualizarLinea')); ?>
     
     	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>

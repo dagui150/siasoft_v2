@@ -10,7 +10,7 @@ $this->breadcrumbs=array(
 
 <div align="right">
 <?php 
-$this->widget('bootstrap.widgets.BootButton', array(
+$this->widget('bootstrap.widgets.TbButton', array(
     'label'=>'Nuevo',
     'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
     'size'=>'mini', // '', 'large', 'small' or 'mini'
@@ -20,7 +20,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
 
 ?>
 </div>
-<?php $this->widget('bootstrap.widgets.BootGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
         'type'=>'striped bordered condensed',
 	'id'=>'factura-grid',
 	'dataProvider'=>$model->search(),

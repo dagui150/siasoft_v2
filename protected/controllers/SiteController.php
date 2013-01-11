@@ -31,7 +31,7 @@ class SiteController extends Controller
 		
 		if (Yii::app()->user->isGuest){
 			$model=new LoginForm;
-
+                        $this->layout='cruge_login';
 			// if it is ajax validation request
 			if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
 			{
@@ -48,7 +48,7 @@ class SiteController extends Controller
 					$this->redirect(Yii::app()->user->returnUrl);
 			}
 			// display the login form
-			$this->redirect('index.php?r=cruge/ui/login');
+			$this->render('login',array('model'=>$model));
 			
 		}
 		else{

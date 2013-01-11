@@ -19,7 +19,7 @@ if (isset($_GET['men'])){
 <div align="right"> 
 <?php 
 
-	$this->widget('bootstrap.widgets.BootButton', array(
+	$this->widget('bootstrap.widgets.TbButton', array(
 		'label'=>'Nuevo',
 		'type'=>'success', 
 		'size'=>'mini', 
@@ -33,7 +33,7 @@ if (isset($_GET['men'])){
 
 
 <?php 
-    $this->widget('bootstrap.widgets.BootGridView', array(
+    $this->widget('bootstrap.widgets.TbGridView', array(
         'type'=>'striped bordered condensed',
 	'id'=>'tipo-transaccion-grid',
 	'dataProvider'=>$model->search(),
@@ -65,14 +65,14 @@ if (isset($_GET['men'])){
                      'filter'=>array('S'=>'Salida','E'=>'Entrada','A'=>'Ambas','N'=>'Ninguna'),
                  ),
 		array(
-                    'class'=>'bootstrap.widgets.BootButtonColumn',
+                    'class'=>'bootstrap.widgets.TbButtonColumn',
                     'deleteButtonUrl'=>'Yii::app()->controller->createUrl("delete",array("id"=>($data->TRANSACCION_FIJA == \'N\') ? $data->TIPO_TRANSACCION : 0 ))',
                     'htmlOptions'=>array('style'=>'width: 50px'),
                     'afterDelete'=>$this->mensajeBorrar(),
 		),
 	),
     )); 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
  
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>

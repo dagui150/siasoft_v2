@@ -17,7 +17,9 @@ class PedidoController extends Controller
 				array('CrugeAccessControlFilter'),
 			);
     }
-        
+        /**
+         * Este metod hace las opertaciones necesarias para agregar una linea
+         */
         public function actionAgregarlinea(){
             $linea = new PedidoLinea;
             $linea->attributes = $_POST['PedidoLinea'];
@@ -38,7 +40,7 @@ class PedidoController extends Controller
                      echo '</span>
                          
                          <div id="boton-cargado" class="modal-footer">';
-                            $this->widget('bootstrap.widgets.BootButton', array(
+                            $this->widget('bootstrap.widgets.TbButton', array(
                                  'buttonType'=>'button',
                                  'type'=>'normal',
                                  'label'=>'Aceptar',
@@ -182,7 +184,7 @@ class PedidoController extends Controller
 
 		if(isset($_POST['Pedido']))
 		{
-			$model->attributes=$_POST['Pedido'];
+			$model->attributes=$_POST['Pedido'];                        
                         
                         $model->TOTAL_MERCADERIA=Controller::unformat($_POST['Pedido']['TOTAL_MERCADERIA']);
                         $model->MONTO_ANTICIPO=Controller::unformat($_POST['Pedido']['MONTO_ANTICIPO']);
@@ -194,36 +196,29 @@ class PedidoController extends Controller
                         
                         
                         
-                        if($_POST['eliminar'] != ''){
-                            $eliminar = explode(",", $_POST['eliminar']);
-                            foreach($eliminar as $elimina){                                
-                                    $borra = PedidoLinea::model()->deleteByPk($elimina);                                
-                            }
-                        }
 			if($model->save()){
 				if(isset($_POST['PedidoLinea'])){
-                                foreach ($_POST['PedidoLinea'] as $datos2){
-                                    
-                                    $salvar2 = PedidoLinea::model()->findByPk($datos2['ID']);
-                                    $salvar2->PEDIDO = $model->PEDIDO;
-                                    $salvar2->ARTICULO = $datos2['ARTICULO'];
-                                    $salvar2->LINEA = $i;
-                                    $salvar2->UNIDAD = $datos2['UNIDAD'];
+                                    foreach ($_POST['PedidoLinea'] as $datos2){
+                                        $salvar2 = PedidoLinea::model()->findByPk($datos2['ID']);
+                                        $salvar2->PEDIDO = $model->PEDIDO;
+                                        $salvar2->ARTICULO = $datos2['ARTICULO'];
+                                        $salvar2->LINEA = $i;
+                                        $salvar2->UNIDAD = $datos2['UNIDAD'];
                                     $salvar2->CANTIDAD = Controller::unformat($datos2['CANTIDAD']);
                                     $salvar2->PRECIO_UNITARIO = Controller::unformat($datos2['PRECIO_UNITARIO']);
-                                    $salvar2->PORC_DESCUENTO = $datos2['PORC_DESCUENTO'];
+                                        $salvar2->PORC_DESCUENTO = $datos2['PORC_DESCUENTO'];
                                     $salvar2->MONTO_DESCUENTO = Controller::unformat($datos2['MONTO_DESCUENTO']);
-                                    $salvar2->PORC_IMPUESTO = $datos2['PORC_IMPUESTO'];
+                                        $salvar2->PORC_IMPUESTO = $datos2['PORC_IMPUESTO'];
                                     $salvar2->VALOR_IMPUESTO = Controller::unformat($datos2['VALOR_IMPUESTO']);
-                                    $salvar2->TIPO_PRECIO = $datos2['TIPO_PRECIO'];
-                                    $salvar2->COMENTARIO = $datos2['COMENTARIO'];
+                                        $salvar2->TIPO_PRECIO = $datos2['TIPO_PRECIO'];
+                                        $salvar2->COMENTARIO = $datos2['COMENTARIO'];
                                     $salvar2->TOTAL = Controller::unformat($datos2['TOTAL']);
-                                    $salvar2->ESTADO = 'N';
-                                    $salvar2->ACTIVO = 'S';
-                                    $salvar2->save();
-                                    $i++;
+                                        $salvar2->ESTADO = 'N';
+                                        $salvar2->ACTIVO = 'S';
+                                        $salvar2->save();
+                                        $i++;
+                                    }
                                 }
-                            }
                             
                             if(isset($_POST['LineaNuevo'])){                                  
                                   foreach ($_POST['LineaNuevo'] as $datos){
@@ -247,6 +242,12 @@ class PedidoController extends Controller
                                         $i++;
                                  }
                              }
+                             if($_POST['eliminar'] != ''){
+                                $eliminar = explode(",", $_POST['eliminar']);
+                                foreach($eliminar as $elimina){                                
+                                        $borra = PedidoLinea::model()->deleteByPk($elimina);                                
+                                }
+                            }
                                 $this->redirect(array('admin&men=S002'));
                         } else {
                             $this->redirect(array('admin&men=E002'));
@@ -280,7 +281,12 @@ class PedidoController extends Controller
         
         
         //Inicio funciones que cargan info por JSON
-              
+         /**
+          * Carga el cliente
+          * Si el cliente existe retorna id y nombre
+          * @param string $item_id id del cliente
+          * @return CJSON respuesta
+          */     
         protected function CargarCliente($item_id){            
             $bus = Cliente::model()->findByPk($item_id);
             $res = array(
@@ -291,10 +297,26 @@ class PedidoController extends Controller
             
             echo CJSON::encode($res);
         }
-        
+        /**
+         * Carga ciertos atributos de un articulo
+         * @param string $item_id id del articulo
+         * @return CJSON respuesta
+         */
         protected function CargarArticulo($item_id){            
             $bus = Articulo::model()->findByPk($item_id, 'ACTIVO = "S"');
+            $cant_valida ='';
+            $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$bus->ARTICULO,'BODEGA'=>isset($_GET['bodega']) ? $_GET['bodega'] :''));
+            
+            if($existenciaBodega && isset($_GET['cantidad'])){
+                $cantidad = $this->darCantidad($existenciaBodega, $_GET['cantidad'],$_GET['unidad']);
+                if($_GET['cantidad'] > $this->unformat($existenciaBodega->CANT_DISPONIBLE))
+                    $cant_valida = 'N';
+                else
+                    $cant_valida = 'S';
+            }
             $res = array(
+                'EXISTE'=>$existenciaBodega ? 'S' : 'N',
+                'CANT_VALIDA'=>$cant_valida,
                 'ID' => $bus->ARTICULO,
                 'NOMBRE' => $bus->NOMBRE,
                 'IMPUESTO' => $bus->iMPUESTOVENTA->PROCENTAJE,

@@ -12,7 +12,7 @@ $this->breadcrumbs=array(
 
     <?php 
 
-            $this->widget('bootstrap.widgets.BootButton', array(
+            $this->widget('bootstrap.widgets.TbButton', array(
                     'label'=>'Nuevo',
                     'type'=>'success', 
                     'size'=>'mini', 
@@ -23,7 +23,7 @@ $this->breadcrumbs=array(
     ?>
 </div>
 
-<?php $this->widget('bootstrap.widgets.BootGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
         'type'=>'striped bordered condensed',
 	'id'=>'consecutivo-fa-grid',
 	'dataProvider'=>$model->search(),
@@ -46,7 +46,7 @@ $this->breadcrumbs=array(
 		'VALOR_CONSECUTIVO',
 		'VALOR_MAXIMO',
 		 array(
-                        'class'=>'bootstrap.widgets.BootButtonColumn',
+                        'class'=>'bootstrap.widgets.TbButtonColumn',
                         'htmlOptions'=>array('style'=>'width: 50px'),
                     ),
 	),

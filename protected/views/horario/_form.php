@@ -72,7 +72,7 @@ Yii::import('ext.chosen.Chosen');
 
 
     <?php
-    $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id' => 'horario-form',
         'type' => 'horizontal',
         'enableAjaxValidation' => true,
@@ -96,7 +96,7 @@ Yii::import('ext.chosen.Chosen');
     </table>
 
     <?php
-    $this->widget('bootstrap.widgets.BootTabbable', array(
+    $this->widget('bootstrap.widgets.TbTabs', array(
         'type' => 'tabs', // 'tabs' or 'pills'
         'tabs' => array(
             array('label' => 'General', 'content' =>
@@ -126,8 +126,8 @@ Yii::import('ext.chosen.Chosen');
     ?>
 
     <div class="row-buttons" align="center">
-        <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'ok-circle white', 'size' => 'small', 'label' => $model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-        <?php $this->widget('bootstrap.widgets.BootButton', array('label' => 'Cancelar', 'size' => 'small', 'url' => array('/horario/admin'), 'icon' => 'remove', 'htmlOptions' => array('data-dismiss' => 'modal'))); ?>
+        <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'ok-circle white', 'size' => 'small', 'label' => $model->isNewRecord ? 'Crear' : 'Guardar')); ?>
+        <?php $this->widget('bootstrap.widgets.TbButton', array('label' => 'Cancelar', 'size' => 'small', 'url' => array('/horario/admin'), 'icon' => 'remove', 'htmlOptions' => array('data-dismiss' => 'modal'))); ?>
     </div>
     <?php $this->endWidget(); ?>
 
