@@ -8,13 +8,13 @@
 		  function(data)
                   {
                         $('#' + nombreDescripcion).val(data.DESCRIPCION);
-                        $('select[id$=SolicitudOcLinea_UNIDAD]>option').remove();
+                        $('select[id$=SolicitudOc_UNIDAD]>option').remove();
 
                         $.each(data.UNIDADES, function(value, name) {
                                 if(value == data.UNIDAD)
-                                  $('#SolicitudOcLinea_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
+                                  $('#SolicitudOc_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
                                 else
-                                   $('#SolicitudOcLinea_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
+                                   $('#SolicitudOc_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
                             });
                         $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
 		  });
@@ -22,19 +22,10 @@
 </script>
 <script>
 $(document).ready(function(){
-    
-        var contador;
-        var numLinea;
-        
-	$(".emergente").live("click", function (e) {
-            //Obtenemos el numero del campo
-            contador = $(this).attr('name');
-            $('#oculto').val(contador);
-	});
-        
-        $(".numLinea").live("click", function(a) {
-            contador = $(this).attr('name');
-            $('#linea').val(contador);
+        $('.edit').live('click',function(){
+                $('#SPAN').val('');
+                $('#NAME').val($(this).attr('name'));
+                actualiza();
         });
         
         $('#agregar').click(function(){
@@ -53,15 +44,25 @@ $(document).ready(function(){
     }) 
 
     function cargaArticuloGrilla (grid_id){
+       var att = $.fn.yiiGridView.getSelection(grid_id);       
        var nombreDescripcion = 'Articulo_desc'; 
-       var articulo = 'SolicitudOcLinea_ARTICULO';
+       var articulo = 'SolicitudOc_ARTICULO';
             $.getJSON(
-            '<?php echo $this->createUrl('solicitudOc/CargarArticulo'); ?>&buscar='+$(this).attr('value'),
+            '<?php echo $this->createUrl('solicitudOc/CargarArticulo'); ?>&buscar='+att,
             
 		  function(data)
                   {                        
                         $('#' + nombreDescripcion).val(data.DESCRIPCION);
                         $('#' + articulo).val(data.ID);
+                        $('select[id$=SolicitudOc_UNIDAD]>option').remove();
+
+                        $.each(data.UNIDADES, function(value, name) {
+                                if(value == data.UNIDAD)
+                                  $('#SolicitudOc_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
+                                else
+                                   $('#SolicitudOc_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
+                            });
+                        $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
 		  });
     }
 	
@@ -83,10 +84,10 @@ $(document).ready(function(){
 	}
      function agregarCampos(contador,model){
         
-        var articulo = $('#SolicitudOcLinea_ARTICULO').val();
+        var articulo = $('#SolicitudOc_ARTICULO').val();
         var descripcion = $('#Articulo_desc').val();
-        var cantidad = $('#SolicitudOcLinea_CANTIDAD').val();
-        var requerida = $('#SolicitudOcLinea_FECHA_REQUERIDA').val();
+        var cantidad = $('#SolicitudOc_CANTIDAD').val();
+        var requerida = $('#SolicitudOc_FECHA_LINEA_REQUERIDA').val();
         
         //copia a campos ocultos
         $('#'+model+'_'+contador+'_ARTICULO').val(articulo);
@@ -96,6 +97,7 @@ $(document).ready(function(){
         $('#'+model+'_'+contador+'_SALDO').val(0);
         $('#'+model+'_'+contador+'_ESTADO').val('P')
         $('#'+model+'_'+contador+'_COMENTARIO').val('');
+        $('#SolicitudOc_UNIDAD').clone().appendTo('#'+model+'_'+contador+'_UNIDAD');
         
         //copia a spans para visualizar detalles
         $('#numero_'+contador).text(parseInt(contador, 10) + 1);
@@ -104,9 +106,9 @@ $(document).ready(function(){
         $('#fecha_requerida_'+contador).text(requerida);
         $('#cantidad_'+contador).text(cantidad);
         $('#saldo_'+contador).text(0);
-        $('#estado_'+contador).text('P');
         $('#porcdescuento_'+contador).text(0);
         $('#monto_descuento_'+contador).text(0);
+        $('#unidad_'+contador).text($('#SolicitudOc_UNIDAD option:selected').html());
     }
 </script>
 <?php
@@ -117,10 +119,10 @@ $(document).ready(function(){
     $cs->registerScriptFile(XHtml::jsUrl('template.js'), CClientScript::POS_HEAD);
     $cs->registerScriptFile(XHtml::jsUrl('jquery.validate.js'), CClientScript::POS_HEAD);
 ?>
-<table style="margin-left: -80px;">
+<table style="margin-left: -100px;">
     <tr>
         <td>
-            <?php echo $form->textFieldRow($linea,'ARTICULO',array('size'=>15, 'class'=>'tonces')); ?>
+            <?php echo $form->textFieldRow($model,'ARTICULO',array('size'=>15, 'class'=>'tonces')); ?>
         </td>
         <td>
             <?php $this->widget('bootstrap.widgets.TbButton', array(
@@ -135,37 +137,37 @@ $(document).ready(function(){
             <?php echo CHtml::textField('Articulo_desc','',array('readonly'=>true,'size'=>20)); ?>
         </td>
         <td>
-            <table style="margin-left: -80px;margin-top:-4px;">
+            <table style="margin-left: -100px;margin-top:-4px;">
                 <tr>
                     <td>
-                        <?php echo $form->textFieldRow($linea,'CANTIDAD',array('size'=>4)); ?>
+                        <?php echo $form->textFieldRow($model,'CANTIDAD',array('size'=>4)); ?>
                     </td>
                 </tr>
             </table>
         </td>       
         <td>
-            <table style="margin-left: -80px;margin-top:-4px; width: 300px">
+            <table style="margin-left: -100px;margin-top:-4px; width: 300px">
                 <tr>
                     <td>
-                        <div class="control-group "><label for="SolicitudOcLinea_CANTIDAD" class="control-label required">Requerida</label><div class="controls">
+                        <div class="control-group "><label for="SolicitudOc_FECHA_LINEA_REQUERIDA" class="control-label required">Requerida</label><div class="controls">
                         <?php
                         $tab = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                            'attribute'=>'FECHA_REQUERIDA',
-                            'model'=>$linea,
+                            'attribute'=>'FECHA_LINEA_REQUERIDA',
+                            'model'=>$model,
                             'language'=>'es',
                             'options'=>array(
                                     'showAnim'=>'fadeIn', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
                                     'dateFormat'=>'yy-mm-dd',
                                     'changeMonth'=>true,
                                     'changeYear'=>true,
-                                    'showOn'=>'both', // 'focus', 'button', 'both'
-                                    'buttonText'=>Yii::t('ui','Select form calendar'), 
-                                    'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
-                                    'buttonImageOnly'=>true,
+                                    'showOn'=>'focus', // 'focus', 'button', 'both'
+                                    'buttonText'=>false, 
+                                    'buttonImage'=>false, 
+                                    'buttonImageOnly'=>false,
                             ),
                             'htmlOptions'=>array(
-                                'style'=>'width:80px;vertical-align:top',
-                                'disabled' => $readonly
+                                'style'=>'width:20px;vertical-align:top',
+                                'size'=>'9',                                
                             ),  
                         ));
                         ?>
@@ -175,7 +177,7 @@ $(document).ready(function(){
             </table>
         </td>
         <td>
-            <?php echo $form->dropDownList($linea,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px; display: none'));?>
+            <?php echo $form->dropDownList($model,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px; display: none'));?>
             <?php echo CHtml::hiddenField('NOMBRE_UNIDAD','');?>
             <?php
                 $this->widget('bootstrap.widgets.TbButton', array(
@@ -206,9 +208,6 @@ $(document).ready(function(){
                                         Unidad
                                     </td>
                                     <td>
-                                        Estado
-                                    </td>
-                                    <td>
                                         Cantidad
                                     </td>
                                     <td>
@@ -225,14 +224,19 @@ $(document).ready(function(){
                             <tfoot>
                                 <tr>
                                     <td>
-                                        <div id="add" class="add"><?php 
-						$this->widget('bootstrap.widgets.BootButton', array(
+                                        <div id="add" class="add">
+                                                <?php 
+                                                     $htmlOptions = array('class'=>'clonar', 'style'=>'display:none');
+                                                     $this->darBoton(false, 'success', 'normal', false, 'plus white',$htmlOptions);
+                                                 ?>
+                                                <?php 
+						/*$this->widget('bootstrap.widgets.BootButton', array(
 							'buttonType'=>'button',
 							'type'=>'success',
 							'label'=>'Nuevo',
 							'icon'=>'plus white',
 							'htmlOptions' => array('class'=>'clonar', 'style'=>'display:none'),
-                                                ));
+                                                ));*/
 									   ?></div>
                                         <textarea class="template" rows="0" cols="0" style="display: none;" >
                                             <tr class="templateContent">
@@ -252,10 +256,7 @@ $(document).ready(function(){
                                                 <td>
                                                     <span id="unidad_<?php echo '{0}';?>"></span>
                                                     <span id='campo_unidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::dropDownList('Nuevo[{0}][UNIDAD]','',array('prompt'=>'Seleccione articulo')); ?></span>
-                                                </td>
-                                                <td>
-                                                    <span id="estado_<?php echo '{0}';?>"></span>
-                                                    <span id='campo_estado_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][ESTADO]','',array('readonly'=>true, 'size'=>'1')); ?></span>
+                                                    <?php echo CHtml::hiddenField('Nuevo[{0}][ESTADO]','',array()); ?>
                                                 </td>
                                                 <td>
                                                     <span id="cantidad_<?php echo '{0}';?>"></span>
@@ -271,12 +272,21 @@ $(document).ready(function(){
                                                     <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][SALDO]','',array('readonly'=>true, 'size'=>'5')); ?></span>
                                                 </td>
                                                 <td>
+                                                    <span style="float: left">
+                                                        <?php $this->widget('bootstrap.widgets.TbButton', array(
+                                                                         'buttonType'=>'button',
+                                                                         'type'=>'normal',                                                                         
+                                                                         'icon'=>'pencil',
+                                                                         'htmlOptions'=>array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')
+                                                                     ));
+                                                        ?>
+                                                    </span>
                                                     <div id="remover" class="remove">
                                                         <?php 
                                                 
                                                             $this->widget('bootstrap.widgets.TbButton', array(
                                                                     'buttonType'=>'button',
-                                                                    'type'=>'danger',
+                                                                    'type'=>'danger',                                                                    
                                                                     'label'=>'',
                                                                     'icon'=>'minus white',
                                                                     'size' => 'normal',                                                                    
@@ -334,12 +344,20 @@ $(document).ready(function(){
                             <?php echo $form->hiddenField($item,"[$i]SOLICITUD_OC_LINEA",array()); ?>
                         </td>
                                     <td>
+                                        <span style="float: left">
+                                                <?php $this->widget('bootstrap.widgets.TbButton', array(
+                                                                 'buttonType'=>'button',
+                                                                 'type'=>'normal',                                                                 
+                                                                 'htmlOptions'=>array('class'=>'editU','name'=>"$i",'id'=>"editU_$i")
+                                                             ));
+                                                ?>
+                                       </span>
                                         <div id="remover" class="remove">
                                               <?php 
                                                 
                                                  $this->widget('bootstrap.widgets.TbButton', array(
                                                              'buttonType'=>'button',
-                                                             'type'=>'danger',
+                                                             'type'=>'danger',                                                             
                                                              'label'=>'',
                                                              'icon'=>'minus white',
                                                              'htmlOptions' => array('id'=>$item["SOLICITUD_OC_LINEA"], 'onClick'=>'Eliminar(id)', 'disabled'=>$readonly),

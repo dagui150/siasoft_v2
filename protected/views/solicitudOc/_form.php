@@ -285,19 +285,18 @@ $(document).ready(function(){
 
 <?php $this->endWidget(); ?>
    
-    <?php 
+     <?php 
     $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'articulo')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
                 <br>
-		<?php 
-                    $funcion = 'cargaArticuloGrilla';
-                    $id = 'articulo-grid';
-                    $data=$articulo->search();
-                    $data->pagination = array('pageSize'=>4);
-                    echo $this->renderPartial('/articulo/articulos', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id,'data'=>$data,'check'=>false));
-                ?>
+          <?php
+            $funcion = 'cargaArticuloGrilla';
+            $id = 'articulo-grid';
+            $data=$articulo->searchModal();
+            $this->renderPartial('/articulo/articulos', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id,'check'=>false,'data'=>$data));
+      ?>
 	</div>
         <div class="modal-footer">
 
@@ -308,32 +307,6 @@ $(document).ready(function(){
             )); ?>
         </div>
  
-<?php $this->endWidget(); 
-    
-     if($model->SOLICITUD_OC != ''){ ?>
-        
-    
-    <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'articulo2')); ?>
-    <div class="modal-body">
-                <a class="close" data-dismiss="modal">&times;</a>
-                <br>
-		<?php 
-                    $funcion = 'cargaArticuloGrilla2';
-                    $id = 'articulo-grid2';
-                    echo $this->renderPartial('modal', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id));
-                ?>
-	</div>
-        <div class="modal-footer">
-
-            <?php $this->widget('bootstrap.widgets.TbButton', array(
-                'label'=>'Cerrar',
-                'url'=>'#',
-                'htmlOptions'=>array('data-dismiss'=>'modal'),
-            )); ?>
-        </div>
- <?php $this->endWidget(); 
- 
-    } 
-    ?>
+<?php $this->endWidget(); ?>
 
 </div><!-- form -->
