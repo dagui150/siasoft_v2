@@ -128,7 +128,7 @@ class FacturaController extends Controller
                                  }
                             }
                               //ACTUALIZAR SIGUIENTE VALOR
-                                $separados = ConsecutivoFa::extractNum($modelConsecutivo->MASCARA);
+                                $separados = ConsecutivoFa::extractNum($modelConsecutivo->VALOR_CONSECUTIVO);
                                 $longitud = strlen($separados[1]);
                                 $count = Factura::model()->count('CONSECUTIVO = "'.$model->CONSECUTIVO.'"');
                                 $modelConsecutivo->VALOR_CONSECUTIVO = $separados[0].str_pad(++$count, $longitud, "0", STR_PAD_LEFT);

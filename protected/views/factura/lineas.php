@@ -277,14 +277,17 @@
 
 
 </script>
-<?php /* @var $this FacturaController*/?>
+<?php 
+    /* @var $this FacturaController*/
+    
+?>
 <table style="margin-left: -100px;">
          <tr>
              <td style="width: 289px">
                 <?php echo $form->textFieldRow($model,'ARTICULO',array('size'=>15,'tabindex'=>'7')); ?>
              </td>
              <td style="width: 28px;">
-                    <?php $this->darBotonBuscar('#articulo'); ?>;
+                    <?php $this->darBotonBuscar('#articulo'); ?>
             </td>
             <td>
                  <?php echo CHtml::textField('Articulo_desc','',array('disabled'=>true,'size'=>18)); ?>
@@ -319,20 +322,18 @@
 <span id="carga" style="height:30px;width:30px;"></span>
 <table class="templateFrame table table-bordered" cellspacing="0">
           <thead>
-               <tr>
-                    <td><strong>#</strong></td>
-                    <td><strong>Artículo</strong></td>
-                    <td><strong>Descripción</strong></td>
-                    <td><strong>Cant.</strong></td>
-                    <td><strong>Unidad</strong></td>
-                    <td><strong>Tipo Precio</strong></td>
-                    <td style="width: 74px;"><strong>Precio Unit.</strong></td>  
-                    <td style="width: 74px;"><strong>% Desc.</strong></td>
-                    <td style="width: 74px;"><strong>% Iva</strong></td>
-                    <td><strong>Iva</strong></td>
-                    <td><strong>Total</strong></td>
-                    <td></td>
-               </tr>
+                <th>#</th>
+                <th>Artículo</th>
+                <th>Descripción</th>
+                <th>Cant.</th>
+                <th>Unidad</th>
+                <th>Tipo Precio</th>
+                <th style="width: 74px;">Precio Unit.</th>  
+                <th style="width: 74px;">% Desc.</th>
+                <th style="width: 74px;">% Iva</th>
+                <th>    Iva</th>
+                <th>Total</th>
+                <th></td>
          </thead>
          <tfoot style="display:none;">
                <tr>
