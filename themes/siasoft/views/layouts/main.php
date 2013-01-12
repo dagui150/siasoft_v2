@@ -16,7 +16,9 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/tables.css" />
 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
-        <link type="text/javascript" href="<?php echo Yii::app()->request->baseUrl; ?>/js/siasoft.js" />
+        
+        
+        <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/siasoft.js" ></script>
         <?php Yii::app()->bootstrap->register(); ?>
     </head>
 

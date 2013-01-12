@@ -102,6 +102,14 @@ class PedidoController extends Controller
                         $model->RESERVADO = 'N';   
                         $model->ESTADO = 'N';
                         
+                        $model->TOTAL_MERCADERIA=Controller::unformat($_POST['Pedido']['TOTAL_MERCADERIA']);
+                        $model->MONTO_ANTICIPO=Controller::unformat($_POST['Pedido']['MONTO_ANTICIPO']);
+                        $model->MONTO_FLETE=Controller::unformat($_POST['Pedido']['MONTO_FLETE']);
+                        $model->MONTO_SEGURO=Controller::unformat($_POST['Pedido']['MONTO_SEGURO']);
+                        $model->MONTO_DESCUENTO1=Controller::unformat($_POST['Pedido']['MONTO_DESCUENTO1']);
+                        $model->TOTAL_IMPUESTO1=Controller::unformat($_POST['Pedido']['TOTAL_IMPUESTO1']);
+                        $model->TOTAL_A_FACTURAR=Controller::unformat($_POST['Pedido']['TOTAL_A_FACTURAR']);
+                        
 			$cliente->attributes=$_POST['Cliente'];
                         $transaction = $model->dbConnection->beginTransaction();
                         try{
@@ -134,7 +142,7 @@ class PedidoController extends Controller
                                  }
                              }
                              //ACTUALIZAR SIGUIENTE VALOR
-                             $separados = ConsecutivoFa::extractNum($modelConsecutivo->MASCARA);
+                             $separados = ConsecutivoFa::extractNum($modelConsecutivo->VALOR_CONSECUTIVO);
                              $longitud = strlen($separados[1]);
                              $count = Pedido::model()->count('CONSECUTIVO = "'.$model->CONSECUTIVO.'"');
                              $modelConsecutivo->VALOR_CONSECUTIVO = $separados[0].str_pad(++$count, $longitud, "0", STR_PAD_LEFT);
@@ -319,7 +327,7 @@ class PedidoController extends Controller
                 'CANT_VALIDA'=>$cant_valida,
                 'ID' => $bus->ARTICULO,
                 'NOMBRE' => $bus->NOMBRE,
-                'IMPUESTO' => $bus->iMPUESTOVENTA->PROCENTAJE,
+                'IMPUESTO' => number_format($bus->iMPUESTOVENTA->PROCENTAJE, 2, ',', '.'),
                 'UNIDAD' => $bus->UNIDAD_ALMACEN,
                 'UNIDAD_NOMBRE' => $bus->uNIDADALMACEN->NOMBRE,
                 'UNIDADES' => CHtml::listData(UnidadMedida::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>$bus->uNIDADALMACEN->TIPO)),'ID','NOMBRE'),

@@ -104,7 +104,7 @@
             <div style="margin-bottom: 3px; margin-top: 3px; ">
                 
                 
-                <div class="borde" width="405px" style="padding-bottom: 0px; height: 70px">
+                <div class="borde" width="405px" style="padding-bottom: 0px; height: 75px">
                     <strong>Son:</strong><?php echo NumText::convert(Controller::unformat($this->factura->TOTAL_A_FACTURAR)); ?>
                 </div>
                 
