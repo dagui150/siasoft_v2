@@ -10,9 +10,6 @@
  * @property string $EXISTENCIA_MINIMA
  * @property string $EXISTENCIA_MAXIMA
  * @property string $PUNTO_REORDEN
- * @property string $EXISTENCIA_MINIMA_ADD
- * @property string $EXISTENCIA_MAXIMA_ADD
- * @property string $PUNTO_REORDEN_ADD
  * @property string $CANT_DISPONIBLE
  * @property string $CANT_RESERVADA
  * @property string $CANT_REMITIDA
@@ -30,14 +27,7 @@
  */
 class ExistenciaBodegas extends CActiveRecord
 {
-        /**
-         * @var string  $EXISTENCIA_MINIMA_ADD Es para agregar existencia minima a una linea nueva
-         * @var string  $EXISTENCIA_MAXIMA_ADD Es para agregar existencia maxima a una linea nueva
-         * @var string  $PUNTO_REORDEN_ADD Es para agregar punto de reorden a una linea nueva
-         */
-        public $EXISTENCIA_MINIMA_ADD;
-        public $EXISTENCIA_MAXIMA_ADD;
-        public $PUNTO_REORDEN_ADD;
+        
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -73,10 +63,7 @@ class ExistenciaBodegas extends CActiveRecord
                         array('BODEGA', 'exist', 'attributeName'=>'ID', 'className'=>'Bodega','allowEmpty'=>false, 'message'=>'','on'=>'insert'),
                         array('ARTICULO', 'exist', 'attributeName'=>'ARTICULO', 'className'=>'Articulo','allowEmpty'=>false, 'message'=>'','on'=>'insert'),
                         array('ARTICULO', 'miValidacion','on'=>'insert'),
-                        array('ARTICULO', 'miValidacion2','on'=>'addLinea'),
-                        //array('ARTICULO', 'miValidacion2','on'=>'addLinea'),
-			array('ARTICULO,EXISTENCIA_MINIMA_ADD, EXISTENCIA_MAXIMA_ADD, PUNTO_REORDEN_ADD','required','on'=>'addLinea'),
-			array('ARTICULO,EXISTENCIA_MINIMA_ADD, EXISTENCIA_MAXIMA_ADD, PUNTO_REORDEN_ADD','required','on'=>'modalLinea'),
+			array('ARTICULO,EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN','required','on'=>'modalLinea'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('ID, ARTICULO, BODEGA, EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN, CANT_DISPONIBLE, CANT_RESERVADA, CANT_REMITIDA, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
@@ -87,13 +74,6 @@ class ExistenciaBodegas extends CActiveRecord
 		$trans = array("," => ".");
 		if (strtr($this->EXISTENCIA_MAXIMA, $trans) <= strtr($this->EXISTENCIA_MINIMA, $trans)){
 				$this->addError('EXISTENCIA_MAXIMA','Debe ser mayor a Mínima');
-                }
-	}
-        
-        public function miValidacion2($attribute,$params){
-		$trans = array("," => ".");
-		if (strtr($this->EXISTENCIA_MAXIMA_ADD, $trans) <= strtr($this->EXISTENCIA_MINIMA_ADD, $trans)){
-				$this->addError('EXISTENCIA_MAXIMA_ADD','Debe ser mayor a Mínima');
                 }
 	}
         
@@ -132,9 +112,6 @@ class ExistenciaBodegas extends CActiveRecord
 			'CREADO_EL' => 'Creado El',
 			'ACTUALIZADO_POR' => 'Actualizado Por',
 			'ACTUALIZADO_EL' => 'Actualizado El',
-                        'EXISTENCIA_MINIMA_ADD'=>'Mínima',
-                        'EXISTENCIA_MAXIMA_ADD'=>'Máxima',
-                        'PUNTO_REORDEN_ADD'=>'Punto Reorden',
 		);
 	}
 

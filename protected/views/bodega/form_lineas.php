@@ -97,7 +97,7 @@
     //$actualiza = isset($Pactualiza) ? $Pactualiza : 0;
     
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-                'id'=>'existencia-bodegas-linea-form',
+                'id'=>'existencia-bodegas-form',
                 'enableAjaxValidation'=>true,
                 'clientOptions'=>array(
                      'validateOnSubmit'=>true,

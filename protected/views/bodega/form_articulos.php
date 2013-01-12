@@ -67,7 +67,7 @@
 ?>
     
 <?php
-    $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form, 'model'=>$model,'ruta2'=>$ruta2,'modelLinea'=>$modelLinea, 'articulo'=>$articulo),true);
+    $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'linea22'=>$linea22, 'form'=>$form, 'model'=>$model,'ruta2'=>$ruta2,'modelLinea'=>$modelLinea, 'articulo'=>$articulo),true);
     
 ?>
 

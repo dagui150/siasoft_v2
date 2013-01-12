@@ -111,7 +111,8 @@ class BodegaController extends Controller
             $model=$this->loadModel($id);
             $bodega = new Bodega;
             //$linea = new PedidoLinea;
-            $linea = new ExistenciaBodegas('addLinea');
+            $linea = new ExistenciaBodegas();
+            $linea22 = new ExistenciaBodega('addLinea');
             $articulo = new Articulo;
             //$modelLinea = PedidoLinea::model()->findAll('PEDIDO ="'.$model->PEDIDO.'"');
             $modelLinea = ExistenciaBodegas::model()->findAll('BODEGA ="'.$id.'"');
@@ -129,52 +130,38 @@ class BodegaController extends Controller
             
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
-                
-                
-		if(isset($_POST['Pedido']))
+                /*
+		if(isset($_POST['LineaNuevo']))
 		{
-                echo $_POST['Pedido'];
-                echo '<br />';
-                Yii::app()->end();
-                    
-                }
-		if(isset($_POST['ExistenciaBodegas']))
-		{
-                echo $_POST['ExistenciaBodegas'];
-                echo '<br />';
-                Yii::app()->end();
-                    
-                }
+                    echo '<pre>';
+                    echo print_r($_POST['LineaNuevo']);
+                    echo '</pre>';
+                    Yii::app()->end(); 
+                }*/
 		if(isset($_POST['Bodega']))
 		{
-                    echo $_POST['Bodega'];
-                    echo '<br />';
-                    Yii::app()->end();  
-                }
-		if(isset($_POST['Pedido']))
-		{
-			$model->attributes=$_POST['Pedido'];
-                        if($_POST['eliminar'] != ''){
-                            $eliminar = explode(",", $_POST['eliminar']);
-                            foreach($eliminar as $elimina){                                
-                                    $borra = ExistenciaBodegas::model()->deleteByPk($elimina);                                
-                            }
-                        }
+			$model->attributes=$_POST['Bodega'];
 			if($model->save()){
+                            if($_POST['eliminar'] != ''){
+                                        
+                                    /*
+                                    $eliminar = explode(",", $_POST['eliminar']);
+                                    foreach($eliminar as $elimina){                                
+                                            $borra = ExistenciaBodegas::model()->deleteByPk($elimina);                                
+                                    }
+                                    */
+
+                                }
 				if(isset($_POST['ExistenciaBodegas'])){
                                 foreach ($_POST['ExistenciaBodegas'] as $datos2){
-                                    
-                                    $salvar2 = PedidoLinea::model()->findByPk($datos2['ID']);
-                                    $salvar2->ID = $model->ID;
-                                    $salvar2->ARTICULO = $datos2['ARTICULO'];
-                                    $salvar2->BODEGA = $datos2['BODEGA'];
+                                    echo '<pre>';
+                    echo print_r($_POST['ExistenciaBodegas']);
+                    echo '</pre>';
+                    Yii::app()->end();
+                                    $salvar2 = ExistenciaBodegas::model()->findByPk($datos2['ID']);
                                     $salvar2->EXISTENCIA_MINIMA = $datos2['EXISTENCIA_MINIMA'];
                                     $salvar2->EXISTENCIA_MAXIMA = $datos2['EXISTENCIA_MAXIMA'];
                                     $salvar2->PUNTO_REORDEN = $datos2['PUNTO_REORDEN'];
-                                    $salvar2->CANT_DISPONIBLE = $datos2['CANT_DISPONIBLE'];
-                                    $salvar2->CANT_RESERVADA = $datos2['CANT_RESERVADA'];
-                                    $salvar2->CANT_REMITIDA = $datos2['CANT_REMITIDA'];
-                                    $salvar2->ACTIVO = 'S';
                                     $salvar2->save();
                                 }
                             }
@@ -182,23 +169,31 @@ class BodegaController extends Controller
                             if(isset($_POST['LineaNuevo'])){
                                   foreach ($_POST['LineaNuevo'] as $datos){
                                         $salvar = new ExistenciaBodegas;
-                                        $salvar->ID = $model->ID;
-                                        $salvar->ARTICULO = $datos2['ARTICULO'];
-                                        $salvar->BODEGA = $datos2['BODEGA'];
-                                        $salvar->EXISTENCIA_MINIMA = $datos2['EXISTENCIA_MINIMA'];
-                                        $salvar->EXISTENCIA_MAXIMA = $datos2['EXISTENCIA_MAXIMA'];
-                                        $salvar->PUNTO_REORDEN = $datos2['PUNTO_REORDEN'];
-                                        $salvar->CANT_DISPONIBLE = $datos2['CANT_DISPONIBLE'];
-                                        $salvar->CANT_RESERVADA = $datos2['CANT_RESERVADA'];
-                                        $salvar->CANT_REMITIDA = $datos2['CANT_REMITIDA'];
+                                        $salvar->ARTICULO = $datos['ARTICULO'];
+                                        $salvar->BODEGA = $model['ID'];
+                                        $salvar->EXISTENCIA_MINIMA = $datos['EXISTENCIA_MINIMA'];
+                                        $salvar->EXISTENCIA_MAXIMA = $datos['EXISTENCIA_MAXIMA'];
+                                        $salvar->PUNTO_REORDEN = $datos['PUNTO_REORDEN'];
+                                        $salvar->CANT_DISPONIBLE = $datos['CANT_DISPONIBLE'];
+                                        $salvar->CANT_RESERVADA = $datos['CANT_RESERVADA'];
+                                        $salvar->CANT_REMITIDA = $datos['CANT_REMITIDA'];
+                                        $salvar->CANT_CUARENTENA = 0;
+                                        $salvar->CANT_VENCIDA = 0;
                                         $salvar->ACTIVO = 'S';
+                                        
                                         $salvar->save();
-                                        $i++;
+                                        /*
+                                        echo '<pre>';
+                                        print_r($salvar->getErrors());
+                                        echo '</pre>';
+                                        echo '<br />';
+                                        Yii::app()->end();*/
                                  }
                              }
-                                $this->redirect(array('admin&men=S002'));
+                             
+                                $this->redirect(array('inventario','men'=>'S002'));
                         } else {
-                            $this->redirect(array('admin&men=E002'));
+                            $this->redirect(array('admin','men'=>'E002'));
                         }
 		}
 
@@ -206,6 +201,7 @@ class BodegaController extends Controller
 			'model'=>$model,
 			'bodega'=>$bodega,
 			'linea'=>$linea,
+                        'linea22'=>$linea22,
 			'articulo'=>$articulo,
 			'modelLinea'=>$modelLinea,
 			'countLineas'=>$countLineas,
@@ -237,8 +233,15 @@ class BodegaController extends Controller
         public function actionAgregarlinea(){
             $linea = new ExistenciaBodegas('modalLinea');
             $linea->attributes = $_POST['ExistenciaBodegas'];
-            $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';            
-            
+            $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif'; 
+            if(isset($_POST['ExistenciaBodegas']))
+		{
+                    echo '<pre>';
+                    echo print_r($_POST['ExistenciaBodegas']);
+                    echo '</pre>';
+                    echo '<br />';
+                    Yii::app()->end(); 
+                }
             if($linea->validate()){
                      echo '<div id="alert" class="alert alert-success" data-dismiss="modal">
                             <h2 align="center">Operacion Satisfactoria</h2>

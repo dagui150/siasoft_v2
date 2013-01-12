@@ -14,6 +14,7 @@ $this->breadcrumbs=array(
 <?php echo $this->renderPartial('form_articulos', array('model'=>$model,
 			'bodega'=>$bodega,
 			'linea'=>$linea,
+                        'linea22'=>$linea22,
 			'articulo'=>$articulo,
 			'modelLinea'=>$modelLinea,
 			'countLineas'=>$countLineas,

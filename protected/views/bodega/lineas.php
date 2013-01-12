@@ -77,9 +77,9 @@
     $('.valLinea').blur(function(){
         var articulo2 = $('#Articulo_ARTICULO').val();
         var descripcion2 = $('#Articulo_desc').val();
-        var existenciaminima2 = $('#ExistenciaBodegas_EXISTENCIA_MINIMA_ADD').val(); 
-        var existenciamaxima2 = $('#ExistenciaBodegas_EXISTENCIA_MAXIMA_ADD').val(); 
-        var puntoreorden2 = $('#ExistenciaBodegas_PUNTO_REORDEN_ADD').val(); 
+        var existenciaminima2 = $('#ExistenciaBodega_EXISTENCIA_MINIMA_ADD').val(); 
+        var existenciamaxima2 = $('#ExistenciaBodega_EXISTENCIA_MAXIMA_ADD').val(); 
+        var puntoreorden2 = $('#ExistenciaBodega_PUNTO_REORDEN_ADD').val(); 
         if(articulo2!='' && descripcion2!='' && existenciaminima2!='' && existenciamaxima2!='' && puntoreorden2!=''){
             $('#agregar').attr('disabled', false);
         };
@@ -96,7 +96,7 @@
         var linea = parseInt(contador, 10); 
         //cambiar ids y span
         for(var i = contFor ; i <=contadorMax; i++){
-            var campos = ['ARTICULO','DESCRIPCION','EXISTENCIA_MINIMA','EXISTENCIA_MAXIMA','PUNTO_REORDEN','CANT_DISPONIBLE','CANT_RESERVADA','CANT_REMITIDA'];
+            var campos = ['ID', 'ARTICULO','DESCRIPCION','EXISTENCIA_MINIMA','EXISTENCIA_MAXIMA','PUNTO_REORDEN','CANT_DISPONIBLE','CANT_RESERVADA','CANT_REMITIDA'];
             var span = ['articulo','descripcion','existenciaminima','campo_existenciaminima','existenciamaxima','campo_existenciamaxima','puntoreorden','campo_puntoreorden','cant_disponible','campo_cant_disponible','cant_reservada','campo_cant_reservada','cant_remitida','campo_cant_remitida','remover','edit','eliminaLinea','rowIndex'];
             //CAMBIAR IDS DE LOS SPAN
             for(var x =0 ; x<=span.length;x++){
@@ -136,7 +136,7 @@
         var model2 = 'ExistenciaBodegas';
         var numLinea = parseInt($('#CAMPO_ACTUALIZA').val(), 10);
         var eliminar = $('#eliminar').val();
-        eliminar = eliminar + ',' + $('#ExistenciaBodegas_'+contador+'_ID').val();
+        eliminar = eliminar + $('#ExistenciaBodegas_'+contador+'_ID').val() + ',';
         $('#eliminar').val(eliminar);
         $('#CAMPO_ACTUALIZA').val(numLinea - 1);
         $('#removerU_'+contador).click();
@@ -185,9 +185,9 @@
         
         var articulo = $('#Articulo_ARTICULO').val();
         var descripcion = $('#Articulo_desc').val();
-        var existenciaminima = $('#ExistenciaBodegas_EXISTENCIA_MINIMA_ADD').val(); 
-        var existenciamaxima = $('#ExistenciaBodegas_EXISTENCIA_MAXIMA_ADD').val(); 
-        var puntoreorden = $('#ExistenciaBodegas_PUNTO_REORDEN_ADD').val(); 
+        var existenciaminima = $('#ExistenciaBodega_EXISTENCIA_MINIMA_ADD').val(); 
+        var existenciamaxima = $('#ExistenciaBodega_EXISTENCIA_MAXIMA_ADD').val(); 
+        var puntoreorden = $('#ExistenciaBodega_PUNTO_REORDEN_ADD').val(); 
         //var cant_disponible = $('#ExistenciaBodegas_CANT_DISPONIBLE').val(); 
         //var cant_reservada = $('#ExistenciaBodegas_CANT_RESERVADA').val(); 
         //var cant_remitida = $('#ExistenciaBodegas_CANT_REMITIDA').val(); 
@@ -234,7 +234,7 @@
                <table style="margin-left: -110px;margin-top:-4px;">
                    <tr>
                        <td style="width: 289px;">
-                            <?php echo $form->textFieldRow($linea,'EXISTENCIA_MINIMA_ADD',array('size'=>2, 'class'=>'valLinea'));?>
+                            <?php echo $form->textFieldRow($linea22,'EXISTENCIA_MINIMA_ADD',array('size'=>2, 'class'=>'valLinea'));?>
                        </td>
                    </tr>
                </table>
@@ -243,7 +243,7 @@
                <table style="margin-left: -110px;margin-top:-4px;">
                    <tr>
                        <td style="width: 289px;">
-                            <?php echo $form->textFieldRow($linea,'EXISTENCIA_MAXIMA_ADD',array('size'=>2, 'class'=>'valLinea'));?>
+                            <?php echo $form->textFieldRow($linea22,'EXISTENCIA_MAXIMA_ADD',array('size'=>2, 'class'=>'valLinea'));?>
                        </td>
                    </tr>
                </table>
@@ -254,7 +254,7 @@
                        <td>
                             <?php //echo $form->dropDownListRow($model,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px;'));?>
                             <?php //echo CHtml::hiddenField('NOMBRE_UNIDAD','');?>
-                            <?php echo $form->textFieldRow($linea,'PUNTO_REORDEN_ADD',array('size'=>2, 'class'=>'valLinea'));?>
+                            <?php echo $form->textFieldRow($linea22,'PUNTO_REORDEN_ADD',array('size'=>2, 'class'=>'valLinea'));?>
                        </td>
                        <td>
                            <?php $this->darBoton('button', false, 'success', 'normal', false, 'white plus',array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;')); ?>
@@ -390,6 +390,7 @@
                         <?php foreach($modelLinea as $i=>$linea): ?>
                                 <tr class="templateContent">
                                    <td>
+                                            <?php echo CHtml::activeHiddenField($linea,"[$i]ID"); ?>
                                             <?php echo '<span id="articuloU_'.$i.'">'.$linea->ARTICULO.'</span>'; ?>
                                             <?php echo CHtml::activeHiddenField($linea,"[$i]ARTICULO"); ?>
                                    </td>
@@ -476,4 +477,3 @@
 <?php $model->isNewRecord ? $i=0 : $i++; ?>
 <?php echo CHtml::HiddenField('CAMPO_ACTUALIZA', $i); ?>
 <?php echo CHtml::HiddenField('NAME', ''); ?>
-<?php echo CHtml::hiddenField('eliminar',''); ?>
