@@ -19,15 +19,8 @@
                         $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
 		  });
     });
-</script>
-<script>
+
 $(document).ready(function(){
-        $('.edit').live('click',function(){
-                $('#SPAN').val('');
-                $('#NAME').val($(this).attr('name'));
-                actualiza();
-        });
-        
         $('#agregar').click(function(){
             
                 $('.clonar').click();

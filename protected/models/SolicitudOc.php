@@ -79,7 +79,7 @@ class SolicitudOc extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('DEPARTAMENTO, FECHA_SOLICITUD, FECHA_REQUERIDA, PRIORIDAD, ARTICULO, CANTIDAD', 'required'),
+			array('DEPARTAMENTO, FECHA_SOLICITUD, PRIORIDAD', 'required'),
 			array('LINEAS_NO_ASIG', 'numerical', 'integerOnly'=>true),
 			array('SOLICITUD_OC, DEPARTAMENTO', 'length', 'max'=>10),
 			array('AUTORIZADA_POR, CANCELADA_POR, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),

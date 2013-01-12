@@ -8,7 +8,7 @@ class SolicitudOcController extends Controller
 	 */
         public $modulo='Compras';
         public $submodulo='Solicitud de Compra';
-		public $layout='//layouts/column2';
+	public $layout='//layouts/column2';
         public $solicitud;
 	/**
 	 * @return array action filters
@@ -41,6 +41,7 @@ class SolicitudOcController extends Controller
                 $articulo = new Articulo;
                 $config = ConfCo::model()->find();
                 $i = 1;
+                $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
                 $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
 
 		// Uncomment the following line if AJAX validation is needed
@@ -85,6 +86,7 @@ class SolicitudOcController extends Controller
                         'linea'=>$linea,
                         'articulo'=>$articulo,
                         'config' => $config,
+                        'ruta'=>$ruta,
                         'ruta2'=>$ruta2
                         
 		));
@@ -128,6 +130,46 @@ class SolicitudOcController extends Controller
              echo CJSON::encode($res);
             
             
+        }
+        
+        public function actionAgregarlinea(){
+            $linea = new SolicitudOcLinea;
+            $linea->attributes = $_POST['SolicitudOcLinea'];
+            $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';            
+            
+            if($linea->validate()){
+                     echo '<div id="alert" class="alert alert-success" data-dismiss="modal">
+                            <h2 align="center">Operacion Satisfactoria</h2>
+                            </div>
+                     <span id="form-cargado" style="display:none">';
+                          $this->renderPartial('form_lineas', 
+                            array(
+                                'linea'=>$linea,
+                                'ruta'=>$ruta,
+                                'Pactualiza'=>isset($_POST['ACTUALIZA']) ? $_POST['ACTUALIZA'] : 0,
+                            )
+                        );
+                     echo '</span>
+                         
+                         <div id="boton-cargado" class="modal-footer">';
+                            $this->widget('bootstrap.widgets.TbButton', array(
+                                 'buttonType'=>'button',
+                                 'type'=>'normal',
+                                 'label'=>'Aceptar',
+                                 'icon'=>'ok',
+                                 'htmlOptions'=>array('id'=>'nuevo','onclick'=>'agregar("'.$_POST['SPAN'].'")')
+                              ));
+                     echo '</div>';
+                     Yii::app()->end();
+                    }else{
+                    $this->renderPartial('form_lineas', 
+                        array(
+                            'linea'=>$linea,
+                            'ruta'=>$ruta,                            
+                        )
+                    );
+                    Yii::app()->end();
+                }
         }
         
         public function actionCancelar(){

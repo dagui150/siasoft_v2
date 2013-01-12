@@ -13,4 +13,4 @@ $this->menu=array(
 
 <h1>Crear Solicitud</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model, 'linea'=>$linea, 'articulo'=>$articulo, 'config'=>$config, 'ruta2'=>$ruta2)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'linea'=>$linea, 'articulo'=>$articulo, 'config'=>$config, 'ruta2'=>$ruta2, 'ruta'=>$ruta)); ?>
