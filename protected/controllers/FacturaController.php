@@ -47,6 +47,8 @@ class FacturaController extends Controller
                 $model->NIVEL_PRECIO =!isset($_POST['Factura']['NIVEL_PRECIO']) &&  $conf->NIVEL_PRECIO!= '' ? $conf->NIVEL_PRECIO:$_POST['Factura']['NIVEL_PRECIO'];
                 $model->UNIDAD =isset($_POST['Factura']['UNIDAD'])  ? $_POST['Factura']['UNIDAD'] :'';
                 
+                
+                
 		$this->performAjaxValidation(array($model,$cliente));
                 if(isset($_POST['ajax']) && $_POST['ajax']==='factura-linea-form')
 		{
@@ -56,6 +58,14 @@ class FacturaController extends Controller
 
 		if(isset($_POST['Factura']))
 		{
+                        $model->TOTAL_MERCADERIA=Controller::unformat($_POST['Factura']['TOTAL_MERCADERIA']);
+                        $model->MONTO_ANTICIPO=Controller::unformat($_POST['Factura']['MONTO_ANTICIPO']);
+                        $model->MONTO_FLETE=Controller::unformat($_POST['Factura']['MONTO_FLETE']);
+                        $model->MONTO_SEGURO=Controller::unformat($_POST['Factura']['MONTO_SEGURO']);
+                        $model->MONTO_DESCUENTO1=Controller::unformat($_POST['Factura']['MONTO_DESCUENTO1']);
+                        $model->TOTAL_IMPUESTO1=Controller::unformat($_POST['Factura']['TOTAL_IMPUESTO1']);
+                        $model->TOTAL_A_FACTURAR=Controller::unformat($_POST['Factura']['TOTAL_A_FACTURAR']);
+                        
                         $transaccionInv = new TransaccionInv;
 			$model->attributes=$_POST['Factura'];
                         $modelConsecutivo = ConsecutivoFa::model()->findByPk($model->CONSECUTIVO);
@@ -91,21 +101,21 @@ class FacturaController extends Controller
                                             $salvar->ARTICULO = $datos['ARTICULO'];
                                             $salvar->LINEA = $i;
                                             $salvar->UNIDAD = $datos['UNIDAD'];
-                                            $salvar->CANTIDAD = $datos['CANTIDAD'];
-                                            $salvar->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
+                                            $salvar->CANTIDAD = Controller::unformat($datos['CANTIDAD']);
+                                            $salvar->PRECIO_UNITARIO = Controller::unformat($datos['PRECIO_UNITARIO']);
                                             $salvar->PORC_DESCUENTO = $datos['PORC_DESCUENTO'];
-                                            $salvar->MONTO_DESCUENTO = $datos['MONTO_DESCUENTO'];
+                                            $salvar->MONTO_DESCUENTO = Controller::unformat($datos['MONTO_DESCUENTO']);
                                             $salvar->PORC_IMPUESTO = $datos['PORC_IMPUESTO'];
-                                            $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
+                                            $salvar->VALOR_IMPUESTO = Controller::unformat($datos['VALOR_IMPUESTO']);
                                             $salvar->TIPO_PRECIO = $datos['TIPO_PRECIO'];
                                             $salvar->COMENTARIO = $datos['COMENTARIO'];
-                                            $salvar->TOTAL = $datos['TOTAL'];
+                                            $salvar->TOTAL = Controller::unformat($datos['TOTAL']);
                                             $salvar->ESTADO = 'N';
                                             $salvar->ACTIVO = 'S';
                                             $salvar->save();
                                          //ACTUALIZAR EL INVENTARIO
                                             $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos['ARTICULO'],'BODEGA'=>$model->BODEGA));
-                                            $cantidad = $this->darCantidad($existenciaBodega, $datos['CANTIDAD'], $datos['UNIDAD']);
+                                            $cantidad = $this->darCantidad($existenciaBodega, Controller::unformat($datos['CANTIDAD']), $datos['UNIDAD']);
                                             $existenciaBodega->CANT_DISPONIBLE -= $cantidad;
                                             $existenciaBodega->update();
                                          //GUARDAR LINEAS DE TRANSACCION
@@ -119,7 +129,7 @@ class FacturaController extends Controller
                                             $transaccionInvDetalle->CANTIDAD = $cantidad;
                                             $transaccionInvDetalle->BODEGA = $model->BODEGA;
                                             $transaccionInvDetalle->COSTO_UNITARIO = 0;
-                                            $transaccionInvDetalle->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
+                                            $transaccionInvDetalle->PRECIO_UNITARIO = Controller::unformat($datos['PRECIO_UNITARIO']);
                                             $transaccionInvDetalle->ACTIVO = 'S';
                                             $transaccionInvDetalle->save();
                                           //
@@ -278,7 +288,7 @@ class FacturaController extends Controller
             if ($compania->LOGO != '') {
                 $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/" . $compania->LOGO, 'Logo');
             } else {
-                $logo = $compania->NOMBRE;
+                $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/default.jpg", 'Logo');
             }
             $header = '<table width="100%" align="center">
                             <tr>

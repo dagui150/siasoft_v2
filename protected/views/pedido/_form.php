@@ -1,49 +1,105 @@
 <script>
     $(document).ready(inicio);
     
+    
+    
+    
     function calcularTotal(contador,model, model2){
-        var total;
         
-        var cantidad = parseInt($('#'+model+'_'+contador+'_CANTIDAD').val(), 10);
-        var precio = parseInt($('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(), 10);
-        var descuento = parseInt($('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(), 10);
-        var iva =  parseInt($('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(), 10);
         
-        total = ((cantidad * precio)-descuento)+iva;
-        $('#total_'+contador).text(total); 
-        $('#'+model+'_'+contador+'_TOTAL').val(total);
+        var cantidad = parseFloat(unformat($('#'+model+'_'+contador+'_CANTIDAD').val()));
+        var precio_unitario = parseFloat(unformat($('#'+model+'_'+contador+'_PRECIO_UNITARIO').val()));
+        var porc_descuento = parseFloat(unformat($('#'+model+'_'+contador+'_PORC_DESCUENTO').val()));
+        var porc_impuesto = parseFloat(unformat($('#'+model+'_'+contador+'_PORC_IMPUESTO').val()));
+        //var descuento = parseFloat(unformat($('#'+model+'_'+contador+'_MONTO_DESCUENTO').val()));
+        //var iva = parseFloat(unformat($('#'+model+'_'+contador+'_VALOR_IMPUESTO').val()));
+        var total = cantidad * precio_unitario;
+        
+        var total_impuesto = (total * porc_impuesto)/100;
+        var total_descuento = (total * porc_descuento)/100;
+        var total_linea = parseFloat(total - total_descuento + total_impuesto);
+        
+        
+        
+        //Formato de Totales
+        //format(total_linea.toString().replace(/\./g,','));
+        
+        //var cantidad = parseFloat(unformat($('#'+model+'_'+contador+'_CANTIDAD').val(), 10));
+        //var precio = parseFloat(unformat($('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(), 10));
+        //var descuento = parseFloat(unformat($('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(), 10));
+       
+        //var iva =  parseFloat(unformat($('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(), 10));
+        //total = ((cantidad * precio)- descuento)+iva;
+        
+        //Span Que muestran los valores en la tabla
+        $('#total_'+contador).text(format(total_linea.toString().replace(/\./g,',')));//Total Linea
+        //$('#totalU_'+contador).text(format(total_linea.toString().replace(/\./g,',')));//Total Linea
+        $('#valor_impuesto_'+contador).text(format(total_impuesto.toString().replace(/\./g,',')));
+        $('#valor_impuestoU_'+contador).text(format(total_impuesto.toString().replace(/\./g,',')));
+        $('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(format(total_descuento.toString().replace(/\./g,',')));
+        $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(format(total_impuesto.toString().replace(/\./g,',')));
+        $('#'+model+'_'+contador+'_TOTAL').val(format(total_linea.toString().replace(/\./g,',')));
+        
+//        alert("Cantidad "+cantidad
+//            +"\nPrecio Unitario "+precio_unitario
+//            +"\nPorcentaje Descuento "+porc_descuento
+//            +"\nPorcentaje Impuesto "+porc_impuesto
+//            +"\nDescuento "+total_descuento
+//            +"\nIva "+total_impuesto
+//            +"\nTotal "+total
+//            +"\nTotal Linea " + total_linea
+//            +"\nTotal Descuento " + total_descuento
+//            +"\nTotal Impuesto " + total_impuesto);
+        
+        //total = format(total.toString().replace(/\./g,','));
+        
+        
+        
+        //$('#total_'+contador).text(total); 
+        //$('#'+model+'_'+contador+'_TOTAL').val(total);
+        
                 
         calculoGranTotal(model, model2);
+        
     }
     function calculoGranTotal(model, model2){
         
-        var total_mercaderia =  parseInt($('#Pedido_TOTAL_MERCADERIA').val(), 10);
-        var total_descuento =  parseInt($('#Pedido_MONTO_DESCUENTO1').val(), 10);
-        var total_iva =  parseInt($('#Pedido_TOTAL_IMPUESTO1').val(), 10);
-        var total_facturar =  parseInt($('#Pedido_TOTAL_A_FACTURAR').val(), 10);
-        var anticipo =  parseInt($('#Pedido_MONTO_ANTICIPO').val(), 10);
-        var flete =  parseInt($('#Pedido_MONTO_FLETE').val(), 10);
-        var seguro =  parseInt($('#Pedido_MONTO_SEGURO').val(), 10);
+        var total_mercaderia =  parseFloat(unformat($('#Pedido_TOTAL_MERCADERIA').val()));
+        var total_descuento =  parseFloat(unformat($('#Pedido_MONTO_DESCUENTO1').val()));
+        var total_iva =  parseFloat(unformat($('#Pedido_TOTAL_IMPUESTO1').val()));
+        var total_facturar =  parseFloat(unformat($('#Pedido_TOTAL_A_FACTURAR').val()));
+        var anticipo =  parseFloat(unformat($('#Pedido_MONTO_ANTICIPO').val()));
+        var flete =  parseFloat(unformat($('#Pedido_MONTO_FLETE').val()));
+        var seguro =  parseFloat(unformat($('#Pedido_MONTO_SEGURO').val()));
+        
+        
+        
+        
+        
+        
         
         if(model != false){
             var total_mercaderia =0,total_facturar=0,total_descuento=0,total_iva=0;
             var cantidad,precio,descuento,iva,total;
             var contador = $('body').find('.rowIndex').max();           
-            var numLinea = parseInt($('#CAMPO_ACTUALIZA').val(), 10);
+            var numLinea = parseInt($('#CAMPO_ACTUALIZA').val());
             for(var i = 0 ; i <=contador; i++){
                 //lineas         
-                cantidad = parseInt($('#'+model+'_'+i+'_CANTIDAD').val(), 10);
-                precio = parseInt($('#'+model+'_'+i+'_PRECIO_UNITARIO').val(), 10);
-                descuento = parseInt($('#'+model+'_'+i+'_MONTO_DESCUENTO').val(), 10);
-                iva =  parseInt($('#'+model+'_'+i+'_VALOR_IMPUESTO').val(), 10);
+                cantidad = parseFloat(unformat($('#'+model+'_'+i+'_CANTIDAD').val()));
+                precio = parseFloat(unformat($('#'+model+'_'+i+'_PRECIO_UNITARIO').val()));
+                descuento = parseFloat(unformat($('#'+model+'_'+i+'_MONTO_DESCUENTO').val()));
+                iva =  parseFloat(unformat($('#'+model+'_'+i+'_VALOR_IMPUESTO').val()));
                 total = cantidad * precio;
+
 
                 total_mercaderia += total;
                 total_descuento += descuento;
                 total_iva += iva;
+                
                 total_facturar = (total_mercaderia-total_descuento)+total_iva;
                 $('#linea_'+i).text(parseInt(i, 10) + 1 + numLinea);
             }
+            
             $('#Pedido_TOTAL_MERCADERIA').val(total_mercaderia);
             $('#Pedido_MONTO_DESCUENTO1').val(total_descuento);
             $('#Pedido_TOTAL_IMPUESTO1').val(total_iva);
@@ -57,30 +113,45 @@
             var numLinea = parseInt($('#CAMPO_ACTUALIZA').val(), 10);
             for(var i = 0 ; i <=contador; i++){      
                 //lineas         
-                cantidad = parseInt($('#'+model2+'_'+i+'_CANTIDAD').val(), 10);
-                precio = parseInt($('#'+model2+'_'+i+'_PRECIO_UNITARIO').val(), 10);
-                descuento = parseInt($('#'+model2+'_'+i+'_MONTO_DESCUENTO').val(), 10);
-                iva =  parseInt($('#'+model2+'_'+i+'_VALOR_IMPUESTO').val(), 10);
+                cantidad = parseFloat(unformat($('#'+model2+'_'+i+'_CANTIDAD').val()));
+                precio = parseFloat(unformat($('#'+model2+'_'+i+'_PRECIO_UNITARIO').val()));
+                descuento = parseFloat(unformat($('#'+model2+'_'+i+'_MONTO_DESCUENTO').val()));
+                iva =  parseFloat(unformat($('#'+model2+'_'+i+'_VALOR_IMPUESTO').val()));
                 total = cantidad * precio;
-
+                    
                 total_mercaderia += total;
                 total_descuento += descuento;
                 total_iva += iva;
                 total_facturar = (total_mercaderia-total_descuento)+total_iva;
                 $('#linea_'+i).text(parseInt(i, 10) + 1 + numLinea);
             }
-            $('#Pedido_TOTAL_MERCADERIA').val(total_mercaderia);
-            $('#Pedido_MONTO_DESCUENTO1').val(total_descuento);
-            $('#Pedido_TOTAL_IMPUESTO1').val(total_iva);
-            $('#Pedido_TOTAL_A_FACTURAR').val(total_facturar);
+            $('#Pedido_TOTAL_MERCADERIA').val(format(total_mercaderia));
+            $('#Pedido_MONTO_DESCUENTO1').val(format(total_descuento));
+            $('#Pedido_TOTAL_IMPUESTO1').val(format(total_iva));
+            $('#Pedido_TOTAL_A_FACTURAR').val(format(total_facturar));
         }
         var gran_total =(total_facturar - anticipo)+flete+seguro;        
-        $('#calculos').val(gran_total);
+        $('#calculos').val(format(gran_total.toString().replace(/\./g,',')));
+        
+//        alert("Gran Total Mercaderia "+total_mercaderia
+//            +"\nGran Total Descuento "+total_descuento
+//            +"\nGran Total Iva "+total_iva
+//            +"\nGran Total Facturar "+total_facturar
+//            +"\nGran Total Anticipo "+anticipo
+//            +"\nGran Total Flete "+flete
+//            +"\nGran Total Seguro "+seguro
+//            +"\nGran Total Total "+gran_total);
+        
     }
     
     function inicio(){
         
+       
+        
             $('#calculos').val($('#Pedido_TOTAL_A_FACTURAR').val());
+            
+             calculoGranTotal(false,false);
+            
             var cliente = $('#Pedido_CLIENTE').val();
             $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=CL&ID='+cliente,
                     function(data){
@@ -220,15 +291,7 @@
                     }
                 });    
     }
-    
-    function formato(input){
-        var num = input.value.replace(/\./g,'');
-        if(!/,/.test(num)){
-            num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
-            num = num.split('').reverse().join('').replace(/^[\.]/,'');
-            input.value = num;
-        }
-    }
+
 </script>
 <div class="form">
 
@@ -255,24 +318,24 @@
     
 <?php
     if($model->isNewRecord){
-        $calculos = $form->textFieldRow($model,'TOTAL_MERCADERIA',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true))
-        .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true))
-        .$form->textFieldRow($model,'TOTAL_IMPUESTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true))
-        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true));
+        $calculos = $form->textFieldRow($model,'TOTAL_MERCADERIA',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true, 'class'=>'decimal'))
+        .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true, 'class'=>'decimal'))
+        .$form->textFieldRow($model,'TOTAL_IMPUESTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true, 'class'=>'decimal'))
+        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('prepend'=>'$','size'=>15,'maxlength'=>15,'value'=>0,'readonly'=>true, 'class'=>'decimal'));
         
-        $calculos2 = $form->textFieldRow($model,'MONTO_ANTICIPO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>0,'class'=>'montos'))
-        .$form->textFieldRow($model,'MONTO_FLETE',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>0,'class'=>'montos'))
-        .$form->textFieldRow($model,'MONTO_SEGURO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>0,'class'=>'montos'));        
+        $calculos2 = $form->textFieldRow($model,'MONTO_ANTICIPO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>0,'class'=>'montos decimal'))
+        .$form->textFieldRow($model,'MONTO_FLETE',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>0,'class'=>'montos decimal'))
+        .$form->textFieldRow($model,'MONTO_SEGURO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'value'=>0,'class'=>'montos decimal'));        
     }
     else{
-        $calculos = $form->textFieldRow($model,'TOTAL_MERCADERIA',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true))
-        .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true))
-        .$form->textFieldRow($model,'TOTAL_IMPUESTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true))
-        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true));   
+        $calculos = $form->textFieldRow($model,'TOTAL_MERCADERIA',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true, 'class'=>'decimal'))
+        .$form->textFieldRow($model,'MONTO_DESCUENTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true, 'class'=>'decimal'))
+        .$form->textFieldRow($model,'TOTAL_IMPUESTO1',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true, 'class'=>'decimal'))
+        .$form->textFieldRow($model,'TOTAL_A_FACTURAR',array('prepend'=>'$','size'=>15,'maxlength'=>15,'readonly'=>true, 'class'=>'decimal'));   
         
-        $calculos2 = $form->textFieldRow($model,'MONTO_ANTICIPO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'class'=>'montos'))
-        .$form->textFieldRow($model,'MONTO_FLETE',array('prepend'=>'$','size'=>15,'maxlength'=>28,'class'=>'montos'))
-        .$form->textFieldRow($model,'MONTO_SEGURO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'class'=>'montos'));
+        $calculos2 = $form->textFieldRow($model,'MONTO_ANTICIPO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'class'=>'montos decimal'))
+        .$form->textFieldRow($model,'MONTO_FLETE',array('prepend'=>'$','size'=>15,'maxlength'=>28,'class'=>'montos decimal'))
+        .$form->textFieldRow($model,'MONTO_SEGURO',array('prepend'=>'$','size'=>15,'maxlength'=>28,'class'=>'montos decimal'));
     }
 ?>
 <?php

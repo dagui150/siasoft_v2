@@ -223,7 +223,14 @@ class Pedido extends CActiveRecord
                         'defaults'=>array(
                            'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
                            'formats'=> array(
-                                   //'CANTIDAD'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO), 
+                               'TOTAL_MERCADERIA'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
+                                'MONTO_ANTICIPO'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
+                                'MONTO_FLETE'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
+                                'MONTO_SEGURO'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
+                                'MONTO_DESCUENTO1'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
+                                'TOTAL_IMPUESTO1'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
+                                'TOTAL_A_FACTURAR'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
+                                
                             ),
                         ),
                         

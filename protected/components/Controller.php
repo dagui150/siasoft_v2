@@ -64,7 +64,7 @@ class Controller extends CController
 			break;
 		}
 		Yii::app()->user->setFlash($mensaje_->TIPO, '<font size="5" align="left">&nbsp &nbsp<img src='.Yii::app()->baseUrl.$img_url.'>&nbsp &nbsp'.$mensaje_->MENSAJE.'.</font>');
-		$this->widget('bootstrap.widgets.BootAlert');
+		$this->widget('bootstrap.widgets.TbAlert');
 	}
         /**
          * Este metodo sera llamado para desformatear un numero que venga con comas(,) y puntos (.)
