@@ -85,7 +85,8 @@ class Controller extends CController
          */
 	public function menu(){
 		/*$this->menu = Yii::app()->user->rbac->getMenu();
-		$this->menu[]= array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false);
+		$this->menu[]=  array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false,
+                                'items'=>Yii::app()->user->ui->adminItems);
 		$this->menu[]=array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>Yii::app()->user->ui->logoutUrl,'visible'=>!Yii::app()->user->isGuest);
 		*/
 	
@@ -202,24 +203,108 @@ class Controller extends CController
                 return $cantidad_equiv;
 	}
         /**
-         *
-         * @param string $label Label del Boton
-         * @param string $type Type del Boton
-         * @param string $size Size del Boton
-         * @param mixed $url Url del Boton
-         * @param string $icon Icono del Boton
-         * @param array $htmlOptions Opciones HTML del Boton
+         * Metodo para retornar un Boton de Buscar Para modales
+         * @param mixed $url Url para la modal
          * @param string $string Define si el boton es un String o no
+         * @param array $htmlOptions Opciones HTML del Boton default 'array('data-toggle'=>'modal','style'=>'margin-top: 5px;')'
          * @return TbButton 
          */
-        public  function darBoton($label,$type,$size,$url,$icon,$htmlOptions = array(),$string = false){
+        public  function darBotonBuscar($url,$string = false){
             return $this->widget('bootstrap.widgets.TbButton', array(
-                                  'label'=>$label,
-                                  'type'=>$type,
-                                  'size'=>$size,
-                                  $url ? 'url' : 'label'=>$url,
-                                  'icon'=>$icon,
-                                  'htmlOptions'=>$htmlOptions,
+                                  'type'=>'info',
+                                  'url'=>$url,
+                                  'icon'=>'search white',
+                                  'htmlOptions'=>array('data-toggle'=>'modal','style'=>'margin-top: 5px;'),
                             ),$string);
+        }
+        /**
+         * Metodo para retornar un Boton de Nuevo en admins
+         * @return TbButton 
+         */
+        public  function darBotonNuevo(){
+            return $this->widget('bootstrap.widgets.TbButton', array(
+                                  'label'=>'Nuevo',
+                                  'size'=>'small',
+                                  'type'=>'success',
+                                  'url'=>array('create'),
+                                  'icon'=>'plus white',
+                            ));
+        }
+        /**
+         * Metodo para retornar un Boton de Nuevo en Lineas
+         * @param string $label Label del Boton default 'Nuevo'
+         * @param mixed $htmlOptions Opciones HTML del Boton default 'array()'
+         * @return TbButton 
+         */
+        public  function darBotonAddLinea($label = 'Nuevo',$htmlOptions = array()){
+            return $this->widget('bootstrap.widgets.TbButton', array(
+                                  'buttonType'=>'button',
+                                  'label'=>$label,
+                                  'size'=>'small',
+                                  'type'=>'success',
+                                  'icon'=>'plus white',
+                                  'htmlOptions'=>$htmlOptions,
+                            ));
+        }
+        /**
+         * Metodo para retornar un Boton de Actualizar en Lineas
+         * @param mixed $htmlOptions Opciones HTML del Boton default 'array()'
+         * @return TbButton 
+         */
+        public  function darBotonUpdateLinea($htmlOptions = array()){
+            return $this->widget('bootstrap.widgets.TbButton', array(
+                                  'buttonType'=>'button',
+                                  'size'=>'small',
+                                  'icon'=>'pencil',
+                                  'htmlOptions'=>$htmlOptions,
+                            ));
+        }
+        /**
+         * Metodo para retornar un Boton de Eliminar en Lineas
+         * @param string $label Label del Boton default 'Nuevo'
+         * @param mixed $htmlOptions Opciones HTML del Boton default 'array()'
+         * @return TbButton 
+         */
+        public  function darBotonDeleteLinea($label = 'Eliminar',$htmlOptions = array()){
+            return $this->widget('bootstrap.widgets.TbButton', array(
+                                  'buttonType'=>'button',
+                                  'label'=>$label,
+                                  'size'=>'small',
+                                  'type'=>'danger',
+                                  'icon'=>'minus white',
+                                  'htmlOptions'=>$htmlOptions,
+                            ));
+        }
+        /**
+         * Metodo para retornar un Boton de Enviar formulario
+         * @param string $label Label del Boton
+         * @param array $htmlOptions Opciones HTML del Boton default 'array()'
+         * @return TbButton 
+         */
+        public  function darBotonEnviar($label = '',$htmlOptions = array()){
+            return $this->widget('bootstrap.widgets.TbButton', array(
+                                  'buttonType'=>'submit',
+                                  'type'=>'primary',
+                                  'size' =>'small',
+                                  'label'=>$label,
+                                  'icon'=>'ok-circle white',
+                                  'htmlOptions'=>$htmlOptions,
+                            ));
+        }
+        /**
+         * Metodo para retornar un Boton de Enviar formulario
+         * @param array $htmlOptions Opciones HTML del Boton default 'array()'
+         * @param mixed $url url del Boton default 'array("admin")'
+         * @return TbButton 
+         */
+        public  function darBotonCancelar($htmlOptions = array(),$url = array('admin')){
+            return $this->widget('bootstrap.widgets.TbButton', array(
+                                  'buttonType'=>'link',
+                                  'label'=>'Cancelar',
+                                  'size' =>'small',
+                                  'url'=>$url,
+                                  'icon'=>'remove',
+                                  'htmlOptions'=>$htmlOptions,
+                            ));
         }
 }
