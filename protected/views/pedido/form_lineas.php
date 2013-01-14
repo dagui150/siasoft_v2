@@ -160,14 +160,14 @@
        <?php echo $form->errorSummary($linea); ?>
 
             <?php echo $form->hiddenField($linea,'ARTICULO'); ?>
-            <?php echo $form->textFieldRow($linea,'CANTIDAD', array('size'=>4,)); ?>
+            <?php echo $form->textFieldRow($linea,'CANTIDAD', array('size'=>4,'class'=>'decimal')); ?>
             <?php echo $form->dropDownListRow($linea,'UNIDAD', $unidad); ?>
             <?php echo $form->dropDownListRow($linea, 'TIPO_PRECIO', $tipo_precio); ?>
-            <?php echo $form->textFieldRow($linea,'PRECIO_UNITARIO',array('size'=>10,'prepend'=>'$')); ?>
-            <?php echo $form->textFieldRow($linea,'PORC_DESCUENTO',array('size'=>4,'append'=>'%')); ?>
-            <?php echo $form->hiddenField($linea,'MONTO_DESCUENTO'); ?>
-            <?php echo $form->hiddenField($linea,'PORC_IMPUESTO'); ?>
-            <?php echo $form->hiddenField($linea,'VALOR_IMPUESTO'); ?>            
+            <?php echo $form->textFieldRow($linea,'PRECIO_UNITARIO',array('size'=>10,'prepend'=>'$','class'=>'decimal')); ?>
+            <?php echo $form->textFieldRow($linea,'PORC_DESCUENTO',array('size'=>4,'append'=>'%','class'=>'decimal')); ?>
+            <?php echo $form->hiddenField($linea,'MONTO_DESCUENTO',array('class'=>'decimal')); ?>
+            <?php echo $form->hiddenField($linea,'PORC_IMPUESTO',array('class'=>'decimal')); ?>
+            <?php echo $form->hiddenField($linea,'VALOR_IMPUESTO',array('class'=>'decimal')); ?>            
             <?php echo $form->textAreaRow($linea,'COMENTARIO'); ?>
             <?php echo CHtml::hiddenField('CAMPO_ACTUALIZA',$campoActualiza); ?>
             <?php echo CHtml::hiddenField('ACTUALIZA',$actualiza); ?>
