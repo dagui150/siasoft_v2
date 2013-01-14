@@ -53,32 +53,15 @@
             
             
             contador =  $(this).attr('id').split('_')[1];
+            //alert(contador);
             switch(model){
                 case 'cantidad':
                     $('#cantidad_'+contador).text($(this).val());
                     $('#campo_cantidad_'+contador).hide('fast');
-                    //precio = parseInt($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(),10);
                     
-                    //volver a calcular el monto descuento
-                    //precio = parseFloat(unformat($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(), 10));
-                    //total = precio * parseInt(unformat($(this).val(), 10));
-                    //descuento = (total * parseInt($('#LineaNuevo_'+contador+'_PORC_DESCUENTO').val(), 10))/100;
-                    
-                    //Calcular iva con Nueva cantidad
-                    //var impuesto = parseFloat($('#LineaNuevo_'+contador+'_PORC_IMPUESTO').val(), 10);
-                    //var total_impuesto = (total * impuesto)/100;
-                    
-                    //alert("Total Impuesto "+total_impuesto
-                    //    +"\nTotal Descuento "+ descuento
-                    //    +"\nDescuento 1 "+descuento
-                    //    +"\nCantidad "+unformat($(this).val()));
-                    
-                    //$('#LineaNuevo_'+contador+'_MONTO_DESCUENTO').val(descuento);
-                    //$('#LineaNuevo_'+contador+'_VALOR_IMPUESTO').val(total_impuesto);
-                    //$('#valor_impuesto_'+contador).text(format(total_impuesto.toString().replace(/\./g,',')));
                         
                     //Calcular Total
-                    calcularTotal(contador,'LineaNuevo');
+                    calcularTotal(contador,'LineaNuevo','PedidoLinea');
                     $('#cantidad_'+contador).show('fast');
                 break;
                 case 'unidad':
@@ -134,7 +117,8 @@
                     
                     //$('#LineaNuevo_'+contador+'_MONTO_DESCUENTO').val(descuento);                       
                     //calcular el total
-                    calcularTotal(contador,'LineaNuevo');
+                    
+                    calcularTotal(contador,'LineaNuevo','PedidoLinea');
                     $('#porcdescuento_'+contador).show('fast');
                break;
             }
@@ -158,24 +142,7 @@
                          $('#preciounitario_'+contador).text(data.PRECIO);
                          $('#'+modelo+'_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
                          
-                         //volver a calcular el monto descuento
-                         //total = parseFloat(unformat(data.PRECIO, 10)) * parseInt(unformat($('#'+modelo+'_'+contador+'_CANTIDAD').val(), 10));
-                         //descuento = (total * parseInt($('#'+modelo+'_'+contador+'_PORC_DESCUENTO').val(), 10))/100;
                          
-                         //Calcular Iva
-                        
-                         //var impuesto = parseFloat(unformat($('#LineaNuevo_'+contador+'_PORC_IMPUESTO').val(), 10));Pendiente
-                         //var impuesto = parseFloat($('#LineaNuevo_'+contador+'_PORC_IMPUESTO').val(), 10);
-                         //var total_impuesto = (total * impuesto)/100;
-                         
-                         //alert("Descuento 4 " +descuento 
-                         //    +"\nTotal Impuesto"+ impuesto);
-                         
-                         //$('#'+modelo+'_'+contador+'_MONTO_DESCUENTO').val(descuento);
-                         //$('#'+modelo+'_'+contador+'_VALOR_IMPUESTO').val(total_impuesto);
-                         //$('#valor_impuesto_'+contador).text(format(total_impuesto.toString().replace(/\./g,',')));
-                         
-                         //calcular el total
                          calcularTotal(contador,modelo);
                  });
         });
@@ -222,13 +189,7 @@
 
 
                                 });
-                                //var cantidad=$('#Pedido_CANTIDAD').val();
-                                //valor_impuesto = (((parseFloat(unformat(data.PRECIO), 10)* parseFloat(impuesto, 10))/100)*unformat(cantidad));
-                                //valor_impuesto = format(valor_impuesto.toString().replace(/\./g,','));
                                 
-                                
-                                //$('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(valor_impuesto);
-                                //$('#valor_impuesto_'+contador).text(valor_impuesto);
                                 
                                 calcularTotal(contador,model, model2);              
                          });
@@ -566,7 +527,7 @@
                                             <?php echo CHtml::activeHiddenField($linea,"[$i]PORC_IMPUESTO"); ?>                                          
                                     </td>
                                     <td>
-                                            <?php echo '<span id="porc_impuestoU_'.$i.'">'.$linea->VALOR_IMPUESTO.'</span>'; ?>
+                                            <?php echo '<span id="valor_impuestoU_'.$i.'">'.$linea->VALOR_IMPUESTO.'</span>'; ?>
                                             <?php echo CHtml::activeHiddenField($linea,"[$i]VALOR_IMPUESTO"); ?>    
                                     </td>
                                     <td>
