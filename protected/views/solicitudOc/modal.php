@@ -1,24 +1,20 @@
 <script>
     function cargando(){
-        $("#form-lineas").html('<div align="center" style="height: 300px; margin-top: 150px;"><?php echo CHtml::image($ruta);?></div>');
+        $("#form-lineas").html('<div align="center" style="height: 300px; margin-top: 150px;"><?php echo CHtml::image($ruta);?></div>');      
     }
     //agregar una linea
     function agregar(span){
         var contador = $('#CAMPO_ACTUALIZA').val();
         var span = $('#SPAN').val();        
-        var model = 'LineaNuevo';
-        var model2 = 'PedidoLinea';
+        var model = 'Nuevo';
         
         if(span == 'U')
-            model = 'PedidoLinea';
+            model = 'SolicitudOcLinea';
         
         
         $('.close').click();
         
         copiarCampos(contador,model,span);
-        
-        calcularTotal(contador,model, model2);
-                        
         $('#alert').remove();
         $('#resetear').click();
         $('#form-cargado').slideDown('slow');
@@ -36,7 +32,7 @@
         var unidad_span = $('#SolicitudOcLinea_UNIDAD option:selected').html();       
         var cantidad = $('#SolicitudOcLinea_CANTIDAD').val();
         var comentario = $('#SolicitudOcLinea_COMENTARIO').val();        
-        var requerida = $('#SolicitudOcLinea_FECHA_REQUERIDA').val();        
+        var requerida = $('#SolicitudOcLinea_FECHA_REQUERIDA').val();
         
         //copia a spans para visualizar detalles
         $('#unidad'+span+'_'+contador).text(unidad_span);       
@@ -49,6 +45,7 @@
         $('#'+model+'_'+contador+'_FECHA_REQUERIDA').val(requerida);
         $('#'+model+'_'+contador+'_COMENTARIO').val(comentario);
         $('#alert').remove();
+        
         
     }
     
@@ -65,11 +62,11 @@
         var contador = $('#NAME').val();
         var span = $('#SPAN').val();
         if (span == 'U'){
-            var model = 'Nuevo';
-        }
-        else{
             var model = 'SolicitudOcLinea';
         }
+        else{
+            var model = 'Nuevo';
+        }        
         //values de los campos ocultos de la fila para actualizar        
         var unidad = $('#'+model+'_'+contador+'_UNIDAD').val();
         var requerida = $('#'+model+'_'+contador+'_FECHA_REQUERIDA').val();
@@ -77,10 +74,10 @@
         var comentario = $('#'+model+'_'+contador+'_COMENTARIO').val();        
         
         //asignacion a los campos del formulario para su actualizacion       
-        $('#PedidoLinea_UNIDAD').val(unidad);
-        $('#PedidoLinea_CANTIDAD').val(cantidad);
-        $('#PedidoLinea_FECHA_REQUERIDA').val(requerida);
-        $('#PedidoLinea_COMENTARIO').val(comentario);
+        $('#SolicitudOcLinea_UNIDAD').val(unidad);
+        $('#SolicitudOcLinea_CANTIDAD').val(cantidad);
+        $('#SolicitudOcLinea_FECHA_REQUERIDA').val(requerida);
+        $('#SolicitudOcLinea_COMENTARIO').val(comentario);
         $('#CAMPO_ACTUALIZA').val(contador);
         $('#ACTUALIZA').val('0');
         
@@ -95,9 +92,8 @@
     $campoActualiza = isset($_POST['CAMPO_ACTUALIZA'])? $_POST['CAMPO_ACTUALIZA'] : '';    
     $span = isset($_POST['SPAN'])? $_POST['SPAN'] : '';
     $actualiza = isset($_POST['ACTUALIZA'])? $_POST['ACTUALIZA'] : '1';
-    $unidad = isset($_POST['PedidoLinea']['UNIDAD'])? CHtml::ListData(UnidadMedida::model()->findAll('ID = "'.$_POST['PedidoLinea']['UNIDAD'].'" AND ACTIVO = "S"'),'ID','NOMBRE') : array();
-    
-    //$campoActualiza = isset($PcampoActualiza) ? $PcampoActualiza : '';    
+    $unidad = isset($_POST['SolicitudOcLinea']['UNIDAD'])? CHtml::ListData(UnidadMedida::model()->findAll('ID = "'.$_POST['SolicitudOcLinea']['UNIDAD'].'" AND ACTIVO = "S"'),'ID','NOMBRE') : array();
+   //$campoActualiza = isset($PcampoActualiza) ? $PcampoActualiza : '';    
     //$actualiza = isset($Pactualiza) ? $Pactualiza : 0;
     
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
@@ -119,6 +115,9 @@
             <?php echo $form->dropDownListRow($linea,'UNIDAD', $unidad); ?>
             <?php echo $form->textFieldRow($linea, 'FECHA_REQUERIDA'); ?>          
             <?php echo $form->textAreaRow($linea,'COMENTARIO'); ?>
+            <?php echo CHtml::hiddenField('CAMPO_ACTUALIZA',$campoActualiza); ?>
+            <?php echo CHtml::hiddenField('ACTUALIZA',$actualiza); ?>
+            <?php echo CHtml::hiddenField('SPAN',$span); ?>
      </div>
     <div class="modal-footer">
                  <?php

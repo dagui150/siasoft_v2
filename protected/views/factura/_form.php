@@ -202,30 +202,7 @@
 
 <?php
     /* @var $this FacturaController */
-    $this->widget('ext.JLinesForm.JLinesForm',array(
-            'model'=>$linea,
-            'elementsPreCopy'=>array(
-                'ARTICULO'=>array(
-                    'type'=>'textField',
-                    'htmlOptions'=>array()
-                ),
-                /*'Articulo_desc'=>array(
-                    'isModel'=>false,
-                    'type'=>'textField',
-                    'htmlOptions'=>array('disabled'=>true)
-                ),*/
-                'CANTIDAD'=>array(
-                    'type'=>'textField',
-                    'htmlOptions'=>array('size'=>6)
-                ),
-                'UNIDAD'=>array(
-                    'type'=>'radioButtonList',
-                    'items'=>array('1'=>'uno','2'=>'dos'),
-                    'htmlOptions'=>array('empty'=>'Seleccione')
-                ),
-            ),
-            'htmlAddOptions'=>array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;','tabindex'=>'10')
-    ));
+    
     $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'id'=>'factura-form',
             'type'=>'horizontal',

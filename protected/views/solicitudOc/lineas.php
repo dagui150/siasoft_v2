@@ -27,6 +27,19 @@ $(document).ready(function(){
                 var contador = $('body').find('.rowIndex').max();
                 var model ='Nuevo'; 
                 agregarCampos(contador,model);
+                $.getJSON('<?php echo $this->createUrl('solicitudOc/CargarArticulo'); ?>&buscar='+$('#SolicitudOc_ARTICULO').val(),
+                    function(data){
+                        $('#unidad_'+contador).text($('#NOMBRE_UNIDAD').val());
+                        
+                        $('select[id$='+model+'_'+contador+'_UNIDAD]>option').remove();
+                         
+                        $.each(data.UNIDADES, function(value, name) {
+                            if(value == $('#SolicitudOc_UNIDAD').val())
+                               $('#'+model+'_'+contador+'_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
+                            else
+                               $('#'+model+'_'+contador+'_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
+                        });
+                    });
                 $('#carga').ajaxSend(function(){
                     $("#carga").html('<div align="left" style="margin-bottom: 9px; margin-left: 7px;"><?php echo CHtml::image($ruta2);?></div>');
                 });
@@ -220,7 +233,7 @@ $(document).ready(function(){
                                         <div id="add" class="add">
                                                 <?php 
                                                      $htmlOptions = array('class'=>'clonar', 'style'=>'display:none');
-                                                     $this->darBoton(false, 'success', 'normal', false, 'plus white',$htmlOptions);
+                                                     $this->darBotonAddLinea(false,$htmlOptions);
                                                  ?>
                                                 <?php 
 						/*$this->widget('bootstrap.widgets.BootButton', array(
@@ -364,8 +377,8 @@ $(document).ready(function(){
                                 <?php endif; ?>
                             </tbody>
                         </table>
-                <?php $model->isNewRecord ? $i=0 : $i++; ?>
-                <?php echo CHtml::HiddenField('contadorCrea', $i); ?>
+                <?php $model->isNewRecord ? $i=0 : $i++; ?>                
                 <?php echo CHtml::HiddenField('oculto',''); ?>
                 <?php echo CHtml::HiddenField('eliminar',''); ?>
-                <?php echo CHtml::HiddenField('siempreSuma', $i); ?>
+                <?php echo CHtml::HiddenField('NAME', ''); ?>
+                

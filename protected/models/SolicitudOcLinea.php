@@ -53,7 +53,7 @@ class SolicitudOcLinea extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('SOLICITUD_OC, ARTICULO, DESCRIPCION, CANTIDAD, UNIDAD', 'required'),
+			array('FECHA_REQUERIDA, CANTIDAD, UNIDAD', 'required'),
 			array('LINEA_NUM, UNIDAD', 'numerical', 'integerOnly'=>true),
 			array('SOLICITUD_OC', 'length', 'max'=>10),
 			array('ARTICULO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),

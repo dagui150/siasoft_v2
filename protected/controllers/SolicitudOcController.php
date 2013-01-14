@@ -142,7 +142,7 @@ class SolicitudOcController extends Controller
                             <h2 align="center">Operacion Satisfactoria</h2>
                             </div>
                      <span id="form-cargado" style="display:none">';
-                          $this->renderPartial('form_lineas', 
+                          $this->renderPartial('modal', 
                             array(
                                 'linea'=>$linea,
                                 'ruta'=>$ruta,
@@ -162,7 +162,7 @@ class SolicitudOcController extends Controller
                      echo '</div>';
                      Yii::app()->end();
                     }else{
-                    $this->renderPartial('form_lineas', 
+                    $this->renderPartial('modal', 
                         array(
                             'linea'=>$linea,
                             'ruta'=>$ruta,                            
