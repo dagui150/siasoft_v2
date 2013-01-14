@@ -111,7 +111,8 @@ class BodegaController extends Controller
             $model=$this->loadModel($id);
             $bodega = new Bodega;
             //$linea = new PedidoLinea;
-            $linea = new ExistenciaBodegas;
+            $linea = new ExistenciaBodegas();
+            $linea22 = new ExistenciaBodega('addLinea');
             $articulo = new Articulo;
             //$modelLinea = PedidoLinea::model()->findAll('PEDIDO ="'.$model->PEDIDO.'"');
             $modelLinea = ExistenciaBodegas::model()->findAll('BODEGA ="'.$id.'"');
@@ -121,68 +122,83 @@ class BodegaController extends Controller
             $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
             $i = 1;
 
+            if(isset($_POST['ajax']) && $_POST['ajax']==='articulo-form')
+		{
+			echo CActiveForm::validate($linea22);
+			Yii::app()->end();
+		}
+            if(isset($_POST['ajax']) && $_POST['ajax']==='existencia-bodegas-form')
+		{
+			echo CActiveForm::validate($linea);
+			Yii::app()->end();
+		}
+            
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
-
-		if(isset($_POST['Pedido']))
+                /*
+		if(isset($_POST['eliminar']))
 		{
-			$model->attributes=$_POST['Pedido'];
-                        if($_POST['eliminar'] != ''){
-                            $eliminar = explode(",", $_POST['eliminar']);
-                            foreach($eliminar as $elimina){                                
-                                    $borra = PedidoLinea::model()->deleteByPk($elimina);                                
-                            }
-                        }
-			if($model->save()){/*
-				if(isset($_POST['PedidoLinea'])){
-                                foreach ($_POST['PedidoLinea'] as $datos2){
-                                    
-                                    $salvar2 = PedidoLinea::model()->findByPk($datos2['ID']);
-                                    $salvar2->PEDIDO = $model->PEDIDO;
-                                    $salvar2->ARTICULO = $datos2['ARTICULO'];
-                                    $salvar2->LINEA = $i;
-                                    $salvar2->UNIDAD = $datos2['UNIDAD'];
-                                    $salvar2->CANTIDAD = $datos2['CANTIDAD'];
-                                    $salvar2->PRECIO_UNITARIO = $datos2['PRECIO_UNITARIO'];
-                                    $salvar2->PORC_DESCUENTO = $datos2['PORC_DESCUENTO'];
-                                    $salvar2->MONTO_DESCUENTO = $datos2['MONTO_DESCUENTO'];
-                                    $salvar2->PORC_IMPUESTO = $datos2['PORC_IMPUESTO'];
-                                    $salvar2->VALOR_IMPUESTO = $datos2['VALOR_IMPUESTO'];
-                                    $salvar2->TIPO_PRECIO = $datos2['TIPO_PRECIO'];
-                                    $salvar2->COMENTARIO = $datos2['COMENTARIO'];
-                                    $salvar2->TOTAL = $datos2['TOTAL'];
-                                    $salvar2->ESTADO = 'N';
-                                    $salvar2->ACTIVO = 'S';
+                    echo '<pre>';
+                    echo print_r($_POST['ExistenciaBodegas']);
+                    echo '</pre>';
+                    Yii::app()->end(); 
+                }*/
+		if(isset($_POST['Bodega']))
+		{
+			$model->attributes=$_POST['Bodega'];
+			if($model->save()){
+                            if($_POST['eliminar'] != ''){
+                                        
+                                    $eliminar = explode(",", $_POST['eliminar']);
+                                    foreach($eliminar as $elimina){                                
+                                            //$borra = ExistenciaBodegas::model()->deleteByPk($elimina);                                
+                                        ExistenciaBodegas::model()->updateByPk($elimina,array('ACTIVO'=>'N'));
+                                    }
+
+                                }
+				if(isset($_POST['ExistenciaBodegas'])){
+                                foreach ($_POST['ExistenciaBodegas'] as $datos2){
+                                   /*
+                                    echo '<pre>';
+                    echo print_r($_POST['ExistenciaBodegas']);
+                    echo '</pre>';
+                    Yii::app()->end();*/
+                                    $salvar2 = ExistenciaBodegas::model()->findByPk($datos2['ID']);
+                                    $salvar2->EXISTENCIA_MINIMA = $datos2['EXISTENCIA_MINIMA'];
+                                    $salvar2->EXISTENCIA_MAXIMA = $datos2['EXISTENCIA_MAXIMA'];
+                                    $salvar2->PUNTO_REORDEN = $datos2['PUNTO_REORDEN'];
                                     $salvar2->save();
-                                    $i++;
                                 }
                             }
                             
-                            if(isset($_POST['LineaNuevo'])){                                  
+                            if(isset($_POST['LineaNuevo'])){
                                   foreach ($_POST['LineaNuevo'] as $datos){
-                                        $salvar = new PedidoLinea;
-                                        $salvar->PEDIDO = $model->PEDIDO;
+                                        $salvar = new ExistenciaBodegas;
                                         $salvar->ARTICULO = $datos['ARTICULO'];
-                                        $salvar->LINEA = $i;
-                                        $salvar->UNIDAD = $datos['UNIDAD'];
-                                        $salvar->CANTIDAD = $datos['CANTIDAD'];
-                                        $salvar->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
-                                        $salvar->PORC_DESCUENTO = $datos['PORC_DESCUENTO'];
-                                        $salvar->MONTO_DESCUENTO = $datos['MONTO_DESCUENTO'];
-                                        $salvar->PORC_IMPUESTO = $datos['PORC_IMPUESTO'];
-                                        $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
-                                        $salvar->TIPO_PRECIO = $datos['TIPO_PRECIO'];
-                                        $salvar->COMENTARIO = $datos['COMENTARIO'];
-                                        $salvar->TOTAL = $datos['TOTAL'];
-                                        $salvar->ESTADO = 'N';
+                                        $salvar->BODEGA = $model['ID'];
+                                        $salvar->EXISTENCIA_MINIMA = $datos['EXISTENCIA_MINIMA'];
+                                        $salvar->EXISTENCIA_MAXIMA = $datos['EXISTENCIA_MAXIMA'];
+                                        $salvar->PUNTO_REORDEN = $datos['PUNTO_REORDEN'];
+                                        $salvar->CANT_DISPONIBLE = $datos['CANT_DISPONIBLE'];
+                                        $salvar->CANT_RESERVADA = $datos['CANT_RESERVADA'];
+                                        $salvar->CANT_REMITIDA = $datos['CANT_REMITIDA'];
+                                        $salvar->CANT_CUARENTENA = 0;
+                                        $salvar->CANT_VENCIDA = 0;
                                         $salvar->ACTIVO = 'S';
+                                        
                                         $salvar->save();
-                                        $i++;
+                                        /*
+                                        echo '<pre>';
+                                        print_r($salvar->getErrors());
+                                        echo '</pre>';
+                                        echo '<br />';
+                                        Yii::app()->end();*/
                                  }
                              }
-                                $this->redirect(array('admin&men=S002'));
+                             
+                                $this->redirect(array('inventario','men'=>'S002'));
                         } else {
-                            $this->redirect(array('admin&men=E002'));*/
+                            $this->redirect(array('inventario','men'=>'E002'));
                         }
 		}
 
@@ -190,6 +206,7 @@ class BodegaController extends Controller
 			'model'=>$model,
 			'bodega'=>$bodega,
 			'linea'=>$linea,
+                        'linea22'=>$linea22,
 			'articulo'=>$articulo,
 			'modelLinea'=>$modelLinea,
 			'countLineas'=>$countLineas,
@@ -214,13 +231,60 @@ class BodegaController extends Controller
             $res = array(
                 'ID' => $bus->ARTICULO,
                 'NOMBRE' => $bus->NOMBRE,
-                'IMPUESTO' => $bus->iMPUESTOVENTA->PROCENTAJE,
-                'UNIDAD' => $bus->UNIDAD_ALMACEN,
-                'UNIDAD_NOMBRE' => $bus->uNIDADALMACEN->NOMBRE,
-                'UNIDADES' => CHtml::listData(UnidadMedida::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>$bus->uNIDADALMACEN->TIPO)),'ID','NOMBRE'),
             );            
             echo CJSON::encode($res);
         }
+        
+        public function actionAgregarlinea(){
+            $linea = new ExistenciaBodegas('modalLinea');
+            $linea->attributes = $_POST['ExistenciaBodegas'];
+            $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif'; 
+                /*
+                if(isset($_POST['ExistenciaBodegas']))
+		{
+                    echo '<pre>';
+                    echo print_r($_POST['ExistenciaBodegas']);
+                    echo '</pre>';
+                    echo '<br />';
+                    Yii::app()->end(); 
+                }
+                 */
+            if($linea->validate()){
+                     echo '<div id="alert" class="alert alert-success" data-dismiss="modal">
+                            <h2 align="center">Operacion Satisfactoria</h2>
+                            </div>
+                     <span id="form-cargado" style="display:none">';
+                          $this->renderPartial('form_lineas', 
+                            array(
+                                'linea'=>$linea,
+                                'ruta'=>$ruta,
+                                'Pactualiza'=>isset($_POST['ACTUALIZA']) ? $_POST['ACTUALIZA'] : 0,
+                            )
+                        );
+                     echo '</span>
+                         
+                         <div id="boton-cargado" class="modal-footer">';
+                            $this->widget('bootstrap.widgets.TbButton', array(
+                                 'buttonType'=>'button',
+                                 'type'=>'normal',
+                                 'label'=>'Aceptar',
+                                 'icon'=>'ok',
+                                 'htmlOptions'=>array('id'=>'nuevo','onclick'=>'agregar("'.$_POST['SPAN'].'")')
+                              ));
+                     echo '</div>';
+                     Yii::app()->end();
+                    }else{
+                    $this->renderPartial('form_lineas', 
+                        array(
+                            'linea'=>$linea,
+                            'ruta'=>$ruta,                            
+                        )
+                    );
+                    Yii::app()->end();
+                }
+        }
+        
+        
 
 	/**
 	 * Deletes a particular model.

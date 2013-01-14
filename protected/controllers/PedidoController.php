@@ -189,7 +189,13 @@ class PedidoController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
-
+                if(isset($_POST['PedidoLinea']))
+		{
+                    echo '<pre>';
+                    echo print_r($_POST['PedidoLinea']);
+                    echo '</pre>';
+                    Yii::app()->end(); 
+                }
 		if(isset($_POST['Pedido']))
 		{
 			$model->attributes=$_POST['Pedido'];                        

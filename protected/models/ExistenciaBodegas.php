@@ -27,6 +27,7 @@
  */
 class ExistenciaBodegas extends CActiveRecord
 {
+        
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -53,15 +54,17 @@ class ExistenciaBodegas extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ARTICULO,EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN, CANT_DISPONIBLE, CANT_RESERVADA, CANT_REMITIDA, CANT_CUARENTENA, CANT_VENCIDA, ACTIVO', 'required'),
-			array('BODEGA,','required', 'message'=>''),
-			array('ARTICULO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
-			array('BODEGA', 'length', 'max'=>4),
-			array('EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN, CANT_DISPONIBLE, CANT_RESERVADA, CANT_REMITIDA', 'length', 'max'=>28),
-			array('ACTIVO', 'length', 'max'=>1),
-                        array('BODEGA', 'exist', 'attributeName'=>'ID', 'className'=>'Bodega','allowEmpty'=>false, 'message'=>''),
-                        array('ARTICULO', 'exist', 'attributeName'=>'ARTICULO', 'className'=>'Articulo','allowEmpty'=>false, 'message'=>''),
-                        array('ARTICULO', 'miValidacion',),
+			array('ARTICULO,EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN, CANT_DISPONIBLE, CANT_RESERVADA, CANT_REMITIDA, CANT_CUARENTENA, CANT_VENCIDA, ACTIVO', 'required','on'=>'insert'),
+			array('BODEGA,','required', 'message'=>'','on'=>'insert'),
+			array('ARTICULO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20,'on'=>'insert'),
+			array('BODEGA', 'length', 'max'=>4,'on'=>'insert'),
+			array('EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN, CANT_DISPONIBLE, CANT_RESERVADA, CANT_REMITIDA', 'length', 'max'=>28,'on'=>'insert'),
+			array('ACTIVO', 'length', 'max'=>1,'on'=>'insert'),
+                        array('BODEGA', 'exist', 'attributeName'=>'ID', 'className'=>'Bodega','allowEmpty'=>false, 'message'=>'','on'=>'insert'),
+                        array('ARTICULO', 'exist', 'attributeName'=>'ARTICULO', 'className'=>'Articulo','allowEmpty'=>false, 'message'=>'','on'=>'insert'),
+                        array('ARTICULO', 'miValidacion','on'=>'insert'),
+                        array('ARTICULO', 'miValidacion','on'=>'modalLinea'),
+			array('ARTICULO,EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN','required','on'=>'modalLinea'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('ID, ARTICULO, BODEGA, EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN, CANT_DISPONIBLE, CANT_RESERVADA, CANT_REMITIDA, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),

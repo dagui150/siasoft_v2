@@ -4,11 +4,10 @@
     $cs->registerScriptFile(XHtml::jsUrl('jquery.format.js'), CClientScript::POS_HEAD);
     $cs->registerScriptFile(XHtml::jsUrl('template.js'), CClientScript::POS_HEAD);
     $cs->registerScriptFile(XHtml::jsUrl('jquery.validate.js'), CClientScript::POS_HEAD);
-    $cs->registerScriptFile(XHtml::jsUrl('calculos.js'), CClientScript::POS_HEAD);
 ?>
 <script>
     $(document).ready(function(){
-        var existenciaminima,precio,descuento,iva,valor_impuesto,contador, model,id,total,total_mercaderia,total_facturar,total_descuento,total_iva,anticipo,flete,seguro;
+        var contador, model, id;
 
         
         $('.cambiar').live('dblclick',function(){
@@ -19,27 +18,16 @@
             $(id).show('fast');
             switch(model){
                 case 'existenciaminima':
+                    //alert(contador);
+                    //$('#LineaNuevo_'+contador+'_EXISTENCIA_MINIMA').removeAttr('type');
+                    //$('#LineaNuevo_'+contador+'_EXISTENCIA_MINIMA').attr('type','text');
                     $('#LineaNuevo_'+contador+'_EXISTENCIA_MINIMA').focus();
                     break;
-                case 'unidad':
-                    $('#LineaNuevo_'+contador+'_UNIDAD').focus();
+                case 'existenciamaxima':
+                    $('#LineaNuevo_'+contador+'_EXISTENCIA_MAXIMA').focus();
                     break;
-                case 'tipoprecio':
-                    $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&tipo='+$('#LineaNuevo_'+contador+'_TIPO_PRECIO').val(),
-                        function(data){
-                             $('#NOMBRE_TIPO_PRECIO').val('');
-                             $('#NOMBRE_TIPO_PRECIO').val(data.NOMBRE);
-                             $('#preciounitario_'+contador).text(data.PRECIO);
-                             $('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
-                             //calcular el total
-                             calcularTotal(contador,'LineaNuevo');
-                     });
-                    break;
-                case 'preciounitario':
-                    $('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').focus();
-                    break;
-                case 'porcdescuento':
-                    $('#LineaNuevo_'+contador+'_PORC_DESCUENTO').focus();
+                case 'puntoreorden':
+                    $('#LineaNuevo_'+contador+'_PUNTO_REORDEN').focus();
                     break;
             }
                 
@@ -50,133 +38,34 @@
             contador =  $(this).attr('id').split('_')[1];
             switch(model){
                 case 'existenciaminima':
-                    $('#existenciaminima_'+contador).text($(this).val());
-                    $('#campo_existenciaminima_'+contador).hide('fast');
-                    precio = parseInt($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(),10);
-                    
-                    //volver a calcular el monto descuento
-                    precio = parseInt($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(), 10);
-                    total = precio * parseInt($(this).val(), 10);
-                    descuento = (total * parseInt($('#LineaNuevo_'+contador+'_PORC_DESCUENTO').val(), 10))/100;
-                    $('#LineaNuevo_'+contador+'_MONTO_DESCUENTO').val(descuento);
-                        
-                    //calcular el total
-                    calcularTotal(contador,'LineaNuevo');
-                    $('#existenciaminima_'+contador).show('fast');
+                    if(($(this).val()) < ($('#LineaNuevo_'+contador+'_EXISTENCIA_MAXIMA').val())){
+                        $('#existenciaminima_'+contador).text($(this).val());
+                        //$('#LineaNuevo_'+contador+'_EXISTENCIA_MINIMA').attr('type','hidden');
+                        $('#campo_existenciaminima_'+contador).hide('fast');
+                        $('#existenciaminima_'+contador).show('fast');
+                    }else{
+                        alert('Debe ser un valor menor a maxima');
+                    }
                 break;
-                case 'unidad':
-                    $('#unidad_'+contador).text($('#NOMBRE_UNIDAD').val());
-                    $('#campo_unidad_'+contador).hide('fast');
-                    $('#unidad_'+contador).show('fast');
+                case 'existenciamaxima':
+                    $('#existenciamaxima_'+contador).text($(this).val());
+                    $('#campo_existenciamaxima_'+contador).hide('fast');
+                    $('#existenciamaxima_'+contador).show('fast');
                 break;
-                case 'tipoprecio':
-                    $('#tipoprecio_'+contador).text($('#NOMBRE_TIPO_PRECIO').val());
-                    $('#campo_tipoprecio_'+contador).hide('fast');
-                    $('#tipoprecio_'+contador).show('fast');
+                case 'puntoreorden':
+                    $('#puntoreorden_'+contador).text($(this).val());
+                    $('#campo_puntoreorden_'+contador).hide('fast');
+                    $('#puntoreorden_'+contador).show('fast');
                 break;
-                case 'preciounitario':
-                    $('#preciounitario_'+contador).text($(this).val());
-                    $('#campo_preciounitario_'+contador).hide('fast');
-                    //volver a calcular el monto descuento
-                    total = parseInt($(this).val(), 10) * parseInt($('#LineaNuevo_'+contador+'_EXISTENCIA_MINIMA').val(), 10);
-                    descuento = (total * parseInt($('#LineaNuevo_'+contador+'_PORC_DESCUENTO').val(), 10))/100;
-                    $('#LineaNuevo_'+contador+'_MONTO_DESCUENTO').val(descuento);
-                        
-                     //calcular el total
-                     calcularTotal(contador,'LineaNuevo');
-                    $('#preciounitario_'+contador).show('fast');
-                break;
-                case 'porcdescuento':
-                    $('#porcdescuento_'+contador).text($(this).val());
-                    $('#campo_porcdescuento_'+contador).hide('fast'); 
-                    precio = parseInt($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(), 10);
-                    total = precio * parseInt($('#LineaNuevo_'+contador+'_EXISTENCIA_MINIMA').val(), 10);
-                    descuento = (total * $(this).val())/100;
-                    $('#LineaNuevo_'+contador+'_MONTO_DESCUENTO').val(descuento);                       
-                    //calcular el total
-                    calcularTotal(contador,'LineaNuevo');
-                    $('#porcdescuento_'+contador).show('fast');
-               break;
             }
-        });
-        
-        $('.unidad').live('change',function(){
-            contador =  $(this).attr('id').split('_')[1];
-            var modelo = $(this).attr('id').split('_')[0];
-            var nombre = $('#'+modelo+'_'+contador+'_UNIDAD option:selected').html()
-            $('#NOMBRE_UNIDAD').val('');
-            $('#NOMBRE_UNIDAD').val(nombre);
-        });
-        $('.tipo_precio').live('change',function(){
-             contador =  $(this).attr('id').split('_')[1];
-             var modelo = $(this).attr('id').split('_')[0];
-            $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&tipo='+$(this).val(),
-                    function(data){
-                         $('#NOMBRE_TIPO_PRECIO').val('');
-                         $('#NOMBRE_TIPO_PRECIO').val(data.NOMBRE);
-                         $('#preciounitario_'+contador).text(data.PRECIO);
-                         $('#'+modelo+'_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
-                         
-                         //volver a calcular el monto descuento
-                         total = parseInt(data.PRECIO, 10) * parseInt($('#'+modelo+'_'+contador+'_EXISTENCIA_MINIMA').val(), 10);
-                         descuento = (total * parseInt($('#'+modelo+'_'+contador+'_PORC_DESCUENTO').val(), 10))/100;
-                         $('#'+modelo+'_'+contador+'_MONTO_DESCUENTO').val(descuento);
-                         
-                         //calcular el total
-                         calcularTotal(contador,modelo);
-                 });
         });
         
         $('#agregar').click(function(){
                 $('.clonar').click();
                 contador = $('body').find('.rowIndex').max();
                 model ='LineaNuevo';
-                var model2 ='PedidoLinea';
-                var impuesto;
-                var tipo_precio = $('#Pedido_NIVEL_PRECIO').val();
                 
                 agregarCampos(contador,model);
-                $.getJSON('<?php echo $this->createUrl('/pedido/dirigir'); ?>&FU=AR&ID='+$('#Pedido_ARTICULO').val(),
-                    function(data){
-                        impuesto = data.IMPUESTO;
-                        $('#unidad_'+contador).text($('#NOMBRE_UNIDAD').val());
-                        $('#porc_impuesto_'+contador).text(impuesto);
-                        $('#'+model+'_'+contador+'_PORC_IMPUESTO').val(impuesto);
-                        
-                         $('select[id$='+model+'_'+contador+'_UNIDAD]>option').remove();
-                         
-                         $.each(data.UNIDADES, function(value, name) {
-                            if(value == $('#Pedido_UNIDAD').val())
-                               $('#'+model+'_'+contador+'_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
-                            else
-                               $('#'+model+'_'+contador+'_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
-                        });
-                        //cargar tipo de precio
-                        $.getJSON('<?php echo $this->createUrl('/pedido/cargarTipoPrecio')?>&art='+$('#Pedido_ARTICULO').val()+'&tipo='+tipo_precio,
-                            function(data){
-                                 $('#tipoprecio_'+contador).text(data.NOMBRE);
-                                 $('#preciounitario_'+contador).text(data.PRECIO);
-                                 $('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(data.PRECIO);
-
-                                 $('select[id$='+model+'_'+contador+'_TIPO_PRECIO]>option').remove();
-
-                                 $.each(data.COMBO, function(value, name) {
-                                        tipo_precio = data.SELECCION;
-                                        if(value == tipo_precio)
-                                            $('#'+model+'_'+contador+'_TIPO_PRECIO').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
-                                        else
-                                            $('#'+model+'_'+contador+'_TIPO_PRECIO').append("<option value='"+value+"'>"+name+"</option>");
-
-
-                                });
-                                valor_impuesto = (parseInt(data.PRECIO, 10) * parseInt(impuesto, 10))/100;
-                                $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(valor_impuesto);
-                                $('#valor_impuesto_'+contador).text(valor_impuesto);
-                                
-                                calcularTotal(contador,model, model2);              
-                         });
-
-                });
                 $('#carga').ajaxSend(function(){
                     $("#carga").html('<div align="left" style="margin-bottom: 9px; margin-left: 7px;"><?php echo CHtml::image($ruta2);?></div>');
                 });
@@ -189,10 +78,21 @@
         calculoGranTotal(false, false);
     });
     
+    $('.valLinea').blur(function(){
+        var articulo2 = $('#Articulo_ARTICULO').val();
+        var descripcion2 = $('#Articulo_desc').val();
+        var existenciaminima2 = $('#ExistenciaBodega_EXISTENCIA_MINIMA_ADD').val(); 
+        var existenciamaxima2 = $('#ExistenciaBodega_EXISTENCIA_MAXIMA_ADD').val(); 
+        var puntoreorden2 = $('#ExistenciaBodega_PUNTO_REORDEN_ADD').val(); 
+        if(articulo2!='' && descripcion2!='' && existenciaminima2!='' && existenciamaxima2!='' && puntoreorden2!=''){
+            $('#agregar').attr('disabled', false);
+        };
+    });
+    
     $('.eliminaLinea').live('click',function(){
         contador = $(this).attr('name');
         var model = 'LineaNuevo';
-        var model2 =  'PedidoLinea';
+        var model2 =  'ExistenciaBodegas';
            
         $('#remover_'+contador).click();
         var contadorMax = $('body').find('.rowIndex').max();
@@ -200,8 +100,8 @@
         var linea = parseInt(contador, 10); 
         //cambiar ids y span
         for(var i = contFor ; i <=contadorMax; i++){
-            var campos = ['ARTICULO','DESCRIPCION','UNIDAD','TIPO_PRECIO','EXISTENCIA_MINIMA','PRECIO_UNITARIO','PORC_DESCUENTO','MONTO_DESCUENTO','PORC_IMPUESTO','VALOR_IMPUESTO','COMENTARIO','TOTAL'];
-            var span = ['linea','articulo','descripcion','existenciaminima','campo_existenciaminima','unidad','campo_unidad','tipoprecio','campo_tipoprecio','preciounitario','campo_preciounitario','porcdescuento','campo_porcdescuento','porc_impuesto','valor_impuesto','total','remover','edit','eliminaLinea','rowIndex'];
+            var campos = ['ARTICULO','DESCRIPCION','EXISTENCIA_MINIMA','EXISTENCIA_MAXIMA','PUNTO_REORDEN','CANT_DISPONIBLE','CANT_RESERVADA','CANT_REMITIDA'];
+            var span = ['articulo','descripcion','existenciaminima','campo_existenciaminima','existenciamaxima','campo_existenciamaxima','puntoreorden','campo_puntoreorden','cant_disponible','campo_cant_disponible','cant_reservada','campo_cant_reservada','cant_remitida','campo_cant_remitida','remover','edit','eliminaLinea','rowIndex'];
             //CAMBIAR IDS DE LOS SPAN
             for(var x =0 ; x<=span.length;x++){
                 switch(span[x]){
@@ -232,16 +132,15 @@
             contador++;
             linea++;
         }
-        calculoGranTotal(model, model2);
     });
     
     $('.eliminaLineaU').live('click',function(){
         contador = $(this).attr('name');
         var model = 'LineaNuevo';
-        var model2 = 'PedidoLinea';
+        var model2 = 'ExistenciaBodegas';
         var numLinea = parseInt($('#CAMPO_ACTUALIZA').val(), 10);
         var eliminar = $('#eliminar').val();
-        eliminar = eliminar + ',' + $('#PedidoLinea_'+contador+'_ID').val();
+        eliminar = eliminar + $('#ExistenciaBodegas_'+contador+'_ID').val() + ',';
         $('#eliminar').val(eliminar);
         $('#CAMPO_ACTUALIZA').val(numLinea - 1);
         $('#removerU_'+contador).click();
@@ -250,8 +149,8 @@
         var linea = parseInt(contador, 10); 
         //cambiar ids y span
         for(var i = contFor ; i <=contadorMax; i++){
-            var campos = ['ARTICULO','DESCRIPCION','UNIDAD','TIPO_PRECIO','EXISTENCIA_MINIMA','PRECIO_UNITARIO','PORC_DESCUENTO','MONTO_DESCUENTO','PORC_IMPUESTO','VALOR_IMPUESTO','COMENTARIO','TOTAL'];
-            var span = ['lineaU','articuloU','descripcionU','existenciaminimaU','campo_existenciaminimaU','unidadU','campo_unidadU','tipoprecioU','campo_tipoprecioU','preciounitarioU','campo_preciounitarioU','porcdescuentoU','campo_porcdescuentoU','porc_impuestoU','valor_impuestoU','totalU','removerU','editU','eliminaLineaU','rowIndexU'];
+            var campos = ['ID', 'ARTICULO','DESCRIPCION','EXISTENCIA_MINIMA','EXISTENCIA_MAXIMA','PUNTO_REORDEN','CANT_DISPONIBLE','CANT_RESERVADA','CANT_REMITIDA'];
+            var span = ['articuloU','descripcionU','existenciaminimaU','campo_existenciaminimaU','existenciamaximaU','campo_existenciamaximaU','puntoreordenU','campo_puntoreordenU','cant_disponibleU','campo_cant_disponibleU','cant_reservadaU','campo_cant_reservadaU','cant_remitidaU','campo_cant_remitidaU','removerU','editU','eliminaLineaU','rowIndexU'];
             //CAMBIAR IDS DE LOS SPAN
             for(var x =0 ; x<=span.length;x++){
                 switch(span[x]){
@@ -284,89 +183,85 @@
             contador++;
             linea++;
         }
-        calculoGranTotal(model, model2);
     });
        
     function agregarCampos(contador,model){
         
-        var articulo = $('#Pedido_ARTICULO').val();
+        var articulo = $('#Articulo_ARTICULO').val();
         var descripcion = $('#Articulo_desc').val();
-        var existenciaminima = $('#Pedido_EXISTENCIA_MINIMA').val(); 
+        var existenciaminima = $('#ExistenciaBodega_EXISTENCIA_MINIMA_ADD').val(); 
+        var existenciamaxima = $('#ExistenciaBodega_EXISTENCIA_MAXIMA_ADD').val(); 
+        var puntoreorden = $('#ExistenciaBodega_PUNTO_REORDEN_ADD').val(); 
+        //var cant_disponible = $('#ExistenciaBodegas_CANT_DISPONIBLE').val(); 
+        //var cant_reservada = $('#ExistenciaBodegas_CANT_RESERVADA').val(); 
+        //var cant_remitida = $('#ExistenciaBodegas_CANT_REMITIDA').val(); 
         
         //copia a campos ocultos
         $('#'+model+'_'+contador+'_ARTICULO').val(articulo);
         $('#'+model+'_'+contador+'_DESCRIPCION').val(descripcion);
         $('#'+model+'_'+contador+'_EXISTENCIA_MINIMA').val(existenciaminima);
-        $('#'+model+'_'+contador+'_PORC_DESCUENTO').val(0);
-        $('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(0);
-        $('#'+model+'_'+contador+'_COMENTARIO').val('');
-        
+        $('#'+model+'_'+contador+'_EXISTENCIA_MAXIMA').val(existenciamaxima);
+        $('#'+model+'_'+contador+'_PUNTO_REORDEN').val(puntoreorden);
+        $('#'+model+'_'+contador+'_CANT_DISPONIBLE').val('0,00');
+        $('#'+model+'_'+contador+'_CANT_RESERVADA').val('0,00');
+        $('#'+model+'_'+contador+'_CANT_REMITIDA').val('0,00');
+
         //copia a spans para visualizar detalles
-        $('#linea_'+contador).text(parseInt(contador, 10) + 1);
+        //$('#linea_'+contador).text(parseInt(contador, 10) + 1);
         $('#articulo_'+contador).text(articulo);
         $('#descripcion_'+contador).text(descripcion);
         $('#existenciaminima_'+contador).text(existenciaminima);
-        $('#porcdescuento_'+contador).text(0);
-        $('#monto_descuento_'+contador).text(0);
+        $('#existenciamaxima_'+contador).text(existenciamaxima);
+        $('#puntoreorden_'+contador).text(puntoreorden);
+        $('#cant_disponible_'+contador).text('0,00');
+        $('#cant_reservada_'+contador).text('0,00');
+        $('#cant_remitida_'+contador).text('0,00');
+
     }
 });
 </script>
 <!--<div style="overflow-x: scroll; width: 850px; margin-bottom: 10px;">-->
 <div st>
-<table style="margin-left: -80px;">
+<table style="margin-left: -90px;">
     <!--<table style="margin-left: -100px;">-->
          <tr>
              <td style="width: 289px">
-                <?php echo $form->textFieldRow($articulo,'ARTICULO',array('size'=>10)); ?>
+                <?php echo $form->textFieldRow($articulo,'ARTICULO',array('size'=>5, 'class'=>'valLinea')); ?>
              </td>
              <td style="width: 28px;">
-                 <?php $this->widget('bootstrap.widgets.TbButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#articulo',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal','style'=>'margin-top: 5px;'),
-                 )); ?>
+                 <?php $this->darBoton(false, false, 'info', 'normal', '#articulo', 'search white',array('data-toggle'=>'modal','style'=>'margin-top: 5px;')); ?>
             </td>
             <td>
-                 <?php echo CHtml::textField('Articulo_desc','',array('disabled'=>true,'size'=>15)); ?>
+                 <?php echo CHtml::textField('Articulo_desc','',array('disabled'=>true,'size'=>10, 'class'=>'valLinea')); ?>
            </td>
            <td>
-               <table style="margin-left: -100px;margin-top:-4px;">
+               <table style="margin-left: -110px;margin-top:-4px;">
                    <tr>
                        <td style="width: 289px;">
-                            <?php echo $form->textFieldRow($linea,'EXISTENCIA_MINIMA',array('size'=>4));?>
+                            <?php echo $form->textFieldRow($linea22,'EXISTENCIA_MINIMA_ADD',array('size'=>2, 'class'=>'valLinea'));?>
                        </td>
                    </tr>
                </table>
            </td>
            <td>
-               <table style="margin-left: -100px;margin-top:-4px;">
+               <table style="margin-left: -110px;margin-top:-4px;">
                    <tr>
                        <td style="width: 289px;">
-                            <?php echo $form->textFieldRow($linea,'EXISTENCIA_MAXIMA',array('size'=>4));?>
+                            <?php echo $form->textFieldRow($linea22,'EXISTENCIA_MAXIMA_ADD',array('size'=>2, 'class'=>'valLinea'));?>
                        </td>
                    </tr>
                </table>
            </td>
            <td>
-               <table style="margin-left: -58px;margin-top:-4px;">
+               <table style="margin-left: -70px;margin-top:-4px;">
                    <tr>
                        <td>
                             <?php //echo $form->dropDownListRow($model,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px;'));?>
                             <?php //echo CHtml::hiddenField('NOMBRE_UNIDAD','');?>
-                            <?php echo $form->textFieldRow($linea,'PUNTO_REORDEN',array('size'=>4));?>
+                            <?php echo $form->textFieldRow($linea22,'PUNTO_REORDEN_ADD',array('size'=>2, 'class'=>'valLinea'));?>
                        </td>
                        <td>
-                           <?php
-                                $this->widget('bootstrap.widgets.TbButton', array(
-                                            'buttonType'=>'button',
-                                            'type'=>'success',
-                                            'icon'=>'white plus',
-                                            'size'=>'mini',
-                                            'htmlOptions'=>array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;')
-                                 ));    
-                            ?> 
+                           <?php $this->darBoton('button', false, 'success', 'normal', false, 'white plus',array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;')); ?>
                        </td>
                    </tr>
                </table>
@@ -425,8 +320,28 @@
                                             <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][CANTIDAD]','',array('size'=>4,'class'=>'blur')); ?></span>                                                                                                            
                                              */ ?>
                                             <span id='existenciaminima_<?php echo '{0}';?>' class="cambiar"></span>
-                                            <span id='campo_existenciaminima_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][EXISTENCIA_MINIMA]','',array('size'=>4,'class'=>'blur')); ?></span>
+                                            <span id='campo_existenciaminima_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][EXISTENCIA_MINIMA]','',array('size'=>4,'class'=>'blur existenciaminima',)); ?></span>
                                         </td>
+                                        <td>
+                                            <span id='existenciamaxima_<?php echo '{0}';?>' class="cambiar"></span>
+                                            <span id='campo_existenciamaxima_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][EXISTENCIA_MAXIMA]','',array('size'=>4,'class'=>'blur existenciamaxima')); ?></span>
+                                        </td>
+                                        <td>
+                                            <span id='puntoreorden_<?php echo '{0}';?>' class="cambiar"></span>
+                                            <span id='campo_puntoreorden_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][PUNTO_REORDEN]','',array('size'=>4,'class'=>'blur puntoreorden')); ?></span>
+                                        </td>
+                                        <td>
+                                            <span id='cant_disponible_<?php echo '{0}';?>' class="cambiar"></span>
+                                            <span id='campo_cant_disponible_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][CANT_DISPONIBLE]','',array('size'=>4,'class'=>'blur cant_disponible')); ?></span>
+                                        </td>                                  
+                                        <td>
+                                            <span id='cant_reservada_<?php echo '{0}';?>' class="cambiar"></span>
+                                            <span id='campo_cant_reservada_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][CANT_RESERVADA]','',array('size'=>4,'class'=>'blur cant_reservada')); ?></span>
+                                        </td>                                  
+                                        <td>
+                                            <span id='cant_remitida_<?php echo '{0}';?>' class="cambiar"></span>
+                                            <span id='campo_cant_remitida_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][CANT_REMITIDA]','',array('size'=>4,'class'=>'blur cant_remitida')); ?></span>
+                                        </td>                                  
                                             <?php /*
                                         <td>
                                             <span id='unidad_<?php echo '{0}';?>' class="cambiar"></span>
@@ -461,25 +376,11 @@
                                              */ ?>
                                         <td width="40px">
                                              <span style="float: left">
-                                                <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                                 'buttonType'=>'button',
-                                                                 'type'=>'normal',
-                                                                 'size'=>'mini',
-                                                                 'icon'=>'pencil',
-                                                                 'htmlOptions'=>array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')
-                                                             ));
-                                                ?>
+                                                 <?php $this->darBoton('button', false, 'normal', 'small', false, 'pencil',array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')); ?>
                                             </span>
                                             <div class="remove" id ="remover_<?php echo '{0}';?>" style="float: left; margin-left: 5px; display: none"></div>
                                             <div style="float: left; margin-left: 5px;">
-                                                <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                             'buttonType'=>'button',
-                                                             'type'=>'danger',
-                                                             'size'=>'mini',
-                                                             'icon'=>'minus white',
-                                                             'htmlOptions'=>array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}')
-                                                         ));
-                                                   ?>
+                                                <?php $this->darBoton('button', false, 'danger', 'small', false, 'minus white',array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}')); ?>
                                             </div>
                                             <input name="rowIndex_{0}" type="hidden" class="rowIndex" value="{0}" />
                                        </td>
@@ -493,6 +394,7 @@
                         <?php foreach($modelLinea as $i=>$linea): ?>
                                 <tr class="templateContent">
                                    <td>
+                                            <?php echo CHtml::activeHiddenField($linea,"[$i]ID"); ?>
                                             <?php echo '<span id="articuloU_'.$i.'">'.$linea->ARTICULO.'</span>'; ?>
                                             <?php echo CHtml::activeHiddenField($linea,"[$i]ARTICULO"); ?>
                                    </td>
@@ -562,24 +464,10 @@
                                     */ ?>
                                     <td>            
                                             <span style="float: left">
-                                                <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                                 'buttonType'=>'button',
-                                                                 'type'=>'normal',
-                                                                 'size'=>'mini',
-                                                                 'icon'=>'pencil',
-                                                                 'htmlOptions'=>array('class'=>'editU','name'=>"$i",'id'=>"editU_$i")
-                                                             ));
-                                                ?>
+                                                <?php $this->darBoton('button', false, 'normal', 'small', false, 'pencil',array('class'=>'editU','name'=>"$i",'id'=>"editU_$i")); ?>
                                             </span>
                                            <div class="remove" id ="removerU" style="float: left; margin-left: 5px;">
-                                                      <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                             'buttonType'=>'button',
-                                                             'type'=>'danger',
-                                                             'size'=>'mini',
-                                                             'icon'=>'minus white',
-                                                             'htmlOptions'=>array('id'=>"eliminaLineaU_$i",'class'=>'eliminaLineaU','name'=>"$i")
-                                                         ));
-                                                   ?>
+                                               <?php $this->darBoton('button', false, 'danger', 'small', false, 'minus white',array('id'=>"eliminaLineaU_$i",'class'=>'eliminaLineaU','name'=>"$i")); ?>
                                            </div>
                                         <?php echo CHtml::hiddenField("rowIndexU_$i", $i, array('class'=>'rowIndexU')); ?>                                         
                                        </td>
@@ -593,4 +481,3 @@
 <?php $model->isNewRecord ? $i=0 : $i++; ?>
 <?php echo CHtml::HiddenField('CAMPO_ACTUALIZA', $i); ?>
 <?php echo CHtml::HiddenField('NAME', ''); ?>
-<?php echo CHtml::hiddenField('eliminar',''); ?>
