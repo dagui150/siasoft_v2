@@ -97,7 +97,7 @@
 
         <div align="center">
             <?php $this->darBoton('submit', $model->isNewRecord ? 'Crear' : 'Guardar', 'primary', 'small', false, 'ok-circle white'); ?>
-            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('pedido/admin'), 'icon' => 'remove'));  ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('bodega/inventario'), 'icon' => 'remove'));  ?>
 	</div>
 
 </div><!-- form -->

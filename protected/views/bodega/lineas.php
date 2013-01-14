@@ -7,7 +7,7 @@
 ?>
 <script>
     $(document).ready(function(){
-        var existenciaminima,precio,descuento,iva,valor_impuesto,contador, model,id,total,total_mercaderia,total_facturar,total_descuento,total_iva,anticipo,flete,seguro;
+        var contador, model, id;
 
         
         $('.cambiar').live('dblclick',function(){
@@ -38,10 +38,14 @@
             contador =  $(this).attr('id').split('_')[1];
             switch(model){
                 case 'existenciaminima':
-                    $('#existenciaminima_'+contador).text($(this).val());
-                    //$('#LineaNuevo_'+contador+'_EXISTENCIA_MINIMA').attr('type','hidden');
-                    $('#campo_existenciaminima_'+contador).hide('fast');
-                    $('#existenciaminima_'+contador).show('fast');
+                    if(($(this).val()) < ($('#LineaNuevo_'+contador+'_EXISTENCIA_MAXIMA').val())){
+                        $('#existenciaminima_'+contador).text($(this).val());
+                        //$('#LineaNuevo_'+contador+'_EXISTENCIA_MINIMA').attr('type','hidden');
+                        $('#campo_existenciaminima_'+contador).hide('fast');
+                        $('#existenciaminima_'+contador).show('fast');
+                    }else{
+                        alert('Debe ser un valor menor a maxima');
+                    }
                 break;
                 case 'existenciamaxima':
                     $('#existenciamaxima_'+contador).text($(this).val());
@@ -96,7 +100,7 @@
         var linea = parseInt(contador, 10); 
         //cambiar ids y span
         for(var i = contFor ; i <=contadorMax; i++){
-            var campos = ['ID', 'ARTICULO','DESCRIPCION','EXISTENCIA_MINIMA','EXISTENCIA_MAXIMA','PUNTO_REORDEN','CANT_DISPONIBLE','CANT_RESERVADA','CANT_REMITIDA'];
+            var campos = ['ARTICULO','DESCRIPCION','EXISTENCIA_MINIMA','EXISTENCIA_MAXIMA','PUNTO_REORDEN','CANT_DISPONIBLE','CANT_RESERVADA','CANT_REMITIDA'];
             var span = ['articulo','descripcion','existenciaminima','campo_existenciaminima','existenciamaxima','campo_existenciamaxima','puntoreorden','campo_puntoreorden','cant_disponible','campo_cant_disponible','cant_reservada','campo_cant_reservada','cant_remitida','campo_cant_remitida','remover','edit','eliminaLinea','rowIndex'];
             //CAMBIAR IDS DE LOS SPAN
             for(var x =0 ; x<=span.length;x++){
@@ -145,7 +149,7 @@
         var linea = parseInt(contador, 10); 
         //cambiar ids y span
         for(var i = contFor ; i <=contadorMax; i++){
-            var campos = ['ARTICULO','DESCRIPCION','EXISTENCIA_MINIMA','EXISTENCIA_MAXIMA','PUNTO_REORDEN','CANT_DISPONIBLE','CANT_RESERVADA','CANT_REMITIDA'];
+            var campos = ['ID', 'ARTICULO','DESCRIPCION','EXISTENCIA_MINIMA','EXISTENCIA_MAXIMA','PUNTO_REORDEN','CANT_DISPONIBLE','CANT_RESERVADA','CANT_REMITIDA'];
             var span = ['articuloU','descripcionU','existenciaminimaU','campo_existenciaminimaU','existenciamaximaU','campo_existenciamaximaU','puntoreordenU','campo_puntoreordenU','cant_disponibleU','campo_cant_disponibleU','cant_reservadaU','campo_cant_reservadaU','cant_remitidaU','campo_cant_remitidaU','removerU','editU','eliminaLineaU','rowIndexU'];
             //CAMBIAR IDS DE LOS SPAN
             for(var x =0 ; x<=span.length;x++){
@@ -201,7 +205,7 @@
         $('#'+model+'_'+contador+'_CANT_DISPONIBLE').val('0,00');
         $('#'+model+'_'+contador+'_CANT_RESERVADA').val('0,00');
         $('#'+model+'_'+contador+'_CANT_REMITIDA').val('0,00');
-        
+
         //copia a spans para visualizar detalles
         //$('#linea_'+contador).text(parseInt(contador, 10) + 1);
         $('#articulo_'+contador).text(articulo);

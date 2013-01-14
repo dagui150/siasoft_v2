@@ -63,6 +63,7 @@ class ExistenciaBodegas extends CActiveRecord
                         array('BODEGA', 'exist', 'attributeName'=>'ID', 'className'=>'Bodega','allowEmpty'=>false, 'message'=>'','on'=>'insert'),
                         array('ARTICULO', 'exist', 'attributeName'=>'ARTICULO', 'className'=>'Articulo','allowEmpty'=>false, 'message'=>'','on'=>'insert'),
                         array('ARTICULO', 'miValidacion','on'=>'insert'),
+                        array('ARTICULO', 'miValidacion','on'=>'modalLinea'),
 			array('ARTICULO,EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN','required','on'=>'modalLinea'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

@@ -15,7 +15,6 @@
         
         
         $('.close').click();
-        
         copiarCampos(contador,model,span);
                         
         $('#alert').remove();
@@ -32,12 +31,18 @@
             $('.clonar').click();
         }
         var existencia_minima = $('#ExistenciaBodegas_EXISTENCIA_MINIMA').val();
-        
+        var existencia_maxima = $('#ExistenciaBodegas_EXISTENCIA_MAXIMA').val();
+        var punto_reorden = $('#ExistenciaBodegas_PUNTO_REORDEN').val();
+
         //copia a spans para visualizar detalles
-        $('#existencia_minima'+span+'_'+contador).text(existencia_minima);
+        $('#existenciaminima'+span+'_'+contador).text(existencia_minima);
+        $('#existenciamaxima'+span+'_'+contador).text(existencia_maxima);
+        $('#puntoreorden'+span+'_'+contador).text(punto_reorden);
         
         //copia a campos ocultos
         $('#'+model+'_'+contador+'_EXISTENCIA_MINIMA').val(existencia_minima);
+        $('#'+model+'_'+contador+'_EXISTENCIA_MAXIMA').val(existencia_maxima);
+        $('#'+model+'_'+contador+'_PUNTO_REORDEN').val(punto_reorden);
         $('#alert').remove();
         
     }
@@ -126,7 +131,7 @@
                          'type'=>'primary',
                          'label'=>'Aceptar',
                          'icon'=>'ok white',
-                         'url'=>array('agregarlinea',),
+                         'url'=>array('agregarlinea'),
                          'ajaxOptions'=>array(
                              'type'=>'POST',
                              'update'=>'#form-lineas',

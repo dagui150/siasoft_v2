@@ -124,6 +124,11 @@ class BodegaController extends Controller
 
             if(isset($_POST['ajax']) && $_POST['ajax']==='articulo-form')
 		{
+			echo CActiveForm::validate($linea22);
+			Yii::app()->end();
+		}
+            if(isset($_POST['ajax']) && $_POST['ajax']==='existencia-bodegas-form')
+		{
 			echo CActiveForm::validate($linea);
 			Yii::app()->end();
 		}
@@ -131,10 +136,10 @@ class BodegaController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
                 /*
-		if(isset($_POST['LineaNuevo']))
+		if(isset($_POST['eliminar']))
 		{
                     echo '<pre>';
-                    echo print_r($_POST['LineaNuevo']);
+                    echo print_r($_POST['ExistenciaBodegas']);
                     echo '</pre>';
                     Yii::app()->end(); 
                 }*/
@@ -144,20 +149,20 @@ class BodegaController extends Controller
 			if($model->save()){
                             if($_POST['eliminar'] != ''){
                                         
-                                    /*
                                     $eliminar = explode(",", $_POST['eliminar']);
                                     foreach($eliminar as $elimina){                                
-                                            $borra = ExistenciaBodegas::model()->deleteByPk($elimina);                                
+                                            //$borra = ExistenciaBodegas::model()->deleteByPk($elimina);                                
+                                        ExistenciaBodegas::model()->updateByPk($elimina,array('ACTIVO'=>'N'));
                                     }
-                                    */
 
                                 }
 				if(isset($_POST['ExistenciaBodegas'])){
                                 foreach ($_POST['ExistenciaBodegas'] as $datos2){
+                                   /*
                                     echo '<pre>';
                     echo print_r($_POST['ExistenciaBodegas']);
                     echo '</pre>';
-                    Yii::app()->end();
+                    Yii::app()->end();*/
                                     $salvar2 = ExistenciaBodegas::model()->findByPk($datos2['ID']);
                                     $salvar2->EXISTENCIA_MINIMA = $datos2['EXISTENCIA_MINIMA'];
                                     $salvar2->EXISTENCIA_MAXIMA = $datos2['EXISTENCIA_MAXIMA'];
@@ -193,7 +198,7 @@ class BodegaController extends Controller
                              
                                 $this->redirect(array('inventario','men'=>'S002'));
                         } else {
-                            $this->redirect(array('admin','men'=>'E002'));
+                            $this->redirect(array('inventario','men'=>'E002'));
                         }
 		}
 
@@ -234,7 +239,8 @@ class BodegaController extends Controller
             $linea = new ExistenciaBodegas('modalLinea');
             $linea->attributes = $_POST['ExistenciaBodegas'];
             $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif'; 
-            if(isset($_POST['ExistenciaBodegas']))
+                /*
+                if(isset($_POST['ExistenciaBodegas']))
 		{
                     echo '<pre>';
                     echo print_r($_POST['ExistenciaBodegas']);
@@ -242,6 +248,7 @@ class BodegaController extends Controller
                     echo '<br />';
                     Yii::app()->end(); 
                 }
+                 */
             if($linea->validate()){
                      echo '<div id="alert" class="alert alert-success" data-dismiss="modal">
                             <h2 align="center">Operacion Satisfactoria</h2>
@@ -257,7 +264,7 @@ class BodegaController extends Controller
                      echo '</span>
                          
                          <div id="boton-cargado" class="modal-footer">';
-                            $this->widget('bootstrap.widgets.BootButton', array(
+                            $this->widget('bootstrap.widgets.TbButton', array(
                                  'buttonType'=>'button',
                                  'type'=>'normal',
                                  'label'=>'Aceptar',

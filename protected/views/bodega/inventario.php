@@ -7,7 +7,7 @@ function completado(){
 
 <?php
 $this->breadcrumbs=array(
-        'Inventario'=>array('inventario'),
+        //'Inventario'=>array('inventario'),
 	'Bodegas',
 );
 
@@ -31,6 +31,11 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1>Asociación de artículos a Bodegas</h1>
+<?php 
+if (isset($_GET['men'])){
+    $this->mensaje($_GET['men']);
+}
+?>
 <br>
 <?php
 
@@ -62,7 +67,7 @@ $('.search-form form').submit(function(){
 			 //'header'=>'Bodegas',
 			 'imageUrl'=>Yii::app()->baseUrl.'/images/bodega.png',
 			 //'labelExpression'=>'$data->ID',
-			 'urlExpression'=>'"index.php?r=existenciaBodegas/admin&id=".$data->ID',
+			 'urlExpression'=>'"index.php?r=bodega/articulos&id=".$data->ID',
 			 'htmlOptions'=>array('style'=>'text-align:center;'),
 			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'Artículos'),
                      ),
