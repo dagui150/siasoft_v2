@@ -45,6 +45,10 @@ $(document).ready(function(){
                 });
                 $('#carga').ajaxComplete(function(){
                     $('#carga').html('');
+					$(function() {                    
+						$( "#SolicitudOcLinea_FECHA_REQUERIDA" ).datepicker({dateFormat: 'yy-mm-dd'});
+						$.datepicker.setDefaults($.datepicker.regional['es']);
+					});
                 });
      });
     }) 

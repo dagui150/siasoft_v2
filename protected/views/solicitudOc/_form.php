@@ -12,11 +12,9 @@ $().ready(function() {
                 actualiza();
         });
         
-        $(function() {
-            $( "#SolicitudOcLinea_FECHA_REQUERIDA" ).datepicker();
-            $( "#format" ).change(function() {
-                $( "#SolicitudOcLinea_FECHA_REQUERIDA" ).datepicker( "option", "dateFormat", $( this ).val() );
-            });
+        $(function() {                    
+            $( "#SolicitudOcLinea_FECHA_REQUERIDA" ).datepicker({dateFormat: 'yy-mm-dd'});
+			$.datepicker.setDefaults($.datepicker.regional['es']);
         });
 });
 </script>

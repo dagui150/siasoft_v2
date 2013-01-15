@@ -1,4 +1,4 @@
-<script>
+	<script>
     function cargando(){
         $("#form-lineas").html('<div align="center" style="height: 300px; margin-top: 150px;"><?php echo CHtml::image($ruta);?></div>');      
     }
