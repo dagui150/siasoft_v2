@@ -21,7 +21,6 @@ jQuery(document).ready(function(){
 	});
 
 	$(".remove").live("click", function() {
-                $(this).slideUp('slow');
 		$(this).parents(".templateContent:first").remove();
 		hideEmptyHeaders();
 	});
