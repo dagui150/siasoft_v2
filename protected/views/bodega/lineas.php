@@ -35,16 +35,21 @@
         });
         
         $('.blur').live('blur',function(){
+            var max = parseInt($('#LineaNuevo_'+contador+'_EXISTENCIA_MAXIMA').val(),10);
+            var min = parseInt($(this).val(),10);
             contador =  $(this).attr('id').split('_')[1];
             switch(model){
                 case 'existenciaminima':
-                    if(($(this).val()) < ($('#LineaNuevo_'+contador+'_EXISTENCIA_MAXIMA').val())){
+                    if((min) < (max)){
+                        $("#mensaje_edit").html("");
                         $('#existenciaminima_'+contador).text($(this).val());
                         //$('#LineaNuevo_'+contador+'_EXISTENCIA_MINIMA').attr('type','hidden');
                         $('#campo_existenciaminima_'+contador).hide('fast');
                         $('#existenciaminima_'+contador).show('fast');
                     }else{
-                        alert('Debe ser un valor menor a maxima');
+                        //alert('Debe ser un valor menor a maxima');
+                        $("#mensaje_edit").html("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>&times;</button><font size='5' align='left'>&nbsp &nbsp El valor de minima debe ser menor al de maxima</font></div> ");
+//                        $(".btn btn-primary btn-small").attr(disable);
                     }
                 break;
                 case 'existenciamaxima':
@@ -477,6 +482,7 @@
               <?php endif; ?>
         </tbody>
 </table>
+<div id="mensaje_edit"></div>
 </div>
 <?php $model->isNewRecord ? $i=0 : $i++; ?>
 <?php echo CHtml::HiddenField('CAMPO_ACTUALIZA', $i); ?>
