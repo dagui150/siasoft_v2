@@ -240,7 +240,7 @@ class Controller extends CController
             return $this->widget('bootstrap.widgets.TbButton', array(
                                   'buttonType'=>'button',
                                   'label'=>$label,
-                                  'size'=>'small',
+                                  'size'=>'normal',
                                   'type'=>'success',
                                   'icon'=>'plus white',
                                   'htmlOptions'=>$htmlOptions,

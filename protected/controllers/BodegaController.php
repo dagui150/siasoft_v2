@@ -115,9 +115,9 @@ class BodegaController extends Controller
             $linea22 = new ExistenciaBodega('addLinea');
             $articulo = new Articulo;
             //$modelLinea = PedidoLinea::model()->findAll('PEDIDO ="'.$model->PEDIDO.'"');
-            $modelLinea = ExistenciaBodegas::model()->findAll('BODEGA ="'.$id.'"');
+            $modelLinea = ExistenciaBodegas::model()->findAll('BODEGA ="'.$id.'" AND ACTIVO = "S"');
             //$countLineas = PedidoLinea::model()->count('PEDIDO ="'.$model->PEDIDO.'"');
-            $countLineas = ExistenciaBodegas::model()->count('BODEGA ="'.$id.'"');
+            $countLineas = ExistenciaBodegas::model()->count('BODEGA ="'.$id.'" AND ACTIVO = "S"');
             $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
             $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
             $i = 1;
