@@ -35,8 +35,8 @@
         });
         
         $('.blur').live('blur',function(){
+            var min = parseInt($('#LineaNuevo_'+contador+'_EXISTENCIA_MINIMA').val(),10);
             var max = parseInt($('#LineaNuevo_'+contador+'_EXISTENCIA_MAXIMA').val(),10);
-            var min = parseInt($(this).val(),10);
             contador =  $(this).attr('id').split('_')[1];
             switch(model){
                 case 'existenciaminima':
@@ -46,16 +46,25 @@
                         //$('#LineaNuevo_'+contador+'_EXISTENCIA_MINIMA').attr('type','hidden');
                         $('#campo_existenciaminima_'+contador).hide('fast');
                         $('#existenciaminima_'+contador).show('fast');
+                        $("#guardar_lineas").attr('disabled',false);
                     }else{
                         //alert('Debe ser un valor menor a maxima');
-                        $("#mensaje_edit").html("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>&times;</button><font size='5' align='left'>&nbsp &nbsp El valor de minima debe ser menor al de maxima</font></div> ");
-//                        $(".btn btn-primary btn-small").attr(disable);
+                        $("#mensaje_edit").html("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>&times;</button><font size='5' align='left'>&nbsp &nbsp El valor de mínima debe ser menor al de máxima.</font></div> ");
+                        $("#guardar_lineas").attr('disabled',true);
                     }
                 break;
                 case 'existenciamaxima':
-                    $('#existenciamaxima_'+contador).text($(this).val());
-                    $('#campo_existenciamaxima_'+contador).hide('fast');
-                    $('#existenciamaxima_'+contador).show('fast');
+                    if((max) > (min)){
+                        $("#mensaje_edit").html("");
+                        $('#existenciamaxima_'+contador).text($(this).val());
+                        $('#campo_existenciamaxima_'+contador).hide('fast');
+                        $('#existenciamaxima_'+contador).show('fast');
+                        $("#guardar_lineas").attr('disabled',false);
+                    }else{
+                        //alert('Debe ser un valor menor a maxima');
+                        $("#mensaje_edit").html("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>&times;</button><font size='5' align='left'>&nbsp &nbsp El valor de máxima debe ser mayor al de mínima.</font></div> ");
+                        $("#guardar_lineas").attr('disabled',true);
+                    }
                 break;
                 case 'puntoreorden':
                     $('#puntoreorden_'+contador).text($(this).val());
@@ -89,9 +98,19 @@
         var existenciaminima2 = $('#ExistenciaBodega_EXISTENCIA_MINIMA_ADD').val(); 
         var existenciamaxima2 = $('#ExistenciaBodega_EXISTENCIA_MAXIMA_ADD').val(); 
         var puntoreorden2 = $('#ExistenciaBodega_PUNTO_REORDEN_ADD').val(); 
+        var min = parseInt(existenciaminima2,10);
+        var max = parseInt(existenciamaxima2,10);
         if(articulo2!='' && descripcion2!='' && existenciaminima2!='' && existenciamaxima2!='' && puntoreorden2!=''){
-            $('#agregar').attr('disabled', false);
-        };
+            if(min < max){
+                $('#agregar').attr('disabled', false);
+                $("#mensaje_addLinea").html("");
+            }else{
+                $('#agregar').attr('disabled', true);
+                $("#mensaje_addLinea").html("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>&times;</button><font size='5' align='left'>&nbsp &nbsp El valor de mínima debe ser menor al de máxima.</font></div> ");
+            }
+        }else{
+            $('#agregar').attr('disabled', true);
+        }
     });
     
     $('.eliminaLinea').live('click',function(){
@@ -234,7 +253,8 @@
                 <?php echo $form->textFieldRow($articulo,'ARTICULO',array('size'=>5, 'class'=>'valLinea')); ?>
              </td>
              <td style="width: 28px;">
-                 <?php $this->darBoton(false, false, 'info', 'normal', '#articulo', 'search white',array('data-toggle'=>'modal','style'=>'margin-top: 5px;')); ?>
+                 <?php //$this->darBoton(false, false, 'info', 'normal', '#articulo', 'search white',array('data-toggle'=>'modal','style'=>'margin-top: 5px;')); ?>
+                 <?php $this->darBotonBuscar('#articulo'); ?>
             </td>
             <td>
                  <?php echo CHtml::textField('Articulo_desc','',array('disabled'=>true,'size'=>10, 'class'=>'valLinea')); ?>
@@ -266,11 +286,13 @@
                             <?php echo $form->textFieldRow($linea22,'PUNTO_REORDEN_ADD',array('size'=>2, 'class'=>'valLinea'));?>
                        </td>
                        <td>
-                           <?php $this->darBoton('button', false, 'success', 'normal', false, 'white plus',array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;')); ?>
+                           <?php //$this->darBoton('button', false, 'success', 'normal', false, 'white plus',array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;')); ?>
+                           <?php $this->darBotonAddLinea('',array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;')); ?>
                        </td>
                    </tr>
                </table>
            </td>
+               <div id="mensaje_addLinea"></div>
         </tr>
 </table>
 <span id="carga" style="height:30px;width:30px;"></span>
@@ -381,11 +403,13 @@
                                              */ ?>
                                         <td width="40px">
                                              <span style="float: left">
-                                                 <?php $this->darBoton('button', false, 'normal', 'small', false, 'pencil',array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')); ?>
+                                                 <?php //$this->darBoton('button', false, 'normal', 'small', false, 'pencil',array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')); ?>
+                                                 <?php $this->darBotonUpdateLinea(array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')); ?>
                                             </span>
                                             <div class="remove" id ="remover_<?php echo '{0}';?>" style="float: left; margin-left: 5px; display: none"></div>
                                             <div style="float: left; margin-left: 5px;">
-                                                <?php $this->darBoton('button', false, 'danger', 'small', false, 'minus white',array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}')); ?>
+                                                <?php //$this->darBoton('button', false, 'danger', 'small', false, 'minus white',array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}')); ?>
+                                                <?php $this->darBotonDeleteLinea(false,array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}')); ?>
                                             </div>
                                             <input name="rowIndex_{0}" type="hidden" class="rowIndex" value="{0}" />
                                        </td>
@@ -469,10 +493,12 @@
                                     */ ?>
                                     <td>            
                                             <span style="float: left">
-                                                <?php $this->darBoton('button', false, 'normal', 'small', false, 'pencil',array('class'=>'editU','name'=>"$i",'id'=>"editU_$i")); ?>
+                                                <?php //$this->darBoton('button', false, 'normal', 'small', false, 'pencil',array('class'=>'editU','name'=>"$i",'id'=>"editU_$i")); ?>
+                                                <?php $this->darBotonUpdateLinea(array('class'=>'editU','name'=>"$i",'id'=>"editU_$i")); ?>
                                             </span>
                                            <div class="remove" id ="removerU" style="float: left; margin-left: 5px;">
-                                               <?php $this->darBoton('button', false, 'danger', 'small', false, 'minus white',array('id'=>"eliminaLineaU_$i",'class'=>'eliminaLineaU','name'=>"$i")); ?>
+                                               <?php //$this->darBoton('button', false, 'danger', 'small', false, 'minus white',array('id'=>"eliminaLineaU_$i",'class'=>'eliminaLineaU','name'=>"$i")); ?>
+                                               <?php $this->darBotonDeleteLinea(false,array('id'=>"eliminaLineaU_$i",'class'=>'eliminaLineaU','name'=>"$i")); ?>
                                            </div>
                                         <?php echo CHtml::hiddenField("rowIndexU_$i", $i, array('class'=>'rowIndexU')); ?>                                         
                                        </td>

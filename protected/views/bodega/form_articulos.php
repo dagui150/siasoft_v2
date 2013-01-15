@@ -96,8 +96,9 @@
         ?>
 
         <div align="center">
-            <?php $this->darBoton('submit', $model->isNewRecord ? 'Crear' : 'Guardar', 'primary', 'small', false, 'ok-circle white'); ?>
-            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('bodega/inventario'), 'icon' => 'remove'));  ?>
+            <?php $this->darBotonEnviar($model->isNewRecord ? 'Crear' : 'Guardar', array('id'=>'guardar_lineas')); ?>
+            <?php $this->darBotonCancelar(array(),array('bodega/inventario')); ?>
+            <?php //$this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('bodega/inventario'), 'icon' => 'remove'));  ?>
 	</div>
 
 </div><!-- form -->

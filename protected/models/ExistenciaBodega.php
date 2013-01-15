@@ -90,7 +90,7 @@ class ExistenciaBodega extends CActiveRecord
 	}
         
         public function miValidacion2($attribute,$params){
-            if($this->EXISTENCIA_MAXIMA_ADD != '' || $this->EXISTENCIA_MINIMA_ADD != ''){
+            if($this->EXISTENCIA_MAXIMA_ADD != '' && $this->EXISTENCIA_MINIMA_ADD != ''){
 		$trans = array("," => ".");
 		if (strtr($this->EXISTENCIA_MAXIMA_ADD, $trans) <= strtr($this->EXISTENCIA_MINIMA_ADD, $trans)){
 				$this->addError('EXISTENCIA_MAXIMA_ADD','Debe ser mayor a Mínima');
