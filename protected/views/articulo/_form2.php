@@ -122,15 +122,15 @@
             $retencion_venta =$model->RETENCION_VENTA?$model->rETENCIONVENTA->NOMBRE:'';
             
                       
-            $boton = $this->darBoton(false, 'info', 'normal', '#bodega', 'search white', array('data-toggle'=>'modal',),true);
+            $boton = $this->darBotonBuscar('#bodega',true);
             
-            $boton2 = $this->darBoton(false, 'info', 'normal', '#impuesto', 'search white', array('data-toggle'=>'modal',),true);
+            $boton2 = $this->darBotonBuscar('#bodega',true);
             
-            $boton3 = $this->darBoton(false, 'info', 'normal', '#impuesto2', 'search white', array('data-toggle'=>'modal',),true);
+            $boton3 = $this->darBotonBuscar('#bodega',true);
             
-            $boton4 = $this->darBoton(false, 'info', 'normal', '#retencion', 'search white', array('data-toggle'=>'modal',),true);
+            $boton4 = $this->darBotonBuscar('#bodega',true);
             
-            $boton5 = $this->darBoton(false, 'info', 'normal', '#retencion2', 'search white', array('data-toggle'=>'modal',),true);
+            $boton5 = $this->darBotonBuscar('#bodega',true);
             
             $clas = ClasificacionAdi::model()->findAll();
             
@@ -318,25 +318,12 @@
             ));
         ?>
     
-	<div align="center">
+	<div align="center"> 
 		<?php 
-			$this->widget('bootstrap.widgets.TbButton', array(
-						'label'=>$model->isNewRecord ? 'Crear' : 'Guardar', 
-						'buttonType'=>'submit',
-						'type'=>'primary',
-						'icon'=>$model->isNewRecord ? 'ok-circle white' : 'pencil white',
-					)
-			);
+                    $this->darBoton('submit', 'Crear', 'primary', 'normal','#','ok-circle white');
 		?>
-		<?php
-			$this->widget('bootstrap.widgets.TbButton', array(
-						'label'=>'Cancelar',
-						'type'=>'action',
-						'icon'=>'remove', 
-						'url'=>array('admin'), 
-					)
-			);
-			
+		<?php 
+                    $this->darBoton('link', 'Cancelar', 'action', 'normal',array('admin'),'remove');
 		?>
 	</div>
 

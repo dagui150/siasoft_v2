@@ -32,6 +32,27 @@
  */
 class SolicitudOc extends CActiveRecord
 {
+        
+        /**
+         * Articulo para la linea de la factura
+         * @var string 
+         */
+        public $ARTICULO;        
+        /**
+         * Cantidad para la linea de la factura
+         * @var int 
+         */
+        public $CANTIDAD;
+        /**
+         * Unidad para la linea de la factura
+         * @var int 
+         */
+        public $UNIDAD;
+        /**
+         * Cantidad para la linea de la factura
+         * @var date
+         */
+        public $FECHA_LINEA_REQUERIDA;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -58,13 +79,14 @@ class SolicitudOc extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('DEPARTAMENTO, FECHA_SOLICITUD, FECHA_REQUERIDA, PRIORIDAD', 'required'),
+			array('DEPARTAMENTO, FECHA_SOLICITUD, PRIORIDAD', 'required'),
 			array('LINEAS_NO_ASIG', 'numerical', 'integerOnly'=>true),
 			array('SOLICITUD_OC, DEPARTAMENTO', 'length', 'max'=>10),
 			array('AUTORIZADA_POR, CANCELADA_POR, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('PRIORIDAD, ESTADO', 'length', 'max'=>1),
 			array('RUBRO1, RUBRO2, RUBRO3, RUBRO4, RUBRO5', 'length', 'max'=>50),
 			array('FECHA_AUTORIZADA, COMENTARIO, FECHA_CANCELADA', 'safe'),
+                        array('ARTICULO', 'exist', 'attributeName'=>'ARTICULO', 'className'=>'Articulo','allowEmpty'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('SOLICITUD_OC, DEPARTAMENTO, FECHA_SOLICITUD, FECHA_REQUERIDA, AUTORIZADA_POR, FECHA_AUTORIZADA, PRIORIDAD, LINEAS_NO_ASIG, COMENTARIO, CANCELADA_POR, FECHA_CANCELADA, RUBRO1, RUBRO2, RUBRO3, RUBRO4, RUBRO5, ESTADO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),

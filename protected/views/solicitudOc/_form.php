@@ -6,6 +6,16 @@ $.validator.setDefaults({
 $().ready(function() {
 	// validate the comment form when it is submitted
 	$("#solicitud-oc-form").validate();
+        $('.edit').live('click',function(){
+                $('#SPAN').val('');
+                $('#NAME').val($(this).attr('name'));
+                actualiza();
+        });
+        
+        $(function() {                    
+            $( "#SolicitudOcLinea_FECHA_REQUERIDA" ).datepicker({dateFormat: 'yy-mm-dd'});
+			$.datepicker.setDefaults($.datepicker.regional['es']);
+        });
 });
 </script>
 <script>
@@ -155,12 +165,12 @@ $(document).ready(function(){
                 
                 $render = 'lineas';
                 $items = '';
-                $pestana = $this->renderPartial($render, array('form'=>$form, 'linea'=>$linea, 'items'=>$items, 'model'=>$model, 'readonly'=>$readonly, 'form'=>$form),true);
+                $pestana = $this->renderPartial($render, array('form'=>$form, 'linea'=>$linea, 'items'=>$items, 'model'=>$model, 'readonly'=>$readonly, 'form'=>$form, 'ruta2'=>$ruta2),true);
             }
             else{
                 $retorna = $model->SOLICITUD_OC;
                 $render = 'lineas';
-                $pestana = $this->renderPartial($render, array('form'=>$form, 'linea'=>$linea, 'items'=>$items, 'linea2'=>$linea2, 'model'=>$model, 'readonly'=>$readonly),true);
+                $pestana = $this->renderPartial($render, array('form'=>$form, 'linea'=>$linea, 'items'=>$items, 'ruta2'=>$ruta2, 'model'=>$model, 'readonly'=>$readonly),true);
             }
 ?>
     
@@ -285,19 +295,18 @@ $(document).ready(function(){
 
 <?php $this->endWidget(); ?>
    
-    <?php 
+     <?php 
     $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'articulo')); ?>
  
 	<div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
                 <br>
-		<?php 
-                    $funcion = 'cargaArticuloGrilla';
-                    $id = 'articulo-grid';
-                    $data=$articulo->search();
-                    $data->pagination = array('pageSize'=>4);
-                    echo $this->renderPartial('/articulo/articulos', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id,'data'=>$data,'check'=>false));
-                ?>
+          <?php
+            $funcion = 'cargaArticuloGrilla';
+            $id = 'articulo-grid';
+            $data=$articulo->searchModal();
+            $this->renderPartial('/articulo/articulos', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id,'check'=>false,'data'=>$data));
+      ?>
 	</div>
         <div class="modal-footer">
 
@@ -308,32 +317,25 @@ $(document).ready(function(){
             )); ?>
         </div>
  
-<?php $this->endWidget(); 
-    
-     if($model->SOLICITUD_OC != ''){ ?>
-        
-    
-    <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'articulo2')); ?>
-    <div class="modal-body">
-                <a class="close" data-dismiss="modal">&times;</a>
-                <br>
-		<?php 
-                    $funcion = 'cargaArticuloGrilla2';
-                    $id = 'articulo-grid2';
-                    echo $this->renderPartial('modal', array('articulo'=>$articulo,'funcion'=>$funcion,'id'=>$id));
-                ?>
-	</div>
-        <div class="modal-footer">
-
-            <?php $this->widget('bootstrap.widgets.TbButton', array(
-                'label'=>'Cerrar',
-                'url'=>'#',
-                'htmlOptions'=>array('data-dismiss'=>'modal'),
-            )); ?>
-        </div>
- <?php $this->endWidget(); 
+<?php $this->endWidget(); ?>
+     
+     <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'nuevo')); ?>
  
-    } 
-    ?>
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">&times;</a>
+		<h3>Línea</h3>
+		<p class="note">Los Campos con <span class="required">*</span> Son requeridos.</p>
+	</div>
+        <div id="form-lineas">
+            <?php  $this->renderPartial('modal', 
+                        array(
+                            'model'=>$model,
+                            'linea'=>$linea,
+                            'ruta'=>$ruta,
+                        )
+                    ); ?>
+        </div>
+ 
+<?php $this->endWidget(); ?>
 
 </div><!-- form -->

@@ -8,7 +8,7 @@ class SolicitudOcController extends Controller
 	 */
         public $modulo='Compras';
         public $submodulo='Solicitud de Compra';
-		public $layout='//layouts/column2';
+	public $layout='//layouts/column2';
         public $solicitud;
 	/**
 	 * @return array action filters
@@ -41,6 +41,8 @@ class SolicitudOcController extends Controller
                 $articulo = new Articulo;
                 $config = ConfCo::model()->find();
                 $i = 1;
+                $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
+                $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -84,6 +86,8 @@ class SolicitudOcController extends Controller
                         'linea'=>$linea,
                         'articulo'=>$articulo,
                         'config' => $config,
+                        'ruta'=>$ruta,
+                        'ruta2'=>$ruta2
                         
 		));
 	}
@@ -115,31 +119,57 @@ class SolicitudOcController extends Controller
         public function actionCargarArticulo(){
             
             $item_id = $_GET['buscar'];
-            $bus = Articulo::model()->findByPk($item_id);
-            if($bus){
-            $bus2 = UnidadMedida::model()->find('ID = "'.$bus->UNIDAD_ALMACEN.'"');
-            $bus3 = UnidadMedida::model()->findAll('TIPO = "'.$bus2->TIPO.'"');
-            
+            $bus = Articulo::model()->findByPk($item_id,  'ACTIVO = "S"');
             $res = array(
                  'DESCRIPCION'=>$bus->NOMBRE,
-                 'UNIDAD'=>$bus3,
+                 'UNIDAD' => $bus->UNIDAD_ALMACEN,
+                 'UNIDAD_NOMBRE' => $bus->uNIDADALMACEN->NOMBRE,
+                 'UNIDADES' => CHtml::listData(UnidadMedida::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>$bus->uNIDADALMACEN->TIPO)),'ID','NOMBRE'),
                  'ID'=>$bus->ARTICULO,
-                  
-            );
-           
-             $bus2= '';
-             $bus3= '';
-            
-            }
-            else{
-                $res = array(
-                 'DESCRIPCION'=>'Ninguno',
-                 'UNIDAD'=>'',
                 );
-            }
              echo CJSON::encode($res);
             
             
+        }
+        
+        public function actionAgregarlinea(){
+            $linea = new SolicitudOcLinea;
+            $linea->attributes = $_POST['SolicitudOcLinea'];
+            $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';            
+            
+            if($linea->validate()){
+                     echo '<div id="alert" class="alert alert-success" data-dismiss="modal">
+                            <h2 align="center">Operacion Satisfactoria</h2>
+                            </div>
+                     <span id="form-cargado" style="display:none">';
+                          $this->renderPartial('modal', 
+                            array(
+                                'linea'=>$linea,
+                                'ruta'=>$ruta,
+                                'Pactualiza'=>isset($_POST['ACTUALIZA']) ? $_POST['ACTUALIZA'] : 0,
+                            )
+                        );
+                     echo '</span>
+                         
+                         <div id="boton-cargado" class="modal-footer">';
+                            $this->widget('bootstrap.widgets.TbButton', array(
+                                 'buttonType'=>'button',
+                                 'type'=>'normal',
+                                 'label'=>'Aceptar',
+                                 'icon'=>'ok',
+                                 'htmlOptions'=>array('id'=>'nuevo','onclick'=>'agregar("'.$_POST['SPAN'].'")')
+                              ));
+                     echo '</div>';
+                     Yii::app()->end();
+                    }else{
+                    $this->renderPartial('modal', 
+                        array(
+                            'linea'=>$linea,
+                            'ruta'=>$ruta,                            
+                        )
+                    );
+                    Yii::app()->end();
+                }
         }
         
         public function actionCancelar(){
@@ -347,8 +377,8 @@ class SolicitudOcController extends Controller
                 $model = $this->loadModel($id);
                 $linea= new SolicitudOcLinea;
                 $articulo = new Articulo;
-                $config = new ConfCo;
-                $linea2 = new SolicitudOcLinea2;
+                $config = new ConfCo;                
+                $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
                 $i = 1;
                 // retrieve items to be updated in a batch mode
                 // assuming each item is of model class 'Item'
@@ -415,7 +445,7 @@ class SolicitudOcController extends Controller
                         'articulo'=>$articulo,
                         'config'=>$config,
                         'items'=>$items,
-                        'linea2'=>$linea2,
+                        'ruta2'=>$ruta2,
 		));
 	}
 

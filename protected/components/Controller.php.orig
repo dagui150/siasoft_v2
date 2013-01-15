@@ -84,7 +84,12 @@ class Controller extends CController
          * @return array con los items para un menu 
          */
 	public function menu(){
+<<<<<<< HEAD
 		/*$this->menu = Yii::app()->user->rbac->getMenu();
+=======
+            /*
+		$this->menu = Yii::app()->user->rbac->getMenu();
+>>>>>>> 91f01b5b2b85e483129b149efffac52e6a6644b7
 		$this->menu[]=  array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false,
                                 'items'=>Yii::app()->user->ui->adminItems);
 		$this->menu[]=array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>Yii::app()->user->ui->logoutUrl,'visible'=>!Yii::app()->user->isGuest);

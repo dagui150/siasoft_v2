@@ -117,7 +117,7 @@ class Factura extends CActiveRecord
              */
             $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$this->ARTICULO,'BODEGA'=>$this->BODEGA));
 	    if ($existenciaBodega){
-                $cantidad = Controller::darCantidad($existenciaBodega, $this->CANTIDAD, $this->UNIDAD);
+                $cantidad = Controller::darCantidad($existenciaBodega, Controller::unformat($this->CANTIDAD), $this->UNIDAD);
                 if($cantidad > Controller::unformat($existenciaBodega->CANT_DISPONIBLE))
                     $this->addError('CANTIDAD','Solo hay '.$existenciaBodega->CANT_DISPONIBLE.' '.$existenciaBodega->aRTICULO->uNIDADALMACEN->NOMBRE.'(s) disponible(s)');
             }
@@ -140,22 +140,37 @@ class Factura extends CActiveRecord
             }
 	}
         
-        public function behaviors()
+       public function behaviors()
 	{
-                $conf= ConfFa::model()->find();
+            $conf=ConfAs::model()->find();//PORCENTAJE_DEC
+            $conf2=ConfFa::model()->find();//DECIMALES_PRECIO
 		return array(
-			'CTimestampBehavior' => array(
-				'class' => 'zii.behaviors.CTimestampBehavior',
-				'createAttribute' => 'CREADO_EL',
-				'updateAttribute' => 'ACTUALIZADO_EL',
-				'setUpdateOnCreate' => true,
-			),
-			
-			'BlameableBehavior' => array(
-				'class' => 'application.components.BlameableBehavior',
-				'createdByColumn' => 'CREADO_POR',
-				'updatedByColumn' => 'ACTUALIZADO_POR',
-			),
+                    
+                        'defaults'=>array(
+                           'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
+                           'formats'=> array(
+                               'TOTAL_MERCADERIA'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
+                                'MONTO_ANTICIPO'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
+                                'MONTO_FLETE'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
+                                'MONTO_SEGURO'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
+                                'MONTO_DESCUENTO1'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
+                                'TOTAL_IMPUESTO1'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
+                                'TOTAL_A_FACTURAR'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
+                                
+                            ),
+                        ),
+                        
+                        'CTimestampBehavior' => array(
+                             'class' => 'zii.behaviors.CTimestampBehavior',
+                             'createAttribute' => 'CREADO_EL',
+                             'updateAttribute' => 'ACTUALIZADO_EL',
+                             'setUpdateOnCreate' => true,
+                        ),
+                        'BlameableBehavior' => array(
+                             'class' => 'application.components.BlameableBehavior',
+                             'createdByColumn' => 'CREADO_POR',
+                             'updatedByColumn' => 'ACTUALIZADO_POR',
+                       ),
 		);
 	}
         

@@ -182,6 +182,7 @@ class PedidoLinea extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+                    'pagination'=>false,
                         'keyAttribute'=>'PEDIDO',
 		));
 	}
@@ -190,32 +191,30 @@ class PedidoLinea extends CActiveRecord
 	{
             $conf=ConfAs::model()->find();//PORCENTAJE_DEC
             $conf2=ConfFa::model()->find();//DECIMALES_PRECIO
-		return array(
-                    
-                        'defaults'=>array(
-                           'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
-                           'formats'=> array(
-                                   'CANTIDAD' => '###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO), 
-                                   'PRECIO_UNITARIO' => '###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO), 
-                                   'PORC_DESCUENTO' => '###,##0.'.str_repeat('0',$conf->PORCENTAJE_DEC), 
-                                   'MONTO_DESCUENTO' => '###,##0.'.str_repeat('0',$conf->PORCENTAJE_DEC), 
-                               'PORC_IMPUESTO' => '###,##0.'.str_repeat('0',$conf->PORCENTAJE_DEC), 
-                               'VALOR_IMPUESTO' => '###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO), 
-                               'TOTAL' => '###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO), 
-                            ),
-                        ),
-                        
-                        'CTimestampBehavior' => array(
-                             'class' => 'zii.behaviors.CTimestampBehavior',
-                             'createAttribute' => 'CREADO_EL',
-                             'updateAttribute' => 'ACTUALIZADO_EL',
-                             'setUpdateOnCreate' => true,
-                        ),
-                        'BlameableBehavior' => array(
-                             'class' => 'application.components.BlameableBehavior',
-                             'createdByColumn' => 'CREADO_POR',
-                             'updatedByColumn' => 'ACTUALIZADO_POR',
-                       ),
-		);
+            return array(
+            'defaults' => array(
+                'class' => 'ext.decimali18nbehavior.DecimalI18NBehavior',
+                'formats' => array(
+                    'CANTIDAD' => '###,##0.' . str_repeat('0', $conf2->DECIMALES_PRECIO),
+                    'PRECIO_UNITARIO' => '###,##0.' . str_repeat('0', $conf2->DECIMALES_PRECIO),
+                    'PORC_DESCUENTO' => '###,##0.' . str_repeat('0', $conf->PORCENTAJE_DEC),
+                    'MONTO_DESCUENTO' => '###,##0.' . str_repeat('0', $conf->PORCENTAJE_DEC),
+                    'PORC_IMPUESTO' => '###,##0.' . str_repeat('0', $conf->PORCENTAJE_DEC),
+                    'VALOR_IMPUESTO' => '###,##0.' . str_repeat('0', $conf2->DECIMALES_PRECIO),
+                    'TOTAL' => '###,##0.' . str_repeat('0', $conf2->DECIMALES_PRECIO),
+                ),
+            ),
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'CREADO_EL',
+                'updateAttribute' => 'ACTUALIZADO_EL',
+                'setUpdateOnCreate' => true,
+            ),
+            'BlameableBehavior' => array(
+                'class' => 'application.components.BlameableBehavior',
+                'createdByColumn' => 'CREADO_POR',
+                'updatedByColumn' => 'ACTUALIZADO_POR',
+            ),
+        );
 	}
 }
