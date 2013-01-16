@@ -44,10 +44,10 @@
     );
     $this->widget('ext.JLinesForm.JLinesForm',array(
             'model'=>$linea,
-            'editInline'=>false,
+            'editInline'=>true,
             'elementsPreCopy'=>$elementsPreCopy,
             'elementsCopy'=>$elementsCopy,
-            'htmlAddOptions'=>array('label'=>'Nuevo','id'=>'add','style'=>'margin-top: 5px;','tabindex'=>'10')
+            'htmlAddOptions'=>array('label'=>'Nuevo','id'=>'add','style'=>'margin-top: 5px;')
     ));
 
 ?>

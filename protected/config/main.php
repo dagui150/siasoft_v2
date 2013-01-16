@@ -34,6 +34,10 @@ return array(
 	'modules'=>array(
 		'cruge'=>array(
 			'tableprefix'=>'cruge_',	
+			'superuserName'=>'superadmin',	
+			'useCGridViewClass'=>'bootstrap.widgets.TbGridView',
+                        'buttonStyle'=>'bootstrap',	
+                        
 			// para que utilice a protected.modules.cruge.models.auth.CrugeAuthDefault.php
 			// en vez de 'default' pon 'authdemo' para que utilice el demo de autenticacion alterna
 			// para saber mas lee documentacion de la clase modules/cruge/models/auth/AlternateAuthDemo.php
@@ -121,7 +125,7 @@ return array(
 		'user'=>array(
 			'allowAutoLogin'=>true,
 			'class' => 'application.modules.cruge.components.CrugeWebUser',
-			'loginUrl' => array('/cruge/ui/login'),
+			'loginUrl' => array('/site/index'),
 		),
 		'authManager' => array(
 			'class' => 'application.modules.cruge.components.CrugeAuthManager',
