@@ -47,6 +47,7 @@ class FacturaController extends Controller
                 $model->NIVEL_PRECIO =!isset($_POST['Factura']['NIVEL_PRECIO']) &&  $conf->NIVEL_PRECIO!= '' ? $conf->NIVEL_PRECIO:$_POST['Factura']['NIVEL_PRECIO'];
                 $model->UNIDAD =isset($_POST['Factura']['UNIDAD'])  ? $_POST['Factura']['UNIDAD'] :'';
                 
+                
 		$this->performAjaxValidation(array($model,$cliente));
                 if(isset($_POST['ajax']) && $_POST['ajax']==='factura-linea-form')
 		{
@@ -142,9 +143,8 @@ class FacturaController extends Controller
                             Yii::app()->end();
                         }				
                             
-                }
-                
-		$this->render('create',array(
+                }else{
+                    $this->render('create',array(
 			'model'=>$model,
                         'linea'=>$linea,
                         'cliente'=>$cliente,
@@ -153,6 +153,7 @@ class FacturaController extends Controller
                         'ruta'=>$ruta,
                         'ruta2'=>$ruta2,
 		));
+                }
 	}
         /**
          * Este metod hace las opertaciones necesarias para agregar una linea

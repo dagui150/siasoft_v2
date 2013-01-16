@@ -21,7 +21,24 @@ class SiteController extends Controller
 			),
 		);
 	}
-
+        public function actionPrueba(){
+            $linea = new FacturaLinea;
+            
+            Yii::import('ext.JLinesForm.JLinesForm');
+            JLinesForm::perfomAjaxValidate($linea,false);
+             /*if(isset($_POST['FacturaLinea'])){
+                 $valid=true;
+                 foreach($_POST['FacturaLinea'] as $i=>$item){
+                    if(isset($_POST['FacturaLinea'][$i]))
+                        $item->attributes=$_POST['FacturaLinea'][$i];
+                    $valid=$item->validate() && $valid;
+                } 
+                if($valid){
+                    
+                }
+             }*/
+                $this->render('prueba',array('linea'=>$linea));
+        }
 	/**
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
