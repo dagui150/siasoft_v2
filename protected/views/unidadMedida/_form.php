@@ -55,6 +55,7 @@
                                         <?php echo $form->labelEx($model2,'UNIDAD_BASE',array('class'=>'control-label')); ?>
                                         <div class="controls">   
                                              <?php echo CHtml::textField('UNIDAD_BASE',!$model2->isNewRecord ? $model2->uNIDADBASE->NOMBRE : '',array('disabled'=>true)); ?>
+                                             <?php echo $form->error($model2,'UNIDAD_BASE');?>
                                         </div>
                                 </div>
                             </td>

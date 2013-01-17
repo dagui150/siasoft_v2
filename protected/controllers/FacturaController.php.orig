@@ -48,7 +48,10 @@ class FacturaController extends Controller
                 $model->UNIDAD =isset($_POST['Factura']['UNIDAD'])  ? $_POST['Factura']['UNIDAD'] :'';
                 
                 
+<<<<<<< HEAD
                 
+=======
+>>>>>>> 6a1df3bfe631f4169c683c1f708fd7d2db6b2788
 		$this->performAjaxValidation(array($model,$cliente));
                 if(isset($_POST['ajax']) && $_POST['ajax']==='factura-linea-form')
 		{

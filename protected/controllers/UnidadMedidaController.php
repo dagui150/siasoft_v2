@@ -68,6 +68,7 @@ class UnidadMedidaController extends Controller
 		if(isset($_POST['UnidadMedida']))
 		{
 			$model2->attributes=$_POST['UnidadMedida'];
+                        $model2->BASE = 'N';
 			if($model2->save()){
 				//$this->redirect(array('admin'));
                                 $this->redirect(array('admin&men=S002'));

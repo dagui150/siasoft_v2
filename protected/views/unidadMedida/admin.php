@@ -15,6 +15,23 @@ if (isset($_GET['men'])){
 <div id="mensaje"></div>
 <br>
 
+<?php if(!UnidadMedida::validarUnidad()): ?>
+    <div class="alert alert-block">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <?php echo CHtml::image(Yii::app()->baseUrl."/images/warning.png",'Informacion',array('style'=>'float: left'));?>
+        <h4 style="float: left">&nbsp &nbsp Por favor Ajuste sus Unidades!</h4><br><br>
+        Se deben volver a seleccionar las unidades base para las unidades creadas:
+        <ul>
+            <li>Actualize su unidad</li>
+            <li>Vuelva a seleccionar el Tipo</li>
+            <li>Automaticamente se debe cargar en el campo unidad base con respecto al tipo</li>
+            <li>Los campos Base permitidos son (<?php echo Yii::t('ayuda','UBASE_UNID_MED')?>)</li>
+            <li>si es diferente a alguno de estos, no permitira guardar</li>
+            <li>Realize estos cambios en sus unidades de medida y podra utilizar el sistema normalmente</li>
+        </ul>
+    </div>
+<?php endif; ?>
+
 <div align="right">
 <?php 
 
@@ -43,11 +60,12 @@ if (isset($_GET['men'])){
                             'filter'=>array('U'=>'Unidad','L'=>'Longitud','P'=>'Peso','V'=>'Volumen','S'=>'Servicio',),
                             'value'=>'UnidadMedida::darTipo($data->TIPO)'
                         ),
-                        /*array(
+                        array(
                             'name'=>'UNIDAD_BASE',
                             'header'=>'Unidad Base',
-                            'value'=>'uNIDADBASE.NOMBRE',
-                        ),*/
+                            'value'=>'$data->uNIDADBASE->NOMBRE',
+                            'filter'=>CHtml::listData(UnidadMedida::model()->findAllByAttributes(array('ACTIVO'=>'S','BASE'=>'S')),'ID','NOMBRE'),
+                        ),
 			'EQUIVALENCIA',
 			array(
                             'class'=>'bootstrap.widgets.TbButtonColumn',

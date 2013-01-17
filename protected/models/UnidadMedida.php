@@ -56,13 +56,22 @@ class UnidadMedida extends CActiveRecord
 			array('ABREVIATURA', 'length', 'max'=>5),
 			array('TIPO, ACTIVO', 'length', 'max'=>1),
 			array('EQUIVALENCIA', 'length', 'max'=>28),
+			array('UNIDAD_BASE', 'validarUnidadBase'),
 			array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('ID, NOMBRE, ABREVIATURA, TIPO, UNIDAD_BASE, EQUIVALENCIA, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
-	}
-
+	}/**
+         * Validar la unidad base con las permitidas
+         * @param string $attribute
+         * @param array $params 
+         */
+        public function validarUnidadBase($attribute,$params){
+            if(!in_array($this->UNIDAD_BASE,self::getUnidadesValidas()))
+                $this->addError ('UNIDAD_BASE',$this->uNIDADBASE->NOMBRE.' No es permitida como base');
+            
+        }
 	public function behaviors()
 	{
 		return array(
@@ -143,15 +152,15 @@ class UnidadMedida extends CActiveRecord
 	}
         public static function getUnidad(){
             
-            return CHtml::ListData(UnidadMedida::model()->findAll(),'ID','NOMBRE');
+            return CHtml::ListData(self::model()->findAll(),'ID','NOMBRE');
         }
         public static function getPeso(){
             
-            return CHtml::ListData(UnidadMedida::model()->findAll('TIPO = "P"'),'ID','NOMBRE');
+            return CHtml::ListData(self::model()->findAll('TIPO = "P"'),'ID','NOMBRE');
         }
         public static function getVolumen(){
             
-            return CHtml::ListData(UnidadMedida::model()->findAll('TIPO = "V"'),'ID','NOMBRE');
+            return CHtml::ListData(self::model()->findAll('TIPO = "V"'),'ID','NOMBRE');
         }
         
         public static function darTipo($tipo){
@@ -192,4 +201,43 @@ class UnidadMedida extends CActiveRecord
 			'sort'=>false,
 		));
 	}
+        /**
+         * Crea un arreglo con los id's de unidad base validos 
+         * 
+         * @return array $unidadesValidas
+         */
+        public static function getUnidadesValidas(){
+            $unidadesBase = self::model()->findAllByAttributes(array('ACTIVO'=>'S','BASE'=>'S'));
+            $unidadesValidas = array();
+            foreach($unidadesBase as $unidadBase){
+                $unidadesValidas[]=$unidadBase->ID;
+            }
+            return $unidadesValidas;
+        }
+        /**
+         * Metodo para validar que las unidades del sistema
+         * esten bien configuradas
+         * 
+         * @return boolean 
+         */
+        public static function validarUnidad(){
+            $unidadesBase = self::model()->findAllByAttributes(array('ACTIVO'=>'S','BASE'=>'S'));
+            $unidades = self::model()->findAllByAttributes(array('ACTIVO'=>'S','BASE'=>'N'));
+            $return = true;
+            //verifica si la unidad base  de las BASE son correctas
+            foreach($unidadesBase as $unidadBase){
+                if($unidadBase->UNIDAD_BASE != $unidadBase->ID){
+                    $unidadBase->UNIDAD_BASE = $unidadBase->ID;
+                    $unidadBase->update();
+                }
+            }
+            //Valida que esten correctas las unidades de medida que esten creeadas
+            foreach($unidades as $unidad){
+                if(!in_array($unidad->UNIDAD_BASE,self::getUnidadesValidas())){
+                     $return = false;
+                        break;
+                }
+            }
+            return $return;
+        }
 }

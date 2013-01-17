@@ -27,8 +27,10 @@ class MiSesionCruge extends DefaultSessionFilter {
 		Yii::log("PASANDO POR ONLOGIN","info");
 		if(Yii::app()->user->isSuperAdmin)
 			Yii::app()->getController()->redirect(array("/cruge/ui/usermanagementadmin"));
-		else
+		elseif(UnidadMedida::validarUnidad())
 			Yii::app()->getController()->redirect(array("/site/index"));
+                 else
+                        Yii::app()->getController()->redirect(array("/unidadMedida/admin"));
 	}
 
 	/**

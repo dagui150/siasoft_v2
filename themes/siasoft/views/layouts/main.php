@@ -37,7 +37,7 @@
             <div id="menu">
 
                 <?php
-                if (!Yii::app()->user->isGuest) {
+                if (UnidadMedida::validarUnidad() && !Yii::app()->user->isGuest) {
 
                     $this->widget('bootstrap.widgets.TbMenu', array(
                         'type' => 'pills', // '', 'tabs', 'pills' (or 'list')
@@ -50,7 +50,7 @@
             </div><!-- mainmenu -->
 
 <?php
-if (!Yii::app()->user->isGuest) {
+if (UnidadMedida::validarUnidad() && !Yii::app()->user->isGuest) {
     if (isset($this->breadcrumbs)):
         $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
             'links' => $this->breadcrumbs,
