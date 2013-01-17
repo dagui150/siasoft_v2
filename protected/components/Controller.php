@@ -313,4 +313,23 @@ class Controller extends CController
                                   'htmlOptions'=>$htmlOptions,
                             ));
         }
+        /**
+         * Metodo para retornar un Boton de PDF y EXCEL
+         * @param string $label Label del Boton default 'EXCEL'
+         * @param mixed $url Url del Boton
+         * @param mixed $type type del Boton default 'inverse'
+         * @param array $htmlOptions Opciones HTML del Boton default 'array()'
+         * @param mixed $url url del Boton default 'array("admin")'
+         * @return TbButton 
+         */
+        public  function darBotonPdfExcel($url,$htmlOptions = array(),$label='EXCEL',$type='inverse'){
+            return $this->widget('bootstrap.widgets.TbButton', array(
+                                  'label'=>$label,
+                                  'type'=>$type,
+                                  'size' =>'mini',
+                                  'url'=>$url,
+                                  'icon' => 'download-alt white',
+                                  'htmlOptions'=>$htmlOptions,
+                            ));
+        }
 }
