@@ -42,7 +42,7 @@ class Controller extends CController
 		$borrar_success = MensajeSistema::model()->findByPk('S004');
 		$borrar_error = MensajeSistema::model()->findByPk('E004');
 		$mensaje_p1='$("#mensaje").html("<div class=';
-		$mensaje_p2='><button type=\'button\' class=\'close\' data-dismiss=\'alert\'>&times;</button><font size=\'5\' align=\'left\'>&nbsp &nbsp';
+		$mensaje_p2='><button type=\'button\' class=\'close\' data-dismiss=\'alert\'>&times;</button><font size=\'4\' align=\'left\'>&nbsp &nbsp';
 		$mensaje_p3='.</font></div> ");';
 		$mensaje_success=$mensaje_p1.'\'alert alert-success\''.$mensaje_p2.'<img src='.Yii::app()->baseUrl."/images/success.png".'>&nbsp&nbsp'.$borrar_success->MENSAJE.$mensaje_p3;
 		$mensaje_error=$mensaje_p1.'\'alert alert-error\''.$mensaje_p2.'<img src='.Yii::app()->baseUrl."/images/error.png".'>&nbsp&nbsp'.$borrar_error->MENSAJE.$mensaje_p3;
@@ -63,8 +63,14 @@ class Controller extends CController
 			$img_url="/images/error.png";
 			break;
 		}
-		Yii::app()->user->setFlash($mensaje_->TIPO, '<font size="5" align="left">&nbsp &nbsp<img src='.Yii::app()->baseUrl.$img_url.'>&nbsp &nbsp'.$mensaje_->MENSAJE.'.</font>');
-		$this->widget('bootstrap.widgets.TbAlert');
+		Yii::app()->user->setFlash($mensaje_->TIPO, '<font size="4" align="left">&nbsp &nbsp<img src='.Yii::app()->baseUrl.$img_url.'>&nbsp &nbsp'.$mensaje_->MENSAJE.'.</font>');
+		//$this->widget('bootstrap.widgets.TbAlert');
+                $this->widget('bootstrap.widgets.TbAlert', array(
+                    'block'=>true, // display a larger alert block?
+                    'fade'=>true, // use transitions?
+                    'closeText'=>'&times;', // close link text - if set to false, no close link is displayed
+                    'htmlOptions'=>array('class'=>'reducir'),
+                ));
 	}
         /**
          * Este metodo sera llamado para desformatear un numero que venga con comas(,) y puntos (.)
