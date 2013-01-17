@@ -1,9 +1,5 @@
 <script>
     $(document).ready(inicio);
-    
-    
-    
-    
     function calcularTotal(contador,model, model2){
         
         if(model=='PedidoLinea'){
@@ -24,11 +20,6 @@
         $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(format(total_impuesto.toString().replace(/\./g,',')));
         $('#'+model+'_'+contador+'_TOTAL').val(format(total_linea.toString().replace(/\./g,',')));
         }else {
-            
-            
-       
-        
-        
         var cantidad = parseFloat(unformat($('#'+model+'_'+contador+'_CANTIDAD').val()));
         var precio_unitario = parseFloat(unformat($('#'+model+'_'+contador+'_PRECIO_UNITARIO').val()));
         var porc_descuento = parseFloat(unformat($('#'+model+'_'+contador+'_PORC_DESCUENTO').val()));
@@ -97,12 +88,7 @@
             var contador = $('body').find('.rowIndexU').max();            
             var numLinea = parseInt($('#CAMPO_ACTUALIZA').val(), 10);
             for(var i = 0 ; i <=contador; i++){   
-                
-                
-                
-                
                 //lineas         
-                
                 cantidad = parseFloat(unformat($('#'+model2+'_'+i+'_CANTIDAD').val()));
                 precio = parseFloat(unformat($('#'+model2+'_'+i+'_PRECIO_UNITARIO').val()));
                 descuento = parseFloat(unformat($('#'+model2+'_'+i+'_MONTO_DESCUENTO').val()));
@@ -122,14 +108,9 @@
         }
         var gran_total =(total_facturar - anticipo)+flete+seguro;        
         $('#calculos').val(format(gran_total.toString().replace(/\./g,',')));
-
-        
     }
     
     function inicio(){
-        
-       
-        
             $('#calculos').val($('#Pedido_TOTAL_A_FACTURAR').val());
             
              calculoGranTotal(false,false);

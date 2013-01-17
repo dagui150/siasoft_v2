@@ -21,6 +21,53 @@
     });
 
 $(document).ready(function(){
+        
+        var contador, model,id;
+        $('.cambiar').live('dblclick',function(){          
+            model = $(this).attr('id').split('_')[0];
+            contador = $(this).attr('id').split('_')[1];
+            id = '#campo_'+model+'_'+contador;
+            $(this).hide('fast');
+            $(id).show('fast');
+            switch(model){
+                case 'cantidad':
+                    $('#Nuevo_'+contador+'_CANTIDAD').focus();
+                    break;
+                case 'unidad':
+                    $('#Nuevo_'+contador+'_UNIDAD').focus();
+                    break;
+            }
+                
+            
+        });
+        
+        $('.blur').live('blur',function(){
+            
+            
+            contador =  $(this).attr('id').split('_')[1];
+            //alert(contador);
+            switch(model){
+                case 'cantidad':
+                    $('#cantidad_'+contador).text($(this).val());
+                    $('#campo_cantidad_'+contador).hide('fast');                    
+                    $('#cantidad_'+contador).show('fast');
+                break;
+                case 'unidad':
+                    $('#unidad_'+contador).text($('#NOMBRE_UNIDAD').val());
+                    $('#campo_unidad_'+contador).hide('fast');
+                    $('#unidad_'+contador).show('fast');
+                break;
+            }
+        });
+        
+        $('.unidad').live('change',function(){
+            contador =  $(this).attr('id').split('_')[1];
+            var modelo = $(this).attr('id').split('_')[0];
+            var nombre = $('#'+modelo+'_'+contador+'_UNIDAD option:selected').html()
+            $('#NOMBRE_UNIDAD').val('');
+            $('#NOMBRE_UNIDAD').val(nombre);
+        });
+    
         $('#agregar').click(function(){
             
                 $('.clonar').click();
@@ -75,29 +122,106 @@ $(document).ready(function(){
                         $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
 		  });
     }
+    
+    $('.eliminaLinea').live('click',function(){
+        var contador = $(this).attr('name');
+        var model = 'Nuevo';       
+           
+        $('#remover_'+contador).click();
+        var contadorMax = $('body').find('.rowIndex').max();        
+        var contFor = parseInt(contador, 10)+1;
+        var linea = parseInt(contador, 10); 
+        //cambiar ids y span
+        for(var i = contFor ; i <=contadorMax; i++){           
+            var campos = ['LINEA_NUM','ARTICULO', 'DESCRIPCION','UNIDAD','CANTIDAD','FECHA_REQUERIDA','SALDO','COMENTARIO'];
+            var span = ['numero','articulo','descripcion','unidad','cantidad','fecha_requerida','saldo','remover','edit','eliminaLinea','rowIndex'];
+            //CAMBIAR IDS DE LOS SPAN
+            for(var x =0 ; x<=span.length;x++){
+                switch(span[x]){
+                    case 'edit':
+                        $('#'+span[x]+'_'+i).attr('name',linea);
+                    break
+                    case 'eliminaLinea':
+                        $('#'+span[x]+'_'+i).attr('name',linea);
+                    break
+                    case 'rowIndex':
+                         $('[name="'+span[x]+'_'+i+'"]').attr({
+                        name: span[x]+'_'+linea,
+                        value:linea
+                    });
+                    break
+                }
+                $('#'+span[x]+'_'+i).attr('id',span[x]+'_'+linea);
+            }
+            //CAMBIAR IDS Y NAMES DE LOS CAMPOS DE LAS LINEAS
+            for(var y =0 ; y<=campos.length;y++){
+               /* alert('editar :'+model+'_'+i+'_'+campos[y]);
+                alert('editado :'+model+'_'+linea+'_'+campos[y]);*/
+                 $('#'+model+'_'+i+'_'+campos[y]).attr({
+                    id: model+'_'+linea+'_'+campos[y],
+                    name: model+'['+linea+']['+campos[y]+']'
+                });
+            }            
+            contador++;
+            linea++;
+        }        
+    });
+    
+    $('.eliminaLineaU').live('click',function(){
+        var contador = $(this).attr('name');
+        var model = 'SolicitudOcLinea';        
+        var numLinea = parseInt($('#CAMPO_ACTUALIZA').val(), 10);
+        var eliminar = $('#eliminar').val();
+        eliminar = eliminar + $('#PedidoLinea_'+contador+'_ID').val() + ',';
+        $('#eliminar').val(eliminar);
+           
+        $('#remover_'+contador).click();
+        var contadorMax = $('body').find('.rowIndex').max();        
+        var contFor = parseInt(contador, 10)+1;
+        var linea = parseInt(contador, 10); 
+        //cambiar ids y span
+        for(var i = contFor ; i <=contadorMax; i++){           
+            var campos = ['LINEA_NUM','ARTICULO', 'DESCRIPCION','UNIDAD','CANTIDAD','FECHA_REQUERIDA','SALDO','COMENTARIO'];
+            var span = ['numero','articulo','descripcion','unidad','cantidad','fecha_requerida','saldo','remover','edit','eliminaLinea','rowIndex'];
+            //CAMBIAR IDS DE LOS SPAN
+            for(var x =0 ; x<=span.length;x++){
+                switch(span[x]){
+                    case 'edit':
+                        $('#'+span[x]+'_'+i).attr('name',linea);
+                    break
+                    case 'eliminaLinea':
+                        $('#'+span[x]+'_'+i).attr('name',linea);
+                    break
+                    case 'rowIndex':
+                         $('[name="'+span[x]+'_'+i+'"]').attr({
+                        name: span[x]+'_'+linea,
+                        value:linea
+                    });
+                    break
+                }
+                $('#'+span[x]+'_'+i).attr('id',span[x]+'_'+linea);
+            }
+            //CAMBIAR IDS Y NAMES DE LOS CAMPOS DE LAS LINEAS
+            for(var y =0 ; y<=campos.length;y++){
+               /* alert('editar :'+model+'_'+i+'_'+campos[y]);
+                alert('editado :'+model+'_'+linea+'_'+campos[y]);*/
+                 $('#'+model+'_'+i+'_'+campos[y]).attr({
+                    id: model+'_'+linea+'_'+campos[y],
+                    name: model+'['+linea+']['+campos[y]+']'
+                });
+            }            
+            contador++;
+            linea++;
+        }        
+    });
 	
-	function Eliminar (id){
-		var eliminar = $('#eliminar').get(0).value;
-		var cuentaLineas;
-		
-		eliminar = eliminar + id + ",";
-		$('#eliminar').val(eliminar);
-		cuentaLineas = $('#contadorCrea').val();
-		
-		if (cuentaLineas <= '1'){
-			$('#remover').removeClass('remove');
-		}
-		else{
-			cuentaLineas = parseInt(cuentaLineas, 10) - 1;
-			$('#contadorCrea').val(cuentaLineas);
-		}
-	}
      function agregarCampos(contador,model){
         
         var articulo = $('#SolicitudOc_ARTICULO').val();
         var descripcion = $('#Articulo_desc').val();
         var cantidad = $('#SolicitudOc_CANTIDAD').val();
         var requerida = $('#SolicitudOc_FECHA_LINEA_REQUERIDA').val();
+        var cuentaActualiza = parseInt($('#CAMPO_ACTUALIZA').val(), 10);
         
         //copia a campos ocultos
         $('#'+model+'_'+contador+'_ARTICULO').val(articulo);
@@ -108,9 +232,24 @@ $(document).ready(function(){
         $('#'+model+'_'+contador+'_ESTADO').val('P')
         $('#'+model+'_'+contador+'_COMENTARIO').val('');
         $('#SolicitudOc_UNIDAD').clone().appendTo('#'+model+'_'+contador+'_UNIDAD');
+        $.getJSON(
+            '<?php echo $this->createUrl('solicitudOc/CargarArticulo'); ?>&buscar='+articulo,
+            
+		  function(data)
+                  {                        
+                        $('select[id$='+model+'_'+contador+'_UNIDAD]>option').remove();
+
+                        $.each(data.UNIDADES, function(value, name) {
+                                if(value == data.UNIDAD)
+                                  $('#'+model+'_'+contador+'_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
+                                else
+                                   $('#'+model+'_'+contador+'_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
+                            });
+                        $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
+		  });
         
         //copia a spans para visualizar detalles
-        $('#numero_'+contador).text(parseInt(contador, 10) + 1);
+        $('#numero_'+contador).text(parseInt(contador, 10) + 1 + cuentaActualiza);
         $('#articulo_'+contador).text(articulo);
         $('#descripcion_'+contador).text(descripcion);
         $('#fecha_requerida_'+contador).text(requerida);
@@ -211,19 +350,19 @@ $(document).ready(function(){
                                     <td>
                                         Articulo
                                     </td>
-                                    <td>
+                                    <td width="180px">
                                         Descripcion
                                     </td>
-                                    <td>
+                                    <td width="130px">
                                         Unidad
                                     </td>
-                                    <td>
+                                    <td width="100px">
                                         Cantidad
                                     </td>
-                                    <td>
+                                    <td width="120px">
                                         Requerida
                                     </td>
-                                    <td>
+                                    <td width="50px">
                                        Saldo
                                     </td>
                                     <td>
@@ -238,16 +377,7 @@ $(document).ready(function(){
                                                 <?php 
                                                      $htmlOptions = array('class'=>'clonar', 'style'=>'display:none');
                                                      $this->darBotonAddLinea(false,$htmlOptions);
-                                                 ?>
-                                                <?php 
-						/*$this->widget('bootstrap.widgets.BootButton', array(
-							'buttonType'=>'button',
-							'type'=>'success',
-							'label'=>'Nuevo',
-							'icon'=>'plus white',
-							'htmlOptions' => array('class'=>'clonar', 'style'=>'display:none'),
-                                                ));*/
-									   ?></div>
+                                                 ?></div>
                                         <textarea class="template" rows="0" cols="0" style="display: none;" >
                                             <tr class="templateContent">
                                                 <td>
@@ -256,30 +386,30 @@ $(document).ready(function(){
                                                 </td>
                                                 <td>
                                                     <span id="articulo_<?php echo '{0}';?>"></span>
-                                                    <span id='campo_articulo_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][ARTICULO]','',array('class' => 'tonces')); ?></span>
+                                                    <span id='campo_articulo_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][ARTICULO]','',array()); ?></span>
                                                 </td>
                                                 
                                                 <td>
                                                     <span id="descripcion_<?php echo '{0}';?>"></span>
-                                                    <span id='campo_descripcion_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][DESCRIPCION]','',array('class' => 'required')); ?></span>
+                                                    <span id='campo_descripcion_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][DESCRIPCION]','',array()); ?></span>
                                                 </td>
                                                 <td>
-                                                    <span id="unidad_<?php echo '{0}';?>"></span>
-                                                    <span id='campo_unidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::dropDownList('Nuevo[{0}][UNIDAD]','',array('prompt'=>'Seleccione articulo')); ?></span>
+                                                    <span id="unidad_<?php echo '{0}';?>" class="cambiar"></span>
+                                                    <span id='campo_unidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::dropDownList('Nuevo[{0}][UNIDAD]','',array('prompt'=>'Seleccione articulo', 'class'=>'blur unidad')); ?></span>
                                                     <?php echo CHtml::hiddenField('Nuevo[{0}][ESTADO]','',array()); ?>
                                                 </td>
                                                 <td>
-                                                    <span id="cantidad_<?php echo '{0}';?>"></span>
-                                                    <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][CANTIDAD]','',array('size'=>'5', 'class' => 'cantidad','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?></span>
+                                                    <span id="cantidad_<?php echo '{0}';?>" class="cambiar"></span>
+                                                    <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][CANTIDAD]','',array('class'=>'blur decimal')); ?></span>
                                                 </td>
                                                 <td>
                                                     <span id="fecha_requerida_<?php echo '{0}';?>"></span>
-                                                    <span id='campo_fecha_requerida_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][FECHA_REQUERIDA]','',array('class' => 'fecha', 'size'=>'10')); ?>
+                                                    <span id='campo_fecha_requerida_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][FECHA_REQUERIDA]','',array('class'=>'blur fecha_requerida')); ?>
                                                     <?php echo CHtml::hiddenField('Nuevo[{0}][COMENTARIO]','',array()); ?>
                                                 </td>
                                                 <td>
                                                     <span id="saldo_<?php echo '{0}';?>"></span>
-                                                    <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][SALDO]','',array('readonly'=>true, 'size'=>'5')); ?></span>
+                                                    <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][SALDO]','',array()); ?></span>
                                                 </td>
                                                 <td>
                                                     <span style="float: left">
@@ -292,17 +422,15 @@ $(document).ready(function(){
                                                         ?>
                                                     </span>
                                                     <div id="remover" class="remove">
-                                                        <?php 
-                                                
-                                                            $this->widget('bootstrap.widgets.TbButton', array(
-                                                                    'buttonType'=>'button',
-                                                                    'type'=>'danger',                                                                    
-                                                                    'label'=>'',
-                                                                    'icon'=>'minus white',
-                                                                    'size' => 'normal',                                                                    
-                                                                    
-                                                              ));
-                                                         ?>
+                                                        <div style="float: left; margin-left: 5px;">
+                                                            <?php $this->widget('bootstrap.widgets.TbButton', array(
+                                                                         'buttonType'=>'button',
+                                                                         'type'=>'danger',                                                                        
+                                                                         'icon'=>'minus white',
+                                                                         'htmlOptions'=>array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}')
+                                                                     ));
+                                                               ?>
+                                                        </div>
                                                     </div>
                                                     <input type="hidden" class="rowIndex" value="{0}" />
                                                 </td>
@@ -317,72 +445,64 @@ $(document).ready(function(){
                                 
                                 <tr class="templateContent">
                                     <td>
-                            <?php echo $form->textField($item,"[$i]ARTICULO", array('class'=>'tonces2', 'readonly'=>$readonly)); ?>
-                            		</td>
+                                        <?php echo '<span id="numeroU_'.$i.'">'.$item->LINEA_NUM.'</span>'; ?>
+                                        <?php echo  CHtml::activeHiddenField($item,"[$i]LINEA_NUM",array('readonly'=>true, 'size'=>'2')); ?>
+                                    </td>
                                     <td>
-                                        <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                            'type'=>'info',
-                                                            'size'=>'mini',
-                                                            'url'=>'#articulo2',
-                                                            'icon'=>'search',
-                                                            'htmlOptions'=>array('data-toggle'=>'modal', 'class' => 'emergente', 'name' => "$i", 'disabled'=>$readonly),
-                                                        )); ?>
-                        </td>
-                        <td>
-                            <?php echo $form->textField($item,"[$i]DESCRIPCION",array('class'=>'required', 'readonly'=>$readonly)); ?>
-                        </td>
-                        <td>
-                            <?php echo $form->dropDownList($item,"[$i]UNIDAD", $linea->getCombo($item->ARTICULO), array('prompt'=>'Seleccione articulo', 'disabled'=>$readonly)); ?>
-                        </td>
-                        <td>
-                            <?php echo $form->textField($item,"[$i]ESTADO",array('readonly'=>true, 'size'=>'1')); ?>
-                        </td>
-                        <td>
-                            <?php echo $form->textField($item,"[$i]CANTIDAD",array('size'=>'5', 'class' => 'cantidad','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)', 'readonly'=>$readonly)); ?>
-                        </td>
-                        <td>
-                            <?php echo $form->textField($item,"[$i]FECHA_REQUERIDA",array('class' => 'fecha', 'size'=>'10', 'readonly'=>$readonly)); ?>
-                        </td>
-                        <td>
-                            <?php echo $form->textField($item,"[$i]COMENTARIO",array('readonly'=>$readonly)); ?>
-                        </td>
-                        <td>
-                            <?php echo $form->textField($item,"[$i]SALDO",array('readonly'=>true, 'size'=>'5')); ?>
-                        </td>
-                        <td>
-                            <?php echo $form->textField($item,"[$i]LINEA_NUM",array('readonly'=>true, 'size'=>'2')); ?>
-                            <?php echo $form->hiddenField($item,"[$i]SOLICITUD_OC_LINEA",array()); ?>
-                        </td>
+                                        <?php echo '<span id="articuloU_'.$i.'">'.$item->ARTICULO.'</span>'; ?>
+                                        <?php echo  CHtml::activeHiddenField($item,"[$i]ARTICULO", array()); ?>                                        
+                                    </td>
                                     <td>
-                                        <span style="float: left">
+                                        <?php echo '<span id="descripcionU_'.$i.'">'.$item->DESCRIPCION.'</span>'; ?>
+                                        <?php echo  CHtml::activeHiddenField($item,"[$i]DESCRIPCION",array()); ?>                                        
+                                    </td>
+                                    <td>
+                                        <?php echo '<span id="unidadU_'.$i.'">'.$item->uNIDAD->NOMBRE.'</span>'; ?>
+                                        <div style="display:none;"><?php echo CHtml::activeDropDownList($linea,"[$i]UNIDAD",CHtml::listData(UnidadMedida::model()->findAll('ACTIVO = "S" AND TIPO = "'.$item->uNIDAD->TIPO.'"'), 'ID', 'NOMBRE'),array('style'=>'width:65px;', 'options'=>array($item->UNIDAD => array('selected'=>'selected')))); ?></div>
+                                        <?php echo  CHtml::activeHiddenField($item,"[$i]ESTADO",array('readonly'=>true, 'size'=>'1')); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo '<span id="cantidadU_'.$i.'">'.$item->CANTIDAD.'</span>'; ?>
+                                        <?php echo  CHtml::activeHiddenField($item,"[$i]CANTIDAD",array('size'=>'5', 'class' => 'cantidad','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)', 'readonly'=>$readonly)); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo '<span id="fecha_requeridaU_'.$i.'">'.$item->FECHA_REQUERIDA.'</span>'; ?>
+                                        <?php echo  CHtml::activeHiddenField($item,"[$i]FECHA_REQUERIDA",array('class' => 'fecha', 'size'=>'10', 'readonly'=>$readonly)); ?>
+                                         <?php echo  CHtml::activeHiddenField($item,"[$i]COMENTARIO",array('readonly'=>$readonly)); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo '<span id="saldoU_'.$i.'">'.$item->SALDO.'</span>'; ?>
+                                        <?php echo  CHtml::activeHiddenField($item,"[$i]SALDO",array('readonly'=>true, 'size'=>'5')); ?>
+                                         <?php echo  CHtml::activeHiddenField($item,"[$i]SOLICITUD_OC_LINEA",array()); ?>
+                                    </td>
+                                                <td>
+                                                    <span style="float: left">
                                                 <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                                  'buttonType'=>'button',
-                                                                 'type'=>'normal',                                                                 
+                                                                 'type'=>'normal',
+                                                                 'icon'=>'pencil',
                                                                  'htmlOptions'=>array('class'=>'editU','name'=>"$i",'id'=>"editU_$i")
                                                              ));
                                                 ?>
-                                       </span>
-                                        <div id="remover" class="remove">
-                                              <?php 
-                                                
-                                                 $this->widget('bootstrap.widgets.TbButton', array(
+                                            </span>
+                                           <div class="remove" id ="removerU" style="float: left; margin-left: 5px;">
+                                                      <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                              'buttonType'=>'button',
                                                              'type'=>'danger',                                                             
-                                                             'label'=>'',
                                                              'icon'=>'minus white',
-                                                             'htmlOptions' => array('id'=>$item["SOLICITUD_OC_LINEA"], 'onClick'=>'Eliminar(id)', 'disabled'=>$readonly),
-                                                  ));
-
-                                             ?>
-                                        </div>
-                                    </td>
-                                </tr>
+                                                             'htmlOptions'=>array('id'=>"eliminaLineaU_$i",'class'=>'eliminaLineaU','name'=>"$i")
+                                                         ));
+                                                   ?>
+                                           </div>
+                                        <?php echo CHtml::hiddenField("rowIndexU_$i", $i, array('class'=>'rowIndexU')); ?>
+                                                </td>
+                                            </tr>
                                 <?php endforeach; ?>
                                 <?php endif; ?>
                             </tbody>
                         </table>
-                <?php $model->isNewRecord ? $i=0 : $i++; ?>                
+                <?php $model->isNewRecord ? $i=0 : $i++; ?>  
+                <?php echo CHtml::HiddenField('CAMPO_ACTUALIZA', $i); ?>
                 <?php echo CHtml::HiddenField('oculto',''); ?>
                 <?php echo CHtml::HiddenField('eliminar',''); ?>
                 <?php echo CHtml::HiddenField('NAME', ''); ?>
-                

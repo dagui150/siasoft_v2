@@ -92,6 +92,91 @@ class SolicitudOcController extends Controller
 		));
 	}
         
+        /**
+	 * Updates a particular model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionUpdate($id)
+	{
+                $model = $this->loadModel($id);
+                $linea= new SolicitudOcLinea;
+                $articulo = new Articulo;
+                $config = new ConfCo;   
+                $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
+                $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
+                $i = 1;
+                // retrieve items to be updated in a batch mode
+                // assuming each item is of model class 'Item'
+                $items = $linea->model()->findAll('SOLICITUD_OC = "'.$id.'"');
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation(array($model));
+
+		if(isset($_POST['SolicitudOc']))
+		{
+			$model->attributes=$_POST['SolicitudOc'];
+                         if($_POST['eliminar'] != ''){
+                            $eliminar = explode(",", $_POST['eliminar']);
+                            foreach($eliminar as $elimina){
+                                if($elimina != -1){
+                                    $borra = SolicitudOcLinea::model()->deleteByPk($elimina);
+                                }
+                            }
+                        }
+                        
+			if($model->save()){
+                            if(isset($_POST['SolicitudOcLinea'])){
+                                foreach ($_POST['SolicitudOcLinea'] as $datos){                                    
+                                    $linea=SolicitudOcLinea::model()->findByPk($datos['SOLICITUD_OC_LINEA']);
+                                    $linea->SOLICITUD_OC = $_POST['SolicitudOc']['SOLICITUD_OC'];
+                                    $linea->ARTICULO = $datos['ARTICULO'];
+                                    $linea->DESCRIPCION = $datos['DESCRIPCION'];
+                                    $linea->UNIDAD = $datos['UNIDAD'];
+                                    $linea->CANTIDAD = Controller::unformat($datos['CANTIDAD']);
+                                    $linea->FECHA_REQUERIDA = $datos['FECHA_REQUERIDA'];
+                                    $linea->COMENTARIO = $datos ['COMENTARIO'];
+                                    $linea->SALDO = Controller::unformat($datos ['SALDO']);
+                                    $linea->LINEA_NUM = $i;
+                                    $linea->ESTADO = $datos ['ESTADO'];
+                                    $linea->save();
+                                    $i++;
+                                }
+                            }
+                            
+                            if(isset($_POST['Nuevo'])){
+                                foreach ($_POST['Nuevo'] as $datos2){
+                                    $linea2=new SolicitudOcLinea;
+                                    $linea2->SOLICITUD_OC = $_POST['SolicitudOc']['SOLICITUD_OC'];
+                                    $linea2->ARTICULO = $datos2['ARTICULO'];
+                                    $linea2->DESCRIPCION = $datos2['DESCRIPCION'];
+                                    $linea2->UNIDAD = $datos2['UNIDAD'];
+                                    $linea2->CANTIDAD = $datos2['CANTIDAD'];
+                                    $linea2->FECHA_REQUERIDA = $datos2['FECHA_REQUERIDA'];
+                                    $linea2->COMENTARIO = $datos2 ['COMENTARIO'];
+                                    $linea2->SALDO = $datos2 ['SALDO'];
+                                    $linea2->LINEA_NUM = $i;
+                                    $linea2->ESTADO = $datos2 ['ESTADO'];
+                                    $linea2->save();
+                                    $i++;
+                                }
+                            }
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S002'));
+                        }
+		}
+
+		$this->render('update',array(
+			'model'=>$model,
+                        'linea'=>$linea,
+                        'articulo'=>$articulo,
+                        'config'=>$config,
+                        'items'=>$items,
+                        'ruta'=>$ruta,
+                        'ruta2'=>$ruta2,
+		));
+	}
+
+        
         public function actionformatoPDF() {
 
             $id = $_GET['id'];
@@ -365,90 +450,8 @@ class SolicitudOcController extends Controller
                 Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Solicitud(es) ya Reversada(s)<br>('.$warning.')</h3>');
             
            $this->widget('bootstrap.widgets.TbAlert');
-        }
-        
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id)
-	{
-                $model = $this->loadModel($id);
-                $linea= new SolicitudOcLinea;
-                $articulo = new Articulo;
-                $config = new ConfCo;                
-                $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
-                $i = 1;
-                // retrieve items to be updated in a batch mode
-                // assuming each item is of model class 'Item'
-                $items = $linea->model()->findAll('SOLICITUD_OC = "'.$id.'"');
-		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation(array($model));
-
-		if(isset($_POST['SolicitudOc']))
-		{
-			$model->attributes=$_POST['SolicitudOc'];
-                         if($_POST['eliminar'] != ''){
-                            $eliminar = explode(",", $_POST['eliminar']);
-                            foreach($eliminar as $elimina){
-                                if($elimina != -1){
-                                    $borra = SolicitudOcLinea::model()->deleteByPk($elimina);
-                                }
-                            }
-                        }
-                        
-			if($model->save()){
-                            if(isset($_POST['SolicitudOcLinea'])){
-                                foreach ($_POST['SolicitudOcLinea'] as $datos){                                    
-                                    $linea=SolicitudOcLinea::model()->findByPk($datos['SOLICITUD_OC_LINEA']);
-                                    $linea->SOLICITUD_OC = $_POST['SolicitudOc']['SOLICITUD_OC'];
-                                    $linea->ARTICULO = $datos['ARTICULO'];
-                                    $linea->DESCRIPCION = $datos['DESCRIPCION'];
-                                    $linea->UNIDAD = $datos['UNIDAD'];
-                                    $linea->CANTIDAD = Controller::unformat($datos['CANTIDAD']);
-                                    $linea->FECHA_REQUERIDA = $datos['FECHA_REQUERIDA'];
-                                    $linea->COMENTARIO = $datos ['COMENTARIO'];
-                                    $linea->SALDO = Controller::unformat($datos ['SALDO']);
-                                    $linea->LINEA_NUM = $i;
-                                    $linea->ESTADO = $datos ['ESTADO'];
-                                    $linea->save();
-                                    $i++;
-                                }
-                            }
-                            
-                            if(isset($_POST['Nuevo'])){
-                                foreach ($_POST['Nuevo'] as $datos2){
-                                    $linea2=new SolicitudOcLinea;
-                                    $linea2->SOLICITUD_OC = $_POST['SolicitudOc']['SOLICITUD_OC'];
-                                    $linea2->ARTICULO = $datos2['ARTICULO'];
-                                    $linea2->DESCRIPCION = $datos2['DESCRIPCION'];
-                                    $linea2->UNIDAD = $datos2['UNIDAD'];
-                                    $linea2->CANTIDAD = $datos2['CANTIDAD'];
-                                    $linea2->FECHA_REQUERIDA = $datos2['FECHA_REQUERIDA'];
-                                    $linea2->COMENTARIO = $datos2 ['COMENTARIO'];
-                                    $linea2->SALDO = $datos2 ['SALDO'];
-                                    $linea2->LINEA_NUM = $i;
-                                    $linea2->ESTADO = $datos2 ['ESTADO'];
-                                    $linea2->save();
-                                    $i++;
-                                }
-                            }
-				//$this->redirect(array('admin'));
-                                $this->redirect(array('admin&men=S002'));
-                        }
-		}
-
-		$this->render('update',array(
-			'model'=>$model,
-                        'linea'=>$linea,
-                        'articulo'=>$articulo,
-                        'config'=>$config,
-                        'items'=>$items,
-                        'ruta2'=>$ruta2,
-		));
-	}
-
+        }        
+	
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
