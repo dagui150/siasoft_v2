@@ -137,7 +137,7 @@ class SolicitudOcController extends Controller
                                     $linea->COMENTARIO = $datos ['COMENTARIO'];
                                     $linea->SALDO = Controller::unformat($datos ['SALDO']);
                                     $linea->LINEA_NUM = $i;
-                                    $linea->ESTADO = $datos ['ESTADO'];
+                                    //$linea->ESTADO = $datos ['ESTADO'];
                                     $linea->save();
                                     $i++;
                                 }

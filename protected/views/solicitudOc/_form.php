@@ -1,9 +1,6 @@
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.validate.js"></script>
 <script>
-$.validator.setDefaults({
-	//submitHandler: function() { alert("submitted!"); }
-});
-$().ready(function() {
+$(document).ready(function() {
 	// validate the comment form when it is submitted
 	$("#solicitud-oc-form").validate();
         $('.edit').live('click',function(){
@@ -19,19 +16,7 @@ $().ready(function() {
         $(function() {                    
             $( "#SolicitudOcLinea_FECHA_REQUERIDA" ).datepicker({dateFormat: 'yy-mm-dd'});
 			$.datepicker.setDefaults($.datepicker.regional['es']);
-        });
-});
-</script>
-<script>
-$(document).ready(function(){
-  $("#solicitud-oc-form").submit(function() {
-    var x = $("#contadorCrea").val();
-      if (x==0) {
-        alert("Debe ingresar minimo una linea");
-        return false;
-      } else
-          return true;
-    });
+        });    
 });
 </script>
 <?php
@@ -184,7 +169,7 @@ $(document).ready(function(){
         <div class="row">
 		<?php echo $form->labelEx($model,'SOLICITUD_OC'); ?>
 		<?php echo $form->textField($model,'SOLICITUD_OC',array('size'=>10,'maxlength'=>10, 'readonly'=>true, 'value' => $retorna)); ?>
-		<?php echo $form->error($model,'SOLICITUD_OC'); ?>
+		<?php echo $form->error($model,'SOLICITUD_OC'); ?>                
 	</div> 
             </td>
             <td>
@@ -283,8 +268,7 @@ $(document).ready(function(){
                     .$form->labelEx($model,'ESTADO')
                     .$form->textField($model,'ESTADO', array('size'=>1, 'disabled'=>true))
                     .$form->error($model,'ESTADO')
-                    .'</div>',),
-                
+                    .'</div>',),                
                     array('label'=>'Rubros', 'content'=>$rubros),
                 
             ),

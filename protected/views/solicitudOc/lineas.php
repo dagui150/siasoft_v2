@@ -172,27 +172,27 @@ $(document).ready(function(){
         var model = 'SolicitudOcLinea';        
         var numLinea = parseInt($('#CAMPO_ACTUALIZA').val(), 10);
         var eliminar = $('#eliminar').val();
-        eliminar = eliminar + $('#PedidoLinea_'+contador+'_ID').val() + ',';
+        eliminar = eliminar + $('#SolicitudOcLinea_'+contador+'_SOLICITUD_OC_LINEA').val() + ',';
         $('#eliminar').val(eliminar);
            
         $('#remover_'+contador).click();
-        var contadorMax = $('body').find('.rowIndex').max();        
+        var contadorMax = $('body').find('.rowIndexU').max();        
         var contFor = parseInt(contador, 10)+1;
         var linea = parseInt(contador, 10); 
         //cambiar ids y span
         for(var i = contFor ; i <=contadorMax; i++){           
-            var campos = ['LINEA_NUM','ARTICULO', 'DESCRIPCION','UNIDAD','CANTIDAD','FECHA_REQUERIDA','SALDO','COMENTARIO'];
-            var span = ['numero','articulo','descripcion','unidad','cantidad','fecha_requerida','saldo','remover','edit','eliminaLinea','rowIndex'];
+            var campos = ['LINEA_NUM','ARTICULO', 'DESCRIPCION','UNIDAD','CANTIDAD','FECHA_REQUERIDA','SALDO','COMENTARIO', 'SOLICITUD_OC_LINEA', 'ESTADO'];
+            var span = ['numeroU','articuloU','descripcionU','unidadU','cantidadU','fecha_requeridaU','saldoU','removerU','editU','eliminaLineaU','rowIndexU'];
             //CAMBIAR IDS DE LOS SPAN
             for(var x =0 ; x<=span.length;x++){
                 switch(span[x]){
-                    case 'edit':
+                    case 'editU':
                         $('#'+span[x]+'_'+i).attr('name',linea);
                     break
-                    case 'eliminaLinea':
+                    case 'eliminaLineaU':
                         $('#'+span[x]+'_'+i).attr('name',linea);
                     break
-                    case 'rowIndex':
+                    case 'rowIndexU':
                          $('[name="'+span[x]+'_'+i+'"]').attr({
                         name: span[x]+'_'+linea,
                         value:linea
@@ -446,7 +446,7 @@ $(document).ready(function(){
                                 <tr class="templateContent">
                                     <td>
                                         <?php echo '<span id="numeroU_'.$i.'">'.$item->LINEA_NUM.'</span>'; ?>
-                                        <?php echo  CHtml::activeHiddenField($item,"[$i]LINEA_NUM",array('readonly'=>true, 'size'=>'2')); ?>
+                                        <?php echo  CHtml::activeHiddenField($item,"[$i]LINEA_NUM",array()); ?>                                       
                                     </td>
                                     <td>
                                         <?php echo '<span id="articuloU_'.$i.'">'.$item->ARTICULO.'</span>'; ?>
@@ -458,21 +458,20 @@ $(document).ready(function(){
                                     </td>
                                     <td>
                                         <?php echo '<span id="unidadU_'.$i.'">'.$item->uNIDAD->NOMBRE.'</span>'; ?>
-                                        <div style="display:none;"><?php echo CHtml::activeDropDownList($linea,"[$i]UNIDAD",CHtml::listData(UnidadMedida::model()->findAll('ACTIVO = "S" AND TIPO = "'.$item->uNIDAD->TIPO.'"'), 'ID', 'NOMBRE'),array('style'=>'width:65px;', 'options'=>array($item->UNIDAD => array('selected'=>'selected')))); ?></div>
-                                        <?php echo  CHtml::activeHiddenField($item,"[$i]ESTADO",array('readonly'=>true, 'size'=>'1')); ?>
+                                        <div style="display:none;"><?php echo CHtml::activeDropDownList($linea,"[$i]UNIDAD",CHtml::listData(UnidadMedida::model()->findAll('ACTIVO = "S" AND TIPO = "'.$item->uNIDAD->TIPO.'"'), 'ID', 'NOMBRE'),array('style'=>'width:65px;', 'options'=>array($item->UNIDAD => array('selected'=>'selected')))); ?></div>                                        
                                     </td>
                                     <td>
                                         <?php echo '<span id="cantidadU_'.$i.'">'.$item->CANTIDAD.'</span>'; ?>
-                                        <?php echo  CHtml::activeHiddenField($item,"[$i]CANTIDAD",array('size'=>'5', 'class' => 'cantidad','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)', 'readonly'=>$readonly)); ?>
+                                        <?php echo  CHtml::activeHiddenField($item,"[$i]CANTIDAD",array()); ?>
                                     </td>
                                     <td>
                                         <?php echo '<span id="fecha_requeridaU_'.$i.'">'.$item->FECHA_REQUERIDA.'</span>'; ?>
-                                        <?php echo  CHtml::activeHiddenField($item,"[$i]FECHA_REQUERIDA",array('class' => 'fecha', 'size'=>'10', 'readonly'=>$readonly)); ?>
-                                         <?php echo  CHtml::activeHiddenField($item,"[$i]COMENTARIO",array('readonly'=>$readonly)); ?>
+                                        <?php echo  CHtml::activeHiddenField($item,"[$i]FECHA_REQUERIDA",array()); ?>
+                                         <?php echo  CHtml::activeHiddenField($item,"[$i]COMENTARIO",array()); ?>
                                     </td>
                                     <td>
                                         <?php echo '<span id="saldoU_'.$i.'">'.$item->SALDO.'</span>'; ?>
-                                        <?php echo  CHtml::activeHiddenField($item,"[$i]SALDO",array('readonly'=>true, 'size'=>'5')); ?>
+                                        <?php echo  CHtml::activeHiddenField($item,"[$i]SALDO",array()); ?>
                                          <?php echo  CHtml::activeHiddenField($item,"[$i]SOLICITUD_OC_LINEA",array()); ?>
                                     </td>
                                                 <td>
