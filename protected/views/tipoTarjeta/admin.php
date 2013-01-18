@@ -32,42 +32,9 @@ if (isset($_GET['men'])){
 ?>
 <div id="mensaje"></div>
 <div align="right">
-    
-    <?php 
-
-		$this->widget('bootstrap.widgets.TbButton', array(
-		'label'=>'EXCEL',
-		'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-		'size'=>'mini', // '', 'large', 'small' or 'mini'
-		'url' => array('tipoTarjeta/excel'),
-		'icon' => 'download-alt white'
-		)); 
-
-	?>
-             <?php 
-
-$this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'PDF',
-    'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('tipoTarjeta/pdf'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
-<?php 
-
-$this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'Nuevo',
-    'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'icon' => 'plus white',
-	'url'=>'#myModal',
-	'htmlOptions'=>array('data-toggle'=>'modal')
-)); 
-
-?>
+    <?php $this->darBotonPdfExcel(array('tipoTarjeta/excel')); ?>
+    <?php $this->darBotonPdfExcel(array('tipoTarjeta/pdf'), false, 'PDF', 'danger'); ?>
+    <?php $this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
 </div>
 
 <?php $this->widget('bootstrap.widgets.TbGridView', array(

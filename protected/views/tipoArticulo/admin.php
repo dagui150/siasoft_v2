@@ -7,7 +7,6 @@ $this->breadcrumbs=array(
 ?>
 
 <h1>Tipos de Artículos</h1>
-<br>
 
 
 <?php 

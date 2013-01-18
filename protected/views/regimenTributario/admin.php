@@ -8,6 +8,7 @@ $this->breadcrumbs=array(
 );
 
 ?>
+<h1>Régimen tributario</h1>
 <?php 
 if (isset($_GET['men'])){
     $this->mensaje($_GET['men']);
@@ -15,18 +16,7 @@ if (isset($_GET['men'])){
 ?>
 <div id="mensaje"></div>
 <div align="right">
-<?php 
-
-$this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'Nuevo',
-    'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'icon' => 'plus white',
-	'url'=>'#myModal',
-	'htmlOptions'=>array('data-toggle'=>'modal')
-)); 
-
-?>
+        <?php $this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
 </div>
 
 <?php $this->widget('bootstrap.widgets.TbGridView', array(

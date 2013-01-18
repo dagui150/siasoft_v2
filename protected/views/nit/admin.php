@@ -37,39 +37,10 @@ if (isset($_GET['men'])){
 ?>
 <div id="mensaje"></div>
 <div align="right">
-        <?php 
+    <?php $this->darBotonPdfExcel(array('nit/excel')); ?>
+    <?php $this->darBotonPdfExcel(array('nit/pdf'), false, 'PDF', 'danger'); ?>
+    <?php $this->darBotonNuevo(array('nit/create'),false,'mini'); ?>
 
-$this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'EXCEL',
-    'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('nit/excel'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
-     <?php 
-
-$this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'PDF',
-    'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('nit/pdf'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
-    <?php
-    $this->widget('bootstrap.widgets.TbButton', array(
-        'label' => 'Nuevo',
-        'type' => 'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-        'size' => 'mini', // '', 'large', 'small' or 'mini'
-        'url' => array('nit/create'),
-        'icon' => 'plus white'
-    ));
-    ?>
 </div>
 
 

@@ -13,7 +13,6 @@ if (isset($_GET['men'])){
 }
 ?>
 <div id="mensaje"></div>
-<br>
 
 <?php if(!UnidadMedida::validarUnidad()): ?>
     <div class="alert alert-block">

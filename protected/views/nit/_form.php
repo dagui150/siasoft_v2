@@ -60,8 +60,8 @@
 
 
     <div class="row-buttons" align="center">
-        <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'icon' => 'ok-circle white', 'size' => 'small', 'label' => $model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-        <?php $this->widget('bootstrap.widgets.TbButton', array('label' => 'Cancelar', 'size' => 'small', 'url' => array('/nit/admin'), 'icon' => 'remove', 'htmlOptions' => array('data-dismiss' => 'modal'))); ?>
+        <?php $this->darBotonEnviar($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
+        <?php $this->darBotonCancelar(array('data-dismiss' => 'modal'), array('/nit/admin')); ?>
     </div>
 
 

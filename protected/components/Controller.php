@@ -215,25 +215,29 @@ class Controller extends CController
          * @param array $htmlOptions Opciones HTML del Boton default 'array('data-toggle'=>'modal','style'=>'margin-top: 5px;')'
          * @return TbButton 
          */
-        public  function darBotonBuscar($url,$string = false){
+        public  function darBotonBuscar($url,$string = false,$htmlOptions=array('data-toggle'=>'modal','style'=>'margin-top: 5px;')){
             return $this->widget('bootstrap.widgets.TbButton', array(
                                   'type'=>'info',
                                   'url'=>$url,
                                   'icon'=>'search white',
-                                  'htmlOptions'=>array('data-toggle'=>'modal','style'=>'margin-top: 5px;'),
+                                  'htmlOptions'=>$htmlOptions,
                             ),$string);
         }
         /**
          * Metodo para retornar un Boton de Nuevo en admins
+         * @param mixed $url Url del Boton
+         * @param array $htmlOptions Opciones HTML del Boton default 'array()'
+         * @param array $size tamaño del boton
          * @return TbButton 
          */
-        public  function darBotonNuevo(){
+        public  function darBotonNuevo($url=array('create'),$htmlOptions=array(),$size='small'){
             return $this->widget('bootstrap.widgets.TbButton', array(
                                   'label'=>'Nuevo',
-                                  'size'=>'small',
+                                  'size'=>$size,
                                   'type'=>'success',
-                                  'url'=>array('create'),
+                                  'url'=>$url,
                                   'icon'=>'plus white',
+                                  'htmlOptions'=>$htmlOptions,
                             ));
         }
         /**

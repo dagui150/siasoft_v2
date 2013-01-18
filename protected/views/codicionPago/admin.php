@@ -32,44 +32,10 @@ if (isset($_GET['men'])){
 ?>
 <div id="mensaje"></div>
 <div align="right">
-    
-<?php 
+    <?php $this->darBotonPdfExcel(array('codicionPago/excel')); ?>
+    <?php $this->darBotonPdfExcel(array('codicionPago/pdf'), false, 'PDF', 'danger'); ?>
+    <?php $this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
 
-$this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'EXCEL',
-    'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('codicionPago/excel'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
-   <?php 
-
-$this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'PDF',
-    'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('codicionPago/pdf'),
-	'icon' => 'download-alt white'
-)); 
-
-?> 
-    
-    
-<?php 
-
-$this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'Nuevo',
-    'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'icon' => 'plus white',
-	'url'=>'#myModal',
-	'htmlOptions'=>array('data-toggle'=>'modal')
-)); 
-
-?>
 </div>
 
 <?php $this->widget('bootstrap.widgets.TbGridView', array(

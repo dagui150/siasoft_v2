@@ -36,9 +36,7 @@ if (isset($_GET['men'])){
     $this->mensaje($_GET['men']);
 }
 ?>
-<br>
 <?php
-
      $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',
 	'id'=>'bodega-grid',

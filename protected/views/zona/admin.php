@@ -35,19 +35,8 @@ if (isset($_GET['men'])){
     
     <?php $this->darBotonPdfExcel(array('zona/excel')); ?>
     <?php $this->darBotonPdfExcel(array('zona/pdf'), false, 'PDF', 'danger'); ?>
-    
-<?php 
+    <?php $this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
 
-$this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'Nuevo',
-    'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'icon' => 'plus white',
-	'url'=>'#myModal',
-	'htmlOptions'=>array('data-toggle'=>'modal')
-)); 
-
-?>
 </div>
 
 <?php $this->widget('bootstrap.widgets.TbGridView', array(

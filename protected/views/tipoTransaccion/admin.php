@@ -15,7 +15,6 @@ if (isset($_GET['men'])){
 }
 ?>
 <div id="mensaje"></div>
-<br>
 <div align="right"> 
 <?php 
 
@@ -29,7 +28,6 @@ if (isset($_GET['men'])){
 
 	?>
 </div>
-<br>
 
 
 <?php 

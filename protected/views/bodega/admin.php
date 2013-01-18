@@ -37,7 +37,6 @@ if (isset($_GET['men'])){
 }
 ?>
 <div id="mensaje"></div>
-<br>
 <?php 
 if(isset($alerta)){
     Yii::app()->user->setFlash('info', $alerta);
@@ -51,42 +50,10 @@ $this->widget('bootstrap.widgets.TbAlert');
 
 <div align="right">
 
-<?php 
-
-$this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'EXCEL',
-    'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	//'url' => array('bodega/excel'),
-    'url' => array('bodega/prueba'),
-	'icon' => 'download-alt white'
-)); 
-?>
+    <?php $this->darBotonPdfExcel(array('bodega/excel')); ?>
+    <?php $this->darBotonPdfExcel(array('bodega/pdf'), false, 'PDF', 'danger'); ?>
+    <?php $this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
     
-<?php 
-
-$this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'PDF',
-    'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('bodega/pdf'),
-	'icon' => 'download-alt white'
-)); 
-
-?>
-    
-<?php 
-
-$this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'Nuevo',
-    'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'icon' => 'plus white',
-	'url'=>'#myModal',
-	'htmlOptions'=>array('data-toggle'=>'modal')
-)); 
-
-?>
 </div>
 <?php
 

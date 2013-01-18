@@ -33,7 +33,6 @@ if (isset($_GET['men'])){
     $this->mensaje($_GET['men']);
 }
 ?>
-<br>
 <div id="repuesta"></div>
 <div align="right">
 

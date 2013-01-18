@@ -16,7 +16,6 @@ if (isset($_GET['men'])){
     $this->mensaje($_GET['men']);
 }
 ?>
-<br>
 <div align="right">
     <?php $this->darBotonNuevo(); ?>
 </div>

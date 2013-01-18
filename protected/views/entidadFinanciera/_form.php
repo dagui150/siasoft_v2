@@ -32,14 +32,7 @@ function updateCampos(grid_id){
             'class'=>'escritoNit'
         ),
     ), true); ?>
-        
-        <?php $modal = $this->widget('bootstrap.widgets.TbButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('onclick'=>'$("#nit").dialog("open");return false;'),
-                    ), true); ?>
+            <?php $modal = $this->darBotonBuscar('#',true,array('onclick'=>'$("#nit").dialog("open");return false;')); ?>
         
     <?php echo $form->errorSummary($model2); ?>
                 <table style="width: 400px;">
@@ -78,8 +71,8 @@ function updateCampos(grid_id){
         <?php if(!$model2->isNewRecord): ?>
         <div class="row-buttons" align="center">
         <?php endif ?>
-    	<?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model2->isNewRecord ? 'Crear' : 'Guardar')); ?>
-	<?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('admin'), 'icon' => 'remove', 'htmlOptions'=>array('data-dismiss'=>'modal')));  ?>	        
+            <?php $this->darBotonEnviar($model2->isNewRecord ? 'Crear' : 'Guardar'); ?>
+            <?php $this->darBotonCancelar(array('data-dismiss'=>'modal')); ?>
         </div>
 
 

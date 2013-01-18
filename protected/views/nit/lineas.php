@@ -27,15 +27,8 @@
     <tfoot>
         <tr>
             <td colspan="4">
-                <div class="add" style='width: 80px;'>
-                    <?php
-                    $this->widget('bootstrap.widgets.TbButton', array(
-                        'type' => 'success',
-                        'label' => 'Nuevo',
-                        'icon' => 'plus white',
-                        'size' => 'small',
-                    ));
-                    ?>
+                <div class="add" style='width: 90px;'>
+                    <?php $this->darBotonAddLinea(); ?>
                 </div>
                 <textarea class="template" rows="0" cols="0" style="display: none;">
                                 <tr class="templateContent">
@@ -47,15 +40,8 @@
                                     <td> <?php echo CHtml::textField('LineaNueva[{0}][OBSERVACIONES]', ''); ?> </td>
 
                                     <td>
-                                        <div class="remove" style="width:80px">
-                                            <?php
-                                            $this->widget('bootstrap.widgets.TbButton', array(
-                                                'type' => 'danger',
-                                                'icon' => 'minus white',
-                                                'label' => 'Eliminar',
-                                                'size' => 'small',
-                                            ));
-                                            ?>
+                                        <div class="remove" style="width:90px">
+                                            <?php $this->darBotonDeleteLinea(); ?>
                                         </div>
                                             <input type="hidden" class="rowIndex" value="{0}" />
                                     </td>
@@ -97,13 +83,14 @@
                 <td>
                     <div class="remove">
                         <?php
-                        $this->widget('bootstrap.widgets.TbButton', array(
-                            'type' => 'danger',
-                            'icon' => 'minus white',
-                            'label' => 'Eliminar',
-                            'htmlOptions' => array('class' => 'eliminaLinea', 'name' => $i,)
-                        ));
-                        ?>
+                                            $this->widget('bootstrap.widgets.TbButton', array(
+                                                'type' => 'danger',
+                                                'icon' => 'minus white',
+                                                'label' => 'Eliminar',
+                                                'size' => 'small',
+                                            ));
+                                            ?>
+                        <?php $this->darBotonDeleteLinea('Eliminar',array('class' => 'eliminaLinea', 'name' => $i,)); ?>
                     </div>
                 </td>
             </tr>

@@ -32,40 +32,9 @@ if (isset($_GET['men'])){
 ?>
 <div id="mensaje"></div>
 <div align="right">
-    <?php 
-
-		$this->widget('bootstrap.widgets.TbButton', array(
-		'label'=>'EXCEL',
-		'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-		'size'=>'mini', // '', 'large', 'small' or 'mini'
-		'url' => array('retencion/excel'),
-		'icon' => 'download-alt white'
-		)); 
-
-	?>
-    
-     <?php 
-
-    $this->widget('bootstrap.widgets.TbButton', array(
-        'label'=>'PDF',
-        'type'=>'danger', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-        'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('retencion/pdf'),
-	'icon' => 'download-alt white white'
-        )); 
-    ?>
-    
-<?php 
-
-$this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'Nuevo',
-    'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('retencion/create'),
-	'icon' => 'plus white'
-)); 
-
-?>
+    <?php $this->darBotonPdfExcel(array('retencion/excel')); ?>
+    <?php $this->darBotonPdfExcel(array('retencion/pdf'), false, 'PDF', 'danger'); ?>
+    <?php $this->darBotonNuevo(array('retencion/create'),false,'mini'); ?>
 </div>
 
 <?php  $this->widget('bootstrap.widgets.TbGridView', array(
