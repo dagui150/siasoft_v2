@@ -155,7 +155,7 @@
            
            nombreCantidad = nombreClase + '_' + contador + '_' + 'CANTIDAD';
            nombreDescripcion = nombreClase + '_' + contador + '_' + 'DESCRIPCION';
-           nombreUnidad = nombreClase + '_' + contador + '_' + 'UNIDAD';
+           nombreUnidad = nombreClase + '_' + contador + '_' + 'UNIDAD';           
 
             $.getJSON(
                 '<?php echo $this->createUrl('CargaArticulo'); ?>&id='+id,
@@ -166,7 +166,7 @@
                         }
                         else{
                             $('#' + nombreUnidad).val(data.UNIDAD);
-                            $('select[id$=' + nombreUnidad).remove();                    
+                            $('select[id$='+nombreUnidad+']>option').remove();                    
                             $.each(data.UNIDADES, function(value, name) {
                                     if(value == data.UNIDAD)
                                       $('#'+ nombreUnidad).append("<option selected='selected' value='"+value+"'>"+name+"</option>");
@@ -203,7 +203,7 @@
                             error(nombreCantidad);
                         }
                         else{
-                            $('select[id$=' + nombreUnidad).remove();                    
+                            $('select[id$='+nombreUnidad+']>option').remove();                     
                             $.each(data.UNIDADES, function(value, name) {
                                     if(value == data.UNIDAD)
                                       $('#'+ nombreUnidad).append("<option selected='selected' value='"+value+"'>"+name+"</option>");

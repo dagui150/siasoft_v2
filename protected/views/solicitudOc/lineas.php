@@ -9,7 +9,6 @@
                   {
                         $('#' + nombreDescripcion).val(data.DESCRIPCION);
                         $('select[id$=SolicitudOc_UNIDAD]>option').remove();
-
                         $.each(data.UNIDADES, function(value, name) {
                                 if(value == data.UNIDAD)
                                   $('#SolicitudOc_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
@@ -268,6 +267,7 @@ $(document).ready(function(){
     $cs->registerScriptFile(XHtml::jsUrl('template.js'), CClientScript::POS_HEAD);
     $cs->registerScriptFile(XHtml::jsUrl('jquery.validate.js'), CClientScript::POS_HEAD);
 ?>
+<div id="oculta-cancela">
 <table style="margin-left: -100px;">
     <tr>
         <td>
@@ -340,6 +340,7 @@ $(document).ready(function(){
         </td>
     </tr>
 </table>
+    </div>
 <span id="carga" style="height:30px;width:30px;"></span>
                         <table class="templateFrame grid table table-bordered" cellspacing="0">
                             <thead>
@@ -417,7 +418,7 @@ $(document).ready(function(){
                                                                          'buttonType'=>'button',
                                                                          'type'=>'normal',                                                                         
                                                                          'icon'=>'pencil',
-                                                                         'htmlOptions'=>array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')
+                                                                         'htmlOptions'=>array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}', 'disabled'=>$readonly)
                                                                      ));
                                                         ?>
                                                     </span>
@@ -427,7 +428,7 @@ $(document).ready(function(){
                                                                          'buttonType'=>'button',
                                                                          'type'=>'danger',                                                                        
                                                                          'icon'=>'minus white',
-                                                                         'htmlOptions'=>array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}')
+                                                                         'htmlOptions'=>array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}', 'disabled'=>$readonly)
                                                                      ));
                                                                ?>
                                                         </div>
@@ -480,7 +481,7 @@ $(document).ready(function(){
                                                                  'buttonType'=>'button',
                                                                  'type'=>'normal',
                                                                  'icon'=>'pencil',
-                                                                 'htmlOptions'=>array('class'=>'editU','name'=>"$i",'id'=>"editU_$i")
+                                                                 'htmlOptions'=>array('class'=>'editU','name'=>"$i",'id'=>"editU_$i", 'disabled'=>$readonly)
                                                              ));
                                                 ?>
                                             </span>
@@ -489,7 +490,7 @@ $(document).ready(function(){
                                                              'buttonType'=>'button',
                                                              'type'=>'danger',                                                             
                                                              'icon'=>'minus white',
-                                                             'htmlOptions'=>array('id'=>"eliminaLineaU_$i",'class'=>'eliminaLineaU','name'=>"$i")
+                                                             'htmlOptions'=>array('id'=>"eliminaLineaU_$i",'class'=>'eliminaLineaU','name'=>"$i", 'disabled'=>$readonly)
                                                          ));
                                                    ?>
                                            </div>

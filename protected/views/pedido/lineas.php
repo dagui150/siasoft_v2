@@ -335,16 +335,10 @@
                 <?php echo $form->textFieldRow($model,'ARTICULO',array('size'=>15)); ?>
              </td>
              <td style="width: 28px;">
-                 <?php $this->widget('bootstrap.widgets.TbButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#articulo',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal','style'=>'margin-top: 5px;'),
-                 )); ?>
+                <?php $this->darBotonBuscar('#articulo'); ?>
             </td>
             <td>
-                 <?php echo CHtml::textField('Articulo_desc','',array('disabled'=>true,'size'=>30)); ?>
+                 <?php echo CHtml::textField('Articulo_desc','',array('disabled'=>true,'size'=>18)); ?>
            </td>
            <td>
                <table style="margin-left: -100px;margin-top:-4px;">
@@ -364,13 +358,8 @@
                        </td>
                        <td>
                            <?php
-                                $this->widget('bootstrap.widgets.TbButton', array(
-                                            'buttonType'=>'button',
-                                            'type'=>'success',
-                                            'icon'=>'white plus',
-                                            'size'=>'mini',
-                                            'htmlOptions'=>array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;')
-                                 ));    
+                                $htmlOptions = array('id'=>'agregar','disabled'=>true,'style'=>'margin-top: 5px;','tabindex'=>'10');
+                                $this->darBotonAddLinea(false,$htmlOptions);
                             ?> 
                        </td>
                    </tr>
@@ -381,20 +370,18 @@
 <span id="carga" style="height:30px;width:30px;"></span>
 <table class="templateFrame table table-bordered" cellspacing="0">
           <thead>
-               <tr>
-                    <td><strong>#</strong></td>
-                    <td><strong>Artículo</strong></td>
-                    <td><strong>Descripción</strong></td>
-                    <td><strong>Cant.</strong></td>
-                    <td><strong>Unidad</strong></td>
-                    <td><strong>Tipo Precio</strong></td>
-                    <td style="width: 74px;"><strong>Precio Unit.</strong></td>  
-                    <td style="width: 74px;"><strong>% Desc.</strong></td>
-                    <td style="width: 74px;"><strong>% Iva</strong></td>
-                    <td><strong>Iva</strong></td>
-                    <td><strong>Total</strong></td>
-                    <td>&nbsp;</td>
-               </tr>
+               <th>#</th>
+                <th>Artículo</th>
+                <th>Descripción</th>
+                <th>Cant.</th>
+                <th>Unidad</th>
+                <th>Tipo Precio</th>
+                <th style="width: 74px;">Precio Unit.</th>  
+                <th style="width: 74px;">% Desc.</th>
+                <th style="width: 74px;">% Iva</th>
+                <th>    Iva</th>
+                <th>Total</th>
+                <th></td>
          </thead>
          <tfoot style="display:none;">
                <tr>
