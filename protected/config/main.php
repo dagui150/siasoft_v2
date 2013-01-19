@@ -30,6 +30,7 @@ return array(
                 'ext.helpers.*',
 		'application.modules.cruge.components.*',
 		'application.modules.cruge.extensions.crugemailer.*',
+                'ext.JLinesForm.*'
 	),
 	'modules'=>array(
 		'cruge'=>array(

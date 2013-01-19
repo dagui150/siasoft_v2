@@ -23,21 +23,11 @@ class SiteController extends Controller
 	}
         public function actionPrueba(){
             $linea = new FacturaLinea;
+            $elementsPost= array();
             
-            Yii::import('ext.JLinesForm.JLinesForm');
-            JLinesForm::perfomAjaxValidate($linea,false);
-             /*if(isset($_POST['FacturaLinea'])){
-                 $valid=true;
-                 foreach($_POST['FacturaLinea'] as $i=>$item){
-                    if(isset($_POST['FacturaLinea'][$i]))
-                        $item->attributes=$_POST['FacturaLinea'][$i];
-                    $valid=$item->validate() && $valid;
-                } 
-                if($valid){
-                    
-                }
-             }*/
-                $this->render('prueba',array('linea'=>$linea));
+            JLinesForm::validate($linea,'lineas-form',$elementsPost,false);
+            
+            $this->render('prueba',array('linea'=>$linea,'elementsPost'=>$elementsPost,false));
         }
 	/**
 	 * This is the default 'index' action that is invoked

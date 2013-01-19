@@ -70,8 +70,9 @@ class FacturaLinea extends CActiveRecord
 			array('ARTICULO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, PORC_IMPUESTO, VALOR_IMPUESTO', 'length', 'max'=>28),
 			array('COMENTARIO', 'safe'),
-			array('CANTIDAD', 'validarExistencias'),
-			array('UNIDAD', 'validarExistencias'),
+			array('CANTIDAD', 'numerical'),
+			/*array('CANTIDAD', 'validarExistencias'),
+			array('UNIDAD', 'validarExistencias'),*/
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('ID, FACTURA, ARTICULO, LINEA, UNIDAD, CANTIDAD, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, PORC_IMPUESTO, VALOR_IMPUESTO, TIPO_PRECIO, COMENTARIO, ESTADO, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),

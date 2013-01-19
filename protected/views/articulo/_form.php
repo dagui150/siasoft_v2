@@ -119,13 +119,13 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             
             $boton = $this->darBotonBuscar('#bodega',true);
             
-            $boton2 = $this->darBotonBuscar('#bodega',true);
+            $boton2 = $this->darBotonBuscar('#impuesto',true);
             
-            $boton3 = $this->darBotonBuscar('#bodega',true);
+            $boton3 = $this->darBotonBuscar('#impuesto2',true);
             
-            $boton4 = $this->darBotonBuscar('#bodega',true);
+            $boton4 = $this->darBotonBuscar('#retencion',true);
             
-            $boton5 = $this->darBotonBuscar('#bodega',true);
+            $boton5 = $this->darBotonBuscar('#retencion2',true);
             
             $clas = ClasificacionAdi::model()->findAll();
             
