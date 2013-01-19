@@ -145,7 +145,9 @@ class FacturaController extends Controller
 
                              $modelConsecutivo->update();
                              $transaction->commit();
-                             $this->redirect(array('admin'));
+                             
+                             $this->redirect(array('admin','id'=>$model->FACTURA));
+                             
                         }catch(Exception $e){
                             echo $e;
                             $transaction->rollback();

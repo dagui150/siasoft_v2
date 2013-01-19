@@ -333,7 +333,7 @@ class PedidoController extends Controller
                 'CANT_VALIDA'=>$cant_valida,
                 'ID' => $bus->ARTICULO,
                 'NOMBRE' => $bus->NOMBRE,
-                'IMPUESTO' => number_format($bus->iMPUESTOVENTA->PROCENTAJE, 2, ',', '.'),
+                'IMPUESTO' => $bus->iMPUESTOVENTA->PROCENTAJE,
                 'UNIDAD' => $bus->UNIDAD_ALMACEN,
                 'UNIDAD_NOMBRE' => $bus->uNIDADALMACEN->NOMBRE,
                 'UNIDADES' => CHtml::listData(UnidadMedida::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>$bus->uNIDADALMACEN->TIPO)),'ID','NOMBRE'),

@@ -33,13 +33,16 @@
  */
 class FacturaLinea extends CActiveRecord
 {
-    public $BODEGA;
+<<<<<<< HEAD
         /**
          * La bodega de la factura
          * @var string $BODEGA 
          */
         public $BODEGA;
     
+=======
+    public $BODEGA;
+>>>>>>> 752263ea5b97e7dce40bc248931c67485e19e5c6
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
