@@ -64,7 +64,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <?php echo $form->textFieldRow($model2,'EQUIVALENCIA'); ?>
+                                <?php echo $form->textFieldRow($model2,'EQUIVALENCIA',array('class'=>'decimal')); ?>
                             </td>
                             <td>
                                 <?php echo $this->botonAyuda('EQUI_UNID_MED'); ?>

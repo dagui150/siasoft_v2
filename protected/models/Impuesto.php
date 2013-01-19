@@ -61,7 +61,17 @@ class Impuesto extends CActiveRecord
         
         public function behaviors()
 	{
+		$conf=ConfAs::model()->find();//PORCENTAJE_DEC
+                $conf2=ConfFa::model()->find();//DECIMALES_PRECIO
 		return array(
+                    
+                        'defaults'=>array(
+                           'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
+                           'formats'=> array(
+                                'PROCENTAJE'=>'###,##0.'.str_repeat('0',$conf->PORCENTAJE_DEC),
+                                
+                            ),
+                        ),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',

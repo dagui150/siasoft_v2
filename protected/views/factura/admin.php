@@ -1,4 +1,17 @@
 <?php
+if(isset($_GET['id'])){
+    $js=Yii::app()->clientScript;
+
+    $js->registerScript('factura',"
+        $(document).ready(function(){
+            //$('[href=\"/siasoft_v2/index.php?r=Factura/formatoPDF&id=".$_GET['id']."\"]').click();
+        });
+    ",CClientScript::POS_HEAD);
+    
+    
+}
+
+
 $this->breadcrumbs=array(
 	'Facturación'=>array('admin'),
 	'Facturas'
@@ -60,9 +73,7 @@ $this->widget('bootstrap.widgets.TbButton', array(
 		'ACTUALIZADO_POR',
 		'ACTUALIZADO_EL',
 		*/
-		array(
-			'class'=>'CButtonColumn',
-		),
+		
             array(
                          'class'=>'CLinkColumn',
 			 //'header'=>'FACTURAS',
