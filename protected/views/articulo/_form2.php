@@ -319,11 +319,11 @@
         ?>
     
 	<div align="center"> 
-		<?php 
-                    $this->darBoton('submit', 'Crear', 'primary', 'normal','#','ok-circle white');
+                <?php 
+                    $this->darBotonEnviar($model->isNewRecord ? 'Crear' : 'Guardar');
 		?>
 		<?php 
-                    $this->darBoton('link', 'Cancelar', 'action', 'normal',array('admin'),'remove');
+                    $this->darBotonCancelar();
 		?>
 	</div>
 

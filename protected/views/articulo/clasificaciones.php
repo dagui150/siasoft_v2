@@ -67,13 +67,7 @@
            <tr>
               <td colspan="4">
                     <div class="add" style="width: 85px;">
-                           <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                 'buttonType'=>'button',
-                                                 'type'=>'success',
-                                                 'label'=>'Nuevo',
-                                                 'icon'=>'plus white',
-                                         )); 
-                          ?>
+                        <?php $this->darBotonAddLinea(); ?>
                      </div>
                      <textarea class="template" rows="0" cols="0" style="display: none;">
                             <tr class="templateContent">
@@ -85,13 +79,7 @@
                                     </td>
                                     <td>
                                         <div class="remove">
-                                               <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                         'buttonType'=>'button',
-                                                         'type'=>'danger',
-                                                         'label'=>'Eliminar',
-                                                         'icon'=>'minus white',
-                                                     ));
-                                               ?>
+                                            <?php $this->darBotonDeleteLinea(); ?>
                                         </div>
                                         <input type="hidden" class="rowIndex" value="{0}" />
                                    </td>
@@ -116,16 +104,7 @@
                          </td>
                          <td>
                              <div class="remove">
-                                   <?php 
-                                        $this->widget('bootstrap.widgets.TbButton', array(
-                                             'buttonType'=>'button',
-                                             'type'=>'danger',
-                                             'label'=>'Eliminar',
-                                             'icon'=>'minus white',
-                                             'htmlOptions'=>array('id'=>'remover','class'=>'eliminarRegistro','name'=>$i)
-                                         ));
-                                        
-                                    ?>
+                                 <?php $this->darBotonDeleteLinea('Eliminar',array('id'=>'remover','class'=>'eliminarRegistro','name'=>$i)); ?>
                               </div>
                         </td>
                    </tr>
@@ -143,16 +122,7 @@
                                <?php echo CHtml::dropDownList("ObligaClasificacionNuevo[$i][VALOR]",'',CHtml::listData(ClasificacionAdiValor::model()->findAll('CLASIFICACION = "'.$person->ID.'"'),'ID','VALOR'),array('empty'=>'Seleccione','class'=>'required')); ?>
                          </td>
                          <td>
-                               <?php 
-                                        $this->widget('bootstrap.widgets.TbButton', array(
-                                             'buttonType'=>'button',
-                                             'type'=>'danger',
-                                             'label'=>'Eliminar',
-                                             'icon'=>'minus white',
-                                             'htmlOptions'=>array('disabled'=>true)
-                                         ));
-                                        
-                              ?>
+                             <?php $this->darBotonDeleteLinea('Eliminar',array('disabled'=>true)); ?>
                         </td>
                    </tr>
                     

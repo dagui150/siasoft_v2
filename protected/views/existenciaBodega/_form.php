@@ -36,14 +36,14 @@
             ),
             'type'=>'horizontal',
     ));
-    
-    $boton = $this->widget('bootstrap.widgets.TbButton', array(
+    $boton = $this->darBotonBuscar('#bodega',true,array('data-toggle'=>'modal'));
+    /*$boton = $this->widget('bootstrap.widgets.TbButton', array(
                 'type'=>'info',
                 'size'=>'mini',
                 'url'=>'#bodega',
                 'icon'=>'search',
                 'htmlOptions'=>array('data-toggle'=>'modal',),
-            ),true);
+            ),true);*/
     $boton2 = $this->widget('bootstrap.widgets.TbButton', array(
                 'type'=>'info',
                 'size'=>'mini',
@@ -60,18 +60,18 @@
         ?>
 
 	<div class="row">
-            <table>
+            <table style="margin-left: 0px;" id="tabla-existencia">
                  <tr>
                        <td><?php echo $form->textFieldRow($model,'BODEGA',array('maxlength'=>4,'size'=>4,'ajax'=>array('type' => 'POST','url' => CController::createUrl('existenciaBodega/cargarAjax'),'update' => '#BODEGAA')));?></td> 
-                       <td><div id="BODEGAA" style="margin: 0 0 0 -497px"><?php echo CHtml::textField('BODEGA2',$vbodega,array('size'=>18,'disabled'=>true)); ?></div></td> 
-                       <td><div style="margin: 5px 0 0 -360px"><?php echo $boton; ?></div></td> 
+                       <td><div id="BODEGAA" style="margin: 0 0 0 -430px"><?php echo CHtml::textField('BODEGA2',$vbodega,array('size'=>18,'disabled'=>true)); ?></div></td> 
+                       <td><div style="margin: 5px 0 0 -503px"><?php echo $boton; ?></div></td> 
                  
                        <td><div style="margin: 0 0 0 -352px"><?php echo $form->textFieldRow($model,'ARTICULO',array('value'=>$articulo,'readonly'=>true,'maxlength'=>4,'size'=>4,'ajax'=>array('type' => 'POST','url' => CController::createUrl('existenciaBodega/cargarAjax2'),'update' => '#ARTICULOO')));?></div></td> 
                        <td><div id="ARTICULOO" style="margin: 0 0 0 -157px"><?php echo CHtml::textField('ARTICULO2',$barticulo->NOMBRE,array('size'=>18,'disabled'=>true)); ?></div></td> 
                  </tr>
             </table>
-            <fieldset style="float: left;width: 300px;">
-                 <legend ><font face="arial" size=3 >Existencias en Bodega</font></legend>
+            <fieldset style="float: left;width: 300px;" class="fieldset-existencia">
+                 <legend><font face="arial" size=3 class="titulo-existencia">Existencias en Bodega</font></legend>
                  <?php echo $form->textFieldRow($model,'EXISTENCIA_MINIMA',array('size'=>4,'maxlength'=>28)); ?>
 
                  <?php echo $form->textFieldRow($model,'PUNTO_REORDEN',array('size'=>4,'maxlength'=>28)); ?>
@@ -80,8 +80,8 @@
 
            </fieldset>
             
-           <fieldset style="float: left; margin: 0 0 0 30px; width: 310px; height: 218px;">
-                <legend ><font face="arial" size=3 >Cantidades</font></legend>
+           <fieldset style="float: left; margin: 0 0 10px 30px; width: 310px; height: 218px;" >
+                <legend ><font face="arial" size=3 class="titulo-existencia">Cantidades</font></legend>
                 <table>
                     <tr>
                         <td>

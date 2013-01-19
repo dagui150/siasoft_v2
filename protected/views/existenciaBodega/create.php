@@ -18,17 +18,8 @@ $('.search-button').click(function(){
 
 <h1>Bodegas de Articulo "<?php echo $articulo.' - '.$barticulo->NOMBRE?>"</h1>
 <div id="mensaje"></div>
-    <br>
     <div align="right">
-         <?php
-            $this->widget('bootstrap.widgets.TbButton', array(
-                    'type'=>'success',
-                    'size'=>'mini',
-                    'label'=>'Nuevo',
-                    'icon'=>'plus white',
-                    'htmlOptions'=>array('class'=>'search-button','onClick'=>"$('html,body').animate({scrollTop:'2000px'}, 'slow');return false;"),
-                ));
-         ?>
+        <?php $this->darBotonNuevo('#',array('class'=>'search-button','onClick'=>"$('html,body').animate({scrollTop:'2000px'}, 'slow');return false;"),'mini'); ?>
    </div>
     
   <?php   

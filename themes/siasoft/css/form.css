@@ -138,6 +138,39 @@ div.wide.form label
 	width: 100px;
 }
 
+#tabla-existencia .control-group .control-label
+{
+	width: 112px !important;
+}
+#tabla-existencia .controls
+{
+	margin-left: 125px !important;
+}
+#tabla-existencia .btn-info
+{
+	margin-left: -35px !important;
+}
+#tabla-existencia #BODEGAA
+{
+	margin-right: 283px !important;
+}
+#tabla-existencia #ARTICULOO
+{
+	margin-left: -178px !important;
+}
+.titulo-existencia
+{
+	line-height: 20px !important;
+}
+.fieldset-existencia
+{
+    margin: 0 29px 10px !important;
+}
+.fieldset-existencia .control-group
+{
+    margin-top: 0px !important;
+}
+
 div.wide.form .row
 {
 	clear: left;
