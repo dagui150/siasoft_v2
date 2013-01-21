@@ -43,13 +43,7 @@ function cargaProveedorGrilla (grid_id){
 }
 </script>
 
-<?php $prov_boton = $this->widget('bootstrap.widgets.TbButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#proveedor',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal'),
-                    ), true); ?>
+<?php $prov_boton = $this->darBotonBuscar('#proveedor',true,array('data-toggle'=>'modal')); ?>
 <div class="form">
     <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'ingreso-compra-form',

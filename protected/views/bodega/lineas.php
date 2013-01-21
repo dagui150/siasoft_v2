@@ -321,15 +321,7 @@
                <tr>
                     <td colspan="12">
                         <div id="add" class="add">
-                           <?php 
-                                $this->widget('bootstrap.widgets.TbButton', array(
-                                                            'buttonType'=>'button',
-                                                            'type'=>'success',
-                                                            'label'=>'Nuevo',
-                                                            'icon'=>'plus white',
-                                                            'htmlOptions' => array('class'=>'clonar', 'style'=>'display:none'),
-                                                      ));
-                           ?>
+                            <?php $this->darBotonAddLinea('Nuevo',array('class'=>'clonar', 'style'=>'display:none')); ?>
                         </div>
                            <textarea class="template" rows="0" cols="0" style="display:none;">
                                     <tr class="templateContent">
@@ -342,10 +334,6 @@
                                             <?php echo CHtml::hiddenField('LineaNuevo[{0}][DESCRIPCION]',''); ?>
                                         </td>
                                         <td>
-                                            <?php /*
-                                            <span id='cantidad_<?php echo '{0}';?>' class="cambiar"></span>
-                                            <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][CANTIDAD]','',array('size'=>4,'class'=>'blur')); ?></span>                                                                                                            
-                                             */ ?>
                                             <span id='existenciaminima_<?php echo '{0}';?>' class="cambiar"></span>
                                             <span id='campo_existenciaminima_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][EXISTENCIA_MINIMA]','',array('size'=>4,'class'=>'blur existenciaminima',)); ?></span>
                                         </td>
@@ -369,46 +357,12 @@
                                             <span id='cant_remitida_<?php echo '{0}';?>' class="cambiar"></span>
                                             <span id='campo_cant_remitida_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][CANT_REMITIDA]','',array('size'=>4,'class'=>'blur cant_remitida')); ?></span>
                                         </td>                                  
-                                            <?php /*
-                                        <td>
-                                            <span id='unidad_<?php echo '{0}';?>' class="cambiar"></span>
-                                            <span id='campo_unidad_<?php echo '{0}';?>' style="display:none;" ><?php echo CHtml::dropDownList('LineaNuevo[{0}][UNIDAD]','',array(),array('empty'=>'Seleccione','style'=>'width:65px;','class'=>'blur unidad')); ?></span>
-                                        </td>
-                                        <td>
-                                            <span id='tipoprecio_<?php echo '{0}';?>' class="cambiar"></span>
-                                            <span id='campo_tipoprecio_<?php echo '{0}';?>' style="display:none;" ><?php echo CHtml::dropDownList('LineaNuevo[{0}][TIPO_PRECIO]','',array(),array('empty'=>'Seleccione','style'=>'width:80px;','class'=>'blur tipo_precio')); ?></span>
-                                        </td>
-                                        <td style="width: 74px;">
-                                            <span id='preciounitario_<?php echo '{0}';?>' class="cambiar"></span>
-                                            <span id='campo_preciounitario_<?php echo '{0}';?>'style="display:none;" ><?php echo CHtml::textField('LineaNuevo[{0}][PRECIO_UNITARIO]','',array('size'=>10,'class'=>'blur')); ?></span>                                         
-                                        </td>                                    
-                                        <td style="width: 74px;">
-                                            <span id='porcdescuento_<?php echo '{0}';?>' class="cambiar"></span>
-                                            <span id='campo_porcdescuento_<?php echo '{0}';?>'style="display:none;" ><?php echo CHtml::textField('LineaNuevo[{0}][PORC_DESCUENTO]','',array('size'=>4,'class'=>'blur')); ?></span>
-                                            <?php echo CHtml::hiddenField('LineaNuevo[{0}][MONTO_DESCUENTO]',''); ?>
-                                        </td>
-                                        <td style="width: 74px;">
-                                            <span id='porc_impuesto_<?php echo '{0}';?>'></span>
-                                            <?php echo CHtml::hiddenField('LineaNuevo[{0}][PORC_IMPUESTO]',''); ?>                                        
-                                        </td>
-                                        <td>
-                                            <span id='valor_impuesto_<?php echo '{0}';?>'></span>
-                                            <?php echo CHtml::hiddenField('LineaNuevo[{0}][VALOR_IMPUESTO]',''); ?>
-                                        </td>
-                                        <td>
-                                            <span id='total_<?php echo '{0}';?>'></span>      
-                                            <?php echo CHtml::hiddenField('LineaNuevo[{0}][TOTAL]',''); ?>
-                                            <?php echo CHtml::hiddenField('LineaNuevo[{0}][COMENTARIO]',''); ?>
-                                        </td>                                            
-                                             */ ?>
                                         <td width="40px">
                                              <span style="float: left">
-                                                 <?php //$this->darBoton('button', false, 'normal', 'small', false, 'pencil',array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')); ?>
                                                  <?php $this->darBotonUpdateLinea(array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')); ?>
                                             </span>
                                             <div class="remove" id ="remover_<?php echo '{0}';?>" style="float: left; margin-left: 5px; display: none"></div>
                                             <div style="float: left; margin-left: 5px;">
-                                                <?php //$this->darBoton('button', false, 'danger', 'small', false, 'minus white',array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}')); ?>
                                                 <?php $this->darBotonDeleteLinea(false,array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}')); ?>
                                             </div>
                                             <input name="rowIndex_{0}" type="hidden" class="rowIndex" value="{0}" />
@@ -454,50 +408,11 @@
                                             <?php echo '<span id="cantremitidaU_'.$i.'">'.$linea->CANT_REMITIDA.'</span>'; ?>
                                             <?php echo CHtml::activeHiddenField($linea,"[$i]CANT_REMITIDA"); ?>    
                                    </td>
-                                   <?php /*
-                                   <td> 
-                                            <?php echo '<span id="cantidadU_'.$i.'">'.$linea->CANTIDAD.'</span>'; ?>    
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]CANTIDAD"); ?>
-                                   </td>
-                                   <td>
-                                            <?php echo '<span id="unidadU_'.$i.'">'.$linea->uNIDAD->NOMBRE.'</span>'; ?>
-                                            <div style="display:none;"><?php echo CHtml::activeDropDownList($linea,"[$i]UNIDAD",CHtml::listData(UnidadMedida::model()->findAll('ACTIVO = "S" AND TIPO = "'.$linea->uNIDAD->TIPO.'"'), 'ID', 'NOMBRE'),array('style'=>'width:65px;', 'options'=>array($linea->UNIDAD => array('selected'=>'selected')))); ?></div>
-                                    </td>
-                                   <td>
-                                            <?php echo '<span id="tipoprecioU_'.$i.'">'.$linea->tIPOPRECIO->nIVELPRECIO->DESCRIPCION.'</span>'; ?>
-                                            <div style="display:none;"><?php echo CHtml::activeDropDownList($linea,"[$i]TIPO_PRECIO",CHtml::listData(ArticuloPrecio::model()->findAll('ACTIVO = "S"'), 'ID', 'nIVELPRECIO.DESCRIPCION'),array('style'=>'width:80px;', 'display'=>'none', 'options'=>array($linea->TIPO_PRECIO => array('selected'=>'selected')))); ?></div>
-                                    </td>
-                                    <td>
-                                            <?php echo '<span id="preciounitarioU_'.$i.'">'.$linea->PRECIO_UNITARIO.'</span>'; ?>
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]PRECIO_UNITARIO"); ?>                                        
-                                    </td>                                
-                                    <td>
-                                            <?php echo '<span id="porcdescuentoU_'.$i.'">'.$linea->PORC_DESCUENTO.'</span>'; ?>
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]PORC_DESCUENTO"); ?>  
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]MONTO_DESCUENTO"); ?>   
-                                    </td>
-                                    <td>
-                                            <?php echo '<span id="porc_impuestoU_'.$i.'">'.$linea->PORC_IMPUESTO.'</span>'; ?>
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]PORC_IMPUESTO"); ?>                                          
-                                    </td>
-                                    <td>
-                                            <?php echo '<span id="porc_impuestoU_'.$i.'">'.$linea->VALOR_IMPUESTO.'</span>'; ?>
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]VALOR_IMPUESTO"); ?>    
-                                    </td>
-                                    <td>
-                                            <?php echo '<span id="totalU_'.$i.'">'.$linea->TOTAL.'</span>'; ?>
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]TOTAL"); ?>    
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]ESTADO"); ?>    
-                                            <?php echo CHtml::activeHiddenField($linea,"[$i]COMENTARIO"); ?>
-                                    </td>
-                                    */ ?>
                                     <td>            
                                             <span style="float: left">
-                                                <?php //$this->darBoton('button', false, 'normal', 'small', false, 'pencil',array('class'=>'editU','name'=>"$i",'id'=>"editU_$i")); ?>
                                                 <?php $this->darBotonUpdateLinea(array('class'=>'editU','name'=>"$i",'id'=>"editU_$i")); ?>
                                             </span>
                                            <div class="remove" id ="removerU" style="float: left; margin-left: 5px;">
-                                               <?php //$this->darBoton('button', false, 'danger', 'small', false, 'minus white',array('id'=>"eliminaLineaU_$i",'class'=>'eliminaLineaU','name'=>"$i")); ?>
                                                <?php $this->darBotonDeleteLinea(false,array('id'=>"eliminaLineaU_$i",'class'=>'eliminaLineaU','name'=>"$i")); ?>
                                            </div>
                                         <?php echo CHtml::hiddenField("rowIndexU_$i", $i, array('class'=>'rowIndexU')); ?>                                         

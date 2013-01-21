@@ -142,16 +142,7 @@
                             </td>
                                 <td>
                                      <div class="remove">
-                                          <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                            'buttonType'=>'button',
-                                                            'type'=>'danger',
-                                                            'label'=>'Eliminar',
-                                                            'icon'=>'minus white',
-                                                            'htmlOptions'=>array('class'=>'eliminarCantidad','name'=>$i,'disabled'=>$model2->getCantidad($model2->TRANSACCION_BASE))
-
-                                                ));
-                                          ?>
-                                          
+                                         <?php $this->darBotonDeleteLinea('Eliminar', array('class'=>'eliminarCantidad','name'=>$i,'disabled'=>$model2->getCantidad($model2->TRANSACCION_BASE))); ?>
                                      </div>
                                 </td>
                            </tr>
@@ -185,16 +176,8 @@
                 <tfoot>
                     <tr>
                         <td colspan="4">
-                             <div id="nuevo" class="add" style='width: 80px;<?php if($model2->isNewRecord) echo 'display: none';?>'>
-                                  
-                                   <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                 'buttonType'=>'button',
-                                                 'type'=>'success',
-                                                 'label'=>'Nuevo',
-                                                 'icon'=>'plus white',
-                                                 'htmlOptions'=>array('id'=>'btn-nuevo','disabled'=>$model2->getCantidad($model2->TRANSACCION_BASE))
-                                         )); 
-                                   ?>
+                             <div id="nuevo" class="add" style='width: 85px;<?php if($model2->isNewRecord) echo 'display: none';?>'>
+                                  <?php $this->darBotonAddLinea('Nuevo',array('id'=>'btn-nuevo','disabled'=>$model2->getCantidad($model2->TRANSACCION_BASE))); ?>
                             </div>
                             <textarea class="template" rows="0" cols="0" style="display: none; width: 30px;">
                                 <tr class="templateContent">
@@ -204,14 +187,7 @@
                                     </td>
                                     <td>
                                         <div id='remueve_<?php echo '{0}';?>' class="remove">
-                                               <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                         'buttonType'=>'button',
-                                                         'type'=>'danger',
-                                                         'label'=>'Eliminar',
-                                                         'icon'=>'minus white',
-                                                         //'htmlOptions'=>array('disabled'=>false, 'name'=>'{0}')
-                                                     ));
-                                               ?>
+                                            <?php $this->darBotonDeleteLinea(); ?>
                                         </div>
                                         <input type="hidden" class="rowIndex" value="{0}" />
                                    </td>
@@ -229,14 +205,7 @@
                             </td>
                             <td>
                                  <div id="remueve_<?echo $i;?>" class="remove">
-                                      <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                        'buttonType'=>'button',
-                                                        'type'=>'danger',
-                                                        'label'=>'Eliminar',
-                                                        'icon'=>'minus white',
-                                                        //'htmlOptions'=>array('id'=>'remueve','disabled'=>false, 'name'=> $i)
-                                            ));
-                                      ?>
+                                     <?php $this->darBotonDeleteLinea(); ?>
                                  </div>
                             </td>
                        </tr>

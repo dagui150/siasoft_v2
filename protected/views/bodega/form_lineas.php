@@ -142,6 +142,7 @@
                 ?>
                  <?php
                     $bolean =Yii::app()->request->isAjaxRequest ? false : true;
+                    //$this->darBotonCancelar(array('onclick'=>'$(".close").click(); '), '');
                     $this->widget('bootstrap.widgets.TbButton', array(
                          'buttonType'=>'button',
                          'type'=>'normal',

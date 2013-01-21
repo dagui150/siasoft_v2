@@ -167,13 +167,7 @@ function cargaNitGrilla(grid_id){
     ), true);
     
     ?>
-    <?php $modal = $this->widget('bootstrap.widgets.TbButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#nit',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal'),
-                    ), true); ?>
+    <?php $modal = $this->darBotonBuscar('#nit',true); ?>
     
     <?php $this->widget('bootstrap.widgets.TbTabs', array(
     'type'=>'tabs', // 'tabs' or 'pills'
@@ -278,8 +272,8 @@ function cargaNitGrilla(grid_id){
 	</div>
 
 	<div align="center">
-            <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('proveedor/admin'), 'icon' => 'remove'));  ?>
+            <?php $this->darBotonEnviar($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
+            <?php $this->darBotonCancelar(); ?>
 	</div>
 
 

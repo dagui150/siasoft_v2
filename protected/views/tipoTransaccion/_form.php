@@ -78,34 +78,13 @@
     <?php if(!$model2->isNewRecord): ?>
     <div class="row-buttons" align="center">
     <?php endif ?>
-              <?php
-                     $this->widget('bootstrap.widgets.TbButton', array(
-                               'label'=>$model2->isNewRecord ? 'Crear' : 'Guardar',
-                               'buttonType'=>'submit',
-                               'type'=>'primary',
-                               'icon'=>'ok-circle white', 
-                            )
-                    );
-             ?>
+        <?php $this->darBotonEnviar($model2->isNewRecord ? 'Crear' : 'Guardar'); ?>
               <?php
                     if($model2->isNewRecord){
-                         $this->widget('bootstrap.widgets.TbButton', array(
-                                   'label'=>'Cancelar',
-                                   'buttonType'=>'reset',
-                                   'type'=>'action',
-                                   'icon'=>'remove ', 
-                                   'htmlOptions'=>array('data-dismiss'=>'modal'),
-                                )
-                        );
+                         $this->darBotonCancelar(array('data-dismiss'=>'modal'), '');
                     }
                     else{
-                         $this->widget('bootstrap.widgets.TbButton', array(
-                                   'label'=>'Cancelar',
-                                   'type'=>'action',
-                                   'icon'=>'remove ', 
-                                   'url'=>array('admin'),
-                                )
-                        );
+                         $this->darBotonCancelar(false, array('admin'));
                     }
              ?>
       </div>

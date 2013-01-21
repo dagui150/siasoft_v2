@@ -39,16 +39,7 @@ function eliminarRegistro(){
                             </td>
                                 <td>
                                      <div class="remove">
-                                          <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                            'buttonType'=>'button',
-                                                            'type'=>'danger',
-                                                            'label'=>'Eliminar',
-                                                            'icon'=>'minus white',
-                                                            'htmlOptions'=>array('class'=>'eliminarRegistro','name'=>$i)
-
-                                                ));
-                                          ?>
-                                          
+                                         <?php $this->darBotonDeleteLinea('Eliminar', array('class'=>'eliminarRegistro','name'=>$i)); ?>
                                      </div>
                                 </td>
                            </tr>
@@ -81,14 +72,8 @@ function eliminarRegistro(){
                 <tfoot>
                     <tr>
                         <td colspan="4">
-                             <div class="add" style="width: 80px;">
-                                   <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                 'buttonType'=>'button',
-                                                 'type'=>'success',
-                                                 'label'=>'Nuevo',
-                                                 'icon'=>'plus white',
-                                         )); 
-                                   ?>
+                             <div class="add" style="width: 85px;">
+                                 <?php $this->darBotonAddLinea(); ?>
                             </div>
                             <textarea class="template" rows="0" cols="0" style="display: none; width: 30px;">
                                 <tr class="templateContent">
@@ -98,13 +83,7 @@ function eliminarRegistro(){
                                     </td>
                                     <td>
                                         <div class="remove">
-                                               <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                         'buttonType'=>'button',
-                                                         'type'=>'danger',
-                                                         'label'=>'Eliminar',
-                                                         'icon'=>'minus white',
-                                                     ));
-                                               ?>
+                                            <?php $this->darBotonDeleteLinea(); ?>
                                         </div>
                                         <input type="hidden" class="rowIndex" value="{0}" />
                                    </td>
@@ -122,13 +101,7 @@ function eliminarRegistro(){
                             </td>
                             <td>
                                  <div class="remove">
-                                      <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                        'buttonType'=>'button',
-                                                        'type'=>'danger',
-                                                        'label'=>'Eliminar',
-                                                        'icon'=>'minus white',
-                                            ));
-                                      ?>
+                                     <?php $this->darBotonDeleteLinea(); ?>
                                  </div>
                             </td>
                        </tr>

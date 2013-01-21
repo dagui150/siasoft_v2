@@ -112,15 +112,8 @@ if (isset($_GET['men'])){
             
     ?>
     
-    <?php 
-
-            $this->widget('bootstrap.widgets.TbButton', array(
-                    'label'=>'Nuevo',
-                    'type'=>'success', 
-                    'size'=>'mini', 
-                    'icon' => 'plus white',
-                    'url'=>array('create')
-            )); 
+    <?php  
+            $this->darBotonNuevo(array('create'),false,'mini');
             $this->endWidget(); 
     ?>
 </div>

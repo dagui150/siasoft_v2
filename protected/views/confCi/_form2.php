@@ -185,26 +185,8 @@ function inicio(){
 		)); 
 	?>
 	<div align="center">
-		<?php 
-			$this->widget('bootstrap.widgets.TbButton', array(
-						'label'=>'Guardar',
-						'buttonType'=>'submit',
-						'type'=>'primary',
-						'icon'=>'ok-circle white', 
-					)
-			);
-		?>
-		<?php
-			$this->widget('bootstrap.widgets.TbButton', array(
-						'label'=>'Cancelar',
-						//'buttonType'=>'submit',
-						'type'=>'action',
-						'icon'=>'remove', 
-						'url'=>array('site/index'), 
-					)
-			);
-			
-		?>
+            <?php $this->darBotonEnviar('Guardar'); ?>
+            <?php $this->darBotonCancelar(false, array('site/index')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

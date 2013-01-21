@@ -463,28 +463,9 @@
                 ),
                  'type'=>'horizontal',
      ));
-     
-     $botonBodega = $this->widget('bootstrap.widgets.TbButton', array(
-                        'type'=>'info',
-                        'size'=>'mini',
-                        'buttonType'=>'button',
-                        'icon'=>'search',
-                        'htmlOptions'=>array('onclick'=>'$("#bodega").dialog("open");return false;',),
-                    ),true);
-     $botonBodegaDestino = $this->widget('bootstrap.widgets.TbButton', array(
-                        'type'=>'info',
-                        'size'=>'mini',
-                        'buttonType'=>'button',
-                        'icon'=>'search',
-                        'htmlOptions'=>array('id'=>'bodega-destino','disabled'=>true,'onclick'=>'$("#bodega_destino").dialog("open");return false;',),
-                    ),true);
-     $botonArticulo = $this->widget('bootstrap.widgets.TbButton', array(
-                        'type'=>'info',
-                        'size'=>'mini',
-                        'buttonType'=>'button',
-                        'icon'=>'search',
-                        'htmlOptions'=>array('onclick'=>'$("#articulo").dialog("open");return false;',),
-                    ),true);
+     $botonBodega = $this->darBotonBuscar('', true, array('onclick'=>'$("#bodega").dialog("open");return false;'));
+     $botonBodegaDestino = $this->darBotonBuscar('', true, array('id'=>'bodega-destino','disabled'=>true,'onclick'=>'$("#bodega_destino").dialog("open");return false;'));
+     $botonArticulo = $this->darBotonBuscar('', true, array('onclick'=>'$("#articulo").dialog("open");return false;'));
      
      echo CHtml::hiddenField('documento',$model->DOCUMENTO_INV);
      echo CHtml::hiddenField('consecutivo',isset($_POST['consecutivo']) ? $_POST['consecutivo'] : '');
@@ -594,6 +575,7 @@
                 ?>
                  <?php
                     $bolean =Yii::app()->request->isAjaxRequest ? false : true;
+                    //$this->darBotonCancelar(array('onclick'=>'$(".close").click(); limpiarForm('.$bolean.');'),'');
                     $this->widget('bootstrap.widgets.TbButton', array(
                          'buttonType'=>'button',
                          'type'=>'normal',

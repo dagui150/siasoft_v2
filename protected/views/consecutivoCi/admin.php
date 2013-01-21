@@ -17,18 +17,7 @@ if (isset($_GET['men'])){
 ?>
 <div id="mensaje"></div>
 <div align="right">
-
-    <?php 
-
-            $this->widget('bootstrap.widgets.TbButton', array(
-                    'label'=>'Nuevo',
-                    'type'=>'success', 
-                    'size'=>'mini', 
-                    'icon' => 'plus white',
-                    'htmlOptions'=>array('onclick'=>'$("#myModal").modal()')
-            )); 
-
-    ?>
+    <?php $this->darBotonNuevo('',array('onclick'=>'$("#myModal").modal()'),'mini'); ?>
 </div>
 <?php 
     $this->widget('bootstrap.widgets.TbGridView', array(

@@ -32,18 +32,7 @@ if (isset($_GET['men'])){
 <?php endif; ?>
 
 <div align="right">
-<?php 
-
-		$this->widget('bootstrap.widgets.TbButton', array(
-			'label'=>'Nuevo',
-			'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-			'size'=>'mini', // '', 'large', 'small' or 'mini'
-			'url'=>'#myModal',
-			'icon' => 'plus white',
-			'htmlOptions'=>array('data-toggle'=>'modal')
-		)); 
-
-	?>
+    <?php $this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
 </div>
 <?php 
 	$this->widget('bootstrap.widgets.TbGridView', array(

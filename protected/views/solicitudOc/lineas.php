@@ -274,13 +274,7 @@ $(document).ready(function(){
             <?php echo $form->textFieldRow($model,'ARTICULO',array('size'=>15, 'class'=>'tonces')); ?>
         </td>
         <td>
-            <?php $this->widget('bootstrap.widgets.TbButton', array(
-                'type'=>'info',
-                'size'=>'mini',
-                'url'=>'#articulo',
-                'icon'=>'search',
-                'htmlOptions'=>array('data-toggle'=>'modal', 'class' => 'emergente', 'name' => '{0}'),
-             )); ?>
+            <?php $this->darBotonBuscar('#articulo',false, array('data-toggle'=>'modal', 'class' => 'emergente', 'name' => '{0}', 'style'=>'margin-top: 5px;')); ?>
         </td>
         <td>
             <?php echo CHtml::textField('Articulo_desc','',array('readonly'=>true,'size'=>20)); ?>
@@ -328,15 +322,7 @@ $(document).ready(function(){
         <td>
             <?php echo $form->dropDownList($model,'UNIDAD',array(),array('empty'=>'Seleccione','style'=>'width: 120px; display: none'));?>
             <?php echo CHtml::hiddenField('NOMBRE_UNIDAD','');?>
-            <?php
-                $this->widget('bootstrap.widgets.TbButton', array(
-                    'buttonType'=>'button',
-                    'type'=>'success',
-                    'icon'=>'white plus',
-                    'size'=>'mini',
-                    'htmlOptions'=>array('id'=>'agregar','style'=>'margin-top: 5px;')
-                    ));    
-            ?> 
+            <?php $this->darBotonAddLinea('',array('id'=>'agregar','style'=>'margin-top: 5px;')); ?>
         </td>
     </tr>
 </table>
@@ -413,23 +399,11 @@ $(document).ready(function(){
                                                 </td>
                                                 <td>
                                                     <span style="float: left">
-                                                        <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                                         'buttonType'=>'button',
-                                                                         'type'=>'normal',                                                                         
-                                                                         'icon'=>'pencil',
-                                                                         'htmlOptions'=>array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')
-                                                                     ));
-                                                        ?>
+                                                        <?php $this->darBotonUpdateLinea(array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')); ?>
                                                     </span>
                                                     <div id="remover" class="remove">
                                                         <div style="float: left; margin-left: 5px;">
-                                                            <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                                         'buttonType'=>'button',
-                                                                         'type'=>'danger',                                                                        
-                                                                         'icon'=>'minus white',
-                                                                         'htmlOptions'=>array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}')
-                                                                     ));
-                                                               ?>
+                                                            <?php $this->darBotonDeleteLinea('',array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}')); ?>
                                                         </div>
                                                     </div>
                                                     <input type="hidden" class="rowIndex" value="{0}" />
@@ -477,22 +451,10 @@ $(document).ready(function(){
                                     </td>
                                                 <td>
                                                     <span style="float: left">
-                                                <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                                 'buttonType'=>'button',
-                                                                 'type'=>'normal',
-                                                                 'icon'=>'pencil',
-                                                                 'htmlOptions'=>array('class'=>'editU','name'=>"$i",'id'=>"editU_$i")
-                                                             ));
-                                                ?>
+                                                        <?php $this->darBotonUpdateLinea(array('class'=>'editU','name'=>"$i",'id'=>"editU_$i")); ?>
                                             </span>
                                            <div class="remove" id ="removerU" style="float: left; margin-left: 5px;">
-                                                      <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                             'buttonType'=>'button',
-                                                             'type'=>'danger',                                                             
-                                                             'icon'=>'minus white',
-                                                             'htmlOptions'=>array('id'=>"eliminaLineaU_$i",'class'=>'eliminaLineaU','name'=>"$i")
-                                                         ));
-                                                   ?>
+                                               <?php $this->darBotonDeleteLinea('',array('id'=>"eliminaLineaU_$i",'class'=>'eliminaLineaU','name'=>"$i")); ?>
                                            </div>
                                         <?php echo CHtml::hiddenField("rowIndexU_$i", $i, array('class'=>'rowIndexU')); ?>
                                                 </td>

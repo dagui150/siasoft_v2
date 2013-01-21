@@ -48,17 +48,9 @@ $(document).ready(function(){
              ),	
 )); ?>
 
-    
-    <?php
+    <?php 
     // Boton modal
-           $boton = $this->widget('bootstrap.widgets.TbButton', array(
-                'type'=>'info',
-                'size'=>'mini',
-                'url'=>'#articulo',
-                'icon'=>'search',
-                'htmlOptions'=>array('data-toggle'=>'modal',),
-            ),true);
-    ?>
+    $boton = $this->darBotonBuscar('#articulo',true); ?>
     
         <?php 
         // Validacion de Rubros en la configuracion        
@@ -291,10 +283,10 @@ $(document).ready(function(){
         )); ?>
         
 	<div align="center">
-        <?php if($readonly == false){ ?>
-            <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-        <?php } ?>    
-        <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('solicitudOc/admin'), 'icon' => 'remove'));  ?>
+            <?php if($readonly == false){ ?>
+                <?php $this->darBotonEnviar($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
+            <?php } ?>    
+            <?php $this->darBotonCancelar(); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

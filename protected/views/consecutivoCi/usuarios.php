@@ -48,15 +48,7 @@
                                 </td>
                                 <td>
                                      <div class="remove">
-                                          <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                            'buttonType'=>'button',
-                                                            'type'=>'danger',
-                                                            'label'=>'Eliminar',
-                                                            'icon'=>'minus white',
-                                                            'htmlOptions'=>array('class'=>'eliminarUsuario','name'=>$i)
-
-                                                ));
-                                          ?>
+                                         <?php $this->darBotonDeleteLinea('Eliminar',array('class'=>'eliminarUsuario','name'=>$i)); ?>
                                      </div>
                                 </td>
                            </tr>
@@ -86,15 +78,8 @@
                 <tfoot>
                     <tr>
                         <td colspan="4">
-                             <div class="add" style="width: 80px;" >
-                                   <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                 'buttonType'=>'button',
-                                                 'type'=>'success',
-                                                 'label'=>'Nuevo',
-                                                 'icon'=>'plus white',
-                                                 'htmlOptions'=>array('id'=>'nuevo')
-                                         )); 
-                                   ?>
+                             <div class="add" style="width: 85px;" >
+                                 <?php $this->darBotonAddLinea('Nuevo',array('id'=>'nuevo')); ?>
                             </div>
                             <textarea class="template" rows="0" cols="0" style="display:none;">
                                 <tr class="templateContent">
@@ -103,14 +88,7 @@
                                     </td>
                                     <td>
                                         <div class="remove">
-                                               <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                         'buttonType'=>'button',
-                                                         'type'=>'danger',
-                                                         'label'=>'Eliminar',
-                                                         'icon'=>'minus white',
-                                                         'htmlOptions'=>array('id'=>'remover')
-                                                     ));
-                                               ?>
+                                            <?php $this->darBotonDeleteLinea('Eliminar',array('id'=>'remover')); ?>
                                         </div>
                                         <input type="hidden" class="rowIndex" value="{0}" />
                                    </td>
@@ -127,15 +105,7 @@
                             </td>
                             <td>
                                  <div class="remove">
-                                      <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                        'buttonType'=>'button',
-                                                        'type'=>'danger',
-                                                        'label'=>'Eliminar',
-                                                        'icon'=>'minus white',
-                                                        'htmlOptions'=>array('id'=>'remover')
-                                                        
-                                            ));
-                                      ?>
+                                     <?php $this->darBotonDeleteLinea('Eliminar',array('id'=>'remover')); ?>
                                  </div>
                             </td>
                        </tr>

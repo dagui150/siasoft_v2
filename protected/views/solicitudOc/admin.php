@@ -86,18 +86,8 @@ if (isset($_GET['men'])){
         'htmlOptions'=>array('id'=>'rever'),
     ));
     ?>
-                
-<?php 
 
-$this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'Nuevo',
-    'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('solicitudOc/create'),
-	'icon' => 'plus white',
-)); 
-
-?>
+    <?php $this->darBotonNuevo(array('solicitudOc/create'),false,'mini'); ?>
 </div>
 <?php $this->widget('bootstrap.widgets.TbGridView', array(
         'type'=>'striped bordered condensed',
