@@ -30,7 +30,7 @@ class Controller extends CController
                         'type' => 'nommal', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
                         'size' => 'normal', // '', 'large', 'small' or 'mini'
                         'icon' => 'info-sign',
-                        'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>Yii::t('ayuda',$texto), 'rel'=>'popover'),
+                        'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>Yii::t('ayuda',$texto), 'rel'=>'popover', 'class'=>'botonAyuda'),
                     ),true);
             return $boton;
         }

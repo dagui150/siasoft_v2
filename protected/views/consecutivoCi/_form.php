@@ -76,7 +76,7 @@
                                             <td>
                                                 '.$this->renderPartial('tipos',array('form'=>$form,'model2'=>$model2,'tipos'=>$model2->isNewRecord ? '' :$tipos),true).'
                                             </td>
-                                            <td>'.$this->botonAyuda("TRANS_CONF").'</td>
+                                            <td>'./*$this->botonAyuda("TRANS_CONF")*/''.'</td>
                                         </tr>
                                     </table>'
                                ),

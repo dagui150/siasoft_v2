@@ -36,9 +36,9 @@
 		
             //MODULO - COMPRAS
                 'CONSECUTIVOS' => 'En esta sección se pueden definir las mascaras unicamente 1 vez, ya que despues de definirla, el campo quedara inactivo.',
-		'RUBR_SOLICI' => 'En esta pestaña se definen los nombres de los rubros adicionales que pueden ser ingresados en las solicitudes de compra.<br>Se cuenta con cinco rubros adicionales que son editados en la opción Solicitudes de Compra.',
-		'RUBR_ORDENE' => 'En esta pestaña se definen los nombres de los rubros adicionales que pueden ser ingresados en las órdenes de compra.<br>Se cuenta con cinco rubros adicionales que son editados en la opción Órdenes de Compra.',
-		'RUBR_INGRES' => 'En esta pestaña se definen los nombres de los rubros adicionales que pueden ser ingresados en los embarques de compra.<br>Se cuenta con cinco rubros adicionales que son editados en la opción Embarques de Compra.',
+		'RUBR_SOLICI' => 'En esta pestaña se definen los nombres de los rubros adicionales que pueden ser ingresados en las solicitudes de compra. Se cuenta con cinco rubros adicionales que son editados en la opción Solicitudes de Compra.',
+		'RUBR_ORDENE' => 'En esta pestaña se definen los nombres de los rubros adicionales que pueden ser ingresados en las órdenes de compra. Se cuenta con cinco rubros adicionales que son editados en la opción Órdenes de Compra.',
+		'RUBR_INGRES' => 'En esta pestaña se definen los nombres de los rubros adicionales que pueden ser ingresados en los embarques de compra. Se cuenta con cinco rubros adicionales que son editados en la opción Embarques de Compra.',
 		'ORDENES_COMP' => 'Número máximo de líneas por orden de compra que se pueden imprimir',
 		'' => '',
 		'' => '',

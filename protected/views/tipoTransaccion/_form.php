@@ -1,5 +1,5 @@
 <div class="form">
-    <div class="modal-body">
+    <div class="modal-body ">
         <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'id'=>'tipo-transaccion-form',
             'enableAjaxValidation'=>true,
@@ -31,7 +31,7 @@
                                                 <td>
                                                 '.$form->textFieldRow($model2,"TIPO_TRANSACCION",array("size"=>4,"maxlength"=>4,"disabled"=>$model2->isNewRecord ? false : true)).'
                                                 </td>
-                                                <td>'.$this->botonAyuda("CODIGO").'</td>
+                                                <td>'./*$this->botonAyuda("CODIGO")*/''.'</td>
                                             </tr>
                                             <tr>
                                                 <td>

@@ -15,7 +15,7 @@
 
 </script>
 <div class="form ">
-    <div class="modal-body">
+    <div class="modal-body sin-overflow">
         <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 'id'=>'unidad-medida-form',
                 'enableAjaxValidation'=>true,

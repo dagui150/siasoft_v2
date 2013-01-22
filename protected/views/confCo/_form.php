@@ -99,7 +99,7 @@
     'tabs'=>array(
         array('label'=>'General', 'content'=> 
 		'<div style="width:100%;"><fieldset>'
-		.'<legend>Consecutivos '.$this->botonAyuda('CONSECUTIVOS').'</legend>'
+		.'<legend>Consecutivos <span class="reducir-letra-ayuda">'.$this->botonAyuda('CONSECUTIVOS').'</span></legend>'
 		.'<div style="width:50%; float:left">'
 		.'<div class="control-group "><label for="ConfCo_ULT_SOLICITUD_M" class="control-label required">Máscara - Solicitud</label><div class="controls">'.$mascSolicitud.'</div></div>'
                 .'<div class="control-group "><label for="ConfCo_ULT_ORDEN_COMPRA_M" class="control-label required">Máscara - Orden compra</label><div class="controls">'.$mascOrden.'</div></div>'
@@ -182,7 +182,7 @@
 		array('label'=>'Rubros', 'items'=>array( 
 			array('label'=>'Solicitudes', 'content'=>
 		'<fieldset>'
-		.'<legend>Solicitudes '.$this->botonAyuda('RUBR_SOLICI').'</legend>'
+		.'<legend>Solicitudes <span class="reducir-letra-ayuda">'.$this->botonAyuda('RUBR_SOLICI').'</span></legend>'
 		.$form->textFieldRow($model,'RUBRO1_SOLNOM',array('size'=>15,'maxlength'=>15))
 		.$form->textFieldRow($model,'RUBRO2_SOLNOM',array('size'=>15,'maxlength'=>15))
 		.$form->textFieldRow($model,'RUBRO3_SOLNOM',array('size'=>15,'maxlength'=>15))
@@ -192,7 +192,7 @@
 		
 		array('label'=>'Ordenes', 'content'=>
 		'<fieldset>'
-		.'<legend>Ordenes '.$this->botonAyuda('RUBR_ORDENE').'</legend>'
+		.'<legend>Ordenes <span class="reducir-letra-ayuda">'.$this->botonAyuda('RUBR_ORDENE').'</span></legend>'
 		.$form->textFieldRow($model,'RUBRO1_ORDNOM',array('size'=>15,'maxlength'=>15))
 		.$form->textFieldRow($model,'RUBRO2_ORDNOM',array('size'=>15,'maxlength'=>15))
 		.$form->textFieldRow($model,'RUBRO3_ORDNOM',array('size'=>15,'maxlength'=>15))
@@ -202,7 +202,7 @@
 		
 		array('label'=>'Ingresos', 'content'=>
 		'<fieldset>'
-		.'<legend>Ingresos '.$this->botonAyuda('RUBR_INGRES').'</legend>'
+		.'<legend>Ingresos <span class="reducir-letra-ayuda">'.$this->botonAyuda('RUBR_INGRES').'</span></legend>'
 		.$form->textFieldRow($model,'RUBRO1_EMBNOM',array('size'=>15,'maxlength'=>15))
 		.$form->textFieldRow($model,'RUBRO2_EMBNOM',array('size'=>15,'maxlength'=>15))
 		.$form->textFieldRow($model,'RUBRO3_EMBNOM',array('size'=>15,'maxlength'=>15))

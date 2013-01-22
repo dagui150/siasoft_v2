@@ -11,7 +11,7 @@
 
 	<?php echo $form->errorSummary($model2); ?>
 
-	<div class="modal-body">
+	<div class="modal-body sin-overflow">
             
                 <table style="width: 400px;">
                     <tr>

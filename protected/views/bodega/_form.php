@@ -1,5 +1,5 @@
 <div class="form">
-    <div class="modal-body">
+    <div class="modal-body sin-overflow">
 <?php /** @var BootActiveForm $form */
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'=>'bodega-form',
@@ -23,7 +23,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             </tr>
             <tr>
                 <td><?php echo $form->textAreaRow($model2, 'DESCRIPCION'); ?></td>
-                <td><?php echo $this->botonAyuda('DESC_BODEGA'); ?></td>
+                <td><?php echo $this->botonAyuda('DESCR_BODEGA'); ?></td>
             </tr>
             <tr>
                 <td><?php echo $form->dropDownListRow($model2, 'TIPO', array('C' => 'Consumo', 'V' => 'Ventas', 'N' => 'No Disponible')); ?></td>

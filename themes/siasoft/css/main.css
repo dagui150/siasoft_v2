@@ -305,3 +305,12 @@ input[disabled], input[readonly], input[tabindex], input[type="text"],input[type
     height: 18px !important;
     padding-top: 5px !important;
 }
+
+.sin-overflow{
+    overflow-y: visible !important;
+}
+
+.reducir-letra-ayuda{
+    font-size: 14px;
+     line-height: 20px;
+}
