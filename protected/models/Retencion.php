@@ -52,6 +52,7 @@ class Retencion extends CActiveRecord
 			array('ID, NOMBRE, PORCENTAJE, MONTO_MINIMO, TIPO, ACTIVO', 'required'),
 			array('ID', 'length', 'max'=>4),
 			array('NOMBRE', 'length', 'max'=>64),
+                        array('PORCENTAJE, MONTO_MINIMO','numerical','numberPattern' => '/^\s*[-+]?(\d{1,3}\.*\,*)*?\s*$/'),
 			array('PORCENTAJE, MONTO_MINIMO', 'length', 'max'=>28),
 			array('TIPO, APLICA_MONTO, APLICA_SUBTOTAL, APLICA_SUB_DESC, APLICA_IMPUESTO1, APLICA_RUBRO1, APLICA_RUBRO2, ACTIVO', 'length', 'max'=>1),
 			array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
@@ -146,7 +147,16 @@ class Retencion extends CActiveRecord
         
         	public function behaviors()
 	{
+		$conf=confFa::model()->find();
+                $conf2=confAs::model()->find();
 		return array(
+                        'defaults'=>array(
+                           'class'=>'application.components.FormatBehavior',
+                           'formats'=> array(
+                                   'PORCENTAJE'=>'###,##0.'.str_repeat('0',$conf2->PORCENTAJE_DEC), 
+                                   'MONTO_MINIMO'=>'###,##0.'.str_repeat('0',$conf->DECIMALES_PRECIO), 
+                            ),
+                        ),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',

@@ -1,6 +1,6 @@
 <?php $this->widget('tlbExcelView', array(
     'id'                   => 'some-grid',
-    'dataProvider'         => $model->search(),
+    'dataProvider'         => $model->search('ACTIVO="S"'),
     'grid_mode'            => 'export', // Same usage as EExcelView v0.33
     'title'                => 'TipoTarjeta ' . date('d-m-Y'),
     'creator'              => '',
@@ -33,11 +33,11 @@
     'footerHeight'         => 15, // Default: 20
     'columns'=>array(		'ID',
 		'DESCRIPCION',
-		'ACTIVO',
+                /*	
+                'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		/*
 		'ACTUALIZADO_EL',
 		*/
 	

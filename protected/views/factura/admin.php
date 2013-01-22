@@ -2,16 +2,17 @@
 if(isset($_GET['id'])){
     $js=Yii::app()->clientScript;
 
-    $js->registerScript('factura',"
-        $(document).ready(function(){
-            //$('[href=\"/siasoft_v2/index.php?r=Factura/formatoPDF&id=".$_GET['id']."\"]').click();
-        });
-    ",CClientScript::POS_HEAD);
+    $TEMP1="$(document).ready(function(){
+        $('[alt$=";
+    $TEMP2='"';
+    $TEMP3="]').click();});";
     
     
+    $js->registerScript('factura',$TEMP1.$TEMP2.$_GET['id'].$TEMP2.$TEMP3,
+    
+            
+    CClientScript::POS_HEAD);   
 }
-
-
 $this->breadcrumbs=array(
 	'Facturación'=>array('admin'),
 	'Facturas'
@@ -78,9 +79,10 @@ $this->widget('bootstrap.widgets.TbButton', array(
                          'class'=>'CLinkColumn',
 			 //'header'=>'FACTURAS',
 			 'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
-			 //'labelExpression'=>'$data->ID',
+			 'labelExpression'=>'$data->FACTURA',
 			 'urlExpression'=>'CController::createUrl("/Factura/formatoPDF", array("id"=>$data->FACTURA))',
-			 'htmlOptions'=>array('style'=>'text-align:center;'),
+			 'htmlOptions'=>array('style'=>'text-align:center;','id'=>'hola'),
+                         
 			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),
                 ),
 	),

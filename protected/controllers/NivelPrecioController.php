@@ -121,9 +121,11 @@ class NivelPrecioController extends Controller
         
             public function actionExcel()
 	{
-		$model= NivelPrecio::model()->findAll('ACTIVO="S"');
-                Yii::app()->request->sendFile('Nivel de Precios.xls', 
-                        $this->renderPartial('excel',array('model'=>$model),true));
+		$model = new NivelPrecio('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
 	}
 
         

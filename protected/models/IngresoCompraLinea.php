@@ -182,7 +182,7 @@ class IngresoCompraLinea extends CActiveRecord
                 $dec=isset($conf->CANTIDAD_DEC)?$conf->CANTIDAD_DEC:0;
 		return array(
                         'defaults'=>array(
-                            'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
+                            'class'=>'application.components.FormatBehavior',
                             'format'=>'db',
                             'formats'=> array(
                                    'CANTIDAD_ORDENADA'=>'#0.'.str_repeat('0',$dec),

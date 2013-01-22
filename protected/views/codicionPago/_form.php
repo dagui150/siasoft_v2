@@ -24,7 +24,7 @@
             </tr>
             <tr>
                 <td>
-                    <?php echo $form->textFieldRow($model2,'DIAS_NETO'); ?>
+                    <?php echo $form->textFieldRow($model2,'DIAS_NETO',array('class'=>'decimal')); ?>
                 </td>
                 <td><?php echo $this->botonAyuda('DIAS_CP'); ?></td>
             </tr>

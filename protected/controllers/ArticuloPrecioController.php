@@ -125,8 +125,8 @@ class ArticuloPrecioController extends Controller
                                         $linea->ARTICULO = $_POST['ArticuloPrecio']['ARTICULO'];
                                         $linea->NIVEL_PRECIO = $nivel;
                                         $linea->ESQUEMA_TRABAJO = $_POST['NivelPrecio2'][$i];
-                                        $linea->MARGEN_MULTIPLICADOR = Controller::unformat ($_POST['NivelPrecio3'][$i]);
-                                        $linea->PRECIO = Controller::unformat ($_POST['NivelPrecio4'][$i]);
+                                        $linea->MARGEN_MULTIPLICADOR = $_POST['NivelPrecio3'][$i];
+                                        $linea->PRECIO = $_POST['NivelPrecio4'][$i];
                                         $linea->ACTIVO = 'S';
                                         
                                         $articulo->updateByPk($_POST['ArticuloPrecio']['ARTICULO'], array('PRECIO_BASE'=>  Controller::unformat($_POST['Precio_base'])));

@@ -126,7 +126,7 @@ class ArticuloPrecio extends CActiveRecord
 		return array(
                     
                         'defaults'=>array(
-                           'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
+                           'class'=>'application.components.FormatBehavior',
                            'formats'=> array(
                                    'PRECIO'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO), 
                                    'MARGEN_MULTIPLICADOR'=>'###,##0.'.str_repeat('0',$conf->PORCENTAJE_DEC), 

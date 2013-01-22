@@ -11,7 +11,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/form.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/tables.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
+<?php //Yii::app()->bootstrap->register(); ?>
         <style>
                
             body{

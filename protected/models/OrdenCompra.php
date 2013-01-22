@@ -248,7 +248,7 @@ class OrdenCompra extends CActiveRecord
                 $decP=isset($conf2->PORCENTAJE_DEC)?$conf2->PORCENTAJE_DEC:0;
 		return array(
                         'defaults'=>array(
-                            'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
+                            'class'=>'application.components.FormatBehavior',
                             //'format'=>'db',
                             'formats'=> array(
                                    'MONTO_FLETE'=>'###,##0.'.str_repeat('0',$dec),
