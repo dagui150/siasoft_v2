@@ -180,31 +180,13 @@
     ), true);
     ?>
     
-    <?php $modalCond = $this->widget('bootstrap.widgets.TbButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#condicion',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal'),
-                    ), true); ?>
+    <?php $modalCond = $this->darBotonBuscar('#condicion',true); ?>
     
-    <?php $modalBod = $this->widget('bootstrap.widgets.TbButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#bodega',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal'),
-                    ), true); ?>
+    <?php $modalBod = $this->darBotonBuscar('#bodega',true); ?>
     
 	<?php echo $form->errorSummary($model); ?>
     
-    <?php $modalCat = $this->widget('bootstrap.widgets.TbButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#categoria',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal'),
-                    ), true); ?>
+    <?php $modalCat = $this->darBotonBuscar('#categoria',true); ?>
     
 	<?php echo $form->errorSummary($model); ?>
     
@@ -255,8 +237,8 @@
     )); ?>
 
 	<div align="center">
-            <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('confCo/admin'), 'icon' => 'remove'));  ?>
+            <?php $this->darBotonEnviar($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
+            <?php $this->darBotonCancelar(false, array('confCo/admin')); ?>
 	</div>
 
 <?php $this->endWidget(); 

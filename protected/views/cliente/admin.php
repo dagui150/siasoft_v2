@@ -6,20 +6,8 @@ $this->breadcrumbs=array(
 ?>
 
 <h1>Clientes</h1>
-<br>
 <div align="right">
-
-    <?php 
-
-        $this->widget('bootstrap.widgets.TbButton', array(
-            'label'=>'Nuevo',
-            'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-            'size'=>'mini', // '', 'large', 'small' or 'mini'
-            'icon' => 'plus white',
-            'url'=>array('create'),
-        )); 
-
-    ?>
+    <?php $this->darBotonNuevo(); ?>
 </div>
 
 <?php $this->widget('bootstrap.widgets.TbGridView', array(

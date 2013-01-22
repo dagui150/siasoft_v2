@@ -225,27 +225,9 @@
                     ),
                 ), true);
                 
-                $botonNit = $this->widget('bootstrap.widgets.TbButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#nit',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal'),
-                    ), true);
-                $botonImpuesto = $this->widget('bootstrap.widgets.TbButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#impuesto',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal'),
-                    ), true);
-                $botonRegimen = $this->widget('bootstrap.widgets.TbButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#regimen',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal'),
-                    ), true);
+                $botonNit = $this->darBotonBuscar('#nit',true);
+                $botonImpuesto = $this->darBotonBuscar('#impuesto',true);
+                $botonRegimen = $this->darBotonBuscar('#regimen',true);
                 
                 $this->widget('bootstrap.widgets.TbTabs', array(
                             'type'=>'tabs',
@@ -411,24 +393,8 @@
 
 
 	<div class="row buttons" align="center">
-		<?php
-                     $this->widget('bootstrap.widgets.TbButton', array(
-                               'label'=>$model->isNewRecord ? 'Crear' : 'Guardar',
-                               'buttonType'=>'submit',
-                               'type'=>'primary',
-                               'icon'=>'ok-circle white', 
-                            )
-                    );
-             ?>
-              <?php
-                    $this->widget('bootstrap.widgets.TbButton', array(
-                                   'label'=>'Cancelar',
-                                   'type'=>'action',
-                                   'icon'=>'remove ', 
-                                   'url'=>array('admin'),
-                                )
-                   );
-             ?>
+            <?php $this->darBotonEnviar($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
+            <?php $this->darBotonCancelar(); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

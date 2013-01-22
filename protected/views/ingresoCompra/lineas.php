@@ -102,13 +102,7 @@
                       <span class="add" id="nuevo" ></span>
                        <?php 
                             $contador = '0';
-                             $this->widget('bootstrap.widgets.TbButton', array(
-                                        'buttonType'=>'button',
-                                        'type'=>'success',
-                                        'label'=>'Nuevo',
-                                         'icon'=>'plus white',
-                                        'htmlOptions'=>array('id'=>'btn-nuevo','name'=>'','onclick'=>'limpiarForm();', 'style'=>'display:none;')
-                             ));
+                            $this->darBotonAddLinea('Nuevo',array('id'=>'btn-nuevo','name'=>'','onclick'=>'limpiarForm();', 'style'=>'display:none;'));
                              
                              echo CHtml::hiddenField('contador',$contador);
                              echo CHtml::hiddenField('contadorLineas',$contador);
@@ -159,24 +153,10 @@
                                     </td>
                                     <td>
                                         <span style="float: left">
-                                            <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                             'buttonType'=>'button',
-                                                             'type'=>'normal',
-                                                             'size'=>'mini',
-                                                             'icon'=>'pencil',
-                                                             'htmlOptions'=>array('class'=>'edit','name'=>'{0}',  )
-                                                         ));
-                                            ?>
+                                            <?php $this->darBotonUpdateLinea(array('class'=>'edit','name'=>'{0}')); ?>
                                         </span>
                                         <div class="remove" id ="remover"style="float: left; margin-left: 5px;">
-                                               <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                         'buttonType'=>'button',
-                                                         'type'=>'danger',
-                                                         'size'=>'mini',
-                                                         'icon'=>'minus white',
-                                                         'htmlOptions'=>array('onclick'=>'eliminar();','name'=>'{0}')
-                                                     ));
-                                               ?>
+                                            <?php $this->darBotonDeleteLinea('',array('onclick'=>'eliminar();','name'=>'{0}')); ?>
                                         </div>
                                         <input type="hidden" class="rowIndex" value="{0}" />
                                    </td>
@@ -231,25 +211,10 @@
                                 </td>
                                   <td width="70px">
                                         <span style="float: left">
-                                                       <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                             'buttonType'=>'button',
-                                                             'type'=>'normal',
-                                                             'size'=>'mini',
-                                                             'icon'=>'pencil',
-                                                             'htmlOptions'=>array('class'=>'editUpdate','name'=>$i)
-                                                          ));
-                                                       ?>
+                                            <?php $this->darBotonUpdateLinea(array('class'=>'editUpdate','name'=>$i)); ?>
                                         </span>
                                        <div class="remove" id ="remover" style="float: left; margin-left: 5px;">
-                                                  <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                                 'buttonType'=>'button',
-                                                                 'type'=>'danger',
-                                                                 'size'=>'mini',
-                                                                 'icon'=>'minus white',
-                                                                 'htmlOptions'=>array('id'=>'remover','onclick'=>'eliminar()','class'=>'eliminaRegistro','name'=>$i)
-
-                                                         ));
-                                                 ?>
+                                           <?php $this->darBotonDeleteLinea('',array('id'=>'remover','onclick'=>'eliminar()','class'=>'eliminaRegistro','name'=>$i)); ?>
                                        </div>
                                    </td>
                          </tr>

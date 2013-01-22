@@ -68,8 +68,8 @@ function inicio(){
 		<?php echo $form->hiddenField($model,'ACTIVO',array('value'=>'S')); ?>
 
 	<div align="center" id="botones">
-            <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('articuloPrecio/admin'), 'icon' => 'remove'));  ?>
+            <?php $this->darBotonEnviar($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
+            <?php $this->darBotonCancelar(); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

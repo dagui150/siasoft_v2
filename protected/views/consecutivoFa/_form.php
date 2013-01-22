@@ -122,24 +122,8 @@
 	<?php echo $form->hiddenField($model,'ACTIVO',array('value'=>'S')); ?>
 
 	<div class="row buttons" align="center">
-		<?php
-                     $this->widget('bootstrap.widgets.TbButton', array(
-                               'label'=>$model->isNewRecord ? 'Crear' : 'Guardar',
-                               'buttonType'=>'submit',
-                               'type'=>'primary',
-                               'icon'=>'ok-circle white', 
-                            )
-                    );
-             ?>
-              <?php
-                    $this->widget('bootstrap.widgets.TbButton', array(
-                                   'label'=>'Cancelar',
-                                   'type'=>'action',
-                                   'icon'=>'remove ', 
-                                   'url'=>array('admin'),
-                                )
-                   );
-             ?>
+            <?php $this->darBotonEnviar($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
+            <?php $this->darBotonCancelar(); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

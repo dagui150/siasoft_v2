@@ -284,17 +284,7 @@
                                 <tr>
                                     <td>
                                         <div id="add" class="add">
-                                            <?php 
-                                                
-                                                $this->widget('bootstrap.widgets.TbButton', array(
-                                                        'buttonType'=>'button',
-                                                        'type'=>'success',
-                                                        'label'=>'Nuevo',
-                                                        'icon'=>'plus white',
-                                                        'htmlOptions' => array('onClick' => 'add()'),
-                                                  ));
-                                            
-                                            ?>
+                                            <?php $this->darBotonAddLinea('Nuevo',array('onClick' => 'add()')); ?>
                                         </div>
                                         <textarea class="template" rows="0" cols="0" style="display: none;" >
                                             <tr class="templateContent">
@@ -302,13 +292,7 @@
                                                     <?php echo CHtml::textField('Nuevo[{0}][ARTICULO_HIJO]','',array('class' => 'tonces')); ?>
                                                 </td>
                                                 <td>
-                                                    <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                            'type'=>'info',
-                                                            'size'=>'mini',
-                                                            'url'=>'#articulo',
-                                                            'icon'=>'search',
-                                                            'htmlOptions'=>array('data-toggle'=>'modal', 'class' => 'emergente', 'name' => '{0}', 'id' =>'Nuevo'),
-                                                        )); ?>
+                                                    <?php $this->darBotonBuscar('#articulo',false,array('data-toggle'=>'modal', 'class' => 'emergente', 'name' => '{0}', 'id' =>'Nuevo','style'=>'margin-top: 5px;')); ?>
                                                 </td>
                                                 <td>
                                                     <?php echo CHtml::textField('Nuevo[{0}][DESCRIPCION]','',array('readonly' => true)); ?>
@@ -321,18 +305,7 @@
                                                 </td>                                                
                                                 <td>
                                                     <div id="remover" class="remove">
-                                                        <?php 
-                                                
-                                                            $this->widget('bootstrap.widgets.TbButton', array(
-                                                                    'buttonType'=>'button',
-                                                                    'type'=>'danger',
-                                                                    'label'=>'',
-                                                                    'icon'=>'minus white',
-                                                                    'size' => 'normal',
-                                                                    'htmlOptions'=> array('id'=>'-1', 'onClick'=>'Eliminar(id)'),
-                                                                    
-                                                              ));
-                                                         ?>
+                                                        <?php $this->darBotonDeleteLinea('',array('id'=>'-1', 'onClick'=>'Eliminar(id)')); ?>
                                                     </div>
                                                     <input type="hidden" class="rowIndex" value="{0}" />
                                                 </td>
@@ -350,13 +323,7 @@
                             <?php echo $form->hiddenField($item,"[$i]ID"); ?>
                             		</td>
                                     <td>
-                                        <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                                            'type'=>'info',
-                                                            'size'=>'mini',
-                                                            'url'=>'#actualiza',
-                                                            'icon'=>'search',
-                                                            'htmlOptions'=>array('data-toggle'=>'modal', 'class' => 'emergente', 'name' => "$i", 'id'=>'ArticuloEnsamble'),
-                                                        )); ?>
+                                        <?php $this->darBotonBuscar('#actualiza',false,array('data-toggle'=>'modal', 'class' => 'emergente', 'name' => "$i", 'id'=>'ArticuloEnsamble','style'=>'margin-top: 5px;')); ?>
                         </td>
                         <td>
                             <?php echo CHtml::textField("Campo[$i]_DESCRIPCION",$item->aRTICULOHIJO->NOMBRE,array('readonly' => true)); ?>
@@ -369,16 +336,7 @@
                         </td>
                         <td>
                             <div id="remover" class="remove">
-                            <?php 
-                                $this->widget('bootstrap.widgets.TbButton', array(
-                                    'buttonType'=>'button',
-                                    'type'=>'danger',
-                                    'label'=>'',
-                                    'icon'=>'minus white',
-                                    'htmlOptions' => array('onClick'=>'Eliminar(id)', 'id'=>$item["ID"], 'name'=>$i, 'class'=>'boton'),
-                                ));
-
-                            ?>
+                                <?php $this->darBotonDeleteLinea('',array('onClick'=>'Eliminar(id)', 'id'=>$item["ID"], 'name'=>$i, 'class'=>'boton')); ?>
                             </div>
                          </td>
                       </tr>
@@ -390,8 +348,8 @@
       </div><!--complex-->
       <?php echo CHtml::HiddenField('oculto',''); ?>
 	<div align="center" id="botones">
-            <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('articuloEnsamble/admin'), 'icon' => 'remove'));  ?>
+            <?php $this->darBotonEnviar($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
+            <?php $this->darBotonCancelar(); ?>
 	</div>
         
         <?php echo CHtml::hiddenField('enter', ''); ?>
