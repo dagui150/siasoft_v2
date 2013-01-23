@@ -58,13 +58,7 @@ class FacturaController extends Controller
 
 		if(isset($_POST['Factura']))
 		{
-                        $model->TOTAL_MERCADERIA=Controller::unformat($_POST['Factura']['TOTAL_MERCADERIA']);
-                        $model->MONTO_ANTICIPO=Controller::unformat($_POST['Factura']['MONTO_ANTICIPO']);
-                        $model->MONTO_FLETE=Controller::unformat($_POST['Factura']['MONTO_FLETE']);
-                        $model->MONTO_SEGURO=Controller::unformat($_POST['Factura']['MONTO_SEGURO']);
-                        $model->MONTO_DESCUENTO1=Controller::unformat($_POST['Factura']['MONTO_DESCUENTO1']);
-                        $model->TOTAL_IMPUESTO1=Controller::unformat($_POST['Factura']['TOTAL_IMPUESTO1']);
-                        $model->TOTAL_A_FACTURAR=Controller::unformat($_POST['Factura']['TOTAL_A_FACTURAR']);
+                        
                         
                         $transaccionInv = new TransaccionInv;
 			$model->attributes=$_POST['Factura'];
@@ -101,15 +95,15 @@ class FacturaController extends Controller
                                             $salvar->ARTICULO = $datos['ARTICULO'];
                                             $salvar->LINEA = $i;
                                             $salvar->UNIDAD = $datos['UNIDAD'];
-                                            $salvar->CANTIDAD = Controller::unformat($datos['CANTIDAD']);
-                                            $salvar->PRECIO_UNITARIO = Controller::unformat($datos['PRECIO_UNITARIO']);
+                                            $salvar->CANTIDAD = $datos['CANTIDAD'];
+                                            $salvar->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
                                             $salvar->PORC_DESCUENTO = $datos['PORC_DESCUENTO'];
-                                            $salvar->MONTO_DESCUENTO = Controller::unformat($datos['MONTO_DESCUENTO']);
+                                            $salvar->MONTO_DESCUENTO = $datos['MONTO_DESCUENTO'];
                                             $salvar->PORC_IMPUESTO = $datos['PORC_IMPUESTO'];
-                                            $salvar->VALOR_IMPUESTO = Controller::unformat($datos['VALOR_IMPUESTO']);
+                                            $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
                                             $salvar->TIPO_PRECIO = $datos['TIPO_PRECIO'];
                                             $salvar->COMENTARIO = $datos['COMENTARIO'];
-                                            $salvar->TOTAL = Controller::unformat($datos['TOTAL']);
+                                            $salvar->TOTAL = $datos['TOTAL'];
                                             $salvar->ESTADO = 'N';
                                             $salvar->ACTIVO = 'S';
                                             $salvar->save();
@@ -129,7 +123,7 @@ class FacturaController extends Controller
                                             $transaccionInvDetalle->CANTIDAD = $cantidad;
                                             $transaccionInvDetalle->BODEGA = $model->BODEGA;
                                             $transaccionInvDetalle->COSTO_UNITARIO = 0;
-                                            $transaccionInvDetalle->PRECIO_UNITARIO = Controller::unformat($datos['PRECIO_UNITARIO']);
+                                            $transaccionInvDetalle->PRECIO_UNITARIO = $datos['PRECIO_UNITARIO'];
                                             $transaccionInvDetalle->ACTIVO = 'S';
                                             $transaccionInvDetalle->save();
                                           //
@@ -146,7 +140,14 @@ class FacturaController extends Controller
                              $modelConsecutivo->update();
                              $transaction->commit();
                              
-                             $this->redirect(array('admin','id'=>$model->FACTURA));
+                             $arr=array();
+                             $facturas =  Factura::model()->findAll();
+                             foreach($facturas as $factura) 
+                                $arr[]=$factura->FACTURA;
+                             $pos=array_search($model->FACTURA,$arr);
+                             $page=ceil(($pos+1)/10);
+                             
+                             $this->redirect(array('admin','id'=>$model->FACTURA,'Factura_page'=>$page));
                              
                         }catch(Exception $e){
                             echo $e;
@@ -318,6 +319,7 @@ class FacturaController extends Controller
             $mPDF1->h=148.5; //manually set height
             $mPDF1->SetHTMLHeader($header);
             $mPDF1->SetHTMLFooter($footer);
+            //$mPDF1->WriteHTML(Yii::app()->bootstrap->register());
             $mPDF1->WriteHTML($this->render('pdf', array('model' => $this->factura,'model2'=>$lineas), true));
             
 

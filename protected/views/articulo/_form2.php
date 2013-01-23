@@ -152,9 +152,9 @@
                                     <td>
                                         <fieldset style="width: 380px;">
                                             <legend ><font face="arial" size=3 >Existencias</font></legend>'
-                                                  .$form->textFieldRow($model,'EXISTENCIA_MINIMA',array('maxlength'=>28,))
-                                                  .$form->textFieldRow($model,'PUNTO_REORDEN',array('maxlength'=>28,))
-                                                  .$form->textFieldRow($model,'EXISTENCIA_MAXIMA',array('maxlength'=>28,))
+                                                  .$form->textFieldRow($model,'EXISTENCIA_MINIMA',array('maxlength'=>28,'class'=>'decimal'))
+                                                  .$form->textFieldRow($model,'PUNTO_REORDEN',array('maxlength'=>28,'class'=>'decimal'))
+                                                  .$form->textFieldRow($model,'EXISTENCIA_MAXIMA',array('maxlength'=>28,'class'=>'decimal'))
                                         .'</fieldset>
                                     </td>
                                 </tr>

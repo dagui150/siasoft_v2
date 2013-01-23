@@ -556,7 +556,7 @@
             <tr>
                  <td>
                         <div align="left" style="width: 120px;">
-                                <?php echo $form->textFieldRow($modelLi,'CANTIDAD',array('size'=>13,'maxlength'=>28)); ?>
+                                <?php echo $form->textFieldRow($modelLi,'CANTIDAD',array('size'=>13,'maxlength'=>28,'class'=>'decimal')); ?>
                         </div>
                 </td>
                 <td>
@@ -567,7 +567,7 @@
            </tr>
            <tr>
                  <td colspan="2">
-                     <span style="margin-top: -15;"><?php echo $form->textFieldRow($modelLi,'COSTO_UNITARIO',array('maxlength'=>28)); ?></span>
+                     <span style="margin-top: -15;"><?php echo $form->textFieldRow($modelLi,'COSTO_UNITARIO',array('maxlength'=>28,'class'=>'decimal')); ?></span>
                  </td>
            </tr>
 

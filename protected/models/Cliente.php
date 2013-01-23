@@ -118,7 +118,7 @@ class Cliente extends CActiveRecord
         $conf2 = ConfFa::model()->find(); //DECIMALES_PRECIO
         return array(
             'defaults' => array(
-                'class' => 'ext.decimali18nbehavior.DecimalI18NBehavior',
+                'class' => 'application.components.FormatBehavior',
                 'formats' => array(
                     'INTERES_CORRIENTE' => '###,##0.' . str_repeat('0', $conf->PORCENTAJE_DEC),
                     'INTERES_MORA' => '###,##0.' . str_repeat('0', $conf->PORCENTAJE_DEC),

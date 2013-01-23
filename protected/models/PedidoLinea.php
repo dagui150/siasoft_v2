@@ -193,7 +193,7 @@ class PedidoLinea extends CActiveRecord
             $conf2=ConfFa::model()->find();//DECIMALES_PRECIO
             return array(
             'defaults' => array(
-                'class' => 'ext.decimali18nbehavior.DecimalI18NBehavior',
+                'class' => 'application.components.FormatBehavior',
                 'formats' => array(
                     'CANTIDAD' => '###,##0.' . str_repeat('0', $conf2->DECIMALES_PRECIO),
                     'PRECIO_UNITARIO' => '###,##0.' . str_repeat('0', $conf2->DECIMALES_PRECIO),

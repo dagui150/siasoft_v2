@@ -28,9 +28,9 @@
                     <?php echo $form->radioButtonListRow($model,'TIPO',array('R'=>'Aplicar al registrar','C'=>'Aplicar al cancelar')); ?>
                  </fieldset></td>
                  <td><fieldset><legend>Montos</legend>
-                    <?php echo $form->textFieldRow($model,'PORCENTAJE',array('size'=>12,'maxlength'=>28, 'prepend'=>'%')); ?>
+                    <?php echo $form->textFieldRow($model,'PORCENTAJE',array('size'=>12,'maxlength'=>28, 'prepend'=>'%','class'=>'decimal')); ?>
                     <br />
-                    <?php echo $form->textFieldRow($model,'MONTO_MINIMO',array('size'=>16,'maxlength'=>28)); ?>		
+                    <?php echo $form->textFieldRow($model,'MONTO_MINIMO',array('size'=>16,'maxlength'=>28,'class'=>'decimal')); ?>		
                 </fieldset></td>
                 </tr>
                 <tr>

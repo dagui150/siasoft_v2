@@ -40,7 +40,6 @@ class UnidadMedidaController extends Controller
 		if(isset($_POST['UnidadMedida']))
 		{
 			$model2->attributes=$_POST['UnidadMedida'];
-                        $model2->EQUIVALENCIA = Controller::unformat($_POST['UnidadMedida']['EQUIVALENCIA']);
 			if($model2->save()){
 				//$this->redirect(array('admin',));
                             $this->redirect(array('admin&men=S003'));
@@ -71,7 +70,6 @@ class UnidadMedidaController extends Controller
 		{
 			$model2->attributes=$_POST['UnidadMedida'];
                         $model2->BASE = 'N';
-			$model2->EQUIVALENCIA = Controller::unformat($_POST['UnidadMedida']['EQUIVALENCIA']);
 			if($model2->save()){
 				//$this->redirect(array('admin',));
                             $this->redirect(array('admin&men=S003'));
@@ -131,7 +129,6 @@ class UnidadMedidaController extends Controller
 		{
 			$model2->attributes=$_POST['UnidadMedida'];
                         $model2->BASE = 'N';
-                        $model2->EQUIVALENCIA = Controller::unformat($_POST['UnidadMedida']['EQUIVALENCIA']);
 			if($model2->save()){
 				//$this->redirect(array('admin',));
                                 $this->redirect(array('admin&men=S003'));

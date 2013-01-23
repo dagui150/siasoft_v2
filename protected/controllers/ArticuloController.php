@@ -64,18 +64,6 @@ class ArticuloController extends Controller
                     
                         $model->attributes=$_POST['Articulo']; 
                         
-                        $model->EXISTENCIA_MINIMA = Controller::unformat($_POST['Articulo']['EXISTENCIA_MINIMA']);
-                        $model->PUNTO_REORDEN = Controller::unformat($_POST['Articulo']['PUNTO_REORDEN']);
-                        $model->EXISTENCIA_MAXIMA = Controller::unformat($_POST['Articulo']['EXISTENCIA_MAXIMA']);
-                        $model->FACTOR_VENTA = Controller::unformat($_POST['Articulo']['FACTOR_VENTA']);
-                        $model->FACTOR_EMPAQUE = Controller::unformat($_POST['Articulo']['FACTOR_EMPAQUE']);
-                        $model->PESO_NETO = Controller::unformat($_POST['Articulo']['PESO_NETO']);
-                        $model->PESO_BRUTO = Controller::unformat($_POST['Articulo']['PESO_BRUTO']);
-                        $model->VOLUMEN = Controller::unformat($_POST['Articulo']['VOLUMEN']);
-                        $model->COSTO_ESTANDAR = Controller::unformat($_POST['Articulo']['COSTO_ESTANDAR']);
-                        if(isset($_POST['Articulo']['COSTO_ULTIMO'])){
-                        $model->COSTO_ULTIMO = Controller::unformat($_POST['Articulo']['COSTO_ULTIMO']);
-                        }
                         
                         
                         if($_POST['Articulo']['IMPUESTO_COMPRA'] === '')
@@ -185,19 +173,7 @@ class ArticuloController extends Controller
 		{
 			$model->attributes=$_POST['Articulo'];
                         
-                        $model->EXISTENCIA_MINIMA = Controller::unformat($_POST['Articulo']['EXISTENCIA_MINIMA']);
-                        $model->PUNTO_REORDEN = Controller::unformat($_POST['Articulo']['PUNTO_REORDEN']);
-                        $model->EXISTENCIA_MAXIMA = Controller::unformat($_POST['Articulo']['EXISTENCIA_MAXIMA']);
-                        $model->FACTOR_VENTA = Controller::unformat($_POST['Articulo']['FACTOR_VENTA']);
-                        $model->FACTOR_EMPAQUE = Controller::unformat($_POST['Articulo']['FACTOR_EMPAQUE']);
-                        $model->PESO_NETO = Controller::unformat($_POST['Articulo']['PESO_NETO']);
-                        $model->PESO_BRUTO = Controller::unformat($_POST['Articulo']['PESO_BRUTO']);
-                        $model->VOLUMEN = Controller::unformat($_POST['Articulo']['VOLUMEN']);
-                        $model->COSTO_ESTANDAR = Controller::unformat($_POST['Articulo']['COSTO_ESTANDAR']);
                         
-                        if(isset($_POST['Articulo']['COSTO_ULTIMO'])){
-                        $model->COSTO_ULTIMO = Controller::unformat($_POST['Articulo']['COSTO_ULTIMO']);
-                        }
                         
                         
                         if($_POST['Articulo']['IMPUESTO_COMPRA'] === '')

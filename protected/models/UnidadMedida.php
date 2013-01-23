@@ -77,7 +77,7 @@ class UnidadMedida extends CActiveRecord
 		$conf=ConfCi::model()->find();
 		return array(
                         'defaults'=>array(
-                           'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
+                           'class'=>'application.components.FormatBehavior',
                            'formats'=> array(
                                    'EQUIVALENCIA'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
                                    

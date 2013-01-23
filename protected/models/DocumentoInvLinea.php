@@ -64,7 +64,7 @@ class DocumentoInvLinea extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('TIPO_TRANSACCION, BODEGA, ARTICULO, CANTIDAD, UNIDAD, COSTO_UNITARIO', 'required'),
-			array('CANTIDAD, COSTO_UNITARIO,', 'numerical', ),
+			array('CANTIDAD, COSTO_UNITARIO,', 'numerical', 'numberPattern' => '/^\s*[-+]?(\d{1,3}\.*\,*)*?\s*$/'),
 			array('DOCUMENTO_INV, ARTICULO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('TIPO_TRANSACCION, BODEGA, BODEGA_DESTINO', 'length', 'max'=>4),
 			array('TIPO_TRANSACCION_CANTIDAD, ACTIVO', 'length', 'max'=>1),
@@ -131,7 +131,15 @@ class DocumentoInvLinea extends CActiveRecord
         
         public function behaviors()
 	{
+		$conf=ConfCi::model()->find();
 		return array(
+                        'defaults'=>array(
+                           'class'=>'application.components.FormatBehavior',
+                           'formats'=> array(
+                                   'CANTIDAD'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   'COSTO_UNITARIO'=>'###,##0.'.str_repeat('0',$conf->COSTOS_DEC), 
+                            ),
+                        ),
                         'CTimestampBehavior' => array(
                              'class' => 'zii.behaviors.CTimestampBehavior',
                              'createAttribute' => 'CREADO_EL',
