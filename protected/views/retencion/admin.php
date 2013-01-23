@@ -34,7 +34,6 @@ if (isset($_GET['men'])){
 <div align="right">
     <?php $this->darBotonPdfExcel(array('retencion/excel')); ?>
     <?php $this->darBotonPdfExcel(array('retencion/pdf'), false, 'PDF', 'danger'); ?>
-    <?php $this->darBotonNuevo(array('retencion/create'),false,'mini'); ?>
 </div>
 
 <?php  $this->widget('bootstrap.widgets.TbGridView', array(
