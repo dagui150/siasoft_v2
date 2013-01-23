@@ -22,12 +22,12 @@ class SiteController extends Controller
 		);
 	}
         public function actionPrueba(){
+            $factura = new Factura;
             $linea = new FacturaLinea;
-            $elementsPost= array();
             
-            JLinesForm::validate($linea,'lineas-form',$elementsPost,false);
+            JLinesForm::validate($linea,'lineas-form');
             
-            $this->render('prueba',array('linea'=>$linea,'elementsPost'=>$elementsPost,false));
+            $this->render('prueba',array('linea'=>$linea,'factura'=>$factura));
         }
 	/**
 	 * This is the default 'index' action that is invoked

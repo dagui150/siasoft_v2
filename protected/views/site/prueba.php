@@ -6,11 +6,17 @@ $form=$this->beginWidget('CActiveForm', array(
                 'enableAjaxValidation'=>true,
                 'clientOptions'=>array(
                       'validateOnSubmit'=>true,
+                      'afterValidate'=>new CJavaScriptExpression('afterValidate'),
                  ),	
-        ));   
+        )); 
 ?>
 <div class="form">  
     <?php
+        echo $form->errorSummary(array($linea,$factura),null,null,array('class'=>'alert alert-block alert-error'));
+        
+        echo $form->textField($factura,'FACTURA');
+        echo $form->error($factura,'FACTURA');
+        
         $elementsPreCopy = array(
                     'ARTICULO'=>array(
                         'type'=>'textField',
@@ -55,7 +61,6 @@ $form=$this->beginWidget('CActiveForm', array(
                 'form'=>$form,
                 'editInline'=>false,
                 'elementsPreCopy'=>$elementsPreCopy,
-                'elementsPost'=>$elementsPost,
                 'elementsCopy'=>$elementsCopy,
                 'htmlAddOptions'=>array('label'=>'Nuevo','id'=>'add','style'=>'margin-top: 5px;')
         ));
