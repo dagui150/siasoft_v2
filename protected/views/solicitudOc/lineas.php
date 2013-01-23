@@ -97,7 +97,7 @@ $(document).ready(function(){
 					});
                 });
      });
-    }) 
+    })
 
     function cargaArticuloGrilla (grid_id){
        var att = $.fn.yiiGridView.getSelection(grid_id);       

@@ -213,8 +213,6 @@ class SolicitudOcController extends Controller
                  'ID'=>$bus->ARTICULO,
                 );
              echo CJSON::encode($res);
-            
-            
         }
         
         public function actionAgregarlinea(){

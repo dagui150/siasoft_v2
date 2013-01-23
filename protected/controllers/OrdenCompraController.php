@@ -12,10 +12,10 @@ class OrdenCompraController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(
-				array('CrugeAccessControlFilter'),
-			);
-    }
+            return array(
+                array('CrugeAccessControlFilter'),
+            );
+        }
 
 	/**
 	 * Displays a particular model.
@@ -94,39 +94,15 @@ class OrdenCompraController extends Controller
         public function actionCargarArticulo(){
             
             $item_id = $_GET['buscar'];
-            $bus = Articulo::model()->findByPk($item_id);
-            if($bus){
-            $bus2 = UnidadMedida::model()->find('ID = "'.$bus->UNIDAD_ALMACEN.'"');
-            $bus3 = UnidadMedida::model()->findAll('TIPO = "'.$bus2->TIPO.'" ORDER BY NOMBRE asc');
-            
-            if ($bus->IMPUESTO_COMPRA == NULL){
-                $bus4 = '0';
-            }
-            else{
-                $bus4 = Impuesto::model()->find('ID = "'.$bus->IMPUESTO_COMPRA.'"');
-                $bus4 = $bus4->PROCENTAJE;
-            }
+            $bus = Articulo::model()->findByPk($item_id,  'ACTIVO = "S"');
             $res = array(
                  'DESCRIPCION'=>$bus->NOMBRE,
-                 'UNIDAD'=>$bus3,
+                 'UNIDAD' => $bus->UNIDAD_ALMACEN,
+                 'UNIDAD_NOMBRE' => $bus->uNIDADALMACEN->NOMBRE,
+                 'UNIDADES' => CHtml::listData(UnidadMedida::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>$bus->uNIDADALMACEN->TIPO)),'ID','NOMBRE'),
                  'ID'=>$bus->ARTICULO,
-                 'IMPUESTO'=>$bus4,
-                 'ALMACEN'=>$bus->UNIDAD_ALMACEN,                  
-            );
-           
-             $bus2= '';
-             $bus3= '';
-            
-            }
-            else{
-                $res = array(
-                 'DESCRIPCION'=>'Ninguno',
-                 'UNIDAD'=>'',
                 );
-            }
              echo CJSON::encode($res);
-            
-            
         }
         
         public function actionCargarLineas (){
@@ -474,12 +450,14 @@ class OrdenCompraController extends Controller
 		$model=new OrdenCompra;
                 $proveedor = new Proveedor;
                 $linea = new OrdenCompraLinea;                
-                $solicitudLinea = new SolicitudOcLinea3;
+                $solicitudLinea = new SolicitudOcLinea;
                 $articulo = new Articulo;
                 $config = ConfCo::model()->find();
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
                 $i = 1;
+                $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
+                $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
 
 		if(isset($_POST['OrdenCompra']))
 		{
@@ -545,6 +523,8 @@ class OrdenCompraController extends Controller
                         'linea' => $linea,
                         'solicitudLinea'=>$solicitudLinea,
                         'articulo' => $articulo,
+                        'ruta' => $ruta,
+                        'ruta2' => $ruta2,
 		));
 	}
         

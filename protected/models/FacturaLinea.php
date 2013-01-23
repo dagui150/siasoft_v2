@@ -32,8 +32,7 @@
  * @property Factura $fACTURA
  */
 class FacturaLinea extends CActiveRecord
-{
-    public $BODEGA;
+{  
         /**
          * La bodega de la factura
          * @var string $BODEGA 
