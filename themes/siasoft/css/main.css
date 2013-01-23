@@ -297,3 +297,11 @@ input[disabled], input[readonly], input[tabindex], input[type="text"],input[type
     position: absolute !important;
     z-index: 2000 !important;
 }
+.reducir .alert{
+    height: 12px !important;
+    padding-top: 5px !important;
+}
+#mensaje .alert{
+    height: 18px !important;
+    padding-top: 5px !important;
+}
