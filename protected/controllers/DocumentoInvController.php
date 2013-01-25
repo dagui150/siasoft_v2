@@ -48,7 +48,7 @@ class DocumentoInvController extends Controller
                 
                 if(isset($_POST['ajax']) && $_POST['ajax']==='documento-inv-linea-form')
 		{
-                        $_POST['DocumentoInvLinea']['CANTIDAD'] = $_POST['DocumentoInvLinea']['SIGNO'] == '-' ? '-'.$_POST['DocumentoInvLinea']['CANTIDAD'] : $_POST['DocumentoInvLinea']['CANTIDAD'];
+                        $_POST['DocumentoInvLinea']['CANTIDAD'] = $_POST['DocumentoInvLinea']['SIGNO'] == '-' ? '-'.self::unformat($_POST['DocumentoInvLinea']['CANTIDAD']) : self::unformat($_POST['DocumentoInvLinea']['CANTIDAD']);
 			echo CActiveForm::validate($modelLi);
 			Yii::app()->end();
                 }
