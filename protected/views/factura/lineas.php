@@ -227,8 +227,6 @@
                     break
                 }
                 $('#'+span[x]+'_'+i).attr('id',span[x]+'_'+linea);
-                     
-                 
             }
             //CAMBIAR IDS Y NAMES DE LOS CAMPOS DE LAS LINEAS
             for(var y =0 ; y<=campos.length;y++){
@@ -243,7 +241,6 @@
             linea++;
         }
         calculoGranTotal(model);
-        
     });
     
     
@@ -269,13 +266,8 @@
         $('#porcdescuento_'+contador).text(0);
         $('#monto_descuento_'+contador).text(0);
   
-    } 
-        
-    
+    }
 });
-
-
-
 </script>
 <?php 
     /* @var $this FacturaController*/

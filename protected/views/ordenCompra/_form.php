@@ -34,6 +34,11 @@ function cargaProveedorGrilla (grid_id){
 }
 
 $(document).ready(function(){
+    $('.edit').live('click',function(){
+        $('#SPAN').val('');
+        $('#NAME').val($(this).attr('name'));
+        actualiza();
+    });
     $('#OrdenCompra_DIRECCION_EMBARQUE').val('<?php echo $config->DIRECCION_EMBARQUE; ?>');
     $('#OrdenCompra_DIRECCION_COBRO').val('<?php echo $config->DIRECCION_COBRO; ?>');
     $(".escritoProv").live("change", function (e) {
@@ -440,6 +445,24 @@ $(document).ready(function(){
                 'htmlOptions'=>array('data-dismiss'=>'modal', 'onclick' => 'cargaSolicitud()'),
             )); ?>
         </div>
+    <?php $this->endWidget(); ?>
+    <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'nuevo')); ?>
+ 
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">&times;</a>
+		<h3>Línea</h3>
+		<p class="note">Los Campos con <span class="required">*</span> Son requeridos.</p>
+	</div>
+        <div id="form-lineas">
+            <?php  $this->renderPartial('modal', 
+                        array(
+                            'model'=>$model,
+                            'linea'=>$linea,
+                            'ruta'=>$ruta,
+                        )
+                    ); ?>
+        </div>
+ 
     <?php $this->endWidget(); ?>
     <?php echo CHtml::HiddenField('check',''); ?>
     <?php echo CHtml::HiddenField('contador', '0'); ?>
