@@ -36,7 +36,6 @@ return array(
 		'cruge'=>array(
 			'tableprefix'=>'cruge_',	
 			'superuserName'=>'superadmin',	
-			'useCGridViewClass'=>'bootstrap.widgets.TbGridView',
                         'buttonStyle'=>'bootstrap',	
                         
 			// para que utilice a protected.modules.cruge.models.auth.CrugeAuthDefault.php

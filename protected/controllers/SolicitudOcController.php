@@ -14,10 +14,10 @@ class SolicitudOcController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(
-				array('CrugeAccessControlFilter'),
-			);
-    }
+          return array(
+                      array('CrugeAccessControlFilter'),
+           );
+        }
 
 	/**
 	 * Displays a particular model.
