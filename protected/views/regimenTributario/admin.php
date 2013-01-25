@@ -3,7 +3,7 @@
 /* @var $model RegimenTributario */
 
 $this->breadcrumbs=array(
-	'Regimen Tributarios'=>array('index'),
+	'Regimen Tributarios'=>array('admin'),
 	'Administrar',
 );
 
@@ -16,7 +16,7 @@ if (isset($_GET['men'])){
 ?>
 <div id="mensaje"></div>
 <div align="right">
-        <?php $this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
+        <?php //$this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
 </div>
 
 <?php $this->widget('bootstrap.widgets.TbGridView', array(
@@ -32,12 +32,12 @@ if (isset($_GET['men'])){
 		'CREADO_EL',
 		'ACTUALIZADO_POR',		
 		'ACTUALIZADO_EL',
-		*/
 		array(
                     'class'=>'bootstrap.widgets.TbButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),
                     'afterDelete'=>$this->mensajeBorrar(),
 		),
+		*/
 	),
 )); ?>
 
