@@ -241,8 +241,8 @@ class DocumentoInvController extends Controller
                  $cantidades = $cantidades != array() ? CHtml::listData($cantidades,'CANTIDAD','cANTIDAD.NOMBRE') : TipoCantidadArticulo::darCombo();
                                                     
            }
-            if($_POST['DocumentoInvLinea']['SIGNO'] != '' && Controller::unformat($modelLi->CANTIDAD) > 0){
-                $modelLi->CANTIDAD = -Controller::unformat($modelLi->CANTIDAD);
+            if($modelLi->SIGNO == '-' && Controller::unformat($modelLi->CANTIDAD) > 0){
+                $modelLi->CANTIDAD = '-'.Controller::unformat($modelLi->CANTIDAD);
             }
             if($modelLi->validate()){
                      echo '<div id="alert" class="alert alert-success" data-dismiss="modal">
