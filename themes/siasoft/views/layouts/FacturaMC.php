@@ -106,7 +106,7 @@
                 </div>
                 
                 <div class="borde" width="316px" style="margin-left: 3px; height: 60px;">
-                    <strong>Recivida y Aceptada</strong>
+                    <strong>Recibida y Aceptada</strong>
                 </div>
             </div>
             
