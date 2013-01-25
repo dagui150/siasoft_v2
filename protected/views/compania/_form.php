@@ -80,7 +80,11 @@ function Elimina(){
                                         }
                                     } ?>
                         </div>
-
+                        <div class="row">
+                            <?php echo $form->labelEx($model,'REGIMEN_TRIBUTARIO'); ?>
+                            <?php echo $form->dropDownList($model,'REGIMEN_TRIBUTARIO', CHtml::listData(RegimenTributario::model()->findAll('ACTIVO = "S"'),'REGIMEN','DESCRIPCION'),array('empty'=>'Seleccione...')); ?>
+                            <?php echo $form->error($model,'REGIMEN_TRIBUTARIO'); ?>
+                        </div>
                     </fieldset></td>
                 <td><fieldset>
                     <div class="row">

@@ -113,7 +113,7 @@
 		.$form->textFieldRow($model,'ULT_DEVOLUCION',array('size'=>10,'maxlength'=>10, 'readonly' => true))
 		.'</div></fieldset></div>'
 		.'<div style="width:100%; float:left;"><fieldset>'
-		.'<legend>Usar Rubros</legend>'
+		.'<legend>Usar campos adicionales</legend>'
 		.$form->radioButtonListRow($model, 'USAR_RUBROS', array(
         'N'=>'No',
         'S'=>'Si',), array(
@@ -179,7 +179,7 @@
                 
                     ),
 		
-		array('label'=>'Rubros', 'items'=>array( 
+		array('label'=>'Campos adicionales', 'items'=>array( 
 			array('label'=>'Solicitudes', 'content'=>
 		'<fieldset>'
 		.'<legend>Solicitudes <span class="reducir-letra-ayuda">'.$this->botonAyuda('RUBR_SOLICI').'</span></legend>'

@@ -271,7 +271,7 @@
     $confAs = ConfFa::model()->find();
     echo CHtml::hiddenField('dec_precio');
     echo CHtml::hiddenField('dec_porcentaje');
-    $text_rubros =$conf->USAR_RUBROS == 0 ? '<div class="alert alert-info"><strong>Actualmente No usa Rubros</strong></div>' : '';
+    $text_rubros =$conf->USAR_RUBROS == 0 ? '<div class="alert alert-info"><strong>Actualmente No usa Campos adicionales</strong></div>' : '';
     $rubro1 =$conf->USAR_RUBROS == 1 && $conf->RUBRO1_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO1') : '';
     $rubro2 =$conf->USAR_RUBROS == 1 && $conf->RUBRO2_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO2') : '';
     $rubro3 =$conf->USAR_RUBROS == 1 && $conf->RUBRO3_NOMBRE != '' ? $form->textFieldRow($model,'RUBRO3') : '';
@@ -493,7 +493,7 @@
                                .'</td>
                                 <td>
                                     <fieldset>
-                                        <legend ><font face="arial" size=3 >Rubros</font></legend>'
+                                        <legend ><font face="arial" size=3 >Campos adicionales</font></legend>'
                                         .$text_rubros
                                         .$rubro1
                                         .$rubro2

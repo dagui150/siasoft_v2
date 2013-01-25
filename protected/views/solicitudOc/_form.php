@@ -277,7 +277,7 @@ $(document).ready(function(){
                     .$form->error($model,'ESTADO')
                     .'</div>',),
                 
-                    array('label'=>'Rubros', 'content'=>$rubros),
+                    array('label'=>'Campos adicionales', 'content'=>$rubros),
                 
             ),
         )); ?>

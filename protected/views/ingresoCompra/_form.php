@@ -178,7 +178,7 @@ function cargaProveedorGrilla (grid_id){
         array('label'=>'Líneas', 'content'=>$pestana),
         array('label'=>'Factura', 'content'=>'Factura'),
         array('label'=>'Devoluciones', 'content'=>'Devoluciones'),
-        array('label'=>'Rubros', 'content'=>
+        array('label'=>'Campos adicionales', 'content'=>
              $rubros
             ),
         array('label'=>'Notas', 'content'=>

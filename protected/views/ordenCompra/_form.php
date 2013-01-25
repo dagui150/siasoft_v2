@@ -329,7 +329,7 @@ $(document).ready(function(){
             $form->textAreaRow($model,'DIRECCION_COBRO',array('cols' => '50', 'rows' => '5')).
             '</fliedset>'),
              
-        array('label'=>'Rubros', 'content'=>$rubros),
+        array('label'=>'Campos adicionales', 'content'=>$rubros),
         
         array('label'=>'Textos', 'content'=>
             '<fieldset>'.
