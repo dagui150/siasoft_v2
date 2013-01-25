@@ -158,7 +158,7 @@ if (isset($_GET['men'])){
              array(
                          'class'=>'CLinkColumn',
 			 'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
-			 'urlExpression'=>'CController::createUrl("/documentoInv/formatoPDF", array("id"=>$data->DOCUMENTO_INV))',
+			 'urlExpression'=>'Yii::app()->getController()->createUrl("/documentoInv/formatoPDF", array("id"=>$data->DOCUMENTO_INV))',
 			 'htmlOptions'=>array('style'=>'text-align:center;'),
 			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),
                 ),

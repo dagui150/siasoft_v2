@@ -12,56 +12,55 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/tables.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         
-        <style>
-            .piePagina{
-                
-                color:#999999;
-            }    
-            body{
-                background: white;
-            }
-            
-        </style>
-
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/FormatosImpresion.css" />
 
     </head>
 
     <body>
 
-        <div class="container" id="page" >
+        <div class="container" id="page">
+            
+            <?php
+            $arr = explode("-", $this->orden->FECHA);
+            $ano1 = $arr[0];
+            $mes1 = $arr[1];
+            $dia1 = $arr[2];
+            $arr = explode("-", $this->orden->FECHA_REQUERIDA);
+            $ano = $arr[0];
+            $mes = $arr[1];
+            $dia = $arr[2];
+            ?>
+            
+            <div style="text-align: center;" width="700px"> <p style="font-size: 14pt"><strong>Orden de Compra</strong></p></div>
 
+            <div class="borde" width="514px">
+                <strong>Proveedor: </strong><?php echo $this->orden->pROVEEDOR->NOMBRE; ?><br>
+                <strong>Condicion de Pago: </strong><?php echo $this->orden->cONDICIONPAGO->DESCRIPCION; ?><br>   
+                <strong>Prioridad: </strong><?php echo OrdenCompra::model()->prioridad($this->orden->PRIORIDAD); ?> <strong style="margin-left">Estado:</strong><?php echo OrdenCompra::model()->estado($this->orden->ESTADO); ?>
 
-
-
+            </div>
+            
+<!--            <div width="140px" style="padding-left: 4px; float: left;">
+                <div width="139px" style="padding: 1px;"><div class="borde" style="padding: 2px;" align="center"><strong>Fecha Factura</strong></div></div>
+                <div style="padding: 1px; " ><div class="borde" style="padding: 2px;" width="26%" align="center"><strong>Dia</strong></div> <div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Mes</strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Año</strong></div></div>
+                <div style="padding: 1px; " align="center"><div class="borde" style="padding: 2px;" width="26%" align="center"><strong><?php //echo $dia1 ?></strong></div><div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php //echo $mes1 ?></strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php //echo $ano1 ?></strong></div></div>
+            </div>
+            -->
+<!--            <div width="140px" style="padding-left: 2px; float: left;">
+                <div width="139px" style="padding: 1px;"><div class="borde" style="padding: 2px;" align="center"><strong>Fecha Vencimiento</strong></div></div>
+                <div style="padding: 1px; " ><div class="borde" style="padding: 2px;" width="26%" align="center"><strong>Dia</strong></div> <div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Mes</strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Año</strong></div></div>
+                <div style="padding: 1px; " align="center"><div class="borde" style="padding: 2px;" width="26%" align="center"><strong><?php //echo $dia ?></strong></div><div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php //echo $mes ?></strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php //echo $ano ?></strong></div></div>
+            </div>-->
+            
+            <div style="padding-top: 10px;padding-bottom: 10px;">
+              
+                <?php echo $content; ?>
+                
+            </div>
             
             
             <table width="100%">
-  <tr>
-    <td colspan="2"><table width="100%" align="center">
-      <tr>
-        <td width="26%" rowspan="3" align="left" valign="middle"><?php 
-		$compania = Compania::model()->find();
-		if($compania->LOGO != ''){
-			echo CHtml::image(Yii::app()->request->baseUrl."/logo/".$compania->LOGO, 'Logo');     
-		}
-		else{
-			echo $compania->NOMBRE;
-
-                                        }
-                                    ?></td>
-        <?php $compania = Compania::model()->find();?>
-        <td width="41%" align="center"><?php echo $compania->NOMBRE_ABREV; ?></td>
-        <td width="33%" rowspan="2" align="right" valign="middle"><strong>Número</strong></td>
-      </tr>
-      <tr>
-        <td align="center"><?php echo '<b>Nit:</b> '.$compania->NIT; ?></td>
-      </tr>
-      <tr>
-        <td height="23" align="center"><?php echo '<b>Tels:</b> '.$compania->TELEFONO1.'-'.$compania->TELEFONO2; ?></td>
-        <td width="33%" align="right" valign="middle"><?php echo $this->orden->ORDEN_COMPRA; ?></td>
-      </tr>
-    </table></td>
-  </tr>
+  
   <tr>
     <td colspan="2" align="center" valign="middle"><p>&nbsp;</p>
     <p style="font-size: 14pt"><strong>Orden de Compra</strong></p>

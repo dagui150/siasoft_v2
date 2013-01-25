@@ -80,7 +80,7 @@ function inicio(){
                                                                         <br><fieldset style="width: 280px;float: left;">
                                                                         <legend ><font face="arial" size=3 >Valores por defecto</font></legend>
                                                                             <div style="width: 200px; margin: 20px 50px 0px 0px;">'
-                                                                                    .$form->dropDownListRow($model,'COSTO_INGR_DEFAULT',array(''=>'Seleccione','U'=>'Ultimo','P'=>'Promedio','F'=>'Fiscal'))
+                                                                                    .$form->dropDownListRow($model,'COSTO_INGR_DEFAULT',array(''=>'Seleccione','U'=>'Ultimo','P'=>'Promedio','E'=>'Estandar'))
                                                                                     .$form->dropDownListRow($model,'UNIDAD_PESO',UnidadMedida::getPeso(),array('empty'=>'Seleccione'))
                                                                                     .$form->dropDownListRow($model,'UNIDAD_VOLUMEN',UnidadMedida::getVolumen(),array('empty'=>'Seleccione'))
                                                                             .'</div>
@@ -100,6 +100,8 @@ function inicio(){
 										.$form->checkBoxRow($model, 'EXIST_DISPONIBLE')
                                                                                 .$form->checkBoxRow($model, 'EXIST_REMITIDA')
                                                                                 .$form->checkBoxRow($model, 'EXIST_RESERVADA')
+                                                                                .$form->checkBoxRow($model, 'EXIST_CUARENTENA')
+                                                                                .$form->checkBoxRow($model, 'EXIST_VENCIDA')
 									.'</fieldset>
 								</td>
 							</tr>

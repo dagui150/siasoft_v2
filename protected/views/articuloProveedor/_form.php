@@ -43,11 +43,11 @@
 	<div class="row">
             <table>
                  <tr>
-                       <td><?php echo $form->textFieldRow($model,'PROVEEDOR',array('maxlength'=>8,'size'=>5,'ajax'=>array('type' => 'POST','url' => CController::createUrl('articuloProveedor/cargarAjax'),'update' => '#PROVEEDORR')));?></td> 
+                       <td><?php echo $form->textFieldRow($model,'PROVEEDOR',array('maxlength'=>8,'size'=>5,'ajax'=>array('type' => 'POST','url' => Yii::app()->getController()->createUrl('articuloProveedor/cargarAjax'),'update' => '#PROVEEDORR')));?></td> 
                        <td><div id="PROVEEDORR" style="margin: 0 0 0 -497px"><?php echo CHtml::textField('PROVEEDOR2',$vproveedor,array('size'=>15,'disabled'=>true)); ?></div></td> 
                        <td><div style="margin: 5px 0 0 -380px"><?php echo $boton; ?></div></td> 
                  
-                       <td><div style="margin: 0 0 0 -370px"><?php echo $form->textFieldRow($model,'ARTICULO',array('value'=>$articulo,'readonly'=>true,'maxlength'=>4,'size'=>4,'ajax'=>array('type' => 'POST','url' => CController::createUrl('existenciaBodega/cargarAjax2'),'update' => '#ARTICULOO')));?></div></td> 
+                       <td><div style="margin: 0 0 0 -370px"><?php echo $form->textFieldRow($model,'ARTICULO',array('value'=>$articulo,'readonly'=>true,'maxlength'=>4,'size'=>4,'ajax'=>array('type' => 'POST','url' => Yii::app()->getController()->createUrl('existenciaBodega/cargarAjax2'),'update' => '#ARTICULOO')));?></div></td> 
                        <td><div id="ARTICULOO" style="margin: 0 0 0 -173px"><?php echo CHtml::textField('ARTICULO2',$barticulo->NOMBRE,array('size'=>18,'disabled'=>true)); ?></div></td> 
                  </tr>
             </table>

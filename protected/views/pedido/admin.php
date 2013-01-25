@@ -91,7 +91,7 @@ $this->widget('bootstrap.widgets.TbButton', array(
 			 //'header'=>'Pedidos',
 			 'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
 			 //'labelExpression'=>'$data->ID',
-			 'urlExpression'=>'CController::createUrl("/Pedido/formatoPDF", array("id"=>$data->PEDIDO))',
+			 'urlExpression'=>'Yii::app()->getController()->createUrl("/Pedido/formatoPDF", array("id"=>$data->PEDIDO))',
 			 'htmlOptions'=>array('style'=>'text-align:center;'),
 			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),
                 ),

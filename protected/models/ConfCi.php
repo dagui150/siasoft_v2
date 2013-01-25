@@ -15,6 +15,8 @@
  * @property string $EXIST_DISPONIBLE
  * @property string $EXIST_REMITIDA
  * @property string $EXIST_RESERVADA
+ * @property string $EXIST_CUARENTENA
+ * @property string $EXIST_VENCIDA
  * @property string $INTEGRACION_CONTA
  * @property string $USA_CODIGO_BARRAS
  * @property integer $LINEAS_MAX_TRANS
@@ -158,6 +160,8 @@ class ConfCi extends CActiveRecord
 			'EXIST_DISPONIBLE' => 'Disponible',
                         'EXIST_REMITIDA' => 'Remitida',
                         'EXIST_RESERVADA' => 'Reservada',
+                        'EXIST_CUARENTENA' => 'Cuarentena',
+                        'EXIST_VENCIDA' => 'Vencida',
 			'INTEGRACION_CONTA' => 'Integración Contable',
 			'USA_CODIGO_BARRAS' => 'Usa Código de Barras',
 			'LINEAS_MAX_TRANS' => 'Número Max Líneas:',
