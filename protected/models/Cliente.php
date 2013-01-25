@@ -94,7 +94,7 @@ class Cliente extends CActiveRecord
 			array('INTERES_CORRIENTE, INTERES_MORA, DESCUENTO, LIMITE_CREDITO,', 'numerical'),
 			array('REGIMEN, TIPO_PRECIO', 'length', 'max'=>12),
 			array('IMPUESTO, CONDICION_PAGO, PAIS', 'length', 'max'=>4),
-			array('NIT', 'length', 'max'=>10),
+			array('NIT', 'length', 'max'=>12),
 			array('EMAIL', 'email'),
 			array('UBICACION_GEOGRAFICA1', 'length', 'max'=>2),
 			array('UBICACION_GEOGRAFICA2', 'length', 'max'=>5),

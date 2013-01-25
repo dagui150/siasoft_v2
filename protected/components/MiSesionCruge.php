@@ -24,11 +24,11 @@ class MiSesionCruge extends DefaultSessionFilter {
 	*/
 	public function onLogin(ICrugeSession $model){
 		parent::onLogin($model);
-		Yii::log("PASANDO POR ONLOGIN","info");
+                
 		if(Yii::app()->user->isSuperAdmin)
 			Yii::app()->getController()->redirect(array("/cruge/ui/usermanagementadmin"));
 		elseif(UnidadMedida::validarUnidad())
-			Yii::app()->getController()->redirect(array("/site/index"));
+			Yii::app()->getController()->redirect(Yii::app()->user->returnUrl);
                  else
                         Yii::app()->getController()->redirect(array("/unidadMedida/admin"));
 	}
@@ -43,7 +43,7 @@ class MiSesionCruge extends DefaultSessionFilter {
 	public function onLogout(ICrugeSession $model) {
 		parent::onLogout($model);
 		Yii::log("PASANDO POR ONLOGOUT","info");
-                Yii::app()->getController()->redirect(array("/site/index"));
+                Yii::app()->getController()->redirect(array("/site/login"));
 	}
 
 	/**
@@ -53,12 +53,11 @@ class MiSesionCruge extends DefaultSessionFilter {
 	*/
 	public function onSessionExpired(ICrugeSession $model) {
 		parent::onSessionExpired($model);
-		Yii::log("PASANDO POR ONSESSIONEXPIRED","info");
 	}
 
 	/**
 		Este metodo es invocado por el core de Cruge cuando se requiere una
-		nueva sesion para un usuario que ha iniciado sesi�n. El proposito aqui
+		nueva sesion para un usuario que ha iniciado sesión. El proposito aqui
 		es que tu puedas tomar tus propias acciones y decisiones al momento de
 		otorgar una sesion a un usuario, pudiendo revocarla si lo deseas
 		usando a:
@@ -73,7 +72,7 @@ class MiSesionCruge extends DefaultSessionFilter {
 		CrugeSession lo hace y normalmente es la instancia que aqui se retorna)
 
 		la implementacion base de startSession usara las siguientes funciones
-		del API para hallar y crear una sesion seg�n sea el caso:
+		del API para hallar y crear una sesion sesión sea el caso:
 
 			$sesion = Yii::app()->user->um->findSession($user);
 		y

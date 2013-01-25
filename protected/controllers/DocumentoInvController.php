@@ -15,10 +15,10 @@ class DocumentoInvController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(
-				array('CrugeAccessControlFilter'),
-			);
-    }
+          return array(
+                 array('CrugeAccessControlFilter'),
+          );
+        }
 
 	/**
 	 * Displays a particular model.
@@ -48,6 +48,7 @@ class DocumentoInvController extends Controller
                 
                 if(isset($_POST['ajax']) && $_POST['ajax']==='documento-inv-linea-form')
 		{
+                        $_POST['DocumentoInvLinea']['CANTIDAD'] = $_POST['DocumentoInvLinea']['SIGNO'] == '-' ? '-'.$_POST['DocumentoInvLinea']['CANTIDAD'] : $_POST['DocumentoInvLinea']['CANTIDAD'];
 			echo CActiveForm::validate($modelLi);
 			Yii::app()->end();
                 }
@@ -212,12 +213,16 @@ class DocumentoInvController extends Controller
             Yii::app()->end();
         }
         
-        //VALIDAR EL FORMULARIO DE LAS LINEAS DE LA MODAL
+        /**
+         * VALIDAR EL FORMULARIO DE LAS LINEAS DE LA MODAL
+         * @param array $post 
+         */
         protected function validarLineas($post){
             
             $busDocumentos = DocumentoInv::model()->findByPk($_POST['documento']);
             $model = $busDocumentos ? $busDocumentos : new DocumentoInv;
             $modelLi = new DocumentoInvLinea;
+            $modelLi->SIGNO = $_POST['DocumentoInvLinea']['SIGNO'];
             $bodega = new Bodega;
             $articulo = new Articulo;
             $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
@@ -236,8 +241,8 @@ class DocumentoInvController extends Controller
                  $cantidades = $cantidades != array() ? CHtml::listData($cantidades,'CANTIDAD','cANTIDAD.NOMBRE') : TipoCantidadArticulo::darCombo();
                                                     
            }
-            if($_POST['DocumentoInvLinea']['SIGNO'] != '' && $modelLi->CANTIDAD > 0){
-                $modelLi->CANTIDAD = -$modelLi->CANTIDAD;
+            if($modelLi->SIGNO == '-' && $modelLi->CANTIDAD > 0){
+                $modelLi->CANTIDAD = '-'.$modelLi->CANTIDAD;
             }
             if($modelLi->validate()){
                      echo '<div id="alert" class="alert alert-success" data-dismiss="modal">
@@ -746,7 +751,7 @@ class DocumentoInvController extends Controller
                                         $transaccionInvDetalle->NATURALEZA = 'S';
 
                                 }elseif($tipo_transaccion->NATURALEZA == 'A')
-                                        $this->naturaAmbas($datos,$existenciaBodega,$transaccionInvDetalle,$documento,$cantidad);
+                                        $this->naturaAmbas($datos,$existenciaBodega,$transaccionInvDetalle,$datos,$cantidad);
                                 break;
                                 case 'R':
                                     if($tipo_transaccion->NATURALEZA == 'E'){
@@ -764,7 +769,7 @@ class DocumentoInvController extends Controller
                                         $transaccionInvDetalle->NATURALEZA = 'S';
 
                                 }elseif($tipo_transaccion->NATURALEZA == 'A')
-                                        $this->naturaAmbas($datos,$existenciaBodega,$transaccionInvDetalle,$documento,$cantidad);
+                                        $this->naturaAmbas($datos,$existenciaBodega,$transaccionInvDetalle,$datos,$cantidad);
                                 break;
                                 case 'T':
                                     if($tipo_transaccion->NATURALEZA == 'E'){
@@ -782,7 +787,7 @@ class DocumentoInvController extends Controller
                                         $transaccionInvDetalle->NATURALEZA = 'S';
 
                                 }elseif($tipo_transaccion->NATURALEZA == 'A')
-                                       $this->naturaAmbas($datos,$existenciaBodega,$transaccionInvDetalle,$documento,$cantidad);
+                                       $this->naturaAmbas($datos,$existenciaBodega,$transaccionInvDetalle,$datos,$cantidad);
                                 break;
                                 case 'C':
                                     if($tipo_transaccion->NATURALEZA == 'E'){
@@ -800,7 +805,7 @@ class DocumentoInvController extends Controller
                                         $transaccionInvDetalle->NATURALEZA = 'S';
 
                                 }elseif($tipo_transaccion->NATURALEZA == 'A')
-                                        $this->naturaAmbas($datos,$existenciaBodega,$transaccionInvDetalle,$documento,$cantidad);
+                                        $this->naturaAmbas($datos,$existenciaBodega,$transaccionInvDetalle,$datos,$cantidad);
                                 break;
                                 case 'V':
                                     if($tipo_transaccion->NATURALEZA == 'E'){
@@ -818,7 +823,7 @@ class DocumentoInvController extends Controller
                                         $transaccionInvDetalle->NATURALEZA = 'S';
 
                                 }elseif($tipo_transaccion->NATURALEZA == 'A')
-                                        $this->naturaAmbas($datos,$existenciaBodega,$transaccionInvDetalle,$documento,$cantidad);
+                                        $this->naturaAmbas($datos,$existenciaBodega,$transaccionInvDetalle,$datos,$cantidad);
                                 break;
                             }
                             $existenciaBodega->save();

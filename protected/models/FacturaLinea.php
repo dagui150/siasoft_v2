@@ -86,10 +86,6 @@ class FacturaLinea extends CActiveRecord
          * @param mixed $params 
          */
         public function validarExistencias($attribute,$params){
-            /**
-             * Busqueda de la bodega y articulo
-             * @var ExistenciaBodega
-             */
             $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$this->ARTICULO,'BODEGA'=>$this->BODEGA));
 	    if ($existenciaBodega){
                 $cantidad = Controller::darCantidad($existenciaBodega, $this->CANTIDAD, $this->UNIDAD);
