@@ -12,55 +12,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/tables.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-        <style>
-            .piePagina{
-
-                color:#999999;
-            }    
-            body{
-                background: white;
-            }
-            
-            .borde{
-                display: inline;
-                float:left;
-                padding: 10px;
-                border: 1px solid black;
-                -moz-border-radius: 4px; /* Firefox*/
-                -ms-border-radius: 4px; /* IE 8.*/
-                -webkit-border-radius: 4px; /* Safari,Chrome.*/
-                border-radius: 4px; /* El estándar.*/
-            }
-            
-            
-            
-            .borde1{
-                -webkit-border-top-left-radius: 4px;
-                -moz-border-radius-topleft: 4px;
-                -ms-border-radius-topleft: 4px;
-                border-top-left-radius: 4px;
-            }
-            
-            .borde2{
-                -webkit-border-top-right-radius: 4px;
-                -moz-border-radius-topright: 4px;
-                -ms-border-radius-topright: 4px;
-                border-top-right-radius: 4px;
-            }
-            .borde3{
-                -webkit-border-bottom-right-radius: 4px;
-                -moz-border-radius-bottomright: 4px;
-                -ms-border-radius-bottomright: 4px;
-                border-bottom-right-radius: 4px;                
-            }
-            .borde4{
-                -webkit-border-bottom-left-radius: 4px;
-                -moz-border-radius-bottomleft: 4px;
-                -ms-border-radius-bottomleft: 4px;
-                border-bottom-left-radius: 4px;
-            }
-
-        </style>
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/FormatosImpresion.css" />
 
 
     </head>
@@ -88,7 +40,7 @@
                 <div style="padding: 1px; " align="center"><div class="borde" style="padding: 2px;" width="25%" align="center"><strong><?php echo $dia ?></strong></div><div class="borde" width="25%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php echo $mes ?></strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php echo $ano ?></strong></div></div>
             </div>
             
-            <div>
+            <div style="padding-top: 10px;padding-bottom: 10px;">
               
                 <?php echo $content; ?>
                 

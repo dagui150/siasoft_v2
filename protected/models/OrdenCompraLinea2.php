@@ -169,7 +169,26 @@ class OrdenCompraLinea2 extends CActiveRecord
                 
         public function behaviors()
 	{
+		$conf=ConfCo::model()->find();
+                $conf2=ConfAs::model()->find();
+                $dec=isset($conf->CANTIDAD_DEC)?$conf->CANTIDAD_DEC:0;
+                $decP=isset($conf2->PORCENTAJE_DEC)?$conf2->PORCENTAJE_DEC:0;
 		return array(
+                        'defaults'=>array(
+                            'class'=>'application.components.FormatBehavior',
+                            //'format'=>'db',
+                            'formats'=> array(
+                                   'MONTO_DESCUENTO'=>'###,##0.'.str_repeat('0',$dec),
+                                   'PRECIO_UNITARIO'=>'###,##0.'.str_repeat('0',$dec),
+                                   'VALOR_IMPUESTO'=>'###,##0.'.str_repeat('0',$dec),
+                                   'CANTIDAD_ORDENADA'=>'###,##0.'.str_repeat('0',$dec),
+                                   'CANTIDAD_RECIBIDA'=>'###,##0.'.str_repeat('0',$dec),
+                                   'CANTIDAD_RECHAZADA'=>'###,##0.'.str_repeat('0',$dec),
+                                   'PORC_DESCUENTO'=>'#0.'.str_repeat('0',$decP),
+                            ),
+                            
+                            //'parseExpression'=> "strtr(\$value,',','.')",
+                        ),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',

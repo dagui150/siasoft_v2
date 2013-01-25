@@ -75,11 +75,11 @@
         $("#mensaje").html('');
         $("#mensaje").removeClass('alert alert-info');
         
-        $.getJSON('<?php echo CController::createUrl('tipoTransaccion/cargarcantidad');?>&id='+id,
+        $.getJSON('<?php echo Yii::app()->getController()->createUrl('tipoTransaccion/cargarcantidad');?>&id='+id,
 		  function(data){
                         $('#contenidoNuevo').html('');
                         $.each(data, function(key, tipo) {
-                            $.getJSON('<?php echo CController::createUrl('tipoTransaccion/cargarcantidad');?>&cantidad='+tipo.CANTIDAD,
+                            $.getJSON('<?php echo Yii::app()->getController()->createUrl('tipoTransaccion/cargarcantidad');?>&cantidad='+tipo.CANTIDAD,
                                       function(data){
                                           nombre = data.NOMBRE;
                                           

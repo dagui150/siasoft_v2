@@ -13,7 +13,7 @@ function dependiente () {
         nombreCampoDependiente = 'ConsecCiTipoTrans_TIPO_TRANSACCION';
         $('#valor').val($(this).attr('value'));
             
-        $.post('<?php echo CController::createUrl('consecutivoCi/cargartransaccion'); ?>', { Base: $(this).attr('value') },
+        $.post('<?php echo Yii::app()->getController()->createUrl('consecutivoCi/cargartransaccion'); ?>', { Base: $(this).attr('value') },
 		  function(data){
                         $('select[id$=' + nombreCampoDependiente + '] > option').remove();
                         $('#' + nombreCampoDependiente).append(data);

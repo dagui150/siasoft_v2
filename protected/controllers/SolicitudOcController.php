@@ -95,7 +95,6 @@ class SolicitudOcController extends Controller
             $this->solicitud = SolicitudOc::model()->findByPk($id);
             $lineas = new SolicitudOcLinea;
             $this->layout = ConfCo::model()->find()->fORMATOSOLICITUD->pLANTILLA->RUTA;
-            
             $footer = '<table width="100%">
                     <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>
                         <td align="center" valign="middle"><span class="piePagina"><b>Generado el:</b> ' . date('Y/m/d') . '</span></td>
@@ -104,9 +103,38 @@ class SolicitudOcController extends Controller
                         <td colspan="2" align="center" valign="middle">Desarrollado por Tramasoft Soluciones TIC - <a href="http://www.tramasoft.com">www.tramasoft.com</a></td>
                     </tr>
                     </table>';
-            $mPDF1 = Yii::app()->ePdf->mpdf();
-            $mPDF1->WriteHTML($this->render('pdf', array('model' => $this->solicitud,'model2'=>$lineas), true));
+            
+            $compania = Compania::model()->find();
+            if ($compania->LOGO != '') {
+                $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/" . $compania->LOGO, 'Logo');
+            } else {
+                $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/default.jpg", 'Logo');
+            }
+            $header = '<table width="100%" align="center">
+                            <tr>
+                                <td width="26%" rowspan="4" align="left" valign="middle">'.$logo.'
+                                </td>
+                                <td width="41%" align="center">'.$compania->NOMBRE_ABREV.'</td>
+                                <td width="33%" rowspan="2" align="right" valign="middle">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="center"><b>Nit:</b> '.$compania->NIT.'</td>
+                            </tr>
+                            <tr>
+                                <td align="center">Direccion  '.$compania->DIRECCION.'</td>
+
+                                <td align="right" valign="middle"><strong>Número:</strong></td>
+                            </tr>
+                            <tr>
+                                <td align="center"><b>Tels:</b> '.$compania->TELEFONO1.'-'.$compania->TELEFONO2.'</td>
+                                <td width="33%" align="right" valign="middle">'.$id.'</td>
+                            </tr>
+                        </table>';
+            //'',array(377,279),0,'',15,15,16,16,9,9, 'P'
+            $mPDF1 = Yii::app()->ePdf->mpdf('','A4',0,'','15','15','30','','5','', 'P');
+            $mPDF1->SetHTMLHeader($header);
             $mPDF1->SetHTMLFooter($footer);
+            $mPDF1->WriteHTML($this->render('pdf', array('model' => $this->solicitud,'model2'=>$lineas), true));
 
             $mPDF1->Output();
             Yii::app()->end();

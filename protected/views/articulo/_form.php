@@ -206,17 +206,17 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                             .$form->textFieldRow($model,'DESCRIPCION_COMPRA',array('maxlength'=>128))
                             .'<table>
                                 <tr>
-                                    <td>'.$form->textFieldRow($model,'IMPUESTO_COMPRA',array('size'=>4,'ajax'=>array('type' => 'POST','url' => CController::createUrl('Articulo/cargarAjax'),'update' => '#IMPUESTOO'))).'</td> 
+                                    <td>'.$form->textFieldRow($model,'IMPUESTO_COMPRA',array('size'=>4,'ajax'=>array('type' => 'POST','url' => Yii::app()->getController()->createUrl('Articulo/cargarAjax'),'update' => '#IMPUESTOO'))).'</td> 
                                     <td><div id="IMPUESTOO" style="margin: 0 0 0 -540px">'.CHtml::textField('IMPUESTO2','',array('disabled'=>true)).'</div></td> 
                                     <td><div style="margin: 5px 0 0 -398px">'.$boton2.'</div></td> 
                                </tr>
                                <tr>
-                                    <td>'.$form->textFieldRow($model,'BODEGA',array('size'=>4,'ajax'=>array('type' => 'POST','url' => CController::createUrl('Articulo/cargarAjax2'),'update' => '#BODEGAA'))).'</td> 
+                                    <td>'.$form->textFieldRow($model,'BODEGA',array('size'=>4,'ajax'=>array('type' => 'POST','url' => Yii::app()->getController()->createUrl('Articulo/cargarAjax2'),'update' => '#BODEGAA'))).'</td> 
                                     <td><div id="BODEGAA" style="margin: 0 0 0 -540px">'.CHtml::textField('BODEGA2','',array('disabled'=>true)).'</div></td> 
                                     <td><div style="margin: 5px 0 0 -398px">'.$boton.'</div></td> 
                                </tr>
                                <tr>
-                                    <td>'.$form->textFieldRow($model,'RETENCION_COMPRA',array('size'=>4,'ajax'=>array('type' => 'POST','url' => CController::createUrl('Articulo/cargarAjax5'),'update' => '#RETENCIOON2'))).'</td> 
+                                    <td>'.$form->textFieldRow($model,'RETENCION_COMPRA',array('size'=>4,'ajax'=>array('type' => 'POST','url' => Yii::app()->getController()->createUrl('Articulo/cargarAjax5'),'update' => '#RETENCIOON2'))).'</td> 
                                     <td><div id="RETENCIOON2" style="margin: 0 0 0 -540px">'.CHtml::textField('RETENCION3','',array('disabled'=>true)).'</div></td> 
                                     <td><div style="margin: 5px 0 0 -398px">'.$boton5.'</div></td> 
                                </tr>
@@ -281,7 +281,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                                     <td colspan="2">
                                         <table>
                                             <tr>
-                                                <td width="10">'.$form->textFieldRow($model,'IMPUESTO_VENTA',array('size'=>4,'ajax'=>array('type' => 'POST','url' => CController::createUrl('Articulo/cargarAjax3'),'update' => '#IMPUESTOO2'))).'</td> 
+                                                <td width="10">'.$form->textFieldRow($model,'IMPUESTO_VENTA',array('size'=>4,'ajax'=>array('type' => 'POST','url' => Yii::app()->getController()->createUrl('Articulo/cargarAjax3'),'update' => '#IMPUESTOO2'))).'</td> 
                                                 <td><div id="IMPUESTOO2">'.CHtml::textField('IMPUESTO3','',array('disabled'=>true)).'</div></td> 
                                                 <td><div style="margin: 5px 0 0 -390px">'.$boton3.'</div></td> 
                                             </tr>
@@ -292,7 +292,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                                     <td colspan="2">
                                         <table>
                                             <tr>
-                                                <td>'.$form->textFieldRow($model,'RETENCION_VENTA',array('size'=>4,'ajax'=>array('type' => 'POST','url' => CController::createUrl('Articulo/cargarAjax4'),'update' => '#RETENCIOON'))).'</td> 
+                                                <td>'.$form->textFieldRow($model,'RETENCION_VENTA',array('size'=>4,'ajax'=>array('type' => 'POST','url' => Yii::app()->getController()->createUrl('Articulo/cargarAjax4'),'update' => '#RETENCIOON'))).'</td> 
                                                 <td><div id="RETENCIOON" style="margin: 0 0 0 -537px">'.CHtml::textField('RETENCION2','',array('disabled'=>true)).'</div></td> 
                                                 <td><div style="margin: 5px 0 0 -390px">'.$boton4.'</div></td> 
                                             </tr>

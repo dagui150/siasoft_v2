@@ -45,7 +45,7 @@ function Elimina(){
                             array(
                                 'ajax'=>array(
 				'type' => 'POST',
-				'url' => CController::createUrl('Compania/cargar'),
+				'url' => Yii::app()->getController()->createUrl('Compania/cargar'),
 				'update' => '#Compania_UBICACION_GEOGRAFICA2'
 				), 'prompt' => 'Seleccione...'
 				

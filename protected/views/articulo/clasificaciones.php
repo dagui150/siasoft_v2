@@ -16,7 +16,7 @@
                 
                 nombreCampoDependiente = nombreClase+'_'+contador+'_'+ 'VALOR';
                 
-                $.getJSON('<?php echo CController::createUrl('Articulo/cargar'); ?>&ClasificacionAdiValor='+$(this).attr('value'),
+                $.getJSON('<?php echo Yii::app()->getController()->createUrl('Articulo/cargar'); ?>&ClasificacionAdiValor='+$(this).attr('value'),
                       function(data)
                       {
                           

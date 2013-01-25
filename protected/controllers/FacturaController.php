@@ -293,28 +293,33 @@ class FacturaController extends Controller
             } else {
                 $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/default.jpg", 'Logo');
             }
-            $header = '<table width="100%" align="center">
+            $header = '<table width="100%" align="center" >
                             <tr>
-                                <td width="26%" rowspan="4" align="left" valign="middle">'.$logo.'
-                                </td>
+                                <td width="26%" rowspan="5" align="left" valign="middle">'.$logo.'</td>
                                 <td width="41%" align="center">'.$compania->NOMBRE_ABREV.'</td>
-                                <td width="33%" rowspan="2" align="right" valign="middle">&nbsp;</td>
+                                <td width="33%" align="right" valign="middle"><strong>Factura de Venta Núm:</strong></td>
                             </tr>
                             <tr>
                                 <td align="center"><b>Nit:</b> '.$compania->NIT.'</td>
+                                <td width="33%" align="right" valign="middle">'.$id.'</td>
                             </tr>
                             <tr>
-                                <td align="center">Direccion  '.$compania->DIRECCION.'</td>
-
-                                <td align="right" valign="middle"><strong>Factura Número:</strong></td>
+                                <td align="center">Dirección  '.$compania->DIRECCION.'</td>
+                                <td align="right">Res. DIAN XXXX</td>
+                                
                             </tr>
                             <tr>
                                 <td align="center"><b>Tels:</b> '.$compania->TELEFONO1.'-'.$compania->TELEFONO2.'</td>
-                                <td width="33%" align="right" valign="middle">'.$id.'</td>
+                                <td width="33%" align="right" valign="middle">Numeración Autorizada</td>
+                            </tr>
+                            
+                            <tr>
+                                <td align="center">Regimen Común</td>
+                                <td align="right" valign="middle">ZZZZ-VVVVV</td>
                             </tr>
                         </table>';
             //'',array(377,279),0,'',15,15,16,16,9,9, 'P'
-            $mPDF1 = Yii::app()->ePdf->mpdf('','A4',0,'','15','15','30','','5','', 'P');
+            $mPDF1 = Yii::app()->ePdf->mpdf('','A4',0,'','15','15','33','','5','', 'P');
             $mPDF1->w=210;   //manually set width
             $mPDF1->h=148.5; //manually set height
             $mPDF1->SetHTMLHeader($header);
