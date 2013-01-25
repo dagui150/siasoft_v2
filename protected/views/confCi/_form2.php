@@ -174,15 +174,7 @@ function inicio(){
 							<legend ><font face="arial" size=3 >Prioridad Búsqueda</font></legend>'
 							.$form->radioButtonListRow($model, 'PRIORIDAD_BUSQUEDA', array('A'=>'Por Codgo de Artículo','C'=>'Por Código de Barras'))
 						.'</fieldset>'
-				),
-                            
-                             
-                            array('label' => 'Impresion', 'content' =>
-            $form->dropDownListRow($model, 'FORMATO_IMPRESION', CHtml::listData(FormatoImpresion::model()->findAll('ACTIVO = "S" AND MODULO = "INVE"'), 'ID', 'NOMBRE'), array('empty' => 'Seleccione...'))
-        ),
-            
-                            
-                        
+				),                           
 			),
 		)); 
 	?>

@@ -4,6 +4,7 @@
     
     function inicio(){ 
         $('#DocumentoInvLinea_TIPO_TRANSACCION').change(function (){
+            $('#DocumentoInvLinea_SIGNO_0').click();
             $('#signo').slideUp('slow');
             $.getJSON('<?php echo $this->createUrl('agregarlinea'); ?>&tipo='+$(this).val(),
                 function(data){
@@ -550,7 +551,7 @@
             </tr>
             <tr>
                 <td>
-                    <span id="signo" style="display: none"><?php echo $form->radioButtonListRow($modelLi,'SIGNO',array(''=>'+','-'=>'-'))?></span>
+                    <span id="signo" style="display: none"><?php echo $form->radioButtonListRow($modelLi,'SIGNO',array('+'=>'+','-'=>'-'))?></span>
                 </td>
             </tr>
             <tr>

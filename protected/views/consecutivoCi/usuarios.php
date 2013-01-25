@@ -75,7 +75,7 @@
                    <tr>
                        <td>
                            <?php if($model2->isNewRecord) :?>
-                                  <?php echo $form->labelEx(Usuarios::model(),'USERNAME') ?>
+                                  <?php echo $form->labelEx(CrugeUserModel::model(),'username') ?>
                             <?php endif;?>
                        </td>
                        <td>
@@ -99,7 +99,7 @@
                             <textarea class="template" rows="0" cols="0" style="display:none;">
                                 <tr class="templateContent">
                                     <td>
-                                        <?php echo CHtml::dropDownList('UsuariosNuevo[{0}][USERNAME]','',CHtml::ListData(Usuarios::model()->findAll(),'USERNAME','USERNAME'),array('empty'=>'Seleccione')); ?>
+                                        <?php echo CHtml::dropDownList('UsuariosNuevo[{0}][USERNAME]','',CHtml::ListData(CrugeUserModel::model()->findAll(),'username','username'),array('empty'=>'Seleccione')); ?>
                                     </td>
                                     <td>
                                         <div class="remove">
@@ -123,7 +123,7 @@
                     <?php $persons = array(); foreach($persons as $i=>$person): ?>
                         <tr class="templateContent">
                             <td>
-                                <?php echo $form->dropDownList($person,"[$i]USERNAME", CHtml::ListData(Usuarios::model()->findAll(),'USERNAME','USERNAME'),array('empty'=>'Seleccione'));  ?>
+                                <?php echo $form->dropDownList($person,"[$i]username", CHtml::ListData(CrugeUserModel::model()->findAll(),'username','username'),array('empty'=>'Seleccione'));  ?>
                             </td>
                             <td>
                                  <div class="remove">

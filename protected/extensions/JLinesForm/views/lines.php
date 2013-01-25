@@ -3,61 +3,16 @@
      * Lineas Renderizadas segun opciones del Widget
      */
      /* @var $this JLinesForm */
+   
 ?>
-<div class="form">
-    <?php 
-        $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-                'id'=>'lineas-form',
-                'type'=>'inline',
-                'inlineErrors'=>false,
-                'enableAjaxValidation'=>true,
-                'clientOptions'=>array(
-                      'validateOnSubmit'=>true,
-                 ),	
-        ));     
-    ?>
-    
-    <table>
-        <tr>
-            <?php $this->renderElementsPreCopy($form);?>
-        </tr>
-    </table>
-    <table class="templateFrame table table-bordered" cellspacing="0">
-              <thead>
-                    <?php $this->renderHeaders();?>
-             </thead>
-             <tfoot >
-                   <tr>
-                        <td colspan='<?php echo $this->getCountColspan();?>'>
-                            <div id='<?php echo $this->_idAdd;?>' class="add"></div>
-                               <textarea class="template" rows="0" cols="0" style="display:none;">
-                                        <tr class="templateContent">
-                                            <td>
-                                                <span id='linea_<?php echo '{0}';?>'></span>                                                                        
-                                            </td>
-                                            <td>
-                                                <span id='articulo_<?php echo '{0}';?>'></span>
-                                                <?php echo CHtml::hiddenField('LineaNuevo[{0}][ARTICULO]',''); ?>
-                                            </td>
-                                            <td>
-                                                <span id='descripcion_<?php echo '{0}';?>'></span>
-                                                <?php echo CHtml::hiddenField('LineaNuevo[{0}][DESCRIPCION]',''); ?>
-                                            </td>                                            
-                                            <td>
-                                                <span id='descripcion_<?php echo '{0}';?>'></span>
-                                                <?php echo CHtml::hiddenField('LineaNuevo[{0}][DESCRIPCION]',''); ?>
-                                            </td>                                            
-                                            <td>
-                                                 <span style="float: left"><?php $this->getButtonUpdateLine(); ?> </span>
-                                                <div class="remove" id ="remover_<?php echo '{0}';?>"></div>
-                                                <div style="float: left; margin-left: 5px;"><?php $this->getButtonDeleteLine(); ?> </div>
-                                                <?php CHtml::hiddenField("rowIndex_{0}","{0}",array('class'=>'rowIndex'))?>
-                                           </td>
-                                        </tr>
-                                 </textarea>
-                          </td>
-                  </tr>
-             </tfoot>
+
+<table>
+     <tr>
+         <?php $this->renderElementsPreCopy();?>
+     </tr>
+</table>
+<table class="templateFrame table table-bordered table table-hover table table-striped" cellspacing="0">
+             <?php $this->renderHeaders();?>
              <tbody class="templateTarget">
                   <?php if(!$this->model->isNewRecord) :?>
                             <?php foreach($modelLinea as $i=>$linea): ?>
@@ -112,7 +67,7 @@
                                         <td>
                                                 <?php echo '<span id="totalU_'.$i.'">'.$linea->ESTADO.'</span>'; ?>
                                         </td>
-                                        <td>                                     
+                                        <td style="width: 77px;">                                      
                                                <div class="remove" id ="remover" style="float: left; margin-left: 5px;">
                                                           <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                                          'buttonType'=>'button',
@@ -130,6 +85,37 @@
                            <?php echo CHtml::hiddenField('eliminar','' ); ?>
                   <?php endif; ?>
             </tbody>
-    </table>
-    <?php $this->endWidget(); ?>  
-</div><!-- form -->
+            <tfoot style="display:none">
+                   <tr>
+                        <td>
+                            <div id='<?php echo $this->_idAdd;?>' class="add"></div>
+                               <textarea class="template" style="display:none;">
+                                        <tr class="templateContent">
+                                            <?php $this->renderElementsTemplate();/*?>
+                                            <td>
+                                                <span id='linea_<?php echo '{0}';?>'></span>                                                                        
+                                            </td>
+                                            <td>
+                                                <span id='articulo_<?php echo '{0}';?>'></span>
+                                                <?php echo CHtml::hiddenField('LineaNuevo[{0}][ARTICULO]',''); ?>
+                                            </td>
+                                            <td>
+                                                <span id='descripcion_<?php echo '{0}';?>'></span>
+                                                <?php echo CHtml::hiddenField('LineaNuevo[{0}][DESCRIPCION]',''); ?>
+                                            </td>                                            
+                                            <td>
+                                                <span id='descripcion_<?php echo '{0}';?>'></span>
+                                                <?php echo CHtml::hiddenField('LineaNuevo[{0}][DESCRIPCION]',''); ?>
+                                            </td>                                            
+                                            <td style="width: 77px;"> 
+                                                 <span style="float: left"><?php $this->getButtonUpdateLine(); ?> </span>
+                                                <div class="remove" id ="remover_<?php echo '{0}';?>"></div>
+                                                <div style="float: left; margin-left: 5px;"><?php $this->getButtonDeleteLine(); ?> </div>
+                                                <?php echo CHtml::hiddenField("rowIndex_{0}","{0}",array('class'=>'rowIndex'))?>
+                                           </td> */?>
+                                        </tr>
+                                 </textarea>
+                          </td>
+                  </tr>
+             </tfoot>
+</table>

@@ -476,9 +476,11 @@ class Articulo extends CActiveRecord
                     $cantTotal = 0;
                     
                     foreach($transacciones as $datos){
+                        
                         $costoTotal += ($datos->CANTIDAD * $datos->COSTO_UNITARIO);
                         $cantTotal += $datos->CANTIDAD;
                     }
+                    $cantTotal = $cantTotal != 0 ? $cantTotal : 1;
                     $costoFinal = $costoTotal/$cantTotal;
                     Articulo::model()->updateByPk($id, array('COSTO_PROMEDIO'=>$costoFinal));
                     

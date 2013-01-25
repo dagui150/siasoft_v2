@@ -80,6 +80,6 @@ if (UnidadMedida::validarUnidad() && !Yii::app()->user->isGuest) {
 
         </div><!-- page -->
 		
-		<?php echo Yii::app()->user->ui->displayErrorConsole(); ?>
+		<?php //echo Yii::app()->user->ui->displayErrorConsole(); ?>
     </body>
 </html>

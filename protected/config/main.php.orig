@@ -30,7 +30,11 @@ return array(
                 'ext.helpers.*',
 		'application.modules.cruge.components.*',
 		'application.modules.cruge.extensions.crugemailer.*',
+<<<<<<< HEAD
                 'ext.decimali18nbehavior.*',
+=======
+                'ext.JLinesForm.*'
+>>>>>>> 6509a90135a51dce92fdb331e9a51049cad877de
 	),
 	'modules'=>array(
 		'cruge'=>array(
