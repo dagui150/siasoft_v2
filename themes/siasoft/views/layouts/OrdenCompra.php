@@ -33,24 +33,24 @@
             
             <div style="text-align: center;" width="700px"> <p style="font-size: 14pt"><strong>Orden de Compra</strong></p></div>
 
-            <div class="borde" width="514px">
+            <div class="borde" width="372px">
                 <strong>Proveedor: </strong><?php echo $this->orden->pROVEEDOR->NOMBRE; ?><br>
                 <strong>Condicion de Pago: </strong><?php echo $this->orden->cONDICIONPAGO->DESCRIPCION; ?><br>   
                 <strong>Prioridad: </strong><?php echo OrdenCompra::model()->prioridad($this->orden->PRIORIDAD); ?> <strong style="margin-left">Estado:</strong><?php echo OrdenCompra::model()->estado($this->orden->ESTADO); ?>
 
             </div>
             
-<!--            <div width="140px" style="padding-left: 4px; float: left;">
-                <div width="139px" style="padding: 1px;"><div class="borde" style="padding: 2px;" align="center"><strong>Fecha Factura</strong></div></div>
+            <div width="140px" style="padding-left: 4px; float: left;">
+                <div width="139px" style="padding: 1px;"><div class="borde" style="padding: 2px;" align="center"><strong>Fecha Orden</strong></div></div>
                 <div style="padding: 1px; " ><div class="borde" style="padding: 2px;" width="26%" align="center"><strong>Dia</strong></div> <div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Mes</strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Año</strong></div></div>
-                <div style="padding: 1px; " align="center"><div class="borde" style="padding: 2px;" width="26%" align="center"><strong><?php //echo $dia1 ?></strong></div><div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php //echo $mes1 ?></strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php //echo $ano1 ?></strong></div></div>
+                <div style="padding: 1px; " align="center"><div class="borde" style="padding: 2px;" width="26%" align="center"><strong><?php echo $dia1 ?></strong></div><div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php echo $mes1 ?></strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php echo $ano1 ?></strong></div></div>
             </div>
-            -->
-<!--            <div width="140px" style="padding-left: 2px; float: left;">
-                <div width="139px" style="padding: 1px;"><div class="borde" style="padding: 2px;" align="center"><strong>Fecha Vencimiento</strong></div></div>
+            
+            <div width="140px" style="padding-left: 2px; float: left;">
+                <div width="139px" style="padding: 1px;"><div class="borde" style="padding: 2px;" align="center"><strong>Fecha Requerida</strong></div></div>
                 <div style="padding: 1px; " ><div class="borde" style="padding: 2px;" width="26%" align="center"><strong>Dia</strong></div> <div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Mes</strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Año</strong></div></div>
-                <div style="padding: 1px; " align="center"><div class="borde" style="padding: 2px;" width="26%" align="center"><strong><?php //echo $dia ?></strong></div><div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php //echo $mes ?></strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php //echo $ano ?></strong></div></div>
-            </div>-->
+                <div style="padding: 1px; " align="center"><div class="borde" style="padding: 2px;" width="26%" align="center"><strong><?php echo $dia ?></strong></div><div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php echo $mes ?></strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php echo $ano ?></strong></div></div>
+            </div>
             
             <div style="padding-top: 10px;padding-bottom: 10px;">
               
@@ -59,41 +59,9 @@
             </div>
             
             
-            <table width="100%">
-  
-  <tr>
-    <td colspan="2" align="center" valign="middle"><p>&nbsp;</p>
-    <p style="font-size: 14pt"><strong>Orden de Compra</strong></p>
-    <p>&nbsp;</p></td>
-  </tr>
-  <tr>
-    <td><strong>Fecha :</strong> <?php echo $this->orden->FECHA; ?></td>
-    <td><strong>Fecha Requerida: </strong><?php echo $this->orden->FECHA_REQUERIDA; ?></td>
-  </tr>
-  <tr>
-    <td><strong>Proveedor: </strong><?php echo $this->orden->pROVEEDOR->NOMBRE; ?></td>
-    <td><strong>Condicion de Pago: </strong><?php echo $this->orden->cONDICIONPAGO->DESCRIPCION; ?></td>
-  </tr>
-  <tr>
-    <td><strong>Prioridad: </strong><?php echo OrdenCompra::model()->prioridad($this->orden->PRIORIDAD); ?></td>
-    <td><strong>Estado:</strong><?php echo OrdenCompra::model()->estado($this->orden->ESTADO); ?></td>
-  </tr>
-  <tr>
-    <td colspan="2" align="center" valign="middle"><p>&nbsp;</p>      <p><?php echo $content; ?></p>
-    <p>&nbsp;</p></td>
-  </tr>
-  <tr>
-    <td colspan="2"><strong>Observaciones:</strong></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-</table>
+     
             
-            
-            
-            
+<div class="borde"> <strong>Observaciones:</strong> <p>&nbsp;</p> </div>
             
             
             
