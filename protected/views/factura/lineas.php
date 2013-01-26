@@ -282,7 +282,7 @@
                     <?php $this->darBotonBuscar('#articulo'); ?>
             </td>
             <td>
-                 <?php echo CHtml::textField('Articulo_desc','',array('disabled'=>true,'size'=>18)); ?>
+                 <?php echo CHtml::textField('Articulo_desc','',array('disabled'=>true,'size'=>16)); ?>
            </td>
            <td>
                <table style="margin-left: -100px;margin-top:-4px;">
