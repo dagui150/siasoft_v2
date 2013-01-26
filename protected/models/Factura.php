@@ -187,6 +187,7 @@ class Factura extends CActiveRecord
 			'cLIENTE' => array(self::BELONGS_TO, 'Cliente', 'CLIENTE'),
 			'cONDICIONPAGO' => array(self::BELONGS_TO, 'CodicionPago', 'CONDICION_PAGO'),
 			'nIVELPRECIO' => array(self::BELONGS_TO, 'NivelPrecio', 'NIVEL_PRECIO'),
+			'cONSECUTIVO' => array(self::BELONGS_TO, 'ConsecutivoFa', 'CONSECUTIVO'),
 			'facturaLineas' => array(self::HAS_MANY, 'FacturaLinea', 'FACTURA'),
 		);
 	}
