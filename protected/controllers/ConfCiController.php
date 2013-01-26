@@ -79,6 +79,8 @@ class ConfCiController extends Controller
 			$model->EXIST_DISPONIBLE=$_POST['ConfCi']['EXIST_DISPONIBLE'];
                         $model->EXIST_REMITIDA=$_POST['ConfCi']['EXIST_REMITIDA'];
                         $model->EXIST_RESERVADA=$_POST['ConfCi']['EXIST_RESERVADA'];
+                        $model->EXIST_CUARENTENA=$_POST['ConfCi']['EXIST_CUARENTENA'];
+                        $model->EXIST_VENCIDA=$_POST['ConfCi']['EXIST_VENCIDA'];
                         
                         if($model->ASISTENCIA_AUTOMAT == true){
                                 $model->EAN13_REGLA_LOCAL=$_POST['ConfCi']['EAN13_REGLA_LOCAL'].''.$_POST['PRODUCTO_EAN13'];

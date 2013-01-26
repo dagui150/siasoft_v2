@@ -25,12 +25,6 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1>Administrar Retenciones</h1>
-<?php 
-if (isset($_GET['men'])){
-    $this->mensaje($_GET['men']);
-}
-?>
-<div id="mensaje"></div>
 <div align="right">
     <?php $this->darBotonPdfExcel(array('retencion/excel')); ?>
     <?php $this->darBotonPdfExcel(array('retencion/pdf'), false, 'PDF', 'danger'); ?>
@@ -62,8 +56,7 @@ if (isset($_GET['men'])){
 		*/
 		array(
                     'class'=>'bootstrap.widgets.TbButtonColumn',
-                    'htmlOptions'=>array('style'=>'width: 50px'),
-                    'afterDelete'=>$this->mensajeBorrar(),
+                    'template'=>'{view}',
 		),
 	),
 )); ?>

@@ -1,6 +1,6 @@
 <?php $this->widget('tlbExcelView', array(
     'id'                   => 'some-grid',
-    'dataProvider'         => $model->search(),
+    'dataProvider'         => $model->search('ACTIVO="S"'),
     'grid_mode'            => 'export', // Same usage as EExcelView v0.33
     'title'                => 'Bodega ' . date('d-m-Y'),
     'creator'              => '',

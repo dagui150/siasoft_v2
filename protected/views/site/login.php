@@ -1,14 +1,19 @@
 <?php
 $this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
-	'Login',
-);
 
 ?>
 <h1>Ingreso al sistema</h1>
 <div id = "login" style="margin-left: -92px; margin-top:23px;">
 	
-
+        <?php 
+            $this->widget('bootstrap.widgets.TbAlert', array(
+                'block'=>true, // display a larger alert block?
+                'fade'=>true, // use transitions?
+                'closeText'=>'&times;',
+                'htmlOptions'=>array('style'=>'margin-left:82px; width:240px;')
+            ));
+        ?>
+    
 	<div class="form">
 	<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		'id'=>'login-form',

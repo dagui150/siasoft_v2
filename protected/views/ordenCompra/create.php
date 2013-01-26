@@ -13,4 +13,4 @@ $this->menu=array(
 
 <h1>Crear OrdenCompra</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model, 'config'=>$config, 'proveedor'=>$proveedor, 'linea'=>$linea, 'articulo' => $articulo, 'solicitudLinea'=>$solicitudLinea,)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'config'=>$config, 'proveedor'=>$proveedor, 'linea'=>$linea, 'articulo' => $articulo, 'solicitudLinea'=>$solicitudLinea, 'ruta'=>$ruta, 'ruta2'=>$ruta2)); ?>

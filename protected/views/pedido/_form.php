@@ -417,19 +417,13 @@
                     </table>
                 </td>
                 <td>
-            <table style="margin-left: -140px;">
+            <table style="margin-left: -115px;">
                         <tr>
                             <td style="width: 315px">
                                 <?php echo $form->textFieldRow($model,'CLIENTE',array('size'=>18,'maxlength'=>20)); ?>
                             </td>
-                            <td style="width: 28px;padding-top:11px;">
-                                <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                  'type'=>'info',
-                                  'size'=>'mini',
-                                  'url'=>'#cliente',
-                                  'icon'=>'search',
-                                  'htmlOptions'=>array('data-toggle'=>'modal'),
-                            )); ?>
+                            <td style="width: 28px;">
+                                <?php $this->darBotonBuscar('#cliente'); ?>
                             </td>
                             <td>
                                 <?php echo CHtml::textField('Cliente_desc','',array('disabled'=>true,'size'=>31)); ?>
@@ -451,7 +445,7 @@
                             </td>
                             <td rowspan="2" colspan="2">
                                   <span style="background-color:#EEEEEE;line-height:20px;text-align:center; text-shadow:#FFFFFF 0 1px 0;padding-left:5px;padding-top:9px;width:26px;height:28px;margin-top:57px;float:left;font-size: 42px;border:1px solid #CCCCCC;">$</span>
-                                  <?php echo CHtml::textField('calculos','0',array('disabled'=>true,'style'=>'width:254px;height:40px;font-size: 34px;margin-top:56px;text-align:right;'));?>
+                                  <?php echo CHtml::textField('calculos','0',array('disabled'=>true,'style'=>'width: 221px !important;height:31px;font-size: 34px;margin-top:56px;text-align:right;'));?>
                             </td>
                         </tr>
                         <tr>

@@ -204,7 +204,7 @@ class ExistenciaBodega extends CActiveRecord
                 $conf=ConfCi::model()->find();
 		return array(
                     'defaults'=>array(
-                            'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
+                            'class'=>'application.components.FormatBehavior',
                             'format'=>'db',
                             'formats'=> array(
                                    'EXISTENCIA_MINIMA'=>'#0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 

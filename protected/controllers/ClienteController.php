@@ -81,6 +81,11 @@ class ClienteController extends Controller
                         $model->UBICACION_GEOGRAFICA2 = ($_POST['Cliente']['UBICACION_GEOGRAFICA2'] != '') ? $_POST['Cliente']['UBICACION_GEOGRAFICA2'] : NULL;
                         $model->ACTIVO = 'S';
                         
+                        $model->INTERES_CORRIENTE = $_POST['Cliente']['INTERES_CORRIENTE'];
+                        $model->INTERES_MORA = $_POST['Cliente']['INTERES_MORA'];
+                        $model->DESCUENTO = $_POST['Cliente']['DESCUENTO'];
+                        $model->LIMITE_CREDITO = $_POST['Cliente']['LIMITE_CREDITO'];
+                        
 			if($model->save()){
                             $this->redirect(array('admin'));                            
                         }

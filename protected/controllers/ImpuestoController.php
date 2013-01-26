@@ -43,10 +43,12 @@ class ImpuestoController extends Controller
 		if(isset($_POST['Impuesto']))
 		{
 			$model2->attributes=$_POST['Impuesto'];
+                        $model2->PROCENTAJE = Controller::unformat($_POST['Impuesto']['PROCENTAJE']);
 			if($model2->save()){
 				//$this->redirect(array('admin'));
                             $this->redirect(array('admin&men=S003'));
                         } else {
+                            $model2->attributes = $_POST['Impuesto'];
                             $this->redirect(array('admin&men=E003'));
                         }
 		}
@@ -71,10 +73,12 @@ class ImpuestoController extends Controller
 		if(isset($_POST['Impuesto']))
 		{
 			$model2->attributes=$_POST['Impuesto'];
+                        $model2->PROCENTAJE = Controller::unformat($_POST['Impuesto']['PROCENTAJE']);
 			if($model2->save()){
 				//$this->redirect(array('admin'));
                             $this->redirect(array('admin&men=S002'));
                         } else {
+                            $model2->attributes = $_POST['Impuesto'];
                             $this->redirect(array('admin&men=E002'));
                         }
 		}

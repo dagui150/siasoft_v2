@@ -4,6 +4,7 @@
     
     function inicio(){ 
         $('#DocumentoInvLinea_TIPO_TRANSACCION').change(function (){
+            $('#DocumentoInvLinea_SIGNO_0').click();
             $('#signo').slideUp('slow');
             $.getJSON('<?php echo $this->createUrl('agregarlinea'); ?>&tipo='+$(this).val(),
                 function(data){
@@ -531,13 +532,13 @@
             </tr>
             <tr>
                 <td>
-                    <span id="signo" style="display: none"><?php echo $form->radioButtonListRow($modelLi,'SIGNO',array(''=>'+','-'=>'-'))?></span>
+                    <span id="signo" style="display: none"><?php echo $form->radioButtonListRow($modelLi,'SIGNO',array('+'=>'+','-'=>'-'))?></span>
                 </td>
             </tr>
             <tr>
                  <td>
                         <div align="left" style="width: 120px;">
-                                <?php echo $form->textFieldRow($modelLi,'CANTIDAD',array('size'=>13,'maxlength'=>28)); ?>
+                                <?php echo $form->textFieldRow($modelLi,'CANTIDAD',array('size'=>13,'maxlength'=>28,'class'=>'decimal')); ?>
                         </div>
                 </td>
                 <td>
@@ -548,7 +549,7 @@
            </tr>
            <tr>
                  <td colspan="2">
-                     <span style="margin-top: -15;"><?php echo $form->textFieldRow($modelLi,'COSTO_UNITARIO',array('maxlength'=>28)); ?></span>
+                     <span style="margin-top: -15;"><?php echo $form->textFieldRow($modelLi,'COSTO_UNITARIO',array('maxlength'=>28,'class'=>'decimal')); ?></span>
                  </td>
            </tr>
 

@@ -128,7 +128,7 @@ class Articulo extends CActiveRecord
                 $conf=ConfCi::model()->find();
 		return array(
                         'defaults'=>array(
-                           'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
+                           'class'=>'application.components.FormatBehavior',
                            'formats'=> array(
                                    'EXISTENCIA_MINIMA'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
                                    'EXISTENCIA_MAXIMA'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
@@ -144,6 +144,7 @@ class Articulo extends CActiveRecord
                                    'PRECIO_BASE'=>'###,##0.'.str_repeat('0',$conf->COSTOS_DEC),
                             ),
                         ),
+                    
                         
                         'CTimestampBehavior' => array(
                              'class' => 'zii.behaviors.CTimestampBehavior',
@@ -475,9 +476,11 @@ class Articulo extends CActiveRecord
                     $cantTotal = 0;
                     
                     foreach($transacciones as $datos){
+                        
                         $costoTotal += ($datos->CANTIDAD * $datos->COSTO_UNITARIO);
                         $cantTotal += $datos->CANTIDAD;
                     }
+                    $cantTotal = $cantTotal != 0 ? $cantTotal : 1;
                     $costoFinal = $costoTotal/$cantTotal;
                     Articulo::model()->updateByPk($id, array('COSTO_PROMEDIO'=>$costoFinal));
                     

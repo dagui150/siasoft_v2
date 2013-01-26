@@ -207,8 +207,8 @@ class ConsecutivoCiController extends Controller
                             }
                             
                             if($model2->TODOS_USUARIOS == 'N'){
-                                if(isset($_POST['Usuarios'])){
-                                    foreach ($_POST['Usuarios'] as $datos){
+                                if(isset($_POST['CrugeUserModel'])){
+                                    foreach ($_POST['CrugeUserModel'] as $datos){
                                          $conUsuario = new ConsecCiUsuario;
                                          $conUsuario->CONSECUTIVO_CI = $_POST['ConsecutivoCi']['ID'];
                                          $conUsuario->USUARIO = $datos['USERNAME'];

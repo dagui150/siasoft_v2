@@ -137,7 +137,7 @@ if (isset($_GET['men'])){
 			 //'header'=>'Bodegas',
 			 'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
 			 //'labelExpression'=>'$data->ID',
-			 'urlExpression'=>'CController::createUrl("/SolicitudOc/formatoPDF", array("id"=>$data->SOLICITUD_OC))',
+			 'urlExpression'=>'Yii::app()->getController()->createUrl("/SolicitudOc/formatoPDF", array("id"=>$data->SOLICITUD_OC))',
 			 'htmlOptions'=>array('style'=>'text-align:center;'),
 			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),
                 ),

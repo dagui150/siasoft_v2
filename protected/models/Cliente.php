@@ -91,10 +91,10 @@ class Cliente extends CActiveRecord
 			array('CLIENTE, NOMBRE, TELEFONO1,DIRECCION_COBRO', 'required','on'=>'insert'),
 			array('CLIENTE, NOMBRE, TELEFONO1,DIRECCION_COBRO,UBICACION_GEOGRAFICA1,UBICACION_GEOGRAFICA2', 'required','on'=>'factura','message'=>'{attribute} Cliente no puede ser nulo.'),
 			array('TELEFONO1, TELEFONO2,FAX', 'numerical', 'integerOnly'=>true),
-			array('INTERES_CORRIENTE, INTERES_MORA, DESCUENTO, LIMITE_CREDITO,', 'numerical'),
+			array('INTERES_CORRIENTE, INTERES_MORA, DESCUENTO, LIMITE_CREDITO,', 'numerical','numberPattern' => '/^\s*[-+]?(\d{1,3}\.*\,*)*?\s*$/'),
 			array('REGIMEN, TIPO_PRECIO', 'length', 'max'=>12),
 			array('IMPUESTO, CONDICION_PAGO, PAIS', 'length', 'max'=>4),
-			array('NIT', 'length', 'max'=>10),
+			array('NIT', 'length', 'max'=>12),
 			array('EMAIL', 'email'),
 			array('UBICACION_GEOGRAFICA1', 'length', 'max'=>2),
 			array('UBICACION_GEOGRAFICA2', 'length', 'max'=>5),
@@ -113,23 +113,32 @@ class Cliente extends CActiveRecord
 	}
 
         
-        public function behaviors()
-	{
-		return array(
-			'CTimestampBehavior' => array(
-				'class' => 'zii.behaviors.CTimestampBehavior',
-				'createAttribute' => 'CREADO_EL',
-				'updateAttribute' => 'ACTUALIZADO_EL',
-				'setUpdateOnCreate' => true,
-			),
-			
-			'BlameableBehavior' => array(
-				'class' => 'application.components.BlameableBehavior',
-				'createdByColumn' => 'CREADO_POR',
-				'updatedByColumn' => 'ACTUALIZADO_POR',
-			),
-		);
-	}
+        public function behaviors() {
+        $conf = ConfAs::model()->find(); //PORCENTAJE_DEC
+        $conf2 = ConfFa::model()->find(); //DECIMALES_PRECIO
+        return array(
+            'defaults' => array(
+                'class' => 'application.components.FormatBehavior',
+                'formats' => array(
+                    'INTERES_CORRIENTE' => '###,##0.' . str_repeat('0', $conf->PORCENTAJE_DEC),
+                    'INTERES_MORA' => '###,##0.' . str_repeat('0', $conf->PORCENTAJE_DEC),
+                    'DESCUENTO' => '###,##0.' . str_repeat('0', $conf->PORCENTAJE_DEC),
+                    'LIMITE_CREDITO' => '###,##0.' . str_repeat('0', $conf2->DECIMALES_PRECIO)
+                ),
+            ),
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'CREADO_EL',
+                'updateAttribute' => 'ACTUALIZADO_EL',
+                'setUpdateOnCreate' => true,
+            ),
+            'BlameableBehavior' => array(
+                'class' => 'application.components.BlameableBehavior',
+                'createdByColumn' => 'CREADO_POR',
+                'updatedByColumn' => 'ACTUALIZADO_POR',
+            ),
+        );
+    }
         
 	/**
 	 * @return array relational rules.

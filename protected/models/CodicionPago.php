@@ -46,7 +46,7 @@ class CodicionPago extends CActiveRecord
 		return array(
 			array('ID, DESCRIPCION, DIAS_NETO', 'required'),
                         array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'CodicionPago','allowEmpty'=>false),
-			array('DIAS_NETO', 'numerical', 'integerOnly'=>true),
+			array('DIAS_NETO', 'numerical', 'integerOnly'=>true, 'integerPattern' => '/^\s*[-+]?(\d{1,3}\.*)*?\s*$/'),
 			array('ID', 'length', 'max'=>4),
 			array('DESCRIPCION', 'length', 'max'=>64),
 			array('ACTIVO', 'length', 'max'=>1),
@@ -148,7 +148,14 @@ class CodicionPago extends CActiveRecord
 	
 	public function behaviors()
 	{
+                
 		return array(
+                        'defaults'=>array(
+                           'class'=>'application.components.FormatBehavior',
+                           'formats'=> array(
+                                   'DIAS_NETO'=>'###,###', 
+                            ),
+                        ),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',

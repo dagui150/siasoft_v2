@@ -1,9 +1,6 @@
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.validate.js"></script>
 <script>
-$.validator.setDefaults({
-	//submitHandler: function() { alert("submitted!"); }
-});
-$().ready(function() {
+$(document).ready(function() {
 	// validate the comment form when it is submitted
 	$("#solicitud-oc-form").validate();
         $('.edit').live('click',function(){
@@ -18,24 +15,17 @@ $().ready(function() {
         });
         $(function() {                    
             $( "#SolicitudOcLinea_FECHA_REQUERIDA" ).datepicker({dateFormat: 'yy-mm-dd'});
-			$.datepicker.setDefaults($.datepicker.regional['es']);
+            $.datepicker.setDefaults($.datepicker.regional['es']);
         });
-});
-</script>
-<script>
-$(document).ready(function(){
-  $("#solicitud-oc-form").submit(function() {
-    var x = $("#contadorCrea").val();
-      if (x==0) {
-        alert("Debe ingresar minimo una linea");
-        return false;
-      } else
-          return true;
-    });
+        if($('#readonly').val() == 'true'){
+            $('#oculta-cancela').hide('fast');
+            $('#alert-cancela').show('fast');
+        }
 });
 </script>
 <?php
     ($model->ESTADO != 'C') ? $readonly = false : $readonly = true;
+    echo CHtml::hiddenField('readonly', ($model->ESTADO != 'C') ? 'false' : 'true');
 ?>
  <div class="form">
     
@@ -96,7 +86,9 @@ $(document).ready(function(){
                     $rubros .= '</div>';
          }
          else{
-             $rubros='Para usar esta opcion debes habilitarla en configuracion';
+             $rubros='<div id="alert-info" class="alert alert-info">
+                        <img src="'.Yii::app()->baseUrl.'/images/warning.png'.'" style="margin-right: 20px;" />Para usar esta opcion debes habilitarla en configuracion
+                      </div>';
          }
 ?>
     
@@ -118,11 +110,11 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-    'htmlOptions'=>array(
-        'style'=>'width:80px;vertical-align:top',
-        'disabled' => $readonly
-    ),  
-), true); 
+                    'htmlOptions'=>array(
+                        'style'=>'width:80px;vertical-align:top',
+                        'disabled' => $readonly
+                    ),  
+                ), true); 
                 
 		$tab2 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 		'attribute'=>'FECHA_REQUERIDA',
@@ -138,11 +130,11 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-    'htmlOptions'=>array(
-        'style'=>'width:80px;vertical-align:top',
-        'disabled' => $readonly
-    ),  
-), true); ?>
+                    'htmlOptions'=>array(
+                        'style'=>'width:80px;vertical-align:top',
+                        'disabled' => $readonly
+                    ),  
+                ), true); ?>
 
 <?php       
             if($model->SOLICITUD_OC == ''){
@@ -169,14 +161,16 @@ $(document).ready(function(){
                 $pestana = $this->renderPartial($render, array('form'=>$form, 'linea'=>$linea, 'items'=>$items, 'ruta2'=>$ruta2, 'model'=>$model, 'readonly'=>$readonly),true);
             }
 ?>
-    
+    <div id="alert-cancela" class="alert alert-warning" style="display: none">
+        <img src="<?php echo Yii::app()->baseUrl.'/images/warning.png'; ?>" style="margin-right: 20px;" />No se puede actualizar una solicitud en estado cancelada
+    </div>
     <table>
         <tr>
             <td>
         <div class="row">
 		<?php echo $form->labelEx($model,'SOLICITUD_OC'); ?>
 		<?php echo $form->textField($model,'SOLICITUD_OC',array('size'=>10,'maxlength'=>10, 'readonly'=>true, 'value' => $retorna)); ?>
-		<?php echo $form->error($model,'SOLICITUD_OC'); ?>
+		<?php echo $form->error($model,'SOLICITUD_OC'); ?>                
 	</div> 
             </td>
             <td>
@@ -275,8 +269,7 @@ $(document).ready(function(){
                     .$form->labelEx($model,'ESTADO')
                     .$form->textField($model,'ESTADO', array('size'=>1, 'disabled'=>true))
                     .$form->error($model,'ESTADO')
-                    .'</div>',),
-                
+                    .'</div>',),                
                     array('label'=>'Campos adicionales', 'content'=>$rubros),
                 
             ),

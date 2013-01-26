@@ -119,9 +119,11 @@ class TipoTarjetaController extends Controller
 
             public function actionExcel()
 	{
-		$model= TipoTarjeta::model()->findAll('ACTIVO="S"');
-                Yii::app()->request->sendFile('Tipos de Tarjeta.xls', 
-                        $this->renderPartial('excel',array('model'=>$model),true));
+		$model = new TipoTarjeta('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
 	}
         public function actionPdf(){
             

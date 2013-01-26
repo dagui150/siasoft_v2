@@ -12,10 +12,10 @@ class OrdenCompraController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(
-				array('CrugeAccessControlFilter'),
-			);
-    }
+            return array(
+                array('CrugeAccessControlFilter'),
+            );
+        }
 
 	/**
 	 * Displays a particular model.
@@ -63,14 +63,46 @@ class OrdenCompraController extends Controller
             $lineas = new OrdenCompraLinea;
             $this->layout = ConfCo::model()->find()->fORMATOORDEN->pLANTILLA->RUTA;
             $footer = '<table width="100%">
-                        <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>
-                            <td align="center" valign="middle"><span class="piePagina"><b>Generado el:</b> ' . date('Y/m/d') . '</span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" align="center" valign="middle">Desarrollado por Tramasoft Soluciones TIC - <a href="http://www.tramasoft.com">www.tramasoft.com</a></td>
-                        </tr>
+                    <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>
+                        <td align="center" valign="middle"><span class="piePagina"><b>Generado el:</b> ' . date('Y/m/d') . '</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center" valign="middle">Desarrollado por Tramasoft Soluciones TIC - <a href="http://www.tramasoft.com">www.tramasoft.com</a></td>
+                    </tr>
+                    </table>';
+            
+            $compania = Compania::model()->find();
+            if ($compania->LOGO != '') {
+                $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/" . $compania->LOGO, 'Logo');
+            } else {
+                $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/default.jpg", 'Logo');
+            }
+            $header = '<table width="100%" align="center">
+                            <tr>
+                                <td width="26%" rowspan="4" align="left" valign="middle">'.$logo.'
+                                </td>
+                                <td width="41%" align="center">'.$compania->NOMBRE_ABREV.'</td>
+                                <td width="33%" rowspan="2" align="right" valign="middle">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="center"><b>Nit:</b> '.$compania->NIT.'</td>
+                            </tr>
+                            <tr>
+                                <td align="center">Direccion  '.$compania->DIRECCION.'</td>
+
+                                <td align="right" valign="middle"><strong>Número:</strong></td>
+                            </tr>
+                            <tr>
+                                <td align="center"><b>Tels:</b> '.$compania->TELEFONO1.'-'.$compania->TELEFONO2.'</td>
+                                <td width="33%" align="right" valign="middle">'.$id.'</td>
+                            </tr>
                         </table>';
-            $mPDF1 = Yii::app()->ePdf->mpdf();
+            //'',array(377,279),0,'',15,15,16,16,9,9, 'P'
+            $mPDF1 = Yii::app()->ePdf->mpdf('','A4',0,'','15','15','30','','5','', 'P');
+            //$mPDF1->w=210;   //manually set width
+            //$mPDF1->h=148.5; //manually set height
+            $mPDF1->SetHTMLHeader($header);
+            $mPDF1->SetHTMLFooter($footer);
             $mPDF1->WriteHTML($this->render('pdf', array('model' => $this->orden, 'model2' => $lineas), true));
             $mPDF1->SetHTMLFooter($footer);
 
@@ -94,39 +126,15 @@ class OrdenCompraController extends Controller
         public function actionCargarArticulo(){
             
             $item_id = $_GET['buscar'];
-            $bus = Articulo::model()->findByPk($item_id);
-            if($bus){
-            $bus2 = UnidadMedida::model()->find('ID = "'.$bus->UNIDAD_ALMACEN.'"');
-            $bus3 = UnidadMedida::model()->findAll('TIPO = "'.$bus2->TIPO.'" ORDER BY NOMBRE asc');
-            
-            if ($bus->IMPUESTO_COMPRA == NULL){
-                $bus4 = '0';
-            }
-            else{
-                $bus4 = Impuesto::model()->find('ID = "'.$bus->IMPUESTO_COMPRA.'"');
-                $bus4 = $bus4->PROCENTAJE;
-            }
+            $bus = Articulo::model()->findByPk($item_id,  'ACTIVO = "S"');
             $res = array(
                  'DESCRIPCION'=>$bus->NOMBRE,
-                 'UNIDAD'=>$bus3,
+                 'UNIDAD' => $bus->UNIDAD_ALMACEN,
+                 'UNIDAD_NOMBRE' => $bus->uNIDADALMACEN->NOMBRE,
+                 'UNIDADES' => CHtml::listData(UnidadMedida::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>$bus->uNIDADALMACEN->TIPO)),'ID','NOMBRE'),
                  'ID'=>$bus->ARTICULO,
-                 'IMPUESTO'=>$bus4,
-                 'ALMACEN'=>$bus->UNIDAD_ALMACEN,                  
-            );
-           
-             $bus2= '';
-             $bus3= '';
-            
-            }
-            else{
-                $res = array(
-                 'DESCRIPCION'=>'Ninguno',
-                 'UNIDAD'=>'',
                 );
-            }
              echo CJSON::encode($res);
-            
-            
         }
         
         public function actionCargarLineas (){
@@ -474,12 +482,14 @@ class OrdenCompraController extends Controller
 		$model=new OrdenCompra;
                 $proveedor = new Proveedor;
                 $linea = new OrdenCompraLinea;                
-                $solicitudLinea = new SolicitudOcLinea3;
+                $solicitudLinea = new SolicitudOcLinea;
                 $articulo = new Articulo;
                 $config = ConfCo::model()->find();
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
                 $i = 1;
+                $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
+                $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
 
 		if(isset($_POST['OrdenCompra']))
 		{
@@ -545,6 +555,8 @@ class OrdenCompraController extends Controller
                         'linea' => $linea,
                         'solicitudLinea'=>$solicitudLinea,
                         'articulo' => $articulo,
+                        'ruta' => $ruta,
+                        'ruta2' => $ruta2,
 		));
 	}
         

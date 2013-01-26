@@ -310,10 +310,10 @@
                                 array(
                                     'label'=>'Condiciones',
                                     'content'=>
-                                        $form->textFieldRow($model,'INTERES_CORRIENTE',array('size'=>6,'maxlength'=>28,'append'=>'%'))
-                                        .$form->textFieldRow($model,'INTERES_MORA',array('size'=>6,'maxlength'=>28,'append'=>'%'))
-                                        .$form->textFieldRow($model,'DESCUENTO',array('size'=>6,'maxlength'=>28,'append'=>'%'))
-                                        .$form->textFieldRow($model,'LIMITE_CREDITO',array('size'=>14,'maxlength'=>28,'prepend'=>'$'))
+                                        $form->textFieldRow($model,'INTERES_CORRIENTE',array('size'=>6,'maxlength'=>28,'append'=>'%','class'=>'decimal'))
+                                        .$form->textFieldRow($model,'INTERES_MORA',array('size'=>6,'maxlength'=>28,'append'=>'%','class'=>'decimal'))
+                                        .$form->textFieldRow($model,'DESCUENTO',array('size'=>6,'maxlength'=>28,'append'=>'%','class'=>'decimal'))
+                                        .$form->textFieldRow($model,'LIMITE_CREDITO',array('size'=>14,'maxlength'=>28,'prepend'=>'$','class'=>'decimal'))
                                     ,
                                ),
                                array(

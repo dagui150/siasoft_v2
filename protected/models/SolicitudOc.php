@@ -49,7 +49,7 @@ class SolicitudOc extends CActiveRecord
          */
         public $UNIDAD;
         /**
-         * Cantidad para la linea de la factura
+         * Cantidad para la fecha
          * @var date
          */
         public $FECHA_LINEA_REQUERIDA;

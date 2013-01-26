@@ -15,6 +15,8 @@
  * @property string $EXIST_DISPONIBLE
  * @property string $EXIST_REMITIDA
  * @property string $EXIST_RESERVADA
+ * @property string $EXIST_CUARENTENA
+ * @property string $EXIST_VENCIDA
  * @property string $INTEGRACION_CONTA
  * @property string $USA_CODIGO_BARRAS
  * @property integer $LINEAS_MAX_TRANS
@@ -28,7 +30,6 @@
  * @property string $EAN8_REGLA_LOCAL
  * @property string $UCC12_REGLA_LOCAL
  * @property string $PRIORIDAD_BUSQUEDA
- * @property string $FORMATO_IMPRESION
  * @property string $CREADO_POR
  * @property string $CREADO_EL
  * @property string $ACTUALIZADO_POR
@@ -65,15 +66,14 @@ class ConfCi extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('COSTOS_DEC, EXISTENCIAS_DEC, PESOS_DEC, COSTO_FISCAL, COSTO_INGR_DEFAULT, UNIDAD_PESO, UNIDAD_VOLUMEN, INTEGRACION_CONTA, USA_CODIGO_BARRAS, LINEAS_MAX_TRANS, PRIORIDAD_BUSQUEDA,FORMATO_IMPRESION', 'required'),
-			array('ID, COSTOS_DEC, EXISTENCIAS_DEC, PESOS_DEC, LINEAS_MAX_TRANS,EAN13_REGLA_LOCAL,EAN8_REGLA_LOCAL,UCC12_REGLA_LOCAL,FORMATO_IMPRESION', 'numerical', 'integerOnly'=>true),
+			array('COSTOS_DEC, EXISTENCIAS_DEC, PESOS_DEC, COSTO_FISCAL, COSTO_INGR_DEFAULT, UNIDAD_PESO, UNIDAD_VOLUMEN, INTEGRACION_CONTA, USA_CODIGO_BARRAS, LINEAS_MAX_TRANS, PRIORIDAD_BUSQUEDA', 'required'),
+			array('ID, COSTOS_DEC, EXISTENCIAS_DEC, PESOS_DEC, LINEAS_MAX_TRANS,EAN13_REGLA_LOCAL,EAN8_REGLA_LOCAL,UCC12_REGLA_LOCAL', 'numerical', 'integerOnly'=>true),
 			array('COSTO_FISCAL,', 'length', 'max'=>11),
 			array('COSTO_INGR_DEFAULT, INTEGRACION_CONTA, USA_CODIGO_BARRAS, USA_UNIDADES_DIST, ASISTENCIA_AUTOMAT, USA_CODIGO_EAN13, USA_CODIGO_EAN8, USA_CODIGO_UCC12, USA_CODIGO_UCC8, PRIORIDAD_BUSQUEDA', 'length', 'max'=>1),
 			array('UNIDAD_PESO, UNIDAD_VOLUMEN, UCC12_REGLA_LOCAL', 'length', 'max'=>6),
 			array('EAN13_REGLA_LOCAL', 'length', 'max'=>18),
 			array('EAN8_REGLA_LOCAL', 'length', 'max'=>3),
 			array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
-                        array('FORMATO_IMPRESION', 'numerical', 'integerOnly'=>true),
 			
 			array('EAN13_REGLA_LOCAL', 'miValidacion1'),
 			array('EAN8_REGLA_LOCAL', 'miValidacion2'),
@@ -137,7 +137,6 @@ class ConfCi extends CActiveRecord
 			'cOSTOFISCAL' => array(self::BELONGS_TO, 'MetodoValuacionInv', 'COSTO_FISCAL'),
                         'uNIDADPESO' => array(self::BELONGS_TO, 'UnidadMedida', 'UNIDAD_PESO'),
                         'uNIDADVOLUMEN' => array(self::BELONGS_TO, 'UnidadMedida', 'UNIDAD_VOLUMEN'),
-                        'fORMATOIMPRESION' => array(self::BELONGS_TO,'FormatoImpresion', 'FORMATO_IMPRESION')
 		);
 	}
 
@@ -158,6 +157,8 @@ class ConfCi extends CActiveRecord
 			'EXIST_DISPONIBLE' => 'Disponible',
                         'EXIST_REMITIDA' => 'Remitida',
                         'EXIST_RESERVADA' => 'Reservada',
+                        'EXIST_CUARENTENA' => 'Cuarentena',
+                        'EXIST_VENCIDA' => 'Vencida',
 			'INTEGRACION_CONTA' => 'Integración Contable',
 			'USA_CODIGO_BARRAS' => 'Usa Código de Barras',
 			'LINEAS_MAX_TRANS' => 'Número Max Líneas:',
@@ -171,7 +172,6 @@ class ConfCi extends CActiveRecord
 			'EAN8_REGLA_LOCAL' => '',
 			'UCC12_REGLA_LOCAL' => '',
 			'PRIORIDAD_BUSQUEDA' => 'Prioridad:',
-                        'FORMATO_IMPRESION' => 'Formato Impresion',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',
 			'ACTUALIZADO_POR' => 'Actualizado Por',

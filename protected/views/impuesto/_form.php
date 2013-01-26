@@ -28,7 +28,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <?php echo $form->textFieldRow($model2,'PROCENTAJE',array('maxlength'=>28, 'prepend'=>'%')); ?>
+                            <?php echo $form->textFieldRow($model2,'PROCENTAJE',array('maxlength'=>28, 'prepend'=>'%','class'=>'decimal')); ?>
                         </td>
                         <td>
                         </td>

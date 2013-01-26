@@ -51,7 +51,7 @@ class UnidadMedida extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('NOMBRE, ABREVIATURA, TIPO, ACTIVO,UNIDAD_BASE, EQUIVALENCIA', 'required'),
-			array('EQUIVALENCIA', 'numerical',),
+			array('EQUIVALENCIA', 'numerical','numberPattern' => '/^\s*[-+]?(\d{1,3}\.*\,*)*?\s*$/'),
 			array('NOMBRE', 'length', 'max'=>64),
 			array('ABREVIATURA', 'length', 'max'=>5),
 			array('TIPO, ACTIVO', 'length', 'max'=>1),
@@ -74,7 +74,16 @@ class UnidadMedida extends CActiveRecord
         }
 	public function behaviors()
 	{
+		$conf=ConfCi::model()->find();
 		return array(
+                        'defaults'=>array(
+                           'class'=>'application.components.FormatBehavior',
+                           'formats'=> array(
+                                   'EQUIVALENCIA'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   
+                            ),
+                        ),
+                        
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',

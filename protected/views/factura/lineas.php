@@ -79,7 +79,7 @@
                     $('#campo_preciounitario_'+contador).hide('fast');
                     //volver a calcular el monto descuento
                     total = parseFloat($(this).val(), 10) * parseFloat($('#LineaNuevo_'+contador+'_CANTIDAD').val(), 10);
-                    descuento = (total * parseFloat($('#LineaNuevo_'+contador+'_PORC_DESCUENTO').val(), 10))/100;
+                    descuento = (total * parseFloat($('#LineaNuevo_'+contador+'_PORC_DESCUENTO').val()))/100;
                     $('#LineaNuevo_'+contador+'_MONTO_DESCUENTO').val(descuento);
                         
                      //calcular el total
@@ -87,7 +87,7 @@
                     $('#preciounitario_'+contador).show('fast');
                 break;
                 case 'porcdescuento':
-                    $('#porcdescuento_'+contador).text($(this).val()+' %');
+                    $('#porcdescuento_'+contador).text($(this).val());
                     $('#campo_porcdescuento_'+contador).hide('fast'); 
                     precio = parseFloat($('#LineaNuevo_'+contador+'_PRECIO_UNITARIO').val(), 10);
                     total = precio * parseFloat($('#LineaNuevo_'+contador+'_CANTIDAD').val(), 10);
@@ -140,7 +140,7 @@
                     function(data){
                          impuesto = data.IMPUESTO;
                          $('#unidad_'+contador).text($('#NOMBRE_UNIDAD').val());
-                        $('#porc_impuesto_'+contador).text(impuesto+" %");
+                        $('#porc_impuesto_'+contador).text(impuesto);
                         $('#'+model+'_'+contador+'_PORC_IMPUESTO').val(impuesto);
                         
                          $('select[id$='+model+'_'+contador+'_UNIDAD]>option').remove();
@@ -227,8 +227,6 @@
                     break
                 }
                 $('#'+span[x]+'_'+i).attr('id',span[x]+'_'+linea);
-                     
-                 
             }
             //CAMBIAR IDS Y NAMES DE LOS CAMPOS DE LAS LINEAS
             for(var y =0 ; y<=campos.length;y++){
@@ -243,7 +241,6 @@
             linea++;
         }
         calculoGranTotal(model);
-        
     });
     
     
@@ -266,16 +263,11 @@
         $('#articulo_'+contador).text(articulo);
         $('#descripcion_'+contador).text(descripcion);
         $('#cantidad_'+contador).text(cantidad);
-        $('#porcdescuento_'+contador).text(0+' %');
+        $('#porcdescuento_'+contador).text(0);
         $('#monto_descuento_'+contador).text(0);
   
-    } 
-        
-    
+    }
 });
-
-
-
 </script>
 <?php 
     /* @var $this FacturaController*/
@@ -296,7 +288,7 @@
                <table style="margin-left: -100px;margin-top:-4px;">
                    <tr>
                        <td style="width: 289px;">
-                            <?php echo $form->textFieldRow($model,'CANTIDAD',array('size'=>4,'tabindex'=>'8'));?>
+                            <?php echo $form->textFieldRow($model,'CANTIDAD',array('size'=>4,'tabindex'=>'8','class'=>'decimal'));?>
                        </td>
                    </tr>
                </table>
@@ -364,7 +356,7 @@
                                         </td>
                                         <td>
                                             <span id='cantidad_<?php echo '{0}';?>' class="cambiar"></span>
-                                            <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][CANTIDAD]','',array('size'=>4,'class'=>'blur')); ?></span>                                                                                                            
+                                            <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('LineaNuevo[{0}][CANTIDAD]','',array('size'=>4,'class'=>'blur decimal')); ?></span>                                                                                                            
                                         </td>
                                         <td>
                                             <span id='unidad_<?php echo '{0}';?>' class="cambiar"></span>
@@ -376,7 +368,7 @@
                                         </td>
                                         <td style="width: 74px;">
                                             <span id='preciounitario_<?php echo '{0}';?>' class="cambiar"></span>
-                                            <span id='campo_preciounitario_<?php echo '{0}';?>'style="display:none;" ><?php echo CHtml::textField('LineaNuevo[{0}][PRECIO_UNITARIO]','',array('size'=>10,'class'=>'blur')); ?></span>                                         
+                                            <span id='campo_preciounitario_<?php echo '{0}';?>'style="display:none;" ><?php echo CHtml::textField('LineaNuevo[{0}][PRECIO_UNITARIO]','',array('size'=>10,'class'=>'blur decimal')); ?></span>                                         
                                         </td>                                    
                                         <td style="width: 74px;">
                                             <span id='porcdescuento_<?php echo '{0}';?>' class="cambiar"></span>

@@ -34,6 +34,11 @@ function cargaProveedorGrilla (grid_id){
 }
 
 $(document).ready(function(){
+    $('.edit').live('click',function(){
+        $('#SPAN').val('');
+        $('#NAME').val($(this).attr('name'));
+        actualiza();
+    });
     $('#OrdenCompra_DIRECCION_EMBARQUE').val('<?php echo $config->DIRECCION_EMBARQUE; ?>');
     $('#OrdenCompra_DIRECCION_COBRO').val('<?php echo $config->DIRECCION_COBRO; ?>');
     $(".escritoProv").live("change", function (e) {
@@ -53,30 +58,9 @@ $(document).ready(function(){
     });
 });
 </script>
-<script>      
-        $(".calculoMonto").live("change", function(e){
-           
-           var porDesc = parseFloat($("#OrdenCompra_PORC_DESCUENTO").val());
-           var flete = parseFloat($("#OrdenCompra_MONTO_FLETE").val());
-           var seguro = parseFloat($("#OrdenCompra_MONTO_SEGURO").val());
-           var anticipo = parseFloat($("#OrdenCompra_MONTO_ANTICIPO").val());
-           var total = parseFloat($("#TotalMerc").val());
-           var impuesto = parseFloat($("#ImpVentas").val());
-           var descuento = total * porDesc / 100;          
-           var sumatoria = total - descuento + impuesto + flete + seguro;
-           var saldo = sumatoria - anticipo;
-                                
-           $("#MenosDescuento").val(descuento);           
-           $("#Flete").val(flete);           
-           $("#Seguro").val(seguro);           
-           $("#Anticipo").val(anticipo); 
-           $("#OrdenCompra_TOTAL_A_COMPRAR").val(sumatoria);
-           $("#Saldo").val(saldo);
-           
-        });        
-</script>
 <?php
-($model->ESTADO != 'C' && $model->ESTADO != 'E') ? $readonly = false : $readonly = true;
+    ($model->ESTADO != 'C' && $model->ESTADO != 'E') ? $readonly = false : $readonly = true;
+    echo CHtml::hiddenField('readonly', ($model->ESTADO != 'C' && $model->ESTADO != 'E') ? 'false' : 'true');
 ?>
 <div class="form">
 
@@ -258,13 +242,11 @@ $(document).ready(function(){
                 $bandera=$row['count(ORDEN_COMPRA)'];
                 $retorna .= str_pad($bandera, $longitud, "0", STR_PAD_LEFT);
               
-                $pestana = $this->renderPartial('lineas', array('form'=>$form, 'linea'=>$linea, 'model'=>$model),true);
+                $pestana = $this->renderPartial('lineas', array('form'=>$form, 'linea'=>$linea, 'model'=>$model, 'readonly'=>$readonly, 'ruta'=>$ruta, 'ruta2'=>$ruta2),true);
             }
             else{
                 $retorna = $model->ORDEN_COMPRA;
-                $pestana = $this->renderPartial('lineas', array('form'=>$form, 'linea'=>$linea, 'items'=>$items, 'model'=>$model),true);
-                
-                
+                $pestana = $this->renderPartial('lineas', array('form'=>$form, 'linea'=>$linea, 'items'=>$items, 'model'=>$model, 'readonly'=>$readonly, 'ruta'=>$ruta, 'ruta2'=>$ruta2),true);
             }
     ?>
 
@@ -274,13 +256,7 @@ $(document).ready(function(){
                 <td><?php echo $form->textFieldRow($model,'ORDEN_COMPRA',array('size'=>10,'maxlength'=>10, 'readonly' => true, 'value' => $retorna)); ?></td>
                 <td width="10%"><?php echo $form->textFieldRow($model,'PROVEEDOR',array('size'=>20,'maxlength'=>20, 'class'=>'escritoProv', 'readonly'=>$readonly)); ?></td>
                 <td width="25%"><?php echo CHtml::textField('ProvNombre2','', array('readonly' => true)); ?>
-                <?php $this->widget('bootstrap.widgets.TbButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#proveedor',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('data-toggle'=>'modal', 'disabled'=>$readonly),
-                    )); ?></td>
+                <?php $this->darBotonBuscar('#proveedor'); ?></td>
             </tr>
         </table>
    
@@ -436,45 +412,7 @@ $(document).ready(function(){
         </div>
  
 <?php $this->endWidget(); ?>
-    
- <?php 
-    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'articulo2')); ?>
- 
-	<div class="modal-body">
-                <a class="close" data-dismiss="modal">&times;</a>
-                <br>
-          <?php 
-            $this->widget('bootstrap.widgets.TbGridView', array(
-            'type'=>'striped bordered condensed',
-            'id'=>'articulo-grid2',
-            'template'=>"{items} {pager}",
-            'dataProvider'=>$articulo->search(),
-            'selectionChanged'=>'cargaArticuloGrilla2',
-            'filter'=>$articulo,
-            'columns'=>array(
-                array(  'name'=>'ARTICULO',
-                        'header'=>'Código Artículo',
-                        'htmlOptions'=>array('data-dismiss'=>'modal'),
-                        'type'=>'raw',
-                        'value'=>'CHtml::link($data->ARTICULO,"#")'
-                    ),
-                    'NOMBRE',
-                    'TIPO_ARTICULO',
-            ),
-    ));
-      ?>
-	</div>
-        <div class="modal-footer">
-
-            <?php $this->widget('bootstrap.widgets.TbButton', array(
-                'label'=>'Cerrar',
-                'url'=>'#',
-                'htmlOptions'=>array('data-dismiss'=>'modal'),
-            )); ?>
-        </div>
- 
-<?php $this->endWidget(); ?>
-    
+       
 <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'lineas')); ?>
     <div class="modal-body">
                 <a class="close" data-dismiss="modal">&times;</a>
@@ -507,6 +445,24 @@ $(document).ready(function(){
                 'htmlOptions'=>array('data-dismiss'=>'modal', 'onclick' => 'cargaSolicitud()'),
             )); ?>
         </div>
+    <?php $this->endWidget(); ?>
+    <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'nuevo')); ?>
+ 
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">&times;</a>
+		<h3>Línea</h3>
+		<p class="note">Los Campos con <span class="required">*</span> Son requeridos.</p>
+	</div>
+        <div id="form-lineas">
+            <?php  $this->renderPartial('modal', 
+                        array(
+                            'model'=>$model,
+                            'linea'=>$linea,
+                            'ruta'=>$ruta,
+                        )
+                    ); ?>
+        </div>
+ 
     <?php $this->endWidget(); ?>
     <?php echo CHtml::HiddenField('check',''); ?>
     <?php echo CHtml::HiddenField('contador', '0'); ?>

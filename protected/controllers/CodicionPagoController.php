@@ -41,6 +41,7 @@ class CodicionPagoController extends Controller
 		if(isset($_POST['CodicionPago']))
 		{
 			$model2->attributes=$_POST['CodicionPago'];
+                        $model2->DIAS_NETO = $_POST['CodicionPago']['DIAS_NETO'];
 			if($model2->save()){
 				//$this->redirect(array('admin'));
                             $this->redirect(array('admin&men=S003'));
@@ -69,6 +70,7 @@ class CodicionPagoController extends Controller
 		if(isset($_POST['CodicionPago']))
 		{
 			$model2->attributes=$_POST['CodicionPago'];
+                        $model2->DIAS_NETO = $_POST['CodicionPago']['DIAS_NETO'];
 			if($model2->save()){
 				//$this->redirect(array('admin'));
                             $this->redirect(array('admin&men=S002'));
@@ -153,6 +155,7 @@ class CodicionPagoController extends Controller
 		if(isset($_POST['CodicionPago']))
 		{
 			$model2->attributes=$_POST['CodicionPago'];
+                        $model2->DIAS_NETO = $_POST['CodicionPago']['DIAS_NETO'];
 			if($model2->save()){
 				//$this->redirect(array('admin'));
                             $this->redirect(array('admin&men=S003'));

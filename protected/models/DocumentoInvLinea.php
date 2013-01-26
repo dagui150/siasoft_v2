@@ -64,26 +64,82 @@ class DocumentoInvLinea extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('TIPO_TRANSACCION, BODEGA, ARTICULO, CANTIDAD, UNIDAD, COSTO_UNITARIO', 'required'),
-			array('CANTIDAD, COSTO_UNITARIO,', 'numerical', ),
+			array('CANTIDAD, COSTO_UNITARIO,', 'numerical', 'numberPattern' => '/^\s*[-+]?(\d{1,3}\.*\,*)*?\s*$/'),
 			array('DOCUMENTO_INV, ARTICULO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('TIPO_TRANSACCION, BODEGA, BODEGA_DESTINO', 'length', 'max'=>4),
 			array('TIPO_TRANSACCION_CANTIDAD, ACTIVO', 'length', 'max'=>1),
 			array('CANTIDAD, COSTO_UNITARIO', 'length', 'max'=>28),
+                                            
+			array('CANTIDAD', 'validarExistencias'),
+			array('UNIDAD', 'validarExistencias'),
                     
 			array('BODEGA_DESTINO', 'validarBodegadestino'),
 			array('CANTIDAD', 'validarCantidad'),
 			array('ARTICULO', 'validarArticulo'),
                     
-                        array('BODEGA', 'exist', 'attributeName'=>'ID', 'className'=>'Bodega','allowEmpty'=>false),
+                        array('BODEGA', 'exist', 'attributeName'=>'ID', 'className'=>'Bodega','allowEmpty'=>true),
                         array('BODEGA_DESTINO', 'exist', 'attributeName'=>'ID', 'className'=>'Bodega','allowEmpty'=>true),
-                        array('ARTICULO', 'exist', 'attributeName'=>'ARTICULO', 'className'=>'Articulo','allowEmpty'=>false),
+                        array('ARTICULO', 'exist', 'attributeName'=>'ARTICULO', 'className'=>'Articulo','allowEmpty'=>true),
                     
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('DOCUMENTO_INV_LINEA, DOCUMENTO_INV, LINEA_NUM, TIPO_TRANSACCION, SUBTIPO, TIPO_TRANSACCION_CANTIDAD, BODEGA, BODEGA_DESTINO, ARTICULO, CANTIDAD, UNIDAD, COSTO_UNITARIO, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
 	}
-        
+        /**
+         *  valida que la cantidad del articulo
+         * 
+         *  verifica que la cantidad digitada exista en la bodega
+         * @param string $attribute
+         * @param mixed $params 
+         */
+        public function validarExistencias($attribute,$params){
+            $cantidadUsar = 'D';
+            $textcantidadUsar = 'disponible(s)';
+            $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ACTIVO'=>'S','ARTICULO'=>$this->ARTICULO,'BODEGA'=>$this->BODEGA));
+	    if($this->TIPO_TRANSACCION != '' && $this->TIPO_TRANSACCION_CANTIDAD != '' && $existenciaBodega){
+                $cantidad = Controller::darCantidad($existenciaBodega, $this->CANTIDAD, $this->UNIDAD);
+                switch($this->TIPO_TRANSACCION_CANTIDAD){
+                    case 'D':
+                        $cantidadUsar = $existenciaBodega->CANT_DISPONIBLE;
+                        $textcantidadUsar = 'disponible(s)';
+                    break;
+                    case 'C':
+                        $cantidadUsar = $existenciaBodega->CANT_CUARENTENA;
+                        $textcantidadUsar = 'en cuarentena';
+                    break;
+                    case 'R':
+                        $cantidadUsar = $existenciaBodega->CANT_RESERVADA;
+                        $textcantidadUsar = 'reservada(s)';
+                    break;
+                    case 'T':
+                        $cantidadUsar = $existenciaBodega->CANT_REMITIDA;
+                        $textcantidadUsar = 'remitida(s)';
+                    break;
+                    case 'V':
+                        $cantidadUsar = $existenciaBodega->CANT_VENCIDA;
+                        $textcantidadUsar = 'vencida(s)';
+                    break;
+                }
+                if($this->tIPOTRANSACCION->NATURALEZA == 'S'){
+                    if($cantidad > $cantidadUsar)
+                        $this->addError('CANTIDAD','Solo hay '.$cantidadUsar.' '.$existenciaBodega->aRTICULO->uNIDADALMACEN->NOMBRE.'(s) '.$textcantidadUsar);
+                }elseif($this->tIPOTRANSACCION->NATURALEZA == 'A'){
+                    $cantidad = (string)$cantidad;
+                    if(strpos($cantidad,'-') == 0){
+                        $cantidad = str_replace('-', '', $cantidad);
+                        $cantidad = (int)$cantidad;
+                        if($cantidad > $cantidadUsar)
+                            $this->addError('CANTIDAD','Solo hay '.$cantidadUsar.' '.$existenciaBodega->aRTICULO->uNIDADALMACEN->NOMBRE.'(s) '.$textcantidadUsar);
+                    }
+                }
+            }
+	}
+        /**
+         * Metodo para validar que el articulo exista en la bodega seleccionada
+         * @param string $attribute
+         * @param mixed $params  
+         */
         public function validarArticulo($attribute,$params){
 	
             if ($this->BODEGA != null){
@@ -108,6 +164,13 @@ class DocumentoInvLinea extends CActiveRecord
             }            
                 
 	}
+        /**
+         * Metodo para validar sea positiva o negativa
+         * sgun la naturaleza de la transaccion
+         * 
+         * @param string $attribute
+         * @param mixed $params 
+         */
         public function validarCantidad($attribute,$params){
 	
             if ($this->TIPO_TRANSACCION != ''){
@@ -118,6 +181,14 @@ class DocumentoInvLinea extends CActiveRecord
             }            
                 
 	}
+        /**
+         * Metodo para validar que la bodega destino
+         * exista en la bd, y que sea distinta a la de origen
+         * solo si el tipo de transaccion es transpaso
+         * 
+         * @param string $attribute
+         * @param mixed $params
+         */
         public function validarBodegadestino($attribute,$params){
 		
 		if ($this->TIPO_TRANSACCION == 'TRAS' && $this->BODEGA_DESTINO == '')
@@ -131,7 +202,15 @@ class DocumentoInvLinea extends CActiveRecord
         
         public function behaviors()
 	{
+		$conf=ConfCi::model()->find();
 		return array(
+                        'defaults'=>array(
+                           'class'=>'application.components.FormatBehavior',
+                           'formats'=> array(
+                                   'CANTIDAD'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   'COSTO_UNITARIO'=>'###,##0.'.str_repeat('0',$conf->COSTOS_DEC), 
+                            ),
+                        ),
                         'CTimestampBehavior' => array(
                              'class' => 'zii.behaviors.CTimestampBehavior',
                              'createAttribute' => 'CREADO_EL',

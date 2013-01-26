@@ -11,54 +11,8 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/form.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/tables.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-        <style>
-               
-            body{
-                background: white;
-            }
-            
-            .borde{
-                display: inline;
-                float:left;
-                padding: 10px;
-                border: 1px solid black;
-                -moz-border-radius: 4px; /* Firefox*/
-                -ms-border-radius: 4px; /* IE 8.*/
-                -webkit-border-radius: 4px; /* Safari,Chrome.*/
-                border-radius: 4px; /* El estándar.*/
-            }
-            
-            
-            
-            .borde1{
-                -webkit-border-top-left-radius: 4px;
-                -moz-border-radius-topleft: 4px;
-                -ms-border-radius-topleft: 4px;
-                border-top-left-radius: 4px;
-            }
-            
-            .borde2{
-                -webkit-border-top-right-radius: 4px;
-                -moz-border-radius-topright: 4px;
-                -ms-border-radius-topright: 4px;
-                border-top-right-radius: 4px;
-            }
-            .borde3{
-                -webkit-border-bottom-right-radius: 4px;
-                -moz-border-radius-bottomright: 4px;
-                -ms-border-radius-bottomright: 4px;
-                border-bottom-right-radius: 4px;                
-            }
-            .borde4{
-                -webkit-border-bottom-left-radius: 4px;
-                -moz-border-radius-bottomleft: 4px;
-                -ms-border-radius-bottomleft: 4px;
-                border-bottom-left-radius: 4px;
-            }
-
-        </style>
-
+<?php //Yii::app()->bootstrap->register(); ?>
+       <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/FormatosImpresion.css" />
 
     </head>
 
@@ -77,7 +31,7 @@
             $dia = $arr[2];
             ?>
 
-            <div class="borde" width="372px">
+            <div class="borde" width="514px">
                 <strong>Señores:</strong><br>
                 <?php echo $this->factura->cLIENTE->NOMBRE ?><br>
                 <strong>Nit/CC No</strong>:<?php echo $this->factura->CLIENTE ?>        
@@ -89,13 +43,13 @@
                 <div style="padding: 1px; " align="center"><div class="borde" style="padding: 2px;" width="26%" align="center"><strong><?php echo $dia1 ?></strong></div><div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php echo $mes1 ?></strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php echo $ano1 ?></strong></div></div>
             </div>
             
-            <div width="140px" style="padding-left: 2px; float: left;">
+<!--            <div width="140px" style="padding-left: 2px; float: left;">
                 <div width="139px" style="padding: 1px;"><div class="borde" style="padding: 2px;" align="center"><strong>Fecha Vencimiento</strong></div></div>
                 <div style="padding: 1px; " ><div class="borde" style="padding: 2px;" width="26%" align="center"><strong>Dia</strong></div> <div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Mes</strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Año</strong></div></div>
-                <div style="padding: 1px; " align="center"><div class="borde" style="padding: 2px;" width="26%" align="center"><strong><?php echo $dia ?></strong></div><div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php echo $mes ?></strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php echo $ano ?></strong></div></div>
-            </div>
+                <div style="padding: 1px; " align="center"><div class="borde" style="padding: 2px;" width="26%" align="center"><strong><?php //echo $dia ?></strong></div><div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php //echo $mes ?></strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php //echo $ano ?></strong></div></div>
+            </div>-->
             
-            <div>
+            <div style="padding-top: 10px;padding-bottom: 10px;">
               
                 <?php echo $content; ?>
                 
@@ -152,7 +106,7 @@
                 </div>
                 
                 <div class="borde" width="316px" style="margin-left: 3px; height: 60px;">
-                    <strong>Recivida y Aceptada</strong>
+                    <strong>Recibida y Aceptada</strong>
                 </div>
             </div>
             

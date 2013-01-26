@@ -49,6 +49,27 @@
  */
 class OrdenCompra extends CActiveRecord
 {
+    
+        /**
+         * Articulo para la linea de la orden
+         * @var string 
+         */
+        public $ARTICULO; 
+        /**
+         * Cantidad para la linea de la orden
+         * @var float 
+         */
+        public $CANTIDAD;
+        /**
+         * Unidad para la linea de la orden
+         * @var int 
+         */
+        public $UNIDAD_COMPRA;
+        /**
+         * Unidad para la linea de la orden
+         * @var float 
+         */
+        public $PRECIO_UNITARIO;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -115,7 +136,10 @@ class OrdenCompra extends CActiveRecord
 	{
                 $conf = ConfCo::model()->find();
 		return array(
+                        'PORC_DESCUENTO_LINEA' => 'Descuento',
+                        'PORC_IMPUESTO_LINEA'=> 'IVA',
 			'ORDEN_COMPRA' => 'Orden Compra',
+                        'UNIDAD_COMPRA' => 'Unidad',
 			'PROVEEDOR' => 'Proveedor',
 			'FECHA' => 'Fecha',
 			'BODEGA' => 'Bodega',
@@ -248,7 +272,7 @@ class OrdenCompra extends CActiveRecord
                 $decP=isset($conf2->PORCENTAJE_DEC)?$conf2->PORCENTAJE_DEC:0;
 		return array(
                         'defaults'=>array(
-                            'class'=>'ext.decimali18nbehavior.DecimalI18NBehavior',
+                            'class'=>'application.components.FormatBehavior',
                             //'format'=>'db',
                             'formats'=> array(
                                    'MONTO_FLETE'=>'###,##0.'.str_repeat('0',$dec),

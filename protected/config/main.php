@@ -30,12 +30,12 @@ return array(
                 'ext.helpers.*',
 		'application.modules.cruge.components.*',
 		'application.modules.cruge.extensions.crugemailer.*',
+                'ext.decimali18nbehavior.*',
 	),
 	'modules'=>array(
 		'cruge'=>array(
 			'tableprefix'=>'cruge_',	
 			'superuserName'=>'superadmin',	
-			'useCGridViewClass'=>'bootstrap.widgets.TbGridView',
                         'buttonStyle'=>'bootstrap',	
                         
 			// para que utilice a protected.modules.cruge.models.auth.CrugeAuthDefault.php
@@ -167,9 +167,9 @@ return array(
 		),
 		
 		'errorHandler'=>array(
-			// use 'site/error' action to display errors
-            'errorAction'=>'site/error',
-        ),
+                      // use 'site/error' action to display errors
+                    'errorAction'=>'site/error',
+                ),
                     
             
 		'log'=>array(

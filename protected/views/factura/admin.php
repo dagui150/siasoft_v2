@@ -1,4 +1,17 @@
 <?php
+if(isset($_GET['id'])){
+    $js=Yii::app()->clientScript;
+
+    $TEMP1="$(document).ready(function(){
+        $('[alt$=";
+    $TEMP2='"';
+    $TEMP3="]').click();});";
+    
+    $js->registerScript('factura',$TEMP1.$TEMP2.$_GET['id'].$TEMP2.$TEMP3,
+    
+            
+    CClientScript::POS_HEAD);   
+}
 $this->breadcrumbs=array(
 	'Facturación'=>array('admin'),
 	'Facturas'
@@ -60,16 +73,15 @@ $this->widget('bootstrap.widgets.TbButton', array(
 		'ACTUALIZADO_POR',
 		'ACTUALIZADO_EL',
 		*/
-		array(
-			'class'=>'CButtonColumn',
-		),
+		
             array(
                          'class'=>'CLinkColumn',
 			 //'header'=>'FACTURAS',
 			 'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
-			 //'labelExpression'=>'$data->ID',
-			 'urlExpression'=>'CController::createUrl("/Factura/formatoPDF", array("id"=>$data->FACTURA))',
-			 'htmlOptions'=>array('style'=>'text-align:center;'),
+			 'labelExpression'=>'$data->FACTURA',
+			 'urlExpression'=>'Yii::app()->getController()->createUrl("/Factura/formatoPDF", array("id"=>$data->FACTURA))',
+			 'htmlOptions'=>array('style'=>'text-align:center;','id'=>'hola'),
+                         
 			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),
                 ),
 	),

@@ -51,8 +51,8 @@
         $('#tipoprecio'+span+'_'+contador).text(tipo_precio_span);
         $('#cantidad'+span+'_'+contador).text(cantidad);
         $('#preciounitario'+span+'_'+contador).text('$ '+precio_unitario);
-        $('#porcdescuento'+span+'_'+contador).text(porc_descuento+' %');
-        $('#porc_impuesto'+span+'_'+contador).text(porc_impuesto+' %'); 
+        $('#porcdescuento'+span+'_'+contador).text(porc_descuento);
+        $('#porc_impuesto'+span+'_'+contador).text(porc_impuesto); 
         
         //copia a campos ocultos
         $('#'+model+'_'+contador+'_UNIDAD').val(unidad);
@@ -152,10 +152,10 @@
        <?php echo $form->errorSummary($linea); ?>
 
             <?php echo $form->hiddenField($linea,'ARTICULO'); ?>
-            <?php echo $form->textFieldRow($linea,'CANTIDAD', array('size'=>4,)); ?>
+            <?php echo $form->textFieldRow($linea,'CANTIDAD', array('size'=>4,'class'=>'decimal')); ?>
             <?php echo $form->dropDownListRow($linea,'UNIDAD', $unidad); ?>
             <?php echo $form->dropDownListRow($linea, 'TIPO_PRECIO', $tipo_precio); ?>
-            <?php echo $form->textFieldRow($linea,'PRECIO_UNITARIO',array('size'=>10,'prepend'=>'$')); ?>
+            <?php echo $form->textFieldRow($linea,'PRECIO_UNITARIO',array('size'=>10,'prepend'=>'$','class'=>'decimal')); ?>
             <?php echo $form->textFieldRow($linea,'PORC_DESCUENTO',array('size'=>4,'append'=>'%')); ?>
             <?php echo $form->hiddenField($linea,'MONTO_DESCUENTO'); ?>
             <?php echo $form->hiddenField($linea,'PORC_IMPUESTO'); ?>
