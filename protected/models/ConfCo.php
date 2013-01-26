@@ -79,7 +79,7 @@ class ConfCo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('BODEGA_DEFAULT', 'required'),
+			array('BODEGA_DEFAULT,FORMATO_IMPRESION_SOL, FORMATO_IMPRESION_ORD, FORMATO_IMPRESION_ING', 'required'),
                         array('FORMATO_IMPRESION_SOL, FORMATO_IMPRESION_ORD, FORMATO_IMPRESION_ING', 'numerical', 'integerOnly'=>true),
 			array('MAXIMO_LINORDEN, PRECIO_DEC, CANTIDAD_DEC', 'numerical', 'integerOnly'=>true),
 			array('BODEGA_DEFAULT', 'length', 'max'=>4),
