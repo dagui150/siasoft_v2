@@ -290,6 +290,8 @@ class FacturaController extends Controller
                     </table>';
             
             $compania = Compania::model()->find();
+            $minima = ConsecutivoFa::extractNum($this->factura->cONSECUTIVO->VALOR_CONSECUTIVO);
+            $maxima = ConsecutivoFa::extractNum($this->factura->cONSECUTIVO->VALOR_MAXIMO);
             if ($compania->LOGO != '') {
                 $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/" . $compania->LOGO, 'Logo');
             } else {
@@ -317,7 +319,7 @@ class FacturaController extends Controller
                             
                             <tr>
                                 <td align="center">'.$compania->rEGIMENTRIBUTARIO->DESCRIPCION.'</td>
-                                <td align="right" valign="middle">'.ConsecutivoFa::extractNum($this->factura->cONSECUTIVO->VALOR_CONSECUTIVO)[1].'-'.ConsecutivoFa::extractNum($this->factura->cONSECUTIVO->VALOR_MAXIMO)[1].'</td>
+                                <td align="right" valign="middle">'.$minima[1].'-'.$maxima[1].'</td>
                             </tr>
                         </table>';
             //'',array(377,279),0,'',15,15,16,16,9,9, 'P'
