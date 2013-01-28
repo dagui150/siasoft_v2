@@ -229,9 +229,7 @@ class OrdenCompraController extends Controller
                         $contWarning+=1;
                         $warning.= $cancela.',';
                         break;
-                 }
-                 
-                       
+                 }     
             $mensajeSucces = MensajeSistema::model()->findByPk('S001');
             $mensajeError = MensajeSistema::model()->findByPk('E001');
             $mensajeWarning = MensajeSistema::model()->findByPk('A001');
@@ -302,9 +300,7 @@ class OrdenCompraController extends Controller
                         $contWarning+=1;
                         $warning.= $autoriza.',';
                         break;
-                 }
-                 
-                       
+                 }     
             $mensajeSucces = MensajeSistema::model()->findByPk('S001');
             $mensajeError = MensajeSistema::model()->findByPk('E001');
             $mensajeWarning = MensajeSistema::model()->findByPk('A001');
@@ -678,6 +674,46 @@ class OrdenCompraController extends Controller
                         'items'=>$items,
 		));
 	}
+        
+        public function actionAgregarlinea(){
+            $linea = new OrdenCompraLinea;
+            $linea->attributes = $_POST['OrdenCompraLinea'];
+            $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';            
+            
+            if($linea->validate()){
+                     echo '<div id="alert" class="alert alert-success" data-dismiss="modal">
+                            <h2 align="center">Operacion Satisfactoria</h2>
+                            </div>
+                     <span id="form-cargado" style="display:none">';
+                          $this->renderPartial('modal', 
+                            array(
+                                'linea'=>$linea,
+                                'ruta'=>$ruta,
+                                'Pactualiza'=>isset($_POST['ACTUALIZA']) ? $_POST['ACTUALIZA'] : 0,
+                            )
+                        );
+                     echo '</span>
+                         
+                         <div id="boton-cargado" class="modal-footer">';
+                            $this->widget('bootstrap.widgets.TbButton', array(
+                                 'buttonType'=>'button',
+                                 'type'=>'normal',
+                                 'label'=>'Aceptar',
+                                 'icon'=>'ok',
+                                 'htmlOptions'=>array('id'=>'nuevo','onclick'=>'agregar("'.$_POST['SPAN'].'")')
+                              ));
+                     echo '</div>';
+                     Yii::app()->end();
+                    }else{
+                    $this->renderPartial('modal', 
+                        array(
+                            'linea'=>$linea,
+                            'ruta'=>$ruta,                            
+                        )
+                    );
+                    Yii::app()->end();
+                }
+        }
         
 
 	/**

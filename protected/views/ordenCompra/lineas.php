@@ -12,10 +12,10 @@ $(document).ready(function(){
                     $('#Nuevo_'+contador+'_FECHA_REQUERIDA').focus();
                     break;
                 case 'cantidad':
-                    $('#Nuevo_'+contador+'_CANTIDAD').focus();
+                    $('#Nuevo_'+contador+'_CANTIDAD_ORDENADA').focus();
                     break;
                 case 'unidad':
-                    $('#Nuevo_'+contador+'_UNIDAD').focus();
+                    $('#Nuevo_'+contador+'_UNIDAD_COMPRA').focus();
                     break;
                 case 'preciounitario':
                     $('#Nuevo_'+contador+'_PRECIO_UNITARIO').focus();
@@ -29,14 +29,14 @@ $(document).ready(function(){
             }
         });
         
-        $('.blur').live('blur',function(){                        
+        $('.blur').live('blur',function(){
             contador =  $(this).attr('id').split('_')[1];
             switch(model){
                 case 'cantidad':
                     $('#cantidad_'+contador).text($(this).val());
-                    $('#campo_cantidad_'+contador).hide('fast');                        
+                    $('#campo_cantidad_'+contador).hide('fast');                                       
                     //calcular el total   
-                    model = $(this).attr('id').split('_')[0];
+                    model = $(this).attr('id').split('_')[0];                    
                     calcularLinea(model,contador);
                     $('#cantidad_'+contador).show('fast');                    
                 break;
@@ -140,13 +140,13 @@ $(document).ready(function(){
             
 		  function(data)
                   {                        
-                        $('select[id$='+model+'_'+contador+'_UNIDAD]>option').remove();
+                        $('select[id$='+model+'_'+contador+'_UNIDAD_COMPRA]>option').remove();
 
                         $.each(data.UNIDADES, function(value, name) {
                                 if(value == data.UNIDAD)
-                                  $('#'+model+'_'+contador+'_UNIDAD').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
+                                  $('#'+model+'_'+contador+'_UNIDAD_COMPRA').append("<option selected='selected' value='"+value+"'>"+name+"</option>");
                                 else
-                                   $('#'+model+'_'+contador+'_UNIDAD').append("<option value='"+value+"'>"+name+"</option>");
+                                   $('#'+model+'_'+contador+'_UNIDAD_COMPRA').append("<option value='"+value+"'>"+name+"</option>");
                             });
                         $('#NOMBRE_UNIDAD').val(data.UNIDAD_NOMBRE);
 		  });
@@ -359,9 +359,10 @@ function calcularLinea(model, contador){
     total = total - descuento;
     impuesto = (total * impuesto) / 100
     total = format(total.toString().replace(/\./g,','));
-    impuesto = format(impuesto.toString().replace(/\./g,','));
+    //impuesto = format(impuesto.toString().replace(/\./g,','));
     $('#'+model+'_'+contador+'_IMPORTE').val(total);
     $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(impuesto); 
+    $('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(descuento);     
     $('#importe_'+contador).text(total);
     calcularTotal();
 }
