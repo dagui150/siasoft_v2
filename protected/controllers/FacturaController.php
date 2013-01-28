@@ -276,6 +276,8 @@ class FacturaController extends Controller
             $id = $_GET['id'];
             
             $this->factura = Factura::model()->findByPk($id);
+           
+                    
             $lineas = new FacturaLinea;
             $this->layout =ConfFa::model()->find()->fORMATOFACTURA->pLANTILLA->RUTA;
             $footer = '<table width="100%">
@@ -288,6 +290,8 @@ class FacturaController extends Controller
                     </table>';
             
             $compania = Compania::model()->find();
+            $minima = ConsecutivoFa::extractNum($this->factura->cONSECUTIVO->VALOR_CONSECUTIVO);
+            $maxima = ConsecutivoFa::extractNum($this->factura->cONSECUTIVO->VALOR_MAXIMO);
             if ($compania->LOGO != '') {
                 $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/" . $compania->LOGO, 'Logo');
             } else {
@@ -305,7 +309,7 @@ class FacturaController extends Controller
                             </tr>
                             <tr>
                                 <td align="center">Dirección  '.$compania->DIRECCION.'</td>
-                                <td align="right">Res. DIAN XXXX</td>
+                                <td align="right">Res. DIAN '.$this->factura->cONSECUTIVO->RESOLUCION.'</td>
                                 
                             </tr>
                             <tr>
@@ -314,8 +318,8 @@ class FacturaController extends Controller
                             </tr>
                             
                             <tr>
-                                <td align="center">Regimen Común</td>
-                                <td align="right" valign="middle">ZZZZ-VVVVV</td>
+                                <td align="center">'.$compania->rEGIMENTRIBUTARIO->DESCRIPCION.'</td>
+                                <td align="right" valign="middle">'.$minima[1].'-'.$maxima[1].'</td>
                             </tr>
                         </table>';
             //'',array(377,279),0,'',15,15,16,16,9,9, 'P'
