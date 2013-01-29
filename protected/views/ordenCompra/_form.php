@@ -318,7 +318,7 @@ $(document).ready(function(){
             '<fieldset>'.
             '<table><tr>'.
                 '<td>'.$porcentaje.'</td>
-                <td><div class="control-group  validating"><label class="control-label">Total Mercaderia: </label><div class="controls">'.CHtml::textField('TotalMerc','', array('readonly'=>true)).'</div></div></td>
+                <td><div class="control-group  validating"><label class="control-label">Total Mercaderia: </label><div class="controls">'.CHtml::textField('TotalMerc','', array('readonly'=>true, 'class'=>'decimal')).'</div></div></td>
             </tr>
             <tr>'.
                 '<td>'.$form->textFieldRow($model,'MONTO_FLETE',array('size'=>6,'maxlength'=>28, 'class'=>'calculoMonto', 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>

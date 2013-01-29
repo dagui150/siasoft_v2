@@ -364,11 +364,37 @@ function calcularLinea(model, contador){
     $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(impuesto); 
     $('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(descuento);     
     $('#importe_'+contador).text(total);
-    calcularTotal();
+    calcularTotal(model);
 }
 
-function calcularTotal(){
+function calcularTotal(model){
+    var descGen = $('#OrdenCompra_PORC_DESCUENTO');
+    var fleteGen = $('#OrdenCompra_MONTO_FLETE');
+    var seguroGen = $('#OrdenCompra_MONTO_SEGURO');
+    var anticipoGen = $('#OrdenCompra_MONTO_ANTICIPO');    
     
+    if(model != false){
+            var total_mercaderia =0,total_descuento=0,total_iva=0;
+            var cantidad,precio,descuento,iva, importe;
+            var contador = $('body').find('.rowIndex').max();           
+            var numLinea = parseInt($('#CAMPO_ACTUALIZA').val());
+            for(var i = 0 ; i <=contador; i++){
+                //lineas         
+                cantidad = parseFloat(unformat($('#'+model+'_'+i+'_CANTIDAD_ORDENADA').val()));
+                precio = parseFloat(unformat($('#'+model+'_'+i+'_PRECIO_UNITARIO').val()));
+                descuento = parseFloat(unformat($('#'+model+'_'+i+'_MONTO_DESCUENTO').val().toString().replace(/\./g,',')));
+                iva =  parseFloat(unformat($('#'+model+'_'+i+'_VALOR_IMPUESTO').val().toString().replace(/\./g,',')));                
+                importe = parseFloat(unformat($('#'+model+'_'+i+'_IMPORTE').val()));
+                total_mercaderia += importe;
+                total_descuento += descuento;
+                total_iva += iva;                
+                $('#linea_'+i).text(parseInt(i, 10) + 1 + numLinea);
+            }
+            
+            $('#TotalMerc').val(format(total_mercaderia.toString().replace(/\./g,',')));
+            $('#MenosDescuento').val(format(total_descuento.toString().replace(/\./g,',')));
+            $('#ImpVentas').val(format(total_iva.toString().replace(/\./g,',')));            
+        }
 }
 </script>
 <?php
@@ -506,11 +532,12 @@ function calcularTotal(){
                         <td>
                             <span id="impuesto_<?php echo '{0}';?>" class="cambiar"></span>
                             <span id='campo_impuesto_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][PORC_IMPUESTO]','0',array('size' => '10', 'class'=>'blur decimal')); ?></span>
+                            <?php echo CHtml::hiddenField('Nuevo[{0}][VALOR_IMPUESTO]','0',array()); ?>
                         </td>
                         <td>
                             <span id="importe_<?php echo '{0}';?>"></span>
                             <span id='campo_importe_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][IMPORTE]','0',array()); ?>
-                            <?php echo CHtml::textField('Nuevo[{0}][VALOR_IMPUESTO]','0',array('readonly'=>true, 'size' => '10','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?></span>
+                            </span>
                             <?php echo CHtml::hiddenField('Nuevo[{0}][CANTIDAD_RECIBIDA]','',array()); ?>
                             <?php echo CHtml::hiddenField('Nuevo[{0}][CANTIDAD_RECHAZADA]','0',array()); ?>
                             <?php echo CHtml::hiddenField('Nuevo[{0}][FECHA]','',array()); ?>

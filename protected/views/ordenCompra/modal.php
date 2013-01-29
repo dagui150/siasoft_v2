@@ -39,13 +39,13 @@
         var observacion = $('#OrdenCompraLinea_OBSERVACION').val();
         var bodega = $('#OrdenCompraLinea_BODEGA').val();
         //var bodega_span = $('#PedidoLinea_BODEGA option:selected').html();
-        
+                
         //copia a spans para visualizar detalles
         $('#unidad'+span+'_'+contador).text(unidad_span);
         $('#cantidad'+span+'_'+contador).text(cantidad);
         $('#preciounitario'+span+'_'+contador).text(precio_unitario);
-        $('#porcdescuento'+span+'_'+contador).text(porc_descuento);
-        $('#porc_impuesto'+span+'_'+contador).text(porc_impuesto); 
+        $('#descuento'+span+'_'+contador).text(porc_descuento);
+        $('#impuesto'+span+'_'+contador).text(porc_impuesto);
         
         //copia a campos ocultos
         $('#'+model+'_'+contador+'_UNIDAD_COMPRA').val(unidad);
@@ -122,7 +122,7 @@
     $span = isset($_POST['SPAN'])? $_POST['SPAN'] : '';
     $actualiza = isset($_POST['ACTUALIZA'])? $_POST['ACTUALIZA'] : '1';
     $tipo_precio = isset($_POST['OrdenCompraLinea']['TIPO_PRECIO']) && isset($_POST['PedidoLinea']['ARTICULO'])? CHtml::ListData(ArticuloPrecio::model()->findAll('ARTICULO = "'.$_POST['PedidoLinea']['ARTICULO'].'" AND ACTIVO = "S"'),'ID','nIVELPRECIO.DESCRIPCION') : array();
-    $unidad = isset($_POST['OrdenCompraLinea']['UNIDAD'])? CHtml::ListData(UnidadMedida::model()->findAll('ID = "'.$_POST['OrdenCompraLinea']['UNIDAD'].'" AND ACTIVO = "S"'),'ID','NOMBRE') : array();
+    $unidad = isset($_POST['OrdenCompraLinea']['UNIDAD_COMPRA'])? CHtml::ListData(UnidadMedida::model()->findAll('ID = "'.$_POST['OrdenCompraLinea']['UNIDAD_COMPRA'].'" AND ACTIVO = "S"'),'ID','NOMBRE') : array();
     $bodega = isset($_POST['OrdenCompraLinea']['BODEGA'])? CHtml::ListData(Bodega::model()->findAll('ID = "'.$_POST['OrdenCompraLinea']['BODEGA'].'" AND ACTIVO = "S"'),'ID','DESCRIPCION') : array();
     
     //$campoActualiza = isset($PcampoActualiza) ? $PcampoActualiza : '';    
