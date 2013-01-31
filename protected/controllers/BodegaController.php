@@ -14,10 +14,10 @@ class BodegaController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(
-				array('CrugeAccessControlFilter'),
-			);
-    }
+            return array(
+                            array('CrugeAccessControlFilter'),
+                       );
+          }
 
 	/**
 	 * Displays a particular model.
@@ -64,19 +64,6 @@ class BodegaController extends Controller
 		));
                 }	
                 
-                
-             public function actionPrueba() {
-                $model = new Bodega('search');
-                $model->unsetAttributes();  // clear any default values
-                $model2 = new Bodega;
-                $mensaje = "sdfjhsdjkfhsd22222";
-                $this->render('admin', array(
-                    'alerta' => $mensaje, 
-                    'model' => $model,
-                    'model2' => $model2,
-                    ));
-            }
-
                 /**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -135,14 +122,7 @@ class BodegaController extends Controller
             
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
-                /*
-		if(isset($_POST['eliminar']))
-		{
-                    echo '<pre>';
-                    echo print_r($_POST['ExistenciaBodegas']);
-                    echo '</pre>';
-                    Yii::app()->end(); 
-                }*/
+                
 		if(isset($_POST['Bodega']))
 		{
 			$model->attributes=$_POST['Bodega'];
@@ -158,11 +138,6 @@ class BodegaController extends Controller
                                 }
 				if(isset($_POST['ExistenciaBodegas'])){
                                 foreach ($_POST['ExistenciaBodegas'] as $datos2){
-                                   /*
-                                    echo '<pre>';
-                    echo print_r($_POST['ExistenciaBodegas']);
-                    echo '</pre>';
-                    Yii::app()->end();*/
                                     $salvar2 = ExistenciaBodegas::model()->findByPk($datos2['ID']);
                                     $salvar2->EXISTENCIA_MINIMA = $datos2['EXISTENCIA_MINIMA'];
                                     $salvar2->EXISTENCIA_MAXIMA = $datos2['EXISTENCIA_MAXIMA'];
@@ -187,12 +162,6 @@ class BodegaController extends Controller
                                         $salvar->ACTIVO = 'S';
                                         
                                         $salvar->save();
-                                        /*
-                                        echo '<pre>';
-                                        print_r($salvar->getErrors());
-                                        echo '</pre>';
-                                        echo '<br />';
-                                        Yii::app()->end();*/
                                  }
                              }
                              
@@ -239,16 +208,7 @@ class BodegaController extends Controller
             $linea = new ExistenciaBodegas('modalLinea');
             $linea->attributes = $_POST['ExistenciaBodegas'];
             $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif'; 
-                /*
-                if(isset($_POST['ExistenciaBodegas']))
-		{
-                    echo '<pre>';
-                    echo print_r($_POST['ExistenciaBodegas']);
-                    echo '</pre>';
-                    echo '<br />';
-                    Yii::app()->end(); 
-                }
-                 */
+            
             if($linea->validate()){
                      echo '<div id="alert" class="alert alert-success" data-dismiss="modal">
                             <h2 align="center">Operacion Satisfactoria</h2>
@@ -310,47 +270,8 @@ class BodegaController extends Controller
             $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
 		
 	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Bodega');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-        
-              public function actionExcel()
-	{
-                $model = new Bodega('search');
-                $model->unsetAttributes();
-                $this->render('excel',array(
-			'model' => $model,
-		));
-	}
-        
-        
-        public function actionformatoPDF(){
-            $id = $_GET['id'];
-            $conf = ConfAs::model()->find();
-            
-            $model =  Bodega::model()->findByPk($id);  
-            
-            $this->layout = $conf->fORMATOIMPRESION->RUTA;
-            
-            $mPDF1 = Yii::app()->ePdf->mpdf();
-            $mPDF1->WriteHTML($this->render('pdf2', array( 'model'=>$model), true));
-            
-            //$this->render('pdf2', array( 'model'=>$model));
-            
-            $mPDF1->Output();
-            Yii::app()->end();
-        }
-        
-        
-        
+       
+          
          public function actionPdf(){
             
             $dataProvider=new Bodega;

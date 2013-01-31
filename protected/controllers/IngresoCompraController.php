@@ -15,10 +15,10 @@ class IngresoCompraController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(
-				array('CrugeAccessControlFilter'),
-			);
-    }
+            return array(
+                                      array('CrugeAccessControlFilter'),
+                              );
+          }
         
         public function actionCargarLineas (){
             $item_id = $_GET['seleccion'];
@@ -122,17 +122,6 @@ class IngresoCompraController extends Controller
             }
              echo CJSON::encode($res);
         }
-        
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
         
         public function actionformatoPDF() {
 
@@ -297,48 +286,6 @@ class IngresoCompraController extends Controller
                         'dataProviderOrdenes' => $dataProviderOrdenes,
 		));
 	}
-
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model);
-
-		if(isset($_POST['IngresoCompra']))
-		{
-			$model->attributes=$_POST['IngresoCompra'];
-			if($model->save()){
-				//$this->redirect(array('admin'));
-                                $this->redirect(array('admin&men=S002'));
-                        } else {
-                            $this->redirect(array('admin&men=E002'));
-                        }
-		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-	}
         
         public function actionPdf(){
             $id = $_GET['id'];
@@ -351,17 +298,6 @@ class IngresoCompraController extends Controller
             $mPDF1->Output();
             Yii::app()->end();
         }
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('IngresoCompra');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
 
 	/**
 	 * Manages all models.

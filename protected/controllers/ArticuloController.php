@@ -12,18 +12,8 @@ class ArticuloController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(array('CrugeAccessControlFilter'));
-    }
-	/*
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
+            return array(array('CrugeAccessControlFilter'));
+          }
 
 	/**
 	 * Creates a new model.
@@ -250,26 +240,6 @@ class ArticuloController extends Controller
                         'impuesto'=>$impuesto,
                         'retencion'=>$retencion,
 		));
-	}
-
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
 	}
 
 	/**

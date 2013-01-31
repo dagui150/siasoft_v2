@@ -45,7 +45,7 @@ class ClasificacionAdiValor extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('CLASIFICACION, VALOR, ACTIVO,', 'required'),
-			array('CLASIFICACION, VALOR', 'length', 'max'=>12),
+			array('CLASIFICACION, VALOR', 'length', 'max'=>20),
 			array('ACTIVO', 'length', 'max'=>1),
 			array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('ACTUALIZADO_EL', 'safe'),

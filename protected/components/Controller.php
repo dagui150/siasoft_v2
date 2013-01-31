@@ -173,13 +173,19 @@ class Controller extends CController
                                     array('label' => 'Tipos de Accidente', 'url' => array('/tipoAccidente/admin')),
                                     array('label' => 'Tipos de Ausencia', 'url' => array('/tipoAusencia/admin')),
                                     array('label' => 'Tipos De Contrato', 'url' => array('/tipoContrato/admin')),
-                                    
-                          
-                                    
-                                    
-                                    
-                                    ),
+                                 ),
                             ),*/
+                            array('label' => 'Usuarios', 'url' => '#',
+                                'items' => array(
+                                    array('label' => 'Crear', 'url' => array('/cruge/ui/usermanagementcreate')),
+                                    array('label' => 'Afministrar', 'url' => array('/cruge/ui/usermanagementadmin')),
+                                    array('label' => 'Permisos'),
+                                    array('label' => 'Tareas', 'url' => array('/cruge/ui/rbaclisttasks')),
+                                    array('label' => 'Roles', 'url' => array('/cruge/ui/rbaclistroles')),
+                                    array('label' => 'Asignar Roles a usuarios', 'url' => array('/cruge/ui/rbacusersassignments')),
+                                    array('label' => 'Registro de Sesiones', 'url' => array('/cruge/ui/sessionadmin')),
+                                 ),
+                            ),
                             array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false,
                                 'items'=>Yii::app()->user->ui->adminItems),
                             array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>Yii::app()->user->ui->logoutUrl,'visible'=>!Yii::app()->user->isGuest),

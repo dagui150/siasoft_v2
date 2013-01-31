@@ -40,14 +40,3 @@ if (isset($_GET['men'])){
 		*/
 	),
 )); ?>
-
-<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
-
-<div class="modal-header">
-    <a class="close" data-dismiss="modal">&times;</a>
-    <h3>Crear Regimen Tributario</h3>
-    <p class="note"><?php echo Yii::t('app','FIELDS_WITH'); ?><span class="required"> * </span><?php echo Yii::t('app','ARE_REQUIRED'); ?>.</p>
-</div>
-
-    <?php echo $this->renderPartial('_form', array('model2'=>$model2)); ?>
-    <?php $this->endWidget(); ?>

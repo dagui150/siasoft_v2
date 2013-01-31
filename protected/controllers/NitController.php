@@ -11,10 +11,10 @@ class NitController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(
-				array('CrugeAccessControlFilter'),
-			);
-    }
+            return array(
+                                      array('CrugeAccessControlFilter'),
+                              );
+          }
 
 	/**
 	 * Displays a particular model.
@@ -135,17 +135,6 @@ class NitController extends Controller
 	{
             $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
 		
-	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Nit');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
 	}
         
         public function actionExcel()

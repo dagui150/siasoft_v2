@@ -11,8 +11,8 @@ class TipoTarjetaController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(array('CrugeAccessControlFilter'));
-    }
+            return array(array('CrugeAccessControlFilter'));
+          }
 
 	/**
 	 * Displays a particular model.
@@ -106,16 +106,6 @@ class TipoTarjetaController extends Controller
 		
 	}
 
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('TipoTarjeta');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
 
             public function actionExcel()
 	{

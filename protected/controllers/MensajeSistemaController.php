@@ -12,12 +12,11 @@ class MensajeSistemaController extends Controller
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
+	public function filters(){
+            return array(
+                                      array('CrugeAccessControlFilter'),
+                              );
+          }
 
 	/**
 	 * Displays a particular model.
@@ -103,17 +102,6 @@ class MensajeSistemaController extends Controller
                 }
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('MensajeSistema');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
 	}
 
 	/**
