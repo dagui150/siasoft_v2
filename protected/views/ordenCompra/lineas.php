@@ -349,6 +349,7 @@ $(document).ready(function(){
 
 // **** calculos **** //
 function calcularLinea(model, contador){
+    var afecta = $('#afecta').val();
     var descuento = parseInt(unformat($('#'+model+'_'+contador+'_PORC_DESCUENTO').val(), 10));
     var cantidad = parseInt(unformat($('#'+model+'_'+contador+'_CANTIDAD_ORDENADA').val(), 10));
     var precio = parseInt(unformat($('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(), 10));
@@ -357,43 +358,79 @@ function calcularLinea(model, contador){
     
     descuento = (total * descuento) / 100;
     total = total - descuento;
-    impuesto = (total * impuesto) / 100
+    switch(afecta){
+        case 'N' :
+            impuesto = ((cantidad * precio) * impuesto) / 100;
+            break;
+        
+        case 'L':
+            impuesto = (total * impuesto) / 100;
+            break;
+            
+        case 'A':
+            var desc_gen = parseInt(unformat($('#OrdenCompra_PORC_DESCUENTO').val(), 10));
+            desc_gen = (total * desc_gen) / 100;
+            impuesto = ((total - desc_gen) * impuesto) / 100;
+            break;
+    }
+        
     total = format(total.toString().replace(/\./g,','));
     //impuesto = format(impuesto.toString().replace(/\./g,','));
     $('#'+model+'_'+contador+'_IMPORTE').val(total);
     $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(impuesto); 
     $('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(descuento);     
     $('#importe_'+contador).text(total);
-    calcularTotal(model);
+    calcularTotal();
 }
 
-function calcularTotal(model){
-    var descGen = $('#OrdenCompra_PORC_DESCUENTO');
-    var fleteGen = $('#OrdenCompra_MONTO_FLETE');
-    var seguroGen = $('#OrdenCompra_MONTO_SEGURO');
-    var anticipoGen = $('#OrdenCompra_MONTO_ANTICIPO');    
+function calcularTotal(){
+    var model = 'Nuevo';
     
     if(model != false){
-            var total_mercaderia =0,total_descuento=0,total_iva=0;
-            var cantidad,precio,descuento,iva, importe;
+            var total_mercaderia =0,total_descuento=0,total_iva=0, total_comprar=0, saldo=0;
+            var descuento,iva, importe, desc_general, monto_flete, monto_seguro, anticipo;
             var contador = $('body').find('.rowIndex').max();           
             var numLinea = parseInt($('#CAMPO_ACTUALIZA').val());
             for(var i = 0 ; i <=contador; i++){
-                //lineas         
-                cantidad = parseFloat(unformat($('#'+model+'_'+i+'_CANTIDAD_ORDENADA').val()));
-                precio = parseFloat(unformat($('#'+model+'_'+i+'_PRECIO_UNITARIO').val()));
-                descuento = parseFloat(unformat($('#'+model+'_'+i+'_MONTO_DESCUENTO').val().toString().replace(/\./g,',')));
-                iva =  parseFloat(unformat($('#'+model+'_'+i+'_VALOR_IMPUESTO').val().toString().replace(/\./g,',')));                
+                //lineas      
                 importe = parseFloat(unformat($('#'+model+'_'+i+'_IMPORTE').val()));
+                
+                if($('#afecta').val() == 'A'){
+                    var desc_gen = parseInt(unformat($('#OrdenCompra_PORC_DESCUENTO').val(), 10));
+                    var impuesto = parseInt(unformat($('#'+model+'_'+contador+'_PORC_IMPUESTO').val(), 10));
+                    desc_gen = (importe * desc_gen) / 100;
+                    impuesto = ((importe - desc_gen) * impuesto) / 100;
+                    $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(impuesto); 
+                }
+                
+                   
+                descuento = parseFloat(unformat($('#'+model+'_'+i+'_MONTO_DESCUENTO').val().toString().replace(/\./g,',')));
+                iva =  parseFloat(unformat($('#'+model+'_'+i+'_VALOR_IMPUESTO').val().toString().replace(/\./g,',')));     
                 total_mercaderia += importe;
                 total_descuento += descuento;
-                total_iva += iva;                
+                total_iva += iva;
                 $('#linea_'+i).text(parseInt(i, 10) + 1 + numLinea);
             }
             
+            //total
+            desc_general = parseFloat(unformat($('#OrdenCompra_PORC_DESCUENTO').val()));            
+            monto_flete = parseFloat(unformat($('#OrdenCompra_MONTO_FLETE').val()));
+            monto_seguro = parseFloat(unformat($('#OrdenCompra_MONTO_SEGURO').val()));
+            anticipo = parseFloat(unformat($('#OrdenCompra_MONTO_ANTICIPO').val()));            
+            desc_general = total_mercaderia * desc_general / 100;            
+            total_descuento += desc_general;
+            total_comprar = total_mercaderia - total_descuento + total_iva + monto_flete + monto_seguro;
+            saldo = total_comprar - anticipo
+            
+            
             $('#TotalMerc').val(format(total_mercaderia.toString().replace(/\./g,',')));
             $('#MenosDescuento').val(format(total_descuento.toString().replace(/\./g,',')));
-            $('#ImpVentas').val(format(total_iva.toString().replace(/\./g,',')));            
+            $('#ImpVentas').val(format(total_iva.toString().replace(/\./g,','))); 
+            $('#Flete').val(format(monto_flete.toString().replace(/\./g,',')));
+            $('#Seguro').val(format(monto_seguro.toString().replace(/\./g,',')));
+            $('#OrdenCompra_TOTAL_A_COMPRAR').val(format(total_comprar.toString().replace(/\./g,',')));
+            $('#Anticipo').val(format(anticipo.toString().replace(/\./g,',')));
+            $('#Saldo').val(format(saldo.toString().replace(/\./g,',')));
         }
 }
 </script>
@@ -574,100 +611,83 @@ function calcularTotal(model){
         </tfoot>
             <tbody class="templateTarget">
                 <?php if(!$model->isNewRecord) : ?>
-                <?php foreach($items as $i=>$person): ?>
+                <?php foreach($items as $i=>$item): ?>
                 <tr class="templateContent">
                     <td>
-                        <?php echo $form->textField($person,"[$i]ARTICULO",array('style'=>'width:100px', 'class' => 'tonces')); ?>
-                    </td>
-                    <td>
-                        <?php echo CHtml::hiddenField("[$i]ID_SOLICITUD_LINEA", $value); ?>
-                        <?php echo CHtml::hiddenField("[$i]RESTA_CANT", $value); ?>
-                        <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                'type'=>'info',
-                                'size'=>'mini',
-                                'url'=>'#articulo2',
-                                'icon'=>'search',
-                                'htmlOptions'=>array('data-toggle'=>'modal', 'class' => 'emergente', 'name' => "$i"),
-                              )); ?>
-                    </td>
-                    <td>
-                        <?php echo $form->textField($person,"[$i]DESCRIPCION",array('class'=>'required')); ?>
-                    </td>
-                    <td>
-                        <?php echo $form->dropDownList($person,"[$i]UNIDAD_COMPRA",array()); ?>
-                    </td>
-                    <td>
-                        <?php echo CHtml::textField("OrdenCompraLinea[$i][SOLICITUD]", '', array('readonly'=>true)); ?>
-                    </td>                     
-                    <td>
-                        <?php echo $form->dropDownList($person,"[$i]BODEGA",CHtml::listData(Bodega::model()->findAll(),'ID','DESCRIPCION'),array('class'=>'required')); ?>
-                    </td>
-                    <td>
-                        <?php echo $form->textField($person,"[$i]FECHA_REQUERIDA",array('size' => '10')); ?>
-                    </td>
-                    <td>
-                        <?php echo $form->textField($person,"[$i]FACTURA",array()); ?>
-                    </td>
-                    <td>
-                        <?php echo $form->textField($person,"[$i]PRECIO_UNITARIO",array('class'=>'calculos', 'onFocus'=> "if (this.value=='0') this.value='';", 'size' => '10','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
-                    </td>
-                    <td>
-                        <?php echo $form->textField($person,"[$i]CANTIDAD_ORDENADA",array('class'=>'calculos', 'onFocus'=> "if (this.value=='0') this.value='';", 'size' => '5','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
-                    </td>
-                    <td>
-                        <?php echo $form->textField($person,"[$i]PORC_DESCUENTO",array('class'=>'calculos', 'onFocus'=> "if (this.value=='0') this.value='';", 'size' => '5')); ?>
-                    </td>
-                    <td>
-                        <?php echo $form->textField($person,"[$i]MONTO_DESCUENTO",array('readonly'=>true, 'size' => '10','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
-                    </td>
-                    <td>
-                        <?php echo CHtml::textField("OrdenCompraLinea[$i][IMPORTE]", $value, array('readonly' => true, 'size' => '10','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
+                            <span id="numero_<?php echo '{0}';?>"></span>                           
                         </td>
                         <td>
-                            <?php echo $form->textField($person,"[$i]PORC_IMPUESTO",array('readonly'=>true, 'size' => '10')); ?>                            
+                            <span id="descripcion_<?php echo '{0}';?>"></span>
+                            <span id='campo_descripcion_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][DESCRIPCION]','',array()); ?></span>
+                            <?php echo CHtml::hiddenField('Nuevo[{0}][ARTICULO]','',array()); ?>
                         </td>
                         <td>
-                            <?php echo $form->textField($person,"[$i]VALOR_IMPUESTO",array('readonly'=>true, 'value'=>'0', 'size' => '10','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
-                        </td>                       
-                        <td>
-                            <?php echo $form->textField($person,"[$i]CANTIDAD_RECIBIDA",array('readonly'=>true, 'size' => '5','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
+                            <span id="unidad_<?php echo '{0}';?>" class="cambiar"></span>
+                            <span id='campo_unidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::dropDownList('Nuevo[{0}][UNIDAD_COMPRA]','',array('prompt'=>'Seleccione articulo', 'class'=>'blur unidad')); ?></span>
+                            <?php echo CHtml::hiddenField('Nuevo[{0}][SOLICITUD]','',array()); ?>
+                            <span style="display:none"><?php echo CHtml::dropDownList('Nuevo[{0}][BODEGA]','',CHtml::listData(Bodega::model()->findAll(),'ID','DESCRIPCION'),array()); ?></span>
                         </td>
                         <td>
-                            <?php echo $form->textField($person,"[$i]CANTIDAD_RECHAZADA",array('readonly'=>true, 'size' => '5','onkeyup'=>'formato(this)', 'onchange'=>'formato(this)')); ?>
+                            <span id="requerida_<?php echo '{0}';?>" class="cambiar"></span>
+                            <span id='campo_requerida_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][FECHA_REQUERIDA]','',array('size'=>'10', 'class'=>'blur')); ?></span>
+                            <?php echo CHtml::hiddenField('Nuevo[{0}][FACTURA]','',array()); ?>
                         </td>
                         <td>
-                            <?php echo $form->textField($person,"[$i]FECHA",array('class' => 'fecha', 'size'=>'10')); ?>
+                            <span id="cantidad_<?php echo '{0}';?>" class="cambiar"></span>
+                            <span id='campo_cantidad_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][CANTIDAD_ORDENADA]','0',array('size' => '5', 'class'=>'blur decimal')); ?></span>
                         </td>
                         <td>
-                            <?php echo $form->textField($person,"[$i]OBSERVACION",array()); ?>
+                            <span id="unitario_<?php echo '{0}';?>" class="cambiar"></span>
+                            <span id='campo_unitario_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][PRECIO_UNITARIO]','',array('size' => '10', 'class'=>'blur decimal')); ?></span>
                         </td>
                         <td>
-                            <?php echo $form->textField($person,"[$i]ESTADO",array('size'=>'1', 'readonly'=>true)); ?>
+                            <span id="descuento_<?php echo '{0}';?>" class="cambiar"></span>
+                            <span id='campo_descuento_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][PORC_DESCUENTO]','0',array('size' => '5', 'class'=>'blur decimal')); ?></span>
+                            <?php echo CHtml::hiddenField('Nuevo[{0}][MONTO_DESCUENTO]','0',array()); ?>
+                        </td>                        
+                        <td>
+                            <span id="impuesto_<?php echo '{0}';?>" class="cambiar"></span>
+                            <span id='campo_impuesto_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][PORC_IMPUESTO]','0',array('size' => '10', 'class'=>'blur decimal')); ?></span>
+                            <?php echo CHtml::hiddenField('Nuevo[{0}][VALOR_IMPUESTO]','0',array()); ?>
                         </td>
                         <td>
-                            <?php echo $form->textField($person,"[$i]LINEA_NUM",array('readonly'=>true, 'size'=>'5')); ?>
-                            <?php echo $form->hiddenField($person,"[$i]ORDEN_COMPRA_LINEA",array()); ?>
+                            <span id="importe_<?php echo '{0}';?>"></span>
+                            <span id='campo_importe_<?php echo '{0}';?>' style="display:none;"><?php echo CHtml::textField('Nuevo[{0}][IMPORTE]','0',array()); ?>
+                            </span>
+                            <?php echo CHtml::hiddenField('Nuevo[{0}][CANTIDAD_RECIBIDA]','',array()); ?>
+                            <?php echo CHtml::hiddenField('Nuevo[{0}][CANTIDAD_RECHAZADA]','0',array()); ?>
+                            <?php echo CHtml::hiddenField('Nuevo[{0}][FECHA]','',array()); ?>
+                            <?php echo CHtml::hiddenField('Nuevo[{0}][OBSERVACION]','',array()); ?>
+                            <?php echo CHtml::hiddenField('Nuevo[{0}][ESTADO]','P',array()); ?>
                         </td>
-                                    <td>
-                                        <div id="remover" class="remove">
-                                              <?php 
-                                                
-                                                 $this->widget('bootstrap.widgets.TbButton', array(
-                                                             'buttonType'=>'button',
-                                                             'type'=>'danger',
-                                                             'label'=>'',
-                                                             'icon'=>'minus white',
-                                                             'htmlOptions'=>array('id'=>$person["ORDEN_COMPRA_LINEA"], 'onClick'=>'Eliminar(id)'),
-                                                  ));
-
-                                             ?>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>                        
+                        <td>
+                            <span style="float: left">
+                                <?php $this->widget('bootstrap.widgets.TbButton', array(
+                                        'buttonType'=>'button',
+                                        'type'=>'normal',                                                                         
+                                        'icon'=>'pencil',
+                                        'htmlOptions'=>array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}', 'disabled'=>$readonly)
+                                  ));
+                                 ?>
+                            </span>
+                            <div id="remover" class="remove">
+                                <div style="float: left; margin-left: 5px;">
+                                    <?php $this->widget('bootstrap.widgets.TbButton', array(
+                                            'buttonType'=>'button',
+                                            'type'=>'danger',                                                                        
+                                            'icon'=>'minus white',
+                                            'htmlOptions'=>array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}', 'disabled'=>$readonly)
+                                            ));
+                                     ?>
+                                </div>
+                            </div>
+                            <input type="hidden" class="rowIndex" value="{0}" />
+                        </td>
+                     </tr>
+                <?php endforeach; ?>
+                <?php endif; ?>
+             </tbody>
+          </table>                        
 <?php $model->isNewRecord ? $i=0 : $i++; ?>  
 <?php echo CHtml::HiddenField('CAMPO_ACTUALIZA', $i); ?>
 <?php echo CHtml::hiddenField('contadorCrea', '0') ?>
