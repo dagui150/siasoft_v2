@@ -54,6 +54,25 @@ class RegimenTributarioController extends Controller
 			'model2'=>$model2,
 		));
 	}
+        
+             public function actionExcel()
+	{
+		$model=new RegimenTributario('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
+	}
+        
+        public function actionPdf(){
+            
+            $dataProvider=new RegimenTributario;
+		$this->render('pdf',array(
+			'dataProvider'=>$dataProvider,
+		));
+            
+            
+        }
 
 	/**
 	 * Updates a particular model.

@@ -54,9 +54,9 @@ $('.search-form form').submit(function(){
 		'ACTUALIZADO_POR',
 		'ACTUALIZADO_EL',
 		*/
-		array(
-                    'class'=>'bootstrap.widgets.TbButtonColumn',
-                    'template'=>'{view}',
-		),
+//		array(
+//                    'class'=>'bootstrap.widgets.TbButtonColumn',
+//                    'template'=>'{view}',
+//		),
 	),
 )); ?>

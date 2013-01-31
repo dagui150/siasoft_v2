@@ -29,7 +29,7 @@ if (isset($_GET['men'])){
 <div align="right">
     <?php $this->darBotonPdfExcel(array('impuesto/excel')); ?>
     <?php $this->darBotonPdfExcel(array('impuesto/pdf'), false, 'PDF', 'danger'); ?>
-    <?php $this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
+    <?php //$this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
 </div>
 
 <?php $this->widget('bootstrap.widgets.TbGridView', array(
@@ -41,11 +41,11 @@ if (isset($_GET['men'])){
 		'ID',
 		'NOMBRE',
 		'PROCENTAJE',
-		array(
-                    'class'=>'bootstrap.widgets.TbButtonColumn',
-                    'htmlOptions'=>array('style'=>'width: 50px'),
-                    'afterDelete'=>$this->mensajeBorrar(),
-		),
+//		array(
+//                    'class'=>'bootstrap.widgets.TbButtonColumn',
+//                    'htmlOptions'=>array('style'=>'width: 50px'),
+//                    'afterDelete'=>$this->mensajeBorrar(),
+//		),
 	),
 )); ?>
 <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>

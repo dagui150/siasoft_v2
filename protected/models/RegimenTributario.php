@@ -102,6 +102,19 @@ class RegimenTributario extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        public function searchPdf()
+	{
+
+		$criteria=new CDbCriteria;                 
+                $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'pagination'=>array(
+                        'pageSize'=> RegimenTributario::model()->count(),
+                        ),
+		));
+	}
         
         public function behaviors()
 	{
