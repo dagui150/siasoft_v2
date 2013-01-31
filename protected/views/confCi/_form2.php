@@ -78,7 +78,7 @@ function inicio(){
 								</td>'
 								
 								.'<td>
-                                                                        <br><fieldset style="width: 280px;float: left;">
+                                                                        <br><fieldset style="width: 300px;float: left;">
                                                                         <legend ><font face="arial" size=3 >Valores por defecto</font></legend>
                                                                             <div style="width: 200px; margin: 20px 50px 0px 0px;">'
                                                                                     .$form->dropDownListRow($model,'COSTO_INGR_DEFAULT',array(''=>'Seleccione','U'=>'Ultimo','P'=>'Promedio','E'=>'Estandar'))
@@ -96,7 +96,7 @@ function inicio(){
 									.'</fieldset>
 								</td>
 								<td>
-									<fieldset style="width: 283px">
+									<fieldset style="width: 300px">
 										<legend ><font face="arial" size=3 >Existencias en Totales </font></legend>'
 										.$form->checkBoxRow($model, 'EXIST_DISPONIBLE')
                                                                                 .$form->checkBoxRow($model, 'EXIST_REMITIDA')
@@ -172,7 +172,7 @@ function inicio(){
 						.'</fieldset>'
 						.'<fieldset style="width: 380px; float: left; margin-left: 10px;">
 							<legend ><font face="arial" size=3 >Prioridad Búsqueda</font></legend>'
-							.$form->radioButtonListRow($model, 'PRIORIDAD_BUSQUEDA', array('A'=>'Por Codgo de Artículo','C'=>'Por Código de Barras'))
+							.$form->radioButtonListRow($model, 'PRIORIDAD_BUSQUEDA', array('A'=>'Por Código de Artículo','C'=>'Por Código de Barras'))
 						.'</fieldset>'
 				),                           
 			),

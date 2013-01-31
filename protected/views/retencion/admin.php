@@ -36,5 +36,12 @@ $this->breadcrumbs=array(
 		'ACTUALIZADO_POR',
 		'ACTUALIZADO_EL',
 		*/
+<<<<<<< HEAD
+=======
+//		array(
+//                    'class'=>'bootstrap.widgets.TbButtonColumn',
+//                    'template'=>'{view}',
+//		),
+>>>>>>> 9ca759032cd2997cd88c7d79561f8a1f3e9d2ec8
 	),
 )); ?>

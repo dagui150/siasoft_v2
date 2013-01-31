@@ -92,7 +92,7 @@ class ClasificacionAdiValor extends CActiveRecord
 		return array(
 			'ID' => 'Código',
 			'CLASIFICACION' => 'Clasificación',
-			'VALOR' => 'Valor',
+			'VALOR' => 'Subclasificación',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',

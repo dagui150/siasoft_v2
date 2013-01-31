@@ -16,7 +16,8 @@ if (isset($_GET['men'])){
 ?>
 <div id="mensaje"></div>
 <div align="right">
-        <?php //$this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
+    <?php $this->darBotonPdfExcel(array('regimenTributario/excel')); ?>
+    <?php $this->darBotonPdfExcel(array('regimenTributario/pdf'), false, 'PDF', 'danger'); ?>
 </div>
 
 <?php $this->widget('bootstrap.widgets.TbGridView', array(

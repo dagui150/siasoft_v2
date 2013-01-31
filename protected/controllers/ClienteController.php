@@ -69,14 +69,14 @@ class ClienteController extends Controller
 		if(isset($_POST['Cliente']))
 		{
 			$model->attributes=$_POST['Cliente'];
-                        $model->ZONA = $_POST['Cliente']['ZONA'];
+                        $model->ZONA = ($_POST['Cliente']['ZONA'] != '') ? $_POST['Cliente']['ZONA'] : NULL;
                         $model->CONDICION_PAGO = ($_POST['Cliente']['CONDICION_PAGO'] != '') ? $_POST['Cliente']['CONDICION_PAGO'] : NULL;
                         $model->TIPO_PRECIO = ($_POST['Cliente']['TIPO_PRECIO'] != '') ? $_POST['Cliente']['TIPO_PRECIO'] : NULL;
                         $model->PAIS = ($_POST['Cliente']['PAIS'] != '') ? $_POST['Cliente']['PAIS'] : NULL;
                         $model->ZONA = ($_POST['Cliente']['ZONA'] != '') ? $_POST['Cliente']['ZONA'] : NULL;
                         $model->NIT = ($_POST['Cliente']['NIT'] != '') ? $_POST['Cliente']['NIT'] : NULL;
-                        $model->REGIMEN = ($_POST['Cliente']['NIT'] != '') ? $_POST['Cliente']['REGIMEN'] : NULL;
-                        $model->IMPUESTO = ($_POST['Cliente']['NIT'] != '') ? $_POST['Cliente']['IMPUESTO'] : NULL;
+                        $model->REGIMEN = ($_POST['Cliente']['REGIMEN'] != '') ? $_POST['Cliente']['REGIMEN'] : NULL;
+                        $model->IMPUESTO = ($_POST['Cliente']['IMPUESTO'] != '') ? $_POST['Cliente']['IMPUESTO'] : NULL;
                         $model->UBICACION_GEOGRAFICA1 = ($_POST['Cliente']['UBICACION_GEOGRAFICA1'] != '') ? $_POST['Cliente']['UBICACION_GEOGRAFICA1'] : NULL;
                         $model->UBICACION_GEOGRAFICA2 = ($_POST['Cliente']['UBICACION_GEOGRAFICA2'] != '') ? $_POST['Cliente']['UBICACION_GEOGRAFICA2'] : NULL;
                         $model->ACTIVO = 'S';

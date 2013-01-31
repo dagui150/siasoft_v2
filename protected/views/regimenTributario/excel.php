@@ -2,7 +2,7 @@
     'id'                   => 'some-grid',
     'dataProvider'         => $model->search(),
     'grid_mode'            => 'export', // Same usage as EExcelView v0.33
-    'title'                => 'Retencion ' . date('d-m-Y'),
+    'title'                => 'Regimen Tributario ' . date('d-m-Y'),
     'creator'              => '',
     'subject'              => '',
     'description'          => '',
@@ -31,24 +31,10 @@
     'footerBgColor'        => '00FFCC', // Default: 'FFFFCC'
     'footerTextColor'      => 'FF00FF', // Default: '0000FF'
     'footerHeight'         => 15, // Default: 20
-    'columns'=>array(		'ID',
-		'NOMBRE',
-		'PORCENTAJE',
-		'MONTO_MINIMO',
-                /*
-		'TIPO',
-		'APLICA_MONTO',
-		'APLICA_SUBTOTAL',
-		'APLICA_SUB_DESC',
-		'APLICA_IMPUESTO1',
-		'APLICA_RUBRO1',
-		'APLICA_RUBRO2',
-		'ACTIVO',
-		'CREADO_POR',
-		'CREADO_EL',
-		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
-		*/
+    'columns'=>array(		
+                'REGIMEN',
+		'DESCRIPCION',
+                
 	
 	),
 )); ?>
