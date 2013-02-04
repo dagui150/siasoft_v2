@@ -486,7 +486,7 @@ class OrdenCompraController extends Controller
                                     $salvar = new OrdenCompraLinea;
                                     $salvar->ORDEN_COMPRA = $_POST['OrdenCompra']['ORDEN_COMPRA'];
                                     $salvar->ARTICULO = $datos['ARTICULO'];
-                                    $salvar->LINEA_NUM = $datos['LINEA_NUM'];
+                                    $salvar->LINEA_NUM = $i;
                                     $salvar->DESCRIPCION = $datos['DESCRIPCION'];
                                     $salvar->BODEGA = $datos['BODEGA'];
                                     $salvar->FECHA_REQUERIDA = $datos['FECHA_REQUERIDA'];
@@ -500,6 +500,7 @@ class OrdenCompraController extends Controller
                                     $salvar->VALOR_IMPUESTO = Controller::unformat($datos['VALOR_IMPUESTO']);
                                     $salvar->CANTIDAD_RECIBIDA = Controller::unformat($datos['CANTIDAD_RECIBIDA']);
                                     $salvar->CANTIDAD_RECHAZADA = Controller::unformat($datos['CANTIDAD_RECHAZADA']);
+                                    $salvar->IMPORTE = Controller::unformat($datos['IMPORTE']);
                                     $salvar->FECHA = $datos['FECHA'];
                                     $salvar->OBSERVACION = $datos['OBSERVACION'];
                                     $salvar->ESTADO = $datos['ESTADO'];
@@ -517,13 +518,14 @@ class OrdenCompraController extends Controller
                                         $relacion->ACTIVO = 'S';
                                         $relacion->save();
                                         $solicitud = SolicitudOcLinea::model()->find('SOLICITUD_OC_LINEA = "'.$datos['ID_SOLICITUD_LINEA'].'"');
-                                        $solicitud->SALDO = $datos['RESTA_CANT'] - $datos['CANTIDAD_ORDENADA'];
+                                        $solicitud->SALDO = $solicitud->CANTIDAD - $datos['CANTIDAD_ORDENADA'];
                                         if($solicitud->SALDO == 0){                                            
                                             $solicitud->ESTADO = 'A';
                                         }
                                         $solicitud->save();
                                         SolicitudOcLinea::model()->cambiaAsignar($datos['SOLICITUD']);
-                                    }                                       
+                                    }   
+                                    $i++;
                                 }
                             }
 				//$this->redirect(array('admin'));
@@ -555,13 +557,14 @@ class OrdenCompraController extends Controller
 	{
 		$model=$this->loadModel($id);
                 $linea = new OrdenCompraLinea;
-                $linea2 = new OrdenCompraLinea2;
                 $config = ConfCo::model()->find();
                 $articulo = new Articulo;
                 $proveedor = new Proveedor;
-                $solicitudLinea = new SolicitudOcLinea3;
+                $solicitudLinea = new SolicitudOcLinea;
                 $items = $linea->model()->findAll('ORDEN_COMPRA = "'.$id.'"');
                 $i = 1;
+                $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
+                $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
 
@@ -597,6 +600,7 @@ class OrdenCompraController extends Controller
                                     $salvar2->VALOR_IMPUESTO = Controller::unformat($datos2['VALOR_IMPUESTO']);
                                     $salvar2->CANTIDAD_RECIBIDA = Controller::unformat($datos2['CANTIDAD_RECIBIDA']);
                                     $salvar2->CANTIDAD_RECHAZADA = Controller::unformat($datos2['CANTIDAD_RECHAZADA']);
+                                    $salvar2->IMPORTE = Controller::unformat($datos2['IMPORTE']);
                                     $salvar2->FECHA = $datos2['FECHA'];
                                     $salvar2->OBSERVACION = $datos2['OBSERVACION'];
                                     $salvar2->ESTADO = $datos2['ESTADO'];
@@ -640,6 +644,7 @@ class OrdenCompraController extends Controller
                                     $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
                                     $salvar->CANTIDAD_RECIBIDA = $datos['CANTIDAD_RECIBIDA'];
                                     $salvar->CANTIDAD_RECHAZADA = $datos['CANTIDAD_RECHAZADA'];
+                                    $salvar->IMPORTE = $datos['IMPORTE'];
                                     $salvar->FECHA = $datos['FECHA'];
                                     $salvar->OBSERVACION = $datos['OBSERVACION'];
                                     $salvar->ESTADO = $datos['ESTADO'];
@@ -655,12 +660,13 @@ class OrdenCompraController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
                         'linea'=>$linea,
-                        'linea2'=>$linea2,
                         'config'=>$config,
                         'articulo'=>$articulo,
                         'proveedor'=>$proveedor,
                         'solicitudLinea'=>$solicitudLinea,
                         'items'=>$items,
+                        'ruta'=>$ruta,
+                        'ruta2'=>$ruta2,
 		));
 	}
         

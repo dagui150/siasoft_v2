@@ -34,8 +34,9 @@ function cargaProveedorGrilla (grid_id){
 }
 
 $(document).ready(function(){
+    calcularTotal(false);
     $('.calcular').live('change',function(){
-       calcularTotal(); 
+       calcularTotal('Nuevo'); 
     });
     $('.edit').live('click',function(){
         $('#SPAN').val('');
@@ -311,19 +312,19 @@ $(document).ready(function(){
         array('label'=>'Montos', 'content'=>
             '<fieldset>'.
             '<table><tr>'.
-                '<td>'.$form->textFieldRow($model,'PORC_DESCUENTO',array('append'=>'%','class'=>'calcular', 'value'=>0, 'size'=>6,'maxlength'=>28, 'readonly'=>$readonly, 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
+                '<td>'.$form->textFieldRow($model,'PORC_DESCUENTO',array('append'=>'%','class'=>'calcular', 'value'=>$model->isNewRecord ? 0 : $model->PORC_DESCUENTO, 'size'=>6,'maxlength'=>28, 'readonly'=>$readonly, 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
                 <td><div class="control-group  validating"><label class="control-label">Total Mercaderia: </label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('TotalMerc','', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr>
             <tr>'.
-                '<td>'.$form->textFieldRow($model,'MONTO_FLETE', array('prepend'=>'$','class'=>'calcular decimal', 'size'=>6,'maxlength'=>28, 'value'=>0, 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
+                '<td>'.$form->textFieldRow($model,'MONTO_FLETE', array('prepend'=>'$','class'=>'calcular decimal', 'size'=>6,'maxlength'=>28, 'value'=>$model->isNewRecord ? 0 : $model->MONTO_FLETE, 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
                 <td><div class="control-group  validating"><label class="control-label">- Descuento: </label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('MenosDescuento','', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr>
             <tr>
-                <td>'.$form->textFieldRow($model,'MONTO_SEGURO',array('prepend'=>'$','class'=>'calcular decimal', 'size'=>6,'maxlength'=>28, 'value'=>0, 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
+                <td>'.$form->textFieldRow($model,'MONTO_SEGURO',array('prepend'=>'$','class'=>'calcular decimal', 'size'=>6,'maxlength'=>28, 'value'=>$model->isNewRecord ? 0 : $model->MONTO_SEGURO, 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
                 <td><div class="control-group  validating"><label class="control-label">+ Imp. de ventas: </label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('ImpVentas','', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr>
             <tr>
-                <td>'.$form->textFieldRow($model, 'MONTO_ANTICIPO',array('prepend'=>'$','class'=>'calcular decimal', 'size'=>6,'maxlength'=>28, 'value'=>0, 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
+                <td>'.$form->textFieldRow($model, 'MONTO_ANTICIPO',array('prepend'=>'$','class'=>'calcular decimal', 'size'=>6,'maxlength'=>28, 'value'=>$model->isNewRecord ? 0 : $model->MONTO_ANTICIPO, 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
                 <td><div class="control-group  validating"><label class="control-label">+ Flete: </label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('Flete','', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr>
             <tr>
