@@ -150,7 +150,7 @@
 		array('label'=>'Varios', 'content'=>
 		$form->dropDownListRow($model,'BODEGA_DEFAULT', CHtml::listData(Bodega::model()->findAll(),'ID','DESCRIPCION'),array('empty'=>'Seleccione...'))
 		.$form->dropDownListRow($model,'IMP1_AFECTA_DESCTO', array('L'=>'Línea', 'A'=>'Ambos descuentos', 'N'=>'Ningun descuento'))
-		.'<fieldset><legend>Factor de redondeo</legend>'
+		.'<fieldset><legend>Factor de redondeo <span class="reducir-letra-ayuda">'.$this->botonAyuda("FACT_REDONDEO").'</span></legend>'
 		.$form->textFieldRow($model,'FACTOR_REDONDEO',array('size'=>28,'maxlength'=>28))
 		.'</fieldset></legend>'
 		.'<fieldset><legend>Decimales</legend>'
