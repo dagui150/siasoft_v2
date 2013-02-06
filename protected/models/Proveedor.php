@@ -75,7 +75,8 @@ class Proveedor extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('PROVEEDOR, CATEGORIA, NOMBRE, CONTACTO, CARGO, DIRECCION, FECHA_INGRESO, TELEFONO1, NIT, PAIS, UBICACION_GEOGRAFICA1, CONDICION_PAGO', 'required'),
-			array('CATEGORIA', 'numerical', 'integerOnly'=>true),
+			array('PROVEEDOR', 'DSpacesValidator'),
+                        array('CATEGORIA', 'numerical', 'integerOnly'=>true),
                         array('PROVEEDOR', 'unique', 'attributeName'=>'PROVEEDOR', 'className'=>'Proveedor','allowEmpty'=>false),
 			array('PROVEEDOR, TELEFONO1, TELEFONO2, FAX, NIT, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('NOMBRE, ALIAS', 'length', 'max'=>80),

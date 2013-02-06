@@ -45,6 +45,7 @@ class Bodega extends CActiveRecord
 		return array(
 			array('ID, DESCRIPCION, TIPO', 'required'),
 			array('ID', 'length', 'max'=>4),
+                        array('ID', 'DSpacesValidator'),
 			array('DESCRIPCION', 'length', 'max'=>64),
 			array('TIPO, ACTIVO', 'length', 'max'=>1),
 			array('TELEFONO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),

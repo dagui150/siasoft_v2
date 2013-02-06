@@ -32,8 +32,9 @@ class CompaniaController extends Controller
 			$model->attributes=$_POST['Compania'];
 			$model->LOGO=CUploadedFile::getInstance($model,'LOGO');
 			if($model->save()){
+                            if(isset($model->LOGO))
 				$model->LOGO->saveAs(Yii::getPathOfAlias('webroot')."/logo/".$model->LOGO);
-				$this->redirect(array('index'));
+				$this->redirect(array('update&id='.$model->ID.'&men=S002'));
 			}
 		}
 
@@ -63,27 +64,27 @@ class CompaniaController extends Controller
                             unlink(Yii::getPathOfAlias('webroot').'/logo/'.$logo);
                             $model->LOGO = '';
                             if($model->save()){
-                                $this->redirect(array('update&id=30&men=S002'));
+                                $this->redirect(array('update&id='.$model->ID.'&men=S002'));
                             }else{
-                                $this->redirect(array('update&id=30&men=E002'));
+                                $this->redirect(array('update&id='.$model->ID.'&men=E002'));
                             }
                         }
                         else{
                             if($model->LOGO == ''){
                                 $model->LOGO = $logo;
                                 if($model->save()){
-                                    $this->redirect(array('update&id=30&men=S002'));
+                                    $this->redirect(array('update&id='.$model->ID.'&men=S002'));
                                 }else{
-                                    $this->redirect(array('update&id=30&men=E002'));
+                                    $this->redirect(array('update&id='.$model->ID.'&men=E002'));
                                 }
                             }
                             else{
                                 if($model->save() || $_FILES['Compania']['LOGO'] != ''){
                                         $model->LOGO->saveAs(Yii::getPathOfAlias('webroot').'/logo/'.$model->LOGO);
                                         //$this->redirect(array('index'));
-                                        $this->redirect(array('update&id=30&men=S002'));
+                                        $this->redirect(array('update&id='.$model->ID.'&men=S002'));
                                 }else{
-                                    $this->redirect(array('update&id=30&men=E002'));
+                                    $this->redirect(array('update&id='.$model->ID.'&men=E002'));
                                 }
                             }
                         }

@@ -89,6 +89,7 @@ class Cliente extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('CLIENTE, NOMBRE, TELEFONO1,DIRECCION_COBRO', 'required','on'=>'insert'),
+                        array('CLIENTE','DSpacesValidator'),
 			array('CLIENTE, NOMBRE, TELEFONO1,DIRECCION_COBRO,UBICACION_GEOGRAFICA1,UBICACION_GEOGRAFICA2', 'required','on'=>'factura','message'=>'{attribute} Cliente no puede ser nulo.'),
 			array('TELEFONO1, TELEFONO2,FAX', 'numerical', 'integerOnly'=>true),
 			array('INTERES_CORRIENTE, INTERES_MORA, DESCUENTO, LIMITE_CREDITO,', 'numerical','numberPattern' => '/^\s*[-+]?(\d{1,3}\.*\,*)*?\s*$/'),

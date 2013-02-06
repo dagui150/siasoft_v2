@@ -46,6 +46,7 @@ class ClasificacionAdi extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID, NOMBRE,OBLIGATORIO, POSICION, ACTIVO,', 'required'),
+                        array('ID,', 'DSpacesValidator'),
 			array('POSICION', 'numerical', 'integerOnly'=>true),
 			array('ID', 'length', 'max'=>12),
 			array('NOMBRE', 'length', 'max'=>64),

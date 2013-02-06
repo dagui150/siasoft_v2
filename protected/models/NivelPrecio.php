@@ -45,6 +45,7 @@ class NivelPrecio extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID, DESCRIPCION, ESQUEMA_TRABAJO', 'required'),
+                        array('ID', 'DSpacesValidator'),
                         array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'Bodega','allowEmpty'=>false,'on'=>'insert'),
 			array('ID', 'length', 'max'=>12),
 			array('DESCRIPCION', 'length', 'max'=>64),
