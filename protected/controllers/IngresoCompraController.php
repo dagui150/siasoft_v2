@@ -286,18 +286,6 @@ class IngresoCompraController extends Controller
                         'dataProviderOrdenes' => $dataProviderOrdenes,
 		));
 	}
-        
-        public function actionPdf(){
-            $id = $_GET['id'];
-            $conf = ConfCo::model()->find();
-            $compania = Compania::model()->find(); 
-            $ingreso = IngresoCompra::model()->findByPk($id);
-            $lineas = IngresoCompraLinea::model()->findAll('INGRESO_COMPRA = "'.$id.'"');        
-            $mPDF1 = Yii::app()->ePdf->mpdf();
-            $mPDF1->WriteHTML($this->renderPartial('pdf', array('ingreso' => $ingreso, 'lineas' => $lineas, 'compania' => $compania, 'conf'=>$conf), true));
-            $mPDF1->Output();
-            Yii::app()->end();
-        }
 
 	/**
 	 * Manages all models.

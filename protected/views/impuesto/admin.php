@@ -5,18 +5,6 @@ $this->breadcrumbs=array(
 	'Impuestos',
 );
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('impuesto-grid', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
 <h1>Impuestos</h1>
@@ -48,13 +36,3 @@ if (isset($_GET['men'])){
 //		),
 	),
 )); ?>
-<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
- 
-<div class="modal-header">
-    <a class="close" data-dismiss="modal">&times;</a>
-    <h3>Crear Impuesto</h3>
-    <p class="note">Los Campos con <span class="required">*</span> Son requeridos.</p>
-</div>
-
-    <?php echo $this->renderPartial('_form', array('model2'=>$model2)); ?>
-    <?php $this->endWidget(); ?>

@@ -63,7 +63,7 @@ if (isset($_GET['men'])){
                     //'ACTIVO',
                     array(
                             'class'=>'bootstrap.widgets.TbButtonColumn',
-                            'template'=>'{view} {update}',
+                            'template'=>'{update}',
                     ),
                     /*array(
                          'class'=>'CLinkColumn',
