@@ -19,78 +19,44 @@
 
     <body>
 
-<!--        <div class="container" id="page" >
-            
-            <?php /*
-            $arr = explode("-", $this->solicitud->FECHA_REQUERIDA);
+        <div class="container" id="page" >
+
+            <?php
+            $arr = explode("-", $this->ingreso->FECHA_INGRESO);
             $ano = $arr[0];
             $mes = $arr[1];
             $dia = $arr[2];
-             * 
-             */
             ?>
-            
-            
-                        <div style="text-align: center;" width="700px"> <p style="font-size: 14pt"><strong>Ingreso de Compra</strong></p></div>
-            
-            <div class="borde" width="372px">
-                <strong>Departamento: </strong><?php //echo $this->solicitud->dEPARTAMENTO->DESCRIPCION; ?><br>
-                <strong>Prioridad: </strong><?php //echo SolicitudOc::model()->prioridad($this->solicitud->PRIORIDAD); ?><br>
-                <strong>Estado: </strong><?php //echo SolicitudOc::model()->estado($this->solicitud->ESTADO); ?>    
-            </div>
-            
-            <div width="140px" style="padding-left: 4px; float: left;">
-                <div width="139px" style="padding: 1px;"><div class="borde" style="padding: 2px;" align="center"><strong>Fecha Solicitud</strong></div></div>
-                <div style="padding: 1px; " ><div class="borde" style="padding: 2px;" width="26%" align="center"><strong>Dia</strong></div> <div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Mes</strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Año</strong></div></div>
-                <div style="padding: 1px; " align="center"><div class="borde" style="padding: 2px;" width="26%" align="center"><strong><?php //echo $dia1 ?></strong></div><div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php //echo $mes1 ?></strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php //echo $ano1 ?></strong></div></div>
-            </div>
-            
-            <div width="140px" style="padding-left: 2px; float: left;">
-                <div width="139px" style="padding: 1px;"><div class="borde" style="padding: 2px;" align="center"><strong>Fecha Requerida</strong></div></div>
-                <div style="padding: 1px; " ><div class="borde" style="padding: 2px;" width="26%" align="center"><strong>Dia</strong></div> <div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Mes</strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Año</strong></div></div>
-                <div style="padding: 1px; " align="center"><div class="borde" style="padding: 2px;" width="26%" align="center"><strong><?php //echo $dia ?></strong></div><div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php //echo $mes ?></strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php //echo $ano ?></strong></div></div>
-            </div>
-            
-            <div style="padding-top: 10px;padding-bottom: 10px;">
-              
-                <?php //echo $content; ?>
-                
-            </div>
-            
-            <div class="borde">
-                
-                <strong>Notas:</strong><br>
-                <p><?php //echo $this->ingreso->NOTAS; ?></p>
-                
-            </div>-->
-            
-            
-            
 
-            <table width="100%">
-               
-                <tr>
-                    <td colspan="2" align="center" valign="middle"><p>&nbsp;</p>
-                        <p class="asd"><strong>Ingreso de Compra</strong></p>
-                        <p>&nbsp;</p></td>
-                </tr>
-                <tr>
-                    <td><strong>Fecha Ingreso: </strong> <?php echo $this->ingreso->FECHA_INGRESO; ?></td>
-                    <td><strong>Estado: </strong><?php echo IngresoCompra::model()->estado($this->ingreso->ESTADO); ?></td>
-                </tr>
-                <tr>
-                    <td><strong>Proveedor: </strong><?php echo $this->ingreso->pROVEEDOR->NOMBRE; ?></td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center" valign="middle"><p>&nbsp;</p>      <p><?php echo $content; ?></p>
-                        <p>&nbsp;</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2"><strong>Notas:</strong><?php echo $this->ingreso->NOTAS; ?></td>
-                </tr>
-            </table>
+
+            <div style="text-align: center;" width="700px"> <p style="font-size: 14pt"><strong>Ingreso de Compra</strong></p></div>
+
+            <div class="borde" width="516px">
+                <strong>Proveedor: </strong>
+                <br><?php echo $this->ingreso->pROVEEDOR->NOMBRE; ?><br>
+                <strong>Estado: </strong><?php echo IngresoCompra::model()->estado($this->ingreso->ESTADO); ?>    
+            </div>
+
+
+
+            <div width="140px" style="padding-left: 2px; float: left;">
+                <div width="139px" style="padding: 1px;"><div class="borde" style="padding: 2px;" align="center"><strong>Fecha Ingreso</strong></div></div>
+                <div style="padding: 1px; " ><div class="borde" style="padding: 2px;" width="26%" align="center"><strong>Dia</strong></div> <div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Mes</strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Año</strong></div></div>
+                <div style="padding: 1px; " align="center"><div class="borde" style="padding: 2px;" width="26%" align="center"><strong><?php echo $dia ?></strong></div><div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php echo $mes ?></strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php echo $ano ?></strong></div></div>
+            </div>
+
+                        <div style="padding-top: 10px;padding-bottom: 10px;">
+
+                            <?php echo $content; ?>
+
+                        </div>
+
+                        <div class="borde">
+
+                            <strong>Notas:</strong><br>
+                                <p><?php echo $this->ingreso->NOTAS; ?></p>
+
+                        </div>
 
         </div><!-- page -->
 

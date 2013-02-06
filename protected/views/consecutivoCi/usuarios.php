@@ -34,7 +34,7 @@
                     <thead>
                        <tr>
                            <td>
-                               <?php echo $form->labelEx(Usuarios::model(),'USERNAME') ?>
+                                <?php echo $form->labelEx(CrugeUserModel::model(),'username') ?>
                            </td>
                            <td></td>
                       </tr>
@@ -43,7 +43,7 @@
                         <?php foreach($usuarios as $i=>$person): ?>
                             <tr class="templateContent">
                                 <td>
-                                    <?php echo $form->dropDownList($person,"[$i]USUARIO", CHtml::ListData(Usuarios::model()->findAll(),'USERNAME','USERNAME'),array('empty'=>'Seleccione'));  ?>
+                                    <?php echo $form->dropDownList($person,"[$i]USUARIO",CHtml::ListData(CrugeUserModel::model()->findAll(),'username','username'),array('empty'=>'Seleccione'));  ?>
                                     <?php echo $form->hiddenField($person,"[$i]ID",''); ?>
                                 </td>
                                 <td>
