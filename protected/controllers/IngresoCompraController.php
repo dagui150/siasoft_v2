@@ -489,7 +489,7 @@ class IngresoCompraController extends Controller
                                  'type'=>'normal',
                                  'label'=>'Aceptar',
                                  'icon'=>'ok',
-                                 'htmlOptions'=>array('id'=>'nuevo','onclick'=>'reescribir();')
+                                 'htmlOptions'=>array('id'=>'30','onclick'=>'reescribir();')
                               ));
                      echo '</div>';                     
                      Yii::app()->end();

@@ -132,13 +132,10 @@ class ZonaController extends Controller
 		));
 	}
         
-                  public function actionPdf(){
+             public function actionPdf(){
             
-            $dataProvider=new zona;
-		$this->render('pdf',array(
-			'dataProvider'=>$dataProvider,
-		));
-            
+                $dataProvider=new Zona;
+		$this->render('pdf',array('dataProvider'=>$dataProvider));
             
         }
 

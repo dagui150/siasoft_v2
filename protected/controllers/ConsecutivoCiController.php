@@ -72,11 +72,13 @@ class ConsecutivoCiController extends Controller
                             //ACTUALIZAR REGISTROS
                             if(isset($_POST['ConsecCiTipoTrans'])){
                                 foreach ($_POST['ConsecCiTipoTrans'] as $datos){
-                                     $conTipo = ConsecCiTipoTrans::model()->findByPk($datos['ID']);
-                                     $conTipo->CONSECUTIVO_CI = $model2->ID;
-                                     $conTipo->TIPO_TRANSACCION = $datos['TIPO_TRANSACCION'];
-                                     $conTipo->ACTIVO = 'S';
-                                     $conTipo->save();
+                                    if($datos['TIPO_TRANSACCION'] !== ''){
+                                        $conTipo = ConsecCiTipoTrans::model()->findByPk($datos['ID']);
+                                        $conTipo->CONSECUTIVO_CI = $model2->ID;
+                                        $conTipo->TIPO_TRANSACCION = $datos['TIPO_TRANSACCION'];
+                                        $conTipo->ACTIVO = 'S';
+                                        $conTipo->save();
+                                    }
                                 }
                             }
                             if(isset($_POST['ConsecCiUsuario'])){
@@ -112,11 +114,13 @@ class ConsecutivoCiController extends Controller
                             //NUEVOS REGISTROS
                             if(isset($_POST['ConsecCiTipoTransNuevo'])){
                                 foreach ($_POST['ConsecCiTipoTransNuevo'] as $datos){
-                                     $conTipo = new ConsecCiTipoTrans;
-                                     $conTipo->CONSECUTIVO_CI = $model2->ID;
-                                     $conTipo->TIPO_TRANSACCION = $datos['TIPO_TRANSACCION'];
-                                     $conTipo->ACTIVO = 'S';
-                                     $conTipo->save();
+                                    if($datos['TIPO_TRANSACCION'] !== ''){
+                                        $conTipo = new ConsecCiTipoTrans;
+                                        $conTipo->CONSECUTIVO_CI = $model2->ID;
+                                        $conTipo->TIPO_TRANSACCION = $datos['TIPO_TRANSACCION'];
+                                        $conTipo->ACTIVO = 'S';
+                                        $conTipo->save(); 
+                                    }
                                 }
                             }
                             
@@ -194,31 +198,35 @@ class ConsecutivoCiController extends Controller
 		if(isset($_POST['ConsecutivoCi']))
 		{
 			$model2->attributes=$_POST['ConsecutivoCi'];
-			if($model2->save()){
+			if($model2->save()){                                
                             
                             if(isset($_POST['ConsecCiTipoTransNuevo'])){
                                 foreach ($_POST['ConsecCiTipoTransNuevo'] as $datos){
-                                     $conTipo = new ConsecCiTipoTrans;
-                                     $conTipo->CONSECUTIVO_CI = $_POST['ConsecutivoCi']['ID'];
-                                     $conTipo->TIPO_TRANSACCION = $datos['TIPO_TRANSACCION'];
-                                     $conTipo->ACTIVO = 'S';
-                                     $conTipo->save();
+                                    if($datos['TIPO_TRANSACCION'] != ''){
+                                        $conTipo = new ConsecCiTipoTrans;
+                                        $conTipo->CONSECUTIVO_CI = $model2->ID;
+                                        $conTipo->TIPO_TRANSACCION = $datos['TIPO_TRANSACCION'];
+                                        $conTipo->ACTIVO = 'S';
+                                        $conTipo->save(); 
+                                    }
                                 }
                             }
                             
-                            if($model2->TODOS_USUARIOS == 'N'){
-                                if(isset($_POST['CrugeUserModel'])){
-                                    foreach ($_POST['CrugeUserModel'] as $datos){
-                                         $conUsuario = new ConsecCiUsuario;
-                                         $conUsuario->CONSECUTIVO_CI = $_POST['ConsecutivoCi']['ID'];
-                                         $conUsuario->USUARIO = $datos['USERNAME'];
-                                         $conUsuario->ACTIVO = 'S';
-                                         $conUsuario->save();
+                            if($model2->TODOS_USUARIOS === 'N'){
+                                if(isset($_POST['UsuariosNuevo'])){
+                                    foreach ($_POST['UsuariosNuevo'] as $datos){
+                                        if($datos['USERNAME'] != ''){
+                                            $conUsuario = new ConsecCiUsuario;
+                                            $conUsuario->CONSECUTIVO_CI = $model2->ID;
+                                            $conUsuario->USUARIO = $datos['USERNAME'];
+                                            $conUsuario->ACTIVO = 'S';
+                                            $conUsuario->save();
+                                        }
                                     }
                                }
                             }
                         }
-                           //$this->redirect(array('admin',));
+                           
                         $this->redirect(array('admin&men=S003'));
 		}
                 

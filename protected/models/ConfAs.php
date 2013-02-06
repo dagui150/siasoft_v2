@@ -46,7 +46,7 @@ class ConfAs extends CActiveRecord
 		return array(
 			array('IMPUESTO1_DESC, IMPUESTO2_DESC', 'length', 'max'=>10),
 			array('PATRON_CCOSTO', 'length', 'max'=>25),
-                        array('PORCENTAJE_DEC','numerical','integerOnly'=>true, 'max'=>6),
+                        array('PORCENTAJE_DEC','numerical','integerOnly'=>true, 'max'=>8),
 			array('SIMBOLO_MONEDA', 'length', 'max'=>3),
 			array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			// The following rule is used by search().
