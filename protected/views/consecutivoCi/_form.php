@@ -61,7 +61,7 @@
                                 array(
                                     'label'=>'General',
                                     'content'=>
-                                        '<span class="hint" style="margin-left: 160px;">aaa - 9999?9999999999</span>'
+                                        '<span style="margin-left: 117px;">'.$this->botonAyuda("MASCARA_INV_CONSEC").'</span><span class="hint" style="margin-left: 27px;">aaa - 9999?9999999999</span>'
                                         .$form->textFieldRow($model2,'MASCARA',array('size'=>20,'maxlength'=>20,'disabled'=>$model2->isNewRecord ? false : true))
                                         .$form->textFieldRow($model2,'SIGUIENTE_VALOR',array('size'=>20,'maxlength'=>20,'readonly'=>true))
                                         .$form->dropDownListRow($model2,'FORMATO_IMPRESION',CHtml::listData(FormatoImpresion::model()->findAllByAttributes(array('MODULO'=>'INVE','SUBMODULO'=>'DOIN')), 'ID', 'NOMBRE'),array('empty'=>'Seleccione'))
