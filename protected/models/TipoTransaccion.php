@@ -61,6 +61,7 @@ class TipoTransaccion extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('TIPO_TRANSACCION, NOMBRE,TIPO_TRANSACCION, TRANSACCION_BASE, NATURALEZA, ACTIVO', 'required'),
+                        array('TIPO_TRANSACCION', 'DSpacesValidator'),
 			array('TIPO_TRANSACCION, TRANSACCION_BASE', 'length', 'max'=>4),
 			array('NOMBRE', 'length', 'max'=>16),
 			array('TRANSACCION_FIJA, ACTIVO', 'length', 'max'=>1),

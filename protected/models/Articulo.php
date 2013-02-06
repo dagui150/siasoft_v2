@@ -90,6 +90,7 @@ class Articulo extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ORIGEN_CORP, TIPO_ARTICULO, EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA, PUNTO_REORDEN,', 'required'),
+                        array('ARTICULO', 'DSpacesValidator'),
 			array('ARTICULO, NOMBRE, FRECUENCIA_CONTEO,PESO_NETO, PESO_NETO_UNIDAD, PESO_BRUTO, PESO_BRUTO_UNIDAD, VOLUMEN, VOLUMEN_UNIDAD, UNIDAD_ALMACEN, UNIDAD_EMPAQUE, UNIDAD_VENTA, FACTOR_EMPAQUE, FACTOR_VENTA, IMPUESTO_VENTA,', 'required',),
                         array('EXISTENCIA_MINIMA, EXISTENCIA_MAXIMA,PUNTO_REORDEN, PESO_NETO, PESO_BRUTO, VOLUMEN, FACTOR_EMPAQUE,FACTOR_VENTA','numerical','numberPattern' => '/^\s*[-+]?(\d{1,3}\.*\,*)*?\s*$/'), //Decimales 'numberPattern' => '/^\s*[-+]?(\d{1,3}\.*\,*)*?\s*$/' 
                         array('FRECUENCIA_CONTEO','numerical'),//Enteros 'integerOnly' =>true, 'integerPattern' => '/^\s*[-+]?(\d{1,3}\.*)*?\s*$/'
