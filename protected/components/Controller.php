@@ -185,8 +185,7 @@ class Controller extends CController
                                 'items' => array(
                                     array('label' => 'Crear', 'url' => array('/cruge/ui/usermanagementcreate')),
                                     array('label' => 'Afministrar', 'url' => array('/cruge/ui/usermanagementadmin')),
-                                    array('label' => 'Permisos'),
-                                    array('label' => 'Tareas', 'url' => array('/cruge/ui/rbaclisttasks')),
+                                    '-',
                                     array('label' => 'Roles', 'url' => array('/cruge/ui/rbaclistroles')),
                                     array('label' => 'Asignar Roles a usuarios', 'url' => array('/cruge/ui/rbacusersassignments')),
                                     array('label' => 'Registro de Sesiones', 'url' => array('/cruge/ui/sessionadmin')),

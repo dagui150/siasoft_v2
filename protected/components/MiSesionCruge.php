@@ -1,5 +1,5 @@
 <?php
-/***
+/**
 	Esta clase sirve para personalizar las acciones de inicio y cierre
 	de sesión.
 
@@ -16,7 +16,7 @@ class MiSesionCruge extends DefaultSessionFilter  {
          * Metodo para indicar a donde va el ususario despues de loguearse
          * @param ICrugeSession $model
          */
-	public function onLogin(ICrugeSession $model){
+	public function onLogin(/*ICrugeSession*/ $model){
 		parent::onLogin($model);
                 
 		if(Yii::app()->user->isSuperAdmin)
@@ -31,10 +31,11 @@ class MiSesionCruge extends DefaultSessionFilter  {
          * Metodo para indicar adonde va el ususario cuando cuando hace logout
          * @param ICrugeSession $model
          */
-	public function onLogout(ICrugeSession $model) {
+	public function onLogout(/*ICrugeSession*/ $model) {
 		parent::onLogout($model);
-		Yii::log("PASANDO POR ONLOGOUT","info");
                 Yii::app()->getController()->redirect(array("/site/login"));
 	}
 
 }
+
+?>
