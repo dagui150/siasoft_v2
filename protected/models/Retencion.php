@@ -146,15 +146,10 @@ class Retencion extends CActiveRecord
 	}
 
         
-        	public function behaviors()
+    public function behaviors()
 	{
-<<<<<<< HEAD
 		$conf= ConfFa::model()->find();
-                $conf2=  ConfAs::model()->find();
-=======
-		$conf = ConfFa::model()->find();
-                $conf2 = ConfAs::model()->find();
->>>>>>> 3182d4e1f220e7c996dcac7b0c7a94072a31d486
+        $conf2=  ConfAs::model()->find();
 		return array(
                         'defaults'=>array(
                            'class'=>'application.components.FormatBehavior',

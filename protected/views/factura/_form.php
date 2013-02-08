@@ -63,7 +63,8 @@
     }
     
     function inicio(){
-        
+            
+            $('.templateTarget').html('');
             $('#Factura_CONSECUTIVO').focus();
             $('.edit').live('click',actualiza);
             $('#ok-cliente').click(function(){
@@ -167,6 +168,19 @@
                                   $('#Cliente_UBICACION_GEOGRAFICA2').append("<option value='"+value+"'>"+name+"</option>");
                             });
                     });
+           });
+           
+           $('#Factura_BODEGA').change(function(){
+                if($('.templateTarget').text() != ''){
+                    if(confirm('¿Desea cambiar la bodega?\nSi se cambia perdera los items agregados')){
+                        $('#Factura_ARTICULO').val('');
+                        $('#Articulo_desc').val('Ninguno');
+                        $('#Factura_CANTIDAD').val('');
+                        $('select[id$=Factura_UNIDAD ] > option').remove();
+                        $('#agregar').val('');
+                        $('.templateTarget').html('');
+                    }
+                }
            });
     }
     
@@ -362,7 +376,7 @@
                                  <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                'buttonType'=>'button',
                                                'type'=>'normal',
-                                              'size'=>'mini',
+                                              'size'=>'small',
                                                'icon'=>'pencil',
                                                'htmlOptions'=>array('style'=>'margin: 5px -25px 0 -3px; display:none','id'=>'editaCliente','onclick'=>'$("#clienteNuevo").modal();')
                                        ));
