@@ -122,18 +122,7 @@ class IngresoCompraController extends Controller
             }
              echo CJSON::encode($res);
         }
-        
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-        
+             
         public function actionformatoPDF() {
 
             $id = $_GET['id'];
@@ -325,20 +314,6 @@ class IngresoCompraController extends Controller
 			'model'=>$model,
 		));
 	}
-
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-	}
         
         public function actionPdf(){
             $id = $_GET['id'];
@@ -351,17 +326,6 @@ class IngresoCompraController extends Controller
             $mPDF1->Output();
             Yii::app()->end();
         }
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('IngresoCompra');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
 
 	/**
 	 * Manages all models.

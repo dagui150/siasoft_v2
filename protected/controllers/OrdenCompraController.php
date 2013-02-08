@@ -606,21 +606,6 @@ class OrdenCompraController extends Controller
                                     $salvar2->ESTADO = $datos2['ESTADO'];
                                     $salvar2->save();
                                     $i++;
-                                    
-                                    if($datos2['SOLICITUD'] != ''){
-                                        $relacion = new SolicitudOrdenCo;
-                                        $relacion->SOLICITUD_OC = $datos2['SOLICITUD'];
-                                        $relacion->SOLICITUD_OC_LINEA = $datos2['ID_SOLICITUD_LINEA'];
-                                        $relacion->ORDEN_COMPRA = $_POST['OrdenCompra']['ORDEN_COMPRA'];
-                                        $relacion->ORDEN_COMPRA_LINEA = OrdenCompraLinea::model()->count();
-                                        $relacion->DECIMA = $datos2['CANTIDAD_ORDENADA'];
-                                        $relacion->ACTIVO = 'S';
-                                        $relacion->save();
-                                        $solicitud = SolicitudOcLinea::model()->find('SOLICITUD_OC_LINEA = "'.$datos2['ID_SOLICITUD_LINEA'].'"');
-                                        $solicitud->SALDO = $datos2['RESTA_CANT'] - $datos2['CANTIDAD_ORDENADA'];
-                                        $solicitud->save();
-                                    }
-                                       
                                 }
                             }
                             
@@ -650,6 +635,20 @@ class OrdenCompraController extends Controller
                                     $salvar->ESTADO = $datos['ESTADO'];
                                     $salvar->save();
                                     $i++;
+                                    
+                                    if($datos['SOLICITUD'] != ''){
+                                        $relacion = new SolicitudOrdenCo;
+                                        $relacion->SOLICITUD_OC = $datos2['SOLICITUD'];
+                                        $relacion->SOLICITUD_OC_LINEA = $datos2['ID_SOLICITUD_LINEA'];
+                                        $relacion->ORDEN_COMPRA = $_POST['OrdenCompra']['ORDEN_COMPRA'];
+                                        $relacion->ORDEN_COMPRA_LINEA = OrdenCompraLinea::model()->count();
+                                        $relacion->DECIMA = $datos2['CANTIDAD_ORDENADA'];
+                                        $relacion->ACTIVO = 'S';
+                                        $relacion->save();
+                                        $solicitud = SolicitudOcLinea::model()->find('SOLICITUD_OC_LINEA = "'.$datos2['ID_SOLICITUD_LINEA'].'"');
+                                        $solicitud->SALDO = $datos2['RESTA_CANT'] - $datos2['CANTIDAD_ORDENADA'];
+                                        $solicitud->save();
+                                    }
                                 }
                             }
                             	//$this->redirect(array('admin'));

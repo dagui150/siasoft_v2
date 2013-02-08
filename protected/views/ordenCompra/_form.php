@@ -43,6 +43,11 @@ $(document).ready(function(){
         $('#NAME').val($(this).attr('name'));
         actualiza();
     });
+    $('.editU').live('click',function(){
+        $('#SPAN').val('U');
+        $('#NAME').val($(this).attr('name'));
+        actualiza();
+    });
     $('#OrdenCompra_DIRECCION_EMBARQUE').val('<?php echo $config->DIRECCION_EMBARQUE; ?>');
     $('#OrdenCompra_DIRECCION_COBRO').val('<?php echo $config->DIRECCION_COBRO; ?>');
     $(".escritoProv").live("change", function (e) {
@@ -102,7 +107,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>date("Y-m-d"), 'disabled'=>$readonly),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA, 'disabled'=>$readonly),  
             ), true); 
             
             $fecha2 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -119,7 +124,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'disabled'=>$readonly),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_COTIZACION, 'disabled'=>$readonly),  
             ), true); 
             
             $fecha3 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -136,7 +141,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'disabled'=>$readonly),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_OFRECIDA, 'disabled'=>$readonly),  
             ), true); 
             
             $fecha4 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -153,7 +158,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'disabled'=>$readonly),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_REQUERIDA, 'disabled'=>$readonly),  
             ), true); 
             
             $fecha5 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -170,7 +175,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'disabled'=>$readonly),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top','value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_REQ_EMBARQUE, 'disabled'=>$readonly),  
             ), true); 
         ?>
     

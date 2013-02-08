@@ -1,6 +1,103 @@
 <script>
 $(document).ready(function(){    
     var contador, model,id;
+    
+    $('.eliminaLinea').live('click',function(){
+        contador = $(this).attr('name');
+        var model = 'Nuevo'; 
+        $('#remover_'+contador).click();
+        var contadorMax = $('body').find('.rowIndex').max();
+        var contFor = parseInt(contador, 10)+1;
+        var linea = parseInt(contador, 10); 
+        //cambiar ids y span
+        for(var i = contFor ; i <=contadorMax; i++){            
+            var campos = ['ARTICULO','DESCRIPCION','UNIDAD_COMPRA','FECHA_REQUERIDA','CANTIDAD_ORDENADA','SOLICITUD', 'PRECIO_UNITARIO','PORC_DESCUENTO','MONTO_DESCUENTO','PORC_IMPUESTO','VALOR_IMPUESTO','IMPORTE','CANTIDAD_RECIBIDA','CANTIDAD_RECHAZADA','FECHA','OBSERVACION','ESTADO','FACTURA'];
+            var span = ['numero', 'campo_descripcion','descripcion','campo_unidad','unidad','requerida','campo_requerida','cantidad','campo_cantidad','unitario','campo_unitario','descuento','impuesto', 'campo_importe', 'importe','remover','edit','eliminaLinea','rowIndex'];
+            //CAMBIAR IDS DE LOS SPAN
+            for(var x =0 ; x<=span.length;x++){
+                switch(span[x]){
+                    case 'edit':
+                        $('#'+span[x]+'_'+i).attr('name',linea);
+                    break
+                    case 'eliminaLinea':
+                        $('#'+span[x]+'_'+i).attr('name',linea);
+                    break
+                    case 'rowIndex':
+                         $('[name="'+span[x]+'_'+i+'"]').attr({
+                        name: span[x]+'_'+linea,
+                        value:linea
+                    });
+                    break
+                }
+                $('#'+span[x]+'_'+i).attr('id',span[x]+'_'+linea);
+            }
+            //CAMBIAR IDS Y NAMES DE LOS CAMPOS DE LAS LINEAS
+            for(var y =0 ; y<=campos.length;y++){
+               /* alert('editar :'+model+'_'+i+'_'+campos[y]);
+                alert('editado :'+model+'_'+linea+'_'+campos[y]);*/
+                 $('#'+model+'_'+i+'_'+campos[y]).attr({
+                    id: model+'_'+linea+'_'+campos[y],
+                    name: model+'['+linea+']['+campos[y]+']'
+                });
+            }
+            contador++;
+            linea++;
+        }
+        calcularTotal(model);
+    });
+    
+    $('.eliminaLineaU').live('click',function(){
+        contador = $(this).attr('name');
+        model = 'Nuevo';
+        var model2 = 'OrdenCompraLinea';
+        var numLinea = parseInt($('#CAMPO_ACTUALIZA').val(), 10);
+        var eliminar = $('#eliminar').val();
+        eliminar = eliminar + $('#OrdenCompraLinea_'+contador+'_ID').val() + ',';
+        $('#eliminar').val(eliminar);
+        $('#CAMPO_ACTUALIZA').val(numLinea - 1);
+        $('#removerU_'+contador).click();
+        var contadorMax = $('body').find('.rowIndexU').max();
+        var contFor = parseInt(contador, 10)+1;
+        var linea = parseInt(contador, 10); 
+        //cambiar ids y span
+        for(var i = contFor ; i <=contadorMax; i++){
+           var campos = ['ARTICULO','DESCRIPCION','UNIDAD_COMPRA','FECHA_REQUERIDA','CANTIDAD_ORDENADA','SOLICITUD', 'PRECIO_UNITARIO','PORC_DESCUENTO','MONTO_DESCUENTO','PORC_IMPUESTO','VALOR_IMPUESTO','IMPORTE','CANTIDAD_RECIBIDA','CANTIDAD_RECHAZADA','FECHA','OBSERVACION','ESTADO','FACTURA'];
+            var span = ['numeroU', 'campo_descripcionU','descripcionU','campo_unidadU','unidadU','requeridaU','campo_requeridaU','cantidadU','campo_cantidadU','unitarioU','campo_unitarioU','descuentoU','impuestoU', 'campo_importeU', 'importeU','removerU','editU','eliminaLineaU','rowIndexU'];
+            //CAMBIAR IDS DE LOS SPAN
+            for(var x =0 ; x<=span.length;x++){
+                switch(span[x]){
+                    case 'editU':
+                        $('#'+span[x]+'_'+i).attr('name',linea);
+                    break
+                    case 'eliminaLineaU':
+                        $('#'+span[x]+'_'+i).attr('name',linea);
+                    break
+                    case 'rowIndexU':
+                         $('[name="'+span[x]+'_'+i+'"]').attr({
+                        name: span[x]+'_'+linea,
+                        value:linea
+                    });
+                    break
+                }
+                $('#'+span[x]+'_'+i).attr('id',span[x]+'_'+linea);
+                     
+                 
+            }
+            //CAMBIAR IDS Y NAMES DE LOS CAMPOS DE LAS LINEAS
+            for(var y =0 ; y<=campos.length;y++){
+               /* alert('editar :'+model+'_'+i+'_'+campos[y]);
+                alert('editado :'+model+'_'+linea+'_'+campos[y]);*/
+                 $('#'+model2+'_'+i+'_'+campos[y]).attr({
+                    id: model2+'_'+linea+'_'+campos[y],
+                    name: model2+'['+linea+']['+campos[y]+']'
+                });
+            }
+            contador++;
+            linea++;
+        }
+        calcularTotal(model);
+    });
+    
     $('.cambiar').live('dblclick',function(){
             model = $(this).attr('id').split('_')[0];            
             contador = $(this).attr('id').split('_')[1];
@@ -31,13 +128,14 @@ $(document).ready(function(){
         
         $('.blur').live('blur',function(){
             contador =  $(this).attr('id').split('_')[1];
+            var span = '';
             switch(model){
                 case 'cantidad':
                     $('#cantidad_'+contador).text($(this).val());
                     $('#campo_cantidad_'+contador).hide('fast');                                       
                     //calcular el total   
                     model = $(this).attr('id').split('_')[0];                    
-                    calcularLinea(model,contador);
+                    calcularLinea(model,contador,span);
                     $('#cantidad_'+contador).show('fast');                    
                 break;
                 case 'unidad':
@@ -49,21 +147,21 @@ $(document).ready(function(){
                     $('#unitario_'+contador).text($(this).val());
                     $('#campo_unitario_'+contador).hide('fast');
                     model = $(this).attr('id').split('_')[0];
-                    calcularLinea(model,contador);
+                    calcularLinea(model,contador,span);
                     $('#unitario_'+contador).show('fast');
                 break;
                 case 'descuento':
                     $('#descuento_'+contador).text($(this).val());
                     $('#campo_descuento_'+contador).hide('fast');                    
                     model = $(this).attr('id').split('_')[0];
-                    calcularLinea(model,contador);
+                    calcularLinea(model,contador,span);
                     $('#descuento_'+contador).show('fast');
                break;
                 case 'impuesto':
                     $('#impuesto_'+contador).text($(this).val());
                     $('#campo_impuesto_'+contador).hide('fast');                    
                     model = $(this).attr('id').split('_')[0];
-                    calcularLinea(model,contador);
+                    calcularLinea(model,contador,span);
                     $('#impuesto_'+contador).show('fast');
                break;
             }
@@ -106,7 +204,7 @@ $(document).ready(function(){
         var date = new Date();
         date.setDate(date.getDate());
         var futDate= date.getFullYear() + "-" + date.getMonth()+1 + "-" + date.getDate();
-        
+        var span = '';
         var articulo = $('#OrdenCompra_ARTICULO').val();
         var descripcion = $('#Articulo_desc').val();
         var cantidad = $('#OrdenCompra_CANTIDAD').val();
@@ -118,7 +216,7 @@ $(document).ready(function(){
         $('#'+model+'_'+contador+'_DESCRIPCION').val(descripcion);
         $('#'+model+'_'+contador+'_CANTIDAD_ORDENADA').val(cantidad);
         $('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(precio);
-        $('#'+model+'_'+contador+'_SOLICITUD').val(0);
+        $('#'+model+'_'+contador+'_SOLICITUD').val('');
         $('#'+model+'_'+contador+'_PORC_DESCUENTO').val(0);
         $('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(0);
         $('#'+model+'_'+contador+'_IMPORTE').val(0);        
@@ -160,7 +258,7 @@ $(document).ready(function(){
         $('#impuesto_'+contador).text(0);        
         $('#importe_'+contador).text(0);
         $('#unidad_'+contador).text($('#OrdenCompra_UNIDAD option:selected').html());
-        calcularLinea(model,contador);
+        calcularLinea(model,contador, span);
     }
     function cargaSolicitud (){
         var myString = $('#check').val();
@@ -224,93 +322,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     
    var proveedor = $("#OrdenCompra_PROVEEDOR").val();
-   /*var impuestoGen = parseFloat($("#OrdenCompra_PORC_DESCUENTO").val(), 10);
-   var montFlete = parseFloat($("#OrdenCompra_MONTO_FLETE").val(), 10);
-   var montSeguro = parseFloat($("#OrdenCompra_MONTO_SEGURO").val(), 10);
-   var montAnticipo = parseFloat($("#OrdenCompra_MONTO_ANTICIPO").val(), 10);
-   var totalCompra = parseFloat($("#OrdenCompra_TOTAL_A_COMPRAR").val(),10);
-   var ocultoUpd = $("#ocultoUpd").val();
-   var afecta = $("#afecta").val();
-   var i = 0;
-   var sumaImpuesto = 0;
-   var totalLinea = 0;
-   var total = 0;
-   var a = 0;
-   
-   $("#Flete").val(montFlete);
-   $("#Seguro").val(montSeguro);
-   $("#Anticipo").val(montAnticipo);
-   
-   while(i < ocultoUpd){
-       
-       var buscar = $("#OrdenCompraLinea_" + i + '_ARTICULO').val();
-       
-       $.getJSON(
-            '<?php echo $this->createUrl('ordenCompra/CargarArticulo'); ?>&buscar='+buscar,
-            function(data)
-                  {
-                        
-                        $('select[id$=#OrdenCompraLinea_' + a + '_UNIDAD_COMPRA] > option').remove();
-                        if(data.UNIDAD){
-                             $(data.UNIDAD).each(function()
-                             {
-                                 var option = $('<option />');
-                                 option.attr('value', this.ID).text(this.NOMBRE);  
-                                 if (this.ID == data.ALMACEN)
-                                     option.attr("selected",true);
-
-                                 $('#OrdenCompraLinea_' + a + '_UNIDAD_COMPRA').append(option);
-
-                             });
-                             }
-                         else{
-                              $('select[id$=#OrdenCompraLinea_' + a + '_UNIDAD_COMPRA] > option').remove();
-                         }
-                         a++;
-                })
-       
-       
-       var precio = parseFloat($("#OrdenCompraLinea_" + i + '_PRECIO_UNITARIO').val(), 10);
-       var cantidad = parseFloat($("#OrdenCompraLinea_" + i + '_CANTIDAD_ORDENADA').val(), 10);
-       var descuento = parseFloat($("#OrdenCompraLinea_" + i + '_PORC_DESCUENTO').val(), 10);
-       var impuesto = parseFloat($("#OrdenCompraLinea_" + i + "_PORC_IMPUESTO").val(), 10);
-       var totalLinea = precio * cantidad;
-       
-       descuento = (totalLinea * descuento) / 100;
-       totalLinea = totalLinea - descuento;
-       switch(afecta){
-               case 'L': 
-                   impuesto = (totalLinea * impuesto) / 100;
-                   break;
-               case 'A':
-                   impuestoGen = (totalLinea * impuestoGen) / 100;
-                   impuesto = (totalLinea - impuestoGen) * impuesto / 100;
-                   break;
-               case 'N':
-                   impuesto = (precio * cantidad) * impuesto / 100;
-                   break;
-           }
-           
-            $("#_" + i + 'IMPORTE').val(totalLinea);
-            $("#OrdenCompraLinea_" + i + '_MONTO_DESCUENTO').val(descuento);
-            
-       i++;
-       
-       sumaImpuesto = sumaImpuesto + impuesto;
-       total = total + totalLinea;
-       
-   }
-   
-   impuestoGen = parseFloat($("#OrdenCompra_PORC_DESCUENTO").val(), 10);
-   impuestoGen = total * impuestoGen / 100;
-   
-   $("#MenosDescuento").val(impuestoGen);
-   $("#ImpVentas").val(sumaImpuesto);
-   $("#TotalMerc").val(total);
-   alert(total);
-   var saldo = totalCompra - montAnticipo;
-   $("#Saldo").val(saldo);*/
-   
+      
    $.getJSON(
         '<?php echo $this->createUrl('ordenCompra/CargarProveedor'); ?>&buscar='+proveedor,
         function(data)
@@ -349,7 +361,7 @@ $(document).ready(function(){
 })
 
 // **** calculos **** //
-function calcularLinea(model, contador){
+function calcularLinea(model, contador, span){
     var afecta = $('#afecta').val();
     var descuento = parseFloat(unformat($('#'+model+'_'+contador+'_PORC_DESCUENTO').val()));
     var cantidad = parseFloat(unformat($('#'+model+'_'+contador+'_CANTIDAD_ORDENADA').val()));
@@ -380,16 +392,17 @@ function calcularLinea(model, contador){
     $('#'+model+'_'+contador+'_IMPORTE').val(total);
     $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(impuesto); 
     $('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(descuento);     
-    $('#importe_'+contador).text(total);
+    $('#importe'+span+'_'+contador).text(total);
     calcularTotal(model);
 }
 
-function calcularTotal(model){    
+function calcularTotal(model){
     var model2 = '<?php echo $model->isNewRecord ? false : 'OrdenCompraLinea'; ?>';
     var total_mercaderia =0,total_descuento=0,total_iva=0, total_comprar=0, saldo=0;
     var descuento,iva, importe, desc_general, monto_flete, monto_seguro, anticipo;
+    //if($('body').find('.rowIndex').max() == -Infinity)        
     if(model != false){ 
-            var contador = $('body').find('.rowIndex').max();           
+            var contador = $('body').find('.rowIndex').max();
             var numLinea = parseInt($('#CAMPO_ACTUALIZA').val());
             for(var i = 0 ; i <=contador; i++){
                 //lineas      
@@ -407,10 +420,9 @@ function calcularTotal(model){
                 descuento = parseFloat(unformat($('#'+model+'_'+i+'_MONTO_DESCUENTO').val().toString().replace(/\./g,',')));
                 iva =  parseFloat(unformat($('#'+model+'_'+i+'_VALOR_IMPUESTO').val().toString().replace(/\./g,',')));     
                 total_mercaderia += importe;
-                total_descuento += descuento;
-                //alert(total_descuento + " " + descuento);
-                total_iva += iva;
-                $('#lineaU_'+i).text(parseInt(i, 10) + 1 + numLinea);
+                total_descuento += descuento;                
+                total_iva += iva;                
+                $('#numero_'+i).text(parseInt(i, 10) + 1 + numLinea);
             }
             
             //total
@@ -425,7 +437,6 @@ function calcularTotal(model){
             
             
             $('#TotalMerc').val(format(total_mercaderia.toString().replace(/\./g,',')));
-            //alert(desc_general);
             $('#MenosDescuento').val(format(total_descuento.toString().replace(/\./g,',')));
             $('#ImpVentas').val(format(total_iva.toString().replace(/\./g,','))); 
             $('#Flete').val(format(monto_flete.toString().replace(/\./g,',')));
@@ -435,35 +446,35 @@ function calcularTotal(model){
             $('#Saldo').val(format(saldo.toString().replace(/\./g,',')));
         }
         
-    if(model2 != false){        
-            var contador = $('body').find('.rowIndexU').max();           
+    if(model2 != false){
+            var contador = $('body').find('.rowIndexU').max();
             var numLinea = parseInt($('#CAMPO_ACTUALIZA').val());
             for(var i = 0 ; i <=contador; i++){
                 //lineas      
-                importe = parseFloat(unformat($('#'+model2+'_'+i+'_IMPORTE').val()));                
-                
-                if($('#afecta').val() == 'A'){
-                    var desc_gen = parseInt(unformat($('#OrdenCompra_PORC_DESCUENTO').val(), 10));                    
-                    var impuesto = parseInt(unformat($('#'+model2+'_'+contador+'_PORC_IMPUESTO').val(), 10));
-                    desc_gen = (importe * desc_gen) / 100;                    
-                    impuesto = ((importe - desc_gen) * impuesto) / 100;
-                    $('#'+model2+'_'+contador+'_VALOR_IMPUESTO').val(impuesto);
-                }
-                
-                   
+                importe = parseFloat(unformat($('#'+model2+'_'+i+'_IMPORTE').val())); 
                 descuento = parseFloat(unformat($('#'+model2+'_'+i+'_MONTO_DESCUENTO').val().toString().replace(/\./g,',')));
-                iva =  parseFloat(unformat($('#'+model2+'_'+i+'_VALOR_IMPUESTO').val().toString().replace(/\./g,',')));     
+                if($('#afecta').val() == 'A'){
+                    var desc_gen = parseFloat(unformat($('#OrdenCompra_PORC_DESCUENTO').val()));
+                    var impuesto = parseFloat(unformat($('#'+model2+'_'+contador+'_PORC_IMPUESTO').val()));
+                    importe = importe - descuento;
+                    desc_gen = (importe * desc_gen) / 100;
+                    impuesto = ((importe - desc_gen) * impuesto) / 100;
+                    
+                    $('#'+model2+'_'+contador+'_VALOR_IMPUESTO').val(impuesto);
+                }                
+                iva =  parseFloat(unformat($('#'+model2+'_'+i+'_VALOR_IMPUESTO').val().toString().replace(/\./g,',')));
                 total_mercaderia += importe;
                 total_descuento += descuento;
                 total_iva += iva;
-                $('#lineaU_'+i).text(parseInt(i, 10) + 1 + numLinea);
+                if(model != false)
+                $('#numeroU_'+i).text(parseInt(i, 10) + 1 + numLinea);
             }
             
             //total
-            desc_general = parseFloat(unformat($('#OrdenCompra_PORC_DESCUENTO').val()));            
+            desc_general = parseFloat(unformat($('#OrdenCompra_PORC_DESCUENTO').val()));
             monto_flete = parseFloat(unformat($('#OrdenCompra_MONTO_FLETE').val()));
             monto_seguro = parseFloat(unformat($('#OrdenCompra_MONTO_SEGURO').val()));
-            anticipo = parseFloat(unformat($('#OrdenCompra_MONTO_ANTICIPO').val()));            
+            anticipo = parseFloat(unformat($('#OrdenCompra_MONTO_ANTICIPO').val()));
             desc_general = total_mercaderia * desc_general / 100;            
             total_descuento += desc_general;
             total_comprar = total_mercaderia - total_descuento + total_iva + monto_flete + monto_seguro;
@@ -623,35 +634,35 @@ function calcularTotal(model){
                             </span>
                             <?php echo CHtml::hiddenField('Nuevo[{0}][CANTIDAD_RECIBIDA]','',array()); ?>
                             <?php echo CHtml::hiddenField('Nuevo[{0}][CANTIDAD_RECHAZADA]','0',array()); ?>
-                            <?php echo CHtml::hiddenField('Nuevo[{0}][ID_SOLICITUD_LINEA]','',array()); ?>
-                            <?php echo CHtml::hiddenField('Nuevo[{0}][SOLICITUD]','',array()); ?>
+                            <?php echo CHtml::hiddenField('Nuevo[{0}][ID_SOLICITUD_LINEA]','',array()); ?>                            
                             <?php echo CHtml::hiddenField('Nuevo[{0}][FECHA]','',array()); ?>
                             <?php echo CHtml::hiddenField('Nuevo[{0}][OBSERVACION]','',array()); ?>
                             <?php echo CHtml::hiddenField('Nuevo[{0}][ESTADO]','P',array()); ?>
                         </td>
                         <td>
-                            <span style="float: left">
-                                <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                        'buttonType'=>'button',
-                                        'type'=>'normal',                                                                         
-                                        'icon'=>'pencil',
-                                        'htmlOptions'=>array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}', 'disabled'=>$readonly)
-                                  ));
-                                 ?>
-                            </span>
-                            <div id="remover" class="remove">
-                                <div style="float: left; margin-left: 5px;">
-                                    <?php $this->widget('bootstrap.widgets.TbButton', array(
-                                            'buttonType'=>'button',
-                                            'type'=>'danger',                                                                        
-                                            'icon'=>'minus white',
-                                            'htmlOptions'=>array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}', 'disabled'=>$readonly)
-                                            ));
-                                     ?>
-                                </div>
-                            </div>
-                            <input type="hidden" class="rowIndex" value="{0}" />
-                        </td>
+                                             <span style="float: left">
+                                                <?php $this->widget('bootstrap.widgets.TbButton', array(
+                                                                 'buttonType'=>'button',
+                                                                 'type'=>'normal',
+                                                                 'size'=>'small',
+                                                                 'icon'=>'pencil',
+                                                                 'htmlOptions'=>array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')
+                                                             ));
+                                                ?>
+                                            </span>
+                                            <div class="remove" id ="remover_<?php echo '{0}';?>" style="float: left; margin-left: 5px; display: none"></div>
+                                            <div style="float: left; margin-left: 5px;">
+                                                <?php $this->widget('bootstrap.widgets.TbButton', array(
+                                                             'buttonType'=>'button',
+                                                             'type'=>'danger',
+                                                             'size'=>'small',
+                                                             'icon'=>'minus white',
+                                                             'htmlOptions'=>array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}')
+                                                         ));
+                                                   ?>
+                                            </div>
+                                            <input name="rowIndex_{0}" type="hidden" class="rowIndex" value="{0}" />
+                                       </td>
                     </tr>
                 </textarea>
             </td>
@@ -662,21 +673,22 @@ function calcularTotal(model){
                 <?php foreach($items as $i=>$item): ?>
                 <tr class="templateContent">
                         <td>
-                            <?php echo '<span id="numeroU_'.$i.'">'.$item->LINEA_NUM.'</span>'; ?>
-                            <?php echo  CHtml::activeHiddenField($item,"[$i]LINEA_NUM",array()); ?>  
+                            <?php echo '<span id="numeroU_'.$i.'">'.$item->LINEA_NUM.'</span>'; ?>                            
                         </td>
                         <td>
                             <?php echo '<span id="descripcionU_'.$i.'">'.$item->DESCRIPCION.'</span>'; ?>
                             <?php echo  CHtml::activeHiddenField($item,"[$i]DESCRIPCION",array()); ?>
+                            <?php echo  CHtml::activeHiddenField($item,"[$i]ORDEN_COMPRA_LINEA",array()); ?>
                             <?php echo  CHtml::activeHiddenField($item,"[$i]ARTICULO", array()); ?> 
                         </td>
                         <td>
                             <?php echo '<span id="unidadU_'.$i.'">'.$item->uNIDADCOMPRA->NOMBRE.'</span>'; ?>
                             <div style="display:none;"><?php echo CHtml::activeDropDownList($linea,"[$i]UNIDAD_COMPRA",CHtml::listData(UnidadMedida::model()->findAll('ACTIVO = "S" AND TIPO = "'.$item->uNIDADCOMPRA->TIPO.'"'), 'ID', 'NOMBRE'),array('style'=>'width:65px;', 'options'=>array($item->UNIDAD_COMPRA => array('selected'=>'selected')))); ?></div>                                        
+                            <div style="display:none;"><?php echo CHtml::activeDropDownList($linea,"[$i]BODEGA",CHtml::listData(Bodega::model()->findAll('ACTIVO = "S"'), 'ID', 'DESCRIPCION'),array('style'=>'width:65px;', 'options'=>array($item->BODEGA => array('selected'=>'selected')))); ?></div>
                         <td>
                             <?php echo '<span id="requeridaU_'.$i.'">'.$item->FECHA_REQUERIDA.'</span>'; ?>
                             <?php echo  CHtml::activeHiddenField($item,"[$i]FECHA_REQUERIDA",array()); ?>
-                            <?php echo  CHtml::activeHiddenField($item,"[$i]FACTURA",array()); ?>
+                            <?php echo  CHtml::activeHiddenField($item,"[$i]FACTURA",array()); ?>                            
                         </td>
                         <td>
                             <?php echo '<span id="cantidadU_'.$i.'">'.$item->CANTIDAD_ORDENADA.'</span>'; ?>
@@ -697,8 +709,7 @@ function calcularTotal(model){
                         </td>
                         <td>
                             <?php echo '<span id="importeU_'.$i.'">'.$item->IMPORTE.'</span>'; ?>
-                            <?php echo CHtml::activeHiddenField($item,"[$i]IMPORTE",array()); ?>
-                            <?php echo CHtml::activeHiddenField($item,"[$i]PORC_IMPUESTO",array()); ?>
+                            <?php echo CHtml::activeHiddenField($item,"[$i]IMPORTE",array()); ?>                            
                             <?php echo CHtml::activeHiddenField($item,"[$i]CANTIDAD_RECIBIDA",array()); ?>
                             <?php echo CHtml::activeHiddenField($item,"[$i]CANTIDAD_RECHAZADA",array()); ?>
                             <?php echo CHtml::activeHiddenField($item,"[$i]FECHA",array()); ?>

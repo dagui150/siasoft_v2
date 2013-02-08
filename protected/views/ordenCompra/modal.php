@@ -14,7 +14,7 @@
         $('.close').click();
         
         copiarCampos(contador,model,span);        
-        calcularLinea(model,contador);
+        calcularLinea(model,contador,span);
         
         $('#alert').remove();
         $('#resetear').click();
@@ -57,6 +57,7 @@
         $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(valor_impuesto);
         $('#'+model+'_'+contador+'_OBSERVACION').val(observacion);
         $('#alert').remove();
+        calcularLinea(model, contador, span);
     }
     
     //limpiar formulario
