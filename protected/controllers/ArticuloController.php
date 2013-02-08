@@ -65,6 +65,7 @@ class ArticuloController extends Controller
                         $model->attributes=$_POST['Articulo']; 
                         
                         
+                        $model->ACTIVO='S';
                         
                         if($_POST['Articulo']['IMPUESTO_COMPRA'] === '')
                             $model->IMPUESTO_COMPRA = NULL;
@@ -188,6 +189,9 @@ class ArticuloController extends Controller
                         if($_POST['Articulo']['RETENCION_VENTA'] === '')
                             $model->RETENCION_VENTA = NULL;
                         $model->IMPUESTO_VENTA = $_POST['Articulo']['IMPUESTO_VENTA'];
+                        
+                        $model->ACTIVO='S';
+                        
 			if($model->save()){
                             //Actualizar Registros
                             if(isset($_POST['ClasificAdiArticulo'])){
