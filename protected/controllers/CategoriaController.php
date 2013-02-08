@@ -14,10 +14,10 @@ class CategoriaController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(
-				array('CrugeAccessControlFilter'),
-			);
-    }
+            return array(
+                                      array('CrugeAccessControlFilter'),
+                              );
+          }
 
 	/**
 	 * Displays a particular model.
@@ -109,17 +109,6 @@ class CategoriaController extends Controller
             $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
 		
 	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Categoria');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
         
         public function actionExcel()
 	{
@@ -129,21 +118,7 @@ class CategoriaController extends Controller
 			'model' => $model,
 		));
 	}
-        
-        
-        public function actionformatoPDF()
-        {
-            $id = $_GET['id'];
-            $conf = ConfAs::model()->find();
-            $model =  Categoria::model()->findByPk($id);  
-            $this->layout = $conf->fORMATOIMPRESION->RUTA;
-            $mPDF1 = Yii::app()->ePdf->mpdf();
-            $mPDF1->WriteHTML($this->render('pdf2', array( 'model'=>$model), true));
-            
-            $mPDF1->Output();
-            Yii::app()->end();
-        }
-        
+                
         
         public function actionPdf(){
             

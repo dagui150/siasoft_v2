@@ -17,17 +17,7 @@ class FacturaController extends Controller
 			array('CrugeAccessControlFilter'),
 		);
         }
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
+	
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'admin' page.
@@ -209,52 +199,7 @@ class FacturaController extends Controller
                     Yii::app()->end();
                 }
         }
-
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Factura']))
-		{
-			$model->attributes=$_POST['Factura'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->FACTURA));
-		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
-	}
-
-        
+       
 	/**
 	 * Manages all models.
 	 */
@@ -290,6 +235,8 @@ class FacturaController extends Controller
                     </table>';
             
             $compania = Compania::model()->find();
+            $minima = ConsecutivoFa::extractNum($this->factura->cONSECUTIVO->VALOR_CONSECUTIVO);
+            $maxima = ConsecutivoFa::extractNum($this->factura->cONSECUTIVO->VALOR_MAXIMO);
             if ($compania->LOGO != '') {
                 $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/" . $compania->LOGO, 'Logo');
             } else {
@@ -317,7 +264,7 @@ class FacturaController extends Controller
                             
                             <tr>
                                 <td align="center">'.$compania->rEGIMENTRIBUTARIO->DESCRIPCION.'</td>
-                                <td align="right" valign="middle">'.ConsecutivoFa::extractNum($this->factura->cONSECUTIVO->VALOR_CONSECUTIVO)[1].'-'.ConsecutivoFa::extractNum($this->factura->cONSECUTIVO->VALOR_MAXIMO)[1].'</td>
+                                <td align="right" valign="middle">'.$minima[1].'-'.$maxima[1].'</td>
                             </tr>
                         </table>';
             //'',array(377,279),0,'',15,15,16,16,9,9, 'P'

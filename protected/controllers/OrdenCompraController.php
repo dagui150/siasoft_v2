@@ -17,17 +17,6 @@ class OrdenCompraController extends Controller
             );
         }
 
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
         public function actionCargarProveedor() {
             
             $item_id = $_GET['buscar'];
@@ -42,18 +31,6 @@ class OrdenCompraController extends Controller
             );
             
             echo CJSON::encode($res);
-        }
-        
-        public function actionPdf(){
-            $id = $_GET['id'];
-            $conf = ConfCo::model()->find();
-            $compania = Compania::model()->find();
-            $orden = OrdenCompra::model()->findByPk($id);
-            $lineas = OrdenCompraLinea::model()->findAll('ORDEN_COMPRA = "'.$id.'"');
-            $mPDF1 = Yii::app()->ePdf->mpdf();
-            $mPDF1->WriteHTML($this->renderPartial('pdf', array('orden' => $orden, 'lineas' => $lineas, 'compania' => $compania, 'conf'=>$conf), true));
-            $mPDF1->Output();
-            Yii::app()->end();
         }
         
         public function actionformatoPDF() {
@@ -678,39 +655,7 @@ class OrdenCompraController extends Controller
                         'items'=>$items,
 		));
 	}
-        
-
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
-	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('OrdenCompra');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-
+   
 	/**
 	 * Manages all models.
 	 */

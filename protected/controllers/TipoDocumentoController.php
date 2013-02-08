@@ -11,8 +11,8 @@ class TipoDocumentoController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(array('CrugeAccessControlFilter'));
-    }
+            return array(array('CrugeAccessControlFilter'));
+          }
 
 	/**
 	 * Displays a particular model.
@@ -106,16 +106,6 @@ class TipoDocumentoController extends Controller
 		
 	}
 
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('TipoDocumento');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
         
         public function actionExcel()
 	{

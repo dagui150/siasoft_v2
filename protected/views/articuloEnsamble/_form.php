@@ -282,7 +282,7 @@
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <td>
+                                    <td colspan="6">
                                         <div id="add" class="add">
                                             <?php $this->darBotonAddLinea('Nuevo',array('onClick' => 'add()')); ?>
                                         </div>

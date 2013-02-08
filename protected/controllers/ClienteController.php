@@ -17,10 +17,10 @@ class ClienteController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(
-				array('CrugeAccessControlFilter'),
-			);
-    }
+            return array(
+                                      array('CrugeAccessControlFilter'),
+                              );
+          }
 
         public function actionAutocompletar(){
             if (isset($_GET['term']) && isset($_GET['impuesto'])) {

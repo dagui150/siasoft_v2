@@ -24,7 +24,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <?php echo $form->textFieldRow($model2,'VALOR',array('maxlength'=>12)); ?>
+                            <?php echo $form->textFieldRow($model2,'VALOR',array('maxlength'=>20)); ?>
                         </td>
                         <td><?php echo $this->botonAyuda('CLAS_ADI_VAL_VAL'); ?></td>
                     </tr>

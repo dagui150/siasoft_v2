@@ -83,7 +83,7 @@ $this->widget('bootstrap.widgets.TbButton', array(
 		*/
 		array(
                     'class'=>'bootstrap.widgets.TbButtonColumn',
-                    'htmlOptions'=>array('style'=>'width: 50px'),
+                    'template'=>'{update}',
                     'afterDelete'=>$this->mensajeBorrar(),
 		),
             array(

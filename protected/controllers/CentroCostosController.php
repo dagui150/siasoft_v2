@@ -112,17 +112,6 @@ class CentroCostosController extends Controller
 		
 	}
 
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('CentroCostos');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-        
                   public function actionExcel()
 	{
 		$model = new CentroCostos('search');

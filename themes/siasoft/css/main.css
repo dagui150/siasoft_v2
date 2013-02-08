@@ -272,7 +272,7 @@ h1{
 	color:#fff !important;
 	font-family:Arial, Helvetica, sans-serif !important;
 	font-size: 24px !important;
-	margin-top:-46Px !important;
+	margin-top:-54Px !important;
 }
 select{
     width: 120px !important;
@@ -314,3 +314,4 @@ input[disabled], input[readonly], input[tabindex], input[type="text"],input[type
     font-size: 14px;
      line-height: 20px;
 }
+#authitem-form .hint , #authitem-form .code, #authitem-form #CrugeAuthItemEditor_businessRule, label[for="CrugeAuthItemEditor_businessRule"] { display: none !important; }

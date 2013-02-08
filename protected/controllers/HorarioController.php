@@ -12,10 +12,10 @@ class HorarioController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(
-				array('CrugeAccessControlFilter'),
-			);
-    }
+            return array(
+                                      array('CrugeAccessControlFilter'),
+                              );
+          }
 
 	/**
 	 * Displays a particular model.
@@ -24,14 +24,14 @@ class HorarioController extends Controller
 	public function actionView($id) {
 
 
-        $tablaConceptos = HorarioConcepto::model()->findAllByAttributes(array('HORARIO' => $id,));
+            $tablaConceptos = HorarioConcepto::model()->findAllByAttributes(array('HORARIO' => $id,));
 
 
-        $this->render('view', array(
-            'model' => $this->loadModel($id),
-            'tablaConceptos' => $tablaConceptos,
-        ));
-    }
+            $this->render('view', array(
+                'model' => $this->loadModel($id),
+                'tablaConceptos' => $tablaConceptos,
+            ));
+        }
 
 	/**
 	 * Creates a new model.
@@ -159,37 +159,14 @@ class HorarioController extends Controller
                     ));
                 }
 	}
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-	/**
+        
+        /**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
 	public function actionDelete($id)
-	{
-            /*
-		$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-	
-                */
-                
+	{                
                 if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
@@ -204,18 +181,6 @@ class HorarioController extends Controller
                 
                 
         }
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Horario');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-
 	/**
 	 * Manages all models.
 	 */
