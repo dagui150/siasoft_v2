@@ -11,7 +11,7 @@ $(document).ready(function(){
         var linea = parseInt(contador, 10); 
         //cambiar ids y span
         for(var i = contFor ; i <=contadorMax; i++){            
-            var campos = ['ARTICULO','DESCRIPCION','UNIDAD_COMPRA','FECHA_REQUERIDA','CANTIDAD_ORDENADA','SOLICITUD', 'PRECIO_UNITARIO','PORC_DESCUENTO','MONTO_DESCUENTO','PORC_IMPUESTO','VALOR_IMPUESTO','IMPORTE','CANTIDAD_RECIBIDA','CANTIDAD_RECHAZADA','FECHA','OBSERVACION','ESTADO','FACTURA'];
+            var campos = ['ARTICULO','DESCRIPCION','UNIDAD_COMPRA','FECHA_REQUERIDA','CANTIDAD_ORDENADA','SOLICITUD', 'PRECIO_UNITARIO','PORC_DESCUENTO','MONTO_DESCUENTO','PORC_IMPUESTO','VALOR_IMPUESTO','IMPORTE','CANTIDAD_RECIBIDA','CANTIDAD_RECHAZADA','FECHA','OBSERVACION','ESTADO','FACTURA','BODEGA'];
             var span = ['numero', 'campo_descripcion','descripcion','campo_unidad','unidad','requerida','campo_requerida','cantidad','campo_cantidad','unitario','campo_unitario','descuento','impuesto', 'campo_importe', 'importe','remover','edit','eliminaLinea','rowIndex'];
             //CAMBIAR IDS DE LOS SPAN
             for(var x =0 ; x<=span.length;x++){
@@ -52,7 +52,7 @@ $(document).ready(function(){
         var model2 = 'OrdenCompraLinea';
         var numLinea = parseInt($('#CAMPO_ACTUALIZA').val(), 10);
         var eliminar = $('#eliminar').val();
-        eliminar = eliminar + $('#OrdenCompraLinea_'+contador+'_ID').val() + ',';
+        eliminar = eliminar + $('#OrdenCompraLinea_'+contador+'_ORDEN_COMPRA_LINEA').val() + ',';
         $('#eliminar').val(eliminar);
         $('#CAMPO_ACTUALIZA').val(numLinea - 1);
         $('#removerU_'+contador).click();
@@ -61,8 +61,8 @@ $(document).ready(function(){
         var linea = parseInt(contador, 10); 
         //cambiar ids y span
         for(var i = contFor ; i <=contadorMax; i++){
-           var campos = ['ARTICULO','DESCRIPCION','UNIDAD_COMPRA','FECHA_REQUERIDA','CANTIDAD_ORDENADA','SOLICITUD', 'PRECIO_UNITARIO','PORC_DESCUENTO','MONTO_DESCUENTO','PORC_IMPUESTO','VALOR_IMPUESTO','IMPORTE','CANTIDAD_RECIBIDA','CANTIDAD_RECHAZADA','FECHA','OBSERVACION','ESTADO','FACTURA'];
-            var span = ['numeroU', 'campo_descripcionU','descripcionU','campo_unidadU','unidadU','requeridaU','campo_requeridaU','cantidadU','campo_cantidadU','unitarioU','campo_unitarioU','descuentoU','impuestoU', 'campo_importeU', 'importeU','removerU','editU','eliminaLineaU','rowIndexU'];
+           var campos = ['ARTICULO','DESCRIPCION','UNIDAD_COMPRA','ORDEN_COMPRA_LINEA','FECHA_REQUERIDA','CANTIDAD_ORDENADA','SOLICITUD', 'PRECIO_UNITARIO','PORC_DESCUENTO','MONTO_DESCUENTO','PORC_IMPUESTO','VALOR_IMPUESTO','IMPORTE','CANTIDAD_RECIBIDA','CANTIDAD_RECHAZADA','FECHA','OBSERVACION','ESTADO','FACTURA','BODEGA'];
+           var span = ['numeroU', 'campo_descripcionU','descripcionU','campo_unidadU','unidadU','requeridaU','campo_requeridaU','cantidadU','campo_cantidadU','unitarioU','campo_unitarioU','descuentoU','impuestoU', 'campo_importeU', 'importeU','removerU','editU','eliminaLineaU','rowIndexU'];
             //CAMBIAR IDS DE LOS SPAN
             for(var x =0 ; x<=span.length;x++){
                 switch(span[x]){
@@ -254,8 +254,8 @@ $(document).ready(function(){
         $('#unitario_'+contador).text(precio);
         $('#cantidad_'+contador).text(cantidad);
         $('#requerida_'+contador).text(futDate);
-        $('#descuento_'+contador).text(0);        
-        $('#impuesto_'+contador).text(0);        
+        $('#descuento_'+contador).text(0);
+        $('#impuesto_'+contador).text(0);
         $('#importe_'+contador).text(0);
         $('#unidad_'+contador).text($('#OrdenCompra_UNIDAD option:selected').html());
         calcularLinea(model,contador, span);
@@ -393,6 +393,7 @@ function calcularLinea(model, contador, span){
     $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(impuesto); 
     $('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(descuento);     
     $('#importe'+span+'_'+contador).text(total);
+    model= 'Nuevo';
     calcularTotal(model);
 }
 

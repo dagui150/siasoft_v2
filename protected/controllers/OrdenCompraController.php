@@ -580,6 +580,10 @@ class OrdenCompraController extends Controller
                             }
                         }
 			if($model->save()) {
+                            echo '<pre>';
+                            print_r($_POST['OrdenCompraLinea']);
+                            echo '</pre>';
+                            Yii::app()->end();
                             if(isset($_POST['OrdenCompraLinea'])){
                                 foreach ($_POST['OrdenCompraLinea'] as $datos2){
                                     
@@ -649,6 +653,12 @@ class OrdenCompraController extends Controller
                                         $solicitud->SALDO = $datos2['RESTA_CANT'] - $datos2['CANTIDAD_ORDENADA'];
                                         $solicitud->save();
                                     }
+                                }
+                            }
+                            if($_POST['eliminar'] != ''){
+                                $eliminar = explode(",", $_POST['eliminar']);
+                                foreach($eliminar as $elimina){                                
+                                        $borra = OrdenCompraLinea::model()->deleteByPk($elimina);                                
                                 }
                             }
                             	//$this->redirect(array('admin'));

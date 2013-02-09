@@ -34,6 +34,10 @@ function cargaProveedorGrilla (grid_id){
 }
 
 $(document).ready(function(){
+    $(function() {                    
+            $( "#OrdenCompraLinea_FECHA_REQUERIDA" ).datepicker({dateFormat: 'yy-mm-dd'});
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+        });
     calcularTotal(false);
     $('.calcular').live('change',function(){
        calcularTotal('Nuevo'); 

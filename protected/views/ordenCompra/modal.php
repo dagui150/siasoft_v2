@@ -34,6 +34,7 @@
         var cantidad = $('#OrdenCompraLinea_CANTIDAD_ORDENADA').val();
         var precio_unitario = $('#OrdenCompraLinea_PRECIO_UNITARIO').val();
         var porc_descuento = $('#OrdenCompraLinea_PORC_DESCUENTO').val();
+        var requerida = $('#OrdenCompraLinea_FECHA_REQUERIDA').val();        
         var porc_impuesto = $('#OrdenCompraLinea_PORC_IMPUESTO').val();
         var valor_impuesto = parseFloat($('#OrdenCompraLinea_VALOR_IMPUESTO').val());
         var observacion = $('#OrdenCompraLinea_OBSERVACION').val();
@@ -44,6 +45,7 @@
         $('#unidad'+span+'_'+contador).text(unidad_span);
         $('#cantidad'+span+'_'+contador).text(cantidad);
         $('#preciounitario'+span+'_'+contador).text(precio_unitario);
+        $('#requerida'+span+'_'+contador).text(requerida);
         $('#descuento'+span+'_'+contador).text(porc_descuento);
         $('#impuesto'+span+'_'+contador).text(porc_impuesto);
         
@@ -51,12 +53,13 @@
         $('#'+model+'_'+contador+'_UNIDAD_COMPRA').val(unidad);
         $('#'+model+'_'+contador+'_BODEGA').val(bodega);
         $('#'+model+'_'+contador+'_CANTIDAD_ORDENADA').val(cantidad);
+        $('#'+model+'_'+contador+'_FECHA_REQUERIDA').val(requerida);
         $('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(precio_unitario);
         $('#'+model+'_'+contador+'_PORC_DESCUENTO').val(porc_descuento);        
         $('#'+model+'_'+contador+'_PORC_IMPUESTO').val(porc_impuesto);
         $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(valor_impuesto);
         $('#'+model+'_'+contador+'_OBSERVACION').val(observacion);
-        $('#alert').remove();
+        $('#alert').remove();        
         calcularLinea(model, contador, span);
     }
     
@@ -67,6 +70,7 @@
         $("#OrdenCompraLinea_PRECIO_UNITARIO").val('');
         $("#OrdenCompraLinea_PORC_DESCUENTO").val('');
         $("#OrdenCompraLinea_PORC_IMPUESTO").val('');
+        $("#OrdenCompraLinea_FECHA_REQUERIDA").val('');
         $("#OrdenCompraLinea_BODEGA").val('');
         $("#OrdenCompraLinea_OBSERVACION").val('');
         $("#OrdenCompraLinea_CANTIDAD_RECIBIDA").val('');
@@ -91,6 +95,7 @@
         //var articulo = $('#'+model+'_'+contador+'_ARTICULO').val();
         var cantidad = $('#'+model+'_'+contador+'_CANTIDAD_ORDENADA').val();
         var precio_unitario = $('#'+model+'_'+contador+'_PRECIO_UNITARIO').val();
+        var requerida = $('#'+model+'_'+contador+'_FECHA_REQUERIDA').val();       
         var porc_descuento = $('#'+model+'_'+contador+'_PORC_DESCUENTO').val();
         var porc_impuesto = $('#'+model+'_'+contador+'_PORC_IMPUESTO').val();
         var observacion = $('#'+model+'_'+contador+'_OBSERVACION').val(); 
@@ -99,6 +104,7 @@
         //asignacion a los campos del formulario para su actualizacion
         $('#OrdenCompraLinea_CANTIDAD_ORDENADA').val(cantidad);
         $('#OrdenCompraLinea_PRECIO_UNITARIO').val(precio_unitario);
+        $('#OrdenCompraLinea_FECHA_REQUERIDA').val(requerida);
         $('#OrdenCompraLinea_PORC_DESCUENTO').val(porc_descuento);
         $('#OrdenCompraLinea_PORC_IMPUESTO').val(porc_impuesto);
         $('#OrdenCompraLinea_OBSERVACION').val(observacion);
@@ -149,7 +155,8 @@
             <?php echo $form->textFieldRow($linea,'PRECIO_UNITARIO',array('size'=>10,'prepend'=>'$','class'=>'decimal')); ?>
             <?php echo $form->textFieldRow($linea,'PORC_DESCUENTO',array('size'=>4,'append'=>'%','class'=>'decimal')); ?>
             <?php echo $form->textFieldRow($linea,'PORC_IMPUESTO',array('class'=>'decimal', 'size'=>4,'append'=>'%')); ?>          
-            <?php echo $form->dropDownListRow($linea,'BODEGA',$bodega); ?>            
+            <?php echo $form->dropDownListRow($linea,'BODEGA',$bodega); ?> 
+            <?php echo $form->textFieldRow($linea, 'FECHA_REQUERIDA'); ?> 
             <?php echo $form->textAreaRow($linea,'OBSERVACION'); ?>
             <?php echo $form->textFieldRow($linea,'CANTIDAD_RECIBIDA', array('readonly' => true, 'size' => 3)); ?>
             <?php echo $form->textFieldRow($linea,'CANTIDAD_RECHAZADA', array ('readonly' => true, 'size'=>3)); ?>
