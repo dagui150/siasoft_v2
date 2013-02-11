@@ -139,7 +139,7 @@ class ConfCo extends CActiveRecord
 			'MAXIMO_LINORDEN' => 'N&uacute;mero m&aacute;ximo de l&iacute;neas en las &oacute;rdenes',
 			'POR_VARIAC_COSTO' => 'Porcentaje variaci&oacute;n de costo',
 			'CP_EN_LINEA' => 'Generar factura en l&iacute;nea al aplicar ingreso',
-			'IMP1_AFECTA_DESCTO' => isset(confAs::model()->find()->IMPUESTO1_DESC)?confAs::model()->find()->IMPUESTO1_DESC.' se afecta por':'IVA se afecta por',
+			'IMP1_AFECTA_DESCTO' => isset(ConfAs::model()->find()->IMPUESTO1_DESC)?ConfAs::model()->find()->IMPUESTO1_DESC.' se afecta por':'IVA se afecta por',
 			'FACTOR_REDONDEO' => 'Factor de Redondeo',
 			'PRECIO_DEC' => 'Precio Decimales',
 			'CANTIDAD_DEC' => 'Cantidad Decimales',
