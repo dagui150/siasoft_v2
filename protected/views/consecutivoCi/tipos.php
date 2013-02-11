@@ -72,9 +72,10 @@ function eliminarRegistro(){
 
 </script>
 <?php 
-    if($tipos != ''){
+    $id_tipo = '';
+    if($tipos !== ''){
         foreach($tipos as $var){
-            $id_tipo = $var->TIPO_TRANSACCION;
+            $id_tipo = $var->tIPOTRANSACCION->TRANSACCION_BASE;
         }
     }
 ?>

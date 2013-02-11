@@ -11,10 +11,10 @@ class CodicionPagoController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(
-				array('CrugeAccessControlFilter'),
-			);
-    }
+            return array(
+                                      array('CrugeAccessControlFilter'),
+                              );
+          }
 
 	/**
 	 * Displays a particular model.
@@ -109,18 +109,8 @@ class CodicionPagoController extends Controller
 		
 	}
 
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('CodicionPago');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
         
-                          public function actionExcel()
+        public function actionExcel()
 	{
 		$model = new CodicionPago('search');
                 $model->unsetAttributes();

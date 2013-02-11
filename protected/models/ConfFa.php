@@ -66,6 +66,7 @@ class ConfFa extends CActiveRecord
 		return array(
 			array('DECIMALES_PRECIO,FORMATO_PEDIDO, FORMATO_FACTURA', 'required'),
 			array('CATEGORIA_CLIENTE,FORMATO_PEDIDO, FORMATO_FACTURA, FORMATO_REMISION', 'numerical', 'integerOnly'=>true),
+                        array('DECIMALES_PRECIO', 'numerical', 'max'=>8),	
 			array('COND_PAGO_CONTADO, BODEGA_DEFECTO', 'length', 'max'=>4),
 			array('NIVEL_PRECIO', 'length', 'max'=>12),
 			array('USAR_RUBROS', 'length', 'max'=>1),

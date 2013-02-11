@@ -4,24 +4,6 @@ $this->breadcrumbs=array(
         'Sistema'=>array('admin'),
 	'Retenciones',
 );
-
-$this->menu=array(
-	array('label'=>'Listar Retención', 'url'=>array('index')),
-	array('label'=>'Crear Retención', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('retencion-grid', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
 <h1>Administrar Retenciones</h1>
@@ -54,9 +36,5 @@ $('.search-form form').submit(function(){
 		'ACTUALIZADO_POR',
 		'ACTUALIZADO_EL',
 		*/
-		array(
-                    'class'=>'bootstrap.widgets.TbButtonColumn',
-                    'template'=>'{view}',
-		),
 	),
 )); ?>

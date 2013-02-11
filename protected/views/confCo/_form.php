@@ -103,7 +103,7 @@
 		.'<div style="width:50%; float:left">'
 		.'<div class="control-group "><label for="ConfCo_ULT_SOLICITUD_M" class="control-label required">Máscara - Solicitud</label><div class="controls">'.$mascSolicitud.'</div></div>'
                 .'<div class="control-group "><label for="ConfCo_ULT_ORDEN_COMPRA_M" class="control-label required">Máscara - Orden compra</label><div class="controls">'.$mascOrden.'</div></div>'
-                .'<div class="control-group "><label for="ConfCo_ULT_EMBARQUE_M" class="control-label required">Máscara - Embarque</label><div class="controls">'.$mascEmbarque.'</div></div>'
+                .'<div class="control-group "><label for="ConfCo_ULT_EMBARQUE_M" class="control-label required">Máscara - Ingreso Compra</label><div class="controls">'.$mascEmbarque.'</div></div>'
                 .'<div class="control-group "><label for="ConfCo_ULT_DEVOLUCION_M" class="control-label required">Máscara - Devolucion</label><div class="controls">'.$mascDevolucion.'</div></div>'
 		.'</div>'
 		.'<div style="width:50%; float:right;">'
@@ -150,7 +150,7 @@
 		array('label'=>'Varios', 'content'=>
 		$form->dropDownListRow($model,'BODEGA_DEFAULT', CHtml::listData(Bodega::model()->findAll(),'ID','DESCRIPCION'),array('empty'=>'Seleccione...'))
 		.$form->dropDownListRow($model,'IMP1_AFECTA_DESCTO', array('L'=>'Línea', 'A'=>'Ambos descuentos', 'N'=>'Ningun descuento'))
-		.'<fieldset><legend>Factor de redondeo</legend>'
+		.'<fieldset><legend>Factor de redondeo <span class="reducir-letra-ayuda">'.$this->botonAyuda("FACT_REDONDEO").'</span></legend>'
 		.$form->textFieldRow($model,'FACTOR_REDONDEO',array('size'=>28,'maxlength'=>28))
 		.'</fieldset></legend>'
 		.'<fieldset><legend>Decimales</legend>'

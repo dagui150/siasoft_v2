@@ -122,7 +122,11 @@ class IngresoCompraController extends Controller
             }
              echo CJSON::encode($res);
         }
+<<<<<<< HEAD
              
+=======
+        
+>>>>>>> 04156cb96283bb243a83dffec09a1a40a4748f0f
         public function actionformatoPDF() {
 
             $id = $_GET['id'];
@@ -288,7 +292,49 @@ class IngresoCompraController extends Controller
 	}
 
 	/**
+<<<<<<< HEAD
+	 * Updates a particular model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionUpdate($id)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation($model);
+
+		if(isset($_POST['IngresoCompra']))
+		{
+			$model->attributes=$_POST['IngresoCompra'];
+			if($model->save()){
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
+		}
+
+		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
         
+        public function actionPdf(){
+            $id = $_GET['id'];
+            $conf = ConfCo::model()->find();
+            $compania = Compania::model()->find(); 
+            $ingreso = IngresoCompra::model()->findByPk($id);
+            $lineas = IngresoCompraLinea::model()->findAll('INGRESO_COMPRA = "'.$id.'"');        
+            $mPDF1 = Yii::app()->ePdf->mpdf();
+            $mPDF1->WriteHTML($this->renderPartial('pdf', array('ingreso' => $ingreso, 'lineas' => $lineas, 'compania' => $compania, 'conf'=>$conf), true));
+            $mPDF1->Output();
+            Yii::app()->end();
+        }
+
+	/**
+=======
+>>>>>>> 04156cb96283bb243a83dffec09a1a40a4748f0f
 	 * Manages all models.
 	 */
 	public function actionAdmin()

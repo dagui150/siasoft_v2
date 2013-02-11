@@ -15,7 +15,11 @@ class OrdenCompraController extends Controller
             return array(
                 array('CrugeAccessControlFilter'),
             );
+<<<<<<< HEAD
         }	
+=======
+        }
+>>>>>>> 04156cb96283bb243a83dffec09a1a40a4748f0f
 
         public function actionCargarProveedor() {
             
@@ -662,7 +666,8 @@ class OrdenCompraController extends Controller
                         'ruta2'=>$ruta2,
 		));
 	}
-   
+<<<<<<< HEAD
+        
         public function actionAgregarlinea(){
             $linea = new OrdenCompraLinea;
             $linea->attributes = $_POST['OrdenCompraLinea'];
@@ -703,6 +708,10 @@ class OrdenCompraController extends Controller
                     Yii::app()->end();
                 }
         }
+
+=======
+   
+>>>>>>> 04156cb96283bb243a83dffec09a1a40a4748f0f
 	/**
 	 * Manages all models.
 	 */

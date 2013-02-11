@@ -12,11 +12,10 @@ class TipoContratoController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(
-				array('CrugeAccessControlFilter'),
-				'postOnly + delete', // we only allow deletion via POST request
-			);
-    }
+            return array(
+                          array('CrugeAccessControlFilter'),
+                    );
+          }
 	
 
 	/**
@@ -96,17 +95,6 @@ class TipoContratoController extends Controller
 		else
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
             
-	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('TipoContrato');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
 	}
 
 	/**

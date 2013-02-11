@@ -34,7 +34,8 @@ return array(
 	),
 	'modules'=>array(
 		'cruge'=>array(
-			'tableprefix'=>'cruge_',	
+			'tableprefix'=>'cruge_',
+                        'useCGridViewClass'=>'bootstrap.widgets.TbGridView',
 			'superuserName'=>'superadmin',	
                         'buttonStyle'=>'bootstrap',	
                         

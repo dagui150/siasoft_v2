@@ -134,7 +134,8 @@ class Retencion extends CActiveRecord
         public function searchPdf()
 	{
 
-		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
+		$criteria=new CDbCriteria;                 
+                $criteria->compare('ACTIVO','S');
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -145,10 +146,10 @@ class Retencion extends CActiveRecord
 	}
 
         
-        	public function behaviors()
+    public function behaviors()
 	{
 		$conf= ConfFa::model()->find();
-                $conf2=  ConfAs::model()->find();
+        $conf2=  ConfAs::model()->find();
 		return array(
                         'defaults'=>array(
                            'class'=>'application.components.FormatBehavior',

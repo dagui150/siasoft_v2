@@ -45,6 +45,7 @@ class TipoDocumento extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID, DESCRIPCION, MASCARA', 'required'),
+                        array('ID', 'DSpacesValidator'),
                         array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'TipoDocumento','allowEmpty'=>false),
 			array('ID', 'length', 'max'=>10),
 			array('DESCRIPCION', 'length', 'max'=>64),

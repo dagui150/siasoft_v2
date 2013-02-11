@@ -22,18 +22,6 @@
         $('#'+model+'_'+contador+'_TOTAL').val(format(total_linea.toString().replace(/\./g,',')));
         
         calculoGranTotal(model);
-//        var total;
-//        
-//        var cantidad = parseFloat($('#'+model+'_'+contador+'_CANTIDAD').val(), 10);
-//        var precio = parseFloat($('#'+model+'_'+contador+'_PRECIO_UNITARIO').val(), 10);
-//        var descuento = parseFloat($('#'+model+'_'+contador+'_MONTO_DESCUENTO').val(), 10);
-//        var iva =  parseFloat($('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(), 10);
-//        
-//        total = ((cantidad * precio)-descuento)+iva;
-//        $('#total_'+contador).text('$ '+total); 
-//        $('#'+model+'_'+contador+'_TOTAL').val(total);
-//                
-//        calculoGranTotal(model);
     }
     function calculoGranTotal(model){
         
@@ -44,14 +32,7 @@
         var anticipo =  parseFloat(unformat($('#Factura_MONTO_ANTICIPO').val()));
         var flete =  parseFloat(unformat($('#Factura_MONTO_FLETE').val()));
         var seguro =  parseFloat(unformat($('#Factura_MONTO_SEGURO').val()));
-        
-//        alert("Mercaderia "+total_mercaderia
-//            +"\nDescuento "+total_descuento
-//            +"\nIva "+total_iva
-//            +"\nFactura "+total_facturar
-//            +"\nAnticipo "+anticipo
-//            +"\nFlete "+flete
-//            +"\nSeguro "+seguro);
+
         
         if(model != false){
             var total_mercaderia =0,total_facturar=0,total_descuento=0,total_iva=0;
@@ -82,7 +63,8 @@
     }
     
     function inicio(){
-        
+            
+            $('.templateTarget').html('');
             $('#Factura_CONSECUTIVO').focus();
             $('.edit').live('click',actualiza);
             $('#ok-cliente').click(function(){
@@ -155,7 +137,7 @@
                             $('#Cliente_NOMBRE').val(0);
                             $('#Cliente_DIRECCION_COBRO').val(0);
                             $('#Cliente_TELEFONO1').val(0);
-                        }else{
+                        }else if($('#Factura_CLIENTE').val()!=''){
                             $("#Cliente_desc").val('Ninguno');
                              $('#Factura_CLIENTE').val('');
                              $('#Factura_CLIENTE').focus();
@@ -186,6 +168,19 @@
                                   $('#Cliente_UBICACION_GEOGRAFICA2').append("<option value='"+value+"'>"+name+"</option>");
                             });
                     });
+           });
+           
+           $('#Factura_BODEGA').change(function(){
+                if($('.templateTarget').text() != ''){
+                    if(confirm('¿Desea cambiar la bodega?\nSi se cambia perdera los items agregados')){
+                        $('#Factura_ARTICULO').val('');
+                        $('#Articulo_desc').val('Ninguno');
+                        $('#Factura_CANTIDAD').val('');
+                        $('select[id$=Factura_UNIDAD ] > option').remove();
+                        $('#agregar').val('');
+                        $('.templateTarget').html('');
+                    }
+                }
            });
     }
     
@@ -375,13 +370,13 @@
                                 <?php $this->darBotonBuscar('#cliente'); ?>
                             </td>
                             <td>
-                                <?php echo CHtml::textField('Cliente_desc','',array('disabled'=>true,'size'=>30)); ?>
+                                <?php echo CHtml::textField('Cliente_desc','',array('disabled'=>true,'size'=>24)); ?>
                             </td>
                             <td>
                                  <?php $this->widget('bootstrap.widgets.TbButton', array(
                                                'buttonType'=>'button',
                                                'type'=>'normal',
-                                              'size'=>'mini',
+                                              'size'=>'small',
                                                'icon'=>'pencil',
                                                'htmlOptions'=>array('style'=>'margin: 5px -25px 0 -3px; display:none','id'=>'editaCliente','onclick'=>'$("#clienteNuevo").modal();')
                                        ));
@@ -395,7 +390,7 @@
                             </td>
                             <td rowspan="2" colspan="2">
                                   <span style="background-color:#EEEEEE;line-height:20px;text-align:center; text-shadow:#FFFFFF 0 1px 0;padding-left:5px;padding-top:9px;width:26px;height:28px;margin-top:57px;float:left;font-size: 42px;border:1px solid #CCCCCC;">$</span>
-                                  <?php echo CHtml::textField('calculos','0',array('disabled'=>true,'style'=>'width: 221px !important;height:31px;font-size: 34px;margin-top:56px;text-align:right;'));?>
+                                  <?php echo CHtml::textField('calculos','0',array('disabled'=>true,'style'=>'width: 185px !important;height:31px;font-size: 34px;margin-top:56px;text-align:right;'));?>
                             </td>
                         </tr>
                         <tr>

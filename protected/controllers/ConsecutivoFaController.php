@@ -12,10 +12,10 @@ class ConsecutivoFaController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(
-				array('CrugeAccessControlFilter'),
-			);
-    }
+            return array(
+                                      array('CrugeAccessControlFilter'),
+                              );
+          }
         /*
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
@@ -105,17 +105,6 @@ class ConsecutivoFaController extends Controller
 		
 	}
 
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('ConsecutivoFa');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
 
 	/**
 	 * Manages all models.

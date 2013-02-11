@@ -255,12 +255,11 @@ $(document).ready(function(){
     ?>
 
 	<?php echo $form->errorSummary($model); ?>
-        <table>
+        <table style="margin-left: -50px;">
             <tr>
                 <td><?php echo $form->textFieldRow($model,'ORDEN_COMPRA',array('size'=>10,'maxlength'=>10, 'readonly' => true, 'value' => $retorna)); ?></td>
                 <td width="10%"><?php echo $form->textFieldRow($model,'PROVEEDOR',array('size'=>20,'maxlength'=>20, 'class'=>'escritoProv', 'readonly'=>$readonly)); ?></td>
-                <td width="25%"><?php echo CHtml::textField('ProvNombre2','', array('readonly' => true)); ?>
-                <?php $this->darBotonBuscar('#proveedor'); ?></td>
+                <td width="25%"><?php echo CHtml::textField('ProvNombre2','', array('readonly' => true));  echo '<span style="margin-left: 2px;margin-top:-5px;">'.$this->darBotonBuscar('#proveedor',true).'<span>'; ?></td>
             </tr>
         </table>
    

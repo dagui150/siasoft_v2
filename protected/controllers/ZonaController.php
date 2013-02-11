@@ -11,8 +11,8 @@ class ZonaController extends Controller
 	 * @return array action filters
 	 */
 	public function filters(){
-      return array(array('CrugeAccessControlFilter'));
-    }
+            return array(array('CrugeAccessControlFilter'));
+          }
 
 	/**
 	 * Displays a particular model.
@@ -110,17 +110,6 @@ class ZonaController extends Controller
             Yii::app()->user->setFlash($mensaje->TIPO, '<font size="5" align="left">&nbsp &nbsp'.$mensaje->MENSAJE.'.</font>');
             $this->widget('bootstrap.widgets.TbAlert');
 	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Zona');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
         
         
              public function actionExcel()
@@ -132,13 +121,10 @@ class ZonaController extends Controller
 		));
 	}
         
-                  public function actionPdf(){
+             public function actionPdf(){
             
-            $dataProvider=new zona;
-		$this->render('pdf',array(
-			'dataProvider'=>$dataProvider,
-		));
-            
+                $dataProvider=new Zona;
+		$this->render('pdf',array('dataProvider'=>$dataProvider));
             
         }
 

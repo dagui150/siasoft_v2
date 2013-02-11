@@ -18,6 +18,13 @@ function reescribir(){
     $('#form-cargado').slideDown('slow');
     $('#boton-cargado').remove();   
     $.fn.yiiGridView.update('ingreso-compra-grid');
+    
+    var id;
+        id = $('#check').val().split(',');
+        $.each(id,function(key){
+             $('[alt$='+key+']').click();
+        })
+    
 }
 
 $(document).ready(function(){
@@ -36,6 +43,21 @@ function buscar(){}
 <?php
 /* @var $this IngresoCompraController */
 /* @var $model IngresoCompra */
+
+if(isset($_GET['id'])){
+    $js=Yii::app()->clientScript;
+
+    $TEMP1="$(document).ready(function(){
+        $('[alt$=";
+    $TEMP2='"';
+    $TEMP3="]').click();});";
+    
+    $js->registerScript('ingreso',$TEMP1.$TEMP2.$_GET['id'].$TEMP2.$TEMP3,
+    
+            
+    CClientScript::POS_HEAD);   
+}
+
 if(!ConfCo::darConf())
      $this->redirect(array('/confCo/create'));
 $this->breadcrumbs=array(
@@ -161,7 +183,7 @@ if (isset($_GET['men'])){
                          'class'=>'CLinkColumn',
 			 //'header'=>'Bodegas',
 			 'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
-			 //'labelExpression'=>'$data->ID',
+			 'labelExpression'=>'$data->INGRESO_COMPRA',
 			 'urlExpression'=>'Yii::app()->getController()->createUrl("/ingresoCompra/formatoPDF", array("id"=>$data->INGRESO_COMPRA))',
 			 'htmlOptions'=>array('style'=>'text-align:center;'),
 			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),

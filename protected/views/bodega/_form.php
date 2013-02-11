@@ -19,7 +19,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
             <tr>
                 <td width="2%" ><?php echo $form->textFieldRow($model2, 'ID', array('size' => 4, 'maxlength' => 4, 'disabled' => $model2->isNewRecord ? false : true)); ?></td>
-                <td><?php echo $this->botonAyuda('CODIGO'); ?></td>
+                <td><?php echo $this->botonAyuda('CODIGO_BODEGA'); ?></td>
             </tr>
             <tr>
                 <td><?php echo $form->textAreaRow($model2, 'DESCRIPCION'); ?></td>

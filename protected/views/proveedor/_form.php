@@ -228,7 +228,7 @@ function cargaNitGrilla(grid_id){
             .$tab
             .'</span></div></div>'
             .'</div>'
-            .$form->dropDownListRow($model,'REGIMEN',CHtml::listData(RegimenTributario::model()->findAll('ACTIVO = "S"'),'REGIMEN','REGIMEN')).'</td><td>'
+            .$form->dropDownListRow($model,'REGIMEN',CHtml::listData(RegimenTributario::model()->findAll('ACTIVO = "S"'),'REGIMEN','DESCRIPCION')).'</td><td>'
             .$form->textFieldRow($model,'TELEFONO1', array('size'=>20,'maxlength'=>20))
             .$form->textFieldRow($model,'TELEFONO2', array('size'=>20,'maxlength'=>20))
             .$form->textFieldRow($model,'FAX',array('size'=>20,'maxlength'=>20))

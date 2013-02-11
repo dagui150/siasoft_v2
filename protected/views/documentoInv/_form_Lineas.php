@@ -512,21 +512,21 @@
             <tr>
                 <td><?php echo $form->textFieldRow($modelLi,'BODEGA',array('size'=>4,'maxlength'=>4)); ?></td> 
                 <td>
-                    <span style="margin: 0 0 0 -30px"><?php echo CHtml::textField('NOMBRE_BODEGA',$nombre_bodega,array('readonly'=>true))?></span>
+                    <span style="margin: 0 0 0 -12px"><?php echo CHtml::textField('NOMBRE_BODEGA',$nombre_bodega,array('readonly'=>true))?></span>
                     <span style="margin: 5px 0 0 0"><?php echo $botonBodega ?></span>
                 </td> 
             </tr>
             <tr>
                 <td><?php echo $form->textFieldRow($modelLi,'BODEGA_DESTINO',array('size'=>4,'maxlength'=>4,'disabled'=>true)); ?></td> 
                 <td>
-                    <span style="margin: 0 0 0 -30px"><?php echo CHtml::textField('NOMBRE_BODEGA_DESTINO',$nombre_bodega_destino,array('readonly'=>true))?></span>
+                    <span style="margin: 0 0 0 -12px"><?php echo CHtml::textField('NOMBRE_BODEGA_DESTINO',$nombre_bodega_destino,array('readonly'=>true))?></span>
                     <span style="margin: 5px 0 0 0"><?php echo $botonBodegaDestino ?></span>
                 </td>
             </tr>
             <tr>
                 <td><?php echo $form->textFieldRow($modelLi,'ARTICULO',array('size'=>4,'maxlength'=>20)); ?></td> 
                 <td>
-                    <span style="margin: 0 0 0 -30px"><?php echo CHtml::textField('NOMBRE_ARTICULO',$nombre_articulo,array('readonly'=>true))?></span>
+                    <span style="margin: 0 0 0 -12px"><?php echo CHtml::textField('NOMBRE_ARTICULO',$nombre_articulo,array('readonly'=>true))?></span>
                     <span style="margin: 5px 0 0 0"><?php echo $botonArticulo ?></span>
                 </td>
             </tr>
@@ -542,7 +542,7 @@
                         </div>
                 </td>
                 <td>
-                        <div align="left" style="margin-left: 30px;">
+                        <div align="left" style="margin-left: 42px;">
                                 <?php echo $form->dropDownList($modelLi,'UNIDAD',CHtml::listData(UnidadMedida::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),array('empty'=>'Seleccione')); ?>
                         </div>
                 </td>

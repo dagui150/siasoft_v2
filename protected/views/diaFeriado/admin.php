@@ -5,23 +5,6 @@ $this->breadcrumbs=array(
 	'Días Feriados',
 );
 
-$this->menu=array(
-	array('label'=>Yii::t('app','LIST').' DiaFeriado', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE').' DiaFeriado', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('dia-feriado-grid', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
 <h1>Días Feriados</h1>
