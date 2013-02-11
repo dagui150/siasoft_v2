@@ -117,9 +117,9 @@ class Controller extends CController
 							),
                             array('label' => 'Compras', 'url' => '#',
                                 'items' => array(
-                                    array('label' => 'Solicitudes de compra', 'url' => array('/solicitudOc/admin')),
-                                    array('label' => 'Ordenes de compra', 'url' => array('/ordenCompra/admin')),
-                                    array('label' => 'Ingresos de compra', 'url' => array('/ingresoCompra/admin')),
+                                    array('label' => 'Solicitudes', 'url' => array('/solicitudOc/admin')),
+                                    array('label' => 'Ordenes', 'url' => array('/ordenCompra/admin')),
+                                    array('label' => 'Ingresos', 'url' => array('/ingresoCompra/admin')),
                                     '-',
                                     array('label' => 'Proveedores', 'url' => array('/proveedor/admin')),
                                     array('label' => 'Configuración', 'url' => $com ? array('/confCo/update', 'id' => $com->ID) : array('/confCo/create')),
