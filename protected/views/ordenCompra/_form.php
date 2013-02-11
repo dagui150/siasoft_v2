@@ -34,8 +34,21 @@ function cargaProveedorGrilla (grid_id){
 }
 
 $(document).ready(function(){
+    $(function() {                    
+            $( "#OrdenCompraLinea_FECHA_REQUERIDA" ).datepicker({dateFormat: 'yy-mm-dd'});
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+        });
+    calcularTotal(false);
+    $('.calcular').live('change',function(){
+       calcularTotal('Nuevo'); 
+    });
     $('.edit').live('click',function(){
         $('#SPAN').val('');
+        $('#NAME').val($(this).attr('name'));
+        actualiza();
+    });
+    $('.editU').live('click',function(){
+        $('#SPAN').val('U');
         $('#NAME').val($(this).attr('name'));
         actualiza();
     });
@@ -98,7 +111,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>date("Y-m-d"), 'disabled'=>$readonly),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA, 'disabled'=>$readonly),  
             ), true); 
             
             $fecha2 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -115,7 +128,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'disabled'=>$readonly),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_COTIZACION, 'disabled'=>$readonly),  
             ), true); 
             
             $fecha3 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -132,7 +145,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'disabled'=>$readonly),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_OFRECIDA, 'disabled'=>$readonly),  
             ), true); 
             
             $fecha4 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -149,7 +162,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'disabled'=>$readonly),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_REQUERIDA, 'disabled'=>$readonly),  
             ), true); 
             
             $fecha5 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -166,7 +179,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'disabled'=>$readonly),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top','value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_REQ_EMBARQUE, 'disabled'=>$readonly),  
             ), true); 
         ?>
     
@@ -218,15 +231,6 @@ $(document).ready(function(){
              $rubros='Para usar esta opcion debes habilitarla en configuracion';
          }
         ?>
-    
-    <?php
-        if ($config->IMP1_AFECTA_DESCTO == 'A'){
-            $porcentaje = $form->textFieldRow($model,'PORC_DESCUENTO',array('size'=>6,'maxlength'=>28, 'readonly'=>$readonly, 'class'=>'ambos', 'onFocus'=> "if (this.value=='0') this.value='';"));
-        }
-        else{
-            $porcentaje = $form->textFieldRow($model,'PORC_DESCUENTO',array('size'=>6,'maxlength'=>28, 'class'=>'calculoMonto', 'readonly'=>$readonly, 'onFocus'=> "if (this.value=='0') this.value='';"));
-        }
-    ?>
     <?php       
             //Consecutivo
             if($model->ORDEN_COMPRA == ''){
@@ -316,36 +320,36 @@ $(document).ready(function(){
         array('label'=>'Montos', 'content'=>
             '<fieldset>'.
             '<table><tr>'.
-                '<td>'.$porcentaje.'</td>
-                <td><div class="control-group  validating"><label class="control-label">Total Mercaderia: </label><div class="controls">'.CHtml::textField('TotalMerc','', array('readonly'=>true)).'</div></div></td>
+                '<td>'.$form->textFieldRow($model,'PORC_DESCUENTO',array('append'=>'%','class'=>'calcular', 'value'=>$model->isNewRecord ? 0 : $model->PORC_DESCUENTO, 'size'=>6,'maxlength'=>28, 'readonly'=>$readonly, 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
+                <td><div class="control-group  validating"><label class="control-label">Total Mercaderia: </label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('TotalMerc','', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr>
             <tr>'.
-                '<td>'.$form->textFieldRow($model,'MONTO_FLETE',array('size'=>6,'maxlength'=>28, 'class'=>'calculoMonto', 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
-                <td><div class="control-group  validating"><label class="control-label">- Descuento: </label><div class="controls">'.CHtml::textField('MenosDescuento','', array('readonly'=>true)).'</div></div></td>
+                '<td>'.$form->textFieldRow($model,'MONTO_FLETE', array('prepend'=>'$','class'=>'calcular decimal', 'size'=>6,'maxlength'=>28, 'value'=>$model->isNewRecord ? 0 : $model->MONTO_FLETE, 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
+                <td><div class="control-group  validating"><label class="control-label">- Descuento: </label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('MenosDescuento','', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr>
             <tr>
-                <td>'.$form->textFieldRow($model,'MONTO_SEGURO',array('size'=>6,'maxlength'=>28, 'class'=>'calculoMonto', 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
-                <td><div class="control-group  validating"><label class="control-label">+ Imp. de ventas: </label><div class="controls">'.CHtml::textField('ImpVentas','', array('readonly'=>true)).'</div></div></td>
+                <td>'.$form->textFieldRow($model,'MONTO_SEGURO',array('prepend'=>'$','class'=>'calcular decimal', 'size'=>6,'maxlength'=>28, 'value'=>$model->isNewRecord ? 0 : $model->MONTO_SEGURO, 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
+                <td><div class="control-group  validating"><label class="control-label">+ Imp. de ventas: </label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('ImpVentas','', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr>
             <tr>
-                <td>'.$form->textFieldRow($model,'MONTO_ANTICIPO',array('size'=>6,'maxlength'=>28, 'class'=>'calculoMonto', 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
-                <td><div class="control-group  validating"><label class="control-label">+ Flete: </label><div class="controls">'.CHtml::textField('Flete','', array('readonly'=>true)).'</div></div></td>
+                <td>'.$form->textFieldRow($model, 'MONTO_ANTICIPO',array('prepend'=>'$','class'=>'calcular decimal', 'size'=>6,'maxlength'=>28, 'value'=>$model->isNewRecord ? 0 : $model->MONTO_ANTICIPO, 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
+                <td><div class="control-group  validating"><label class="control-label">+ Flete: </label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('Flete','', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr>
             <tr>
                 <td>'.$form->dropDownListRow($model,'TIPO_PRORRATEO_OC',array('CAN'=>'Cantidad','PRE'=>'Precio','PRO'=>'Promedio', 'NIN'=>'Ninguno')).'</td>
-                <td><div class="control-group  validating"><label class="control-label">+ Seguro: </label><div class="controls">'.CHtml::textField('Seguro','', array('readonly'=>true)).'</div></div></td>
+                <td><div class="control-group  validating"><label class="control-label">+ Seguro: </label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('Seguro','', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td>'.$form->textFieldRow($model,'TOTAL_A_COMPRAR',array('maxlength'=>28, 'readonly' => true)).'</td>
+                <td>'.$form->textFieldRow($model,'TOTAL_A_COMPRAR',array('prepend'=>'$','maxlength'=>28, 'readonly' => true)).'</td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td><div class="control-group  validating"><label class="control-label">- Anticipo </label><div class="controls">'.CHtml::textField('Anticipo', '', array('readonly'=>true)).'</div></div></td>
+                <td><div class="control-group  validating"><label class="control-label">- Anticipo </label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('Anticipo', '', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td><div class="control-group  validating"><label class="control-label">= Saldo</label><div class="controls">'.CHtml::textField('Saldo', '', array('readonly'=>true)).'</td>
+                <td><div class="control-group  validating"><label class="control-label">= Saldo</label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('Saldo', '', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr></table></fieldset>'),
         
         array('label'=>'Auditoria', 'content'=>
@@ -360,7 +364,7 @@ $(document).ready(function(){
 
 	<div align="center">
             <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('solicitudOc/admin'), 'icon' => 'remove'));  ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('solicitudOc/admin'), 'icon' => 'remove'));  ?>
 	</div>
 
 <?php $this->endWidget(); ?>

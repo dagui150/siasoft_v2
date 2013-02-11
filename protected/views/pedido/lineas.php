@@ -8,9 +8,6 @@
 ?>
 <script>
     $(document).ready(function(){
-        
-        
-        
         var cantidad,precio,descuento,iva,valor_impuesto,contador, model,id,total,total_mercaderia,total_facturar,total_descuento,total_iva,anticipo,flete,seguro;
 
         

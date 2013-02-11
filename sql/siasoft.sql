@@ -1,4 +1,4 @@
--- Adminer 3.6.1 MySQL dump
+-- Adminer 3.6.3 MySQL dump
 
 SET NAMES utf8;
 SET foreign_key_checks = 0;
@@ -908,7 +908,7 @@ CREATE TABLE `articulo_ensamble` (
   CONSTRAINT `articulo_ensamble_ibfk_1` FOREIGN KEY (`UNIDAD`) REFERENCES `unidad_medida` (`ID`),
   CONSTRAINT `FK_ARTICULO_HIJO` FOREIGN KEY (`ARTICULO_HIJO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `FK_ARTICULO_PADRE` FOREIGN KEY (`ARTICULO_PADRE`) REFERENCES `articulo` (`ARTICULO`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Almacena los articulos que permiten ensamblar un arituculo t';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena los articulos que permiten ensamblar un arituculo t';
 
 INSERT INTO `articulo_ensamble` (`ID`, `ARTICULO_PADRE`, `ARTICULO_HIJO`, `CANTIDAD`, `UNIDAD`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'001',	'12',	1.00000000,	3,	'S',	'admin',	'2012-12-12 10:42:33',	'admin',	'2012-12-18 15:28:46'),
@@ -952,7 +952,7 @@ CREATE TABLE `articulo_precio` (
   KEY `FK_TIPO_DE_PRECIO_DEL_PRECIO` (`NIVEL_PRECIO`),
   CONSTRAINT `FK_ARTICULO_AL_Q_PERTENECE_PRECIO` FOREIGN KEY (`ARTICULO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `FK_TIPO_DE_PRECIO_DEL_PRECIO` FOREIGN KEY (`NIVEL_PRECIO`) REFERENCES `nivel_precio` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=latin1 COMMENT='Tabla donde se almacena los diferentes precios asociados a l';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla donde se almacena los diferentes precios asociados a l';
 
 INSERT INTO `articulo_precio` (`ID`, `ARTICULO`, `NIVEL_PRECIO`, `PRECIO`, `ESQUEMA_TRABAJO`, `MARGEN_MULTIPLICADOR`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (130,	'12',	'1',	80.00000000,	'NORM',	0.00000000,	'S',	'admin',	'2012-10-31 16:35:49',	'admin',	'2012-10-31 16:35:49'),
@@ -1038,7 +1038,7 @@ CREATE TABLE `categoria` (
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Permite almacenar las categorias para los clientes y proveed';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Permite almacenar las categorias para los clientes y proveed';
 
 INSERT INTO `categoria` (`ID`, `DESCRIPCION`, `TIPO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'categoria 1',	'C',	'S',	'admin',	'2012-05-11 15:22:59',	'admin',	'2012-09-14 18:11:28');
@@ -1076,7 +1076,7 @@ CREATE TABLE `clasific_adi_articulo` (
   KEY `FK_VAL_CLASIF_ADI_ARTICULO` (`VALOR`),
   CONSTRAINT `FK_CLASIFICACION_ADI_ARTICULO` FOREIGN KEY (`ARTICULO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `FK_VAL_CLASIF_ADI_ARTICULO` FOREIGN KEY (`VALOR`) REFERENCES `clasificacion_adi_valor` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COMMENT='Clasificaciones adicionales para lo articulos';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Clasificaciones adicionales para lo articulos';
 
 INSERT INTO `clasific_adi_articulo` (`ID`, `ARTICULO`, `VALOR`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (9,	'001',	1,	'S',	'admin',	'2012-06-26 09:48:20',	'admin',	'2012-06-26 09:48:20'),
@@ -1118,7 +1118,7 @@ CREATE TABLE `clasificacion_adi_valor` (
   PRIMARY KEY (`ID`),
   KEY `FK_CLASIFICACION_DE_LOS_VALORES` (`CLASIFICACION`),
   CONSTRAINT `FK_CLASIFICACION_DE_LOS_VALORES` FOREIGN KEY (`CLASIFICACION`) REFERENCES `clasificacion_adi` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COMMENT='Valores o detalle de las clasificaciones adicionales';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Valores o detalle de las clasificaciones adicionales';
 
 INSERT INTO `clasificacion_adi_valor` (`ID`, `CLASIFICACION`, `VALOR`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'0001',	'Norma',	'S',	'admin',	'2012-06-12 10:12:20',	'admin',	'2012-06-12 10:12:20'),
@@ -1136,7 +1136,7 @@ CREATE TABLE `cliente` (
   `REGIMEN` varchar(12) DEFAULT NULL,
   `CATEGORIA` int(11) DEFAULT NULL,
   `IMPUESTO` varchar(4) DEFAULT NULL,
-  `NIT` varchar(10) DEFAULT NULL COMMENT 'identificación alfanumérica del departamento, la casilla tiene campo para 10 dígitos.',
+  `NIT` varchar(12) DEFAULT NULL COMMENT 'identificación alfanumérica del departamento, la casilla tiene campo para 10 dígitos.',
   `TIPO_PRECIO` varchar(12) DEFAULT NULL COMMENT 'identificación alfanumérica del nivel de precio.',
   `CONDICION_PAGO` varchar(4) DEFAULT NULL COMMENT 'identificación alfanumérica de la condicion de pago',
   `PAIS` varchar(4) DEFAULT NULL,
@@ -1223,6 +1223,7 @@ CREATE TABLE `compania` (
   `NOMBRE` varchar(128) NOT NULL,
   `NOMBRE_ABREV` varchar(64) NOT NULL,
   `NIT` varchar(20) DEFAULT NULL,
+  `REGIMEN_TRIBUTARIO` varchar(12) DEFAULT NULL,
   `UBICACION_GEOGRAFICA1` varchar(2) DEFAULT NULL,
   `UBICACION_GEOGRAFICA2` varchar(5) DEFAULT NULL,
   `PAIS` varchar(4) DEFAULT NULL,
@@ -1238,13 +1239,15 @@ CREATE TABLE `compania` (
   KEY `FK_PAIS_DE_LA_COMPANIA` (`PAIS`),
   KEY `FK_UBICACION_GEOGRAFICA_COMPANIA` (`UBICACION_GEOGRAFICA2`),
   KEY `UBICACION_GEOGRAFICA1` (`UBICACION_GEOGRAFICA1`),
+  KEY `REGIMEN_TRIBUTARIO` (`REGIMEN_TRIBUTARIO`),
   CONSTRAINT `compania_ibfk_1` FOREIGN KEY (`UBICACION_GEOGRAFICA1`) REFERENCES `ubicacion_geografica1` (`ID`),
+  CONSTRAINT `compania_ibfk_2` FOREIGN KEY (`REGIMEN_TRIBUTARIO`) REFERENCES `regimen_tributario` (`REGIMEN`),
   CONSTRAINT `FK_PAIS_DE_LA_COMPANIA` FOREIGN KEY (`PAIS`) REFERENCES `pais` (`ID`),
   CONSTRAINT `FK_UBICACION_GEOGRAFICA_COMPANIA` FOREIGN KEY (`UBICACION_GEOGRAFICA2`) REFERENCES `ubicacion_geografica2` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1 COMMENT='Almacena los datos de la empresa o compañia';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena los datos de la empresa o compañia';
 
-INSERT INTO `compania` (`ID`, `NOMBRE`, `NOMBRE_ABREV`, `NIT`, `UBICACION_GEOGRAFICA1`, `UBICACION_GEOGRAFICA2`, `PAIS`, `DIRECCION`, `TELEFONO1`, `TELEFONO2`, `LOGO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(30,	'alerens',	'ALERENS',	'38361706-8',	'73',	'73001',	'COL',	'CLL 39 N 12 - 50',	'2665027',	'3138439289',	NULL,	'admin',	'2012-05-22 00:00:00',	'admin',	'2012-11-10 10:53:28');
+INSERT INTO `compania` (`ID`, `NOMBRE`, `NOMBRE_ABREV`, `NIT`, `REGIMEN_TRIBUTARIO`, `UBICACION_GEOGRAFICA1`, `UBICACION_GEOGRAFICA2`, `PAIS`, `DIRECCION`, `TELEFONO1`, `TELEFONO2`, `LOGO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
+(30,	'alerens',	'ALERENS',	'38361706-8',	NULL,	'73',	'73001',	'COL',	'CLL 39 N 12 - 50',	'2665027',	'3138439289',	NULL,	'admin',	'2012-05-22 00:00:00',	'admin',	'2012-11-10 10:53:28');
 
 DROP TABLE IF EXISTS `conf_as`;
 CREATE TABLE `conf_as` (
@@ -1259,10 +1262,10 @@ CREATE TABLE `conf_as` (
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena la configuración para el modulo administr';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena la configuración para el modulo administr';
 
 INSERT INTO `conf_as` (`ID`, `IMPUESTO1_DESC`, `IMPUESTO2_DESC`, `PATRON_CCOSTO`, `SIMBOLO_MONEDA`, `PORCENTAJE_DEC`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'Iva',	'',	'1',	'$',	NULL,	'admin',	'2012-05-11 11:32:22',	'admin',	'2012-05-11 11:32:22');
+(1,	'Iva',	'',	'999a',	'$',	NULL,	'admin',	'2012-05-11 11:32:22',	'admin',	'2013-01-17 14:56:10');
 
 DROP TABLE IF EXISTS `conf_ci`;
 CREATE TABLE `conf_ci` (
@@ -1277,6 +1280,8 @@ CREATE TABLE `conf_ci` (
   `EXIST_DISPONIBLE` varchar(10) NOT NULL COMMENT 'tipos de existencias que se considerarán para calcular la existencia total de un artículo, se pueden marcar 3 opciones [DIS]ponible, [REM]itida, [RES]ervada, se guardaran separadas por coma en este campo',
   `EXIST_REMITIDA` varchar(3) NOT NULL,
   `EXIST_RESERVADA` varchar(3) NOT NULL,
+  `EXIST_CUARENTENA` varchar(3) NOT NULL,
+  `EXIST_VENCIDA` varchar(3) NOT NULL,
   `INTEGRACION_CONTA` varchar(1) NOT NULL COMMENT 'Integracion del modulo de inventarios con el modulo contable Si o No',
   `USA_CODIGO_BARRAS` varchar(1) NOT NULL COMMENT 'El sistema utilizará codigo de barras Si o No',
   `LINEAS_MAX_TRANS` int(11) NOT NULL COMMENT 'Número máximo de líneas',
@@ -1290,7 +1295,6 @@ CREATE TABLE `conf_ci` (
   `EAN8_REGLA_LOCAL` varchar(3) DEFAULT NULL COMMENT 'codigos fijo de reglas locales para ean 8',
   `UCC12_REGLA_LOCAL` varchar(6) DEFAULT NULL COMMENT 'codigos fijo de reglas locales para ucc 12',
   `PRIORIDAD_BUSQUEDA` varchar(1) NOT NULL COMMENT '[A]rticulo, [C]odigo de barras',
-  `FORMATO_IMPRESION` int(11) NOT NULL,
   `CREADO_POR` varchar(20) NOT NULL,
   `CREADO_EL` datetime NOT NULL,
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
@@ -1299,15 +1303,13 @@ CREATE TABLE `conf_ci` (
   KEY `FK_METODO_COSTO_FISCAL` (`COSTO_FISCAL`),
   KEY `FK_UND_DEFECTO_PESO` (`UNIDAD_PESO`),
   KEY `FK_UND_DEFECTO_VOLUMEN` (`UNIDAD_VOLUMEN`),
-  KEY `FK_FORMATO_IMPRESION` (`FORMATO_IMPRESION`),
-  CONSTRAINT `conf_ci_ibfk_1` FOREIGN KEY (`FORMATO_IMPRESION`) REFERENCES `formato_impresion` (`ID`),
   CONSTRAINT `FK_METODO_COSTO_FISCAL` FOREIGN KEY (`COSTO_FISCAL`) REFERENCES `metodo_valuacion_inv` (`ID`),
   CONSTRAINT `FK_UND_DEFECTO_PESO` FOREIGN KEY (`UNIDAD_PESO`) REFERENCES `unidad_medida` (`ID`),
   CONSTRAINT `FK_UND_DEFECTO_VOLUMEN` FOREIGN KEY (`UNIDAD_VOLUMEN`) REFERENCES `unidad_medida` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla de configuracion del modulo de inventarios';
 
-INSERT INTO `conf_ci` (`ID`, `COSTOS_DEC`, `EXISTENCIAS_DEC`, `PESOS_DEC`, `COSTO_FISCAL`, `COSTO_INGR_DEFAULT`, `UNIDAD_PESO`, `UNIDAD_VOLUMEN`, `EXIST_DISPONIBLE`, `EXIST_REMITIDA`, `EXIST_RESERVADA`, `INTEGRACION_CONTA`, `USA_CODIGO_BARRAS`, `LINEAS_MAX_TRANS`, `USA_UNIDADES_DIST`, `ASISTENCIA_AUTOMAT`, `USA_CODIGO_EAN13`, `USA_CODIGO_EAN8`, `USA_CODIGO_UCC12`, `USA_CODIGO_UCC8`, `EAN13_REGLA_LOCAL`, `EAN8_REGLA_LOCAL`, `UCC12_REGLA_LOCAL`, `PRIORIDAD_BUSQUEDA`, `FORMATO_IMPRESION`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(0,	2,	2,	2,	'Estándar',	'U',	3,	5,	'1',	'0',	'1',	'0',	'0',	3,	'',	'0',	'0',	'0',	'0',	'0',	NULL,	NULL,	NULL,	'A',	0,	'admin',	'2012-09-19 04:44:14',	'admin',	'2012-09-19 04:44:14');
+INSERT INTO `conf_ci` (`ID`, `COSTOS_DEC`, `EXISTENCIAS_DEC`, `PESOS_DEC`, `COSTO_FISCAL`, `COSTO_INGR_DEFAULT`, `UNIDAD_PESO`, `UNIDAD_VOLUMEN`, `EXIST_DISPONIBLE`, `EXIST_REMITIDA`, `EXIST_RESERVADA`, `EXIST_CUARENTENA`, `EXIST_VENCIDA`, `INTEGRACION_CONTA`, `USA_CODIGO_BARRAS`, `LINEAS_MAX_TRANS`, `USA_UNIDADES_DIST`, `ASISTENCIA_AUTOMAT`, `USA_CODIGO_EAN13`, `USA_CODIGO_EAN8`, `USA_CODIGO_UCC12`, `USA_CODIGO_UCC8`, `EAN13_REGLA_LOCAL`, `EAN8_REGLA_LOCAL`, `UCC12_REGLA_LOCAL`, `PRIORIDAD_BUSQUEDA`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
+(0,	2,	2,	2,	'Estándar',	'U',	3,	5,	'1',	'0',	'1',	'',	'',	'0',	'0',	3,	'',	'0',	'0',	'0',	'0',	'0',	NULL,	NULL,	NULL,	'A',	'admin',	'2012-09-19 04:44:14',	'admin',	'2012-09-19 04:44:14');
 
 DROP TABLE IF EXISTS `conf_co`;
 CREATE TABLE `conf_co` (
@@ -1366,10 +1368,10 @@ CREATE TABLE `conf_co` (
   CONSTRAINT `conf_co_ibfk_2` FOREIGN KEY (`FORMATO_IMPRESION_ORD`) REFERENCES `formato_impresion` (`ID`),
   CONSTRAINT `conf_co_ibfk_3` FOREIGN KEY (`FORMATO_IMPRESION_ING`) REFERENCES `formato_impresion` (`ID`),
   CONSTRAINT `FK_BODEGA_DEFECTO_COMPRAS` FOREIGN KEY (`BODEGA_DEFAULT`) REFERENCES `bodega` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Configuracion del modulo de compras';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Configuracion del modulo de compras';
 
 INSERT INTO `conf_co` (`ID`, `FORMATO_IMPRESION_SOL`, `FORMATO_IMPRESION_ORD`, `FORMATO_IMPRESION_ING`, `BODEGA_DEFAULT`, `ULT_SOLICITUD`, `ULT_ORDEN_COMPRA`, `ULT_EMBARQUE`, `ULT_SOLICITUD_M`, `ULT_ORDEN_COMPRA_M`, `ULT_EMBARQUE_M`, `ULT_DEVOLUCION`, `ULT_DEVOLUCION_M`, `USAR_RUBROS`, `ORDEN_OBSERVACION`, `MAXIMO_LINORDEN`, `POR_VARIAC_COSTO`, `CP_EN_LINEA`, `IMP1_AFECTA_DESCTO`, `FACTOR_REDONDEO`, `PRECIO_DEC`, `CANTIDAD_DEC`, `PEDIDOS_SOLICITUD`, `PEDIDOS_ORDEN`, `PEDIDOS_EMBARQUE`, `DIRECCION_EMBARQUE`, `DIRECCION_COBRO`, `RUBRO1_SOLNOM`, `RUBRO2_SOLNOM`, `RUBRO3_SOLNOM`, `RUBRO4_SOLNOM`, `RUBRO5_SOLNOM`, `RUBRO1_EMBNOM`, `RUBRO2_EMBNOM`, `RUBRO3_EMBNOM`, `RUBRO4_EMBNOM`, `RUBRO5_EMBNOM`, `RUBRO1_ORDNOM`, `RUBRO2_ORDNOM`, `RUBRO3_ORDNOM`, `RUBRO4_ORDNOM`, `RUBRO5_ORDNOM`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	5,	11,	0,	'1',	'SC000000',	'OC000016',	'30',	'SC999999',	'OC999999',	'',	'',	'',	'S',	'',	NULL,	0,	'0',	'L',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	'avenida siempre viva 123',	'avenida siempre viva 123',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'asesor',	'',	'',	'',	'',	'',	'0000-00-00 00:00:00',	'admin',	'2013-01-03 17:03:49');
+(1,	5,	12,	11,	'1',	'SC000017',	'OC000016',	'30',	'SC999999',	'OC999999',	'',	'',	'',	'S',	'',	NULL,	0,	'0',	'A',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	'avenida siempre viva 123',	'avenida siempre viva 123',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'asesor',	'',	'',	'',	'',	'',	'0000-00-00 00:00:00',	'admin',	'2013-01-31 10:28:25');
 
 DROP TABLE IF EXISTS `conf_fa`;
 CREATE TABLE `conf_fa` (
@@ -1408,10 +1410,10 @@ CREATE TABLE `conf_fa` (
   CONSTRAINT `FK_FORMATO_DEFECTO_PEDIDO` FOREIGN KEY (`FORMATO_PEDIDO`) REFERENCES `formato_impresion` (`ID`),
   CONSTRAINT `FK_FORMATO_DEFECTO_REMISION` FOREIGN KEY (`FORMATO_REMISION`) REFERENCES `formato_impresion` (`ID`),
   CONSTRAINT `FK_NIVEL_PRECIO_DEFECTO` FOREIGN KEY (`NIVEL_PRECIO`) REFERENCES `nivel_precio` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena la configuración para el modulo de factur';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena la configuración para el modulo de factur';
 
 INSERT INTO `conf_fa` (`ID`, `COND_PAGO_CONTADO`, `BODEGA_DEFECTO`, `CATEGORIA_CLIENTE`, `NIVEL_PRECIO`, `DECIMALES_PRECIO`, `FORMATO_PEDIDO`, `FORMATO_FACTURA`, `FORMATO_REMISION`, `USAR_RUBROS`, `OBSERVACIONES`, `RUBRO1_NOMBRE`, `RUBRO2_NOMBRE`, `RUBRO3_NOMBRE`, `RUBRO4_NOMBRE`, `RUBRO5_NOMBRE`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'1',	'23',	1,	'1',	2,	NULL,	NULL,	NULL,	'0',	'',	'',	'',	'',	'',	'',	'admin',	'2012-11-01 10:49:25',	'admin',	'2012-12-06 19:54:48');
+(1,	'1',	'23',	1,	'1',	2,	1,	14,	NULL,	'0',	'',	'',	'',	'',	'',	'',	'admin',	'2012-11-01 10:49:25',	'admin',	'2013-01-04 12:28:14');
 
 DROP TABLE IF EXISTS `consec_ci_tipo_trans`;
 CREATE TABLE `consec_ci_tipo_trans` (
@@ -1428,7 +1430,7 @@ CREATE TABLE `consec_ci_tipo_trans` (
   KEY `FK_TIPO_TRANSACCION_PARA_CONSECUTIVO_CI` (`TIPO_TRANSACCION`),
   CONSTRAINT `FK_CONSECUTIVO_CI_PARA_TIPO_TRANSACCION` FOREIGN KEY (`CONSECUTIVO_CI`) REFERENCES `consecutivo_ci` (`ID`),
   CONSTRAINT `FK_TIPO_TRANSACCION_PARA_CONSECUTIVO_CI` FOREIGN KEY (`TIPO_TRANSACCION`) REFERENCES `tipo_transaccion` (`TIPO_TRANSACCION`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COMMENT='Tabla en la que se almacena los tipos de trasnaccion asociad';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla en la que se almacena los tipos de trasnaccion asociad';
 
 INSERT INTO `consec_ci_tipo_trans` (`ID`, `CONSECUTIVO_CI`, `TIPO_TRANSACCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (4,	'INV',	'COMP',	'S',	'admin',	'2012-09-07 16:46:04',	'admin',	'2012-09-07 16:46:04'),
@@ -1447,7 +1449,7 @@ CREATE TABLE `consec_ci_usuario` (
   PRIMARY KEY (`ID`),
   KEY `FK_CONSECUTIVO_CI_HABILITADO_PARA_USUARIO` (`CONSECUTIVO_CI`),
   CONSTRAINT `FK_CONSECUTIVO_CI_HABILITADO_PARA_USUARIO` FOREIGN KEY (`CONSECUTIVO_CI`) REFERENCES `consecutivo_ci` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena que usuarios pueden usar un determinado c';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena que usuarios pueden usar un determinado c';
 
 INSERT INTO `consec_ci_usuario` (`ID`, `CONSECUTIVO_CI`, `USUARIO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (2,	'0001',	'admin',	'S',	'admin',	'2012-08-10 11:12:36',	'admin',	'2012-12-05 12:28:23'),
@@ -1507,7 +1509,7 @@ CREATE TABLE `consecutivo_fa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena los consecutivos de documentos que se usan en el mo';
 
 INSERT INTO `consecutivo_fa` (`CODIGO_CONSECUTIVO`, `FORMATO_IMPRESION`, `CLASIFICACION`, `DESCRIPCION`, `TIPO`, `LONGITUD`, `VALOR_CONSECUTIVO`, `MASCARA`, `USA_DESPACHOS`, `USA_ESQUEMA_CAJAS`, `VALOR_MAXIMO`, `NUMERO_COPIAS`, `ORIGINAL`, `COPIA1`, `COPIA2`, `COPIA3`, `COPIA4`, `COPIA5`, `RESOLUCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('cp',	NULL,	'P',	'pedido',	'A',	10,	'PED-000008',	'PED-9999?9',	'0',	'0',	'',	1,	'',	'',	NULL,	NULL,	NULL,	NULL,	'',	'S',	'admin',	'2012-12-07 16:55:33',	'admin',	'2012-12-22 10:14:21'),
+('cp',	NULL,	'P',	'pedido',	'A',	10,	'PED-000009',	'PED-9999?9',	'0',	'0',	'',	1,	'',	'',	NULL,	NULL,	NULL,	NULL,	'',	'S',	'admin',	'2012-12-07 16:55:33',	'admin',	'2013-01-12 14:16:45'),
 ('cv',	NULL,	'F',	'ejemplo',	'A',	7,	'FAC-001',	'FAC-999',	'0',	'0',	'FAC-999',	2,	'Empresa',	'cnb',	'cvb',	'asdf',	NULL,	NULL,	'',	'S',	'admin',	'2012-10-26 11:02:07',	'admin',	'2012-12-05 14:55:00');
 
 DROP TABLE IF EXISTS `cruge_authassignment`;
@@ -1579,6 +1581,7 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_articulo_update',	0,	'',	NULL,	'N;'),
 ('action_articulo_view',	0,	'',	NULL,	'N;'),
 ('action_bodega_admin',	0,	'',	NULL,	'N;'),
+('action_bodega_articulos',	0,	'',	NULL,	'N;'),
 ('action_bodega_cargarbodega',	0,	'',	NULL,	'N;'),
 ('action_bodega_create',	0,	'',	NULL,	'N;'),
 ('action_bodega_delete',	0,	'',	NULL,	'N;'),
@@ -1859,6 +1862,7 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_ordencompralinea_view',	0,	'',	NULL,	'N;'),
 ('action_ordencompra_actualizaimpuesto',	0,	'',	NULL,	'N;'),
 ('action_ordencompra_admin',	0,	'',	NULL,	'N;'),
+('action_ordenCompra_agregarlinea',	0,	'',	NULL,	'N;'),
 ('action_ordencompra_autorizar',	0,	'',	NULL,	'N;'),
 ('action_ordencompra_cancelar',	0,	'',	NULL,	'N;'),
 ('action_ordencompra_cargararticulo',	0,	'',	NULL,	'N;'),
@@ -1933,6 +1937,7 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_solicitudoclinea_update',	0,	'',	NULL,	'N;'),
 ('action_solicitudoclinea_view',	0,	'',	NULL,	'N;'),
 ('action_solicitudoc_admin',	0,	'',	NULL,	'N;'),
+('action_solicitudOc_agregarlinea',	0,	'',	NULL,	'N;'),
 ('action_solicitudoc_autorizar',	0,	'',	NULL,	'N;'),
 ('action_solicitudoc_cancelar',	0,	'',	NULL,	'N;'),
 ('action_solicitudoc_cargararticulo',	0,	'',	NULL,	'N;'),
@@ -2195,7 +2200,7 @@ CREATE TABLE `cruge_field` (
   `useregexpmsg` varchar(512) DEFAULT NULL,
   `predetvalue` mediumblob,
   PRIMARY KEY (`idfield`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `cruge_field` (`idfield`, `fieldname`, `longname`, `position`, `required`, `fieldtype`, `fieldsize`, `maxlength`, `showinreports`, `useregexp`, `useregexpmsg`, `predetvalue`) VALUES
 (1,	'nombre',	'Nombre',	0,	1,	0,	20,	45,	0,	'',	'',	'');
@@ -2228,7 +2233,7 @@ CREATE TABLE `cruge_session` (
   `ipaddressout` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idsession`),
   KEY `crugesession_iduser` (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `cruge_session` (`idsession`, `iduser`, `created`, `expire`, `status`, `ipaddress`, `usagecount`, `lastusage`, `logoutdate`, `ipaddressout`) VALUES
 (1,	1,	1356726941,	1356728741,	0,	'127.0.0.1',	1,	1356726941,	NULL,	NULL),
@@ -2247,7 +2252,11 @@ INSERT INTO `cruge_session` (`idsession`, `iduser`, `created`, `expire`, `status
 (14,	1,	1357155901,	1357755841,	0,	'127.0.0.1',	2,	1357216012,	1357216021,	'127.0.0.1'),
 (15,	3,	1357165364,	1357765304,	1,	'127.0.0.1',	2,	1357216031,	NULL,	NULL),
 (16,	1,	1357217696,	1357817636,	0,	'127.0.0.1',	2,	1357219070,	1357235451,	'127.0.0.1'),
-(17,	1,	1357235495,	1357835435,	1,	'127.0.0.1',	6,	1357312676,	NULL,	NULL);
+(17,	1,	1357235495,	1357835435,	0,	'127.0.0.1',	12,	1357822511,	NULL,	NULL),
+(18,	1,	1357835762,	1358435702,	0,	'127.0.0.1',	3,	1357996415,	1358016925,	'127.0.0.1'),
+(19,	1,	1358016929,	1358616869,	1,	'127.0.0.1',	9,	1358602644,	NULL,	NULL),
+(20,	1,	1358780021,	1359379961,	1,	'127.0.0.1',	9,	1359208839,	NULL,	NULL),
+(21,	1,	1359380179,	1359980119,	1,	'127.0.0.1',	8,	1359665754,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `cruge_system`;
 CREATE TABLE `cruge_system` (
@@ -2269,7 +2278,7 @@ CREATE TABLE `cruge_system` (
   `registerusingtermslabel` varchar(100) DEFAULT NULL,
   `registrationonlogin` int(11) DEFAULT '1',
   PRIMARY KEY (`idsystem`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `cruge_system` (`idsystem`, `name`, `largename`, `sessionmaxdurationmins`, `sessionmaxsameipconnections`, `sessionreusesessions`, `sessionmaxsessionsperday`, `sessionmaxsessionsperuser`, `systemnonewsessions`, `systemdown`, `registerusingcaptcha`, `registerusingterms`, `terms`, `registerusingactivation`, `defaultroleforregistration`, `registerusingtermslabel`, `registrationonlogin`) VALUES
 (1,	'default',	NULL,	9999,	10,	1,	-1,	-1,	0,	0,	0,	0,	'',	0,	'',	'',	0);
@@ -2288,11 +2297,10 @@ CREATE TABLE `cruge_user` (
   `totalsessioncounter` int(11) DEFAULT '0',
   `currentsessioncounter` int(11) DEFAULT '0',
   PRIMARY KEY (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `cruge_user` (`iduser`, `regdate`, `actdate`, `logondate`, `username`, `email`, `password`, `authkey`, `state`, `totalsessioncounter`, `currentsessioncounter`) VALUES
-(1,	NULL,	NULL,	1357312676,	'admin',	'admin@tucorreo.com',	'admin',	NULL,	1,	0,	0),
-(2,	NULL,	NULL,	NULL,	'invitado',	'invitado',	'nopassword',	NULL,	1,	0,	0),
+(1,	NULL,	NULL,	1359665754,	'admin',	'admin@tucorreo.com',	'admin',	NULL,	1,	0,	0),
 (3,	1357134333,	NULL,	1357216031,	'demo',	'demo@demo.com',	'1234556',	'8a643a14e989d36cfb94543d72d7a210',	1,	0,	0);
 
 DROP TABLE IF EXISTS `departamento`;
@@ -2337,7 +2345,7 @@ CREATE TABLE `dia_feriado` (
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Permite definir los dias festivos o feriados para que no los';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Permite definir los dias festivos o feriados para que no los';
 
 INSERT INTO `dia_feriado` (`ID`, `TIPO`, `DIA`, `MES`, `ANIO`, `DESCRIPCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'c',	1,	1,	1,	'asd',	'S',	'admin',	'2012-05-12 08:47:01',	'admin',	'2012-05-12 08:47:01');
@@ -2397,7 +2405,7 @@ CREATE TABLE `documento_inv_linea` (
   CONSTRAINT `FK_TIPO_CANTIDAD_AFECTAR` FOREIGN KEY (`TIPO_TRANSACCION_CANTIDAD`) REFERENCES `tipo_cantidad_articulo` (`ID`),
   CONSTRAINT `FK_TIPO_TRANSACCION` FOREIGN KEY (`TIPO_TRANSACCION`) REFERENCES `tipo_transaccion` (`TIPO_TRANSACCION`),
   CONSTRAINT `FK_UNIDAD_MOVIMIENTO` FOREIGN KEY (`UNIDAD`) REFERENCES `unidad_medida` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Lineas del documento de inventario';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Lineas del documento de inventario';
 
 INSERT INTO `documento_inv_linea` (`DOCUMENTO_INV_LINEA`, `DOCUMENTO_INV`, `LINEA_NUM`, `TIPO_TRANSACCION`, `SUBTIPO`, `TIPO_TRANSACCION_CANTIDAD`, `BODEGA`, `BODEGA_DESTINO`, `ARTICULO`, `CANTIDAD`, `UNIDAD`, `COSTO_UNITARIO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'AJV-0001',	1,	'ENSA',	NULL,	'D',	'23',	NULL,	'001',	4.00000000,	3,	500.00000000,	'S',	'admin',	'2012-11-27 19:53:52',	'admin',	'2012-11-27 19:53:52');
@@ -2456,7 +2464,7 @@ CREATE TABLE `existencia_bodega` (
   KEY `FK_BODEGA_ARTICULO` (`BODEGA`),
   CONSTRAINT `FK_ARTICULO_BODEGA` FOREIGN KEY (`ARTICULO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `FK_BODEGA_ARTICULO` FOREIGN KEY (`BODEGA`) REFERENCES `bodega` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COMMENT='Tabla donde se relaciona un articulo con una bodega donde se';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla donde se relaciona un articulo con una bodega donde se';
 
 INSERT INTO `existencia_bodega` (`ID`, `ARTICULO`, `BODEGA`, `EXISTENCIA_MINIMA`, `EXISTENCIA_MAXIMA`, `PUNTO_REORDEN`, `CANT_DISPONIBLE`, `CANT_RESERVADA`, `CANT_REMITIDA`, `CANT_CUARENTENA`, `CANT_VENCIDA`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'001',	'23',	5.00000000,	15.00000000,	10.00000000,	4.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'S',	'admin',	'2012-06-28 17:02:03',	'admin',	'2012-11-27 20:35:29'),
@@ -2530,6 +2538,7 @@ CREATE TABLE `factura_linea` (
   `VALOR_IMPUESTO` decimal(28,8) NOT NULL,
   `TIPO_PRECIO` int(11) NOT NULL,
   `COMENTARIO` text,
+  `TOTAL` decimal(28,8) DEFAULT NULL,
   `ESTADO` varchar(1) NOT NULL COMMENT 'Los mismos estados del pedido',
   `ACTIVO` varchar(1) NOT NULL,
   `CREADO_POR` varchar(20) NOT NULL,
@@ -2569,7 +2578,7 @@ CREATE TABLE `formato_impresion` (
   CONSTRAINT `formato_impresion_ibfk_1` FOREIGN KEY (`MODULO`) REFERENCES `modulo` (`ID`),
   CONSTRAINT `formato_impresion_ibfk_2` FOREIGN KEY (`SUBMODULO`) REFERENCES `submodulo` (`ID`),
   CONSTRAINT `formato_impresion_ibfk_3` FOREIGN KEY (`PLANTILLA`) REFERENCES `plantilla` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena los diferentes formatos de impresion que ';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena los diferentes formatos de impresion que ';
 
 INSERT INTO `formato_impresion` (`ID`, `NOMBRE`, `OBSERVACION`, `MODULO`, `SUBMODULO`, `PLANTILLA`, `TIPO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'Carta',	'',	'FACT',	'PEDI',	5,	'PDF',	'S',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00'),
@@ -2577,7 +2586,8 @@ INSERT INTO `formato_impresion` (`ID`, `NOMBRE`, `OBSERVACION`, `MODULO`, `SUBMO
 (8,	'Formato',	'',	'INVE',	'DOIN',	3,	'PDF',	'S',	'admin',	'2012-12-05 14:37:31',	'admin',	'2012-12-05 14:37:31'),
 (11,	'Prueba',	'',	'COMP',	'INCO',	1,	'PDF',	'S',	'admin',	'2012-12-05 14:37:46',	'admin',	'2012-12-05 14:37:46'),
 (12,	'Carta',	'',	'COMP',	'ORCO',	4,	'PDF',	'S',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00'),
-(13,	'Pruebas',	'',	'COMP',	'INCO',	1,	'PDF',	'N',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00');
+(13,	'Pruebas',	'',	'COMP',	'INCO',	1,	'PDF',	'N',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00'),
+(14,	'Media Carta',	'',	'FACT',	'FAAS',	6,	'PDF',	'S',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00');
 
 DROP TABLE IF EXISTS `horario`;
 CREATE TABLE `horario` (
@@ -2732,7 +2742,7 @@ CREATE TABLE `ingreso_compra_linea` (
   CONSTRAINT `FK_LINEA_PERTENECE_INGRESO_COMPRA` FOREIGN KEY (`INGRESO_COMPRA`) REFERENCES `ingreso_compra` (`INGRESO_COMPRA`),
   CONSTRAINT `FK_SATISFACE_LINEA_OC` FOREIGN KEY (`ORDEN_COMPRA_LINEA`) REFERENCES `orden_compra_linea` (`ORDEN_COMPRA_LINEA`),
   CONSTRAINT `FK_UNIDAD_INGRESO_COMPRA` FOREIGN KEY (`UNIDAD_ORDENADA`) REFERENCES `unidad_medida` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=latin1 COMMENT='Lineas del ingreso de la compra';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Lineas del ingreso de la compra';
 
 INSERT INTO `ingreso_compra_linea` (`INGRESO_COMPRA_LINEA`, `INGRESO_COMPRA`, `LINEA_NUM`, `ORDEN_COMPRA_LINEA`, `ARTICULO`, `BODEGA`, `CANTIDAD_ORDENADA`, `UNIDAD_ORDENADA`, `CANTIDAD_ACEPTADA`, `CANTIDAD_RECHAZADA`, `PRECIO_UNITARIO`, `COSTO_FISCAL_UNITARIO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'IC0000',	1,	4,	'003',	'23',	2.00000000,	3,	2.00000000,	0.00000000,	2.00000000,	0.00000000,	'S',	'admin',	'2012-09-19 09:24:18',	'admin',	'2012-09-19 09:24:18'),
@@ -3018,7 +3028,7 @@ CREATE TABLE `orden_compra_linea` (
   `ARTICULO` varchar(20) NOT NULL,
   `DESCRIPCION` varchar(128) DEFAULT NULL,
   `BODEGA` varchar(4) NOT NULL,
-  `FECHA_REQUERIDA` date NOT NULL,
+  `FECHA_REQUERIDA` date DEFAULT NULL,
   `FACTURA` varchar(20) DEFAULT NULL,
   `CANTIDAD_ORDENADA` decimal(28,8) NOT NULL,
   `UNIDAD_COMPRA` int(11) NOT NULL,
@@ -3045,7 +3055,7 @@ CREATE TABLE `orden_compra_linea` (
   CONSTRAINT `FK_BODEGA_LINEA_ORDEN_COMPRA` FOREIGN KEY (`BODEGA`) REFERENCES `bodega` (`ID`),
   CONSTRAINT `FK_LINEA_PERTENECE_A_ORDEN_COMPRA` FOREIGN KEY (`ORDEN_COMPRA`) REFERENCES `orden_compra` (`ORDEN_COMPRA`),
   CONSTRAINT `FK_UNIDAD_COMPRA_LINEA` FOREIGN KEY (`UNIDAD_COMPRA`) REFERENCES `unidad_medida` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1 COMMENT='Lineas de la orden de compra';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Lineas de la orden de compra';
 
 INSERT INTO `orden_compra_linea` (`ORDEN_COMPRA_LINEA`, `ORDEN_COMPRA`, `LINEA_NUM`, `ARTICULO`, `DESCRIPCION`, `BODEGA`, `FECHA_REQUERIDA`, `FACTURA`, `CANTIDAD_ORDENADA`, `UNIDAD_COMPRA`, `PRECIO_UNITARIO`, `PORC_DESCUENTO`, `MONTO_DESCUENTO`, `PORC_IMPUESTO`, `VALOR_IMPUESTO`, `CANTIDAD_RECIBIDA`, `CANTIDAD_RECHAZADA`, `FECHA`, `OBSERVACION`, `ESTADO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'OC0000',	1,	'001',	'Articulo de ejemplo ',	'1',	'2012-10-31',	'',	10.00000000,	4,	10.00000000,	10.00000000,	1.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-24',	'45',	'R',	'admin',	'2012-10-01 16:18:05',	'admin',	'2012-10-05 15:14:59'),
@@ -3164,7 +3174,8 @@ INSERT INTO `pedido` (`PEDIDO`, `CONSECUTIVO`, `CLIENTE`, `BODEGA`, `CONDICION_P
 ('PED-000004',	'cp',	'123456',	'23',	'1',	'1',	'2012-12-13',	'0000-00-00',	'0000-00-00',	NULL,	NULL,	'',	'',	'',	'',	'',	'',	'',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'N',	'N',	'N',	'admin',	'2012-12-13 15:39:13',	'admin',	'2012-12-13 15:39:13'),
 ('PED-000005',	'cp',	'123456',	'23',	'1',	'1',	'2012-12-21',	'2012-12-12',	'2012-12-15',	'safdsdf',	'2012-12-21',	NULL,	NULL,	NULL,	NULL,	NULL,	'asdad',	'asdad',	1600.00000000,	20.00000000,	20.00000000,	20.00000000,	320.00000000,	0.00000000,	1280.00000000,	'N',	'N',	'N',	'admin',	'2012-12-21 11:09:12',	'admin',	'2012-12-21 11:09:12'),
 ('PED-000006',	'cp',	'123456',	'23',	'1',	'1',	'2012-12-22',	'0000-00-00',	'0000-00-00',	'',	'0000-00-00',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	1600.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	1600.00000000,	'N',	'N',	'N',	'admin',	'2012-12-22 10:11:45',	'admin',	'2012-12-22 10:11:45'),
-('PED-000007',	'cp',	'123456',	'23',	'1',	'1',	'2013-01-04',	'0000-00-00',	'0000-00-00',	'',	'0000-00-00',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	15408.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	15408.00000000,	'N',	'N',	'N',	'admin',	'2012-12-22 10:14:21',	'admin',	'2013-01-04 09:25:08');
+('PED-000007',	'cp',	'123456',	'23',	'1',	'1',	'2013-01-05',	'0000-00-00',	'0000-00-00',	'',	'0000-00-00',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	1040.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	1040.00000000,	'N',	'N',	'N',	'admin',	'2012-12-22 10:14:21',	'admin',	'2013-01-05 09:04:08'),
+('PED-000008',	'cp',	'123456',	'23',	'1',	'1',	'2013-01-12',	'0000-00-00',	'0000-00-00',	'',	'0000-00-00',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	96969696960.00000000,	12.00000000,	12.00000000,	123123.00000000,	0.00000000,	0.00000000,	96969696960.00000000,	'N',	'N',	'N',	'admin',	'2013-01-12 14:16:45',	'admin',	'2013-01-12 14:16:45');
 
 DROP TABLE IF EXISTS `pedido_linea`;
 CREATE TABLE `pedido_linea` (
@@ -3197,7 +3208,7 @@ CREATE TABLE `pedido_linea` (
   CONSTRAINT `FK_LINEA_PEDIDO` FOREIGN KEY (`PEDIDO`) REFERENCES `pedido` (`PEDIDO`),
   CONSTRAINT `FK_UNIDAD_LINEA_PEDIDO` FOREIGN KEY (`UNIDAD`) REFERENCES `unidad_medida` (`ID`),
   CONSTRAINT `pedido_linea_ibfk_1` FOREIGN KEY (`TIPO_PRECIO`) REFERENCES `articulo_precio` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COMMENT='Almacena las lineas de un pedido';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena las lineas de un pedido';
 
 INSERT INTO `pedido_linea` (`ID`, `ARTICULO`, `PEDIDO`, `LINEA`, `UNIDAD`, `CANTIDAD`, `PRECIO_UNITARIO`, `PORC_DESCUENTO`, `MONTO_DESCUENTO`, `PORC_IMPUESTO`, `VALOR_IMPUESTO`, `TIPO_PRECIO`, `TOTAL`, `COMENTARIO`, `ESTADO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (3,	'12',	'PED-000002',	1,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	0.00000000,	'',	'N',	'S',	'admin',	'2012-12-13 15:36:47',	'admin',	'2012-12-13 15:36:47'),
@@ -3205,9 +3216,9 @@ INSERT INTO `pedido_linea` (`ID`, `ARTICULO`, `PEDIDO`, `LINEA`, `UNIDAD`, `CANT
 (5,	'12',	'PED-000004',	1,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	0.00000000,	'',	'N',	'S',	'admin',	'2012-12-13 15:39:13',	'admin',	'2012-12-13 15:39:13'),
 (6,	'12',	'PED-000005',	1,	3,	20.00000000,	80.00000000,	20.00000000,	320.00000000,	0.00000000,	0.00000000,	130,	0.00000000,	'',	'N',	'S',	'admin',	'2012-12-21 11:09:12',	'admin',	'2012-12-21 11:09:12'),
 (7,	'12',	'PED-000006',	1,	3,	20.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	1600.00000000,	'',	'N',	'S',	'admin',	'2012-12-22 10:11:45',	'admin',	'2012-12-22 10:11:45'),
-(8,	'12',	'PED-000007',	1,	3,	12.00000000,	1124.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	132,	13488.00000000,	'',	'N',	'S',	'admin',	'2012-12-22 10:14:21',	'admin',	'2013-01-04 09:25:09'),
-(9,	'12',	'PED-000007',	2,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	960.00000000,	'',	'N',	'S',	'admin',	'2012-12-22 10:14:21',	'admin',	'2013-01-04 09:25:09'),
-(10,	'12',	'PED-000007',	3,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	960.00000000,	'',	'N',	'S',	'admin',	'2012-12-22 10:14:21',	'admin',	'2013-01-04 09:25:09');
+(10,	'12',	'PED-000007',	1,	3,	1.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	80.00000000,	'',	'N',	'S',	'admin',	'2012-12-22 10:14:21',	'admin',	'2013-01-05 09:04:08'),
+(15,	'12',	'PED-000007',	2,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	960.00000000,	'',	'N',	'S',	'admin',	'2013-01-05 08:44:57',	'admin',	'2013-01-05 09:04:08'),
+(16,	'12',	'PED-000008',	1,	3,	1212121212.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	96969696960.00000000,	'',	'N',	'S',	'admin',	'2013-01-12 14:16:45',	'admin',	'2013-01-12 14:16:45');
 
 DROP TABLE IF EXISTS `plantilla`;
 CREATE TABLE `plantilla` (
@@ -3219,14 +3230,15 @@ CREATE TABLE `plantilla` (
   PRIMARY KEY (`ID`),
   KEY `SUBMODULO` (`SUBMODULO`),
   CONSTRAINT `plantilla_ibfk_1` FOREIGN KEY (`SUBMODULO`) REFERENCES `submodulo` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `plantilla` (`ID`, `NOMBRE`, `RUTA`, `SUBMODULO`, `ACTIVO`) VALUES
 (1,	'Carta',	'IngresoCompra',	'INCO',	'S'),
 (2,	'Carta',	'SolicitudCompra',	'SOCO',	'S'),
 (3,	'Carta',	'DocInv',	'DOIN',	'S'),
 (4,	'Carta',	'OrdenCompra',	'ORCO',	'S'),
-(5,	'Carta',	'PedidoMC',	'PEDI',	'S');
+(5,	'Carta',	'PedidoMC',	'PEDI',	'S'),
+(6,	'Carta',	'FacturaMC',	'FAAS',	'S');
 
 DROP TABLE IF EXISTS `proveedor`;
 CREATE TABLE `proveedor` (
@@ -3355,9 +3367,14 @@ CREATE TABLE `regimen_tributario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena la informaciòn sobre los diferentes regimenes tribu';
 
 INSERT INTO `regimen_tributario` (`REGIMEN`, `DESCRIPCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('123',	'TEST',	'S',	'admin',	'2012-10-23 11:21:04',	'admin',	'2012-10-23 11:21:04'),
-('658',	'asdad',	'S',	'admin',	'2012-10-23 11:23:38',	'admin',	'2012-10-23 11:23:38'),
-('aksjd',	'asdfaf',	'S',	'admin',	'2012-10-25 10:01:30',	'admin',	'2012-10-25 10:01:30');
+('EENR',	'Entidad estatal no responsable del Iva',	'S',	'admin',	'2013-01-25 11:00:00',	'admin',	'2013-01-25 11:00:00'),
+('EERI',	'Entidad estatal responsable del Iva',	'S',	'admin',	'2013-01-25 11:00:00',	'admin',	'2013-01-25 11:00:00'),
+('GCNR',	'Gran contribuyente no responsable del Iva',	'S',	'admin',	'2013-01-25 11:00:00',	'admin',	'2013-01-25 11:00:00'),
+('GCRI',	'Gran contribuyente responsable de Iva',	'S',	'admin',	'2013-01-25 11:00:00',	'admin',	'2013-01-25 11:00:00'),
+('NORI',	'No responsable del Iva',	'S',	'admin',	'2013-01-25 11:00:00',	'admin',	'2013-01-25 11:00:00'),
+('NRDP',	'No residente o no domiciliado en el país',	'S',	'admin',	'2013-01-25 11:00:00',	'admin',	'2013-01-25 11:00:00'),
+('RECO',	'Régimen común',	'S',	'admin',	'2013-01-25 11:00:00',	'admin',	'2013-01-25 11:00:00'),
+('RESI',	'Régimen simplificado',	'S',	'admin',	'2013-01-25 11:00:00',	'admin',	'2013-01-25 11:00:00');
 
 DROP TABLE IF EXISTS `retencion`;
 CREATE TABLE `retencion` (
@@ -3414,6 +3431,7 @@ CREATE TABLE `solicitud_oc` (
 INSERT INTO `solicitud_oc` (`SOLICITUD_OC`, `DEPARTAMENTO`, `FECHA_SOLICITUD`, `FECHA_REQUERIDA`, `AUTORIZADA_POR`, `FECHA_AUTORIZADA`, `PRIORIDAD`, `LINEAS_NO_ASIG`, `COMENTARIO`, `CANCELADA_POR`, `FECHA_CANCELADA`, `RUBRO1`, `RUBRO2`, `RUBRO3`, `RUBRO4`, `RUBRO5`, `ESTADO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 ('SC0000',	'1',	'2012-07-03',	'2012-07-04',	NULL,	NULL,	'A',	0,	'asd',	'admin',	'2012-07-16 15:37:44',	NULL,	NULL,	NULL,	NULL,	NULL,	'C',	'admin',	'2012-07-03 11:43:36',	'admin',	'2012-07-16 10:37:44'),
 ('SC000000',	'1',	'2012-12-13',	'2012-12-12',	NULL,	NULL,	'A',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'P',	'admin',	'2012-12-05 12:40:30',	'admin',	'2012-12-05 12:40:30'),
+('SC000017',	'1',	'2013-01-16',	'0000-00-00',	'admin',	'2013-01-17 14:49:48',	'A',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'C',	'admin',	'2013-01-16 10:45:31',	'admin',	'2013-01-17 09:50:30'),
 ('SC0001',	'1',	'2012-07-19',	'2012-07-18',	'',	'0000-00-00 00:00:00',	'A',	0,	'asd',	'admin',	'2012-07-16 14:24:46',	NULL,	NULL,	NULL,	NULL,	NULL,	'P',	'admin',	'2012-07-03 15:06:25',	'admin',	'2012-12-04 08:52:40'),
 ('SC0002',	'1',	'2012-07-20',	'2012-07-26',	'admin',	'2012-10-01 15:03:43',	'A',	0,	'asd',	'admin',	'2012-10-01 13:31:39',	NULL,	NULL,	NULL,	NULL,	NULL,	'A',	'admin',	'2012-07-03 15:16:18',	'admin',	'2012-10-01 10:03:43'),
 ('SC0003',	'1',	'2012-07-11',	'2012-07-24',	'',	'0000-00-00 00:00:00',	'A',	0,	'',	'admin',	'2012-07-16 14:37:17',	NULL,	NULL,	NULL,	NULL,	NULL,	'A',	'admin',	'2012-07-03 15:59:55',	'admin',	'2012-07-16 16:59:59'),
@@ -3452,7 +3470,7 @@ CREATE TABLE `solicitud_oc_linea` (
   KEY `FK_SOLICITUD_PERTENECE_LINEA` (`SOLICITUD_OC`),
   CONSTRAINT `FK_ARTICULO_LINEA_SOL` FOREIGN KEY (`ARTICULO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `FK_SOLICITUD_PERTENECE_LINEA` FOREIGN KEY (`SOLICITUD_OC`) REFERENCES `solicitud_oc` (`SOLICITUD_OC`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1 COMMENT='Lineas que conforman una orden de compra.';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Lineas que conforman una orden de compra.';
 
 INSERT INTO `solicitud_oc_linea` (`SOLICITUD_OC_LINEA`, `SOLICITUD_OC`, `LINEA_NUM`, `ARTICULO`, `DESCRIPCION`, `CANTIDAD`, `UNIDAD`, `SALDO`, `COMENTARIO`, `FECHA_REQUERIDA`, `ESTADO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'SC0002',	1,	'001',	'Articulo de ejemplo ',	12.00000000,	3,	0.00000000,	'asd',	'2012-07-03',	'A',	'admin',	'2012-07-03 15:16:18',	'admin',	'2012-10-02 15:42:16'),
@@ -3480,7 +3498,11 @@ INSERT INTO `solicitud_oc_linea` (`SOLICITUD_OC_LINEA`, `SOLICITUD_OC`, `LINEA_N
 (30,	'SC0014',	3,	'002',	'fsdf',	20.00000000,	1,	0.00000000,	'fghdfgh',	'2012-09-29',	'A',	'admin',	'2012-09-07 15:22:18',	'admin',	'2012-10-02 15:45:32'),
 (31,	'SC0014',	4,	'001',	'Articulo de ejemplo ',	20.00000000,	3,	0.00000000,	'',	'2012-09-29',	'A',	'admin',	'2012-09-07 15:23:18',	'admin',	'2012-10-02 15:45:32'),
 (32,	'SC0015',	1,	'10',	'pimienta',	10.00000000,	3,	0.00000000,	'',	'2012-11-27',	'A',	'admin',	'2012-11-27 14:47:37',	'admin',	'2012-11-27 14:54:53'),
-(33,	'SC0015',	2,	'400',	'tamal',	850.00000000,	4,	0.00000000,	'',	'2012-11-28',	'A',	'admin',	'2012-11-27 14:47:38',	'admin',	'2012-11-27 14:54:54');
+(33,	'SC0015',	2,	'400',	'tamal',	850.00000000,	4,	0.00000000,	'',	'2012-11-28',	'A',	'admin',	'2012-11-27 14:47:38',	'admin',	'2012-11-27 14:54:54'),
+(35,	'SC000017',	1,	'12',	'huevo',	200.00000000,	3,	0.00000000,	'',	'2013-01-30',	'N',	'admin',	'2013-01-16 10:45:32',	'admin',	'2013-01-17 09:50:30'),
+(38,	'SC000017',	2,	'12',	'huevo',	12.00000000,	3,	0.00000000,	'',	'2013-01-26',	'N',	'admin',	'2013-01-17 09:04:58',	'admin',	'2013-01-17 09:50:30'),
+(39,	'SC000017',	3,	'12',	'huevo',	12.00000000,	3,	0.00000000,	'',	'2013-01-18',	'N',	'admin',	'2013-01-17 09:47:59',	'admin',	'2013-01-17 09:50:30'),
+(40,	'SC000017',	4,	'12',	'huevo',	1.00000000,	3,	0.00000000,	'',	'2013-01-18',	'N',	'admin',	'2013-01-17 09:47:59',	'admin',	'2013-01-17 09:50:30');
 
 DROP TABLE IF EXISTS `solicitud_orden_co`;
 CREATE TABLE `solicitud_orden_co` (
@@ -3585,7 +3607,7 @@ CREATE TABLE `subtipo_transaccion` (
   KEY `TIPO_TRANSACCION` (`TIPO_TRANSACCION`),
   CONSTRAINT `fk_tipo_transaccion_del_subtipo` FOREIGN KEY (`TIPO_TRANSACCION`) REFERENCES `tipo_transaccion` (`TIPO_TRANSACCION`),
   CONSTRAINT `subtipo_transaccion_ibfk_1` FOREIGN KEY (`TIPO_TRANSACCION`) REFERENCES `tipo_transaccion` (`TIPO_TRANSACCION`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena los subtipos de transaccion';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena los subtipos de transaccion';
 
 INSERT INTO `subtipo_transaccion` (`ID`, `NOMBRE`, `TIPO_TRANSACCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (5,	'Desperdicio',	'CONS',	'S',	'admin',	'2012-08-08 15:47:34',	'admin',	'2012-11-23 10:46:48'),
@@ -3595,6 +3617,18 @@ INSERT INTO `subtipo_transaccion` (`ID`, `NOMBRE`, `TIPO_TRANSACCION`, `ACTIVO`,
 (11,	'Vencido',	'VENC',	'S',	'admin',	'2012-09-06 17:11:49',	'admin',	'2012-09-06 17:11:49'),
 (12,	'Dañado',	'VENC',	'S',	'admin',	'2012-09-06 17:11:49',	'admin',	'2012-09-06 17:11:49'),
 (13,	'Rechazado',	'VENC',	'S',	'admin',	'2012-09-06 17:11:49',	'admin',	'2012-09-06 17:11:49');
+
+DROP TABLE IF EXISTS `temas`;
+CREATE TABLE `temas` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NOMBRE` varchar(20) NOT NULL,
+  `ACTIVO` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `temas` (`ID`, `NOMBRE`, `ACTIVO`) VALUES
+(1,	'siasoft',	0),
+(2,	'demo',	1);
 
 DROP TABLE IF EXISTS `tipo_academico`;
 CREATE TABLE `tipo_academico` (
@@ -3633,7 +3667,7 @@ CREATE TABLE `tipo_articulo` (
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COMMENT='Tipos de articulo';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tipos de articulo';
 
 INSERT INTO `tipo_articulo` (`ID`, `NOMBRE`, `DESCRIPCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'Terminado',	'artículos que se tienen en inventario y que se encuentran listos para ser embarcados a un cliente de acuerdo a un pedido en una planta de producción.',	'S',	'admin',	'2012-06-04 10:52:07',	'admin',	'2012-06-04 10:52:07'),
@@ -3742,7 +3776,7 @@ CREATE TABLE `tipo_tarjeta` (
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='El objetivo de los tipos de tarjeta de crédito es establecer';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='El objetivo de los tipos de tarjeta de crédito es establecer';
 
 INSERT INTO `tipo_tarjeta` (`ID`, `DESCRIPCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'dasd',	'S',	'admin',	'2012-05-12 08:43:06',	'admin',	'2012-05-12 08:43:06');
@@ -3794,7 +3828,7 @@ CREATE TABLE `tipo_transaccion_cantidad` (
   KEY `FK_TIPO_TRANSACCION_AFECTA_CANTIDAD` (`TIPO_TRANSACCION`),
   CONSTRAINT `FK_TIPO_CANTIDAD_PARA_TIPO_TRANSACCION` FOREIGN KEY (`CANTIDAD`) REFERENCES `tipo_cantidad_articulo` (`ID`),
   CONSTRAINT `FK_TIPO_TRANSACCION_AFECTA_CANTIDAD` FOREIGN KEY (`TIPO_TRANSACCION`) REFERENCES `tipo_transaccion` (`TIPO_TRANSACCION`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1 COMMENT='Tabla en la que se relaciona las cantidades que pueden ser a';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla en la que se relaciona las cantidades que pueden ser a';
 
 INSERT INTO `tipo_transaccion_cantidad` (`ID`, `TIPO_TRANSACCION`, `CANTIDAD`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (4,	'APRO',	'C',	'S',	'admin',	'2012-08-14 11:55:21',	'admin',	'2012-08-14 11:55:21'),
@@ -3859,9 +3893,11 @@ CREATE TABLE `transaccion_inv` (
   PRIMARY KEY (`TRANSACCION_INV`),
   KEY `CONSECUTIVO_CI` (`CONSECUTIVO_CI`),
   KEY `CONSECUTIVO_CO` (`CONSECUTIVO_CO`),
+  KEY `CONSECUTIVO_FA` (`CONSECUTIVO_FA`),
   CONSTRAINT `transaccion_inv_ibfk_1` FOREIGN KEY (`CONSECUTIVO_CI`) REFERENCES `documento_inv` (`DOCUMENTO_INV`),
-  CONSTRAINT `transaccion_inv_ibfk_2` FOREIGN KEY (`CONSECUTIVO_CO`) REFERENCES `ingreso_compra` (`INGRESO_COMPRA`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COMMENT='Encabezado de los movimientos aplicados al inventario';
+  CONSTRAINT `transaccion_inv_ibfk_2` FOREIGN KEY (`CONSECUTIVO_CO`) REFERENCES `ingreso_compra` (`INGRESO_COMPRA`),
+  CONSTRAINT `transaccion_inv_ibfk_3` FOREIGN KEY (`CONSECUTIVO_FA`) REFERENCES `factura` (`FACTURA`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Encabezado de los movimientos aplicados al inventario';
 
 INSERT INTO `transaccion_inv` (`TRANSACCION_INV`, `CONSECUTIVO_CI`, `CONSECUTIVO_CO`, `CONSECUTIVO_FA`, `MODULO_ORIGEN`, `REFERENCIA`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (2,	'AJV-0001',	NULL,	NULL,	'CI',	'Transacción generada por Documento de Inventario',	'S',	'admin',	'2012-11-27 20:35:29',	'admin',	'2012-11-27 20:35:29'),
@@ -3902,7 +3938,7 @@ CREATE TABLE `transaccion_inv_detalle` (
   CONSTRAINT `FK_UNIDAD_ARTICULO_MOVIMIENTO` FOREIGN KEY (`UNIDAD`) REFERENCES `unidad_medida` (`ID`),
   CONSTRAINT `transaccion_inv_detalle_ibfk_2` FOREIGN KEY (`ARTICULO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `transaccion_inv_detalle_ibfk_3` FOREIGN KEY (`TIPO_TRANSACCION_CANTIDAD`) REFERENCES `tipo_cantidad_articulo` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Tabla con el detalle de las transacciones que afectan el inv';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla con el detalle de las transacciones que afectan el inv';
 
 INSERT INTO `transaccion_inv_detalle` (`TRANSACCION_INV_DETALLE`, `TRANSACCION_INV`, `LINEA`, `TIPO_TRANSACCION`, `SUBTIPO`, `TIPO_TRANSACCION_CANTIDAD`, `ARTICULO`, `UNIDAD`, `BODEGA`, `NATURALEZA`, `CANTIDAD`, `COSTO_UNITARIO`, `PRECIO_UNITARIO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	2,	1,	'ENSA',	NULL,	'D',	'001',	3,	'23',	'E',	4.00000000,	500.00000000,	0.00000000,	'S',	'admin',	'2012-11-27 20:35:29',	'admin',	'2012-11-27 20:35:29'),
@@ -5111,7 +5147,7 @@ CREATE TABLE `unidad_medida` (
   PRIMARY KEY (`ID`),
   KEY `FK_UNIDAD_BASE` (`UNIDAD_BASE`),
   CONSTRAINT `FK_UNIDAD_BASE` FOREIGN KEY (`UNIDAD_BASE`) REFERENCES `unidad_medida` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena las unidades de medida para los articulos';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena las unidades de medida para los articulos';
 
 INSERT INTO `unidad_medida` (`ID`, `NOMBRE`, `ABREVIATURA`, `TIPO`, `BASE`, `UNIDAD_BASE`, `EQUIVALENCIA`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'Unidad',	'UND',	'U',	'S',	1,	1.00000000,	'S',	'admin',	'2013-01-03 18:47:24',	'admin',	'2013-01-03 18:47:24'),
@@ -5120,23 +5156,9 @@ INSERT INTO `unidad_medida` (`ID`, `NOMBRE`, `ABREVIATURA`, `TIPO`, `BASE`, `UNI
 (4,	'Kilogramo',	'Kg',	'P',	'S',	4,	1.00000000,	'S',	'admin',	'2012-06-08 18:00:55',	'admin',	'2012-06-11 17:38:56'),
 (5,	'Servicio',	'SV',	'S',	'S',	5,	1.00000000,	'S',	'admin',	'2013-01-03 18:49:44',	'admin',	'2013-01-03 18:49:44'),
 (6,	'Centimentro',	'Cm',	'L',	'N',	2,	100.00000000,	'S',	'admin',	'2012-06-08 18:00:24',	'admin',	'2013-01-03 19:30:34'),
-(7,	'Gramos',	'Gr',	'P',	'N',	4,	0.00000000,	'S',	'admin',	'2012-06-08 18:01:15',	'admin',	'2012-06-11 17:38:35');
-
-DROP TABLE IF EXISTS `usuarios`;
-CREATE TABLE `usuarios` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `USERNAME` varchar(28) NOT NULL COMMENT 'Nombre de Usuario',
-  `PASS` varchar(256) NOT NULL COMMENT 'Contraseña',
-  `ACTIVO` varchar(1) NOT NULL,
-  `CREADO_POR` varchar(28) NOT NULL,
-  `CREADO_EL` datetime NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `USERNAME` (`USERNAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
-INSERT INTO `usuarios` (`ID`, `USERNAME`, `PASS`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`) VALUES
-(1,	'admin',	'21232f297a57a5a743894a0e4a801fc3',	'S',	'admin',	'2012-05-21 00:08:31'),
-(2,	'demo',	'fe01ce2a7fbac8fafaed7c982a04e229',	'S',	'admin',	'2012-05-21 00:25:03');
+(7,	'Gramos',	'Gr',	'P',	'N',	4,	0.00000000,	'S',	'admin',	'2012-06-08 18:01:15',	'admin',	'2012-06-11 17:38:35'),
+(8,	'No Aplica',	'N/A',	'V',	'S',	8,	0.00000000,	'S',	'admin',	'2013-01-25 10:29:01',	'admin',	'2013-01-25 10:29:01'),
+(9,	'No Aplica',	'N/A',	'P',	'S',	9,	0.00000000,	'S',	'admin',	'2013-01-25 10:29:18',	'admin',	'2013-01-25 10:29:18');
 
 DROP TABLE IF EXISTS `zona`;
 CREATE TABLE `zona` (
@@ -5151,10 +5173,10 @@ CREATE TABLE `zona` (
   PRIMARY KEY (`ID`),
   KEY `FK_PAIS_DE_LA_ZONA` (`PAIS`),
   CONSTRAINT `FK_PAIS_DE_LA_ZONA` FOREIGN KEY (`PAIS`) REFERENCES `pais` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='El propósito de la tabla de datos de Zonas, es segmentar o d';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='El propósito de la tabla de datos de Zonas, es segmentar o d';
 
 INSERT INTO `zona` (`ID`, `PAIS`, `NOMBRE`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'COL',	'Centro',	'S',	'admin',	'2012-11-01 09:56:03',	'admin',	'2012-11-01 09:56:03'),
 (2,	'COL',	'Sur',	'S',	'admin',	'2012-11-01 09:56:19',	'admin',	'2012-11-01 09:56:19');
 
--- 2013-01-04 10:44:23
+-- 2013-01-31 17:16:36

@@ -180,11 +180,7 @@ class PedidoController extends Controller
                 }
 		if(isset($_POST['Pedido']))
 		{
-			$model->attributes=$_POST['Pedido'];                        
-                        
-                        
-                        
-                        
+			$model->attributes=$_POST['Pedido'];  
 			if($model->save()){
 				if(isset($_POST['PedidoLinea'])){
                                     foreach ($_POST['PedidoLinea'] as $datos2){
@@ -193,15 +189,15 @@ class PedidoController extends Controller
                                         $salvar2->ARTICULO = $datos2['ARTICULO'];
                                         $salvar2->LINEA = $i;
                                         $salvar2->UNIDAD = $datos2['UNIDAD'];
-                                    $salvar2->CANTIDAD = $datos2['CANTIDAD'];
-                                    $salvar2->PRECIO_UNITARIO = $datos2['PRECIO_UNITARIO'];
+                                        $salvar2->CANTIDAD = $datos2['CANTIDAD'];
+                                        $salvar2->PRECIO_UNITARIO = $datos2['PRECIO_UNITARIO'];
                                         $salvar2->PORC_DESCUENTO = $datos2['PORC_DESCUENTO'];
-                                    $salvar2->MONTO_DESCUENTO = $datos2['MONTO_DESCUENTO'];
+                                        $salvar2->MONTO_DESCUENTO = $datos2['MONTO_DESCUENTO'];
                                         $salvar2->PORC_IMPUESTO = $datos2['PORC_IMPUESTO'];
-                                    $salvar2->VALOR_IMPUESTO = $datos2['VALOR_IMPUESTO'];
+                                        $salvar2->VALOR_IMPUESTO = $datos2['VALOR_IMPUESTO'];
                                         $salvar2->TIPO_PRECIO = $datos2['TIPO_PRECIO'];
                                         $salvar2->COMENTARIO = $datos2['COMENTARIO'];
-                                    $salvar2->TOTAL = $datos2['TOTAL'];
+                                        $salvar2->TOTAL = $datos2['TOTAL'];
                                         $salvar2->ESTADO = 'N';
                                         $salvar2->ACTIVO = 'S';
                                         $salvar2->save();

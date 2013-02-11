@@ -122,7 +122,7 @@ class IngresoCompraController extends Controller
             }
              echo CJSON::encode($res);
         }
-        
+             
         public function actionformatoPDF() {
 
             $id = $_GET['id'];
@@ -288,6 +288,7 @@ class IngresoCompraController extends Controller
 	}
 
 	/**
+        
 	 * Manages all models.
 	 */
 	public function actionAdmin()
@@ -341,6 +342,7 @@ class IngresoCompraController extends Controller
             $succes = '';
             $error = '';
             $warning = '';
+            
             foreach($check as $id){                
                 $ingreso = IngresoCompra::model()->findByPk($id);                
                 
@@ -358,11 +360,12 @@ class IngresoCompraController extends Controller
                             foreach($lineas as $datos){
                                 $articulo = Articulo::model()->findByPk($datos->ARTICULO);
                                 $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos->ARTICULO,'BODEGA'=>$datos->BODEGA));
+                                $cantidad = $this->darCantidad($existenciaBodega, $datos->CANTIDAD_ACEPTADA, $datos->UNIDAD_ORDENADA);
 
                                 if($existenciaBodega){
                                         /*$existenciaBodega->CANT_DISPONIBLE = $existenciaBodega->CANT_DISPONIBLE + $datos->CANTIDAD_ACEPTADA;                                        
                                         $existenciaBodega->save(); //- La cantidad aceptada para el articulo exede a la maxima permitida;     */ 
-                                        $valor = $existenciaBodega->CANT_DISPONIBLE + $datos->CANTIDAD_ACEPTADA;
+                                        $valor = $existenciaBodega->CANT_DISPONIBLE + $cantidad;
                                         ExistenciaBodega::model()->updateByPk($existenciaBodega->ID, array('CANT_DISPONIBLE'=>$valor));
                                 }else{                                
                                     $existenciaBodega = new ExistenciaBodega;
