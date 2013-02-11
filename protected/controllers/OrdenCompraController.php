@@ -580,10 +580,6 @@ class OrdenCompraController extends Controller
                             }
                         }
 			if($model->save()) {
-                            echo '<pre>';
-                            print_r($_POST['OrdenCompraLinea']);
-                            echo '</pre>';
-                            Yii::app()->end();
                             if(isset($_POST['OrdenCompraLinea'])){
                                 foreach ($_POST['OrdenCompraLinea'] as $datos2){
                                     
@@ -682,6 +678,7 @@ class OrdenCompraController extends Controller
         public function actionAgregarlinea(){
             $linea = new OrdenCompraLinea;
             $linea->attributes = $_POST['OrdenCompraLinea'];
+            $linea->FECHA_REQUERIDA = $_POST['OrdenCompraLinea']['FECHA_REQUERIDA'];
             $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';            
             
             if($linea->validate()){
@@ -706,7 +703,7 @@ class OrdenCompraController extends Controller
                                  'icon'=>'ok',
                                  'htmlOptions'=>array('id'=>'nuevo','onclick'=>'agregar("'.$_POST['SPAN'].'")')
                               ));
-                     echo '</div>';
+                     echo '</div>';                   
                      Yii::app()->end();
                     }else{
                     $this->renderPartial('modal', 

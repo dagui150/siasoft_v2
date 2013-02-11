@@ -34,7 +34,7 @@
         var cantidad = $('#OrdenCompraLinea_CANTIDAD_ORDENADA').val();
         var precio_unitario = $('#OrdenCompraLinea_PRECIO_UNITARIO').val();
         var porc_descuento = $('#OrdenCompraLinea_PORC_DESCUENTO').val();
-        var requerida = $('#OrdenCompraLinea_FECHA_REQUERIDA').val();        
+        var requerida = $('#OrdenCompraLinea_FECHA_REQUERIDA').val();         
         var porc_impuesto = $('#OrdenCompraLinea_PORC_IMPUESTO').val();
         var valor_impuesto = parseFloat($('#OrdenCompraLinea_VALOR_IMPUESTO').val());
         var observacion = $('#OrdenCompraLinea_OBSERVACION').val();
