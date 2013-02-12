@@ -428,9 +428,9 @@ class Articulo extends CActiveRecord
 	}
         
         public static function darNombre($id){
-            $bus = Articulo::model()->findByPk($id);
+            $bus = self::model()->findByPk($id);
             
-            return $bus->NOMBRE;
+            return $bus->NOMBRE ;
         }
         
         public function darCampocosto($costo,$form,$model,$conf){

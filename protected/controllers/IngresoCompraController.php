@@ -517,8 +517,9 @@ class IngresoCompraController extends Controller
         
         protected function modificarExistencias($documento){
             
-            $lineas = IngresoCompraLinea::model()->findAll('INGRESO_COMPRA = "'.$documento->INGRESO_COMPRA.'"');            
-            foreach($lineas as $datos){                
+            $lineas = IngresoCompraLinea::model()->findAll('INGRESO_COMPRA = "'.$documento->INGRESO_COMPRA.'"');
+                
+            foreach($lineas as $datos){  
                 $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos->ARTICULO,'BODEGA'=>$datos->BODEGA));               
                 if($existenciaBodega){                                        
                     if($datos->CANTIDAD_ACEPTADA > $existenciaBodega->EXISTENCIA_MAXIMA){
