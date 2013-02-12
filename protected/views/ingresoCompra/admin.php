@@ -17,13 +17,13 @@ function reescribir(){
     $('#alert').remove();
     $('#form-cargado').slideDown('slow');
     $('#boton-cargado').remove();   
-    $.fn.yiiGridView.update('ingreso-compra-grid');
+    /*$.fn.yiiGridView.update('ingreso-compra-grid');
     
     var id;
         id = $('#check').val().split(',');
         $.each(id,function(key){
              $('[alt$='+key+']').click();
-        })
+        })*/
     
 }
 
@@ -94,7 +94,7 @@ if (isset($_GET['men'])){
 <div align="right">
     
     <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array()); ?>
-    <?php echo CHtml::HiddenField('check',''); ?>
+    <?php echo CHtml::TextField('check',''); ?>
     
       
 <?php 
