@@ -1,4 +1,4 @@
--- Adminer 3.6.1 MySQL dump
+-- Adminer 3.6.3 MySQL dump
 
 SET NAMES utf8;
 SET foreign_key_checks = 0;
@@ -908,11 +908,11 @@ CREATE TABLE `articulo_ensamble` (
   CONSTRAINT `articulo_ensamble_ibfk_1` FOREIGN KEY (`UNIDAD`) REFERENCES `unidad_medida` (`ID`),
   CONSTRAINT `FK_ARTICULO_HIJO` FOREIGN KEY (`ARTICULO_HIJO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `FK_ARTICULO_PADRE` FOREIGN KEY (`ARTICULO_PADRE`) REFERENCES `articulo` (`ARTICULO`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Almacena los articulos que permiten ensamblar un arituculo t';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena los articulos que permiten ensamblar un arituculo t';
 
 INSERT INTO `articulo_ensamble` (`ID`, `ARTICULO_PADRE`, `ARTICULO_HIJO`, `CANTIDAD`, `UNIDAD`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'001',	'12',	1.00000000,	3,	'S',	'admin',	'2012-12-12 10:42:33',	'admin',	'2012-12-18 15:28:46'),
-(2,	'001',	'10',	2000.00000000,	4,	'S',	'admin',	'2012-12-18 15:28:46',	'admin',	'2012-12-18 15:28:46');
+(1,	'001',	'12',	1.00000000,	3,	'S',	'admin',	'2012-12-12 10:42:33',	'admin',	'2013-02-05 11:46:53'),
+(2,	'001',	'10',	2000.00000000,	4,	'S',	'admin',	'2012-12-18 15:28:46',	'admin',	'2013-02-05 11:46:53');
 
 DROP TABLE IF EXISTS `articulo_multimedia`;
 CREATE TABLE `articulo_multimedia` (
@@ -952,7 +952,7 @@ CREATE TABLE `articulo_precio` (
   KEY `FK_TIPO_DE_PRECIO_DEL_PRECIO` (`NIVEL_PRECIO`),
   CONSTRAINT `FK_ARTICULO_AL_Q_PERTENECE_PRECIO` FOREIGN KEY (`ARTICULO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `FK_TIPO_DE_PRECIO_DEL_PRECIO` FOREIGN KEY (`NIVEL_PRECIO`) REFERENCES `nivel_precio` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=latin1 COMMENT='Tabla donde se almacena los diferentes precios asociados a l';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla donde se almacena los diferentes precios asociados a l';
 
 INSERT INTO `articulo_precio` (`ID`, `ARTICULO`, `NIVEL_PRECIO`, `PRECIO`, `ESQUEMA_TRABAJO`, `MARGEN_MULTIPLICADOR`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (130,	'12',	'1',	80.00000000,	'NORM',	0.00000000,	'S',	'admin',	'2012-10-31 16:35:49',	'admin',	'2012-10-31 16:35:49'),
@@ -1038,7 +1038,7 @@ CREATE TABLE `categoria` (
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Permite almacenar las categorias para los clientes y proveed';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Permite almacenar las categorias para los clientes y proveed';
 
 INSERT INTO `categoria` (`ID`, `DESCRIPCION`, `TIPO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'categoria 1',	'C',	'S',	'admin',	'2012-05-11 15:22:59',	'admin',	'2012-09-14 18:11:28');
@@ -1076,7 +1076,7 @@ CREATE TABLE `clasific_adi_articulo` (
   KEY `FK_VAL_CLASIF_ADI_ARTICULO` (`VALOR`),
   CONSTRAINT `FK_CLASIFICACION_ADI_ARTICULO` FOREIGN KEY (`ARTICULO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `FK_VAL_CLASIF_ADI_ARTICULO` FOREIGN KEY (`VALOR`) REFERENCES `clasificacion_adi_valor` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COMMENT='Clasificaciones adicionales para lo articulos';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Clasificaciones adicionales para lo articulos';
 
 INSERT INTO `clasific_adi_articulo` (`ID`, `ARTICULO`, `VALOR`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (9,	'001',	1,	'S',	'admin',	'2012-06-26 09:48:20',	'admin',	'2012-06-26 09:48:20'),
@@ -1109,7 +1109,7 @@ DROP TABLE IF EXISTS `clasificacion_adi_valor`;
 CREATE TABLE `clasificacion_adi_valor` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `CLASIFICACION` varchar(12) NOT NULL,
-  `VALOR` varchar(12) NOT NULL,
+  `VALOR` varchar(20) NOT NULL,
   `ACTIVO` varchar(1) NOT NULL,
   `CREADO_POR` varchar(20) NOT NULL,
   `CREADO_EL` datetime NOT NULL,
@@ -1118,7 +1118,7 @@ CREATE TABLE `clasificacion_adi_valor` (
   PRIMARY KEY (`ID`),
   KEY `FK_CLASIFICACION_DE_LOS_VALORES` (`CLASIFICACION`),
   CONSTRAINT `FK_CLASIFICACION_DE_LOS_VALORES` FOREIGN KEY (`CLASIFICACION`) REFERENCES `clasificacion_adi` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COMMENT='Valores o detalle de las clasificaciones adicionales';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Valores o detalle de las clasificaciones adicionales';
 
 INSERT INTO `clasificacion_adi_valor` (`ID`, `CLASIFICACION`, `VALOR`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'0001',	'Norma',	'S',	'admin',	'2012-06-12 10:12:20',	'admin',	'2012-06-12 10:12:20'),
@@ -1136,7 +1136,7 @@ CREATE TABLE `cliente` (
   `REGIMEN` varchar(12) DEFAULT NULL,
   `CATEGORIA` int(11) DEFAULT NULL,
   `IMPUESTO` varchar(4) DEFAULT NULL,
-  `NIT` varchar(10) DEFAULT NULL COMMENT 'identificación alfanumérica del departamento, la casilla tiene campo para 10 dígitos.',
+  `NIT` varchar(12) DEFAULT NULL COMMENT 'identificación alfanumérica del departamento, la casilla tiene campo para 10 dígitos.',
   `TIPO_PRECIO` varchar(12) DEFAULT NULL COMMENT 'identificación alfanumérica del nivel de precio.',
   `CONDICION_PAGO` varchar(4) DEFAULT NULL COMMENT 'identificación alfanumérica de la condicion de pago',
   `PAIS` varchar(4) DEFAULT NULL,
@@ -1223,6 +1223,7 @@ CREATE TABLE `compania` (
   `NOMBRE` varchar(128) NOT NULL,
   `NOMBRE_ABREV` varchar(64) NOT NULL,
   `NIT` varchar(20) DEFAULT NULL,
+  `REGIMEN_TRIBUTARIO` varchar(12) DEFAULT NULL,
   `UBICACION_GEOGRAFICA1` varchar(2) DEFAULT NULL,
   `UBICACION_GEOGRAFICA2` varchar(5) DEFAULT NULL,
   `PAIS` varchar(4) DEFAULT NULL,
@@ -1238,13 +1239,15 @@ CREATE TABLE `compania` (
   KEY `FK_PAIS_DE_LA_COMPANIA` (`PAIS`),
   KEY `FK_UBICACION_GEOGRAFICA_COMPANIA` (`UBICACION_GEOGRAFICA2`),
   KEY `UBICACION_GEOGRAFICA1` (`UBICACION_GEOGRAFICA1`),
+  KEY `REGIMEN_TRIBUTARIO` (`REGIMEN_TRIBUTARIO`),
   CONSTRAINT `compania_ibfk_1` FOREIGN KEY (`UBICACION_GEOGRAFICA1`) REFERENCES `ubicacion_geografica1` (`ID`),
+  CONSTRAINT `compania_ibfk_2` FOREIGN KEY (`REGIMEN_TRIBUTARIO`) REFERENCES `regimen_tributario` (`REGIMEN`),
   CONSTRAINT `FK_PAIS_DE_LA_COMPANIA` FOREIGN KEY (`PAIS`) REFERENCES `pais` (`ID`),
   CONSTRAINT `FK_UBICACION_GEOGRAFICA_COMPANIA` FOREIGN KEY (`UBICACION_GEOGRAFICA2`) REFERENCES `ubicacion_geografica2` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1 COMMENT='Almacena los datos de la empresa o compañia';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena los datos de la empresa o compañia';
 
-INSERT INTO `compania` (`ID`, `NOMBRE`, `NOMBRE_ABREV`, `NIT`, `UBICACION_GEOGRAFICA1`, `UBICACION_GEOGRAFICA2`, `PAIS`, `DIRECCION`, `TELEFONO1`, `TELEFONO2`, `LOGO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(30,	'alerens',	'ALERENS',	'38361706-8',	'73',	'73001',	'COL',	'CLL 39 N 12 - 50',	'2665027',	'3138439289',	NULL,	'admin',	'2012-05-22 00:00:00',	'admin',	'2012-11-10 10:53:28');
+INSERT INTO `compania` (`ID`, `NOMBRE`, `NOMBRE_ABREV`, `NIT`, `REGIMEN_TRIBUTARIO`, `UBICACION_GEOGRAFICA1`, `UBICACION_GEOGRAFICA2`, `PAIS`, `DIRECCION`, `TELEFONO1`, `TELEFONO2`, `LOGO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
+(30,	'alerens',	'ALERENS',	'38361706-8',	NULL,	'73',	'73001',	'COL',	'CLL 39 N 12 - 50',	'2665027',	'3138439289',	NULL,	'admin',	'2012-05-22 00:00:00',	'admin',	'2012-11-10 10:53:28');
 
 DROP TABLE IF EXISTS `conf_as`;
 CREATE TABLE `conf_as` (
@@ -1259,10 +1262,10 @@ CREATE TABLE `conf_as` (
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena la configuración para el modulo administr';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena la configuración para el modulo administr';
 
 INSERT INTO `conf_as` (`ID`, `IMPUESTO1_DESC`, `IMPUESTO2_DESC`, `PATRON_CCOSTO`, `SIMBOLO_MONEDA`, `PORCENTAJE_DEC`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'Iva',	'',	'1',	'$',	NULL,	'admin',	'2012-05-11 11:32:22',	'admin',	'2012-05-11 11:32:22');
+(1,	'Iva',	'',	'999a',	'$',	NULL,	'admin',	'2012-05-11 11:32:22',	'admin',	'2013-01-17 14:56:10');
 
 DROP TABLE IF EXISTS `conf_ci`;
 CREATE TABLE `conf_ci` (
@@ -1277,6 +1280,8 @@ CREATE TABLE `conf_ci` (
   `EXIST_DISPONIBLE` varchar(10) NOT NULL COMMENT 'tipos de existencias que se considerarán para calcular la existencia total de un artículo, se pueden marcar 3 opciones [DIS]ponible, [REM]itida, [RES]ervada, se guardaran separadas por coma en este campo',
   `EXIST_REMITIDA` varchar(3) NOT NULL,
   `EXIST_RESERVADA` varchar(3) NOT NULL,
+  `EXIST_CUARENTENA` varchar(3) NOT NULL,
+  `EXIST_VENCIDA` varchar(3) NOT NULL,
   `INTEGRACION_CONTA` varchar(1) NOT NULL COMMENT 'Integracion del modulo de inventarios con el modulo contable Si o No',
   `USA_CODIGO_BARRAS` varchar(1) NOT NULL COMMENT 'El sistema utilizará codigo de barras Si o No',
   `LINEAS_MAX_TRANS` int(11) NOT NULL COMMENT 'Número máximo de líneas',
@@ -1290,7 +1295,6 @@ CREATE TABLE `conf_ci` (
   `EAN8_REGLA_LOCAL` varchar(3) DEFAULT NULL COMMENT 'codigos fijo de reglas locales para ean 8',
   `UCC12_REGLA_LOCAL` varchar(6) DEFAULT NULL COMMENT 'codigos fijo de reglas locales para ucc 12',
   `PRIORIDAD_BUSQUEDA` varchar(1) NOT NULL COMMENT '[A]rticulo, [C]odigo de barras',
-  `FORMATO_IMPRESION` int(11) NOT NULL,
   `CREADO_POR` varchar(20) NOT NULL,
   `CREADO_EL` datetime NOT NULL,
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
@@ -1299,15 +1303,13 @@ CREATE TABLE `conf_ci` (
   KEY `FK_METODO_COSTO_FISCAL` (`COSTO_FISCAL`),
   KEY `FK_UND_DEFECTO_PESO` (`UNIDAD_PESO`),
   KEY `FK_UND_DEFECTO_VOLUMEN` (`UNIDAD_VOLUMEN`),
-  KEY `FK_FORMATO_IMPRESION` (`FORMATO_IMPRESION`),
-  CONSTRAINT `conf_ci_ibfk_1` FOREIGN KEY (`FORMATO_IMPRESION`) REFERENCES `formato_impresion` (`ID`),
   CONSTRAINT `FK_METODO_COSTO_FISCAL` FOREIGN KEY (`COSTO_FISCAL`) REFERENCES `metodo_valuacion_inv` (`ID`),
   CONSTRAINT `FK_UND_DEFECTO_PESO` FOREIGN KEY (`UNIDAD_PESO`) REFERENCES `unidad_medida` (`ID`),
   CONSTRAINT `FK_UND_DEFECTO_VOLUMEN` FOREIGN KEY (`UNIDAD_VOLUMEN`) REFERENCES `unidad_medida` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla de configuracion del modulo de inventarios';
 
-INSERT INTO `conf_ci` (`ID`, `COSTOS_DEC`, `EXISTENCIAS_DEC`, `PESOS_DEC`, `COSTO_FISCAL`, `COSTO_INGR_DEFAULT`, `UNIDAD_PESO`, `UNIDAD_VOLUMEN`, `EXIST_DISPONIBLE`, `EXIST_REMITIDA`, `EXIST_RESERVADA`, `INTEGRACION_CONTA`, `USA_CODIGO_BARRAS`, `LINEAS_MAX_TRANS`, `USA_UNIDADES_DIST`, `ASISTENCIA_AUTOMAT`, `USA_CODIGO_EAN13`, `USA_CODIGO_EAN8`, `USA_CODIGO_UCC12`, `USA_CODIGO_UCC8`, `EAN13_REGLA_LOCAL`, `EAN8_REGLA_LOCAL`, `UCC12_REGLA_LOCAL`, `PRIORIDAD_BUSQUEDA`, `FORMATO_IMPRESION`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(0,	2,	2,	2,	'Estándar',	'U',	3,	5,	'1',	'0',	'1',	'0',	'0',	3,	'',	'0',	'0',	'0',	'0',	'0',	NULL,	NULL,	NULL,	'A',	0,	'admin',	'2012-09-19 04:44:14',	'admin',	'2012-09-19 04:44:14');
+INSERT INTO `conf_ci` (`ID`, `COSTOS_DEC`, `EXISTENCIAS_DEC`, `PESOS_DEC`, `COSTO_FISCAL`, `COSTO_INGR_DEFAULT`, `UNIDAD_PESO`, `UNIDAD_VOLUMEN`, `EXIST_DISPONIBLE`, `EXIST_REMITIDA`, `EXIST_RESERVADA`, `EXIST_CUARENTENA`, `EXIST_VENCIDA`, `INTEGRACION_CONTA`, `USA_CODIGO_BARRAS`, `LINEAS_MAX_TRANS`, `USA_UNIDADES_DIST`, `ASISTENCIA_AUTOMAT`, `USA_CODIGO_EAN13`, `USA_CODIGO_EAN8`, `USA_CODIGO_UCC12`, `USA_CODIGO_UCC8`, `EAN13_REGLA_LOCAL`, `EAN8_REGLA_LOCAL`, `UCC12_REGLA_LOCAL`, `PRIORIDAD_BUSQUEDA`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
+(0,	2,	2,	2,	'Estándar',	'U',	3,	5,	'1',	'0',	'1',	'',	'',	'0',	'0',	3,	'',	'0',	'0',	'0',	'0',	'0',	NULL,	NULL,	NULL,	'A',	'admin',	'2012-09-19 04:44:14',	'admin',	'2012-09-19 04:44:14');
 
 DROP TABLE IF EXISTS `conf_co`;
 CREATE TABLE `conf_co` (
@@ -1366,10 +1368,10 @@ CREATE TABLE `conf_co` (
   CONSTRAINT `conf_co_ibfk_2` FOREIGN KEY (`FORMATO_IMPRESION_ORD`) REFERENCES `formato_impresion` (`ID`),
   CONSTRAINT `conf_co_ibfk_3` FOREIGN KEY (`FORMATO_IMPRESION_ING`) REFERENCES `formato_impresion` (`ID`),
   CONSTRAINT `FK_BODEGA_DEFECTO_COMPRAS` FOREIGN KEY (`BODEGA_DEFAULT`) REFERENCES `bodega` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Configuracion del modulo de compras';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Configuracion del modulo de compras';
 
 INSERT INTO `conf_co` (`ID`, `FORMATO_IMPRESION_SOL`, `FORMATO_IMPRESION_ORD`, `FORMATO_IMPRESION_ING`, `BODEGA_DEFAULT`, `ULT_SOLICITUD`, `ULT_ORDEN_COMPRA`, `ULT_EMBARQUE`, `ULT_SOLICITUD_M`, `ULT_ORDEN_COMPRA_M`, `ULT_EMBARQUE_M`, `ULT_DEVOLUCION`, `ULT_DEVOLUCION_M`, `USAR_RUBROS`, `ORDEN_OBSERVACION`, `MAXIMO_LINORDEN`, `POR_VARIAC_COSTO`, `CP_EN_LINEA`, `IMP1_AFECTA_DESCTO`, `FACTOR_REDONDEO`, `PRECIO_DEC`, `CANTIDAD_DEC`, `PEDIDOS_SOLICITUD`, `PEDIDOS_ORDEN`, `PEDIDOS_EMBARQUE`, `DIRECCION_EMBARQUE`, `DIRECCION_COBRO`, `RUBRO1_SOLNOM`, `RUBRO2_SOLNOM`, `RUBRO3_SOLNOM`, `RUBRO4_SOLNOM`, `RUBRO5_SOLNOM`, `RUBRO1_EMBNOM`, `RUBRO2_EMBNOM`, `RUBRO3_EMBNOM`, `RUBRO4_EMBNOM`, `RUBRO5_EMBNOM`, `RUBRO1_ORDNOM`, `RUBRO2_ORDNOM`, `RUBRO3_ORDNOM`, `RUBRO4_ORDNOM`, `RUBRO5_ORDNOM`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	5,	11,	0,	'1',	'SC000000',	'OC000016',	'30',	'SC999999',	'OC999999',	'',	'',	'',	'S',	'',	NULL,	0,	'0',	'L',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	'avenida siempre viva 123',	'avenida siempre viva 123',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'asesor',	'',	'',	'',	'',	'',	'0000-00-00 00:00:00',	'admin',	'2013-01-03 17:03:49');
+(1,	5,	11,	0,	'1',	'SC000017',	'OC000016',	'30',	'SC999999',	'OC999999',	'',	'',	'',	'S',	'',	NULL,	0,	'0',	'L',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	'avenida siempre viva 123',	'avenida siempre viva 123',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'asesor',	'',	'',	'',	'',	'',	'0000-00-00 00:00:00',	'admin',	'2013-01-16 10:45:32');
 
 DROP TABLE IF EXISTS `conf_fa`;
 CREATE TABLE `conf_fa` (
@@ -1408,10 +1410,10 @@ CREATE TABLE `conf_fa` (
   CONSTRAINT `FK_FORMATO_DEFECTO_PEDIDO` FOREIGN KEY (`FORMATO_PEDIDO`) REFERENCES `formato_impresion` (`ID`),
   CONSTRAINT `FK_FORMATO_DEFECTO_REMISION` FOREIGN KEY (`FORMATO_REMISION`) REFERENCES `formato_impresion` (`ID`),
   CONSTRAINT `FK_NIVEL_PRECIO_DEFECTO` FOREIGN KEY (`NIVEL_PRECIO`) REFERENCES `nivel_precio` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena la configuración para el modulo de factur';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena la configuración para el modulo de factur';
 
 INSERT INTO `conf_fa` (`ID`, `COND_PAGO_CONTADO`, `BODEGA_DEFECTO`, `CATEGORIA_CLIENTE`, `NIVEL_PRECIO`, `DECIMALES_PRECIO`, `FORMATO_PEDIDO`, `FORMATO_FACTURA`, `FORMATO_REMISION`, `USAR_RUBROS`, `OBSERVACIONES`, `RUBRO1_NOMBRE`, `RUBRO2_NOMBRE`, `RUBRO3_NOMBRE`, `RUBRO4_NOMBRE`, `RUBRO5_NOMBRE`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-(1,	'1',	'23',	1,	'1',	2,	NULL,	NULL,	NULL,	'0',	'',	'',	'',	'',	'',	'',	'admin',	'2012-11-01 10:49:25',	'admin',	'2012-12-06 19:54:48');
+(1,	'1',	'23',	1,	'1',	2,	1,	14,	NULL,	'0',	'',	'',	'',	'',	'',	'',	'admin',	'2012-11-01 10:49:25',	'admin',	'2013-01-04 12:28:14');
 
 DROP TABLE IF EXISTS `consec_ci_tipo_trans`;
 CREATE TABLE `consec_ci_tipo_trans` (
@@ -1428,7 +1430,7 @@ CREATE TABLE `consec_ci_tipo_trans` (
   KEY `FK_TIPO_TRANSACCION_PARA_CONSECUTIVO_CI` (`TIPO_TRANSACCION`),
   CONSTRAINT `FK_CONSECUTIVO_CI_PARA_TIPO_TRANSACCION` FOREIGN KEY (`CONSECUTIVO_CI`) REFERENCES `consecutivo_ci` (`ID`),
   CONSTRAINT `FK_TIPO_TRANSACCION_PARA_CONSECUTIVO_CI` FOREIGN KEY (`TIPO_TRANSACCION`) REFERENCES `tipo_transaccion` (`TIPO_TRANSACCION`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COMMENT='Tabla en la que se almacena los tipos de trasnaccion asociad';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla en la que se almacena los tipos de trasnaccion asociad';
 
 INSERT INTO `consec_ci_tipo_trans` (`ID`, `CONSECUTIVO_CI`, `TIPO_TRANSACCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (4,	'INV',	'COMP',	'S',	'admin',	'2012-09-07 16:46:04',	'admin',	'2012-09-07 16:46:04'),
@@ -1447,7 +1449,7 @@ CREATE TABLE `consec_ci_usuario` (
   PRIMARY KEY (`ID`),
   KEY `FK_CONSECUTIVO_CI_HABILITADO_PARA_USUARIO` (`CONSECUTIVO_CI`),
   CONSTRAINT `FK_CONSECUTIVO_CI_HABILITADO_PARA_USUARIO` FOREIGN KEY (`CONSECUTIVO_CI`) REFERENCES `consecutivo_ci` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena que usuarios pueden usar un determinado c';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena que usuarios pueden usar un determinado c';
 
 INSERT INTO `consec_ci_usuario` (`ID`, `CONSECUTIVO_CI`, `USUARIO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (2,	'0001',	'admin',	'S',	'admin',	'2012-08-10 11:12:36',	'admin',	'2012-12-05 12:28:23'),
@@ -1507,7 +1509,7 @@ CREATE TABLE `consecutivo_fa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena los consecutivos de documentos que se usan en el mo';
 
 INSERT INTO `consecutivo_fa` (`CODIGO_CONSECUTIVO`, `FORMATO_IMPRESION`, `CLASIFICACION`, `DESCRIPCION`, `TIPO`, `LONGITUD`, `VALOR_CONSECUTIVO`, `MASCARA`, `USA_DESPACHOS`, `USA_ESQUEMA_CAJAS`, `VALOR_MAXIMO`, `NUMERO_COPIAS`, `ORIGINAL`, `COPIA1`, `COPIA2`, `COPIA3`, `COPIA4`, `COPIA5`, `RESOLUCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('cp',	NULL,	'P',	'pedido',	'A',	10,	'PED-000008',	'PED-9999?9',	'0',	'0',	'',	1,	'',	'',	NULL,	NULL,	NULL,	NULL,	'',	'S',	'admin',	'2012-12-07 16:55:33',	'admin',	'2012-12-22 10:14:21'),
+('cp',	NULL,	'P',	'pedido',	'A',	10,	'PED-000009',	'PED-9999?9',	'0',	'0',	'',	1,	'',	'',	NULL,	NULL,	NULL,	NULL,	'',	'S',	'admin',	'2012-12-07 16:55:33',	'admin',	'2013-01-12 14:16:45'),
 ('cv',	NULL,	'F',	'ejemplo',	'A',	7,	'FAC-001',	'FAC-999',	'0',	'0',	'FAC-999',	2,	'Empresa',	'cnb',	'cvb',	'asdf',	NULL,	NULL,	'',	'S',	'admin',	'2012-10-26 11:02:07',	'admin',	'2012-12-05 14:55:00');
 
 DROP TABLE IF EXISTS `cruge_authassignment`;
@@ -1524,6 +1526,7 @@ CREATE TABLE `cruge_authassignment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `cruge_authassignment` (`userid`, `bizrule`, `data`, `itemname`) VALUES
+(1,	NULL,	'N;',	'Rol_Demo'),
 (3,	NULL,	'N;',	'Rol_Demo');
 
 DROP TABLE IF EXISTS `cruge_authitem`;
@@ -1539,25 +1542,13 @@ CREATE TABLE `cruge_authitem` (
 INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
 ('action_articuloensamble_admin',	0,	'',	NULL,	'N;'),
 ('action_articuloensamble_cargaarticulo',	0,	'',	NULL,	'N;'),
-('action_articuloensamble_delete',	0,	'',	NULL,	'N;'),
 ('action_articuloensamble_detalle',	0,	'',	NULL,	'N;'),
-('action_articuloensamble_index',	0,	'',	NULL,	'N;'),
 ('action_articuloensamble_iniciar',	0,	'',	NULL,	'N;'),
 ('action_articuloensamble_update',	0,	'',	NULL,	'N;'),
-('action_articuloensamble_view',	0,	'',	NULL,	'N;'),
-('action_articulomultimedia_admin',	0,	'',	NULL,	'N;'),
-('action_articulomultimedia_create',	0,	'',	NULL,	'N;'),
-('action_articulomultimedia_delete',	0,	'',	NULL,	'N;'),
-('action_articulomultimedia_index',	0,	'',	NULL,	'N;'),
-('action_articulomultimedia_update',	0,	'',	NULL,	'N;'),
-('action_articulomultimedia_view',	0,	'',	NULL,	'N;'),
 ('action_articuloprecio_admin',	0,	'',	NULL,	'N;'),
-('action_articuloprecio_delete',	0,	'',	NULL,	'N;'),
 ('action_articuloprecio_detalle',	0,	'',	NULL,	'N;'),
-('action_articuloprecio_index',	0,	'',	NULL,	'N;'),
 ('action_articuloprecio_iniciar',	0,	'',	NULL,	'N;'),
 ('action_articuloprecio_update',	0,	'',	NULL,	'N;'),
-('action_articuloprecio_view',	0,	'',	NULL,	'N;'),
 ('action_articuloproveedor_admin',	0,	'',	NULL,	'N;'),
 ('action_articuloproveedor_cargarajax',	0,	'',	NULL,	'N;'),
 ('action_articuloproveedor_create',	0,	'',	NULL,	'N;'),
@@ -1574,35 +1565,29 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_articulo_cargarajax5',	0,	'',	NULL,	'N;'),
 ('action_articulo_cargararticulo',	0,	'',	NULL,	'N;'),
 ('action_articulo_create',	0,	'',	NULL,	'N;'),
-('action_articulo_delete',	0,	'',	NULL,	'N;'),
-('action_articulo_index',	0,	'',	NULL,	'N;'),
 ('action_articulo_update',	0,	'',	NULL,	'N;'),
-('action_articulo_view',	0,	'',	NULL,	'N;'),
 ('action_bodega_admin',	0,	'',	NULL,	'N;'),
+('action_bodega_agregarlinea',	0,	'',	NULL,	'N;'),
+('action_bodega_articulos',	0,	'',	NULL,	'N;'),
 ('action_bodega_cargarbodega',	0,	'',	NULL,	'N;'),
 ('action_bodega_create',	0,	'',	NULL,	'N;'),
 ('action_bodega_delete',	0,	'',	NULL,	'N;'),
+('action_bodega_dirigir',	0,	'',	NULL,	'N;'),
 ('action_bodega_excel',	0,	'',	NULL,	'N;'),
-('action_bodega_formatopdf',	0,	'',	NULL,	'N;'),
-('action_bodega_index',	0,	'',	NULL,	'N;'),
 ('action_bodega_inventario',	0,	'',	NULL,	'N;'),
 ('action_bodega_pdf',	0,	'',	NULL,	'N;'),
-('action_bodega_prueba',	0,	'',	NULL,	'N;'),
 ('action_bodega_restaurar',	0,	'',	NULL,	'N;'),
 ('action_bodega_update',	0,	'',	NULL,	'N;'),
 ('action_bodega_view',	0,	'',	NULL,	'N;'),
 ('action_cargo_admin',	0,	'',	NULL,	'N;'),
 ('action_cargo_create',	0,	'',	NULL,	'N;'),
 ('action_cargo_delete',	0,	'',	NULL,	'N;'),
-('action_cargo_index',	0,	'',	NULL,	'N;'),
 ('action_cargo_update',	0,	'',	NULL,	'N;'),
 ('action_cargo_view',	0,	'',	NULL,	'N;'),
 ('action_categoria_admin',	0,	'',	NULL,	'N;'),
 ('action_categoria_create',	0,	'',	NULL,	'N;'),
 ('action_categoria_delete',	0,	'',	NULL,	'N;'),
 ('action_categoria_excel',	0,	'',	NULL,	'N;'),
-('action_categoria_formatopdf',	0,	'',	NULL,	'N;'),
-('action_categoria_index',	0,	'',	NULL,	'N;'),
 ('action_categoria_pdf',	0,	'',	NULL,	'N;'),
 ('action_categoria_restaurar',	0,	'',	NULL,	'N;'),
 ('action_categoria_update',	0,	'',	NULL,	'N;'),
@@ -1611,7 +1596,6 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_centrocostos_create',	0,	'',	NULL,	'N;'),
 ('action_centrocostos_delete',	0,	'',	NULL,	'N;'),
 ('action_centrocostos_excel',	0,	'',	NULL,	'N;'),
-('action_centrocostos_index',	0,	'',	NULL,	'N;'),
 ('action_centrocostos_pdf',	0,	'',	NULL,	'N;'),
 ('action_centrocostos_restaurar',	0,	'',	NULL,	'N;'),
 ('action_centrocostos_update',	0,	'',	NULL,	'N;'),
@@ -1619,23 +1603,15 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_clasificacionadivalor_admin',	0,	'',	NULL,	'N;'),
 ('action_clasificacionadivalor_create',	0,	'',	NULL,	'N;'),
 ('action_clasificacionadivalor_delete',	0,	'',	NULL,	'N;'),
-('action_clasificacionadivalor_index',	0,	'',	NULL,	'N;'),
 ('action_clasificacionadivalor_restaurar',	0,	'',	NULL,	'N;'),
 ('action_clasificacionadivalor_update',	0,	'',	NULL,	'N;'),
 ('action_clasificacionadivalor_view',	0,	'',	NULL,	'N;'),
 ('action_clasificacionadi_admin',	0,	'',	NULL,	'N;'),
 ('action_clasificacionadi_create',	0,	'',	NULL,	'N;'),
 ('action_clasificacionadi_delete',	0,	'',	NULL,	'N;'),
-('action_clasificacionadi_index',	0,	'',	NULL,	'N;'),
 ('action_clasificacionadi_restaurar',	0,	'',	NULL,	'N;'),
 ('action_clasificacionadi_update',	0,	'',	NULL,	'N;'),
 ('action_clasificacionadi_view',	0,	'',	NULL,	'N;'),
-('action_clasificadiarticulo_admin',	0,	'',	NULL,	'N;'),
-('action_clasificadiarticulo_create',	0,	'',	NULL,	'N;'),
-('action_clasificadiarticulo_delete',	0,	'',	NULL,	'N;'),
-('action_clasificadiarticulo_index',	0,	'',	NULL,	'N;'),
-('action_clasificadiarticulo_update',	0,	'',	NULL,	'N;'),
-('action_clasificadiarticulo_view',	0,	'',	NULL,	'N;'),
 ('action_cliente_admin',	0,	'',	NULL,	'N;'),
 ('action_cliente_autocompletar',	0,	'',	NULL,	'N;'),
 ('action_cliente_create',	0,	'',	NULL,	'N;'),
@@ -1647,7 +1623,6 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_codicionpago_create',	0,	'',	NULL,	'N;'),
 ('action_codicionpago_delete',	0,	'',	NULL,	'N;'),
 ('action_codicionpago_excel',	0,	'',	NULL,	'N;'),
-('action_codicionpago_index',	0,	'',	NULL,	'N;'),
 ('action_codicionpago_pdf',	0,	'',	NULL,	'N;'),
 ('action_codicionpago_restaurar',	0,	'',	NULL,	'N;'),
 ('action_codicionpago_update',	0,	'',	NULL,	'N;'),
@@ -1655,43 +1630,29 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_compania_cargar',	0,	'',	NULL,	'N;'),
 ('action_compania_create',	0,	'',	NULL,	'N;'),
 ('action_compania_update',	0,	'',	NULL,	'N;'),
-('action_confas_admin',	0,	'',	NULL,	'N;'),
 ('action_confas_create',	0,	'',	NULL,	'N;'),
-('action_confas_delete',	0,	'',	NULL,	'N;'),
-('action_confas_index',	0,	'',	NULL,	'N;'),
 ('action_confas_update',	0,	'',	NULL,	'N;'),
-('action_confas_view',	0,	'',	NULL,	'N;'),
 ('action_confci_create',	0,	'',	NULL,	'N;'),
 ('action_confci_update',	0,	'',	NULL,	'N;'),
-('action_confco_admin',	0,	'',	NULL,	'N;'),
 ('action_confco_create',	0,	'',	NULL,	'N;'),
-('action_confco_delete',	0,	'',	NULL,	'N;'),
-('action_confco_index',	0,	'',	NULL,	'N;'),
 ('action_confco_update',	0,	'',	NULL,	'N;'),
-('action_confco_view',	0,	'',	NULL,	'N;'),
-('action_conffa_admin',	0,	'',	NULL,	'N;'),
 ('action_conffa_agregarlinea',	0,	'',	NULL,	'N;'),
 ('action_conffa_autocompletar',	0,	'',	NULL,	'N;'),
 ('action_conffa_cargarbod',	0,	'',	NULL,	'N;'),
 ('action_conffa_cargarcat',	0,	'',	NULL,	'N;'),
 ('action_conffa_cargarcond',	0,	'',	NULL,	'N;'),
 ('action_conffa_create',	0,	'',	NULL,	'N;'),
-('action_conffa_delete',	0,	'',	NULL,	'N;'),
-('action_conffa_index',	0,	'',	NULL,	'N;'),
 ('action_conffa_update',	0,	'',	NULL,	'N;'),
-('action_conffa_view',	0,	'',	NULL,	'N;'),
 ('action_consecutivoci_admin',	0,	'',	NULL,	'N;'),
 ('action_consecutivoci_cargartransaccion',	0,	'',	NULL,	'N;'),
 ('action_consecutivoci_create',	0,	'',	NULL,	'N;'),
 ('action_consecutivoci_delete',	0,	'',	NULL,	'N;'),
-('action_consecutivoci_index',	0,	'',	NULL,	'N;'),
 ('action_consecutivoci_restaurar',	0,	'',	NULL,	'N;'),
 ('action_consecutivoci_update',	0,	'',	NULL,	'N;'),
 ('action_consecutivoci_view',	0,	'',	NULL,	'N;'),
 ('action_consecutivofa_admin',	0,	'',	NULL,	'N;'),
 ('action_consecutivofa_create',	0,	'',	NULL,	'N;'),
 ('action_consecutivofa_delete',	0,	'',	NULL,	'N;'),
-('action_consecutivofa_index',	0,	'',	NULL,	'N;'),
 ('action_consecutivofa_restaurar',	0,	'',	NULL,	'N;'),
 ('action_consecutivofa_update',	0,	'',	NULL,	'N;'),
 ('action_consecutivofa_view',	0,	'',	NULL,	'N;'),
@@ -1699,7 +1660,6 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_departamento_create',	0,	'',	NULL,	'N;'),
 ('action_departamento_delete',	0,	'',	NULL,	'N;'),
 ('action_departamento_excel',	0,	'',	NULL,	'N;'),
-('action_departamento_index',	0,	'',	NULL,	'N;'),
 ('action_departamento_pdf',	0,	'',	NULL,	'N;'),
 ('action_departamento_restaurar',	0,	'',	NULL,	'N;'),
 ('action_departamento_update',	0,	'',	NULL,	'N;'),
@@ -1708,17 +1668,10 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_diaferiado_create',	0,	'',	NULL,	'N;'),
 ('action_diaferiado_delete',	0,	'',	NULL,	'N;'),
 ('action_diaferiado_excel',	0,	'',	NULL,	'N;'),
-('action_diaferiado_index',	0,	'',	NULL,	'N;'),
 ('action_diaferiado_pdf',	0,	'',	NULL,	'N;'),
 ('action_diaferiado_restaurar',	0,	'',	NULL,	'N;'),
 ('action_diaferiado_update',	0,	'',	NULL,	'N;'),
 ('action_diaferiado_view',	0,	'',	NULL,	'N;'),
-('action_dia_admin',	0,	'',	NULL,	'N;'),
-('action_dia_create',	0,	'',	NULL,	'N;'),
-('action_dia_delete',	0,	'',	NULL,	'N;'),
-('action_dia_index',	0,	'',	NULL,	'N;'),
-('action_dia_update',	0,	'',	NULL,	'N;'),
-('action_dia_view',	0,	'',	NULL,	'N;'),
 ('action_documentoinv_admin',	0,	'',	NULL,	'N;'),
 ('action_documentoinv_agregarlinea',	0,	'',	NULL,	'N;'),
 ('action_documentoinv_aplicar',	0,	'',	NULL,	'N;'),
@@ -1726,17 +1679,14 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_documentoinv_cancelar',	0,	'',	NULL,	'N;'),
 ('action_documentoinv_cargarconsecutivo',	0,	'',	NULL,	'N;'),
 ('action_documentoinv_create',	0,	'',	NULL,	'N;'),
-('action_documentoinv_delete',	0,	'',	NULL,	'N;'),
 ('action_documentoinv_formatopdf',	0,	'',	NULL,	'N;'),
 ('action_documentoinv_reversar',	0,	'',	NULL,	'N;'),
 ('action_documentoinv_update',	0,	'',	NULL,	'N;'),
-('action_documentoinv_view',	0,	'',	NULL,	'N;'),
 ('action_entidadfinanciera_admin',	0,	'',	NULL,	'N;'),
 ('action_entidadfinanciera_autocompletar',	0,	'',	NULL,	'N;'),
 ('action_entidadfinanciera_create',	0,	'',	NULL,	'N;'),
 ('action_entidadfinanciera_delete',	0,	'',	NULL,	'N;'),
 ('action_entidadfinanciera_excel',	0,	'',	NULL,	'N;'),
-('action_entidadfinanciera_index',	0,	'',	NULL,	'N;'),
 ('action_entidadfinanciera_pdf',	0,	'',	NULL,	'N;'),
 ('action_entidadfinanciera_restaurar',	0,	'',	NULL,	'N;'),
 ('action_entidadfinanciera_update',	0,	'',	NULL,	'N;'),
@@ -1744,66 +1694,34 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_estadoempleado_admin',	0,	'',	NULL,	'N;'),
 ('action_estadoempleado_create',	0,	'',	NULL,	'N;'),
 ('action_estadoempleado_delete',	0,	'',	NULL,	'N;'),
-('action_estadoempleado_index',	0,	'',	NULL,	'N;'),
 ('action_estadoempleado_update',	0,	'',	NULL,	'N;'),
 ('action_estadoempleado_view',	0,	'',	NULL,	'N;'),
-('action_existenciabodegas_admin',	0,	'',	NULL,	'N;'),
-('action_existenciabodegas_cargarajax',	0,	'',	NULL,	'N;'),
-('action_existenciabodegas_create',	0,	'',	NULL,	'N;'),
-('action_existenciabodegas_delete',	0,	'',	NULL,	'N;'),
-('action_existenciabodegas_index',	0,	'',	NULL,	'N;'),
-('action_existenciabodegas_update',	0,	'',	NULL,	'N;'),
-('action_existenciabodegas_view',	0,	'',	NULL,	'N;'),
-('action_existenciabodega_admin',	0,	'',	NULL,	'N;'),
 ('action_existenciabodega_cargarajax',	0,	'',	NULL,	'N;'),
 ('action_existenciabodega_create',	0,	'',	NULL,	'N;'),
 ('action_existenciabodega_delete',	0,	'',	NULL,	'N;'),
-('action_existenciabodega_index',	0,	'',	NULL,	'N;'),
 ('action_existenciabodega_update',	0,	'',	NULL,	'N;'),
-('action_existenciabodega_view',	0,	'',	NULL,	'N;'),
 ('action_factura_admin',	0,	'',	NULL,	'N;'),
 ('action_factura_agregarlinea',	0,	'',	NULL,	'N;'),
 ('action_factura_cargarconsecutivo',	0,	'',	NULL,	'N;'),
 ('action_factura_create',	0,	'',	NULL,	'N;'),
-('action_factura_delete',	0,	'',	NULL,	'N;'),
-('action_factura_update',	0,	'',	NULL,	'N;'),
-('action_factura_view',	0,	'',	NULL,	'N;'),
+('action_factura_formatopdf',	0,	'',	NULL,	'N;'),
 ('action_formatoimpresion_admin',	0,	'',	NULL,	'N;'),
 ('action_formatoimpresion_create',	0,	'',	NULL,	'N;'),
 ('action_formatoimpresion_delete',	0,	'',	NULL,	'N;'),
 ('action_formatoimpresion_formato',	0,	'',	NULL,	'N;'),
-('action_formatoimpresion_index',	0,	'',	NULL,	'N;'),
 ('action_formatoimpresion_restaurar',	0,	'',	NULL,	'N;'),
 ('action_formatoimpresion_submodulo',	0,	'',	NULL,	'N;'),
 ('action_formatoimpresion_update',	0,	'',	NULL,	'N;'),
 ('action_formatoimpresion_view',	0,	'',	NULL,	'N;'),
-('action_horarioconcepto_admin',	0,	'',	NULL,	'N;'),
-('action_horarioconcepto_create',	0,	'',	NULL,	'N;'),
-('action_horarioconcepto_delete',	0,	'',	NULL,	'N;'),
-('action_horarioconcepto_index',	0,	'',	NULL,	'N;'),
-('action_horarioconcepto_update',	0,	'',	NULL,	'N;'),
-('action_horarioconcepto_view',	0,	'',	NULL,	'N;'),
 ('action_horario_admin',	0,	'',	NULL,	'N;'),
 ('action_horario_create',	0,	'',	NULL,	'N;'),
 ('action_horario_delete',	0,	'',	NULL,	'N;'),
-('action_horario_index',	0,	'',	NULL,	'N;'),
 ('action_horario_update',	0,	'',	NULL,	'N;'),
 ('action_horario_view',	0,	'',	NULL,	'N;'),
 ('action_impuesto_admin',	0,	'',	NULL,	'N;'),
 ('action_impuesto_cargarimpuesto',	0,	'',	NULL,	'N;'),
-('action_impuesto_create',	0,	'',	NULL,	'N;'),
-('action_impuesto_delete',	0,	'',	NULL,	'N;'),
 ('action_impuesto_excel',	0,	'',	NULL,	'N;'),
-('action_impuesto_index',	0,	'',	NULL,	'N;'),
 ('action_impuesto_pdf',	0,	'',	NULL,	'N;'),
-('action_impuesto_update',	0,	'',	NULL,	'N;'),
-('action_impuesto_view',	0,	'',	NULL,	'N;'),
-('action_ingresocompralinea_admin',	0,	'',	NULL,	'N;'),
-('action_ingresocompralinea_create',	0,	'',	NULL,	'N;'),
-('action_ingresocompralinea_delete',	0,	'',	NULL,	'N;'),
-('action_ingresocompralinea_index',	0,	'',	NULL,	'N;'),
-('action_ingresocompralinea_update',	0,	'',	NULL,	'N;'),
-('action_ingresocompralinea_view',	0,	'',	NULL,	'N;'),
 ('action_ingresocompra_actlinea',	0,	'',	NULL,	'N;'),
 ('action_ingresocompra_admin',	0,	'',	NULL,	'N;'),
 ('action_ingresocompra_aplicar',	0,	'',	NULL,	'N;'),
@@ -1812,31 +1730,19 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_ingresocompra_cargarlineas',	0,	'',	NULL,	'N;'),
 ('action_ingresocompra_cargarproveedor',	0,	'',	NULL,	'N;'),
 ('action_ingresocompra_create',	0,	'',	NULL,	'N;'),
-('action_ingresocompra_delete',	0,	'',	NULL,	'N;'),
 ('action_ingresocompra_formatopdf',	0,	'',	NULL,	'N;'),
-('action_ingresocompra_index',	0,	'',	NULL,	'N;'),
 ('action_ingresocompra_listar',	0,	'',	NULL,	'N;'),
-('action_ingresocompra_pdf',	0,	'',	NULL,	'N;'),
-('action_ingresocompra_update',	0,	'',	NULL,	'N;'),
-('action_ingresocompra_view',	0,	'',	NULL,	'N;'),
 ('action_mensajesistema_admin',	0,	'',	NULL,	'N;'),
 ('action_mensajesistema_cargarmensajesistema',	0,	'',	NULL,	'N;'),
 ('action_mensajesistema_create',	0,	'',	NULL,	'N;'),
 ('action_mensajesistema_delete',	0,	'',	NULL,	'N;'),
-('action_mensajesistema_index',	0,	'',	NULL,	'N;'),
 ('action_mensajesistema_update',	0,	'',	NULL,	'N;'),
 ('action_mensajesistema_view',	0,	'',	NULL,	'N;'),
 ('action_metodovaluacioninv_admin',	0,	'',	NULL,	'N;'),
-('action_metodovaluacioninv_create',	0,	'',	NULL,	'N;'),
-('action_metodovaluacioninv_delete',	0,	'',	NULL,	'N;'),
-('action_metodovaluacioninv_index',	0,	'',	NULL,	'N;'),
-('action_metodovaluacioninv_update',	0,	'',	NULL,	'N;'),
-('action_metodovaluacioninv_view',	0,	'',	NULL,	'N;'),
 ('action_nit_admin',	0,	'',	NULL,	'N;'),
 ('action_nit_create',	0,	'',	NULL,	'N;'),
 ('action_nit_delete',	0,	'',	NULL,	'N;'),
 ('action_nit_excel',	0,	'',	NULL,	'N;'),
-('action_nit_index',	0,	'',	NULL,	'N;'),
 ('action_nit_mascara',	0,	'',	NULL,	'N;'),
 ('action_nit_pdf',	0,	'',	NULL,	'N;'),
 ('action_nit_restaurar',	0,	'',	NULL,	'N;'),
@@ -1846,17 +1752,10 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_nivelprecio_create',	0,	'',	NULL,	'N;'),
 ('action_nivelprecio_delete',	0,	'',	NULL,	'N;'),
 ('action_nivelprecio_excel',	0,	'',	NULL,	'N;'),
-('action_nivelprecio_index',	0,	'',	NULL,	'N;'),
 ('action_nivelprecio_pdf',	0,	'',	NULL,	'N;'),
 ('action_nivelprecio_restaurar',	0,	'',	NULL,	'N;'),
 ('action_nivelprecio_update',	0,	'',	NULL,	'N;'),
 ('action_nivelprecio_view',	0,	'',	NULL,	'N;'),
-('action_ordencompralinea_admin',	0,	'',	NULL,	'N;'),
-('action_ordencompralinea_create',	0,	'',	NULL,	'N;'),
-('action_ordencompralinea_delete',	0,	'',	NULL,	'N;'),
-('action_ordencompralinea_index',	0,	'',	NULL,	'N;'),
-('action_ordencompralinea_update',	0,	'',	NULL,	'N;'),
-('action_ordencompralinea_view',	0,	'',	NULL,	'N;'),
 ('action_ordencompra_actualizaimpuesto',	0,	'',	NULL,	'N;'),
 ('action_ordencompra_admin',	0,	'',	NULL,	'N;'),
 ('action_ordencompra_autorizar',	0,	'',	NULL,	'N;'),
@@ -1866,33 +1765,21 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_ordencompra_cargarproveedor',	0,	'',	NULL,	'N;'),
 ('action_ordencompra_cerrar',	0,	'',	NULL,	'N;'),
 ('action_ordencompra_create',	0,	'',	NULL,	'N;'),
-('action_ordencompra_delete',	0,	'',	NULL,	'N;'),
 ('action_ordencompra_formatopdf',	0,	'',	NULL,	'N;'),
-('action_ordencompra_index',	0,	'',	NULL,	'N;'),
-('action_ordencompra_pdf',	0,	'',	NULL,	'N;'),
 ('action_ordencompra_reversar',	0,	'',	NULL,	'N;'),
 ('action_ordencompra_update',	0,	'',	NULL,	'N;'),
-('action_ordencompra_view',	0,	'',	NULL,	'N;'),
 ('action_pais_admin',	0,	'',	NULL,	'N;'),
-('action_pais_create',	0,	'',	NULL,	'N;'),
-('action_pais_delete',	0,	'',	NULL,	'N;'),
 ('action_pais_excel',	0,	'',	NULL,	'N;'),
-('action_pais_index',	0,	'',	NULL,	'N;'),
 ('action_pais_pdf',	0,	'',	NULL,	'N;'),
-('action_pais_update',	0,	'',	NULL,	'N;'),
-('action_pais_view',	0,	'',	NULL,	'N;'),
 ('action_papelera_cargagrilla',	0,	'',	NULL,	'N;'),
 ('action_papelera_index',	0,	'',	NULL,	'N;'),
 ('action_pedido_admin',	0,	'',	NULL,	'N;'),
 ('action_pedido_agregarlinea',	0,	'',	NULL,	'N;'),
 ('action_pedido_cargartipoprecio',	0,	'',	NULL,	'N;'),
 ('action_pedido_create',	0,	'',	NULL,	'N;'),
-('action_pedido_delete',	0,	'',	NULL,	'N;'),
 ('action_pedido_dirigir',	0,	'',	NULL,	'N;'),
 ('action_pedido_formatopdf',	0,	'',	NULL,	'N;'),
-('action_pedido_index',	0,	'',	NULL,	'N;'),
 ('action_pedido_update',	0,	'',	NULL,	'N;'),
-('action_pedido_view',	0,	'',	NULL,	'N;'),
 ('action_proveedor_admin',	0,	'',	NULL,	'N;'),
 ('action_proveedor_autocompletar',	0,	'',	NULL,	'N;'),
 ('action_proveedor_cargarnit',	0,	'',	NULL,	'N;'),
@@ -1900,102 +1787,61 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_proveedor_cargarubicacion',	0,	'',	NULL,	'N;'),
 ('action_proveedor_create',	0,	'',	NULL,	'N;'),
 ('action_proveedor_delete',	0,	'',	NULL,	'N;'),
-('action_proveedor_index',	0,	'',	NULL,	'N;'),
 ('action_proveedor_restaurar',	0,	'',	NULL,	'N;'),
 ('action_proveedor_update',	0,	'',	NULL,	'N;'),
 ('action_proveedor_view',	0,	'',	NULL,	'N;'),
 ('action_regimentributario_admin',	0,	'',	NULL,	'N;'),
 ('action_regimentributario_cargarregimen',	0,	'',	NULL,	'N;'),
-('action_regimentributario_create',	0,	'',	NULL,	'N;'),
-('action_regimentributario_delete',	0,	'',	NULL,	'N;'),
-('action_regimentributario_index',	0,	'',	NULL,	'N;'),
-('action_regimentributario_restaurar',	0,	'',	NULL,	'N;'),
-('action_regimentributario_update',	0,	'',	NULL,	'N;'),
-('action_regimentributario_view',	0,	'',	NULL,	'N;'),
+('action_regimentributario_excel',	0,	'',	NULL,	'N;'),
+('action_regimentributario_pdf',	0,	'',	NULL,	'N;'),
 ('action_retencion_admin',	0,	'',	NULL,	'N;'),
 ('action_retencion_cargarretencion',	0,	'',	NULL,	'N;'),
-('action_retencion_create',	0,	'',	NULL,	'N;'),
-('action_retencion_delete',	0,	'',	NULL,	'N;'),
 ('action_retencion_excel',	0,	'',	NULL,	'N;'),
-('action_retencion_index',	0,	'',	NULL,	'N;'),
 ('action_retencion_pdf',	0,	'',	NULL,	'N;'),
-('action_retencion_update',	0,	'',	NULL,	'N;'),
-('action_retencion_view',	0,	'',	NULL,	'N;'),
-('action_site_contact',	0,	'',	NULL,	'N;'),
 ('action_site_error',	0,	'',	NULL,	'N;'),
 ('action_site_index',	0,	'',	NULL,	'N;'),
 ('action_site_login',	0,	'',	NULL,	'N;'),
 ('action_site_logout',	0,	'',	NULL,	'N;'),
-('action_solicitudoclinea_admin',	0,	'',	NULL,	'N;'),
-('action_solicitudoclinea_create',	0,	'',	NULL,	'N;'),
-('action_solicitudoclinea_delete',	0,	'',	NULL,	'N;'),
-('action_solicitudoclinea_index',	0,	'',	NULL,	'N;'),
-('action_solicitudoclinea_update',	0,	'',	NULL,	'N;'),
-('action_solicitudoclinea_view',	0,	'',	NULL,	'N;'),
+('action_site_prueba',	0,	'',	NULL,	'N;'),
 ('action_solicitudoc_admin',	0,	'',	NULL,	'N;'),
+('action_solicitudoc_agregarlinea',	0,	'',	NULL,	'N;'),
 ('action_solicitudoc_autorizar',	0,	'',	NULL,	'N;'),
 ('action_solicitudoc_cancelar',	0,	'',	NULL,	'N;'),
 ('action_solicitudoc_cargararticulo',	0,	'',	NULL,	'N;'),
 ('action_solicitudoc_create',	0,	'',	NULL,	'N;'),
-('action_solicitudoc_delete',	0,	'',	NULL,	'N;'),
 ('action_solicitudoc_formatopdf',	0,	'',	NULL,	'N;'),
-('action_solicitudoc_index',	0,	'',	NULL,	'N;'),
 ('action_solicitudoc_reversar',	0,	'',	NULL,	'N;'),
 ('action_solicitudoc_update',	0,	'',	NULL,	'N;'),
-('action_solicitudoc_view',	0,	'',	NULL,	'N;'),
-('action_solicitudordenco_admin',	0,	'',	NULL,	'N;'),
-('action_solicitudordenco_create',	0,	'',	NULL,	'N;'),
-('action_solicitudordenco_delete',	0,	'',	NULL,	'N;'),
-('action_solicitudordenco_index',	0,	'',	NULL,	'N;'),
-('action_solicitudordenco_update',	0,	'',	NULL,	'N;'),
-('action_solicitudordenco_view',	0,	'',	NULL,	'N;'),
-('action_subtipotransaccion_admin',	0,	'',	NULL,	'N;'),
-('action_subtipotransaccion_create',	0,	'',	NULL,	'N;'),
-('action_subtipotransaccion_delete',	0,	'',	NULL,	'N;'),
-('action_subtipotransaccion_index',	0,	'',	NULL,	'N;'),
-('action_subtipotransaccion_update',	0,	'',	NULL,	'N;'),
-('action_subtipotransaccion_view',	0,	'',	NULL,	'N;'),
 ('action_tipoacademico_admin',	0,	'',	NULL,	'N;'),
 ('action_tipoacademico_create',	0,	'',	NULL,	'N;'),
 ('action_tipoacademico_delete',	0,	'',	NULL,	'N;'),
-('action_tipoacademico_index',	0,	'',	NULL,	'N;'),
 ('action_tipoacademico_update',	0,	'',	NULL,	'N;'),
 ('action_tipoacademico_view',	0,	'',	NULL,	'N;'),
 ('action_tipoaccidente_admin',	0,	'',	NULL,	'N;'),
 ('action_tipoaccidente_create',	0,	'',	NULL,	'N;'),
 ('action_tipoaccidente_delete',	0,	'',	NULL,	'N;'),
-('action_tipoaccidente_index',	0,	'',	NULL,	'N;'),
 ('action_tipoaccidente_update',	0,	'',	NULL,	'N;'),
 ('action_tipoaccidente_view',	0,	'',	NULL,	'N;'),
 ('action_tipoarticulo_admin',	0,	'',	NULL,	'N;'),
-('action_tipoarticulo_create',	0,	'',	NULL,	'N;'),
-('action_tipoarticulo_delete',	0,	'',	NULL,	'N;'),
-('action_tipoarticulo_index',	0,	'',	NULL,	'N;'),
-('action_tipoarticulo_update',	0,	'',	NULL,	'N;'),
-('action_tipoarticulo_view',	0,	'',	NULL,	'N;'),
 ('action_tipoausencia_admin',	0,	'',	NULL,	'N;'),
 ('action_tipoausencia_create',	0,	'',	NULL,	'N;'),
 ('action_tipoausencia_delete',	0,	'',	NULL,	'N;'),
-('action_tipoausencia_index',	0,	'',	NULL,	'N;'),
 ('action_tipoausencia_update',	0,	'',	NULL,	'N;'),
 ('action_tipoausencia_view',	0,	'',	NULL,	'N;'),
 ('action_tipocontrato_admin',	0,	'',	NULL,	'N;'),
 ('action_tipocontrato_create',	0,	'',	NULL,	'N;'),
 ('action_tipocontrato_delete',	0,	'',	NULL,	'N;'),
-('action_tipocontrato_index',	0,	'',	NULL,	'N;'),
 ('action_tipocontrato_update',	0,	'',	NULL,	'N;'),
 ('action_tipocontrato_view',	0,	'',	NULL,	'N;'),
 ('action_tipocuenta_admin',	0,	'',	NULL,	'N;'),
 ('action_tipocuenta_create',	0,	'',	NULL,	'N;'),
 ('action_tipocuenta_delete',	0,	'',	NULL,	'N;'),
-('action_tipocuenta_index',	0,	'',	NULL,	'N;'),
 ('action_tipocuenta_update',	0,	'',	NULL,	'N;'),
 ('action_tipocuenta_view',	0,	'',	NULL,	'N;'),
 ('action_tipodocumento_admin',	0,	'',	NULL,	'N;'),
 ('action_tipodocumento_create',	0,	'',	NULL,	'N;'),
 ('action_tipodocumento_delete',	0,	'',	NULL,	'N;'),
 ('action_tipodocumento_excel',	0,	'',	NULL,	'N;'),
-('action_tipodocumento_index',	0,	'',	NULL,	'N;'),
 ('action_tipodocumento_pdf',	0,	'',	NULL,	'N;'),
 ('action_tipodocumento_restaurar',	0,	'',	NULL,	'N;'),
 ('action_tipodocumento_update',	0,	'',	NULL,	'N;'),
@@ -2004,7 +1850,6 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_tipotarjeta_create',	0,	'',	NULL,	'N;'),
 ('action_tipotarjeta_delete',	0,	'',	NULL,	'N;'),
 ('action_tipotarjeta_excel',	0,	'',	NULL,	'N;'),
-('action_tipotarjeta_index',	0,	'',	NULL,	'N;'),
 ('action_tipotarjeta_pdf',	0,	'',	NULL,	'N;'),
 ('action_tipotarjeta_restaurar',	0,	'',	NULL,	'N;'),
 ('action_tipotarjeta_update',	0,	'',	NULL,	'N;'),
@@ -2013,29 +1858,20 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_tipotransaccion_cargarcantidad',	0,	'',	NULL,	'N;'),
 ('action_tipotransaccion_create',	0,	'',	NULL,	'N;'),
 ('action_tipotransaccion_delete',	0,	'',	NULL,	'N;'),
-('action_tipotransaccion_index',	0,	'',	NULL,	'N;'),
 ('action_tipotransaccion_restaurar',	0,	'',	NULL,	'N;'),
 ('action_tipotransaccion_update',	0,	'',	NULL,	'N;'),
 ('action_tipotransaccion_view',	0,	'',	NULL,	'N;'),
 ('action_ubicaciongeografica1_admin',	0,	'',	NULL,	'N;'),
-('action_ubicaciongeografica1_create',	0,	'',	NULL,	'N;'),
-('action_ubicaciongeografica1_delete',	0,	'',	NULL,	'N;'),
 ('action_ubicaciongeografica1_excel',	0,	'',	NULL,	'N;'),
-('action_ubicaciongeografica1_index',	0,	'',	NULL,	'N;'),
 ('action_ubicaciongeografica1_pdf',	0,	'',	NULL,	'N;'),
-('action_ubicaciongeografica1_update',	0,	'',	NULL,	'N;'),
-('action_ubicaciongeografica1_view',	0,	'',	NULL,	'N;'),
 ('action_ubicaciongeografica2_admin',	0,	'',	NULL,	'N;'),
-('action_ubicaciongeografica2_create',	0,	'',	NULL,	'N;'),
-('action_ubicaciongeografica2_delete',	0,	'',	NULL,	'N;'),
 ('action_ubicaciongeografica2_excel',	0,	'',	NULL,	'N;'),
-('action_ubicaciongeografica2_index',	0,	'',	NULL,	'N;'),
 ('action_ubicaciongeografica2_pdf',	0,	'',	NULL,	'N;'),
-('action_ubicaciongeografica2_update',	0,	'',	NULL,	'N;'),
-('action_ubicaciongeografica2_view',	0,	'',	NULL,	'N;'),
+('action_ui_ajaxgeneratenewpassword',	0,	'',	NULL,	'N;'),
 ('action_ui_ajaxrbacitemdescr',	0,	'',	NULL,	'N;'),
 ('action_ui_editprofile',	0,	'',	NULL,	'N;'),
 ('action_ui_fieldsadmincreate',	0,	'',	NULL,	'N;'),
+('action_ui_fieldsadmindelete',	0,	'',	NULL,	'N;'),
 ('action_ui_fieldsadminlist',	0,	'',	NULL,	'N;'),
 ('action_ui_rbacajaxsetchilditem',	0,	'',	NULL,	'N;'),
 ('action_ui_rbacauthitemchilditems',	0,	'',	NULL,	'N;'),
@@ -2047,9 +1883,11 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_ui_rbaclisttasks',	0,	'',	NULL,	'N;'),
 ('action_ui_rbacusersassignments',	0,	'',	NULL,	'N;'),
 ('action_ui_sessionadmin',	0,	'',	NULL,	'N;'),
+('action_ui_sessionadmindelete',	0,	'',	NULL,	'N;'),
 ('action_ui_systemupdate',	0,	'',	NULL,	'N;'),
 ('action_ui_usermanagementadmin',	0,	'',	NULL,	'N;'),
 ('action_ui_usermanagementcreate',	0,	'',	NULL,	'N;'),
+('action_ui_usermanagementdelete',	0,	'',	NULL,	'N;'),
 ('action_ui_usermanagementupdate',	0,	'',	NULL,	'N;'),
 ('action_ui_usersaved',	0,	'',	NULL,	'N;'),
 ('action_unidadmedida_admin',	0,	'',	NULL,	'N;'),
@@ -2059,27 +1897,73 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('action_unidadmedida_restaurar',	0,	'',	NULL,	'N;'),
 ('action_unidadmedida_update',	0,	'',	NULL,	'N;'),
 ('action_unidadmedida_view',	0,	'',	NULL,	'N;'),
-('action_usuarios_admin',	0,	'',	NULL,	'N;'),
-('action_usuarios_create',	0,	'',	NULL,	'N;'),
-('action_usuarios_delete',	0,	'',	NULL,	'N;'),
-('action_usuarios_index',	0,	'',	NULL,	'N;'),
-('action_usuarios_update',	0,	'',	NULL,	'N;'),
-('action_usuarios_view',	0,	'',	NULL,	'N;'),
 ('action_zona_admin',	0,	'',	NULL,	'N;'),
 ('action_zona_cargarzonas',	0,	'',	NULL,	'N;'),
 ('action_zona_create',	0,	'',	NULL,	'N;'),
 ('action_zona_delete',	0,	'',	NULL,	'N;'),
 ('action_zona_excel',	0,	'',	NULL,	'N;'),
-('action_zona_index',	0,	'',	NULL,	'N;'),
 ('action_zona_pdf',	0,	'',	NULL,	'N;'),
 ('action_zona_restaurar',	0,	'',	NULL,	'N;'),
 ('action_zona_update',	0,	'',	NULL,	'N;'),
 ('action_zona_view',	0,	'',	NULL,	'N;'),
+('Actualizar_Articulo',	1,	'Actualizar Articulos',	'',	'N;'),
+('Actualizar_Bodega',	1,	'Actualizar Bodegas',	'',	'N;'),
+('Actualizar_Categoria',	1,	'Actualizar Categorias Clientes y Proveedores',	'',	'N;'),
+('Actualizar_CetroCosto',	1,	'Actualizar Cetros de Costo',	'',	'N;'),
+('Actualizar_Clasificacion',	1,	'Actualizar Clasificaciones',	'',	'N;'),
+('Actualizar_Cliente',	1,	'Actualizar Clientes',	'',	'N;'),
+('Actualizar_CondicionPago',	1,	'Actualizar Condiciónes de pago',	'',	'N;'),
+('Actualizar_ConsecutivoFacturacion',	1,	'Actualizar Consecutivos de Facturación',	'',	'N;'),
+('Actualizar_ConsecutivoInventario',	1,	'Actualizar Consecutivos de Inventario',	'',	'N;'),
+('Actualizar_Dependencia',	1,	'Actualizar Dependencias',	'',	'N;'),
+('Actualizar_DiaFeriado',	1,	'Actualizar Dias Feriados',	'',	'N;'),
+('Actualizar_DocumentoInventario',	1,	'Actualizar Documentos de Inventario',	'',	'N;'),
+('Actualizar_EnsableArticulo',	1,	'Asignar Componentes a un Articulo Tipo Kit',	'',	'N;'),
+('Actualizar_FormatoImpresion',	1,	'Actualizar Formato de Impresión',	'',	'N;'),
+('Actualizar_Nit',	1,	'Actualizar Nits',	'',	'N;'),
+('Actualizar_OrdenCompra',	1,	'Actualizar Ordenes de Compra',	'',	'N;'),
+('Actualizar_Pedido',	1,	'Actualizar Pedidos',	'',	'N;'),
+('Actualizar_PrecioArticulo',	1,	'Actualizar o Asignar Precios los Articulo según Tipos de Precio',	'',	'N;'),
+('Actualizar_Proveedor',	1,	'Actualizar Proveedores',	'',	'N;'),
+('Actualizar_SolicitudCompra',	1,	'Actualizar Solicitudes de Compra',	'',	'N;'),
+('Actualizar_SubClasificacion',	1,	'Actualizar SubClasificaciones',	'',	'N;'),
+('Actualizar_TipoDocumento',	1,	'Actualizar Tipos de Documento',	'',	'N;'),
+('Actualizar_TipoPrecio',	1,	'Actualizar Tipos de Precio',	'',	'N;'),
+('Actualizar_TipoTarjeta',	1,	'Actualizar Tipos de Tarjeta',	'',	'N;'),
+('Actualizar_TipoTransaccion',	1,	'Actualizar Tipos de Transacción',	'',	'N;'),
+('Actualizar_Unidad',	1,	'Actualizar Unidades de Medida',	'',	'N;'),
+('Actualizar_Zona',	1,	'Actualizar Zonas',	'',	'N;'),
+('Actualziar_EntidadFinanciera',	1,	'Actualizar Entidades Financieras',	'',	'N;'),
 ('admin',	0,	'',	NULL,	'N;'),
-('configuracion_general',	1,	':1 Configuración General{menu_sistema}{action_confas_create}',	'',	'N;'),
+('AdministracionReportes',	1,	':14 Administración de Reportes{menu_sistema}{action_formatoimpresion_admin}',	'',	'N;'),
+('AdministrarUsuarios',	1,	':1 Administrar{menu_usuarios}{action_ui_usermanagementadmin}',	'',	'N;'),
+('AdminsitrarRoles',	1,	':2 Roles{menu_usuarios}{action_ui_rbaclistroles}',	'',	'N;'),
+('Aplicar_DocumentoInventario',	1,	'Aplicar Documentos de Inventario',	'',	'N;'),
+('Aprobar_DocumentoInventario',	1,	'Aprobar Documentos de Inventario',	'',	'N;'),
+('Articulo',	1,	':0 Artículos{menu_inventario}{action_articulo_admin}',	'',	'N;'),
+('ArticuloBodega',	1,	':1 Asociación de artículos a Bodegas{menu_inventario}{action_bodega_inventario}',	'',	'N;'),
+('AsignarRoles',	1,	':3 Asignar Roles a Usuarios{menu_usuarios}{action_ui_rbacusersassignments}',	'',	'N;'),
+('Autorizar_OrdenCompra',	1,	'Autorizar Ordenes de Compra',	'',	'N;'),
+('Autorizar_SolicitudCompra',	1,	'Autorizar Solicitudes de Compra',	'',	'N;'),
+('Bodega',	1,	':3 Bodegas{menu_sistema}{action_bodega_admin}',	'',	'N;'),
+('Cancelar_DocumentoInventario',	1,	'Cancelar Documentos de Inventario',	'',	'N;'),
+('Cancelar_IngresoCompra',	1,	'Cancelar Ingresos de Compra',	'',	'N;'),
+('Cancelar_OrdenCompra',	1,	'Cancelar Ordenes de Compra',	'',	'N;'),
+('Cancelar_SolicitudCompra',	1,	'Cancelar Solicitudes de Compra',	'',	'N;'),
+('Categorias',	1,	':4 Categorías clientes y proveedores{menu_sistema}{action_categoria_admin}',	'',	'N;'),
+('Cerrar_OrdenCompra',	1,	'Cerrar Ordenes de Compra',	'',	'N;'),
+('CetroCosto',	1,	':5 Centros de Costos{menu_sistema}{action_centrocostos_admin}',	'',	'N;'),
+('Clasificacion',	1,	':2 Clasificaciones{menu_inventario}{action_clasificacionadi_admin}',	'',	'N;'),
+('Cliente',	1,	':4 Clientes{menu_facturacion}{action_cliente_admin}',	'',	'N;'),
+('CondicionPago',	1,	':6 Condiciónes de pago{menu_sistema}{action_codicionpago_admin}',	'',	'N;'),
+('ConfiguracionCompras',	1,	':4 Configuración{menu_compras}{action_confco_create}',	'',	'N;'),
+('ConfiguracionFacturacion',	1,	':6 Configuración{menu_facturacion}{action_conffa_create}',	'',	'N;'),
+('ConfiguracionGeneral',	1,	':1 Configuración General{menu_sistema}{action_confas_create}',	'',	'N;'),
+('ConfiguracionInventario',	1,	':10 Configuración{menu_inventario}{action_confci_create}',	'',	'N;'),
+('ConsecutivoFacturacion',	1,	':5 Consecutivos{menu_facturacion}{action_consecutivofa_admin}',	'',	'N;'),
+('ConsecutivoInventario',	1,	':8 Consecutivos{menu_inventario}{action_consecutivoci_admin}',	'',	'N;'),
 ('controller_articulo',	0,	'',	NULL,	'N;'),
 ('controller_articuloensamble',	0,	'',	NULL,	'N;'),
-('controller_articulomultimedia',	0,	'',	NULL,	'N;'),
 ('controller_articuloprecio',	0,	'',	NULL,	'N;'),
 ('controller_articuloproveedor',	0,	'',	NULL,	'N;'),
 ('controller_bodega',	0,	'',	NULL,	'N;'),
@@ -2088,7 +1972,6 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('controller_centrocostos',	0,	'',	NULL,	'N;'),
 ('controller_clasificacionadi',	0,	'',	NULL,	'N;'),
 ('controller_clasificacionadivalor',	0,	'',	NULL,	'N;'),
-('controller_clasificadiarticulo',	0,	'',	NULL,	'N;'),
 ('controller_cliente',	0,	'',	NULL,	'N;'),
 ('controller_codicionpago',	0,	'',	NULL,	'N;'),
 ('controller_compania',	0,	'',	NULL,	'N;'),
@@ -2099,26 +1982,21 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('controller_consecutivoci',	0,	'',	NULL,	'N;'),
 ('controller_consecutivofa',	0,	'',	NULL,	'N;'),
 ('controller_departamento',	0,	'',	NULL,	'N;'),
-('controller_dia',	0,	'',	NULL,	'N;'),
 ('controller_diaferiado',	0,	'',	NULL,	'N;'),
 ('controller_documentoinv',	0,	'',	NULL,	'N;'),
 ('controller_entidadfinanciera',	0,	'',	NULL,	'N;'),
 ('controller_estadoempleado',	0,	'',	NULL,	'N;'),
 ('controller_existenciabodega',	0,	'',	NULL,	'N;'),
-('controller_existenciabodegas',	0,	'',	NULL,	'N;'),
 ('controller_factura',	0,	'',	NULL,	'N;'),
 ('controller_formatoimpresion',	0,	'',	NULL,	'N;'),
 ('controller_horario',	0,	'',	NULL,	'N;'),
-('controller_horarioconcepto',	0,	'',	NULL,	'N;'),
 ('controller_impuesto',	0,	'',	NULL,	'N;'),
 ('controller_ingresocompra',	0,	'',	NULL,	'N;'),
-('controller_ingresocompralinea',	0,	'',	NULL,	'N;'),
 ('controller_mensajesistema',	0,	'',	NULL,	'N;'),
 ('controller_metodovaluacioninv',	0,	'',	NULL,	'N;'),
 ('controller_nit',	0,	'',	NULL,	'N;'),
 ('controller_nivelprecio',	0,	'',	NULL,	'N;'),
 ('controller_ordencompra',	0,	'',	NULL,	'N;'),
-('controller_ordencompralinea',	0,	'',	NULL,	'N;'),
 ('controller_pais',	0,	'',	NULL,	'N;'),
 ('controller_papelera',	0,	'',	NULL,	'N;'),
 ('controller_pedido',	0,	'',	NULL,	'N;'),
@@ -2127,9 +2005,6 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('controller_retencion',	0,	'',	NULL,	'N;'),
 ('controller_site',	0,	'',	NULL,	'N;'),
 ('controller_solicitudoc',	0,	'',	NULL,	'N;'),
-('controller_solicitudoclinea',	0,	'',	NULL,	'N;'),
-('controller_solicitudordenco',	0,	'',	NULL,	'N;'),
-('controller_subtipotransaccion',	0,	'',	NULL,	'N;'),
 ('controller_tipoacademico',	0,	'',	NULL,	'N;'),
 ('controller_tipoaccidente',	0,	'',	NULL,	'N;'),
 ('controller_tipoarticulo',	0,	'',	NULL,	'N;'),
@@ -2142,15 +2017,111 @@ INSERT INTO `cruge_authitem` (`name`, `type`, `description`, `bizrule`, `data`) 
 ('controller_ubicaciongeografica1',	0,	'',	NULL,	'N;'),
 ('controller_ubicaciongeografica2',	0,	'',	NULL,	'N;'),
 ('controller_unidadmedida',	0,	'',	NULL,	'N;'),
-('controller_usuarios',	0,	'',	NULL,	'N;'),
 ('controller_zona',	0,	'',	NULL,	'N;'),
-('datos_empresa',	1,	':0 Datos Empresa{menu_sistema}{action_compania_create}',	'',	'N;'),
+('CrearUsuario',	1,	':0 Crear{menu_usuarios}{action_ui_usermanagementcreate}',	'',	'N;'),
+('Crear_Articulo',	1,	'Crear Articulos',	'',	'N;'),
+('Crear_Bodega',	1,	'Crear Bodegas',	'',	'N;'),
+('Crear_Categoria',	1,	'Crear Categorias Clientes y Proveedores',	'',	'N;'),
+('Crear_CetroCosto',	1,	'Crear Cetros de Costo',	'',	'N;'),
+('Crear_Clasificacion',	1,	'Crear Clasificaciones',	'',	'N;'),
+('Crear_Cliente',	1,	'Crear Clientes',	'',	'N;'),
+('Crear_CondicionPago',	1,	'Crear Condiciónes de pago',	'',	'N;'),
+('Crear_ConsecutivoFacturacion',	1,	'Crear Consecutivos para Facturación',	'',	'N;'),
+('Crear_ConsecutivoInventario',	1,	'Crear Consecutivos de Inventario',	'',	'N;'),
+('Crear_Dependencia',	1,	'Crear Dependencias',	'',	'N;'),
+('Crear_DiaFeriado',	1,	'Crear Dias Feriados',	'',	'N;'),
+('Crear_DocumentoInventario',	1,	'Crear Documentos de Inventario',	'',	'N;'),
+('Crear_EntidadFinanciera',	1,	'Crear Entidades Financieras',	'',	'N;'),
+('Crear_Factura',	1,	'Crear Facturas',	'',	'N;'),
+('Crear_FormatoImpresion',	1,	'Crear Formato de Impresión',	'',	'N;'),
+('Crear_IngresoCompra',	1,	'Crear Ingresos de Compra',	'',	'N;'),
+('Crear_Nit',	1,	'Crear Nits',	'',	'N;'),
+('Crear_OrdenCompra',	1,	'Crear Ordenes de Compra',	'',	'N;'),
+('Crear_Pedido',	1,	'Crear Pedidos',	'',	'N;'),
+('Crear_Proveedor',	1,	'Crear Proveedores',	'',	'N;'),
+('Crear_SolicitudCompra',	1,	'Crear Solicitudes de Compra',	'',	'N;'),
+('Crear_SubClasificacion',	1,	'Crear SubClasificaciones',	'',	'N;'),
+('Crear_TipoDocumento',	1,	'Crear Tipos de Documento',	'',	'N;'),
+('Crear_TipoPrecio',	1,	'Crear Tipos de Precio',	'',	'N;'),
+('Crear_TipoTarjeta',	1,	'Crear Tipos de Tarjeta',	'',	'N;'),
+('Crear_TipoTransaccion',	1,	'Crear Tipos de Transacción',	'',	'N;'),
+('Crear_Unidad',	1,	'Crear Unidades de Medida',	'',	'N;'),
+('Crear_Zona',	1,	'Crear Zonas',	'',	'N;'),
+('DatosEmpresa',	1,	':0 Datos Empresa{menu_sistema}{action_compania_create}',	'',	'N;'),
+('Departamento',	1,	':1 Departamento{menu_varios}{action_ubicaciongeografica1_admin}',	'',	'N;'),
+('Dependencia',	1,	':7 Dependencias{menu_sistema}{action_departamento_admin}',	'',	'N;'),
+('Detalle_EnsableArticulo',	1,	'Ver los Componentes que tiene un Articulo Tipo Kit',	'',	'N;'),
+('Detalle_PrecioArticulo',	1,	'Ver los Precios que tiene un Articulo',	'',	'N;'),
+('DiaFeriado',	1,	':13 Días Feriados{menu_sistema}{action_diaferiado_admin}',	'',	'N;'),
+('DocumentoInventario',	1,	':9 Documentos{menu_inventario}{action_documentoinv_admin}',	'',	'N;'),
 ('edit-advanced-profile-features',	0,	'D:\\wamp\\www\\siasoft_v2 - copia\\protected\\modules\\cruge\\views\\ui\\usermanagementupdate.php linea 113',	NULL,	'N;'),
-('menu_inventario',	1,	':Inventario',	'',	'N;'),
-('menu_sistema',	1,	':Sistema',	'',	'N;'),
+('Eliminar_Bodega',	1,	'Eliminar Bodegas',	'',	'N;'),
+('Eliminar_Categoria',	1,	'Eliminar Categorias Clientes y Proveedores',	'',	'N;'),
+('Eliminar_CetroCosto',	1,	'Eliminar Cetros de Costo',	'',	'N;'),
+('Eliminar_Clasificacion',	1,	'Eliminar Clasificaciones',	'',	'N;'),
+('Eliminar_Cliente',	1,	'Eliminar Clientes',	'',	'N;'),
+('Eliminar_CondicionPago',	1,	'Eliminar Condiciónes de Pago',	'',	'N;'),
+('Eliminar_ConsecutivoFacturacion',	1,	'Eliminar Consecutivos de Facturación',	'',	'N;'),
+('Eliminar_ConsecutivoInventario',	1,	'Eliminar Consecutivos de Inventario',	'',	'N;'),
+('Eliminar_Dependencia',	1,	'Eliminar Dependencias',	'',	'N;'),
+('Eliminar_DiaFeriado',	1,	'Eliminar DiasFeriados',	'',	'N;'),
+('Eliminar_EntidadFinanciera',	1,	'Eliminar Entidades Financieras',	'',	'N;'),
+('Eliminar_FormatoImpresion',	1,	'Eliminar Formato de Impresión',	'',	'N;'),
+('Eliminar_Nit',	1,	'Eliminar Nits',	'',	'N;'),
+('Eliminar_Proveedor',	1,	'Eliminar Proveedores',	'',	'N;'),
+('Eliminar_SubClasificacion',	1,	'Eliminar SubClasificaciones',	'',	'N;'),
+('Eliminar_TipoDocumento',	1,	'Eliminar Tipos de Documento',	'',	'N;'),
+('Eliminar_TipoPrecio',	1,	'Eliminar Tipos de Precio',	'',	'N;'),
+('Eliminar_TipoTarjeta',	1,	'Eliminar Tipos de Tarjeta',	'',	'N;'),
+('Eliminar_TipoTransaccion',	1,	'Eliminar Tipos de Transacción',	'',	'N;'),
+('Eliminar_Unidad',	1,	'Eliminar Unidades de Medida',	'',	'N;'),
+('Eliminar_Zona',	1,	'Eliminar Zonas',	'',	'N;'),
+('EnsableArticulo',	1,	':0 Ensamble de Artículos{menu_facturacion}{action_articuloensamble_admin}',	'',	'N;'),
+('EntidadFinanciera',	1,	':10 Entidades Financieras{menu_sistema}{action_entidadfinanciera_admin}',	'',	'N;'),
+('Exportar_Sistema_Excel',	1,	'Exportar los datos del menú sistema a Excel',	'',	'N;'),
+('Exportar_Sistema_Pdf',	1,	'Exportar datos  del menú Sistema a Pdf',	'',	'N;'),
+('Factura',	1,	':3 Facturas{menu_facturacion}{action_factura_admin}',	'',	'N;'),
+('GenerarPDF_DocumentoInventario',	1,	'Generar Archivo PDF para Documentos de Inventario',	'',	'N;'),
+('GenerarPDF_Factura',	1,	'Generar Archivo PDF para Facturas de Venta',	'',	'N;'),
+('GenerarPDF_IngresoCompra',	1,	'Generar Archivo PDF para Ingresos de Compra',	'',	'N;'),
+('GenerarPDF_OrdenCompra',	1,	'Generar Archivo PDF para Ordenes de Compra',	'',	'N;'),
+('GenerarPDF_Pedido',	1,	'Generar Archivo PDF para Pedidos',	'',	'N;'),
+('GenerarPDF_SolicitudCompra',	1,	'Generar Archivo PDF para Solicitudes de Compra',	'',	'N;'),
+('Impuesto',	1,	':3 Impuestos{menu_varios}{action_impuesto_admin}',	'',	'N;'),
+('IngresoCompra',	1,	':2 Ingresos de Compra{menu_compras}{action_ingresocompra_admin}',	'',	'N;'),
+('menu_compras',	1,	':2 Compras',	'',	'N;'),
+('menu_facturacion',	1,	':1 Facturación',	'',	'N;'),
+('menu_inventario',	1,	':3 Inventario',	'',	'N;'),
+('menu_sistema',	1,	':4 Sistema',	'',	'N;'),
+('menu_usuarios',	1,	':6 Usuarios',	'',	'N;'),
+('menu_varios',	1,	':5 Varios',	'',	'N;'),
+('MetodoValuacion',	1,	':6 Metodos de Valuación{menu_inventario}{action_metodovaluacioninv_admin}',	'',	'N;'),
+('Municipios',	1,	':2 Municipios{menu_varios}{action_ubicaciongeografica2_admin}',	'',	'N;'),
 ('operaciones',	0,	'',	NULL,	'N;'),
+('OrdenCompra',	1,	':1 Ordenes de Compra{menu_compras}{action_ordencompra_admin}',	'',	'N;'),
+('Pais',	1,	':0 Pais{menu_varios}{action_pais_admin}',	'',	'N;'),
+('Papelera',	1,	':15 Papelera de Reciclaje{menu_sistema}{action_papelera_index}',	'',	'N;'),
+('Pedido',	1,	':2 Pedidos{menu_facturacion}{action_pedido_admin}',	'',	'N;'),
+('PrecioArticulo',	1,	':1 Precios de Articulos{menu_facturacion}{action_articuloprecio_admin}',	'',	'N;'),
+('Proveedor',	1,	':3 Proveedores{menu_compras}{action_proveedor_admin}',	'',	'N;'),
+('Recibir_IngresoCompra',	1,	'Recibir Ingresos de Compra',	'',	'N;'),
+('RegimenTributario',	1,	':5 Régimen Tributario{menu_varios}{action_regimentributario_admin}',	'',	'N;'),
+('RelacionNits',	1,	':9 Relación de Nits{menu_sistema}{action_nit_admin}',	'',	'N;'),
+('Retencion',	1,	':4 Retenciónes{menu_varios}{action_retencion_admin}',	'',	'N;'),
+('Rev-Aprobacion_DocumentoInventario',	1,	'Reversar Aprobaciones de Documentos de Inventario',	'',	'N;'),
+('Rev-Autorizacion_OrdenCompra',	1,	'Reversar Autorización de Ordenes de Compra',	'',	'N;'),
+('Rev-Autorizacion_SolicitudCompra',	1,	'Reversar Autorización de Solicitudes de Compra',	'',	'N;'),
 ('Rol_Demo',	2,	'un rol de demostracion',	'',	'N;'),
-('unidad_medida',	1,	':0 Unidades de Medida{menu_inventario}{action_unidadmedida_admin}',	'',	'N;');
+('Sesion',	1,	':4 Registro de Sesiones{menu_usuarios}{action_ui_sessionadmin}',	'',	'N;'),
+('SolicitudCompra',	1,	':0 Solicitudes de Compra{menu_compras}{action_solicitudoc_admin}',	'',	'N;'),
+('SubClasificacion',	1,	':3 SubClasificaciones{menu_inventario}{action_clasificacionadivalor_admin}',	'',	'N;'),
+('TipoArticulo',	1,	':4 Tipos de Artículo{menu_inventario}{action_tipoarticulo_admin}',	'',	'N;'),
+('TipoDocumento',	1,	':8 Tipos de Documento{menu_sistema}{action_tipodocumento_admin}',	'',	'N;'),
+('TipoPrecio',	1,	':11 Tipos de Precio{menu_sistema}{action_nivelprecio_admin}',	'',	'N;'),
+('TipoTarjeta',	1,	':12 Tipos de Tarjeta{menu_sistema}{action_tipotarjeta_admin}',	'',	'N;'),
+('TipoTransaccion',	1,	':7 Tipos de Transacción{menu_inventario}{action_tipotransaccion_admin}',	'',	'N;'),
+('UnidadMedida',	1,	':5 Unidades de Medida{menu_inventario}{action_unidadmedida_admin}',	'',	'N;'),
+('Zona',	1,	':2 Zonas{menu_sistema}{action_zona_admin}',	'',	'N;');
 
 DROP TABLE IF EXISTS `cruge_authitemchild`;
 CREATE TABLE `cruge_authitemchild` (
@@ -2163,22 +2134,396 @@ CREATE TABLE `cruge_authitemchild` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `cruge_authitemchild` (`parent`, `child`) VALUES
-('datos_empresa',	'action_compania_cargar'),
-('datos_empresa',	'action_compania_create'),
-('datos_empresa',	'action_compania_update'),
-('configuracion_general',	'action_confas_create'),
-('configuracion_general',	'action_confas_update'),
-('unidad_medida',	'action_unidadmedida_admin'),
-('unidad_medida',	'action_unidadmedida_cargarbase'),
-('unidad_medida',	'action_unidadmedida_create'),
-('unidad_medida',	'action_unidadmedida_delete'),
-('unidad_medida',	'action_unidadmedida_update'),
-('unidad_medida',	'action_unidadmedida_view'),
-('menu_sistema',	'configuracion_general'),
-('menu_sistema',	'datos_empresa'),
+('EnsableArticulo',	'action_articuloensamble_admin'),
+('Actualizar_EnsableArticulo',	'action_articuloensamble_cargaarticulo'),
+('Detalle_EnsableArticulo',	'action_articuloensamble_detalle'),
+('Actualizar_EnsableArticulo',	'action_articuloensamble_iniciar'),
+('Actualizar_EnsableArticulo',	'action_articuloensamble_update'),
+('PrecioArticulo',	'action_articuloprecio_admin'),
+('Detalle_PrecioArticulo',	'action_articuloprecio_detalle'),
+('Actualizar_PrecioArticulo',	'action_articuloprecio_iniciar'),
+('Actualizar_PrecioArticulo',	'action_articuloprecio_update'),
+('Articulo',	'action_articulo_admin'),
+('Actualizar_Articulo',	'action_articulo_cargar'),
+('Crear_Articulo',	'action_articulo_cargar'),
+('Actualizar_Articulo',	'action_articulo_cargarajax'),
+('Crear_Articulo',	'action_articulo_cargarajax'),
+('Actualizar_Articulo',	'action_articulo_cargarajax2'),
+('Crear_Articulo',	'action_articulo_cargarajax2'),
+('Actualizar_Articulo',	'action_articulo_cargarajax3'),
+('Crear_Articulo',	'action_articulo_cargarajax3'),
+('Actualizar_Articulo',	'action_articulo_cargarajax4'),
+('Crear_Articulo',	'action_articulo_cargarajax4'),
+('Actualizar_Articulo',	'action_articulo_cargarajax5'),
+('Crear_Articulo',	'action_articulo_cargarajax5'),
+('Actualizar_Articulo',	'action_articulo_create'),
+('Crear_Articulo',	'action_articulo_create'),
+('Bodega',	'action_bodega_admin'),
+('ArticuloBodega',	'action_bodega_agregarlinea'),
+('ArticuloBodega',	'action_bodega_articulos'),
+('Crear_Bodega',	'action_bodega_create'),
+('Eliminar_Bodega',	'action_bodega_delete'),
+('ArticuloBodega',	'action_bodega_dirigir'),
+('Exportar_Sistema_Excel',	'action_bodega_excel'),
+('ArticuloBodega',	'action_bodega_inventario'),
+('Exportar_Sistema_Pdf',	'action_bodega_pdf'),
+('Papelera',	'action_bodega_restaurar'),
+('Actualizar_Bodega',	'action_bodega_update'),
+('Bodega',	'action_bodega_view'),
+('Categorias',	'action_categoria_admin'),
+('Crear_Categoria',	'action_categoria_create'),
+('Eliminar_Categoria',	'action_categoria_delete'),
+('Exportar_Sistema_Excel',	'action_categoria_excel'),
+('Exportar_Sistema_Pdf',	'action_categoria_pdf'),
+('Papelera',	'action_categoria_restaurar'),
+('Actualizar_Categoria',	'action_categoria_update'),
+('Categorias',	'action_categoria_view'),
+('CetroCosto',	'action_centrocostos_admin'),
+('Crear_CetroCosto',	'action_centrocostos_create'),
+('Eliminar_CetroCosto',	'action_centrocostos_delete'),
+('Exportar_Sistema_Excel',	'action_centrocostos_excel'),
+('Exportar_Sistema_Pdf',	'action_centrocostos_pdf'),
+('Papelera',	'action_centrocostos_restaurar'),
+('Actualizar_CetroCosto',	'action_centrocostos_update'),
+('CetroCosto',	'action_centrocostos_view'),
+('SubClasificacion',	'action_clasificacionadivalor_admin'),
+('Crear_SubClasificacion',	'action_clasificacionadivalor_create'),
+('Eliminar_SubClasificacion',	'action_clasificacionadivalor_delete'),
+('Papelera',	'action_clasificacionadivalor_restaurar'),
+('Actualizar_SubClasificacion',	'action_clasificacionadivalor_update'),
+('SubClasificacion',	'action_clasificacionadivalor_view'),
+('Clasificacion',	'action_clasificacionadi_admin'),
+('Crear_Clasificacion',	'action_clasificacionadi_create'),
+('Eliminar_Clasificacion',	'action_clasificacionadi_delete'),
+('Papelera',	'action_clasificacionadi_restaurar'),
+('Actualizar_Clasificacion',	'action_clasificacionadi_update'),
+('Clasificacion',	'action_clasificacionadi_view'),
+('Cliente',	'action_cliente_admin'),
+('Actualizar_Cliente',	'action_cliente_autocompletar'),
+('Crear_Cliente',	'action_cliente_autocompletar'),
+('Crear_Cliente',	'action_cliente_create'),
+('Eliminar_Cliente',	'action_cliente_delete'),
+('Papelera',	'action_cliente_restaurar'),
+('Actualizar_Cliente',	'action_cliente_update'),
+('Cliente',	'action_cliente_view'),
+('CondicionPago',	'action_codicionpago_admin'),
+('Crear_CondicionPago',	'action_codicionpago_create'),
+('Eliminar_CondicionPago',	'action_codicionpago_delete'),
+('Exportar_Sistema_Excel',	'action_codicionpago_excel'),
+('Exportar_Sistema_Pdf',	'action_codicionpago_pdf'),
+('Papelera',	'action_codicionpago_restaurar'),
+('Actualizar_CondicionPago',	'action_codicionpago_update'),
+('CondicionPago',	'action_codicionpago_view'),
+('DatosEmpresa',	'action_compania_cargar'),
+('DatosEmpresa',	'action_compania_create'),
+('DatosEmpresa',	'action_compania_update'),
+('ConfiguracionGeneral',	'action_confas_create'),
+('ConfiguracionGeneral',	'action_confas_update'),
+('ConfiguracionInventario',	'action_confci_create'),
+('ConfiguracionInventario',	'action_confci_update'),
+('ConfiguracionCompras',	'action_confco_create'),
+('ConfiguracionCompras',	'action_confco_update'),
+('ConfiguracionFacturacion',	'action_conffa_agregarlinea'),
+('ConfiguracionFacturacion',	'action_conffa_autocompletar'),
+('ConfiguracionFacturacion',	'action_conffa_cargarbod'),
+('ConfiguracionFacturacion',	'action_conffa_cargarcat'),
+('ConfiguracionFacturacion',	'action_conffa_cargarcond'),
+('ConfiguracionFacturacion',	'action_conffa_create'),
+('ConfiguracionFacturacion',	'action_conffa_update'),
+('ConsecutivoInventario',	'action_consecutivoci_admin'),
+('Actualizar_ConsecutivoInventario',	'action_consecutivoci_cargartransaccion'),
+('Crear_ConsecutivoInventario',	'action_consecutivoci_cargartransaccion'),
+('Crear_ConsecutivoInventario',	'action_consecutivoci_create'),
+('Eliminar_ConsecutivoInventario',	'action_consecutivoci_delete'),
+('Papelera',	'action_consecutivoci_restaurar'),
+('Actualizar_ConsecutivoInventario',	'action_consecutivoci_update'),
+('ConsecutivoInventario',	'action_consecutivoci_view'),
+('ConsecutivoFacturacion',	'action_consecutivofa_admin'),
+('Crear_ConsecutivoFacturacion',	'action_consecutivofa_create'),
+('Eliminar_ConsecutivoFacturacion',	'action_consecutivofa_delete'),
+('Papelera',	'action_consecutivofa_restaurar'),
+('Actualizar_ConsecutivoFacturacion',	'action_consecutivofa_update'),
+('ConsecutivoFacturacion',	'action_consecutivofa_view'),
+('Dependencia',	'action_departamento_admin'),
+('Crear_Dependencia',	'action_departamento_create'),
+('Eliminar_Dependencia',	'action_departamento_delete'),
+('Exportar_Sistema_Excel',	'action_departamento_excel'),
+('Exportar_Sistema_Pdf',	'action_departamento_pdf'),
+('Papelera',	'action_departamento_restaurar'),
+('Actualizar_Dependencia',	'action_departamento_update'),
+('Dependencia',	'action_departamento_view'),
+('DiaFeriado',	'action_diaferiado_admin'),
+('Crear_DiaFeriado',	'action_diaferiado_create'),
+('Eliminar_DiaFeriado',	'action_diaferiado_delete'),
+('Exportar_Sistema_Excel',	'action_diaferiado_excel'),
+('Exportar_Sistema_Pdf',	'action_diaferiado_pdf'),
+('Papelera',	'action_diaferiado_restaurar'),
+('Actualizar_DiaFeriado',	'action_diaferiado_update'),
+('DiaFeriado',	'action_diaferiado_view'),
+('DocumentoInventario',	'action_documentoinv_admin'),
+('Actualizar_DocumentoInventario',	'action_documentoinv_agregarlinea'),
+('Crear_DocumentoInventario',	'action_documentoinv_agregarlinea'),
+('Aplicar_DocumentoInventario',	'action_documentoinv_aplicar'),
+('Aprobar_DocumentoInventario',	'action_documentoinv_aprobar'),
+('Cancelar_DocumentoInventario',	'action_documentoinv_cancelar'),
+('Actualizar_DocumentoInventario',	'action_documentoinv_cargarconsecutivo'),
+('Crear_DocumentoInventario',	'action_documentoinv_cargarconsecutivo'),
+('Crear_DocumentoInventario',	'action_documentoinv_create'),
+('GenerarPDF_DocumentoInventario',	'action_documentoinv_formatopdf'),
+('Rev-Aprobacion_DocumentoInventario',	'action_documentoinv_reversar'),
+('Actualizar_DocumentoInventario',	'action_documentoinv_update'),
+('EntidadFinanciera',	'action_entidadfinanciera_admin'),
+('Actualziar_EntidadFinanciera',	'action_entidadfinanciera_autocompletar'),
+('Crear_EntidadFinanciera',	'action_entidadfinanciera_autocompletar'),
+('Crear_EntidadFinanciera',	'action_entidadfinanciera_create'),
+('Eliminar_EntidadFinanciera',	'action_entidadfinanciera_delete'),
+('Exportar_Sistema_Excel',	'action_entidadfinanciera_excel'),
+('Exportar_Sistema_Pdf',	'action_entidadfinanciera_pdf'),
+('Papelera',	'action_entidadfinanciera_restaurar'),
+('Actualziar_EntidadFinanciera',	'action_entidadfinanciera_update'),
+('EntidadFinanciera',	'action_entidadfinanciera_view'),
+('Factura',	'action_factura_admin'),
+('Crear_Factura',	'action_factura_agregarlinea'),
+('Actualizar_Pedido',	'action_factura_cargarconsecutivo'),
+('Crear_Factura',	'action_factura_cargarconsecutivo'),
+('Crear_Pedido',	'action_factura_cargarconsecutivo'),
+('Crear_Factura',	'action_factura_create'),
+('GenerarPDF_Factura',	'action_factura_formatopdf'),
+('AdministracionReportes',	'action_formatoimpresion_admin'),
+('Crear_FormatoImpresion',	'action_formatoimpresion_create'),
+('Eliminar_FormatoImpresion',	'action_formatoimpresion_delete'),
+('Actualizar_FormatoImpresion',	'action_formatoimpresion_formato'),
+('Crear_FormatoImpresion',	'action_formatoimpresion_formato'),
+('Papelera',	'action_formatoimpresion_restaurar'),
+('Actualizar_FormatoImpresion',	'action_formatoimpresion_submodulo'),
+('Crear_FormatoImpresion',	'action_formatoimpresion_submodulo'),
+('Actualizar_FormatoImpresion',	'action_formatoimpresion_update'),
+('AdministracionReportes',	'action_formatoimpresion_view'),
+('Impuesto',	'action_impuesto_admin'),
+('Actualizar_Cliente',	'action_impuesto_cargarimpuesto'),
+('Crear_Cliente',	'action_impuesto_cargarimpuesto'),
+('Exportar_Sistema_Excel',	'action_impuesto_excel'),
+('Exportar_Sistema_Pdf',	'action_impuesto_pdf'),
+('Crear_IngresoCompra',	'action_ingresocompra_actlinea'),
+('IngresoCompra',	'action_ingresocompra_admin'),
+('Recibir_IngresoCompra',	'action_ingresocompra_aplicar'),
+('Cancelar_IngresoCompra',	'action_ingresocompra_cancelar'),
+('Crear_IngresoCompra',	'action_ingresocompra_cargararticulo'),
+('Crear_IngresoCompra',	'action_ingresocompra_cargarlineas'),
+('Crear_IngresoCompra',	'action_ingresocompra_cargarproveedor'),
+('Crear_IngresoCompra',	'action_ingresocompra_create'),
+('GenerarPDF_IngresoCompra',	'action_ingresocompra_formatopdf'),
+('Recibir_IngresoCompra',	'action_ingresocompra_listar'),
+('MetodoValuacion',	'action_metodovaluacioninv_admin'),
+('RelacionNits',	'action_nit_admin'),
+('Crear_Nit',	'action_nit_create'),
+('Eliminar_Nit',	'action_nit_delete'),
+('Exportar_Sistema_Excel',	'action_nit_excel'),
+('Actualizar_Nit',	'action_nit_mascara'),
+('Crear_Nit',	'action_nit_mascara'),
+('Exportar_Sistema_Pdf',	'action_nit_pdf'),
+('Papelera',	'action_nit_restaurar'),
+('Actualizar_Nit',	'action_nit_update'),
+('RelacionNits',	'action_nit_view'),
+('TipoPrecio',	'action_nivelprecio_admin'),
+('Crear_TipoPrecio',	'action_nivelprecio_create'),
+('Eliminar_TipoPrecio',	'action_nivelprecio_delete'),
+('Exportar_Sistema_Excel',	'action_nivelprecio_excel'),
+('Exportar_Sistema_Pdf',	'action_nivelprecio_pdf'),
+('Papelera',	'action_nivelprecio_restaurar'),
+('Actualizar_TipoPrecio',	'action_nivelprecio_update'),
+('TipoPrecio',	'action_nivelprecio_view'),
+('Actualizar_OrdenCompra',	'action_ordencompra_actualizaimpuesto'),
+('Crear_OrdenCompra',	'action_ordencompra_actualizaimpuesto'),
+('OrdenCompra',	'action_ordencompra_admin'),
+('Autorizar_OrdenCompra',	'action_ordencompra_autorizar'),
+('Cancelar_OrdenCompra',	'action_ordencompra_cancelar'),
+('Actualizar_OrdenCompra',	'action_ordencompra_cargararticulo'),
+('Crear_OrdenCompra',	'action_ordencompra_cargararticulo'),
+('Actualizar_OrdenCompra',	'action_ordencompra_cargarlineas'),
+('Crear_OrdenCompra',	'action_ordencompra_cargarlineas'),
+('Actualizar_OrdenCompra',	'action_ordencompra_cargarproveedor'),
+('Crear_OrdenCompra',	'action_ordencompra_cargarproveedor'),
+('Cerrar_OrdenCompra',	'action_ordencompra_cerrar'),
+('Crear_OrdenCompra',	'action_ordencompra_create'),
+('GenerarPDF_OrdenCompra',	'action_ordencompra_formatopdf'),
+('Rev-Autorizacion_OrdenCompra',	'action_ordencompra_reversar'),
+('Actualizar_OrdenCompra',	'action_ordencompra_update'),
+('Pais',	'action_pais_admin'),
+('Exportar_Sistema_Excel',	'action_pais_excel'),
+('Exportar_Sistema_Pdf',	'action_pais_pdf'),
+('Papelera',	'action_papelera_cargagrilla'),
+('Papelera',	'action_papelera_index'),
+('Pedido',	'action_pedido_admin'),
+('Actualizar_Pedido',	'action_pedido_agregarlinea'),
+('Crear_Pedido',	'action_pedido_agregarlinea'),
+('Actualizar_Pedido',	'action_pedido_cargartipoprecio'),
+('Crear_Factura',	'action_pedido_cargartipoprecio'),
+('Crear_Pedido',	'action_pedido_cargartipoprecio'),
+('Crear_Pedido',	'action_pedido_create'),
+('Actualizar_Pedido',	'action_pedido_dirigir'),
+('Crear_Factura',	'action_pedido_dirigir'),
+('Crear_Pedido',	'action_pedido_dirigir'),
+('GenerarPDF_Pedido',	'action_pedido_formatopdf'),
+('Actualizar_Pedido',	'action_pedido_update'),
+('Proveedor',	'action_proveedor_admin'),
+('Actualizar_Cliente',	'action_proveedor_autocompletar'),
+('Actualizar_Proveedor',	'action_proveedor_autocompletar'),
+('Crear_Cliente',	'action_proveedor_autocompletar'),
+('Crear_Proveedor',	'action_proveedor_autocompletar'),
+('Actualizar_Cliente',	'action_proveedor_cargarnit'),
+('Actualizar_Proveedor',	'action_proveedor_cargarnit'),
+('Crear_Cliente',	'action_proveedor_cargarnit'),
+('Crear_Proveedor',	'action_proveedor_cargarnit'),
+('Actualizar_Cliente',	'action_proveedor_cargarubicacion'),
+('Actualizar_Proveedor',	'action_proveedor_cargarubicacion'),
+('Crear_Cliente',	'action_proveedor_cargarubicacion'),
+('Crear_Proveedor',	'action_proveedor_cargarubicacion'),
+('Crear_Proveedor',	'action_proveedor_create'),
+('Eliminar_Proveedor',	'action_proveedor_delete'),
+('Papelera',	'action_proveedor_restaurar'),
+('Actualizar_Proveedor',	'action_proveedor_update'),
+('Proveedor',	'action_proveedor_view'),
+('RegimenTributario',	'action_regimentributario_admin'),
+('Actualizar_Cliente',	'action_regimentributario_cargarregimen'),
+('Crear_Cliente',	'action_regimentributario_cargarregimen'),
+('Exportar_Sistema_Excel',	'action_regimentributario_excel'),
+('Exportar_Sistema_Pdf',	'action_regimentributario_pdf'),
+('Retencion',	'action_retencion_admin'),
+('Exportar_Sistema_Excel',	'action_retencion_excel'),
+('Exportar_Sistema_Pdf',	'action_retencion_pdf'),
+('SolicitudCompra',	'action_solicitudoc_admin'),
+('Actualizar_SolicitudCompra',	'action_solicitudoc_agregarlinea'),
+('Crear_SolicitudCompra',	'action_solicitudoc_agregarlinea'),
+('Autorizar_SolicitudCompra',	'action_solicitudoc_autorizar'),
+('Cancelar_SolicitudCompra',	'action_solicitudoc_cancelar'),
+('Actualizar_SolicitudCompra',	'action_solicitudoc_cargararticulo'),
+('Crear_SolicitudCompra',	'action_solicitudoc_cargararticulo'),
+('Crear_SolicitudCompra',	'action_solicitudoc_create'),
+('GenerarPDF_SolicitudCompra',	'action_solicitudoc_formatopdf'),
+('Rev-Autorizacion_SolicitudCompra',	'action_solicitudoc_reversar'),
+('Actualizar_SolicitudCompra',	'action_solicitudoc_update'),
+('TipoArticulo',	'action_tipoarticulo_admin'),
+('TipoDocumento',	'action_tipodocumento_admin'),
+('Crear_TipoDocumento',	'action_tipodocumento_create'),
+('Eliminar_TipoDocumento',	'action_tipodocumento_delete'),
+('Exportar_Sistema_Excel',	'action_tipodocumento_excel'),
+('Papelera',	'action_tipodocumento_restaurar'),
+('Actualizar_TipoDocumento',	'action_tipodocumento_update'),
+('TipoDocumento',	'action_tipodocumento_view'),
+('TipoTarjeta',	'action_tipotarjeta_admin'),
+('Crear_TipoTarjeta',	'action_tipotarjeta_create'),
+('Eliminar_TipoTarjeta',	'action_tipotarjeta_delete'),
+('Exportar_Sistema_Excel',	'action_tipotarjeta_excel'),
+('Exportar_Sistema_Pdf',	'action_tipotarjeta_pdf'),
+('Papelera',	'action_tipotarjeta_restaurar'),
+('Actualizar_TipoTarjeta',	'action_tipotarjeta_update'),
+('TipoTarjeta',	'action_tipotarjeta_view'),
+('TipoTransaccion',	'action_tipotransaccion_admin'),
+('Actualizar_TipoTransaccion',	'action_tipotransaccion_cargarcantidad'),
+('Crear_TipoTransaccion',	'action_tipotransaccion_cargarcantidad'),
+('Crear_TipoTransaccion',	'action_tipotransaccion_create'),
+('Eliminar_TipoTransaccion',	'action_tipotransaccion_delete'),
+('Papelera',	'action_tipotransaccion_restaurar'),
+('Actualizar_TipoTransaccion',	'action_tipotransaccion_update'),
+('TipoTransaccion',	'action_tipotransaccion_view'),
+('Departamento',	'action_ubicaciongeografica1_admin'),
+('Exportar_Sistema_Excel',	'action_ubicaciongeografica1_excel'),
+('Exportar_Sistema_Pdf',	'action_ubicaciongeografica1_pdf'),
+('Municipios',	'action_ubicaciongeografica2_admin'),
+('Exportar_Sistema_Excel',	'action_ubicaciongeografica2_excel'),
+('Exportar_Sistema_Pdf',	'action_ubicaciongeografica2_pdf'),
+('AdministrarUsuarios',	'action_ui_ajaxgeneratenewpassword'),
+('CrearUsuario',	'action_ui_ajaxgeneratenewpassword'),
+('AdminsitrarRoles',	'action_ui_rbacajaxsetchilditem'),
+('AdminsitrarRoles',	'action_ui_rbacauthitemchilditems'),
+('AdminsitrarRoles',	'action_ui_rbacauthitemcreate'),
+('AdminsitrarRoles',	'action_ui_rbacauthitemdelete'),
+('AdminsitrarRoles',	'action_ui_rbacauthitemupdate'),
+('AdminsitrarRoles',	'action_ui_rbaclistroles'),
+('AsignarRoles',	'action_ui_rbacusersassignments'),
+('Sesion',	'action_ui_sessionadmin'),
+('Sesion',	'action_ui_sessionadmindelete'),
+('AdministrarUsuarios',	'action_ui_usermanagementadmin'),
+('CrearUsuario',	'action_ui_usermanagementcreate'),
+('AdministrarUsuarios',	'action_ui_usermanagementdelete'),
+('AdministrarUsuarios',	'action_ui_usermanagementupdate'),
+('AdministrarUsuarios',	'action_ui_usersaved'),
+('CrearUsuario',	'action_ui_usersaved'),
+('UnidadMedida',	'action_unidadmedida_admin'),
+('Actualizar_Unidad',	'action_unidadmedida_cargarbase'),
+('Crear_Unidad',	'action_unidadmedida_cargarbase'),
+('Crear_Unidad',	'action_unidadmedida_create'),
+('Eliminar_Unidad',	'action_unidadmedida_delete'),
+('Papelera',	'action_unidadmedida_restaurar'),
+('Actualizar_Unidad',	'action_unidadmedida_update'),
+('UnidadMedida',	'action_unidadmedida_view'),
+('Zona',	'action_zona_admin'),
+('Actualizar_Cliente',	'action_zona_cargarzonas'),
+('Crear_Cliente',	'action_zona_cargarzonas'),
+('Crear_Zona',	'action_zona_create'),
+('Eliminar_Zona',	'action_zona_delete'),
+('Exportar_Sistema_Excel',	'action_zona_excel'),
+('Exportar_Sistema_Pdf',	'action_zona_pdf'),
+('Papelera',	'action_zona_restaurar'),
+('Actualizar_Zona',	'action_zona_update'),
+('Zona',	'action_zona_view'),
+('menu_sistema',	'AdministracionReportes'),
+('Rol_Demo',	'AdministracionReportes'),
+('menu_usuarios',	'AdministrarUsuarios'),
+('menu_usuarios',	'AdminsitrarRoles'),
+('menu_inventario',	'Articulo'),
+('menu_inventario',	'ArticuloBodega'),
+('menu_usuarios',	'AsignarRoles'),
+('menu_sistema',	'Bodega'),
+('Rol_Demo',	'Bodega'),
+('menu_sistema',	'Categorias'),
+('menu_sistema',	'CetroCosto'),
+('menu_inventario',	'Clasificacion'),
+('menu_facturacion',	'Cliente'),
+('menu_sistema',	'CondicionPago'),
+('menu_compras',	'ConfiguracionCompras'),
+('menu_facturacion',	'ConfiguracionFacturacion'),
+('menu_sistema',	'ConfiguracionGeneral'),
+('menu_inventario',	'ConfiguracionInventario'),
+('menu_facturacion',	'ConsecutivoFacturacion'),
+('menu_inventario',	'ConsecutivoInventario'),
+('Papelera',	'controller_papelera'),
+('menu_usuarios',	'CrearUsuario'),
+('menu_sistema',	'DatosEmpresa'),
+('menu_varios',	'Departamento'),
+('menu_sistema',	'Dependencia'),
+('menu_sistema',	'DiaFeriado'),
+('menu_inventario',	'DocumentoInventario'),
+('menu_facturacion',	'EnsableArticulo'),
+('menu_sistema',	'EntidadFinanciera'),
+('menu_facturacion',	'Factura'),
+('menu_varios',	'Impuesto'),
+('menu_compras',	'IngresoCompra'),
 ('Rol_Demo',	'menu_inventario'),
 ('Rol_Demo',	'menu_sistema'),
-('menu_inventario',	'unidad_medida');
+('Rol_Demo',	'menu_usuarios'),
+('menu_inventario',	'MetodoValuacion'),
+('menu_varios',	'Municipios'),
+('menu_compras',	'OrdenCompra'),
+('menu_varios',	'Pais'),
+('menu_sistema',	'Papelera'),
+('menu_facturacion',	'Pedido'),
+('menu_facturacion',	'PrecioArticulo'),
+('menu_compras',	'Proveedor'),
+('menu_varios',	'RegimenTributario'),
+('menu_sistema',	'RelacionNits'),
+('menu_varios',	'Retencion'),
+('menu_usuarios',	'Sesion'),
+('menu_compras',	'SolicitudCompra'),
+('menu_inventario',	'SubClasificacion'),
+('menu_inventario',	'TipoArticulo'),
+('menu_sistema',	'TipoDocumento'),
+('menu_sistema',	'TipoPrecio'),
+('menu_sistema',	'TipoTarjeta'),
+('menu_inventario',	'TipoTransaccion'),
+('menu_inventario',	'UnidadMedida'),
+('menu_sistema',	'Zona');
 
 DROP TABLE IF EXISTS `cruge_field`;
 CREATE TABLE `cruge_field` (
@@ -2195,10 +2540,8 @@ CREATE TABLE `cruge_field` (
   `useregexpmsg` varchar(512) DEFAULT NULL,
   `predetvalue` mediumblob,
   PRIMARY KEY (`idfield`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `cruge_field` (`idfield`, `fieldname`, `longname`, `position`, `required`, `fieldtype`, `fieldsize`, `maxlength`, `showinreports`, `useregexp`, `useregexpmsg`, `predetvalue`) VALUES
-(1,	'nombre',	'Nombre',	0,	1,	0,	20,	45,	0,	'',	'',	'');
 
 DROP TABLE IF EXISTS `cruge_fieldvalue`;
 CREATE TABLE `cruge_fieldvalue` (
@@ -2228,7 +2571,7 @@ CREATE TABLE `cruge_session` (
   `ipaddressout` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idsession`),
   KEY `crugesession_iduser` (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `cruge_session` (`idsession`, `iduser`, `created`, `expire`, `status`, `ipaddress`, `usagecount`, `lastusage`, `logoutdate`, `ipaddressout`) VALUES
 (1,	1,	1356726941,	1356728741,	0,	'127.0.0.1',	1,	1356726941,	NULL,	NULL),
@@ -2247,7 +2590,13 @@ INSERT INTO `cruge_session` (`idsession`, `iduser`, `created`, `expire`, `status
 (14,	1,	1357155901,	1357755841,	0,	'127.0.0.1',	2,	1357216012,	1357216021,	'127.0.0.1'),
 (15,	3,	1357165364,	1357765304,	1,	'127.0.0.1',	2,	1357216031,	NULL,	NULL),
 (16,	1,	1357217696,	1357817636,	0,	'127.0.0.1',	2,	1357219070,	1357235451,	'127.0.0.1'),
-(17,	1,	1357235495,	1357835435,	1,	'127.0.0.1',	6,	1357312676,	NULL,	NULL);
+(17,	1,	1357235495,	1357835435,	0,	'127.0.0.1',	12,	1357822511,	NULL,	NULL),
+(18,	1,	1357835762,	1358435702,	0,	'127.0.0.1',	3,	1357996415,	1358016925,	'127.0.0.1'),
+(19,	1,	1358016929,	1358616869,	1,	'127.0.0.1',	9,	1358602644,	NULL,	NULL),
+(20,	1,	1358780021,	1359379961,	1,	'127.0.0.1',	8,	1359142379,	NULL,	NULL),
+(21,	1,	1359469366,	1360069306,	1,	'127.0.0.1',	8,	1359985165,	NULL,	NULL),
+(22,	1,	1360076363,	1360676303,	0,	'127.0.0.1',	3,	1360169056,	1360186216,	'127.0.0.1'),
+(23,	1,	1360244786,	1360844726,	1,	'127.0.0.1',	1,	1360244786,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `cruge_system`;
 CREATE TABLE `cruge_system` (
@@ -2269,7 +2618,7 @@ CREATE TABLE `cruge_system` (
   `registerusingtermslabel` varchar(100) DEFAULT NULL,
   `registrationonlogin` int(11) DEFAULT '1',
   PRIMARY KEY (`idsystem`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `cruge_system` (`idsystem`, `name`, `largename`, `sessionmaxdurationmins`, `sessionmaxsameipconnections`, `sessionreusesessions`, `sessionmaxsessionsperday`, `sessionmaxsessionsperuser`, `systemnonewsessions`, `systemdown`, `registerusingcaptcha`, `registerusingterms`, `terms`, `registerusingactivation`, `defaultroleforregistration`, `registerusingtermslabel`, `registrationonlogin`) VALUES
 (1,	'default',	NULL,	9999,	10,	1,	-1,	-1,	0,	0,	0,	0,	'',	0,	'',	'',	0);
@@ -2288,11 +2637,10 @@ CREATE TABLE `cruge_user` (
   `totalsessioncounter` int(11) DEFAULT '0',
   `currentsessioncounter` int(11) DEFAULT '0',
   PRIMARY KEY (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `cruge_user` (`iduser`, `regdate`, `actdate`, `logondate`, `username`, `email`, `password`, `authkey`, `state`, `totalsessioncounter`, `currentsessioncounter`) VALUES
-(1,	NULL,	NULL,	1357312676,	'admin',	'admin@tucorreo.com',	'admin',	NULL,	1,	0,	0),
-(2,	NULL,	NULL,	NULL,	'invitado',	'invitado',	'nopassword',	NULL,	1,	0,	0),
+(1,	NULL,	NULL,	1360244786,	'admin',	'admin@tucorreo.com',	'admin',	NULL,	1,	0,	0),
 (3,	1357134333,	NULL,	1357216031,	'demo',	'demo@demo.com',	'1234556',	'8a643a14e989d36cfb94543d72d7a210',	1,	0,	0);
 
 DROP TABLE IF EXISTS `departamento`;
@@ -2337,7 +2685,7 @@ CREATE TABLE `dia_feriado` (
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Permite definir los dias festivos o feriados para que no los';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Permite definir los dias festivos o feriados para que no los';
 
 INSERT INTO `dia_feriado` (`ID`, `TIPO`, `DIA`, `MES`, `ANIO`, `DESCRIPCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'c',	1,	1,	1,	'asd',	'S',	'admin',	'2012-05-12 08:47:01',	'admin',	'2012-05-12 08:47:01');
@@ -2397,7 +2745,7 @@ CREATE TABLE `documento_inv_linea` (
   CONSTRAINT `FK_TIPO_CANTIDAD_AFECTAR` FOREIGN KEY (`TIPO_TRANSACCION_CANTIDAD`) REFERENCES `tipo_cantidad_articulo` (`ID`),
   CONSTRAINT `FK_TIPO_TRANSACCION` FOREIGN KEY (`TIPO_TRANSACCION`) REFERENCES `tipo_transaccion` (`TIPO_TRANSACCION`),
   CONSTRAINT `FK_UNIDAD_MOVIMIENTO` FOREIGN KEY (`UNIDAD`) REFERENCES `unidad_medida` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Lineas del documento de inventario';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Lineas del documento de inventario';
 
 INSERT INTO `documento_inv_linea` (`DOCUMENTO_INV_LINEA`, `DOCUMENTO_INV`, `LINEA_NUM`, `TIPO_TRANSACCION`, `SUBTIPO`, `TIPO_TRANSACCION_CANTIDAD`, `BODEGA`, `BODEGA_DESTINO`, `ARTICULO`, `CANTIDAD`, `UNIDAD`, `COSTO_UNITARIO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'AJV-0001',	1,	'ENSA',	NULL,	'D',	'23',	NULL,	'001',	4.00000000,	3,	500.00000000,	'S',	'admin',	'2012-11-27 19:53:52',	'admin',	'2012-11-27 19:53:52');
@@ -2456,7 +2804,7 @@ CREATE TABLE `existencia_bodega` (
   KEY `FK_BODEGA_ARTICULO` (`BODEGA`),
   CONSTRAINT `FK_ARTICULO_BODEGA` FOREIGN KEY (`ARTICULO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `FK_BODEGA_ARTICULO` FOREIGN KEY (`BODEGA`) REFERENCES `bodega` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COMMENT='Tabla donde se relaciona un articulo con una bodega donde se';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla donde se relaciona un articulo con una bodega donde se';
 
 INSERT INTO `existencia_bodega` (`ID`, `ARTICULO`, `BODEGA`, `EXISTENCIA_MINIMA`, `EXISTENCIA_MAXIMA`, `PUNTO_REORDEN`, `CANT_DISPONIBLE`, `CANT_RESERVADA`, `CANT_REMITIDA`, `CANT_CUARENTENA`, `CANT_VENCIDA`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'001',	'23',	5.00000000,	15.00000000,	10.00000000,	4.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'S',	'admin',	'2012-06-28 17:02:03',	'admin',	'2012-11-27 20:35:29'),
@@ -2530,6 +2878,7 @@ CREATE TABLE `factura_linea` (
   `VALOR_IMPUESTO` decimal(28,8) NOT NULL,
   `TIPO_PRECIO` int(11) NOT NULL,
   `COMENTARIO` text,
+  `TOTAL` decimal(28,8) DEFAULT NULL,
   `ESTADO` varchar(1) NOT NULL COMMENT 'Los mismos estados del pedido',
   `ACTIVO` varchar(1) NOT NULL,
   `CREADO_POR` varchar(20) NOT NULL,
@@ -2569,7 +2918,7 @@ CREATE TABLE `formato_impresion` (
   CONSTRAINT `formato_impresion_ibfk_1` FOREIGN KEY (`MODULO`) REFERENCES `modulo` (`ID`),
   CONSTRAINT `formato_impresion_ibfk_2` FOREIGN KEY (`SUBMODULO`) REFERENCES `submodulo` (`ID`),
   CONSTRAINT `formato_impresion_ibfk_3` FOREIGN KEY (`PLANTILLA`) REFERENCES `plantilla` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena los diferentes formatos de impresion que ';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena los diferentes formatos de impresion que ';
 
 INSERT INTO `formato_impresion` (`ID`, `NOMBRE`, `OBSERVACION`, `MODULO`, `SUBMODULO`, `PLANTILLA`, `TIPO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'Carta',	'',	'FACT',	'PEDI',	5,	'PDF',	'S',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00'),
@@ -2577,7 +2926,8 @@ INSERT INTO `formato_impresion` (`ID`, `NOMBRE`, `OBSERVACION`, `MODULO`, `SUBMO
 (8,	'Formato',	'',	'INVE',	'DOIN',	3,	'PDF',	'S',	'admin',	'2012-12-05 14:37:31',	'admin',	'2012-12-05 14:37:31'),
 (11,	'Prueba',	'',	'COMP',	'INCO',	1,	'PDF',	'S',	'admin',	'2012-12-05 14:37:46',	'admin',	'2012-12-05 14:37:46'),
 (12,	'Carta',	'',	'COMP',	'ORCO',	4,	'PDF',	'S',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00'),
-(13,	'Pruebas',	'',	'COMP',	'INCO',	1,	'PDF',	'N',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00');
+(13,	'Pruebas',	'',	'COMP',	'INCO',	1,	'PDF',	'N',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00'),
+(14,	'Media Carta',	'',	'FACT',	'FAAS',	6,	'PDF',	'S',	'',	'0000-00-00 00:00:00',	'',	'0000-00-00 00:00:00');
 
 DROP TABLE IF EXISTS `horario`;
 CREATE TABLE `horario` (
@@ -2632,14 +2982,15 @@ CREATE TABLE `impuesto` (
 
 INSERT INTO `impuesto` (`ID`, `NOMBRE`, `PROCENTAJE`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 ('EXC',	'EXCLUIDO',	0.00000000,	'S',	'admin',	'2012-11-13 00:00:00',	'admin',	'2012-11-13 00:00:00'),
-('I1.6',	'IVA1,6%',	1.60000000,	'S',	'admin',	'2012-11-13 00:00:00',	'admin',	'2012-11-13 00:00:00'),
-('IV10',	'IVA10%',	10.00000000,	'S',	'admin',	'2012-11-13 00:00:00',	'admin',	'2012-11-13 00:00:00'),
-('IV14',	'IVA14%',	14.00000000,	'S',	'admin',	'2012-11-13 00:00:00',	'admin',	'2012-11-13 00:00:00'),
+('I1.6',	'IVA1,6%',	1.60000000,	'N',	'admin',	'2012-11-13 00:00:00',	'admin',	'2012-11-13 00:00:00'),
+('IV10',	'IVA10%',	10.00000000,	'N',	'admin',	'2012-11-13 00:00:00',	'admin',	'2012-11-13 00:00:00'),
+('IV14',	'IVA14%',	14.00000000,	'N',	'admin',	'2012-11-13 00:00:00',	'admin',	'2012-11-13 00:00:00'),
 ('IV16',	'IVA16%',	16.00000000,	'S',	'admin',	'2012-11-13 00:00:00',	'admin',	'2012-11-13 00:00:00'),
-('IV20',	'IVA20%',	20.00000000,	'S',	'admin',	'2012-11-13 00:00:00',	'admin',	'2012-11-13 00:00:00'),
-('IV25',	'IVA25%',	25.00000000,	'S',	'admin',	'2012-11-13 00:00:00',	'admin',	'2012-11-13 00:00:00'),
-('IV35',	'IVA35%',	35.00000000,	'S',	'admin',	'2012-11-13 00:00:00',	'admin',	'2012-11-13 00:00:00'),
+('IV20',	'IVA20%',	20.00000000,	'N',	'admin',	'2012-11-13 00:00:00',	'admin',	'2012-11-13 00:00:00'),
+('IV25',	'IVA25%',	25.00000000,	'N',	'admin',	'2012-11-13 00:00:00',	'admin',	'2012-11-13 00:00:00'),
+('IV35',	'IVA35%',	35.00000000,	'N',	'admin',	'2012-11-13 00:00:00',	'admin',	'2012-11-13 00:00:00'),
 ('IVA0',	'IVA0%',	0.00000000,	'S',	'admin',	'2012-11-13 00:00:00',	'admin',	'2012-11-13 00:00:00'),
+('IVA5',	'IVA5%',	5.00000000,	'S',	'admin',	'2013-01-30 10:00:00',	'',	NULL),
 ('N/A',	'N/A',	0.00000000,	'S',	'admin',	'2012-11-13 00:00:00',	'admin',	'2012-11-13 00:00:00'),
 ('NING',	'NInguno',	0.00000000,	'S',	'admin',	'2012-07-10 16:27:05',	'admin',	'2012-07-10 16:27:05');
 
@@ -2732,7 +3083,7 @@ CREATE TABLE `ingreso_compra_linea` (
   CONSTRAINT `FK_LINEA_PERTENECE_INGRESO_COMPRA` FOREIGN KEY (`INGRESO_COMPRA`) REFERENCES `ingreso_compra` (`INGRESO_COMPRA`),
   CONSTRAINT `FK_SATISFACE_LINEA_OC` FOREIGN KEY (`ORDEN_COMPRA_LINEA`) REFERENCES `orden_compra_linea` (`ORDEN_COMPRA_LINEA`),
   CONSTRAINT `FK_UNIDAD_INGRESO_COMPRA` FOREIGN KEY (`UNIDAD_ORDENADA`) REFERENCES `unidad_medida` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=latin1 COMMENT='Lineas del ingreso de la compra';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Lineas del ingreso de la compra';
 
 INSERT INTO `ingreso_compra_linea` (`INGRESO_COMPRA_LINEA`, `INGRESO_COMPRA`, `LINEA_NUM`, `ORDEN_COMPRA_LINEA`, `ARTICULO`, `BODEGA`, `CANTIDAD_ORDENADA`, `UNIDAD_ORDENADA`, `CANTIDAD_ACEPTADA`, `CANTIDAD_RECHAZADA`, `PRECIO_UNITARIO`, `COSTO_FISCAL_UNITARIO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'IC0000',	1,	4,	'003',	'23',	2.00000000,	3,	2.00000000,	0.00000000,	2.00000000,	0.00000000,	'S',	'admin',	'2012-09-19 09:24:18',	'admin',	'2012-09-19 09:24:18'),
@@ -3018,7 +3369,7 @@ CREATE TABLE `orden_compra_linea` (
   `ARTICULO` varchar(20) NOT NULL,
   `DESCRIPCION` varchar(128) DEFAULT NULL,
   `BODEGA` varchar(4) NOT NULL,
-  `FECHA_REQUERIDA` date NOT NULL,
+  `FECHA_REQUERIDA` date DEFAULT NULL,
   `FACTURA` varchar(20) DEFAULT NULL,
   `CANTIDAD_ORDENADA` decimal(28,8) NOT NULL,
   `UNIDAD_COMPRA` int(11) NOT NULL,
@@ -3045,7 +3396,7 @@ CREATE TABLE `orden_compra_linea` (
   CONSTRAINT `FK_BODEGA_LINEA_ORDEN_COMPRA` FOREIGN KEY (`BODEGA`) REFERENCES `bodega` (`ID`),
   CONSTRAINT `FK_LINEA_PERTENECE_A_ORDEN_COMPRA` FOREIGN KEY (`ORDEN_COMPRA`) REFERENCES `orden_compra` (`ORDEN_COMPRA`),
   CONSTRAINT `FK_UNIDAD_COMPRA_LINEA` FOREIGN KEY (`UNIDAD_COMPRA`) REFERENCES `unidad_medida` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1 COMMENT='Lineas de la orden de compra';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Lineas de la orden de compra';
 
 INSERT INTO `orden_compra_linea` (`ORDEN_COMPRA_LINEA`, `ORDEN_COMPRA`, `LINEA_NUM`, `ARTICULO`, `DESCRIPCION`, `BODEGA`, `FECHA_REQUERIDA`, `FACTURA`, `CANTIDAD_ORDENADA`, `UNIDAD_COMPRA`, `PRECIO_UNITARIO`, `PORC_DESCUENTO`, `MONTO_DESCUENTO`, `PORC_IMPUESTO`, `VALOR_IMPUESTO`, `CANTIDAD_RECIBIDA`, `CANTIDAD_RECHAZADA`, `FECHA`, `OBSERVACION`, `ESTADO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'OC0000',	1,	'001',	'Articulo de ejemplo ',	'1',	'2012-10-31',	'',	10.00000000,	4,	10.00000000,	10.00000000,	1.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'2012-10-24',	'45',	'R',	'admin',	'2012-10-01 16:18:05',	'admin',	'2012-10-05 15:14:59'),
@@ -3164,7 +3515,8 @@ INSERT INTO `pedido` (`PEDIDO`, `CONSECUTIVO`, `CLIENTE`, `BODEGA`, `CONDICION_P
 ('PED-000004',	'cp',	'123456',	'23',	'1',	'1',	'2012-12-13',	'0000-00-00',	'0000-00-00',	NULL,	NULL,	'',	'',	'',	'',	'',	'',	'',	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	'N',	'N',	'N',	'admin',	'2012-12-13 15:39:13',	'admin',	'2012-12-13 15:39:13'),
 ('PED-000005',	'cp',	'123456',	'23',	'1',	'1',	'2012-12-21',	'2012-12-12',	'2012-12-15',	'safdsdf',	'2012-12-21',	NULL,	NULL,	NULL,	NULL,	NULL,	'asdad',	'asdad',	1600.00000000,	20.00000000,	20.00000000,	20.00000000,	320.00000000,	0.00000000,	1280.00000000,	'N',	'N',	'N',	'admin',	'2012-12-21 11:09:12',	'admin',	'2012-12-21 11:09:12'),
 ('PED-000006',	'cp',	'123456',	'23',	'1',	'1',	'2012-12-22',	'0000-00-00',	'0000-00-00',	'',	'0000-00-00',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	1600.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	1600.00000000,	'N',	'N',	'N',	'admin',	'2012-12-22 10:11:45',	'admin',	'2012-12-22 10:11:45'),
-('PED-000007',	'cp',	'123456',	'23',	'1',	'1',	'2013-01-04',	'0000-00-00',	'0000-00-00',	'',	'0000-00-00',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	15408.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	15408.00000000,	'N',	'N',	'N',	'admin',	'2012-12-22 10:14:21',	'admin',	'2013-01-04 09:25:08');
+('PED-000007',	'cp',	'123456',	'23',	'1',	'1',	'2013-01-05',	'0000-00-00',	'0000-00-00',	'',	'0000-00-00',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	1040.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	1040.00000000,	'N',	'N',	'N',	'admin',	'2012-12-22 10:14:21',	'admin',	'2013-01-05 09:04:08'),
+('PED-000008',	'cp',	'123456',	'23',	'1',	'1',	'2013-01-12',	'0000-00-00',	'0000-00-00',	'',	'0000-00-00',	NULL,	NULL,	NULL,	NULL,	NULL,	'',	'',	96969696960.00000000,	12.00000000,	12.00000000,	123123.00000000,	0.00000000,	0.00000000,	96969696960.00000000,	'N',	'N',	'N',	'admin',	'2013-01-12 14:16:45',	'admin',	'2013-01-12 14:16:45');
 
 DROP TABLE IF EXISTS `pedido_linea`;
 CREATE TABLE `pedido_linea` (
@@ -3197,7 +3549,7 @@ CREATE TABLE `pedido_linea` (
   CONSTRAINT `FK_LINEA_PEDIDO` FOREIGN KEY (`PEDIDO`) REFERENCES `pedido` (`PEDIDO`),
   CONSTRAINT `FK_UNIDAD_LINEA_PEDIDO` FOREIGN KEY (`UNIDAD`) REFERENCES `unidad_medida` (`ID`),
   CONSTRAINT `pedido_linea_ibfk_1` FOREIGN KEY (`TIPO_PRECIO`) REFERENCES `articulo_precio` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COMMENT='Almacena las lineas de un pedido';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena las lineas de un pedido';
 
 INSERT INTO `pedido_linea` (`ID`, `ARTICULO`, `PEDIDO`, `LINEA`, `UNIDAD`, `CANTIDAD`, `PRECIO_UNITARIO`, `PORC_DESCUENTO`, `MONTO_DESCUENTO`, `PORC_IMPUESTO`, `VALOR_IMPUESTO`, `TIPO_PRECIO`, `TOTAL`, `COMENTARIO`, `ESTADO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (3,	'12',	'PED-000002',	1,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	0.00000000,	'',	'N',	'S',	'admin',	'2012-12-13 15:36:47',	'admin',	'2012-12-13 15:36:47'),
@@ -3205,9 +3557,9 @@ INSERT INTO `pedido_linea` (`ID`, `ARTICULO`, `PEDIDO`, `LINEA`, `UNIDAD`, `CANT
 (5,	'12',	'PED-000004',	1,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	0.00000000,	'',	'N',	'S',	'admin',	'2012-12-13 15:39:13',	'admin',	'2012-12-13 15:39:13'),
 (6,	'12',	'PED-000005',	1,	3,	20.00000000,	80.00000000,	20.00000000,	320.00000000,	0.00000000,	0.00000000,	130,	0.00000000,	'',	'N',	'S',	'admin',	'2012-12-21 11:09:12',	'admin',	'2012-12-21 11:09:12'),
 (7,	'12',	'PED-000006',	1,	3,	20.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	1600.00000000,	'',	'N',	'S',	'admin',	'2012-12-22 10:11:45',	'admin',	'2012-12-22 10:11:45'),
-(8,	'12',	'PED-000007',	1,	3,	12.00000000,	1124.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	132,	13488.00000000,	'',	'N',	'S',	'admin',	'2012-12-22 10:14:21',	'admin',	'2013-01-04 09:25:09'),
-(9,	'12',	'PED-000007',	2,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	960.00000000,	'',	'N',	'S',	'admin',	'2012-12-22 10:14:21',	'admin',	'2013-01-04 09:25:09'),
-(10,	'12',	'PED-000007',	3,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	960.00000000,	'',	'N',	'S',	'admin',	'2012-12-22 10:14:21',	'admin',	'2013-01-04 09:25:09');
+(10,	'12',	'PED-000007',	1,	3,	1.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	80.00000000,	'',	'N',	'S',	'admin',	'2012-12-22 10:14:21',	'admin',	'2013-01-05 09:04:08'),
+(15,	'12',	'PED-000007',	2,	3,	12.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	960.00000000,	'',	'N',	'S',	'admin',	'2013-01-05 08:44:57',	'admin',	'2013-01-05 09:04:08'),
+(16,	'12',	'PED-000008',	1,	3,	1212121212.00000000,	80.00000000,	0.00000000,	0.00000000,	0.00000000,	0.00000000,	130,	96969696960.00000000,	'',	'N',	'S',	'admin',	'2013-01-12 14:16:45',	'admin',	'2013-01-12 14:16:45');
 
 DROP TABLE IF EXISTS `plantilla`;
 CREATE TABLE `plantilla` (
@@ -3219,14 +3571,15 @@ CREATE TABLE `plantilla` (
   PRIMARY KEY (`ID`),
   KEY `SUBMODULO` (`SUBMODULO`),
   CONSTRAINT `plantilla_ibfk_1` FOREIGN KEY (`SUBMODULO`) REFERENCES `submodulo` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `plantilla` (`ID`, `NOMBRE`, `RUTA`, `SUBMODULO`, `ACTIVO`) VALUES
 (1,	'Carta',	'IngresoCompra',	'INCO',	'S'),
 (2,	'Carta',	'SolicitudCompra',	'SOCO',	'S'),
 (3,	'Carta',	'DocInv',	'DOIN',	'S'),
 (4,	'Carta',	'OrdenCompra',	'ORCO',	'S'),
-(5,	'Carta',	'PedidoMC',	'PEDI',	'S');
+(5,	'Carta',	'PedidoMC',	'PEDI',	'S'),
+(6,	'Carta',	'FacturaMC',	'FAAS',	'S');
 
 DROP TABLE IF EXISTS `proveedor`;
 CREATE TABLE `proveedor` (
@@ -3355,9 +3708,14 @@ CREATE TABLE `regimen_tributario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena la informaciòn sobre los diferentes regimenes tribu';
 
 INSERT INTO `regimen_tributario` (`REGIMEN`, `DESCRIPCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('123',	'TEST',	'S',	'admin',	'2012-10-23 11:21:04',	'admin',	'2012-10-23 11:21:04'),
-('658',	'asdad',	'S',	'admin',	'2012-10-23 11:23:38',	'admin',	'2012-10-23 11:23:38'),
-('aksjd',	'asdfaf',	'S',	'admin',	'2012-10-25 10:01:30',	'admin',	'2012-10-25 10:01:30');
+('EENR',	'Entidad estatal no responsable del Iva',	'S',	'admin',	'2013-01-25 11:00:00',	'admin',	'2013-01-25 11:00:00'),
+('EERI',	'Entidad estatal responsable del Iva',	'S',	'admin',	'2013-01-25 11:00:00',	'admin',	'2013-01-25 11:00:00'),
+('GCNR',	'Gran contribuyente no responsable del Iva',	'S',	'admin',	'2013-01-25 11:00:00',	'admin',	'2013-01-25 11:00:00'),
+('GCRI',	'Gran contribuyente responsable de Iva',	'S',	'admin',	'2013-01-25 11:00:00',	'admin',	'2013-01-25 11:00:00'),
+('NORI',	'No responsable del Iva',	'S',	'admin',	'2013-01-25 11:00:00',	'admin',	'2013-01-25 11:00:00'),
+('NRDP',	'No residente o no domiciliado en el país',	'S',	'admin',	'2013-01-25 11:00:00',	'admin',	'2013-01-25 11:00:00'),
+('RECO',	'Régimen común',	'S',	'admin',	'2013-01-25 11:00:00',	'admin',	'2013-01-25 11:00:00'),
+('RESI',	'Régimen simplificado',	'S',	'admin',	'2013-01-25 11:00:00',	'admin',	'2013-01-25 11:00:00');
 
 DROP TABLE IF EXISTS `retencion`;
 CREATE TABLE `retencion` (
@@ -3414,6 +3772,7 @@ CREATE TABLE `solicitud_oc` (
 INSERT INTO `solicitud_oc` (`SOLICITUD_OC`, `DEPARTAMENTO`, `FECHA_SOLICITUD`, `FECHA_REQUERIDA`, `AUTORIZADA_POR`, `FECHA_AUTORIZADA`, `PRIORIDAD`, `LINEAS_NO_ASIG`, `COMENTARIO`, `CANCELADA_POR`, `FECHA_CANCELADA`, `RUBRO1`, `RUBRO2`, `RUBRO3`, `RUBRO4`, `RUBRO5`, `ESTADO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 ('SC0000',	'1',	'2012-07-03',	'2012-07-04',	NULL,	NULL,	'A',	0,	'asd',	'admin',	'2012-07-16 15:37:44',	NULL,	NULL,	NULL,	NULL,	NULL,	'C',	'admin',	'2012-07-03 11:43:36',	'admin',	'2012-07-16 10:37:44'),
 ('SC000000',	'1',	'2012-12-13',	'2012-12-12',	NULL,	NULL,	'A',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'P',	'admin',	'2012-12-05 12:40:30',	'admin',	'2012-12-05 12:40:30'),
+('SC000017',	'1',	'2013-01-16',	'0000-00-00',	'admin',	'2013-01-17 14:49:48',	'A',	0,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'C',	'admin',	'2013-01-16 10:45:31',	'admin',	'2013-01-17 09:50:30'),
 ('SC0001',	'1',	'2012-07-19',	'2012-07-18',	'',	'0000-00-00 00:00:00',	'A',	0,	'asd',	'admin',	'2012-07-16 14:24:46',	NULL,	NULL,	NULL,	NULL,	NULL,	'P',	'admin',	'2012-07-03 15:06:25',	'admin',	'2012-12-04 08:52:40'),
 ('SC0002',	'1',	'2012-07-20',	'2012-07-26',	'admin',	'2012-10-01 15:03:43',	'A',	0,	'asd',	'admin',	'2012-10-01 13:31:39',	NULL,	NULL,	NULL,	NULL,	NULL,	'A',	'admin',	'2012-07-03 15:16:18',	'admin',	'2012-10-01 10:03:43'),
 ('SC0003',	'1',	'2012-07-11',	'2012-07-24',	'',	'0000-00-00 00:00:00',	'A',	0,	'',	'admin',	'2012-07-16 14:37:17',	NULL,	NULL,	NULL,	NULL,	NULL,	'A',	'admin',	'2012-07-03 15:59:55',	'admin',	'2012-07-16 16:59:59'),
@@ -3452,7 +3811,7 @@ CREATE TABLE `solicitud_oc_linea` (
   KEY `FK_SOLICITUD_PERTENECE_LINEA` (`SOLICITUD_OC`),
   CONSTRAINT `FK_ARTICULO_LINEA_SOL` FOREIGN KEY (`ARTICULO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `FK_SOLICITUD_PERTENECE_LINEA` FOREIGN KEY (`SOLICITUD_OC`) REFERENCES `solicitud_oc` (`SOLICITUD_OC`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1 COMMENT='Lineas que conforman una orden de compra.';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Lineas que conforman una orden de compra.';
 
 INSERT INTO `solicitud_oc_linea` (`SOLICITUD_OC_LINEA`, `SOLICITUD_OC`, `LINEA_NUM`, `ARTICULO`, `DESCRIPCION`, `CANTIDAD`, `UNIDAD`, `SALDO`, `COMENTARIO`, `FECHA_REQUERIDA`, `ESTADO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'SC0002',	1,	'001',	'Articulo de ejemplo ',	12.00000000,	3,	0.00000000,	'asd',	'2012-07-03',	'A',	'admin',	'2012-07-03 15:16:18',	'admin',	'2012-10-02 15:42:16'),
@@ -3480,7 +3839,11 @@ INSERT INTO `solicitud_oc_linea` (`SOLICITUD_OC_LINEA`, `SOLICITUD_OC`, `LINEA_N
 (30,	'SC0014',	3,	'002',	'fsdf',	20.00000000,	1,	0.00000000,	'fghdfgh',	'2012-09-29',	'A',	'admin',	'2012-09-07 15:22:18',	'admin',	'2012-10-02 15:45:32'),
 (31,	'SC0014',	4,	'001',	'Articulo de ejemplo ',	20.00000000,	3,	0.00000000,	'',	'2012-09-29',	'A',	'admin',	'2012-09-07 15:23:18',	'admin',	'2012-10-02 15:45:32'),
 (32,	'SC0015',	1,	'10',	'pimienta',	10.00000000,	3,	0.00000000,	'',	'2012-11-27',	'A',	'admin',	'2012-11-27 14:47:37',	'admin',	'2012-11-27 14:54:53'),
-(33,	'SC0015',	2,	'400',	'tamal',	850.00000000,	4,	0.00000000,	'',	'2012-11-28',	'A',	'admin',	'2012-11-27 14:47:38',	'admin',	'2012-11-27 14:54:54');
+(33,	'SC0015',	2,	'400',	'tamal',	850.00000000,	4,	0.00000000,	'',	'2012-11-28',	'A',	'admin',	'2012-11-27 14:47:38',	'admin',	'2012-11-27 14:54:54'),
+(35,	'SC000017',	1,	'12',	'huevo',	200.00000000,	3,	0.00000000,	'',	'2013-01-30',	'N',	'admin',	'2013-01-16 10:45:32',	'admin',	'2013-01-17 09:50:30'),
+(38,	'SC000017',	2,	'12',	'huevo',	12.00000000,	3,	0.00000000,	'',	'2013-01-26',	'N',	'admin',	'2013-01-17 09:04:58',	'admin',	'2013-01-17 09:50:30'),
+(39,	'SC000017',	3,	'12',	'huevo',	12.00000000,	3,	0.00000000,	'',	'2013-01-18',	'N',	'admin',	'2013-01-17 09:47:59',	'admin',	'2013-01-17 09:50:30'),
+(40,	'SC000017',	4,	'12',	'huevo',	1.00000000,	3,	0.00000000,	'',	'2013-01-18',	'N',	'admin',	'2013-01-17 09:47:59',	'admin',	'2013-01-17 09:50:30');
 
 DROP TABLE IF EXISTS `solicitud_orden_co`;
 CREATE TABLE `solicitud_orden_co` (
@@ -3526,50 +3889,50 @@ CREATE TABLE `submodulo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `submodulo` (`ID`, `NOMBRE`, `MODULO`, `MODELO`, `REPORTE`, `PAPELERA`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
-('ADRE',	'Administración de Reportes',	'ADSI',	'formatoImpresion',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('ARTI',	'Artículos',	'INVE',	'articulo',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('BODE',	'Bodegas',	'ADSI',	'bodega',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('CATE',	'Categorías',	'ADSI',	'categoria',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('CECO',	'Centro de Costos',	'ADSI',	'centroCostos',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('CLAS',	'Clasificaciónes',	'INVE',	'clasificacionAdi',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('CLIE',	'Clientes',	'FACT',	'cliente',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('COCO',	'Configuración de Compras',	'COMP',	'confCo',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('COFA',	'Configuración Facturación',	'FACT',	'confFa',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('COGE',	'Configuración General',	'ADSI',	'confAs',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('COIN',	'Configuración de Inventario',	'INVE',	'confCi',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('CONF',	'Consecutivos',	'FACT',	'consecutivoFa',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('CONI',	'Consecutivos',	'INVE',	'consecutivoCi',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('COPA',	'Condiciones de Pago',	'ADSI',	'codicionPago',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('DAEM',	'Datos Empresa',	'ADSI',	'compania',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('DEPA',	'Departamentos',	'ADSI',	'ubicacionGeografica1',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('DEPE',	'Dependencias',	'ADSI',	'departamento',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('DIFE',	'Días Feriados',	'ADSI',	'diaFeriado',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('DOIN',	'Documentos',	'INVE',	'documentoInv',	'S',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('ENAR',	'Ensambles de artículos',	'FACT',	'articuloEnsamble',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('ENFI',	'Entidades Financieras',	'ADSI',	'entidadFinanciera',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('FAAS',	'Facturas',	'FACT',	'factura',	'S',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('IMPU',	'Impuestos',	'ADSI',	'impuesto',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('INCO',	'Ingreso de Compra',	'COMP',	'ingresoCompra',	'S',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('MEVA',	'Metodos de Valuación',	'INVE',	'metodoValuacionInv',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('MUNI',	'Municipios',	'ADSI',	'ubicacionGeografica2',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('NIPE',	'Nivel de Precios',	'ADSI',	'nivelPrecio',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('NITS',	'Nits',	'ADSI',	'nit',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('ORCO',	'Ordenes de Compra',	'COMP',	'ordenCompra',	'S',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('PAIS',	'Países',	'ADSI',	'pais',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('PAPE',	'Papelera',	'ADSI',	'papelera',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('PEDI',	'Pedidos',	'FACT',	'pedido',	'S',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('PRAR',	'Precios de Articulos',	'FACT',	'articuloPrecio',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('PROV',	'Proveedor',	'COMP',	'proveedor',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('RETE',	'Retenciones',	'ADSI',	'retencion',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('RETR',	'Regimen Tributario',	'ADSI',	'regimenTributario',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('SOCO',	'Solicitud de Compra',	'COMP',	'solicitudOc',	'S',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('TIAR',	'Tipos de Artículos',	'INVE',	'tipoArticulo',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
-('TIDO',	'Tipo Documento',	'ADSI',	'tipoDocumento',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('TITA',	'Tipo Tarjeta',	'ADSI',	'tipoTarjeta',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('TITR',	'Tipos de Transacción',	'INVE',	'tipoTransaccion',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('UNME',	'Unidades de Medida',	'INVE',	'unidadMedida',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('VACL',	'Valores para Clasificaciones ',	'INVE',	'clasificacionAdiValor',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
-('ZONA',	'Zonas',	'ADSI',	'zona',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL);
+('ADRE',	'Administración de Reportes',	'ADSI',	'FormatoImpresion',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('ARTI',	'Artículos',	'INVE',	'Articulo',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('BODE',	'Bodegas',	'ADSI',	'Bodega',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('CATE',	'Categorías',	'ADSI',	'Categoria',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('CECO',	'Centro de Costos',	'ADSI',	'CentroCostos',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('CLAS',	'Clasificaciónes',	'INVE',	'ClasificacionAdi',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('CLIE',	'Clientes',	'FACT',	'Cliente',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('COCO',	'Configuración de Compras',	'COMP',	'ConfCo',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('COFA',	'Configuración Facturación',	'FACT',	'ConfFa',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('COGE',	'Configuración General',	'ADSI',	'ConfAs',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('COIN',	'Configuración de Inventario',	'INVE',	'ConfCi',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('CONF',	'Consecutivos',	'FACT',	'ConsecutivoFa',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('CONI',	'Consecutivos',	'INVE',	'ConsecutivoCi',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('COPA',	'Condiciones de Pago',	'ADSI',	'CodicionPago',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('DAEM',	'Datos Empresa',	'ADSI',	'Compania',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('DEPA',	'Departamentos',	'ADSI',	'UbicacionGeografica1',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('DEPE',	'Dependencias',	'ADSI',	'Departamento',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('DIFE',	'Días Feriados',	'ADSI',	'DiaFeriado',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('DOIN',	'Documentos',	'INVE',	'DocumentoInv',	'S',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('ENAR',	'Ensambles de artículos',	'FACT',	'ArticuloEnsamble',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('ENFI',	'Entidades Financieras',	'ADSI',	'EntidadFinanciera',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('FAAS',	'Facturas',	'FACT',	'Factura',	'S',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('IMPU',	'Impuestos',	'ADSI',	'Impuesto',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('INCO',	'Ingreso de Compra',	'COMP',	'IngresoCompra',	'S',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('MEVA',	'Metodos de Valuación',	'INVE',	'MetodoValuacionInv',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('MUNI',	'Municipios',	'ADSI',	'UbicacionGeografica2',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('NIPE',	'Nivel de Precios',	'ADSI',	'NivelPrecio',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('NITS',	'Nits',	'ADSI',	'Nit',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('ORCO',	'Ordenes de Compra',	'COMP',	'OrdenCompra',	'S',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('PAIS',	'Países',	'ADSI',	'Pais',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('PAPE',	'Papelera',	'ADSI',	'Papelera',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('PEDI',	'Pedidos',	'FACT',	'Pedido',	'S',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('PRAR',	'Precios de Articulos',	'FACT',	'ArticuloPrecio',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('PROV',	'Proveedor',	'COMP',	'Proveedor',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('RETE',	'Retenciones',	'ADSI',	'Retencion',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('RETR',	'Regimen Tributario',	'ADSI',	'RegimenTributario',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('SOCO',	'Solicitud de Compra',	'COMP',	'SolicitudOc',	'S',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('TIAR',	'Tipos de Artículos',	'INVE',	'TipoArticulo',	'N',	'N',	'S',	NULL,	NULL,	NULL,	NULL),
+('TIDO',	'Tipo Documento',	'ADSI',	'TipoDocumento',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('TITA',	'Tipo Tarjeta',	'ADSI',	'TipoTarjeta',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('TITR',	'Tipos de Transacción',	'INVE',	'TipoTransaccion',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('UNME',	'Unidades de Medida',	'INVE',	'UnidadMedida',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('VACL',	'Valores para Clasificaciones ',	'INVE',	'ClasificacionAdiValor',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL),
+('ZONA',	'Zonas',	'ADSI',	'Zona',	'N',	'S',	'S',	NULL,	NULL,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `subtipo_transaccion`;
 CREATE TABLE `subtipo_transaccion` (
@@ -3585,7 +3948,7 @@ CREATE TABLE `subtipo_transaccion` (
   KEY `TIPO_TRANSACCION` (`TIPO_TRANSACCION`),
   CONSTRAINT `fk_tipo_transaccion_del_subtipo` FOREIGN KEY (`TIPO_TRANSACCION`) REFERENCES `tipo_transaccion` (`TIPO_TRANSACCION`),
   CONSTRAINT `subtipo_transaccion_ibfk_1` FOREIGN KEY (`TIPO_TRANSACCION`) REFERENCES `tipo_transaccion` (`TIPO_TRANSACCION`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena los subtipos de transaccion';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena los subtipos de transaccion';
 
 INSERT INTO `subtipo_transaccion` (`ID`, `NOMBRE`, `TIPO_TRANSACCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (5,	'Desperdicio',	'CONS',	'S',	'admin',	'2012-08-08 15:47:34',	'admin',	'2012-11-23 10:46:48'),
@@ -3595,6 +3958,18 @@ INSERT INTO `subtipo_transaccion` (`ID`, `NOMBRE`, `TIPO_TRANSACCION`, `ACTIVO`,
 (11,	'Vencido',	'VENC',	'S',	'admin',	'2012-09-06 17:11:49',	'admin',	'2012-09-06 17:11:49'),
 (12,	'Dañado',	'VENC',	'S',	'admin',	'2012-09-06 17:11:49',	'admin',	'2012-09-06 17:11:49'),
 (13,	'Rechazado',	'VENC',	'S',	'admin',	'2012-09-06 17:11:49',	'admin',	'2012-09-06 17:11:49');
+
+DROP TABLE IF EXISTS `temas`;
+CREATE TABLE `temas` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NOMBRE` varchar(20) NOT NULL,
+  `ACTIVO` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `temas` (`ID`, `NOMBRE`, `ACTIVO`) VALUES
+(1,	'siasoft',	0),
+(2,	'demo',	1);
 
 DROP TABLE IF EXISTS `tipo_academico`;
 CREATE TABLE `tipo_academico` (
@@ -3633,7 +4008,7 @@ CREATE TABLE `tipo_articulo` (
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COMMENT='Tipos de articulo';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tipos de articulo';
 
 INSERT INTO `tipo_articulo` (`ID`, `NOMBRE`, `DESCRIPCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'Terminado',	'artículos que se tienen en inventario y que se encuentran listos para ser embarcados a un cliente de acuerdo a un pedido en una planta de producción.',	'S',	'admin',	'2012-06-04 10:52:07',	'admin',	'2012-06-04 10:52:07'),
@@ -3742,7 +4117,7 @@ CREATE TABLE `tipo_tarjeta` (
   `ACTUALIZADO_POR` varchar(20) NOT NULL,
   `ACTUALIZADO_EL` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='El objetivo de los tipos de tarjeta de crédito es establecer';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='El objetivo de los tipos de tarjeta de crédito es establecer';
 
 INSERT INTO `tipo_tarjeta` (`ID`, `DESCRIPCION`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'dasd',	'S',	'admin',	'2012-05-12 08:43:06',	'admin',	'2012-05-12 08:43:06');
@@ -3794,7 +4169,7 @@ CREATE TABLE `tipo_transaccion_cantidad` (
   KEY `FK_TIPO_TRANSACCION_AFECTA_CANTIDAD` (`TIPO_TRANSACCION`),
   CONSTRAINT `FK_TIPO_CANTIDAD_PARA_TIPO_TRANSACCION` FOREIGN KEY (`CANTIDAD`) REFERENCES `tipo_cantidad_articulo` (`ID`),
   CONSTRAINT `FK_TIPO_TRANSACCION_AFECTA_CANTIDAD` FOREIGN KEY (`TIPO_TRANSACCION`) REFERENCES `tipo_transaccion` (`TIPO_TRANSACCION`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1 COMMENT='Tabla en la que se relaciona las cantidades que pueden ser a';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla en la que se relaciona las cantidades que pueden ser a';
 
 INSERT INTO `tipo_transaccion_cantidad` (`ID`, `TIPO_TRANSACCION`, `CANTIDAD`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (4,	'APRO',	'C',	'S',	'admin',	'2012-08-14 11:55:21',	'admin',	'2012-08-14 11:55:21'),
@@ -3859,9 +4234,11 @@ CREATE TABLE `transaccion_inv` (
   PRIMARY KEY (`TRANSACCION_INV`),
   KEY `CONSECUTIVO_CI` (`CONSECUTIVO_CI`),
   KEY `CONSECUTIVO_CO` (`CONSECUTIVO_CO`),
+  KEY `CONSECUTIVO_FA` (`CONSECUTIVO_FA`),
   CONSTRAINT `transaccion_inv_ibfk_1` FOREIGN KEY (`CONSECUTIVO_CI`) REFERENCES `documento_inv` (`DOCUMENTO_INV`),
-  CONSTRAINT `transaccion_inv_ibfk_2` FOREIGN KEY (`CONSECUTIVO_CO`) REFERENCES `ingreso_compra` (`INGRESO_COMPRA`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COMMENT='Encabezado de los movimientos aplicados al inventario';
+  CONSTRAINT `transaccion_inv_ibfk_2` FOREIGN KEY (`CONSECUTIVO_CO`) REFERENCES `ingreso_compra` (`INGRESO_COMPRA`),
+  CONSTRAINT `transaccion_inv_ibfk_3` FOREIGN KEY (`CONSECUTIVO_FA`) REFERENCES `factura` (`FACTURA`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Encabezado de los movimientos aplicados al inventario';
 
 INSERT INTO `transaccion_inv` (`TRANSACCION_INV`, `CONSECUTIVO_CI`, `CONSECUTIVO_CO`, `CONSECUTIVO_FA`, `MODULO_ORIGEN`, `REFERENCIA`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (2,	'AJV-0001',	NULL,	NULL,	'CI',	'Transacción generada por Documento de Inventario',	'S',	'admin',	'2012-11-27 20:35:29',	'admin',	'2012-11-27 20:35:29'),
@@ -3902,7 +4279,7 @@ CREATE TABLE `transaccion_inv_detalle` (
   CONSTRAINT `FK_UNIDAD_ARTICULO_MOVIMIENTO` FOREIGN KEY (`UNIDAD`) REFERENCES `unidad_medida` (`ID`),
   CONSTRAINT `transaccion_inv_detalle_ibfk_2` FOREIGN KEY (`ARTICULO`) REFERENCES `articulo` (`ARTICULO`),
   CONSTRAINT `transaccion_inv_detalle_ibfk_3` FOREIGN KEY (`TIPO_TRANSACCION_CANTIDAD`) REFERENCES `tipo_cantidad_articulo` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Tabla con el detalle de las transacciones que afectan el inv';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla con el detalle de las transacciones que afectan el inv';
 
 INSERT INTO `transaccion_inv_detalle` (`TRANSACCION_INV_DETALLE`, `TRANSACCION_INV`, `LINEA`, `TIPO_TRANSACCION`, `SUBTIPO`, `TIPO_TRANSACCION_CANTIDAD`, `ARTICULO`, `UNIDAD`, `BODEGA`, `NATURALEZA`, `CANTIDAD`, `COSTO_UNITARIO`, `PRECIO_UNITARIO`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	2,	1,	'ENSA',	NULL,	'D',	'001',	3,	'23',	'E',	4.00000000,	500.00000000,	0.00000000,	'S',	'admin',	'2012-11-27 20:35:29',	'admin',	'2012-11-27 20:35:29'),
@@ -5111,7 +5488,7 @@ CREATE TABLE `unidad_medida` (
   PRIMARY KEY (`ID`),
   KEY `FK_UNIDAD_BASE` (`UNIDAD_BASE`),
   CONSTRAINT `FK_UNIDAD_BASE` FOREIGN KEY (`UNIDAD_BASE`) REFERENCES `unidad_medida` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena las unidades de medida para los articulos';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que almacena las unidades de medida para los articulos';
 
 INSERT INTO `unidad_medida` (`ID`, `NOMBRE`, `ABREVIATURA`, `TIPO`, `BASE`, `UNIDAD_BASE`, `EQUIVALENCIA`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'Unidad',	'UND',	'U',	'S',	1,	1.00000000,	'S',	'admin',	'2013-01-03 18:47:24',	'admin',	'2013-01-03 18:47:24'),
@@ -5120,23 +5497,9 @@ INSERT INTO `unidad_medida` (`ID`, `NOMBRE`, `ABREVIATURA`, `TIPO`, `BASE`, `UNI
 (4,	'Kilogramo',	'Kg',	'P',	'S',	4,	1.00000000,	'S',	'admin',	'2012-06-08 18:00:55',	'admin',	'2012-06-11 17:38:56'),
 (5,	'Servicio',	'SV',	'S',	'S',	5,	1.00000000,	'S',	'admin',	'2013-01-03 18:49:44',	'admin',	'2013-01-03 18:49:44'),
 (6,	'Centimentro',	'Cm',	'L',	'N',	2,	100.00000000,	'S',	'admin',	'2012-06-08 18:00:24',	'admin',	'2013-01-03 19:30:34'),
-(7,	'Gramos',	'Gr',	'P',	'N',	4,	0.00000000,	'S',	'admin',	'2012-06-08 18:01:15',	'admin',	'2012-06-11 17:38:35');
-
-DROP TABLE IF EXISTS `usuarios`;
-CREATE TABLE `usuarios` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `USERNAME` varchar(28) NOT NULL COMMENT 'Nombre de Usuario',
-  `PASS` varchar(256) NOT NULL COMMENT 'Contraseña',
-  `ACTIVO` varchar(1) NOT NULL,
-  `CREADO_POR` varchar(28) NOT NULL,
-  `CREADO_EL` datetime NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `USERNAME` (`USERNAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
-INSERT INTO `usuarios` (`ID`, `USERNAME`, `PASS`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`) VALUES
-(1,	'admin',	'21232f297a57a5a743894a0e4a801fc3',	'S',	'admin',	'2012-05-21 00:08:31'),
-(2,	'demo',	'fe01ce2a7fbac8fafaed7c982a04e229',	'S',	'admin',	'2012-05-21 00:25:03');
+(7,	'Gramos',	'Gr',	'P',	'N',	4,	0.00000000,	'S',	'admin',	'2012-06-08 18:01:15',	'admin',	'2012-06-11 17:38:35'),
+(8,	'No Aplica',	'N/A',	'V',	'S',	8,	0.00000000,	'S',	'admin',	'2013-01-25 10:29:01',	'admin',	'2013-01-25 10:29:01'),
+(9,	'No Aplica',	'N/A',	'P',	'S',	9,	0.00000000,	'S',	'admin',	'2013-01-25 10:29:18',	'admin',	'2013-01-25 10:29:18');
 
 DROP TABLE IF EXISTS `zona`;
 CREATE TABLE `zona` (
@@ -5151,10 +5514,10 @@ CREATE TABLE `zona` (
   PRIMARY KEY (`ID`),
   KEY `FK_PAIS_DE_LA_ZONA` (`PAIS`),
   CONSTRAINT `FK_PAIS_DE_LA_ZONA` FOREIGN KEY (`PAIS`) REFERENCES `pais` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='El propósito de la tabla de datos de Zonas, es segmentar o d';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='El propósito de la tabla de datos de Zonas, es segmentar o d';
 
 INSERT INTO `zona` (`ID`, `PAIS`, `NOMBRE`, `ACTIVO`, `CREADO_POR`, `CREADO_EL`, `ACTUALIZADO_POR`, `ACTUALIZADO_EL`) VALUES
 (1,	'COL',	'Centro',	'S',	'admin',	'2012-11-01 09:56:03',	'admin',	'2012-11-01 09:56:03'),
 (2,	'COL',	'Sur',	'S',	'admin',	'2012-11-01 09:56:19',	'admin',	'2012-11-01 09:56:19');
 
--- 2013-01-04 10:44:23
+-- 2013-02-07 08:52:02
