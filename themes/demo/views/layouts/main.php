@@ -28,9 +28,6 @@
 
             <table width="960" align="center" cellpadding="0" cellspacing="0">
                 <tr>
-                    <td id="cabecera_sup" height="57">&nbsp;</td>
-                </tr>
-                <tr>
                     <td id="cabecera" height="56">&nbsp;</td>
                 </tr>
             </table><!-- header -->
