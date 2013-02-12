@@ -1,15 +1,5 @@
-<script language="JavaScript">
-    function disableKeyPress(e){
-          var key;      
-          if(window.event)
-               key = window.event.keyCode; //IE
-          else
-               key = e.which; //firefox      
-          return (key != 13);
-     }
- </script>
 <?php $this->beginContent('//layouts/main'); ?>
-<div id="content" OnKeyPress="return disableKeyPress(event)">
+<div id="content">
 <table width="80%" border="0" cellspacing="0" cellpadding="0">
   <tr>
 	<td height="40" class="form_superior">&nbsp;</td>
@@ -18,7 +8,7 @@
   </tr>
   <tr>
     <td class="form_medio">&nbsp;</td>
-    <td class="form_medio"><?php echo $content; ?></td>
+    <td class="form_medio"><div style="width:870px;"><?php echo $content; ?></div></td>
     <td class="form_medio">&nbsp;</td>
   </tr>
   <tr>

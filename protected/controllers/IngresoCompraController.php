@@ -122,7 +122,7 @@ class IngresoCompraController extends Controller
             }
              echo CJSON::encode($res);
         }
-        
+             
         public function actionformatoPDF() {
 
             $id = $_GET['id'];
@@ -288,6 +288,7 @@ class IngresoCompraController extends Controller
 	}
 
 	/**
+        
 	 * Manages all models.
 	 */
 	public function actionAdmin()
@@ -341,6 +342,7 @@ class IngresoCompraController extends Controller
             $succes = '';
             $error = '';
             $warning = '';
+            
             foreach($check as $id){                
                 $ingreso = IngresoCompra::model()->findByPk($id);                
                 
@@ -358,6 +360,7 @@ class IngresoCompraController extends Controller
                             foreach($lineas as $datos){
                                 $articulo = Articulo::model()->findByPk($datos->ARTICULO);
                                 $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos->ARTICULO,'BODEGA'=>$datos->BODEGA));
+                                //$cantidad = $this->darCantidad($existenciaBodega, $datos->CANTIDAD_ACEPTADA, $datos->UNIDAD_ORDENADA);
 
                                 if($existenciaBodega){
                                         /*$existenciaBodega->CANT_DISPONIBLE = $existenciaBodega->CANT_DISPONIBLE + $datos->CANTIDAD_ACEPTADA;                                        
@@ -430,7 +433,9 @@ class IngresoCompraController extends Controller
             $transaccion->save();
             
             foreach($lineas as $datos){  
-                //Transaccion Inv Detalle
+                //Transaccion Inv Detalle                
+               // $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos->ARTICULO,'BODEGA'=>$datos->BODEGA));
+                //$cantidad = $this->darCantidad($existenciaBodega, $datos->CANTIDAD_ACEPTADA, $datos->UNIDAD_ORDENADA);
                 $detalle = new TransaccionInvDetalle;
                 $detalle->TRANSACCION_INV = $transaccion->TRANSACCION_INV;
                 $detalle->LINEA = $datos->LINEA_NUM;

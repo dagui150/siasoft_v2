@@ -15,7 +15,7 @@ class OrdenCompraController extends Controller
             return array(
                 array('CrugeAccessControlFilter'),
             );
-        }
+        }	
 
         public function actionCargarProveedor() {
             
@@ -206,9 +206,7 @@ class OrdenCompraController extends Controller
                         $contWarning+=1;
                         $warning.= $cancela.',';
                         break;
-                 }
-                 
-                       
+                 }     
             $mensajeSucces = MensajeSistema::model()->findByPk('S001');
             $mensajeError = MensajeSistema::model()->findByPk('E001');
             $mensajeWarning = MensajeSistema::model()->findByPk('A001');
@@ -279,9 +277,7 @@ class OrdenCompraController extends Controller
                         $contWarning+=1;
                         $warning.= $autoriza.',';
                         break;
-                 }
-                 
-                       
+                 }     
             $mensajeSucces = MensajeSistema::model()->findByPk('S001');
             $mensajeError = MensajeSistema::model()->findByPk('E001');
             $mensajeWarning = MensajeSistema::model()->findByPk('A001');
@@ -478,7 +474,7 @@ class OrdenCompraController extends Controller
                                     $salvar = new OrdenCompraLinea;
                                     $salvar->ORDEN_COMPRA = $_POST['OrdenCompra']['ORDEN_COMPRA'];
                                     $salvar->ARTICULO = $datos['ARTICULO'];
-                                    $salvar->LINEA_NUM = $datos['LINEA_NUM'];
+                                    $salvar->LINEA_NUM = $i;
                                     $salvar->DESCRIPCION = $datos['DESCRIPCION'];
                                     $salvar->BODEGA = $datos['BODEGA'];
                                     $salvar->FECHA_REQUERIDA = $datos['FECHA_REQUERIDA'];
@@ -492,6 +488,7 @@ class OrdenCompraController extends Controller
                                     $salvar->VALOR_IMPUESTO = Controller::unformat($datos['VALOR_IMPUESTO']);
                                     $salvar->CANTIDAD_RECIBIDA = Controller::unformat($datos['CANTIDAD_RECIBIDA']);
                                     $salvar->CANTIDAD_RECHAZADA = Controller::unformat($datos['CANTIDAD_RECHAZADA']);
+                                    $salvar->IMPORTE = Controller::unformat($datos['IMPORTE']);
                                     $salvar->FECHA = $datos['FECHA'];
                                     $salvar->OBSERVACION = $datos['OBSERVACION'];
                                     $salvar->ESTADO = $datos['ESTADO'];
@@ -509,13 +506,14 @@ class OrdenCompraController extends Controller
                                         $relacion->ACTIVO = 'S';
                                         $relacion->save();
                                         $solicitud = SolicitudOcLinea::model()->find('SOLICITUD_OC_LINEA = "'.$datos['ID_SOLICITUD_LINEA'].'"');
-                                        $solicitud->SALDO = $datos['RESTA_CANT'] - $datos['CANTIDAD_ORDENADA'];
+                                        $solicitud->SALDO = $solicitud->CANTIDAD - $datos['CANTIDAD_ORDENADA'];
                                         if($solicitud->SALDO == 0){                                            
                                             $solicitud->ESTADO = 'A';
                                         }
                                         $solicitud->save();
                                         SolicitudOcLinea::model()->cambiaAsignar($datos['SOLICITUD']);
-                                    }                                       
+                                    }   
+                                    $i++;
                                 }
                             }
 				//$this->redirect(array('admin'));
@@ -547,13 +545,14 @@ class OrdenCompraController extends Controller
 	{
 		$model=$this->loadModel($id);
                 $linea = new OrdenCompraLinea;
-                $linea2 = new OrdenCompraLinea2;
                 $config = ConfCo::model()->find();
                 $articulo = new Articulo;
                 $proveedor = new Proveedor;
-                $solicitudLinea = new SolicitudOcLinea3;
+                $solicitudLinea = new SolicitudOcLinea;
                 $items = $linea->model()->findAll('ORDEN_COMPRA = "'.$id.'"');
                 $i = 1;
+                $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
+                $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
 
@@ -589,26 +588,12 @@ class OrdenCompraController extends Controller
                                     $salvar2->VALOR_IMPUESTO = Controller::unformat($datos2['VALOR_IMPUESTO']);
                                     $salvar2->CANTIDAD_RECIBIDA = Controller::unformat($datos2['CANTIDAD_RECIBIDA']);
                                     $salvar2->CANTIDAD_RECHAZADA = Controller::unformat($datos2['CANTIDAD_RECHAZADA']);
+                                    $salvar2->IMPORTE = Controller::unformat($datos2['IMPORTE']);
                                     $salvar2->FECHA = $datos2['FECHA'];
                                     $salvar2->OBSERVACION = $datos2['OBSERVACION'];
                                     $salvar2->ESTADO = $datos2['ESTADO'];
                                     $salvar2->save();
                                     $i++;
-                                    
-                                    if($datos2['SOLICITUD'] != ''){
-                                        $relacion = new SolicitudOrdenCo;
-                                        $relacion->SOLICITUD_OC = $datos2['SOLICITUD'];
-                                        $relacion->SOLICITUD_OC_LINEA = $datos2['ID_SOLICITUD_LINEA'];
-                                        $relacion->ORDEN_COMPRA = $_POST['OrdenCompra']['ORDEN_COMPRA'];
-                                        $relacion->ORDEN_COMPRA_LINEA = OrdenCompraLinea::model()->count();
-                                        $relacion->DECIMA = $datos2['CANTIDAD_ORDENADA'];
-                                        $relacion->ACTIVO = 'S';
-                                        $relacion->save();
-                                        $solicitud = SolicitudOcLinea::model()->find('SOLICITUD_OC_LINEA = "'.$datos2['ID_SOLICITUD_LINEA'].'"');
-                                        $solicitud->SALDO = $datos2['RESTA_CANT'] - $datos2['CANTIDAD_ORDENADA'];
-                                        $solicitud->save();
-                                    }
-                                       
                                 }
                             }
                             
@@ -632,11 +617,32 @@ class OrdenCompraController extends Controller
                                     $salvar->VALOR_IMPUESTO = $datos['VALOR_IMPUESTO'];
                                     $salvar->CANTIDAD_RECIBIDA = $datos['CANTIDAD_RECIBIDA'];
                                     $salvar->CANTIDAD_RECHAZADA = $datos['CANTIDAD_RECHAZADA'];
+                                    $salvar->IMPORTE = $datos['IMPORTE'];
                                     $salvar->FECHA = $datos['FECHA'];
                                     $salvar->OBSERVACION = $datos['OBSERVACION'];
                                     $salvar->ESTADO = $datos['ESTADO'];
                                     $salvar->save();
                                     $i++;
+                                    
+                                    if($datos['SOLICITUD'] != ''){
+                                        $relacion = new SolicitudOrdenCo;
+                                        $relacion->SOLICITUD_OC = $datos2['SOLICITUD'];
+                                        $relacion->SOLICITUD_OC_LINEA = $datos2['ID_SOLICITUD_LINEA'];
+                                        $relacion->ORDEN_COMPRA = $_POST['OrdenCompra']['ORDEN_COMPRA'];
+                                        $relacion->ORDEN_COMPRA_LINEA = OrdenCompraLinea::model()->count();
+                                        $relacion->DECIMA = $datos2['CANTIDAD_ORDENADA'];
+                                        $relacion->ACTIVO = 'S';
+                                        $relacion->save();
+                                        $solicitud = SolicitudOcLinea::model()->find('SOLICITUD_OC_LINEA = "'.$datos2['ID_SOLICITUD_LINEA'].'"');
+                                        $solicitud->SALDO = $datos2['RESTA_CANT'] - $datos2['CANTIDAD_ORDENADA'];
+                                        $solicitud->save();
+                                    }
+                                }
+                            }
+                            if($_POST['eliminar'] != ''){
+                                $eliminar = explode(",", $_POST['eliminar']);
+                                foreach($eliminar as $elimina){                                
+                                        $borra = OrdenCompraLinea::model()->deleteByPk($elimina);                                
                                 }
                             }
                             	//$this->redirect(array('admin'));
@@ -647,15 +653,56 @@ class OrdenCompraController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
                         'linea'=>$linea,
-                        'linea2'=>$linea2,
                         'config'=>$config,
                         'articulo'=>$articulo,
                         'proveedor'=>$proveedor,
                         'solicitudLinea'=>$solicitudLinea,
                         'items'=>$items,
+                        'ruta'=>$ruta,
+                        'ruta2'=>$ruta2,
 		));
 	}
    
+        public function actionAgregarlinea(){
+            $linea = new OrdenCompraLinea;
+            $linea->attributes = $_POST['OrdenCompraLinea'];
+            $linea->FECHA_REQUERIDA = $_POST['OrdenCompraLinea']['FECHA_REQUERIDA'];
+            $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';            
+            
+            if($linea->validate()){
+                     echo '<div id="alert" class="alert alert-success" data-dismiss="modal">
+                            <h2 align="center">Operacion Satisfactoria</h2>
+                            </div>
+                     <span id="form-cargado" style="display:none">';
+                          $this->renderPartial('modal', 
+                            array(
+                                'linea'=>$linea,
+                                'ruta'=>$ruta,
+                                'Pactualiza'=>isset($_POST['ACTUALIZA']) ? $_POST['ACTUALIZA'] : 0,
+                            )
+                        );
+                     echo '</span>
+                         
+                         <div id="boton-cargado" class="modal-footer">';
+                            $this->widget('bootstrap.widgets.TbButton', array(
+                                 'buttonType'=>'button',
+                                 'type'=>'normal',
+                                 'label'=>'Aceptar',
+                                 'icon'=>'ok',
+                                 'htmlOptions'=>array('id'=>'nuevo','onclick'=>'agregar("'.$_POST['SPAN'].'")')
+                              ));
+                     echo '</div>';                   
+                     Yii::app()->end();
+                    }else{
+                    $this->renderPartial('modal', 
+                        array(
+                            'linea'=>$linea,
+                            'ruta'=>$ruta,                            
+                        )
+                    );
+                    Yii::app()->end();
+                }
+        }
 	/**
 	 * Manages all models.
 	 */

@@ -34,8 +34,25 @@ function cargaProveedorGrilla (grid_id){
 }
 
 $(document).ready(function(){
+    if($('#readonly').val() == 'true'){
+        $('#oculta-cancela').hide('fast');
+        $('#alert-cancela').show('fast');
+    }
+    $(function() {                    
+            $( "#OrdenCompraLinea_FECHA_REQUERIDA" ).datepicker({dateFormat: 'yy-mm-dd'});
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+        });
+    calcularTotal(false);
+    $('.calcular').live('change',function(){
+       calcularTotal('Nuevo'); 
+    });
     $('.edit').live('click',function(){
         $('#SPAN').val('');
+        $('#NAME').val($(this).attr('name'));
+        actualiza();
+    });
+    $('.editU').live('click',function(){
+        $('#SPAN').val('U');
         $('#NAME').val($(this).attr('name'));
         actualiza();
     });
@@ -59,8 +76,8 @@ $(document).ready(function(){
 });
 </script>
 <?php
-    ($model->ESTADO != 'C' && $model->ESTADO != 'E') ? $readonly = false : $readonly = true;
-    echo CHtml::hiddenField('readonly', ($model->ESTADO != 'C' && $model->ESTADO != 'E') ? 'false' : 'true');
+    ($model->ESTADO != 'C' && $model->ESTADO != 'E' && $model->ESTADO != 'A') ? $readonly = false : $readonly = true;
+    echo CHtml::hiddenField('readonly', ($model->ESTADO != 'C' && $model->ESTADO != 'E' && $model->ESTADO != 'A') ? 'false' : 'true');
 ?>
 <div class="form">
 
@@ -98,7 +115,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>date("Y-m-d"), 'disabled'=>$readonly),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA, 'disabled'=>$readonly),  
             ), true); 
             
             $fecha2 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -115,7 +132,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'disabled'=>$readonly),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_COTIZACION, 'disabled'=>$readonly),  
             ), true); 
             
             $fecha3 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -132,7 +149,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'disabled'=>$readonly),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_OFRECIDA, 'disabled'=>$readonly),  
             ), true); 
             
             $fecha4 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -149,7 +166,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'disabled'=>$readonly),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_REQUERIDA, 'disabled'=>$readonly),  
             ), true); 
             
             $fecha5 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -166,7 +183,7 @@ $(document).ready(function(){
 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
 			'buttonImageOnly'=>true,
 		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'disabled'=>$readonly),  
+            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top','value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_REQ_EMBARQUE, 'disabled'=>$readonly),  
             ), true); 
         ?>
     
@@ -218,15 +235,6 @@ $(document).ready(function(){
              $rubros='Para usar esta opcion debes habilitarla en configuracion';
          }
         ?>
-    
-    <?php
-        if ($config->IMP1_AFECTA_DESCTO == 'A'){
-            $porcentaje = $form->textFieldRow($model,'PORC_DESCUENTO',array('size'=>6,'maxlength'=>28, 'readonly'=>$readonly, 'class'=>'ambos', 'onFocus'=> "if (this.value=='0') this.value='';"));
-        }
-        else{
-            $porcentaje = $form->textFieldRow($model,'PORC_DESCUENTO',array('size'=>6,'maxlength'=>28, 'class'=>'calculoMonto', 'readonly'=>$readonly, 'onFocus'=> "if (this.value=='0') this.value='';"));
-        }
-    ?>
     <?php       
             //Consecutivo
             if($model->ORDEN_COMPRA == ''){
@@ -251,11 +259,14 @@ $(document).ready(function(){
     ?>
 
 	<?php echo $form->errorSummary($model); ?>
+    <div id="alert-cancela" class="alert alert-warning" style="display: none">
+        <img src="<?php echo Yii::app()->baseUrl.'/images/warning.png'; ?>" style="margin-right: 20px;" />No se puede actualizar una orden en estado cancelada, autorizada o cerrada.
+    </div>
         <table style="margin-left: -50px;">
             <tr>
                 <td><?php echo $form->textFieldRow($model,'ORDEN_COMPRA',array('size'=>10,'maxlength'=>10, 'readonly' => true, 'value' => $retorna)); ?></td>
                 <td width="10%"><?php echo $form->textFieldRow($model,'PROVEEDOR',array('size'=>20,'maxlength'=>20, 'class'=>'escritoProv', 'readonly'=>$readonly)); ?></td>
-                <td width="25%"><?php echo CHtml::textField('ProvNombre2','', array('readonly' => true));  echo '<span style="margin-left: 2px;margin-top:-5px;">'.$this->darBotonBuscar('#proveedor',true).'<span>'; ?></td>
+                <td width="25%"><?php echo CHtml::textField('ProvNombre2','', array('readonly' => true));  echo '<span style="margin-left: 2px;margin-top:-5px;">'.$this->darBotonBuscar('#proveedor',true, array('disabled'=>$readonly)).'<span>'; ?></td>
             </tr>
         </table>
    
@@ -269,8 +280,8 @@ $(document).ready(function(){
                     <td>'.$estado.'</td>
                 </tr>
                 <tr>
-                    <td>'.$form->dropDownListRow($model,'BODEGA',CHtml::listData(Bodega::model()->findAll(array('select'=>'t.ID, t.DESCRIPCION','join'=>'LEFT JOIN conf_co fv on fv.BODEGA_DEFAULT = t.ID','order'=>'fv.BODEGA_DEFAULT desc')),'ID','DESCRIPCION')).'</td>
-                    <td>'.$form->dropDownListRow($model,'DEPARTAMENTO',CHtml::listData(Departamento::model()->findAll(),'ID','DESCRIPCION'),array('empty'=>'Seleccione...')).'</td>
+                    <td>'.$form->dropDownListRow($model,'BODEGA',CHtml::listData(Bodega::model()->findAll(array('select'=>'t.ID, t.DESCRIPCION','join'=>'LEFT JOIN conf_co fv on fv.BODEGA_DEFAULT = t.ID','order'=>'fv.BODEGA_DEFAULT desc')),'ID','DESCRIPCION'), array('disabled'=>$readonly)).'</td>
+                    <td>'.$form->dropDownListRow($model,'DEPARTAMENTO',CHtml::listData(Departamento::model()->findAll(),'ID','DESCRIPCION'),array('empty'=>'Seleccione...', 'disabled'=>$readonly)).'</td>
                 </tr>
             </table></fieldset><p>&nbsp;</p>
             <fieldset><table width="100%">
@@ -283,7 +294,7 @@ $(document).ready(function(){
                     <td align="right"><label class="control-label">Fecha Ofrecida:</label> <div class="controls">'.$fecha3.'</div></div></td>
                 </tr>
                 <tr>
-                    <td colspan="2">'.$form->dropDownListRow($model,'PRIORIDAD',array('A'=>'Alta','M'=>'Media','B'=>'Baja')).'</td>
+                    <td colspan="2">'.$form->dropDownListRow($model,'PRIORIDAD',array('A'=>'Alta','M'=>'Media','B'=>'Baja'), array('disabled'=>$readonly)).'</td>
                 </tr>
             </table></fieldset>', 'active'=>true),
         
@@ -295,7 +306,7 @@ $(document).ready(function(){
             '<div class="control-group  validating"><label class="control-label">E-mail: </label><div class="controls">'.CHtml::textField('ProvMail','', array('readonly' => true)).'</div></div>'.
             '<div class="control-group  validating"><label class="control-label">Contacto: </label><div class="controls">'.CHtml::textField('ProvContacto','', array('readonly' => true)).'</div></div>'.
             '<div class="control-group  validating"><label class="control-label">Telefono: </label><div class="controls">'.CHtml::textField('ProvTelefono','', array('readonly' => true)).'</div></div>'.
-            $form->dropDownListRow($model,'CONDICION_PAGO',CHtml::listData(CodicionPago::model()->findAll(),'ID','DESCRIPCION'),array('empty'=>'Seleccione...'))
+            $form->dropDownListRow($model,'CONDICION_PAGO',CHtml::listData(CodicionPago::model()->findAll(),'ID','DESCRIPCION'),array('empty'=>'Seleccione...', 'disabled'=>$readonly))
             .'</fieldset>'),
         
         array('label'=>'Dirección', 'content'=>
@@ -308,44 +319,44 @@ $(document).ready(function(){
         
         array('label'=>'Textos', 'content'=>
             '<fieldset>'.
-            $form->textFieldRow($model,'COMENTARIO_CXP',array('size'=>60,'maxlength'=>250)).
-            $form->textAreaRow($model,'INSTRUCCIONES',array('cols' => '50', 'rows' => '5')).
-            $form->textAreaRow($model,'OBSERVACIONES',array('cols' => '50', 'rows' => '5')).
+            $form->textFieldRow($model,'COMENTARIO_CXP',array('size'=>60,'maxlength'=>250, 'readonly'=>$readonly)).
+            $form->textAreaRow($model,'INSTRUCCIONES',array('cols' => '50', 'rows' => '5', 'readonly'=>$readonly)).
+            $form->textAreaRow($model,'OBSERVACIONES',array('cols' => '50', 'rows' => '5', 'readonly'=>$readonly)).
             '</fieldset>'),
         
         array('label'=>'Montos', 'content'=>
             '<fieldset>'.
             '<table><tr>'.
-                '<td>'.$porcentaje.'</td>
-                <td><div class="control-group  validating"><label class="control-label">Total Mercaderia: </label><div class="controls">'.CHtml::textField('TotalMerc','', array('readonly'=>true)).'</div></div></td>
+                '<td>'.$form->textFieldRow($model,'PORC_DESCUENTO',array('append'=>'%','class'=>'calcular', 'value'=>$model->isNewRecord ? 0 : $model->PORC_DESCUENTO, 'size'=>6,'maxlength'=>28, 'readonly'=>$readonly, 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
+                <td><div class="control-group  validating"><label class="control-label">Total Mercaderia: </label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('TotalMerc','', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr>
             <tr>'.
-                '<td>'.$form->textFieldRow($model,'MONTO_FLETE',array('size'=>6,'maxlength'=>28, 'class'=>'calculoMonto', 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
-                <td><div class="control-group  validating"><label class="control-label">- Descuento: </label><div class="controls">'.CHtml::textField('MenosDescuento','', array('readonly'=>true)).'</div></div></td>
+                '<td>'.$form->textFieldRow($model,'MONTO_FLETE', array('prepend'=>'$','class'=>'calcular decimal', 'size'=>6,'maxlength'=>28, 'value'=>$model->isNewRecord ? 0 : $model->MONTO_FLETE, 'readonly'=>$readonly, 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
+                <td><div class="control-group  validating"><label class="control-label">- Descuento: </label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('MenosDescuento','', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr>
             <tr>
-                <td>'.$form->textFieldRow($model,'MONTO_SEGURO',array('size'=>6,'maxlength'=>28, 'class'=>'calculoMonto', 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
-                <td><div class="control-group  validating"><label class="control-label">+ Imp. de ventas: </label><div class="controls">'.CHtml::textField('ImpVentas','', array('readonly'=>true)).'</div></div></td>
+                <td>'.$form->textFieldRow($model,'MONTO_SEGURO',array('prepend'=>'$','class'=>'calcular decimal', 'size'=>6,'maxlength'=>28, 'value'=>$model->isNewRecord ? 0 : $model->MONTO_SEGURO, 'readonly'=>$readonly, 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
+                <td><div class="control-group  validating"><label class="control-label">+ Imp. de ventas: </label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('ImpVentas','', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr>
             <tr>
-                <td>'.$form->textFieldRow($model,'MONTO_ANTICIPO',array('size'=>6,'maxlength'=>28, 'class'=>'calculoMonto', 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
-                <td><div class="control-group  validating"><label class="control-label">+ Flete: </label><div class="controls">'.CHtml::textField('Flete','', array('readonly'=>true)).'</div></div></td>
+                <td>'.$form->textFieldRow($model, 'MONTO_ANTICIPO',array('prepend'=>'$','class'=>'calcular decimal', 'size'=>6,'maxlength'=>28, 'value'=>$model->isNewRecord ? 0 : $model->MONTO_ANTICIPO, 'readonly'=>$readonly, 'onFocus'=> "if (this.value=='0') this.value='';")).'</td>
+                <td><div class="control-group  validating"><label class="control-label">+ Flete: </label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('Flete','', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr>
             <tr>
-                <td>'.$form->dropDownListRow($model,'TIPO_PRORRATEO_OC',array('CAN'=>'Cantidad','PRE'=>'Precio','PRO'=>'Promedio', 'NIN'=>'Ninguno')).'</td>
-                <td><div class="control-group  validating"><label class="control-label">+ Seguro: </label><div class="controls">'.CHtml::textField('Seguro','', array('readonly'=>true)).'</div></div></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>'.$form->textFieldRow($model,'TOTAL_A_COMPRAR',array('maxlength'=>28, 'readonly' => true)).'</td>
+                <td>'.$form->dropDownListRow($model,'TIPO_PRORRATEO_OC',array('CAN'=>'Cantidad','PRE'=>'Precio','PRO'=>'Promedio', 'NIN'=>'Ninguno'), array('disabled'=>$readonly)).'</td>
+                <td><div class="control-group  validating"><label class="control-label">+ Seguro: </label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('Seguro','', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td><div class="control-group  validating"><label class="control-label">- Anticipo </label><div class="controls">'.CHtml::textField('Anticipo', '', array('readonly'=>true)).'</div></div></td>
+                <td>'.$form->textFieldRow($model,'TOTAL_A_COMPRAR',array('prepend'=>'$','maxlength'=>28, 'readonly' => true)).'</td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td><div class="control-group  validating"><label class="control-label">= Saldo</label><div class="controls">'.CHtml::textField('Saldo', '', array('readonly'=>true)).'</td>
+                <td><div class="control-group  validating"><label class="control-label">- Anticipo </label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('Anticipo', '', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><div class="control-group  validating"><label class="control-label">= Saldo</label><div class="controls"><div class="input-prepend"><span class="add-on">$</span>'.CHtml::textField('Saldo', '', array('readonly'=>true, 'class'=>'decimal')).'</div></div></div></td>
             </tr></table></fieldset>'),
         
         array('label'=>'Auditoria', 'content'=>
@@ -360,7 +371,7 @@ $(document).ready(function(){
 
 	<div align="center">
             <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('solicitudOc/admin'), 'icon' => 'remove'));  ?>
+            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('solicitudOc/admin'), 'icon' => 'remove'));  ?>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -351,7 +351,7 @@ $(document).ready(function(){
                                     <td width="50px">
                                        Saldo
                                     </td>
-                                    <td>
+                                    <td width="80px">
                                         &nbsp;
                                     </td>
                                 </tr>
@@ -399,13 +399,11 @@ $(document).ready(function(){
                                                 </td>
                                                 <td>
                                                     <span style="float: left">
-                                                        <?php $this->darBotonUpdateLinea(array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}')); ?>
-                                                                         'htmlOptions'=>array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}', 'disabled'=>$readonly)
+                                                        <?php $this->darBotonUpdateLinea(array('class'=>'edit','name'=>'{0}','id'=>'edit_{0}', 'disabled'=>$readonly)); ?>
                                                     </span>
                                                     <div id="remover" class="remove">
                                                         <div style="float: left; margin-left: 5px;">
-                                                            <?php $this->darBotonDeleteLinea('',array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}')); ?>
-                                                                         'htmlOptions'=>array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}', 'disabled'=>$readonly)
+                                                            <?php $this->darBotonDeleteLinea('',array('id'=>'eliminaLinea_{0}','class'=>'eliminaLinea','name'=>'{0}', 'disabled'=>$readonly)); ?>
                                                         </div>
                                                     </div>
                                                     <input type="hidden" class="rowIndex" value="{0}" />
@@ -452,12 +450,10 @@ $(document).ready(function(){
                                     </td>
                                                 <td>
                                                     <span style="float: left">
-                                                        <?php $this->darBotonUpdateLinea(array('class'=>'editU','name'=>"$i",'id'=>"editU_$i")); ?>
-                                                                 'htmlOptions'=>array('class'=>'editU','name'=>"$i",'id'=>"editU_$i", 'disabled'=>$readonly)
+                                                        <?php $this->darBotonUpdateLinea(array('class'=>'editU','name'=>"$i",'id'=>"editU_$i", 'disabled'=>$readonly)); ?>
                                             </span>
                                            <div class="remove" id ="removerU" style="float: left; margin-left: 5px;">
-                                               <?php $this->darBotonDeleteLinea('',array('id'=>"eliminaLineaU_$i",'class'=>'eliminaLineaU','name'=>"$i")); ?>
-                                                             'htmlOptions'=>array('id'=>"eliminaLineaU_$i",'class'=>'eliminaLineaU','name'=>"$i", 'disabled'=>$readonly)
+                                               <?php $this->darBotonDeleteLinea('',array('id'=>"eliminaLineaU_$i",'class'=>'eliminaLineaU','name'=>"$i", 'disabled'=>$readonly)); ?>
                                            </div>
                                         <?php echo CHtml::hiddenField("rowIndexU_$i", $i, array('class'=>'rowIndexU')); ?>
                                                 </td>

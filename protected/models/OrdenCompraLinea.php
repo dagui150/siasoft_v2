@@ -68,12 +68,12 @@ class OrdenCompraLinea extends CActiveRecord
 			array('ARTICULO, FACTURA, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('DESCRIPCION', 'length', 'max'=>128),
 			array('BODEGA', 'length', 'max'=>4),
-			array('CANTIDAD_ORDENADA, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, VALOR_IMPUESTO, CANTIDAD_RECIBIDA, CANTIDAD_RECHAZADA', 'length', 'max'=>28),
+			array('CANTIDAD_ORDENADA, PRECIO_UNITARIO, PORC_DESCUENTO, PORC_IMPUESTO, MONTO_DESCUENTO, VALOR_IMPUESTO, CANTIDAD_RECIBIDA, CANTIDAD_RECHAZADA', 'length', 'max'=>28),
 			array('ESTADO', 'length', 'max'=>1),
 			array('OBSERVACION', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('ORDEN_COMPRA_LINEA, ORDEN_COMPRA, LINEA_NUM, ARTICULO, DESCRIPCION, BODEGA, FECHA_REQUERIDA, FACTURA, CANTIDAD_ORDENADA, UNIDAD_COMPRA, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, VALOR_IMPUESTO, CANTIDAD_RECIBIDA, CANTIDAD_RECHAZADA, FECHA, OBSERVACION, ESTADO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
+			array('ORDEN_COMPRA_LINEA, ORDEN_COMPRA, LINEA_NUM, IMPORTE, PORC_IMPUESTO, ARTICULO, DESCRIPCION, BODEGA, FECHA_REQUERIDA, FACTURA, CANTIDAD_ORDENADA, UNIDAD_COMPRA, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, VALOR_IMPUESTO, CANTIDAD_RECIBIDA, CANTIDAD_RECHAZADA, FECHA, OBSERVACION, ESTADO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -115,13 +115,14 @@ class OrdenCompraLinea extends CActiveRecord
 			'VALOR_IMPUESTO' => 'Valor Impuesto',
 			'CANTIDAD_RECIBIDA' => 'Cantidad Recibida',
 			'CANTIDAD_RECHAZADA' => 'Cantidad Rechazada',
+                        'IMPORTE' => 'Importe',
 			'FECHA' => 'Fecha',
 			'OBSERVACION' => 'Observacion',
 			'ESTADO' => 'Estado',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',
 			'ACTUALIZADO_POR' => 'Actualizado Por',
-                        'PORC_IMPUESTO'=>'Porcentaje Impuesto',
+                        'PORC_IMPUESTO'=>'Porc Impuesto',
 			'ACTUALIZADO_EL' => 'Actualizado El',
 		);
 	}
@@ -155,6 +156,7 @@ class OrdenCompraLinea extends CActiveRecord
 		$criteria->compare('CANTIDAD_RECIBIDA',$this->CANTIDAD_RECIBIDA,true);
 		$criteria->compare('CANTIDAD_RECHAZADA',$this->CANTIDAD_RECHAZADA,true);
 		$criteria->compare('FECHA',$this->FECHA,true);
+		$criteria->compare('IMPORTE',$this->IMPORTE,true);                
 		$criteria->compare('OBSERVACION',$this->OBSERVACION,true);
 		$criteria->compare('ESTADO',$this->ESTADO,true);
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
@@ -232,6 +234,7 @@ class OrdenCompraLinea extends CActiveRecord
                                    'MONTO_DESCUENTO'=>'###,##0.'.str_repeat('0',$dec),
                                    'PRECIO_UNITARIO'=>'###,##0.'.str_repeat('0',$dec),
                                    'VALOR_IMPUESTO'=>'###,##0.'.str_repeat('0',$dec),
+                                   'IMPORTE'=>'###,##0.'.str_repeat('0',$dec),
                                    'CANTIDAD_ORDENADA'=>'###,##0.'.str_repeat('0',$dec),
                                    'CANTIDAD_RECIBIDA'=>'###,##0.'.str_repeat('0',$dec),
                                    'CANTIDAD_RECHAZADA'=>'###,##0.'.str_repeat('0',$dec),
