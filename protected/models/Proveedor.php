@@ -219,7 +219,17 @@ class Proveedor extends CActiveRecord
         
         public function behaviors()
 	{
+		$dec=isset($conf->CANTIDAD_DEC)?$conf->CANTIDAD_DEC:0;
+                $decP=isset($conf2->PORCENTAJE_DEC)?$conf2->PORCENTAJE_DEC:0;
 		return array(
+                        'defaults'=>array(
+                            'class'=>'application.components.FormatBehavior',
+                            //'format'=>'db',
+                            'formats'=> array(
+                                   'DESCUENTO'=>'###,##0.'.str_repeat('0',$decP),
+                            ),
+                            //'parseExpression'=> "strtr(\$value,',','.')",
+                        ),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',

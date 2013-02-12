@@ -234,6 +234,7 @@ class OrdenCompraLinea extends CActiveRecord
                                    'MONTO_DESCUENTO'=>'###,##0.'.str_repeat('0',$dec),
                                    'PRECIO_UNITARIO'=>'###,##0.'.str_repeat('0',$dec),
                                    'VALOR_IMPUESTO'=>'###,##0.'.str_repeat('0',$dec),
+                                   'IMPORTE'=>'###,##0.'.str_repeat('0',$dec),
                                    'CANTIDAD_ORDENADA'=>'###,##0.'.str_repeat('0',$dec),
                                    'CANTIDAD_RECIBIDA'=>'###,##0.'.str_repeat('0',$dec),
                                    'CANTIDAD_RECHAZADA'=>'###,##0.'.str_repeat('0',$dec),

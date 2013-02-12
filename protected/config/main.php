@@ -11,7 +11,7 @@ return array(
 	'name'=>'Siasoft V2',
 	'charset' => 'utf-8',
 	'language' => 'es',                
-	'theme' => 'siasoft',
+	'theme' => 'demo',
 
 	// preloading 'log' component
 	'preload'=>array(

@@ -360,12 +360,12 @@ class IngresoCompraController extends Controller
                             foreach($lineas as $datos){
                                 $articulo = Articulo::model()->findByPk($datos->ARTICULO);
                                 $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos->ARTICULO,'BODEGA'=>$datos->BODEGA));
-                                $cantidad = $this->darCantidad($existenciaBodega, $datos->CANTIDAD_ACEPTADA, $datos->UNIDAD_ORDENADA);
+                                //$cantidad = $this->darCantidad($existenciaBodega, $datos->CANTIDAD_ACEPTADA, $datos->UNIDAD_ORDENADA);
 
                                 if($existenciaBodega){
                                         /*$existenciaBodega->CANT_DISPONIBLE = $existenciaBodega->CANT_DISPONIBLE + $datos->CANTIDAD_ACEPTADA;                                        
                                         $existenciaBodega->save(); //- La cantidad aceptada para el articulo exede a la maxima permitida;     */ 
-                                        $valor = $existenciaBodega->CANT_DISPONIBLE + $cantidad;
+                                        $valor = $existenciaBodega->CANT_DISPONIBLE + $datos->CANTIDAD_ACEPTADA;
                                         ExistenciaBodega::model()->updateByPk($existenciaBodega->ID, array('CANT_DISPONIBLE'=>$valor));
                                 }else{                                
                                     $existenciaBodega = new ExistenciaBodega;
@@ -433,7 +433,9 @@ class IngresoCompraController extends Controller
             $transaccion->save();
             
             foreach($lineas as $datos){  
-                //Transaccion Inv Detalle
+                //Transaccion Inv Detalle                
+               // $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos->ARTICULO,'BODEGA'=>$datos->BODEGA));
+                //$cantidad = $this->darCantidad($existenciaBodega, $datos->CANTIDAD_ACEPTADA, $datos->UNIDAD_ORDENADA);
                 $detalle = new TransaccionInvDetalle;
                 $detalle->TRANSACCION_INV = $transaccion->TRANSACCION_INV;
                 $detalle->LINEA = $datos->LINEA_NUM;

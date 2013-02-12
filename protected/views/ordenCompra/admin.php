@@ -143,7 +143,7 @@ $this->widget('bootstrap.widgets.TbButton', array(
 	'filter'=>$model,
 	'columns'=>array(
                 array('class'=>'CCheckBoxColumn',
-                      'htmlOptions'=>array('onclick'=>'ocultarMensajes()')),
+                      'htmlOptions'=>array()),
 		'ORDEN_COMPRA',
 		array(
                     'name'=>'PROVEEDOR',
