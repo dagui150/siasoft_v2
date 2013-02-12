@@ -447,42 +447,44 @@ function calcularTotal(model){
             $('#Saldo').val(format(saldo.toString().replace(/\./g,',')));
         }
         
-    if(model2 != false){
+    if(model2 != false){ 
             var contador = $('body').find('.rowIndexU').max();
             var numLinea = parseInt($('#CAMPO_ACTUALIZA').val());
             for(var i = 0 ; i <=contador; i++){
                 //lineas      
-                importe = parseFloat(unformat($('#'+model2+'_'+i+'_IMPORTE').val())); 
-                descuento = parseFloat(unformat($('#'+model2+'_'+i+'_MONTO_DESCUENTO').val().toString().replace(/\./g,',')));
+                importe = parseFloat(unformat($('#'+model2+'_'+i+'_IMPORTE').val()));
+                
                 if($('#afecta').val() == 'A'){
                     var desc_gen = parseFloat(unformat($('#OrdenCompra_PORC_DESCUENTO').val()));
-                    var impuesto = parseFloat(unformat($('#'+model2+'_'+contador+'_PORC_IMPUESTO').val()));
-                    importe = importe - descuento;
+                    var impuesto = parseFloat(unformat($('#'+model2+'_'+contador+'_PORC_IMPUESTO').val()));                    
                     desc_gen = (importe * desc_gen) / 100;
                     impuesto = ((importe - desc_gen) * impuesto) / 100;
-                    
-                    $('#'+model2+'_'+contador+'_VALOR_IMPUESTO').val(impuesto);
-                }                
-                iva =  parseFloat(unformat($('#'+model2+'_'+i+'_VALOR_IMPUESTO').val().toString().replace(/\./g,',')));
+                    $('#'+model2+'_'+contador+'_VALOR_IMPUESTO').val(impuesto); 
+                }
+                
+                   
+                descuento = parseFloat(unformat($('#'+model2+'_'+i+'_MONTO_DESCUENTO').val()));
+                iva =  parseFloat(unformat($('#'+model2+'_'+i+'_VALOR_IMPUESTO').val().toString().replace(/\./g,',')));     
                 total_mercaderia += importe;
-                total_descuento += descuento;
-                total_iva += iva;
-                if(model != false)
-                $('#numeroU_'+i).text(parseInt(i, 10) + 1 + numLinea);
+                alert(descuento);
+                total_descuento += descuento;                
+                total_iva += iva;                
+                $('#numero_'+i).text(parseInt(i, 10) + 1 + numLinea);
             }
             
             //total
-            desc_general = parseFloat(unformat($('#OrdenCompra_PORC_DESCUENTO').val()));
+            desc_general = parseFloat(unformat($('#OrdenCompra_PORC_DESCUENTO').val()));            
             monto_flete = parseFloat(unformat($('#OrdenCompra_MONTO_FLETE').val()));
             monto_seguro = parseFloat(unformat($('#OrdenCompra_MONTO_SEGURO').val()));
-            anticipo = parseFloat(unformat($('#OrdenCompra_MONTO_ANTICIPO').val()));
-            desc_general = total_mercaderia * desc_general / 100;            
+            anticipo = parseFloat(unformat($('#OrdenCompra_MONTO_ANTICIPO').val()));  
+            desc_general = total_mercaderia * desc_general / 100;
             total_descuento += desc_general;
             total_comprar = total_mercaderia - total_descuento + total_iva + monto_flete + monto_seguro;
             saldo = total_comprar - anticipo;
             
-            $('#TotalMerc').val(format(total_mercaderia.toString().replace(/\./g,',')));            
-            $('#MenosDescuento').val(format(total_descuento.toString().replace(/\./g,',')));            
+            
+            $('#TotalMerc').val(format(total_mercaderia.toString().replace(/\./g,',')));
+            $('#MenosDescuento').val(format(total_descuento.toString().replace(/\./g,',')));
             $('#ImpVentas').val(format(total_iva.toString().replace(/\./g,','))); 
             $('#Flete').val(format(monto_flete.toString().replace(/\./g,',')));
             $('#Seguro').val(format(monto_seguro.toString().replace(/\./g,',')));

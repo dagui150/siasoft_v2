@@ -26,7 +26,6 @@
                 function(data){
                     i = a + 1;
                     //span
-                    alert("Hola "+data.CANTIDAD_ORDENADA);
                     $('#articulo_' + a).text(data.ARTICULO + ' - ' + data.DESCRIPCION);
                     $('#unidad_ordenada_' + a).text(data.UNIDAD_ORDENADA + ' - ' + data.UNIDAD_ORDENADA_NOMBRE);
                     $('#bodega_' + a).text(data.BODEGA + ' - ' + data.BODEGA_NOMBRE);
