@@ -15,4 +15,4 @@ $this->menu=array(
 
 <h1>Actualizar OrdenCompra <?php echo $model->ORDEN_COMPRA; ?></h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model, 'linea'=>$linea, 'config'=>$config, 'articulo'=>$articulo, 'proveedor'=>$proveedor, 'solicitudLinea'=>$solicitudLinea, 'items'=>$items, 'linea2'=>$linea2,)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'linea'=>$linea, 'config'=>$config, 'articulo'=>$articulo, 'proveedor'=>$proveedor, 'solicitudLinea'=>$solicitudLinea, 'items'=>$items, 'ruta'=>$ruta, 'ruta2'=>$ruta2)); ?>

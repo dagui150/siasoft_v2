@@ -75,7 +75,8 @@ class Proveedor extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('PROVEEDOR, CATEGORIA, NOMBRE, CONTACTO, CARGO, DIRECCION, FECHA_INGRESO, TELEFONO1, NIT, PAIS, UBICACION_GEOGRAFICA1, CONDICION_PAGO', 'required'),
-			array('CATEGORIA', 'numerical', 'integerOnly'=>true),
+			array('PROVEEDOR', 'DSpacesValidator'),
+                        array('CATEGORIA', 'numerical', 'integerOnly'=>true),
                         array('PROVEEDOR', 'unique', 'attributeName'=>'PROVEEDOR', 'className'=>'Proveedor','allowEmpty'=>false),
 			array('PROVEEDOR, TELEFONO1, TELEFONO2, FAX, NIT, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('NOMBRE, ALIAS', 'length', 'max'=>80),
@@ -218,7 +219,17 @@ class Proveedor extends CActiveRecord
         
         public function behaviors()
 	{
+		$dec=isset($conf->CANTIDAD_DEC)?$conf->CANTIDAD_DEC:0;
+                $decP=isset($conf2->PORCENTAJE_DEC)?$conf2->PORCENTAJE_DEC:0;
 		return array(
+                        'defaults'=>array(
+                            'class'=>'application.components.FormatBehavior',
+                            //'format'=>'db',
+                            'formats'=> array(
+                                   'DESCUENTO'=>'###,##0.'.str_repeat('0',$decP),
+                            ),
+                            //'parseExpression'=> "strtr(\$value,',','.')",
+                        ),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',

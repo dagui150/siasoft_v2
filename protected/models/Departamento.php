@@ -41,6 +41,7 @@ class Departamento extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID, DESCRIPCION', 'required'),
+                        array('ID', 'DSpacesValidator'),
                         array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'Departamento','allowEmpty'=>false),
 			array('ID', 'length', 'max'=>10),
 			array('DESCRIPCION', 'length', 'max'=>64),

@@ -45,6 +45,7 @@ class CodicionPago extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID, DESCRIPCION, DIAS_NETO', 'required'),
+                        array('ID','DSpacesValidator'),
                         array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'CodicionPago','allowEmpty'=>false),
 			array('DIAS_NETO', 'numerical', 'integerOnly'=>true, 'integerPattern' => '/^\s*[-+]?(\d{1,3}\.*)*?\s*$/'),
 			array('ID', 'length', 'max'=>4),

@@ -11,6 +11,19 @@ $(document).ready(function () {
                 )
         });
 });
+
+$(document).ready(function () {
+   $("#Nit_ID").focus(function(){
+                var op = $("#Nit_TIIPO_DOCUMENTO option:selected").val();
+                $.getJSON(
+                    '<?php echo $this->createUrl('nit/Mascara'); ?>&id='+op,
+                    function(data)
+                    {
+                        $("#Nit_ID").mask(data.MASCARA);
+                    }
+                )
+        });
+});
 </script>
 <?php
     $cs=Yii::app()->clientScript;

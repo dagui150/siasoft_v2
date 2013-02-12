@@ -12,16 +12,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/tables.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-        <style>
-            .piePagina{
-
-                color:#999999;
-            }    
-            body{
-                background: white;
-            }
-
-        </style>
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/siasoft/css/FormatosImpresion.css" />
 
 
     </head>
@@ -30,54 +21,42 @@
 
         <div class="container" id="page" >
 
-            <table width="100%">
-                <tr>
-                    <td colspan="2"><table width="100%" align="center">
-                            <tr>
-                                <td width="26%" rowspan="3" align="left" valign="middle"><?php
-                                    $compania = Compania::model()->find();
-                                    if ($compania->LOGO != '') {
-                                        echo CHtml::image(Yii::app()->request->baseUrl . "/logo/" . $compania->LOGO, 'Logo');
-                                    } else {
-                                        echo $compania->NOMBRE;
-                                    }
-                                    ?>
-                                </td>
-                                    <?php $compania = Compania::model()->find(); ?>
-                                <td width="41%" align="center"><?php echo $compania->NOMBRE_ABREV; ?></td>
-                                <td width="33%" rowspan="2" align="right" valign="middle"><strong>Número</strong></td>
-                            </tr>
-                            <tr>
-                                <td align="center"><?php echo '<b>Nit:</b> ' . $compania->NIT; ?></td>
-                            </tr>
-                            <tr>
-                                <td height="23" align="center"><?php echo '<b>Tels:</b> ' . $compania->TELEFONO1 . '-' . $compania->TELEFONO2; ?></td>
-                                <td width="33%" align="right" valign="middle"><?php echo $this->ingreso->INGRESO_COMPRA; ?></td>
-                            </tr>
-                        </table></td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center" valign="middle"><p>&nbsp;</p>
-                        <p class="asd"><strong>Ingreso de Compra</strong></p>
-                        <p>&nbsp;</p></td>
-                </tr>
-                <tr>
-                    <td><strong>Fecha Ingreso: </strong> <?php echo $this->ingreso->FECHA_INGRESO; ?></td>
-                    <td><strong>Estado: </strong><?php echo IngresoCompra::model()->estado($this->ingreso->ESTADO); ?></td>
-                </tr>
-                <tr>
-                    <td><strong>Proveedor: </strong><?php echo $this->ingreso->pROVEEDOR->NOMBRE; ?></td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center" valign="middle"><p>&nbsp;</p>      <p><?php echo $content; ?></p>
-                        <p>&nbsp;</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2"><strong>Notas:</strong><?php echo $this->ingreso->NOTAS; ?></td>
-                </tr>
-            </table>
+            <?php
+            $arr = explode("-", $this->ingreso->FECHA_INGRESO);
+            $ano = $arr[0];
+            $mes = $arr[1];
+            $dia = $arr[2];
+            ?>
+
+
+            <div style="text-align: center;" width="700px"> <p style="font-size: 14pt"><strong>Ingreso de Compra</strong></p></div>
+
+            <div class="borde" width="516px">
+                <strong>Proveedor: </strong>
+                <br><?php echo $this->ingreso->pROVEEDOR->NOMBRE; ?><br>
+                <strong>Estado: </strong><?php echo IngresoCompra::model()->estado($this->ingreso->ESTADO); ?>    
+            </div>
+
+
+
+            <div width="140px" style="padding-left: 2px; float: left;">
+                <div width="139px" style="padding: 1px;"><div class="borde" style="padding: 2px;" align="center"><strong>Fecha Ingreso</strong></div></div>
+                <div style="padding: 1px; " ><div class="borde" style="padding: 2px;" width="26%" align="center"><strong>Dia</strong></div> <div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Mes</strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong>Año</strong></div></div>
+                <div style="padding: 1px; " align="center"><div class="borde" style="padding: 2px;" width="26%" align="center"><strong><?php echo $dia ?></strong></div><div class="borde" width="26%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php echo $mes ?></strong></div><div class="borde" width="30%" style="padding: 2px; margin-left: 3px;" align="center"><strong><?php echo $ano ?></strong></div></div>
+            </div>
+
+                        <div style="padding-top: 10px;padding-bottom: 10px;">
+
+                            <?php echo $content; ?>
+
+                        </div>
+
+                        <div class="borde">
+
+                            <strong>Notas:</strong><br>
+                                <p><?php echo $this->ingreso->NOTAS; ?></p>
+
+                        </div>
 
         </div><!-- page -->
 
