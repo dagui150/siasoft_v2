@@ -48,7 +48,6 @@ class Nit extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID, TIIPO_DOCUMENTO, RAZON_SOCIAL', 'required'),
-                        array('ID', 'DSpacesValidator'),
                         array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'Nit','allowEmpty'=>false),
 			array('ID', 'length', 'max'=>20),
 			array('RAZON_SOCIAL, ALIAS', 'length', 'max'=>128),

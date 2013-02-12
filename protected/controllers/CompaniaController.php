@@ -124,7 +124,7 @@ class CompaniaController extends Controller
 	}
 	
 	public function actionCargar() {
-		$data=UbicacionGeografica2::model()->findAll('UBICACION_GEOGRAFICA1='.$_POST['Compania']['UBICACION_GEOGRAFICA1'].' order by NOMBRE');
+                $data=UbicacionGeografica2::model()->findAll('UBICACION_GEOGRAFICA1='.$_POST['Compania']['UBICACION_GEOGRAFICA1'].' order by NOMBRE');
                
                $data=CHtml::listData($data,'ID','NOMBRE');
                echo "<option value=''>Seleccione...</option>";
