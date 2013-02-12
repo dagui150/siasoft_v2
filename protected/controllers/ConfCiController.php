@@ -89,7 +89,7 @@ class ConfCiController extends Controller
                         
 			if($model->save()){
 				//$this->redirect(Yii::app()->user->returnUrl);
-                                $this->redirect(array('update&id=0&men=S002'));
+                                $this->redirect(array('update&id='.$id.'&men=S002'));
                         } else {
                             $this->redirect(array('admin&men=E002'));
                         }

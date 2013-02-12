@@ -8,6 +8,8 @@ class FacturaController extends Controller
 	 */
 	public $layout='//layouts/column2';
         public $factura;
+        public $footer = '';
+        public $header = '';
 
 	/**
 	 * @return array action filters
@@ -215,64 +217,93 @@ class FacturaController extends Controller
 		));
 	}
         
-        public function actionformatoPDF() 
-        {
+        public function actionformatoPDF() {
 
-            $id = $_GET['id'];
+        $id = $_GET['id'];
+
+        $this->factura = Factura::model()->findByPk($id);
+
+
+        $lineas = new FacturaLinea;
+        $datosPlantilla = ConfFa::model()->find()->fORMATOFACTURA->pLANTILLA;
+        $this->layout = $datosPlantilla->RUTA;
+
+        $compania = Compania::model()->find();
+        $minima = ConsecutivoFa::extractNum($this->factura->cONSECUTIVO->VALOR_CONSECUTIVO);
+        $maxima = ConsecutivoFa::extractNum($this->factura->cONSECUTIVO->VALOR_MAXIMO);
             
-            $this->factura = Factura::model()->findByPk($id);
-           
-                    
-            $lineas = new FacturaLinea;
-            $this->layout =ConfFa::model()->find()->fORMATOFACTURA->pLANTILLA->RUTA;
-            $footer = '<table width="100%">
+        if ($datosPlantilla->ANCHO >= 210) {
+            $this->footer = '<table width="100%">
                     <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>
-                        <td align="center" valign="middle"><span class="piePagina"><b>Generado el:</b> ' . date('Y/m/d') . '</span></td>
-                    </tr>
+                       <td align="center" valign="middle"><span class="piePagina"><b>Generado el:</b> ' . date('Y/m/d') . '</span></td>
+                   </tr>
                     <tr>
-                        <td colspan="2" align="center" valign="middle">Desarrollado por Tramasoft Soluciones TIC - <a href="http://www.tramasoft.com">www.tramasoft.com</a></td>
-                    </tr>
+                       <td colspan="2" align="center" valign="middle">Desarrollado por Tramasoft Soluciones TIC - <a href="http://www.tramasoft.com">www.tramasoft.com</a></td>
+                   </tr>
                     </table>';
             
-            $compania = Compania::model()->find();
-            $minima = ConsecutivoFa::extractNum($this->factura->cONSECUTIVO->VALOR_CONSECUTIVO);
-            $maxima = ConsecutivoFa::extractNum($this->factura->cONSECUTIVO->VALOR_MAXIMO);
             if ($compania->LOGO != '') {
                 $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/" . $compania->LOGO, 'Logo');
             } else {
                 $logo = CHtml::image(Yii::app()->request->baseUrl . "/logo/default.jpg", 'Logo');
             }
-            $header = '<table width="100%" align="center" >
+
+            $this->header = '<table width="100%" align="center" >
                             <tr>
-                                <td width="26%" rowspan="5" align="left" valign="middle">'.$logo.'</td>
-                                <td width="41%" align="center">'.$compania->NOMBRE_ABREV.'</td>
+                                <td width="26%" rowspan="5" align="left" valign="middle">' . $logo . '</td>
+                                <td width="41%" align="center">' . $compania->NOMBRE_ABREV . '</td>
                                 <td width="33%" align="right" valign="middle"><strong>Factura de Venta Núm:</strong></td>
                             </tr>
                             <tr>
-                                <td align="center"><b>Nit:</b> '.$compania->NIT.'</td>
-                                <td width="33%" align="right" valign="middle">'.$id.'</td>
+                                <td align="center"><b>Nit:</b> ' . $compania->NIT . '</td>
+                                <td width="33%" align="right" valign="middle">' . $id . '</td>
                             </tr>
                             <tr>
-                                <td align="center">Dirección  '.$compania->DIRECCION.'</td>
-                                <td align="right">Res. DIAN '.$this->factura->cONSECUTIVO->RESOLUCION.'</td>
+                                <td align="center">Dirección  ' . $compania->DIRECCION . '</td>
+                                <td align="right">Res. DIAN ' . $this->factura->cONSECUTIVO->RESOLUCION . '</td>
                                 
                             </tr>
                             <tr>
-                                <td align="center"><b>Tels:</b> '.$compania->TELEFONO1.'-'.$compania->TELEFONO2.'</td>
+                                <td align="center"><b>Tels:</b> ' . $compania->TELEFONO1 . '-' . $compania->TELEFONO2 . '</td>
                                 <td width="33%" align="right" valign="middle">Numeración Autorizada</td>
                             </tr>
                             
                             <tr>
-                                <td align="center">'.$compania->rEGIMENTRIBUTARIO->DESCRIPCION.'</td>
-                                <td align="right" valign="middle">'.$minima[1].'-'.$maxima[1].'</td>
+                                <td align="center">' . $compania->rEGIMENTRIBUTARIO->DESCRIPCION . '</td>
+                                <td align="right" valign="middle">' . $minima[1] . '-' . $maxima[1] . '</td>
                             </tr>
                         </table>';
+        }else if($datosPlantilla->ANCHO<=100){
+            $this->header = '
+<table>
+    <tr>
+        <td align="center">'.$compania->NOMBRE.'</td>
+    </tr>
+    <tr>
+        <td align="center"><b>Nit:</b> ' . $compania->NIT . '</td>
+    </tr>
+    <tr>
+        <td align="center">' . $compania->rEGIMENTRIBUTARIO->DESCRIPCION . '</td>
+    </tr>
+    <tr>
+        <td align="center"><b>Resolucion:</b> ' . $compania->NIT . '</td>
+    </tr>
+    <tr>
+        <td align="center"><b>Numeracion Autorizada:</b> ' . $minima[1] . '-' . $maxima[1] . '</td>
+    </tr>
+</table>
+
+';
+            
+        }
+        
+        
             //'',array(377,279),0,'',15,15,16,16,9,9, 'P'
             $mPDF1 = Yii::app()->ePdf->mpdf('','A4',0,'','15','15','33','','5','', 'P');
-            $mPDF1->w=210;   //manually set width
-            $mPDF1->h=148.5; //manually set height
-            $mPDF1->SetHTMLHeader($header);
-            $mPDF1->SetHTMLFooter($footer);
+            $mPDF1->w = $datosPlantilla->ANCHO;   //manually set width
+            $mPDF1->h = $datosPlantilla->ALTO; //manually set height
+            $mPDF1->SetHTMLHeader($this->header);
+            $mPDF1->SetHTMLFooter($this->footer);
             //$mPDF1->WriteHTML(Yii::app()->bootstrap->register());
             $mPDF1->WriteHTML($this->render('pdf', array('model' => $this->factura,'model2'=>$lineas), true));
             
