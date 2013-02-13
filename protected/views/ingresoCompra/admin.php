@@ -16,14 +16,14 @@ function reescribir(){
     $('.close').click();
     $('#alert').remove();
     $('#form-cargado').slideDown('slow');
-    $('#boton-cargado').remove();   
-    /*$.fn.yiiGridView.update('ingreso-compra-grid');
+    $('#boton-cargado').remove();
+    $.fn.yiiGridView.update('ingreso-compra-grid');
     
     var id;
         id = $('#check').val().split(',');
         $.each(id,function(key , value){
              $('[alt='+value+']').click();
-        })*/
+        })
     
 }
 
