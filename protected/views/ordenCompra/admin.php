@@ -49,6 +49,7 @@ if (isset($_GET['men'])){
 }
 ?>
 <div id="mensaje"></div>
+<div id="mensaje-respuesta"></div>
 <div align="right">
     <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array()); ?>
     <?php echo CHtml::HiddenField('check',''); ?>
@@ -63,7 +64,7 @@ if (isset($_GET['men'])){
         'icon' => 'remove white',
         'ajaxOptions'=>array(
             'type'=>'POST',
-            'update'=>'#mensaje',
+            'update'=>'#mensaje-respuesta',
             'complete'=>'completado()',
         ),
         'htmlOptions'=>array('confirm'=>'¿Está seguro que desea cancelar esta(s) solicitud(es)?', 'id'=>'cancelar'),
@@ -80,7 +81,7 @@ if (isset($_GET['men'])){
         'icon' => 'ban-circle white',
         'ajaxOptions'=>array(
             'type'=>'POST',
-            'update'=>'#mensaje',
+            'update'=>'#mensaje-respuesta',
             'complete'=>'completado()',
         ),
         'htmlOptions'=>array('id'=>'cerrar'),
@@ -97,7 +98,7 @@ if (isset($_GET['men'])){
         'icon' => 'ok white',
         'ajaxOptions'=>array(
             'type'=>'POST',
-            'update'=>'#mensaje',
+            'update'=>'#mensaje-respuesta',
             'complete'=>'completado()',
         ),
         'htmlOptions'=>array('id'=>'autorizar'),
@@ -114,7 +115,7 @@ if (isset($_GET['men'])){
         'icon' => 'arrow-left white',
         'ajaxOptions'=>array(
             'type'=>'POST',
-            'update'=>'#mensaje',
+            'update'=>'#mensaje-respuesta',
             'complete'=>'completado()',
         ),
         'htmlOptions'=>array('id'=>'rever'),

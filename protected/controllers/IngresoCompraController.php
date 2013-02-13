@@ -344,8 +344,7 @@ class IngresoCompraController extends Controller
             $warning = '';
             
             foreach($check as $id){                
-                $ingreso = IngresoCompra::model()->findByPk($id);                
-                
+                $ingreso = IngresoCompra::model()->findByPk($id); 
                 switch ($ingreso->ESTADO){
                     case 'P' :
                         $transaction=$ingreso->dbConnection->beginTransaction();
@@ -499,20 +498,14 @@ class IngresoCompraController extends Controller
                         break;
                 }
             }
-            $mensajeSucces = MensajeSistema::model()->findByPk('S002');
-            $mensajeError = MensajeSistema::model()->findByPk('E001');
-            $mensajeWarning = MensajeSistema::model()->findByPk('A001');
-            
             if($contSucces !=0)
-                Yii::app()->user->setFlash($mensajeSucces->TIPO, '<h4 align="center">'.$mensajeSucces->MENSAJE.': <br>'.$contSucces.' Ingreso(s)<br>('.$succes.')</h4>');
+                $this->men_compras('S002', '/images/success.png', $contSucces, $succes);
             
             if($contError !=0)
-                Yii::app()->user->setFlash($mensajeError->TIPO, '<h4 align="center">'.$mensajeError->MENSAJE.': <br>'.$contError.' Ingreso(s) no Aplicados<br>('.$error.')</h4>');
+                $this->men_compras('E001', '/images/error.png', $contError, $error);
             
             if($contWarning !=0)
-                Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h4 align="center">'.$mensajeWarning->MENSAJE.': <br>'.$contWarning.' Ingreso(s) ya Aplicados<br>('.$warning.')</h4>');
-            
-            $this->widget('bootstrap.widgets.TbAlert'); 
+                $this->men_compras('A001', '/images/warning.png', $contWarning, $warning);
         }
         
         protected function modificarExistencias($documento){
@@ -560,20 +553,14 @@ class IngresoCompraController extends Controller
                  $documento->save();
             }
                        
-            $mensajeSucces = MensajeSistema::model()->findByPk('S001');
-            $mensajeError = MensajeSistema::model()->findByPk('E001');
-            $mensajeWarning = MensajeSistema::model()->findByPk('A001');            
-            
-           if($contSucces !=0)
-                Yii::app()->user->setFlash($mensajeSucces->TIPO, '<h3 align="center">'.$mensajeSucces->MENSAJE.': '.$contSucces.' Documento(s) Cancelados<br>('.$succes.')</h3>');
+            if($contSucces !=0)
+                $this->men_compras('S001', '/images/success.png', $contSucces, $succes);
             
             if($contError !=0)
-                Yii::app()->user->setFlash($mensajeError->TIPO, '<h3 align="center">'.$mensajeError->MENSAJE.': '.$contError.' Documento(s) no Cancelados<br>('.$error.')</h3>');
+                $this->men_compras('E001', '/images/error.png', $contError, $error);
             
             if($contWarning !=0)
-                Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Documento(s) ya Cancelados<br>('.$warning.')</h3>');
-            
-           $this->widget('bootstrap.widgets.TbAlert');
+                $this->men_compras('A001', '/images/warning.png', $contWarning, $warning);
             
         }
 }

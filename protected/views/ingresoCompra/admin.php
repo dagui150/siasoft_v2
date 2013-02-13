@@ -36,8 +36,6 @@ $(document).ready(function(){
         'success':function(html){jQuery("#cargando").html(html)}});
     });
 });
-
-function buscar(){}
 </script>
 <?php $this->pageTitle=Yii::app()->name." - Ingreso Compras";?>
 <?php

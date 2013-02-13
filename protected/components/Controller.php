@@ -72,6 +72,26 @@ class Controller extends CController
                     'htmlOptions'=>array('class'=>'reducir'),
                 ));
 	}
+        
+        /**
+         * Metodo para ser llamado desde las opciones de compras para retornar mensajes sobre las operaciones
+         * @param string $codigo
+         * @param string $imagen
+         * @param int $contador
+         * @param string $ids
+         */
+        
+        public function men_compras($codigo, $imagen, $contador, $ids){
+            $mensaje = MensajeSistema::model()->findByPk($codigo);
+            Yii::app()->user->setFlash($mensaje->TIPO, '<font size="4" align="left">&nbsp &nbsp<img src='.Yii::app()->baseUrl.$imagen.'>&nbsp &nbsp'.$mensaje->MENSAJE.', '.$contador.' petición(es) procesada(s): ('.$ids.')</font>');
+            $this->widget('bootstrap.widgets.TbAlert', array(
+                    'block'=>true, // display a larger alert block?
+                    'fade'=>true, // use transitions?
+                    'closeText'=>'&times;', // close link text - if set to false, no close link is displayed
+                ));
+            
+        }
+        
         /**
          * Este metodo sera llamado para desformatear un numero que venga con comas(,) y puntos (.)
          * @param string $valor

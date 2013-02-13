@@ -207,20 +207,15 @@ class OrdenCompraController extends Controller
                         $warning.= $cancela.',';
                         break;
                  }     
-            $mensajeSucces = MensajeSistema::model()->findByPk('S001');
-            $mensajeError = MensajeSistema::model()->findByPk('E001');
-            $mensajeWarning = MensajeSistema::model()->findByPk('A001');
             }
             if($contSucces !=0)
-                Yii::app()->user->setFlash($mensajeSucces->TIPO, '<h3 align="center">'.$mensajeSucces->MENSAJE.': '.$contSucces.' Orden(es) Cancelada(s)<br>('.$succes.')</h3>');
+                $this->men_compras('S001', '/images/success.png', $contSucces, $succes);
             
             if($contError !=0)
-                Yii::app()->user->setFlash($mensajeError->TIPO, '<h3 align="center">'.$mensajeError->MENSAJE.': '.$contError.' Orden(es) no Cancelada(s)<br>('.$error.')</h3>');
+                $this->men_compras('E001', '/images/error.png', $contError, $error);
             
             if($contWarning !=0)
-                Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Orden(es) ya Cancelada(s) o Cerrada(s)<br>('.$warning.')</h3>');
-            
-           $this->widget('bootstrap.widgets.TbAlert');        
+                $this->men_compras('A001', '/images/warning.png', $contWarning, $warning);       
             
         }
         
@@ -278,20 +273,15 @@ class OrdenCompraController extends Controller
                         $warning.= $autoriza.',';
                         break;
                  }     
-            $mensajeSucces = MensajeSistema::model()->findByPk('S001');
-            $mensajeError = MensajeSistema::model()->findByPk('E001');
-            $mensajeWarning = MensajeSistema::model()->findByPk('A001');
             }
             if($contSucces !=0)
-                Yii::app()->user->setFlash($mensajeSucces->TIPO, '<h3 align="center">'.$mensajeSucces->MENSAJE.': '.$contSucces.' Orden(es) Autorizada(s)<br>('.$succes.')</h3>');
+                $this->men_compras('S001', '/images/success.png', $contSucces, $succes);
             
             if($contError !=0)
-                Yii::app()->user->setFlash($mensajeError->TIPO, '<h3 align="center">'.$mensajeError->MENSAJE.': '.$contError.' Orden(es) no Autorizada(s)<br>('.$error.')</h3>');
+                $this->men_compras('E001', '/images/error.png', $contError, $error);
             
             if($contWarning !=0)
-                Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Orden(es) ya Autorizada(s)<br>('.$warning.')</h3>');
-            
-           $this->widget('bootstrap.widgets.TbAlert');
+                $this->men_compras('A001', '/images/warning.png', $contWarning, $warning);
         }
         
         public function actionReversar(){
@@ -360,22 +350,15 @@ class OrdenCompraController extends Controller
                         $warning.= $reversar.',';
                         break;
                  }
-                 
-                       
-            $mensajeSucces = MensajeSistema::model()->findByPk('S001');
-            $mensajeError = MensajeSistema::model()->findByPk('E001');
-            $mensajeWarning = MensajeSistema::model()->findByPk('A001');
             }
             if($contSucces !=0)
-                Yii::app()->user->setFlash($mensajeSucces->TIPO, '<h3 align="center">'.$mensajeSucces->MENSAJE.': '.$contSucces.' Orden(es) Reversada(s)<br>('.$succes.')</h3>');
+                $this->men_compras('S001', '/images/success.png', $contSucces, $succes);
             
             if($contError !=0)
-                Yii::app()->user->setFlash($mensajeError->TIPO, '<h3 align="center">'.$mensajeError->MENSAJE.': '.$contError.' Orden(es) no Reversada(s)<br>('.$error.')</h3>');
+                $this->men_compras('E001', '/images/error.png', $contError, $error);
             
             if($contWarning !=0)
-                Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Orden(es) ya Reversada(s)<br>('.$warning.')</h3>');
-            
-           $this->widget('bootstrap.widgets.TbAlert');            
+                $this->men_compras('A001', '/images/warning.png', $contWarning, $warning);          
         }
         
         public function actionCerrar(){
@@ -425,23 +408,16 @@ class OrdenCompraController extends Controller
                         $contWarning+=1;
                         $warning.= $cierra.',';
                         break;
-                 }
-                 
-                       
-            $mensajeSucces = MensajeSistema::model()->findByPk('S001');
-            $mensajeError = MensajeSistema::model()->findByPk('E001');
-            $mensajeWarning = MensajeSistema::model()->findByPk('A001');
+                 }     
             }
             if($contSucces !=0)
-                Yii::app()->user->setFlash($mensajeSucces->TIPO, '<h3 align="center">'.$mensajeSucces->MENSAJE.': '.$contSucces.' Orden(es) Cerrada(s)<br>('.$succes.')</h3>');
+                $this->men_compras('S001', '/images/success.png', $contSucces, $succes);
             
             if($contError !=0)
-                Yii::app()->user->setFlash($mensajeError->TIPO, '<h3 align="center">'.$mensajeError->MENSAJE.': '.$contError.' Orden(es) no Cerrada(s)<br>('.$error.')</h3>');
+                $this->men_compras('E001', '/images/error.png', $contError, $error);
             
             if($contWarning !=0)
-                Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Orden(es) pendientes de proceso antes de ser cerrada(s)<br>('.$warning.')</h3>');
-            
-           $this->widget('bootstrap.widgets.TbAlert');   
+                $this->men_compras('A001', '/images/warning.png', $contWarning, $warning);
            
         }
         
