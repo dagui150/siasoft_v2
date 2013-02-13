@@ -49,6 +49,27 @@
  */
 class OrdenCompra extends CActiveRecord
 {
+    
+        /**
+         * Articulo para la linea de la orden
+         * @var string 
+         */
+        public $ARTICULO; 
+        /**
+         * Cantidad para la linea de la orden
+         * @var float 
+         */
+        public $CANTIDAD;
+        /**
+         * Unidad para la linea de la orden
+         * @var int 
+         */
+        public $UNIDAD_COMPRA;
+        /**
+         * Unidad para la linea de la orden
+         * @var float 
+         */
+        public $PRECIO_UNITARIO;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -115,7 +136,10 @@ class OrdenCompra extends CActiveRecord
 	{
                 $conf = ConfCo::model()->find();
 		return array(
+                        'PORC_DESCUENTO_LINEA' => 'Descuento',
+                        'PORC_IMPUESTO_LINEA'=> 'IVA',
 			'ORDEN_COMPRA' => 'Orden Compra',
+                        'UNIDAD_COMPRA' => 'Unidad',
 			'PROVEEDOR' => 'Proveedor',
 			'FECHA' => 'Fecha',
 			'BODEGA' => 'Bodega',
@@ -123,10 +147,10 @@ class OrdenCompra extends CActiveRecord
 			'FECHA_COTIZACION' => 'Fecha Cotizacion',
 			'FECHA_OFRECIDA' => 'Fecha Ofrecida',
 			'FECHA_REQUERIDA' => 'Fecha Requerida',
-			'FECHA_REQ_EMBARQUE' => 'Fecha Req Embarque',
+			'FECHA_REQ_EMBARQUE' => 'Fecha Req Ingreso',
 			'PRIORIDAD' => 'Prioridad',
 			'CONDICION_PAGO' => 'Condicion Pago',
-			'DIRECCION_EMBARQUE' => 'Direccion Embarque',
+			'DIRECCION_EMBARQUE' => 'Direccion Ingreso',
 			'DIRECCION_COBRO' => 'Direccion Cobro',
 			'RUBRO1' => $conf->RUBRO1_ORDNOM,
 			'RUBRO2' => $conf->RUBRO2_ORDNOM,
@@ -149,6 +173,10 @@ class OrdenCompra extends CActiveRecord
 			'CREADO_EL' => 'Creado El',
 			'ACTUALIZADO_POR' => 'Actualizado Por',
 			'ACTUALIZADO_EL' => 'Actualizado El',
+			'USUARIO_CIERRA' => 'Cerrado Por',
+			'FECHA_CIERRA' => 'Cerrado El',
+			'AUTORIZADA_POR' => 'Autorizado Por',
+			'FECHA_AUTORIZADA' => 'Autorizado El',
 		);
 	}
 
@@ -197,15 +225,65 @@ class OrdenCompra extends CActiveRecord
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
 		$criteria->compare('ACTUALIZADO_EL',$this->ACTUALIZADO_EL,true);
+		$criteria->compare('USUARIO_CIERRA',$this->CREADO_POR,true);
+		$criteria->compare('FECHA_CIERRA',$this->CREADO_EL,true);
+		$criteria->compare('AUTORIZADA_POR',$this->ACTUALIZADO_POR,true);
+		$criteria->compare('FECHA_AUTORIZADA',$this->ACTUALIZADO_EL,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
         
+        public static function estado($codigo){
+            switch ($codigo){
+                case 'P' : return 'Planeado';
+                break;
+                case 'B' : return 'Backorder';
+                break;
+                case 'R' : return 'Recibido';
+                break;
+                case 'C' : return 'Cancelado';
+                break;
+                case 'A' : return 'Autorizado';
+                break;
+                case 'E' : return 'Cerrada';
+                break;
+            }
+        }
+        
+        public static function prioridad($codigo){
+            
+            switch($codigo){
+                case 'A' : return 'Alta';
+                    break;
+                case 'M' : return 'Media';
+                    break;
+                case 'B' : return 'Baja';
+                    break;
+            }
+        }
+
         public function behaviors()
 	{
+		$conf=ConfCo::model()->find();
+                $conf2=ConfAs::model()->find();
+                $dec=isset($conf->CANTIDAD_DEC)?$conf->CANTIDAD_DEC:0;
+                $decP=isset($conf2->PORCENTAJE_DEC)?$conf2->PORCENTAJE_DEC:0;
 		return array(
+                        'defaults'=>array(
+                            'class'=>'application.components.FormatBehavior',
+                            //'format'=>'db',
+                            'formats'=> array(
+                                   'MONTO_FLETE'=>'###,##0.'.str_repeat('0',$dec),
+                                   'MONTO_SEGURO'=>'###,##0.'.str_repeat('0',$dec),
+                                   'MONTO_ANTICIPO'=>'###,##0.'.str_repeat('0',$dec),
+                                   'TOTAL_A_COMPRAR'=>'###,##0.'.str_repeat('0',$dec),
+                                   'PORC_DESCUENTO'=>'#0.'.str_repeat('0',$decP),
+                            ),
+                            //'parseExpression'=> "strtr(\$value,',','.')",
+                        ),
+                    
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',

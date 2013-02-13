@@ -1,49 +1,20 @@
 <?php
 
-class NitController extends SBaseController
+class NitController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-	public $breadcrumbs=array();
-	public $menu=array();
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
-
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	/*public function accessRules()
-	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
-	}*/
+	public function filters(){
+            return array(
+                                      array('CrugeAccessControlFilter'),
+                              );
+          }
 
 	/**
 	 * Displays a particular model.
@@ -62,21 +33,54 @@ class NitController extends SBaseController
 	 */
 	public function actionCreate()
 	{
-		$model2=new Nit;
+		$model = new Nit;
+                $transaction = $model->dbConnection->beginTransaction();
+                // Uncomment the following line if AJAX validation is needed
+                $this->performAjaxValidation($model);
 
-		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model2);
-
-		if(isset($_POST['Nit']))
-		{
-			$model2->attributes=$_POST['Nit'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+                if (isset($_POST['LineaNueva'])) {
+                    /*echo '<pre>';
+                    print_r($_POST['LineaNueva']);
+                    echo '</pre>';
+                    Yii::app()->end();*/
+                    $_c=0;
+                    $c_=0;
+                    try {
+                        foreach ($_POST['LineaNueva'] as $datos) {
+                                $model = new Nit;
+                                $model->ID = $datos['ID'];
+                                $model->TIIPO_DOCUMENTO = $datos['TIIPO_DOCUMENTO'];
+                                $model->RAZON_SOCIAL = $datos['RAZON_SOCIAL'];
+                                $model->ALIAS = $datos['ALIAS'];
+                                $model->OBSERVACIONES = $datos['OBSERVACIONES'];
+                                $model->ACTIVO = 'S';
+                                $_c=$_c+1;
+                                if($model->save()){
+                                    $c_=$c_+1;
+                                }
+                               // $model->unsetAttributes();
+                        }
+                        
+                        
+                        $transaction->commit();
+                        if($c_==$_c){
+                            $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
+                        $this->redirect(array('admin'));
+                        Yii::app()->end();
+                    }catch (Exception $e) {
+                        echo $e;
+                        $transaction->rollback();
+                    }
 		}
+                
+                $this->render('create',array(
+                    'model'=>$model,
+                    ));
 
-		$this->render('create',array(
-			'model2'=>$model2,
-		));
+		
 	}
 
 	/**
@@ -84,7 +88,7 @@ class NitController extends SBaseController
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
+		public function actionUpdate($id)
 	{
 		$model2=$this->loadModel($id);
 
@@ -94,8 +98,12 @@ class NitController extends SBaseController
 		if(isset($_POST['Nit']))
 		{
 			$model2->attributes=$_POST['Nit'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(
@@ -113,7 +121,7 @@ class NitController extends SBaseController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -122,42 +130,50 @@ class NitController extends SBaseController
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
+        
+        public function actionRestaurar($id)
 	{
-		$dataProvider=new CActiveDataProvider('Nit');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+            $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
+		
+	}
+        
+        public function actionExcel()
+	{
+		$model=new Nit('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
 		));
 	}
 
+        public function actionPdf(){
+            
+            $dataProvider=new Nit;
+		$this->render('pdf',array(
+			'dataProvider'=>$dataProvider,
+		));
+            
+            
+        }
+        
 	/**
 	 * Manages all models.
 	 */
 	public function actionAdmin()
 	{
 		$model=new Nit('search');
-		$model->unsetAttributes();  // clear any default values
-		$model2=new Nit;
-
+                $model->unsetAttributes();  // clear any default values
+                
 		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model2);
+		$this->performAjaxValidation($model);
 
-		if(isset($_POST['Nit']))
-		{
-			$model2->attributes=$_POST['Nit'];
-			if($model2->save())
-				$this->redirect(array('admin'));
-		}
+		
 		if(isset($_GET['Nit']))
 			$model->attributes=$_GET['Nit'];
 
 		$this->render('admin',array(
 			'model'=>$model,
-			'model2'=>$model2,
+                    
 		));
 	}
 

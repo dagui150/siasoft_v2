@@ -1,12 +1,14 @@
+<?php $this->pageTitle=Yii::app()->name." - Categorías";?>
+
 <?php
 $this->breadcrumbs=array(
-	'Categorias'=>array('admin'),
-	'Administrar',
+        'Sistema'=>array('admin'),
+	'Categorías',
 );
 
 $this->menu=array(
-	array('label'=>'List Categoria', 'url'=>array('index')),
-	array('label'=>'Create Categoria', 'url'=>array('create')),
+	array('label'=>Yii::t('app','LIST').' Categoría', 'url'=>array('index')),
+	array('label'=>Yii::t('app','CREATE').' Categoría', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -23,24 +25,21 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Categorias</h1>
-
-
-<div align="right">
+<h1>Categorías</h1>
 <?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'Nuevo',
-    'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'icon' => 'plus white',
-	'url'=>'#myModal',
-	'htmlOptions'=>array('data-toggle'=>'modal')
-)); 
-
+if (isset($_GET['men'])){
+    $this->mensaje($_GET['men']);
+}
 ?>
+<div id="mensaje"></div>
+<div align="right">
+    
+    <?php $this->darBotonPdfExcel(array('categoria/excel')); ?>
+    <?php $this->darBotonPdfExcel(array('categoria/pdf'), false, 'PDF', 'danger'); ?>
+    <?php $this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
+
 </div>
-<?php $this->widget('bootstrap.widgets.BootGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
        'type'=>'striped bordered condensed',
 	'id'=>'categoria-grid',
 	'dataProvider'=>$model->search(),
@@ -62,17 +61,18 @@ $this->widget('bootstrap.widgets.BootButton', array(
 		'ACTUALIZADO_EL',
 		*/
 		array(
-                    'class'=>'bootstrap.widgets.BootButtonColumn',
+                    'class'=>'bootstrap.widgets.TbButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),
+                    'afterDelete'=>$this->mensajeBorrar(),
 		),
 	),
 )); ?>
 
-<?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
  
 <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>
-    <h3>Crear Categoria</h3>
+    <h3>Crear Categoría</h3>
     <p class="note"><?php echo Yii::t('app','FIELDS_WITH'); ?><span class="required"> * </span><?php echo Yii::t('app','ARE_REQUIRED'); ?>.</p>
 </div>
     <?php echo $this->renderPartial('_form', array('model2'=>$model2)); ?>

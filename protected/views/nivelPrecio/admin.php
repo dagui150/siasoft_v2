@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Nivel Precio'=>array('admin'),
-	'Administrar',
+        'Sistema'=>array('admin'),
+	'Nivel de Precios',
 );
 
 $this->menu=array(
@@ -24,23 +24,19 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1>Nivel de Precios</h1>
-
-<div align="right">
 <?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'Nuevo',
-    'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'icon' => 'plus white',
-	'url'=>'#myModal',
-	'htmlOptions'=>array('data-toggle'=>'modal')
-)); 
-
+if (isset($_GET['men'])){
+    $this->mensaje($_GET['men']);
+}
 ?>
+<div id="mensaje"></div>
+<div align="right">
+    <?php $this->darBotonPdfExcel(array('nivelPrecio/excel')); ?>
+    <?php $this->darBotonPdfExcel(array('nivelPrecio/pdf'), false, 'PDF', 'danger'); ?>
+    <?php $this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
 </div>
 
-<?php $this->widget('bootstrap.widgets.BootGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',
 	'id'=>'nivel-precio-grid',
 	'dataProvider'=>$model->search(),
@@ -55,27 +51,15 @@ $this->widget('bootstrap.widgets.BootButton', array(
                         'value'=>'NivelPrecio::tipo($data->ESQUEMA_TRABAJO)',
                         'filter'=>array('NORM'=>'Normal','MULT'=>'Multiplicador', 'MARG' => 'Margen', 'MARK' => 'Markup'),
                     ),
-                array(
-                        'name'=>'CONDICION_PAGO',
-                        'header'=>'Condicion de pago',
-                        'value'=>'$data->cONDICIONPAGO->DESCRIPCION',
-                        'type'=>'text',
-                        'filter' => CHtml::listData(CodicionPago::model()->findAll(), 'ID', 'DESCRIPCION')
-                    ),
-		/*'ACTIVO',
-		'CREADO_POR',
-		'CREADO_EL',
-		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
-		*/
 		array(
-                    'class'=>'bootstrap.widgets.BootButtonColumn',
+                    'class'=>'bootstrap.widgets.TbButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),
+                    'afterDelete'=>$this->mensajeBorrar(),
 		),
 	),
 )); ?>
 
-<?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
  
 <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>

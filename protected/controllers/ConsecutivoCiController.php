@@ -1,23 +1,21 @@
 <?php
 
-class ConsecutivoCiController extends SBaseController
+class ConsecutivoCiController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
-        public $breadcrumbs=array();
+	public $layout='//layouts/column2'; 
         
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
+	public function filters(){
+            return array(
+                                      array('CrugeAccessControlFilter'),
+                              );
+          }
 
 	public function actionView($id)
 	{
@@ -40,8 +38,12 @@ class ConsecutivoCiController extends SBaseController
 		if(isset($_POST['ConsecutivoCi']))
 		{
 			$model2->attributes=$_POST['ConsecutivoCi'];
-			if($model2->save())
-				$this->redirect(array('admin',));
+			if($model2->save()){
+				//$this->redirect(array('admin',));
+                                $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
 
 		$this->render('create',array(
@@ -66,15 +68,17 @@ class ConsecutivoCiController extends SBaseController
 		if(isset($_POST['ConsecutivoCi']))
 		{
 			$model2->attributes=$_POST['ConsecutivoCi'];
-			if($model2->save())
+			if($model2->save()){
                             //ACTUALIZAR REGISTROS
                             if(isset($_POST['ConsecCiTipoTrans'])){
                                 foreach ($_POST['ConsecCiTipoTrans'] as $datos){
-                                     $conTipo = ConsecCiTipoTrans::model()->findByPk($datos['ID']);
-                                     $conTipo->CONSECUTIVO_CI = $model2->ID;
-                                     $conTipo->TIPO_TRANSACCION = $datos['TIPO_TRANSACCION'];
-                                     $conTipo->ACTIVO = 'S';
-                                     $conTipo->save();
+                                    if($datos['TIPO_TRANSACCION'] !== ''){
+                                        $conTipo = ConsecCiTipoTrans::model()->findByPk($datos['ID']);
+                                        $conTipo->CONSECUTIVO_CI = $model2->ID;
+                                        $conTipo->TIPO_TRANSACCION = $datos['TIPO_TRANSACCION'];
+                                        $conTipo->ACTIVO = 'S';
+                                        $conTipo->save();
+                                    }
                                 }
                             }
                             if(isset($_POST['ConsecCiUsuario'])){
@@ -87,6 +91,9 @@ class ConsecutivoCiController extends SBaseController
                                     }
                             }
                             //ELIMINAR REGISTROS
+                            if(isset($_POST['cambia']) && $_POST['cambia'] == 1){
+                                ConsecCiTipoTrans::model()->deleteAllByAttributes(array('CONSECUTIVO_CI'=>$model2->ID));
+                            }
                             if(isset($_POST['eliminar'])){
                                 $arEliminar = explode(',',$_POST['eliminar']);
                                 foreach($arEliminar as $elimina){
@@ -107,11 +114,13 @@ class ConsecutivoCiController extends SBaseController
                             //NUEVOS REGISTROS
                             if(isset($_POST['ConsecCiTipoTransNuevo'])){
                                 foreach ($_POST['ConsecCiTipoTransNuevo'] as $datos){
-                                     $conTipo = new ConsecCiTipoTrans;
-                                     $conTipo->CONSECUTIVO_CI = $model2->ID;
-                                     $conTipo->TIPO_TRANSACCION = $datos['TIPO_TRANSACCION'];
-                                     $conTipo->ACTIVO = 'S';
-                                     $conTipo->save();
+                                    if($datos['TIPO_TRANSACCION'] !== ''){
+                                        $conTipo = new ConsecCiTipoTrans;
+                                        $conTipo->CONSECUTIVO_CI = $model2->ID;
+                                        $conTipo->TIPO_TRANSACCION = $datos['TIPO_TRANSACCION'];
+                                        $conTipo->ACTIVO = 'S';
+                                        $conTipo->save(); 
+                                    }
                                 }
                             }
                             
@@ -124,8 +133,9 @@ class ConsecutivoCiController extends SBaseController
                                          $conUsuario->save();
                                     }
                             }
-                            
-                            $this->redirect(array('view','id'=>$model2->ID));
+                        }
+                            //$this->redirect(array('view','id'=>$model2->ID));
+                        $this->redirect(array('view&id='.$id.'&men=S002'));
 		}
 
 		$this->render('update',array(
@@ -145,7 +155,7 @@ class ConsecutivoCiController extends SBaseController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -154,16 +164,11 @@ class ConsecutivoCiController extends SBaseController
 		else
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
 	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
+        
+        public function actionRestaurar($id)
 	{
-		$dataProvider=new CActiveDataProvider('ConsecutivoCi');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+            $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
+		
 	}
 
 	/**
@@ -182,30 +187,36 @@ class ConsecutivoCiController extends SBaseController
 		if(isset($_POST['ConsecutivoCi']))
 		{
 			$model2->attributes=$_POST['ConsecutivoCi'];
-			if($model2->save())
+			if($model2->save()){                                
                             
                             if(isset($_POST['ConsecCiTipoTransNuevo'])){
                                 foreach ($_POST['ConsecCiTipoTransNuevo'] as $datos){
-                                     $conTipo = new ConsecCiTipoTrans;
-                                     $conTipo->CONSECUTIVO_CI = $_POST['ConsecutivoCi']['ID'];
-                                     $conTipo->TIPO_TRANSACCION = $datos['TIPO_TRANSACCION'];
-                                     $conTipo->ACTIVO = 'S';
-                                     $conTipo->save();
+                                    if($datos['TIPO_TRANSACCION'] != ''){
+                                        $conTipo = new ConsecCiTipoTrans;
+                                        $conTipo->CONSECUTIVO_CI = $model2->ID;
+                                        $conTipo->TIPO_TRANSACCION = $datos['TIPO_TRANSACCION'];
+                                        $conTipo->ACTIVO = 'S';
+                                        $conTipo->save(); 
+                                    }
                                 }
                             }
                             
-                            if($model2->TODOS_USUARIOS == 'N'){
-                                if(isset($_POST['Usuarios'])){
-                                    foreach ($_POST['Usuarios'] as $datos){
-                                         $conUsuario = new ConsecCiUsuario;
-                                         $conUsuario->CONSECUTIVO_CI = $_POST['ConsecutivoCi']['ID'];
-                                         $conUsuario->USUARIO = $datos['USERNAME'];
-                                         $conUsuario->ACTIVO = 'S';
-                                         $conUsuario->save();
+                            if($model2->TODOS_USUARIOS === 'N'){
+                                if(isset($_POST['UsuariosNuevo'])){
+                                    foreach ($_POST['UsuariosNuevo'] as $datos){
+                                        if($datos['USERNAME'] != ''){
+                                            $conUsuario = new ConsecCiUsuario;
+                                            $conUsuario->CONSECUTIVO_CI = $model2->ID;
+                                            $conUsuario->USUARIO = $datos['USERNAME'];
+                                            $conUsuario->ACTIVO = 'S';
+                                            $conUsuario->save();
+                                        }
                                     }
                                }
                             }
-                           $this->redirect(array('admin',));
+                        }
+                           
+                        $this->redirect(array('admin&men=S003'));
 		}
                 
 		if(isset($_GET['ConsecutivoCi']))

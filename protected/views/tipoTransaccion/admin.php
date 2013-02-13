@@ -1,3 +1,4 @@
+<?php $this->pageTitle=Yii::app()->name." - Tipos de Transacción";?>
 <?php
 if(!ConfCi::darConf())
      $this->redirect(array('/confCi/create'));
@@ -8,25 +9,19 @@ $this->breadcrumbs=array(
 ?>
 
 <h1>Tipos de Transacción</h1>
-<br>
+<?php 
+if (isset($_GET['men'])){
+    $this->mensaje($_GET['men']);
+}
+?>
+<div id="mensaje"></div>
 <div align="right"> 
-<?php 
-
-	$this->widget('bootstrap.widgets.BootButton', array(
-		'label'=>'Nuevo',
-		'type'=>'success', 
-		'size'=>'mini', 
-		'icon' => 'plus white',
-		'htmlOptions'=>array('onclick'=>'$("#myModal").modal()')
-	)); 
-
-	?>
+    <?php $this->darBotonNuevo('',array('onclick'=>'$("#myModal").modal()'),'mini'); ?>
 </div>
-<br>
 
 
 <?php 
-    $this->widget('bootstrap.widgets.BootGridView', array(
+    $this->widget('bootstrap.widgets.TbGridView', array(
         'type'=>'striped bordered condensed',
 	'id'=>'tipo-transaccion-grid',
 	'dataProvider'=>$model->search(),
@@ -39,7 +34,7 @@ $this->breadcrumbs=array(
 		'NOMBRE',
                  array(
                      'name'=>'TRANSACCION_BASE',
-                     'header'=>'Transaccion Base',
+                     'header'=>'Transacción Base',
                      'value'=>'$data->tRANSACCIONBASE->NOMBRE',
                      'filter'=>CHtml::listData(TipoTransaccion::model()->findAll(),'TIPO_TRANSACCION' ,'NOMBRE' ),
                      
@@ -47,7 +42,7 @@ $this->breadcrumbs=array(
                  ),
                  array(
                      'name'=>'TRANSACCION_FIJA',
-                     'header'=>'Transaccion Fija',
+                     'header'=>'Transacción Fija',
                      'value'=>'($data->TRANSACCION_FIJA == \'S\') ? \'Si\' :\'No\'',
                      'htmlOptions'=>array('style'=>'width: 50px;'),
                      'filter'=>array('S'=>'Si','N'=>'No'),
@@ -58,13 +53,14 @@ $this->breadcrumbs=array(
                      'filter'=>array('S'=>'Salida','E'=>'Entrada','A'=>'Ambas','N'=>'Ninguna'),
                  ),
 		array(
-                    'class'=>'bootstrap.widgets.BootButtonColumn',
+                    'class'=>'bootstrap.widgets.TbButtonColumn',
                     'deleteButtonUrl'=>'Yii::app()->controller->createUrl("delete",array("id"=>($data->TRANSACCION_FIJA == \'N\') ? $data->TIPO_TRANSACCION : 0 ))',
                     'htmlOptions'=>array('style'=>'width: 50px'),
+                    'afterDelete'=>$this->mensajeBorrar(),
 		),
 	),
     )); 
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
+    $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
  
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>

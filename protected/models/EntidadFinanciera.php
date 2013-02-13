@@ -45,10 +45,13 @@ class EntidadFinanciera extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID, NIT, DESCRIPCION', 'required'),
+                        array('ID', 'DSpacesValidator'),
+                        array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'EntidadFinanciera','allowEmpty'=>false),
 			array('ID', 'numerical', 'integerOnly'=>true),
 			array('NIT, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('DESCRIPCION', 'length', 'max'=>64),
 			array('ACTIVO', 'length', 'max'=>1),
+                        array('ID', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('ID, NIT, DESCRIPCION, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
@@ -73,9 +76,9 @@ class EntidadFinanciera extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
+			'ID' => 'Código',
 			'NIT' => 'Nit',
-			'DESCRIPCION' => 'Descripcion',
+			'DESCRIPCION' => 'Descripción',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',
@@ -98,7 +101,7 @@ class EntidadFinanciera extends CActiveRecord
 		$criteria->compare('ID',$this->ID);
 		$criteria->compare('NIT',$this->NIT,true);
 		$criteria->compare('DESCRIPCION',$this->DESCRIPCION,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -106,6 +109,19 @@ class EntidadFinanciera extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+		));
+	}
+        public function searchPdf()
+	{
+
+		$criteria=new CDbCriteria;                 
+                $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'pagination'=>array(
+                            'pageSize'=> EntidadFinanciera::model()->count(),
+                        ),
 		));
 	}
         
@@ -125,5 +141,22 @@ class EntidadFinanciera extends CActiveRecord
 				'updatedByColumn' => 'ACTUALIZADO_POR',
 			),
 		);
+	}
+        
+                public function searchPapelera()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		
+		$criteria->compare('ACTIVO','N');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'pagination'=>false,
+			'sort'=>false,
+		));
 	}
 }

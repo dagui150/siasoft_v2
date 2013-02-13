@@ -36,16 +36,16 @@ function Elimina(){
                     </div>
                     <div class="row">
                             <?php echo $form->labelEx($model,'PAIS'); ?>
-                            <?php echo $form->dropDownList($model,'PAIS', CHtml::listData(Pais::model()->findAll(),'ID','NOMBRE'),array('empty'=>'Seleccione...')); ?>
+                            <?php echo $form->dropDownList($model,'PAIS', CHtml::listData(Pais::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),array('empty'=>'Seleccione...')); ?>
                             <?php echo $form->error($model,'PAIS'); ?>
                     </div>
                     <div class="row">
                             <?php echo $form->labelEx($model,'UBICACION_GEOGRAFICA1'); ?>
-                            <?php echo $form->dropDownList($model,'UBICACION_GEOGRAFICA1', CHtml::listData(UbicacionGeografica1::model()->findAll(),'ID','NOMBRE'),
+                            <?php echo $form->dropDownList($model,'UBICACION_GEOGRAFICA1', CHtml::listData(UbicacionGeografica1::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),
                             array(
                                 'ajax'=>array(
 				'type' => 'POST',
-				'url' => CController::createUrl('Compania/cargar'),
+				'url' => Yii::app()->getController()->createUrl('Compania/cargar'),
 				'update' => '#Compania_UBICACION_GEOGRAFICA2'
 				), 'prompt' => 'Seleccione...'
 				
@@ -76,11 +76,15 @@ function Elimina(){
                                         array('0' => 'Seleccione...')); }
                                         else {
                                             echo $form->dropDownList($model,'UBICACION_GEOGRAFICA2',
-                                            CHtml::listData(UbicacionGeografica2::model()->findAllBySql("select * from ubicacion_geografica2 where UBICACION_GEOGRAFICA1 = ".$model->UBICACION_GEOGRAFICA1), 'ID','NOMBRE'));
+                                            CHtml::listData(UbicacionGeografica2::model()->findAllBySql("select * from ubicacion_geografica2 where ACTIVO = 'S' AND UBICACION_GEOGRAFICA1 = ".$model->UBICACION_GEOGRAFICA1), 'ID','NOMBRE'));
                                         }
                                     } ?>
                         </div>
-
+                        <div class="row">
+                            <?php echo $form->labelEx($model,'REGIMEN_TRIBUTARIO'); ?>
+                            <?php echo $form->dropDownList($model,'REGIMEN_TRIBUTARIO', CHtml::listData(RegimenTributario::model()->findAll('ACTIVO = "S"'),'REGIMEN','DESCRIPCION'),array('empty'=>'Seleccione...')); ?>
+                            <?php echo $form->error($model,'REGIMEN_TRIBUTARIO'); ?>
+                        </div>
                     </fieldset></td>
                 <td><fieldset>
                     <div class="row">
@@ -108,7 +112,7 @@ function Elimina(){
                     <div class="row">
                             <?php   if($model->LOGO != NULL || $model->LOGO != ''){ ?> 
                             <div id="imagen"> <?php echo CHtml::image(Yii::app()->request->baseUrl."/logo/".$model->LOGO, 'Logo'); ?> 
-                            <?php $this->widget('bootstrap.widgets.BootButton', array(
+                            <?php $this->widget('bootstrap.widgets.TbButton', array(
                                     'buttonType'=>'button',
                                     'type'=>'danger',
                                     'label'=>'',
@@ -140,8 +144,8 @@ function Elimina(){
             </tr>
         </table>
 	<div align="center">
-    	<?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-        <?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => array('site/index'), 'icon' => 'remove'));  ?>
+        <?php $this->darBotonEnviar($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
+        <?php $this->darBotonCancelar(false, array('site/index')); ?>
 	</div>
 
     <?php $this->endWidget(); ?> 

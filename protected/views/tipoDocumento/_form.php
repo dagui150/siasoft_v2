@@ -1,6 +1,6 @@
 <div class="form">
     <div>
-<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'type' => 'horizontal',
 	'id'=>'tipo-documento-form',
 	'enableAjaxValidation'=>true,
@@ -8,11 +8,28 @@
 		'validateOnSubmit'=>true,
 	),
 )); ?>
-
+        
                 <?php echo $form->errorSummary($model2); ?>
-		<?php echo $form->textFieldRow($model2,'ID',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
-		<?php echo $form->textFieldRow($model2,'MASCARA',array('size'=>20,'maxlength'=>20)); ?>
+                <table style="width: 400px;">
+                    <tr>
+                        <td>
+                            <?php echo $form->textFieldRow($model2,'ID',array('size'=>10,'maxlength'=>10)); ?>
+                        </td>
+                        <td><?php echo $this->botonAyuda('CODIGO_DOC'); ?></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
+                        </td>
+                        <td><?php echo $this->botonAyuda('DESCR_DOC'); ?></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $form->textFieldRow($model2,'MASCARA',array('size'=>20,'maxlength'=>20)); ?>
+                        </td>
+                        <td><?php echo $this->botonAyuda('MASCARA_DOC'); ?></td>
+                    </tr>
+                </table>
 
 	<div class="row">
 		<?php
@@ -28,8 +45,8 @@
         <?php if(!$model2->isNewRecord): ?>
         <div class="row-buttons" align="center">
         <?php endif ?>
-    	<?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model2->isNewRecord ? 'Crear' : 'Guardar')); ?>
-	<?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => '#', 'icon' => 'remove', 'htmlOptions'=>array('data-dismiss'=>'modal')));  ?>	        
+            <?php $this->darBotonEnviar($model2->isNewRecord ? 'Crear' : 'Guardar'); ?>
+            <?php $this->darBotonCancelar(array('data-dismiss'=>'modal')); ?>
         </div>
 
 

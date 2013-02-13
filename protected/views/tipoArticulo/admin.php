@@ -1,16 +1,16 @@
+<?php $this->pageTitle=Yii::app()->name." - Tipos de Artículos";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('admin'),
-	'Tipos de Articulos'
+	'Tipos de Artículos'
 );
 ?>
 
-<h1>Tipos de Articulos</h1>
-<br>
+<h1>Tipos de Artículos</h1>
 
 
 <?php 
-    $this->widget('bootstrap.widgets.BootGridView', array(
+    $this->widget('bootstrap.widgets.TbGridView', array(
             'type'=>'striped bordered condensed',
             'id'=>'tipo-articulo-grid',
             'dataProvider'=>$model->search(),
@@ -19,7 +19,10 @@ $this->breadcrumbs=array(
                     'ID',
                     'NOMBRE',
                     'DESCRIPCION',
+                /*
                     'ACTIVO',
+                 * 
+                 */
             ),
     )); 
 ?>

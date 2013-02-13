@@ -1,23 +1,18 @@
 <?php
 
-class TipoTransaccionController extends SBaseController
+class TipoTransaccionController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-        public $breadcrumbs=array();
-	public $menu=array();
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
+	public function filters(){
+            return array(array('CrugeAccessControlFilter'));
+          }
 
 	public function actionView($id)
 	{
@@ -40,8 +35,12 @@ class TipoTransaccionController extends SBaseController
 		if(isset($_POST['TipoTransaccion']))
 		{
 			$model2->attributes=$_POST['TipoTransaccion'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
 
 		$this->render('create',array(
@@ -66,7 +65,7 @@ class TipoTransaccionController extends SBaseController
 		if(isset($_POST['TipoTransaccion']))
 		{
 			$model2->attributes=$_POST['TipoTransaccion'];
-			if($model2->save())
+			if($model2->save()){
                             //  ACTUALIZAR REGISTROS
                             if(isset($_POST['SubtipoTransaccion'])){
                                 foreach ($_POST['SubtipoTransaccion'] as $datos){
@@ -123,7 +122,8 @@ class TipoTransaccionController extends SBaseController
                                      $cantidad->save();
                                 }
                             }
-                            $this->redirect(array('admin',));
+                        $this->redirect(array('admin&men=S002'));
+                        }
 		}
 
 		$this->render('update',array(
@@ -144,7 +144,7 @@ class TipoTransaccionController extends SBaseController
 		{
                         if($id != 0){
                             // we only allow deletion via POST request
-                            $this->loadModel($id)->delete();
+                            $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
                             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
                             if(!isset($_GET['ajax']))
                                     $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'),array('msj'=>$msj));
@@ -154,16 +154,10 @@ class TipoTransaccionController extends SBaseController
 		else
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
 	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
+        public function actionRestaurar($id)
 	{
-		$dataProvider=new CActiveDataProvider('TipoTransaccion');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+            $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
+		
 	}
 
 	/**
@@ -206,7 +200,7 @@ class TipoTransaccionController extends SBaseController
                                      $cantidad->save();
                                 }
                             }
-                            $this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S003'));
                         }
 		}
                 

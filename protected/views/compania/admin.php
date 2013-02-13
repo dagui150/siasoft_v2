@@ -1,3 +1,4 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','COMPANIES');?>
 <?php
 $this->breadcrumbs=array(
 	Yii::t('app','COMPANIES')=>array('admin'),
@@ -28,7 +29,7 @@ $('.search-form form').submit(function(){
 <div align = "right">
 <?php 
 
-$this->widget('bootstrap.widgets.BootButton', array(
+$this->widget('bootstrap.widgets.TbButton', array(
     'label'=>'Listar',
     'type'=>'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
     'size'=>'mini', // '', 'large', 'small' or 'mini'
@@ -38,7 +39,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
 
 ?>
 </div>
-<?php $this->widget('bootstrap.widgets.BootGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',
 	'id'=>'compania-grid',
 	'dataProvider'=>$model->search(),
@@ -62,7 +63,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
 		'ACTUALIZADO_EL',
 		*/
 		array(
-                    'class'=>'bootstrap.widgets.BootButtonColumn',
+                    'class'=>'bootstrap.widgets.TbButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),
                     'template'=>'{view}',
 		),

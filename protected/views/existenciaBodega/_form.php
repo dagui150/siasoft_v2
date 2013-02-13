@@ -28,7 +28,7 @@
 <div class="wide form" style="background-color: white;">
 
 <?php 
-    $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'id'=>'existencia-bodega-form',
             'enableAjaxValidation'=>true,
             'clientOptions'=>array(
@@ -36,15 +36,15 @@
             ),
             'type'=>'horizontal',
     ));
-    
-    $boton = $this->widget('bootstrap.widgets.BootButton', array(
+    $boton = $this->darBotonBuscar('#bodega',true,array('data-toggle'=>'modal'));
+    /*$boton = $this->widget('bootstrap.widgets.TbButton', array(
                 'type'=>'info',
                 'size'=>'mini',
                 'url'=>'#bodega',
                 'icon'=>'search',
                 'htmlOptions'=>array('data-toggle'=>'modal',),
-            ),true);
-    $boton2 = $this->widget('bootstrap.widgets.BootButton', array(
+            ),true);*/
+    $boton2 = $this->widget('bootstrap.widgets.TbButton', array(
                 'type'=>'info',
                 'size'=>'mini',
                 'url'=>'#articulo',
@@ -60,18 +60,18 @@
         ?>
 
 	<div class="row">
-            <table>
+            <table style="margin-left: 0px;" id="tabla-existencia">
                  <tr>
-                       <td><?php echo $form->textFieldRow($model,'BODEGA',array('maxlength'=>4,'size'=>4,'ajax'=>array('type' => 'POST','url' => CController::createUrl('existenciaBodega/cargarAjax'),'update' => '#BODEGAA')));?></td> 
-                       <td><div id="BODEGAA" style="margin: 0 0 0 -497px"><?php echo CHtml::textField('BODEGA2',$vbodega,array('size'=>18,'disabled'=>true)); ?></div></td> 
-                       <td><div style="margin: 5px 0 0 -360px"><?php echo $boton; ?></div></td> 
+                       <td><?php echo $form->textFieldRow($model,'BODEGA',array('maxlength'=>4,'size'=>4,'ajax'=>array('type' => 'POST','url' => Yii::app()->getController()->createUrl('existenciaBodega/cargarAjax'),'update' => '#BODEGAA')));?></td> 
+                       <td><div id="BODEGAA" style="margin: 0 0 0 -430px"><?php echo CHtml::textField('BODEGA2',$vbodega,array('size'=>18,'disabled'=>true)); ?></div></td> 
+                       <td><div style="margin: 5px 0 0 -503px"><?php echo $boton; ?></div></td> 
                  
-                       <td><div style="margin: 0 0 0 -352px"><?php echo $form->textFieldRow($model,'ARTICULO',array('value'=>$articulo,'readonly'=>true,'maxlength'=>4,'size'=>4,'ajax'=>array('type' => 'POST','url' => CController::createUrl('existenciaBodega/cargarAjax2'),'update' => '#ARTICULOO')));?></div></td> 
+                       <td><div style="margin: 0 0 0 -352px"><?php echo $form->textFieldRow($model,'ARTICULO',array('value'=>$articulo,'readonly'=>true,'maxlength'=>4,'size'=>4,'ajax'=>array('type' => 'POST','url' => Yii::app()->getController()->createUrl('existenciaBodega/cargarAjax2'),'update' => '#ARTICULOO')));?></div></td> 
                        <td><div id="ARTICULOO" style="margin: 0 0 0 -157px"><?php echo CHtml::textField('ARTICULO2',$barticulo->NOMBRE,array('size'=>18,'disabled'=>true)); ?></div></td> 
                  </tr>
             </table>
-            <fieldset style="float: left;width: 300px;">
-                 <legend ><font face="arial" size=3 >Existencias</font></legend>
+            <fieldset style="float: left;width: 300px;" class="fieldset-existencia">
+                 <legend><font face="arial" size=3 class="titulo-existencia">Existencias en Bodega</font></legend>
                  <?php echo $form->textFieldRow($model,'EXISTENCIA_MINIMA',array('size'=>4,'maxlength'=>28)); ?>
 
                  <?php echo $form->textFieldRow($model,'PUNTO_REORDEN',array('size'=>4,'maxlength'=>28)); ?>
@@ -80,8 +80,8 @@
 
            </fieldset>
             
-           <fieldset style="float: left; margin: 0 0 0 45px; width: 310px; height: 218px;">
-                <legend ><font face="arial" size=3 >Cantidades</font></legend>
+           <fieldset style="float: left; margin: 0 0 10px 30px; width: 310px; height: 218px;" >
+                <legend ><font face="arial" size=3 class="titulo-existencia">Cantidades</font></legend>
                 <table>
                     <tr>
                         <td>
@@ -112,7 +112,7 @@
             <br>
             <div class="row buttons" align ="center" style="margin: 0 0 0 -132px">
                 <?php 
-                        $this->widget('bootstrap.widgets.BootButton', array(
+                        $this->widget('bootstrap.widgets.TbButton', array(
                                     'label'=>$model->isNewRecord ? 'Crear' : 'Guardar',
                                     'buttonType'=>'submit',
                                     'type'=>'primary',
@@ -120,18 +120,28 @@
                             )
                         );
                 ?>
+                
+                <?php
+                    $this->widget('bootstrap.widgets.TbButton', array(
+                                   'label'=>'Cancelar',
+                                   'type'=>'action',
+                                   'icon'=>'remove ', 
+                                   'url'=>array('articulo/admin'),
+                                )
+                   );
+                ?>
             </div>
         </div>
 
     <?php 
         $this->endWidget(); 
-        $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'bodega')); ?>
+        $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'bodega')); ?>
 
             <div class="modal-body">
                     <a class="close" data-dismiss="modal">&times;</a>
                     <br>
                     <?php 
-                        $this->widget('bootstrap.widgets.BootGridView', array(
+                        $this->widget('bootstrap.widgets.TbGridView', array(
                                  'type'=>'striped bordered condensed',
                                  'id'=>'bodega-grid',
                                  'template'=>"{items}",
@@ -142,7 +152,7 @@
                                        array(
                                             'type'=>'raw',
                                             'name'=>'ID',
-                                            'header'=>'Codigo Bodega',
+                                            'header'=>'Código Bodega',
                                             'value'=>'CHtml::link($data->ID,"#")',
                                             'htmlOptions'=>array('data-dismiss'=>'modal'),
                                        ),
@@ -156,7 +166,7 @@
             </div>
             <div class="modal-footer">
 
-                <?php $this->widget('bootstrap.widgets.BootButton', array(
+                <?php $this->widget('bootstrap.widgets.TbButton', array(
                     'label'=>'Cerrar',
                     'url'=>'#',
                     'htmlOptions'=>array('data-dismiss'=>'modal'),

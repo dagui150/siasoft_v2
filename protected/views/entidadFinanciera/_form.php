@@ -14,7 +14,7 @@ function updateCampos(grid_id){
 <?php Yii::import('application.extensions.bootstrap.widgets.*') ?>
 <div class="form">
     <div>
-<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'entidad-financiera-form',
 	'type' => 'horizontal',
 	'enableAjaxValidation'=>true,
@@ -22,7 +22,7 @@ function updateCampos(grid_id){
 		'validateOnSubmit'=>true,
 	),
 )); ?>
-        
+             
     <?php $completar =  $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
         'model'=>$model2,
         'attribute'=>'NIT',
@@ -32,19 +32,29 @@ function updateCampos(grid_id){
             'class'=>'escritoNit'
         ),
     ), true); ?>
+            <?php $modal = $this->darBotonBuscar('#',true,array('onclick'=>'$("#nit").dialog("open");return false;')); ?>
         
-        <?php $modal = $this->widget('bootstrap.widgets.BootButton', array(
-                          'type'=>'info',
-                          'size'=>'mini',
-                          'url'=>'#',
-                          'icon'=>'search',
-                          'htmlOptions'=>array('onclick'=>'$("#nit").dialog("open");return false;'),
-                    ), true); ?>
-        
-<?php echo $form->errorSummary($model2); ?>
-		<?php echo $form->textFieldRow($model2,'ID'); ?>
-                <div class="control-group "><label for="EntidadFinanciera_NIT" class="control-label required">NIT <span class="required">*</span></label><div class="controls"><?php echo $completar; ?> <?php echo $modal; ?></div></div>
-		<?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
+    <?php echo $form->errorSummary($model2); ?>
+                <table style="width: 400px;">
+                    <tr>
+                        <td>
+                            <?php echo $form->textFieldRow($model2,'ID'); ?>
+                        </td>
+                        <td><?php echo $this->botonAyuda('CODIGO'); ?></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="control-group "><label for="EntidadFinanciera_NIT" class="control-label required">NIT <span class="required">*</span></label><div class="controls"><?php echo $completar; ?> <?php echo $modal; ?></div></div>
+                        </td>
+                        <td><?php echo $this->botonAyuda('NIT_ENT_FINAN'); ?></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $form->textAreaRow($model2,'DESCRIPCION'); ?>
+                        </td>
+                        <td><?php echo $this->botonAyuda('DESCR_ENT_FINAN'); ?></td>
+                    </tr>
+                </table>
 	<div class="row">
 		<?php
 			echo CHtml::activeHiddenField($model2,'ACTIVO',array('value'=>'S'));
@@ -61,8 +71,8 @@ function updateCampos(grid_id){
         <?php if(!$model2->isNewRecord): ?>
         <div class="row-buttons" align="center">
         <?php endif ?>
-    	<?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model2->isNewRecord ? 'Crear' : 'Guardar')); ?>
-	<?php $this->widget('bootstrap.widgets.BootButton', array('label'=>'Cancelar', 'size'=>'small',	'url' => '#', 'icon' => 'remove', 'htmlOptions'=>array('data-dismiss'=>'modal')));  ?>	        
+            <?php $this->darBotonEnviar($model2->isNewRecord ? 'Crear' : 'Guardar'); ?>
+            <?php $this->darBotonCancelar(array('data-dismiss'=>'modal')); ?>
         </div>
 
 

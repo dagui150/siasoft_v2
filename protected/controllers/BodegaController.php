@@ -1,49 +1,23 @@
 <?php
 
-class BodegaController extends SBaseController
+class BodegaController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
+	public $modulo='Sistema';
+        public $submodulo='Bodegas';
 	public $layout='//layouts/column2';
-	public $breadcrumbs=array();
-	public $menu=array();
+        
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
-
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	/*public function accessRules()
-	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
-	}*/
+	public function filters(){
+            return array(
+                            array('CrugeAccessControlFilter'),
+                       );
+          }
 
 	/**
 	 * Displays a particular model.
@@ -62,6 +36,8 @@ class BodegaController extends SBaseController
 	 */
 	public function actionCreate()
 	{
+                $mensajeSucces = MensajeSistema::model()->findByPk('S001');
+                $mensajeError = MensajeSistema::model()->findByPk('E001');
 		$model2=new Bodega;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -70,16 +46,25 @@ class BodegaController extends SBaseController
 		if(isset($_POST['Bodega']))
 		{
 			$model2->attributes=$_POST['Bodega'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+                            //$mensaje = "sdfhnsdkjfhjds1111";
+                            //$this->render('admin', array('alerta'=>$mensaje));
+			    //$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S003'));
+                        }else{
+                            //$mensaje = "sdfjhsdjkfhsd22222";
+                            //$this->render('admin', array('alerta'=>$mensaje));
+                            //$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
 
 		$this->render('create',array(
 			'model2'=>$model2,
 		));
-	}
-
-	/**
+                }	
+                
+                /**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
@@ -94,14 +79,172 @@ class BodegaController extends SBaseController
 		if(isset($_POST['Bodega']))
 		{
 			$model2->attributes=$_POST['Bodega'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(
 			'model2'=>$model2,
 		));
 	}
+        
+        
+        public function actionArticulos($id)
+	{
+            $model=$this->loadModel($id);
+            $bodega = new Bodega;
+            //$linea = new PedidoLinea;
+            $linea = new ExistenciaBodegas();
+            $linea22 = new ExistenciaBodega('addLinea');
+            $articulo = new Articulo;
+            //$modelLinea = PedidoLinea::model()->findAll('PEDIDO ="'.$model->PEDIDO.'"');
+            $modelLinea = ExistenciaBodegas::model()->findAll('BODEGA ="'.$id.'" AND ACTIVO = "S"');
+            //$countLineas = PedidoLinea::model()->count('PEDIDO ="'.$model->PEDIDO.'"');
+            $countLineas = ExistenciaBodegas::model()->count('BODEGA ="'.$id.'" AND ACTIVO = "S"');
+            $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif';
+            $ruta2 = Yii::app()->request->baseUrl.'/images/cargar.gif';
+            $i = 1;
+
+            if(isset($_POST['ajax']) && $_POST['ajax']==='articulo-form')
+		{
+			echo CActiveForm::validate($linea22);
+			Yii::app()->end();
+		}
+            if(isset($_POST['ajax']) && $_POST['ajax']==='existencia-bodegas-form')
+		{
+			echo CActiveForm::validate($linea);
+			Yii::app()->end();
+		}
+            
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation($model);
+                
+		if(isset($_POST['Bodega']))
+		{
+			$model->attributes=$_POST['Bodega'];
+			if($model->save()){
+                            if($_POST['eliminar'] != ''){
+                                        
+                                    $eliminar = explode(",", $_POST['eliminar']);
+                                    foreach($eliminar as $elimina){                                
+                                            //$borra = ExistenciaBodegas::model()->deleteByPk($elimina);                                
+                                        ExistenciaBodegas::model()->updateByPk($elimina,array('ACTIVO'=>'N'));
+                                    }
+
+                                }
+				if(isset($_POST['ExistenciaBodegas'])){
+                                foreach ($_POST['ExistenciaBodegas'] as $datos2){
+                                    $salvar2 = ExistenciaBodegas::model()->findByPk($datos2['ID']);
+                                    $salvar2->EXISTENCIA_MINIMA = $datos2['EXISTENCIA_MINIMA'];
+                                    $salvar2->EXISTENCIA_MAXIMA = $datos2['EXISTENCIA_MAXIMA'];
+                                    $salvar2->PUNTO_REORDEN = $datos2['PUNTO_REORDEN'];
+                                    $salvar2->save();
+                                }
+                            }
+                            
+                            if(isset($_POST['LineaNuevo'])){
+                                  foreach ($_POST['LineaNuevo'] as $datos){
+                                        $salvar = new ExistenciaBodegas;
+                                        $salvar->ARTICULO = $datos['ARTICULO'];
+                                        $salvar->BODEGA = $model['ID'];
+                                        $salvar->EXISTENCIA_MINIMA = $datos['EXISTENCIA_MINIMA'];
+                                        $salvar->EXISTENCIA_MAXIMA = $datos['EXISTENCIA_MAXIMA'];
+                                        $salvar->PUNTO_REORDEN = $datos['PUNTO_REORDEN'];
+                                        $salvar->CANT_DISPONIBLE = $datos['CANT_DISPONIBLE'];
+                                        $salvar->CANT_RESERVADA = $datos['CANT_RESERVADA'];
+                                        $salvar->CANT_REMITIDA = $datos['CANT_REMITIDA'];
+                                        $salvar->CANT_CUARENTENA = 0;
+                                        $salvar->CANT_VENCIDA = 0;
+                                        $salvar->ACTIVO = 'S';
+                                        
+                                        $salvar->save();
+                                 }
+                             }
+                             
+                                $this->redirect(array('inventario','men'=>'S002'));
+                        } else {
+                            $this->redirect(array('inventario','men'=>'E002'));
+                        }
+		}
+
+		$this->render('articulos',array(
+			'model'=>$model,
+			'bodega'=>$bodega,
+			'linea'=>$linea,
+                        'linea22'=>$linea22,
+			'articulo'=>$articulo,
+			'modelLinea'=>$modelLinea,
+			'countLineas'=>$countLineas,
+			'ruta'=>$ruta,
+                        'ruta2'=>$ruta2,
+		));
+	}
+        
+        public function actionDirigir(){
+            switch($_GET['FU']){
+                case 'CL':
+                    $this->CargarCliente($_GET['ID']);
+                break;
+                case 'AR':
+                    $this->CargarArticulo($_GET['ID']);
+                break;
+            }
+        }
+        
+        protected function CargarArticulo($item_id){            
+            $bus = Articulo::model()->findByPk($item_id, 'ACTIVO = "S"');
+            $res = array(
+                'ID' => $bus->ARTICULO,
+                'NOMBRE' => $bus->NOMBRE,
+            );            
+            echo CJSON::encode($res);
+        }
+        
+        public function actionAgregarlinea(){
+            $linea = new ExistenciaBodegas('modalLinea');
+            $linea->attributes = $_POST['ExistenciaBodegas'];
+            $ruta = Yii::app()->request->baseUrl.'/images/cargando.gif'; 
+            
+            if($linea->validate()){
+                     echo '<div id="alert" class="alert alert-success" data-dismiss="modal">
+                            <h2 align="center">Operacion Satisfactoria</h2>
+                            </div>
+                     <span id="form-cargado" style="display:none">';
+                          $this->renderPartial('form_lineas', 
+                            array(
+                                'linea'=>$linea,
+                                'ruta'=>$ruta,
+                                'Pactualiza'=>isset($_POST['ACTUALIZA']) ? $_POST['ACTUALIZA'] : 0,
+                            )
+                        );
+                     echo '</span>
+                         
+                         <div id="boton-cargado" class="modal-footer">';
+                            $this->widget('bootstrap.widgets.TbButton', array(
+                                 'buttonType'=>'button',
+                                 'type'=>'normal',
+                                 'label'=>'Aceptar',
+                                 'icon'=>'ok',
+                                 'htmlOptions'=>array('id'=>'nuevo','onclick'=>'agregar("'.$_POST['SPAN'].'")')
+                              ));
+                     echo '</div>';
+                     Yii::app()->end();
+                    }else{
+                    $this->renderPartial('form_lineas', 
+                        array(
+                            'linea'=>$linea,
+                            'ruta'=>$ruta,                            
+                        )
+                    );
+                    Yii::app()->end();
+                }
+        }
+        
+        
 
 	/**
 	 * Deletes a particular model.
@@ -113,7 +256,7 @@ class BodegaController extends SBaseController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -122,17 +265,22 @@ class BodegaController extends SBaseController
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
+        public function actionRestaurar($id)
 	{
-		$dataProvider=new CActiveDataProvider('Bodega');
-		$this->render('index',array(
+            $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
+		
+	}
+       
+          
+         public function actionPdf(){
+            
+            $dataProvider=new Bodega;
+		$this->render('pdf',array(
 			'dataProvider'=>$dataProvider,
 		));
-	}
+            
+            
+        }
 
 	/**
 	 * Manages all models.
@@ -150,14 +298,16 @@ class BodegaController extends SBaseController
 		{
 			$model2->attributes=$_POST['Bodega'];
 			if($model2->save()){
-                                $mensaje = MensajeSistema::mensaje('S001');
-                                $tipo = "success";
-				$this->redirect(array('admin', 'mensaje'=>$mensaje, 'tipo'=>$tipo));
+                               // $mensaje = MensajeSistema::mensaje('S001');
+                                //$tipo = "success";
+				//$this->redirect(array('admin', 'mensaje'=>$mensaje, 'tipo'=>$tipo));
+                            $this->redirect(array('admin&men=S003'));
                         }
                         else{
-                            $mensaje = MensajeSistema::mensaje('E001');
-                            $tipo = "error";
-                            $this->render('admin', array('mensaje'=>$mensaje, 'tipo'=>$tipo));
+                            //$mensaje = MensajeSistema::mensaje('E001');
+                            //$tipo = "error";
+                            //$this->render('admin', array('mensaje'=>$mensaje, 'tipo'=>$tipo));
+                            $this->redirect(array('admin&men=E003'));
                         }
 		}
 		if(isset($_GET['Bodega']))
@@ -166,6 +316,19 @@ class BodegaController extends SBaseController
 		$this->render('admin',array(
 			'model'=>$model,
 			'model2'=>$model2,
+		));
+	}
+        
+        // Inventario
+        public function actionInventario()
+	{
+		$model=new Bodega('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Bodega']))
+			$model->attributes=$_GET['Bodega'];
+
+		$this->render('inventario',array(
+			'model'=>$model,
 		));
 	}
 

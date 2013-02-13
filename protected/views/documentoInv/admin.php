@@ -10,12 +10,13 @@
      setTimeout(function(){
          $(".alert").slideUp('slow');
          $('#seleccion').val('');
-     }, 10000);
+     }, 15000);
      $.fn.yiiGridView.update('documento-inv-grid');
      
  }
 </script>
 
+<?php $this->pageTitle=Yii::app()->name." - Documentos";?>
 <?php
 if(!ConfCi::darConf())
      $this->redirect(array('/confCi/create'));
@@ -27,17 +28,21 @@ $this->breadcrumbs=array(
 ?>
 
 <h1>Documentos</h1>
-<br>
+<?php 
+if (isset($_GET['men'])){
+    $this->mensaje($_GET['men']);
+}
+?>
 <div id="repuesta"></div>
 <div align="right">
 
     <?php
            
-            $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array());
+            $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array());
 
             echo CHtml::hiddenField('seleccion');
             
-            $this->widget('bootstrap.widgets.BootButton', array(
+            $this->widget('bootstrap.widgets.TbButton', array(
                     'buttonType'=>'ajaxSubmit',
                     'label'=>'Aprobar',
                     'size'=>'mini', 
@@ -54,25 +59,43 @@ $this->breadcrumbs=array(
     ?>
     <?php 
 
-            $this->widget('bootstrap.widgets.BootButton', array(
+            $this->widget('bootstrap.widgets.TbButton', array(
                     'buttonType'=>'ajaxSubmit',
-                    'label'=>'Rev. Aprovación',
-                    'type'=>'danger', 
+                    'label'=>'Rev. Aprobación',
+                    'type'=>'inverse', 
                     'size'=>'mini', 
                     'icon' => 'arrow-left white',
+                    'url'=>array('reversar'),
+                    'ajaxOptions'=>array(
+                        'type'=>'POST',
+                        'update'=>'#repuesta',
+                        'complete'=>'completado()',
+                    ),
+                    'htmlOptions'=>array('id'=>'reversar','confirm'=>'¿Desea Reversar Documento(s) Seleccionado(s)?'),
+            )); 
+
+    ?>
+    <?php 
+
+            $this->widget('bootstrap.widgets.TbButton', array(
+                    'buttonType'=>'ajaxSubmit',
+                    'label'=>'Cancelar',
+                    'type'=>'danger', 
+                    'size'=>'mini', 
+                    'icon' => 'remove white',
                     'url'=>array('cancelar'),
                     'ajaxOptions'=>array(
                         'type'=>'POST',
                         'update'=>'#repuesta',
                         'complete'=>'completado()',
                     ),
-                    'htmlOptions'=>array('id'=>'cancelar'),
+                    'htmlOptions'=>array('id'=>'cancelar','confirm'=>'¿Desea Cancelar Documento(s) Seleccionado(s)?'),
             )); 
 
     ?>
     <?php 
 
-            $this->widget('bootstrap.widgets.BootButton', array(
+            $this->widget('bootstrap.widgets.TbButton', array(
                     'buttonType'=>'ajaxSubmit',
                     'label'=>'Aplicar',
                     'type'=>'info', 
@@ -89,21 +112,14 @@ $this->breadcrumbs=array(
             
     ?>
     
-    <?php 
-
-            $this->widget('bootstrap.widgets.BootButton', array(
-                    'label'=>'Nuevo',
-                    'type'=>'success', 
-                    'size'=>'mini', 
-                    'icon' => 'plus white',
-                    'url'=>array('create')
-            )); 
+    <?php  
+            $this->darBotonNuevo(array('create'),false,'mini');
             $this->endWidget(); 
     ?>
 </div>
 
 <?php 
-    $this->widget('bootstrap.widgets.BootGridView', array(
+    $this->widget('bootstrap.widgets.TbGridView', array(
         'type'=>'striped bordered condensed',
 	'id'=>'documento-inv-grid',
 	'dataProvider'=>$model->search(),
@@ -128,9 +144,16 @@ $this->breadcrumbs=array(
                     'filter'=>array('P'=>'Pendiente','A'=>'Aprobado','L'=>'Aplicado','C'=>'Cancelado')
                 ),
 		array(
-			'class'=>'bootstrap.widgets.BootButtonColumn',
+			'class'=>'bootstrap.widgets.TbButtonColumn',
                         'template'=>'{update}'
 		),
+             array(
+                         'class'=>'CLinkColumn',
+			 'imageUrl'=>Yii::app()->baseUrl.'/images/pdf.png',
+			 'urlExpression'=>'Yii::app()->getController()->createUrl("/documentoInv/formatoPDF", array("id"=>$data->DOCUMENTO_INV))',
+			 'htmlOptions'=>array('style'=>'text-align:center;'),
+			 'linkHtmlOptions'=>array('style'=>'text-align:center','rel'=>'tooltip', 'data-original-title'=>'PDF', 'target'=>'_blank'),
+                ),
 	),
     ));
 ?>

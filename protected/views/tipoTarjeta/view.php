@@ -1,15 +1,17 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','VIEW')." Tipo de Tarjeta";?>
 <?php
 $this->breadcrumbs=array(
-	'Tipo Tarjeta'=>array('admin'),
+        'Sistema'=>array('admin'),
+	'Tipo de Tarjeta'=>array('admin'),
 	$model->ID,
 );
 
 $this->menu=array(
-	array('label'=>'List TipoTarjeta', 'url'=>array('index')),
-	array('label'=>'Create TipoTarjeta', 'url'=>array('create')),
-	array('label'=>'Update TipoTarjeta', 'url'=>array('update', 'id'=>$model->ID)),
-	array('label'=>'Delete TipoTarjeta', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->ID),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage TipoTarjeta', 'url'=>array('admin')),
+	array('label'=>Yii::t('app','LIST').' TipoTarjeta', 'url'=>array('index')),
+	array('label'=>Yii::t('app','CREATE').' TipoTarjeta', 'url'=>array('create')),
+	array('label'=>Yii::t('app','UPDATE').' TipoTarjeta', 'url'=>array('update', 'id'=>$model->ID)),
+	array('label'=>Yii::t('app','DELETE').' TipoTarjeta', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->ID),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>Yii::t('app','MANAGE').' TipoTarjeta', 'url'=>array('admin')),
 );
 ?>
 
@@ -20,10 +22,10 @@ $this->menu=array(
 	'attributes'=>array(
 		'ID',
 		'DESCRIPCION',
-		'ACTIVO',
+		/*'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
 		'ACTUALIZADO_POR',
-		'ACTUALIZADO_EL',
+		'ACTUALIZADO_EL',*/
 	),
 )); ?>

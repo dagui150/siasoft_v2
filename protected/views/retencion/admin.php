@@ -1,46 +1,18 @@
+<?php $this->pageTitle=Yii::app()->name." - Retenciones";?>
 <?php
 $this->breadcrumbs=array(
-	'Retenciones'=>array('index'),
-	'Administrar',
+        'Sistema'=>array('admin'),
+	'Retenciones',
 );
-
-$this->menu=array(
-	array('label'=>'Listar Retencion', 'url'=>array('index')),
-	array('label'=>'Crear Retencion', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('retencion-grid', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
 <h1>Administrar Retenciones</h1>
-
-
 <div align="right">
-<?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'Nuevo',
-    'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'url' => array('retencion/create'),
-	'icon' => 'plus white'
-)); 
-
-?>
+    <?php $this->darBotonPdfExcel(array('retencion/excel')); ?>
+    <?php $this->darBotonPdfExcel(array('retencion/pdf'), false, 'PDF', 'danger'); ?>
 </div>
 
-<?php  $this->widget('bootstrap.widgets.BootGridView', array(
+<?php  $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',
 	'id'=>'retencion-grid',
 	'dataProvider'=>$model->search(),
@@ -64,9 +36,5 @@ $this->widget('bootstrap.widgets.BootButton', array(
 		'ACTUALIZADO_POR',
 		'ACTUALIZADO_EL',
 		*/
-		array(
-                    'class'=>'bootstrap.widgets.BootButtonColumn',
-                    'htmlOptions'=>array('style'=>'width: 50px'),
-		),
 	),
 )); ?>

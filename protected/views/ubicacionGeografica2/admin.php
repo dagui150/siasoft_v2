@@ -1,12 +1,14 @@
+<?php $this->pageTitle=Yii::app()->name." - Ubicacion Geografica 2";?>
+
 <?php
 $this->breadcrumbs=array(
-	'Ubicacion Geografica 2'=>array('admin'),
-	'Administrar',
+        'Sistema'=>array('admin'),
+	'Ubicacion Geografica 2',
 );
 
 $this->menu=array(
-	array('label'=>'List UbicacionGeografica2', 'url'=>array('index')),
-	array('label'=>'Create UbicacionGeografica2', 'url'=>array('create')),
+	array('label'=>Yii::t('app','LIST').' UbicacionGeografica2', 'url'=>array('index')),
+	array('label'=>Yii::t('app','CREATE').' UbicacionGeografica2', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -25,7 +27,13 @@ $('.search-form form').submit(function(){
 
 <h1>Municipio</h1>
 
-<?php $this->widget('bootstrap.widgets.BootGridView', array(
+<div align="right">
+    
+    <?php $this->darBotonPdfExcel(array('ubicacionGeografica2/excel')); ?>
+    <?php $this->darBotonPdfExcel(array('ubicacionGeografica2/pdf'), false, 'PDF', 'danger'); ?>
+    
+</div>
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',
 	'id'=>'ubicacion-geografica2-grid',
 	'dataProvider'=>$model->search(),
@@ -45,7 +53,7 @@ $('.search-form form').submit(function(){
 	),
 )); ?>
 
-<?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
  
 <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>
@@ -59,7 +67,7 @@ $('.search-form form').submit(function(){
 
 <div class="modal-footer">
 
-    <?php $this->widget('bootstrap.widgets.BootButton', array(
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
         'label'=>'Close',
         'url'=>'#',
         'htmlOptions'=>array('data-dismiss'=>'modal'),

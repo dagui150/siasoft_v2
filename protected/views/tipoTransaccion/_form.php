@@ -1,6 +1,6 @@
 <div class="form">
-    <div class="modal-body">
-        <?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+    <div class="modal-body ">
+        <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'id'=>'tipo-transaccion-form',
             'enableAjaxValidation'=>true,
             'clientOptions'=>array(
@@ -10,6 +10,9 @@
     )); ?>
         <br>
             <?php
+            // Esta es la linea que causaba conflicto
+            $sentencia__='TRANSACCION_FIJA = "S"';
+                
                 $cs=Yii::app()->clientScript;
                 $cs->registerScriptFile(XHtml::jsUrl('jquery.calculation.min.js'), CClientScript::POS_HEAD);
                 $cs->registerScriptFile(XHtml::jsUrl('jquery.format.js'), CClientScript::POS_HEAD);
@@ -17,18 +20,40 @@
                 echo $form->errorSummary($model2);
                 if(!$model2->isNewRecord)
                     echo $form->hiddenField($model2,'TRANSACCION_BASE'); 
-                $this->widget('bootstrap.widgets.BootTabbable', array(
+                $this->widget('bootstrap.widgets.TbTabs', array(
                             'type'=>'tabs',
                             'tabs'=>array(
                                 array(
                                     'label'=>'Tipo de Transacción',
                                     'content'=>
-                                        $form->textFieldRow($model2,'TIPO_TRANSACCION',array('size'=>4,'maxlength'=>4,'disabled'=>$model2->isNewRecord ? false : true))
-                                        .$form->textFieldRow($model2,'NOMBRE',array('size'=>16,'maxlength'=>16,'disabled'=>$model2->TRANSACCION_FIJA == 'S' ? true : false))
-                                        .$form->dropDownListRow($model2,'TRANSACCION_BASE',CHtml::listData(TipoTransaccion::model()->findAll('TRANSACCION_FIJA = "S"'), 'TIPO_TRANSACCION', 'NOMBRE'),array('empty'=>'Seleccione','disabled'=>$model2->isNewRecord ? false : true))
-                                        .$form->hiddenField($model2,'TRANSACCION_FIJA',array('value'=>'N'))
-                                        .$form->dropDownListRow($model2,'NATURALEZA',array('S'=>'Salida','E'=>'Entrada','A'=>'Ambas','N'=>'Ninguna'),array('empty'=>'Seleccione','disabled'=>($model2->TRANSACCION_FIJA == 'S' && $model2->NATURALEZA != '') ? true : false))
-                                    ,   
+                                        '<table style="width: 400px;">
+                                            <tr>
+                                                <td>
+                                                '.$form->textFieldRow($model2,"TIPO_TRANSACCION",array("size"=>4,"maxlength"=>4,"disabled"=>$model2->isNewRecord ? false : true)).'
+                                                </td>
+                                                <td>'./*$this->botonAyuda("CODIGO")*/''.'</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                '.$form->textFieldRow($model2,"NOMBRE",array("size"=>16,"maxlength"=>16,"disabled"=>$model2->TRANSACCION_FIJA == "S" ? true : false)).'
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                '.$form->dropDownListRow($model2,"TRANSACCION_BASE",CHtml::listData(TipoTransaccion::model()->findAll('TRANSACCION_FIJA = "S"'), "TIPO_TRANSACCION", "NOMBRE"),array("empty"=>"Seleccione","disabled"=>$model2->isNewRecord ? false : true)).'
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                                '.$form->hiddenField($model2,"TRANSACCION_FIJA",array("value"=>"N")).'
+                                            <tr>
+                                                <td>
+                                                '.$form->dropDownListRow($model2,"NATURALEZA",array("S"=>"Salida","E"=>"Entrada","A"=>"Ambas","N"=>"Ninguna"),array("empty"=>"Seleccione","disabled"=>($model2->TRANSACCION_FIJA == "S" && $model2->NATURALEZA != "") ? true : false)).'
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </table>'
+                                    ,     
                                     'active'=>true
                                 ),
                                 array(
@@ -53,34 +78,13 @@
     <?php if(!$model2->isNewRecord): ?>
     <div class="row-buttons" align="center">
     <?php endif ?>
-              <?php
-                     $this->widget('bootstrap.widgets.BootButton', array(
-                               'label'=>$model2->isNewRecord ? 'Crear' : 'Guardar',
-                               'buttonType'=>'submit',
-                               'type'=>'primary',
-                               'icon'=>'ok-circle white', 
-                            )
-                    );
-             ?>
+        <?php $this->darBotonEnviar($model2->isNewRecord ? 'Crear' : 'Guardar'); ?>
               <?php
                     if($model2->isNewRecord){
-                         $this->widget('bootstrap.widgets.BootButton', array(
-                                   'label'=>'Cancelar',
-                                   'buttonType'=>'reset',
-                                   'type'=>'action',
-                                   'icon'=>'remove ', 
-                                   'htmlOptions'=>array('data-dismiss'=>'modal'),
-                                )
-                        );
+                         $this->darBotonCancelar(array('data-dismiss'=>'modal'), '');
                     }
                     else{
-                         $this->widget('bootstrap.widgets.BootButton', array(
-                                   'label'=>'Cancelar',
-                                   'type'=>'action',
-                                   'icon'=>'remove ', 
-                                   'url'=>array('admin'),
-                                )
-                        );
+                         $this->darBotonCancelar(false, array('admin'));
                     }
              ?>
       </div>

@@ -1,51 +1,21 @@
 <?php
 
-class ProveedorController extends SBaseController
+class ProveedorController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-	public $breadcrumbs=array();
-	public $menu=array();
-
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
+	public function filters(){
+            return array(
+                                      array('CrugeAccessControlFilter'),
+                              );
+          }
 
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	/*public function accessRules()
-	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
-	}
-*/
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
@@ -73,8 +43,21 @@ class ProveedorController extends SBaseController
 		if(isset($_POST['Proveedor']))
 		{
 			$model->attributes=$_POST['Proveedor'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->PROVEEDOR));
+                        ($_POST['Proveedor']['CONDICION_PAGO'] == '') ? $model->CONDICION_PAGO = NULL : $model->CONDICION_PAGO = $_POST['Proveedor']['CONDICION_PAGO'];
+                        if($model->PAIS == 'COL'){
+                            $model->CIUDAD = '';
+                            $model->UBICACION_GEOGRAFICA1 = $_POST['Proveedor']['UBICACION_GEOGRAFICA1'];
+                        }
+                        else{
+                            $model->UBICACION_GEOGRAFICA2 = NULL;
+                            $model->UBICACION_GEOGRAFICA1 = NULL;
+                        }
+			if($model->save()){
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
                 if(isset($_GET['Nit']))
 			$nit->attributes=$_GET['Nit'];
@@ -104,8 +87,20 @@ class ProveedorController extends SBaseController
 		if(isset($_POST['Proveedor']))
 		{
 			$model->attributes=$_POST['Proveedor'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->PROVEEDOR));
+                        if($model->PAIS == 'COL'){
+                            $model->CIUDAD = '';
+                            $model->UBICACION_GEOGRAFICA1 = $_POST['Proveedor']['UBICACION_GEOGRAFICA1'];
+                        }
+                        else{
+                            $model->UBICACION_GEOGRAFICA2 = NULL;
+                            $model->UBICACION_GEOGRAFICA1 = NULL;
+                        }
+			if($model->save()){
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
                 
                 if(isset($_GET['Nit']))
@@ -128,7 +123,7 @@ class ProveedorController extends SBaseController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -137,16 +132,11 @@ class ProveedorController extends SBaseController
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
+        
+        public function actionRestaurar($id)
 	{
-		$dataProvider=new CActiveDataProvider('Proveedor');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
+		
 	}
 
 	/**
@@ -189,6 +179,10 @@ class ProveedorController extends SBaseController
 			Yii::app()->end();
 		}
 	}
+        
+        public function actionCargarubicacion(){            
+            echo CJSON::encode(CHtml::ListData(UbicacionGeografica2::model()->findAll('UBICACION_GEOGRAFICA1 = "'.$_GET['ubicacion'].'" AND ACTIVO = "S"'),'ID','NOMBRE'));            
+        }
         
         public function actionCargarNit() {
             

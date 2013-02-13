@@ -74,10 +74,10 @@ class DiaFeriado extends CActiveRecord
 		return array(
 			'ID' => 'ID',
 			'TIPO' => 'Tipo',
-			'DIA' => 'Dia',
+			'DIA' => 'Día',
 			'MES' => 'Mes',
 			'ANIO' => 'A&ntilde;o',
-			'DESCRIPCION' => 'Descripcion',
+			'DESCRIPCION' => 'Descripción',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',
@@ -103,7 +103,7 @@ class DiaFeriado extends CActiveRecord
 		$criteria->compare('MES',$this->MES);
 		$criteria->compare('ANIO',$this->ANIO);
 		$criteria->compare('DESCRIPCION',$this->DESCRIPCION,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -111,6 +111,19 @@ class DiaFeriado extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+		));
+	}
+        
+        public function searchPdf()
+	{
+
+		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'pagination'=>array(
+                            'pageSize'=> DiaFeriado::model()->count(),
+                        ),
 		));
 	}
         
@@ -139,5 +152,22 @@ class DiaFeriado extends CActiveRecord
 				'updatedByColumn' => 'ACTUALIZADO_POR',
 			),
 		);
+	}
+        
+                public function searchPapelera()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		
+		$criteria->compare('ACTIVO','N');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'pagination'=>false,
+			'sort'=>false,
+		));
 	}
 }

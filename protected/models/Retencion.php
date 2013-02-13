@@ -52,6 +52,7 @@ class Retencion extends CActiveRecord
 			array('ID, NOMBRE, PORCENTAJE, MONTO_MINIMO, TIPO, ACTIVO', 'required'),
 			array('ID', 'length', 'max'=>4),
 			array('NOMBRE', 'length', 'max'=>64),
+                        array('PORCENTAJE, MONTO_MINIMO','numerical','numberPattern' => '/^\s*[-+]?(\d{1,3}\.*\,*)*?\s*$/'),
 			array('PORCENTAJE, MONTO_MINIMO', 'length', 'max'=>28),
 			array('TIPO, APLICA_MONTO, APLICA_SUBTOTAL, APLICA_SUB_DESC, APLICA_IMPUESTO1, APLICA_RUBRO1, APLICA_RUBRO2, ACTIVO', 'length', 'max'=>1),
 			array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
@@ -82,7 +83,7 @@ class Retencion extends CActiveRecord
 			'ID' => 'ID',
 			'NOMBRE' => 'Nombre',
 			'PORCENTAJE' => 'Porcentaje',
-			'MONTO_MINIMO' => 'Monto Minimo',
+			'MONTO_MINIMO' => 'Monto Mínimo',
 			'TIPO' => 'Tipo',
 			'APLICA_MONTO' => 'Monto',
 			'APLICA_SUBTOTAL' => 'Subtotal',
@@ -120,7 +121,7 @@ class Retencion extends CActiveRecord
 		$criteria->compare('APLICA_IMPUESTO1',$this->APLICA_IMPUESTO1,true);
 		$criteria->compare('APLICA_RUBRO1',$this->APLICA_RUBRO1,true);
 		$criteria->compare('APLICA_RUBRO2',$this->APLICA_RUBRO2,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -130,9 +131,33 @@ class Retencion extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-        	public function behaviors()
+        public function searchPdf()
 	{
+
+		$criteria=new CDbCriteria;                 
+                $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'pagination'=>array(
+                            'pageSize'=> Retencion::model()->count(),
+                        ),
+		));
+	}
+
+        
+    public function behaviors()
+	{
+		$conf= ConfFa::model()->find();
+        $conf2=  ConfAs::model()->find();
 		return array(
+                        'defaults'=>array(
+                           'class'=>'application.components.FormatBehavior',
+                           'formats'=> array(
+                                   'PORCENTAJE'=>'###,##0.'.str_repeat('0',$conf2->PORCENTAJE_DEC), 
+                                   'MONTO_MINIMO'=>'###,##0.'.str_repeat('0',$conf->DECIMALES_PRECIO), 
+                            ),
+                        ),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',

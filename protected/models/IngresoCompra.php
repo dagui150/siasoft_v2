@@ -91,11 +91,11 @@ class IngresoCompra extends CActiveRecord
 			'PROVEEDOR' => 'Proveedor',
 			'FECHA_INGRESO' => 'Fecha Ingreso',
 			'TIENE_FACTURA' => 'Tiene Factura',
-			'RUBRO1' => 'Rubro1',
-			'RUBRO2' => 'Rubro2',
-			'RUBRO3' => 'Rubro3',
-			'RUBRO4' => 'Rubro4',
-			'RUBRO5' => 'Rubro5',
+			'RUBRO1' => 'Campo adicional 1',
+			'RUBRO2' => 'Campo adicional 2',
+			'RUBRO3' => 'Campo adicional 3',
+			'RUBRO4' => 'Campo adicional 4',
+			'RUBRO5' => 'Campo adicional 5',
 			'NOTAS' => 'Notas',
 			'ESTADO' => 'Estado',
 			'APLICADO_POR' => 'Aplicado Por',
@@ -144,6 +144,17 @@ class IngresoCompra extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+        public static function estado($codigo){
+            switch ($codigo){
+                case 'C' : return 'Cancelado';
+                break;
+                case 'R' : return 'Recibido';
+                break;
+                case 'P' : return 'Planeado';
+                break;
+            }
+        }
         
         public function behaviors()
 	{

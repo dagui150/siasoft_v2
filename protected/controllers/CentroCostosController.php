@@ -1,49 +1,20 @@
 <?php
 
-class CentroCostosController extends SBaseController
+class CentroCostosController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-	public $breadcrumbs=array();
-	public $menu=array();
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
-
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	/*public function accessRules()
-	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
-	}*/
+	public function filters(){
+      return array(
+				array('CrugeAccessControlFilter'),
+			);
+    }
 
 	/**
 	 * Displays a particular model.
@@ -71,8 +42,12 @@ class CentroCostosController extends SBaseController
 		if(isset($_POST['CentroCostos']))
 		{
 			$model2->attributes=$_POST['CentroCostos'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
 
 		$this->render('create',array(
@@ -97,8 +72,12 @@ class CentroCostosController extends SBaseController
 		if(isset($_POST['CentroCostos']))
 		{
 			$model2->attributes=$_POST['CentroCostos'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(
@@ -117,7 +96,7 @@ class CentroCostosController extends SBaseController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -126,17 +105,32 @@ class CentroCostosController extends SBaseController
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
+        
+        public function actionRestaurar($id)
 	{
-		$dataProvider=new CActiveDataProvider('CentroCostos');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+            $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
+		
+	}
+
+                  public function actionExcel()
+	{
+		$model = new CentroCostos('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
 		));
 	}
+        
+        
+        public function actionPdf(){
+            
+            $dataProvider=new CentroCostos;
+		$this->render('pdf',array(
+			'dataProvider'=>$dataProvider,
+		));
+            
+            
+        }
 
 	/**
 	 * Manages all models.
@@ -154,8 +148,12 @@ class CentroCostosController extends SBaseController
 		if(isset($_POST['CentroCostos']))
 		{
 			$model2->attributes=$_POST['CentroCostos'];
-			if($model2->save())
-				$this->redirect(array('admin'));
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                                $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
 		if(isset($_GET['CentroCostos']))
 			$model->attributes=$_GET['CentroCostos'];

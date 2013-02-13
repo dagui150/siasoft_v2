@@ -1,55 +1,27 @@
+<?php $this->pageTitle=Yii::app()->name." - Artículos";?>
 <?php
+/* @var $this ArticuloController*/
 if(!ConfCi::darConf())
      $this->redirect(array('/confCi/create'));
 $this->breadcrumbs=array(
 	'Inventario'=>array('admin'),
-	'Articulos'
+	'Artículos'
 );
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.form').submit(function(){
-	$.fn.yiiGridView.update('articulo-grid', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
-<h1>Articulos</h1>
-<br>
+<h1>Artículos</h1>
+<?php 
+if (isset($_GET['men'])){
+    $this->mensaje($_GET['men']);
+}
+?>
 <div align="right">
-    <?php 
-
-        /*$this->widget('bootstrap.widgets.BootButton', array(
-            'label'=>'Busqueda Avanzada',
-            'type'=>'', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-            'size'=>'mini', // '', 'large', 'small' or 'mini'
-            'url'=>'#myModal',
-            'htmlOptions'=>array('data-toggle'=>'modal'),
-            'icon' => 'search'
-        )); */
-
-    ?>
-    <?php 
-
-        $this->widget('bootstrap.widgets.BootButton', array(
-            'label'=>'Nuevo',
-            'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-            'size'=>'mini', // '', 'large', 'small' or 'mini'
-            'icon' => 'plus white',
-            'url'=>array('create'),
-        )); 
-
-    ?>
+    <?php $this->darBotonNuevo(); ?>
 </div>
 
 <?php
-    $this->widget('bootstrap.widgets.BootGridView', array(
+    $this->widget('bootstrap.widgets.TbGridView', array(
             'type'=>'striped bordered condensed',
             'id'=>'articulo-grid',
             'dataProvider'=>$model->search(),
@@ -60,8 +32,7 @@ $('.form').submit(function(){
                     /*'CLASIFICACION_1',
                     'CLASIFICACION_2',
                     'CLASIFICACION_3',
-                    'CLASIFICACION_4',
-                    
+                    'CLASIFICACION_4',                    
                     'CLASIFICACION_5',
                     'CLASIFICACION_6',
                     'FACTOR_CONVER_1',
@@ -74,7 +45,7 @@ $('.form').submit(function(){
                     'CLASE_ABC',*/
                     array(
                         'name'=>'TIPO_ARTICULO',
-                        'header'=>'Tipo de Articulo',
+                        'header'=>'Tipo de Artículo',
                         'value'=>'$data->tIPOARTICULO->NOMBRE',
                         'filter'=>CHtml::ListData(TipoArticulo::model()->findAll(),'ID','NOMBRE'),
                     ),
@@ -91,8 +62,8 @@ $('.form').submit(function(){
                    //'IMP1_AFECTA_COSTO',
                     //'ACTIVO',
                     array(
-                            'class'=>'bootstrap.widgets.BootButtonColumn',
-                            'template'=>'{view} {update}',
+                            'class'=>'bootstrap.widgets.TbButtonColumn',
+                            'template'=>'{update}',
                     ),
                     /*array(
                          'class'=>'CLinkColumn',
@@ -123,15 +94,4 @@ $('.form').submit(function(){
                      ),
             ),
     ));
-    $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
- 
-	<div class="modal-header">
-		<a class="close" data-dismiss="modal">&times;</a>
-                <h3>Busqueda Avanzada</h3>
-	</div>
-	 
-	<?php echo $this->renderPartial('_search',array('model'=>$model)); ?>
-	 
-	
- 
-<?php $this->endWidget(); ?>
+?>

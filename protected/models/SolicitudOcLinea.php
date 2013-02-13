@@ -53,12 +53,13 @@ class SolicitudOcLinea extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('SOLICITUD_OC, ARTICULO, DESCRIPCION, CANTIDAD, UNIDAD', 'required'),
+			array('FECHA_REQUERIDA, CANTIDAD, UNIDAD', 'required'),
 			array('LINEA_NUM, UNIDAD', 'numerical', 'integerOnly'=>true),
 			array('SOLICITUD_OC', 'length', 'max'=>10),
 			array('ARTICULO, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('DESCRIPCION', 'length', 'max'=>128),
-			array('CANTIDAD, SALDO', 'length', 'max'=>28),
+			//array('CANTIDAD, SALDO', 'length', 'max'=>28),
+                        array('CANTIDAD, SALDO','numerical','numberPattern'=>'/^\s*[-+]?([0-9]{0,3}).*\,*[0-9]*?[0-9]+([eE][-+]?[0-9]+)?\s*$/'),
 			array('ESTADO', 'length', 'max'=>1),
 			array('COMENTARIO', 'safe'),
 			// The following rule is used by search().
@@ -87,11 +88,11 @@ class SolicitudOcLinea extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'SOLICITUD_OC_LINEA' => 'Solicitud Oc Linea',
+			'SOLICITUD_OC_LINEA' => 'Solicitud Oc Línea',
 			'SOLICITUD_OC' => 'Solicitud Oc',
-			'LINEA_NUM' => 'Linea Num',
-			'ARTICULO' => 'Articulo',
-			'DESCRIPCION' => 'Descripcion',
+			'LINEA_NUM' => 'Línea Num',
+			'ARTICULO' => 'Artículo',
+			'DESCRIPCION' => 'Descripción',
 			'CANTIDAD' => 'Cantidad',
 			'SALDO' => 'Saldo',
 			'COMENTARIO' => 'Comentario',
@@ -136,13 +137,82 @@ class SolicitudOcLinea extends CActiveRecord
 			'criteria'=>$criteria,
                         'keyAttribute'=>'SOLICITUD_OC',
 		));
+	}     
+
+        public function search3($id)
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('SOLICITUD_OC_LINEA',$this->SOLICITUD_OC_LINEA);
+		$criteria->compare('SOLICITUD_OC',$id,true);
+		$criteria->compare('LINEA_NUM',$this->LINEA_NUM);
+		$criteria->compare('ARTICULO',$this->ARTICULO,true);
+		$criteria->compare('DESCRIPCION',$this->DESCRIPCION,true);
+		$criteria->compare('CANTIDAD',$this->CANTIDAD,true);
+		$criteria->compare('SALDO',$this->SALDO,true);
+		$criteria->compare('COMENTARIO',$this->COMENTARIO,true);
+		$criteria->compare('FECHA_REQUERIDA',$this->FECHA_REQUERIDA,true);
+		$criteria->compare('ESTADO',$this->ESTADO,true);
+		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
+		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
+		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
+		$criteria->compare('ACTUALIZADO_EL',$this->ACTUALIZADO_EL,true);
+		$criteria->compare('UNIDAD',$this->UNIDAD);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'keyAttribute'=>'SOLICITUD_OC',
+		));
+	} 
+        
+        public function search2()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('SOLICITUD_OC_LINEA',$this->SOLICITUD_OC_LINEA);
+		$criteria->compare('SOLICITUD_OC',$this->SOLICITUD_OC,true);
+		$criteria->compare('LINEA_NUM',$this->LINEA_NUM);
+		$criteria->compare('ARTICULO',$this->ARTICULO,true);
+		$criteria->compare('DESCRIPCION',$this->DESCRIPCION,true);
+		$criteria->compare('CANTIDAD',$this->CANTIDAD,true);
+		$criteria->compare('SALDO',$this->SALDO,true);
+		$criteria->compare('COMENTARIO',$this->COMENTARIO,true);
+		$criteria->compare('FECHA_REQUERIDA',$this->FECHA_REQUERIDA,true);
+		$criteria->compare('ESTADO','N');
+		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
+		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
+		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
+		$criteria->compare('ACTUALIZADO_EL',$this->ACTUALIZADO_EL,true);
+		$criteria->compare('UNIDAD',$this->UNIDAD);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'keyAttribute'=>'SOLICITUD_OC_LINEA',
+		));
 	}
         
 	
         
         public function behaviors()
 	{
-		return array(
+                    $conf = ConfCo::model()->find();
+                    $dec = isset($conf->CANTIDAD_DEC) ? $conf->CANTIDAD_DEC : 0;
+                    return array(
+                        'defaults' => array(
+                            'class' => 'application.components.FormatBehavior',
+                            //'format'=>'db',
+                            'formats' => array(
+                                'CANTIDAD' => '###,##0.' . str_repeat('0', $dec),
+                                'SALDO' => '###,##0.' . str_repeat('0', $dec),
+                            ),
+                        //'parseExpression'=> "strtr(\$value,',','.')",
+                        ),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',
@@ -158,9 +228,35 @@ class SolicitudOcLinea extends CActiveRecord
 		);
 	}
         
+        public static function estado($codigo){
+            switch ($codigo){
+                case 'C' : return 'Cancelado';
+                break;
+                case 'A' : return'Asignado';
+                break;
+                case 'N' : return 'No asignado';
+                break;
+                case 'P' : return 'Planeado';
+                break;
+            }
+        }
+        
        public function getCombo($articulo){
             $bus = Articulo::model()->findByPk($articulo);
             $bus2 = UnidadMedida::model()->find('ID = "'.$bus->UNIDAD_ALMACEN.'"');
             return CHtml::listData(UnidadMedida::model()->findAll('TIPO = "'.$bus2->TIPO.'"'), 'ID', 'NOMBRE');
+        }
+        
+        public function cambiaAsignar($id){
+            $i = 0;
+            $buscar = $this->model()->findAll('SOLICITUD_OC = "'.$id.'"');
+            foreach ($buscar as $a){
+                if($a->ESTADO == 'N'){
+                    $i++;
+                }
+            }
+            if($i == 0){
+                SolicitudOc::model()->updateByPk($id, array('ESTADO'=>'A'));
+            }
         }
 }

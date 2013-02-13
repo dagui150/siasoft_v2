@@ -61,7 +61,17 @@ class Impuesto extends CActiveRecord
         
         public function behaviors()
 	{
+		$conf=ConfAs::model()->find();//PORCENTAJE_DEC
+                $conf2=ConfFa::model()->find();//DECIMALES_PRECIO
 		return array(
+                    
+                        'defaults'=>array(
+                           'class'=>'application.components.FormatBehavior',
+                           'formats'=> array(
+                                'PROCENTAJE'=>'###,##0.'.str_repeat('0',$conf->PORCENTAJE_DEC),
+                                
+                            ),
+                        ),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',
@@ -94,7 +104,7 @@ class Impuesto extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
+			'ID' => 'Código',
 			'NOMBRE' => 'Nombre',
 			'PROCENTAJE' => 'Porcentaje',
 			'ACTIVO' => 'Activo',
@@ -119,7 +129,7 @@ class Impuesto extends CActiveRecord
 		$criteria->compare('ID',$this->ID,true);
 		$criteria->compare('NOMBRE',$this->NOMBRE,true);
 		$criteria->compare('PROCENTAJE',$this->PROCENTAJE,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -129,4 +139,17 @@ class Impuesto extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        public function searchPdf()
+	{
+
+		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'pagination'=>array(
+                            'pageSize'=> Impuesto::model()->count(),
+                        ),
+		));
+	}
+
 }

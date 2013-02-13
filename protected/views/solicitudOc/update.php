@@ -1,3 +1,4 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','UPDATE')." Solicitudes";?>
 <?php
 $this->breadcrumbs=array(
 	'Solicitud Compra'=>array('admin'),
@@ -13,10 +14,6 @@ $this->menu=array(
 ?>
 
 <h1>Actualizar Solicitud de Compra</h1>
-<?php if($model->ESTADO != 'C'){ ?>
-<?php   echo $this->renderPartial('_form', array('model'=>$model, 'linea'=>$linea, 'articulo'=>$articulo, 'config'=>$config, 'items'=>$items, 'linea2'=>$linea2)); ?>
-<?php }
-      else{
-          echo $this->renderPartial('_formCancelar', array('model'=>$model, 'linea'=>$linea, 'articulo'=>$articulo, 'config'=>$config, 'items'=>$items, 'linea2'=>$linea2));
-      }
-?>
+
+<?php  echo $this->renderPartial('_form', array('model'=>$model, 'linea'=>$linea, 'articulo'=>$articulo, 'config'=>$config, 'items'=>$items, 'ruta2'=>$ruta2, 'ruta'=>$ruta,)); ?>
+

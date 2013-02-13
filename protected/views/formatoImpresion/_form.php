@@ -1,89 +1,90 @@
+<?php
+/* @var $this FormatoImpresionController */
+/* @var $model FormatoImpresion */
+/* @var $form CActiveForm */
+?>
+
+<script>
+    $(document).ready(function(){
+        inicio();
+    });
+    //$(document).ready(inicio);
+    
+    function inicio(){
+        
+        $('#FormatoImpresion_MODULO').change(function(){
+            
+            $.getJSON('<?php echo $this->createUrl('Submodulo')?>&modulo='+$(this).val(),
+                function(data){
+                    
+                     $('select[id$=FormatoImpresion_SUBMODULO] > option').remove();
+                      $('#FormatoImpresion_SUBMODULO').append("<option value=''>Seleccione</option>");
+                      
+                      $('select[id$=FormatoImpresion_PLANTILLA] > option').remove();
+                      $('#FormatoImpresion_PLANTILLA').append("<option value=''>Seleccione</option>");
+                    
+                    $.each(data, function(value, name) {
+                              $('#FormatoImpresion_SUBMODULO').append("<option value='"+value+"'>"+name+"</option>");
+                        });
+                });
+        });
+        
+        $('#FormatoImpresion_SUBMODULO').change(function(){
+            
+            $.getJSON('<?php echo $this->createUrl('Formato')?>&submodulo='+$(this).val(),
+                function(data){
+                    
+                     $('select[id$=FormatoImpresion_PLANTILLA] > option').remove();
+                      $('#FormatoImpresion_PLANTILLA').append("<option value=''>Seleccione</option>");
+                    
+                    $.each(data, function(value, name) {
+                              $('#FormatoImpresion_PLANTILLA').append("<option value='"+value+"'>"+name+"</option>");
+                        });
+                });
+        });
+    }
+
+</script>
+
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'formato-impresion-form',
-	'enableAjaxValidation'=>false,
-)); ?>
+<div class="modal-body">
 
-	<p class="note">Los Campos con <span class="required">*</span> Son requeridos.</p>
+    <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'id'=>'formato-impresion-form',
+        'type' => 'horizontal',
+        'enableAjaxValidation' => true,
+        'clientOptions' => array(
+            'validateOnSubmit' => true,
+        ),
+            ));
+    ?>
 
-	<?php echo $form->errorSummary($model); ?>
+	<?php echo $form->errorSummary($model2); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'ID'); ?>
-		<?php echo $form->textField($model,'ID'); ?>
-		<?php echo $form->error($model,'ID'); ?>
+		<?php echo $form->textFieldRow($model2,'NOMBRE'); ?>
+		<?php echo $form->textFieldRow($model2,'OBSERVACION'); ?>
+		<?php echo $form->dropDownListRow($model2,'MODULO', CHtml::listData(Modulo::model()->findAll('ACTIVO="S"'),'ID','NOMBRE'), array('empty' => 'Seleccione')); ?>        
+		<?php echo $form->dropDownListRow($model2,'SUBMODULO',array(), array('empty' => 'Seleccione')); ?>
+		<?php echo $form->dropDownListRow($model2,'PLANTILLA',array(), array('empty' => 'Seleccione')); ?>
+
+<?php echo CHtml::activeHiddenField($model2, 'ACTIVO', array('value' => 'S')); ?>
+
+ </div>
+ 
+ <?php if ($model2->isNewRecord): ?>
+           <div class="modal-footer" align="center">
+            <?php endif ?>
+            <?php if (!$model2->isNewRecord): ?>
+ 
+
+	<div class="row-buttons" align="center">
+	<?php endif ?>
+            <?php $this->darBotonEnviar($model2->isNewRecord ? 'Crear' : 'Guardar'); ?>
+            <?php $this->darBotonCancelar(array('data-dismiss' => 'modal')); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'NOMBRE'); ?>
-		<?php echo $form->textField($model,'NOMBRE',array('size'=>60,'maxlength'=>64)); ?>
-		<?php echo $form->error($model,'NOMBRE'); ?>
-	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'OBSERVACION'); ?>
-		<?php echo $form->textArea($model,'OBSERVACION',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'OBSERVACION'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'MODULO'); ?>
-		<?php echo $form->textField($model,'MODULO',array('size'=>4,'maxlength'=>4)); ?>
-		<?php echo $form->error($model,'MODULO'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'SUBMODULO'); ?>
-		<?php echo $form->textField($model,'SUBMODULO',array('size'=>4,'maxlength'=>4)); ?>
-		<?php echo $form->error($model,'SUBMODULO'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'RUTA'); ?>
-		<?php echo $form->textField($model,'RUTA',array('size'=>60,'maxlength'=>128)); ?>
-		<?php echo $form->error($model,'RUTA'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'TIPO'); ?>
-		<?php echo $form->textField($model,'TIPO',array('size'=>4,'maxlength'=>4)); ?>
-		<?php echo $form->error($model,'TIPO'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'ACTIVO'); ?>
-		<?php echo $form->textField($model,'ACTIVO',array('size'=>1,'maxlength'=>1)); ?>
-		<?php echo $form->error($model,'ACTIVO'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'CREADO_POR'); ?>
-		<?php echo $form->textField($model,'CREADO_POR',array('size'=>20,'maxlength'=>20)); ?>
-		<?php echo $form->error($model,'CREADO_POR'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'CREADO_EL'); ?>
-		<?php echo $form->textField($model,'CREADO_EL'); ?>
-		<?php echo $form->error($model,'CREADO_EL'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'ACTUALIZADO_POR'); ?>
-		<?php echo $form->textField($model,'ACTUALIZADO_POR',array('size'=>20,'maxlength'=>20)); ?>
-		<?php echo $form->error($model,'ACTUALIZADO_POR'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'ACTUALIZADO_EL'); ?>
-		<?php echo $form->textField($model,'ACTUALIZADO_EL'); ?>
-		<?php echo $form->error($model,'ACTUALIZADO_EL'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
-	</div>
 
 <?php $this->endWidget(); ?>
 

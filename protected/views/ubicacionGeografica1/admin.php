@@ -1,12 +1,15 @@
+<?php $this->pageTitle=Yii::app()->name." - Ubicacion Geografica 1";?>
+
+
 <?php
 $this->breadcrumbs=array(
-	'Ubicacion Geografica 1'=>array('index'),
-	'Administrar',
+        'Sistema'=>array('admin'),
+	'Ubicacion Geografica 1',
 );
 
 $this->menu=array(
-	array('label'=>'List UbicacionGeografica1', 'url'=>array('index')),
-	array('label'=>'Create UbicacionGeografica1', 'url'=>array('create')),
+	array('label'=>Yii::t('app','LIST').' UbicacionGeografica1', 'url'=>array('index')),
+	array('label'=>Yii::t('app','CREATE').' UbicacionGeografica1', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -24,15 +27,22 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1>Departamento</h1>
+<div align="right">
+    
+    <?php $this->darBotonPdfExcel(array('ubicacionGeografica1/excel')); ?>
+    <?php $this->darBotonPdfExcel(array('ubicacionGeografica1/pdf'), false, 'PDF', 'danger'); ?>
 
-<?php $this->widget('bootstrap.widgets.BootGridView', array(
+</div>
+
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',
 	'id'=>'ubicacion-geografica1-grid',
         'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		'ID',
-		'PAIS',
+            array('name'=>'PAIS',
+                'value'=>'$data->pAIS->NOMBRE'),
 		'NOMBRE',
 		//'ACTIVO',
 		//'CREADO_POR',
@@ -44,7 +54,7 @@ $('.search-form form').submit(function(){
 	),
 )); ?>
 
-<?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
  
 <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>
@@ -58,7 +68,7 @@ $('.search-form form').submit(function(){
  
 <div class="modal-footer">
 
-    <?php $this->widget('bootstrap.widgets.BootButton', array(
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
         'label'=>'Close',
         'url'=>'#',
         'htmlOptions'=>array('data-dismiss'=>'modal'),

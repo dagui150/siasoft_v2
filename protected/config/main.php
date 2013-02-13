@@ -1,7 +1,8 @@
 <?php
 
-// uncomment the following to define a path alias
-// Yii::setPathOfAlias('local','path/to/local-folder');
+// Define a path alias for the Bootstrap extension as it's used internally.
+// In this example we assume that you unzipped the extension under protected/extensions.
+Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
@@ -9,7 +10,7 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Siasoft V2',
 	'charset' => 'utf-8',
-	'language' => 'es',
+	'language' => 'es',                
 	'theme' => 'siasoft',
 
 	// preloading 'log' component
@@ -24,85 +25,121 @@ return array(
 		'application.controllers.*',
 		'application.components.*',
 		'application.extensions.helpers.*',
-		'application.modules.srbac.controllers.SBaseController',
-        'ext.helpers.*',
+                'application.extensions.PdfGrid.*',
+                'bootstrap.widgets.*',
+                'ext.helpers.*',
+		'application.modules.cruge.components.*',
+		'application.modules.cruge.extensions.crugemailer.*',
+                'ext.decimali18nbehavior.*',
 	),
 	'modules'=>array(
-		'srbac'=>array(
-			// Your application's user class (default: User)
-			"userclass"=>"Usuarios",
-			// Your users' table user_id column (default: userid)
-			"userid"=>"ID",
-			// your users' table username column (default: username)
-			"username"=>"USERNAME",
-			// Debug mode(default: false)
-			// In debug mode every user (even guest) can admin srbac, also
-			//if you use internationalization untranslated words/phrases
-			//will be marked with a red star
-			"debug"=>false,
-			// The number of items shown in each page (default:15)
-			"pageSize"=>10,
-			// The name of the super user
-			"superUser" =>"SuperAdministrador",
-			//The css file to use
-			"css"=>"srbac.css", // must be in srbac css folder
-			//The layout to use
-			"layout"=>"webroot.themes.siasoft.views.layouts.main",
-			//The not authorized page to render when a user tries to access an page
-			//tha he's not authorized to
-			"notAuthorizedView"=>"srbac.views.authitem.unauthorized",
-			// The actions that are always allowed to every user (when using the
-			// auto create mode of srbac)
-			"alwaysAllowed"=>array(),
-			// The operationa assigned to users (when using the
-			// auto create mode of srbac)
-			"userActions"=>array(
-			"Show","View","List","Admin"
-			),
-			//The number of lines in assign listboxes (default 10)
-			"listBoxNumberOfLines" => 15,
-			'imagesPath' => 'srbac.images', // default: srbac.images 'imagesPack'=>'noia', //default: noia 'iconText'=>true, // default : false 'header'=>'srbac.views.authitem.header', //default : srbac.views.authitem.header,
-			//must be an existing alias 'footer'=>'srbac.views.authitem.footer', //default: srbac.views.authitem.footer,
-			//must be an existing alias 'showHeader'=>true, // default: false 'showFooter'=>true, // default: false
-			'alwaysAllowedPath'=>'srbac.components', // default: srbac.components
-			// must be an existing alias 
-			"imagesPack"=>"noia",
-			// Whether to show text next to the menu icons (default false)
-			"iconText"=>true,
+		'cruge'=>array(
+			'tableprefix'=>'cruge_',
+                        'useCGridViewClass'=>'bootstrap.widgets.TbGridView',
+			'superuserName'=>'superadmin',	
+                        'buttonStyle'=>'bootstrap',	
+                        
+			// para que utilice a protected.modules.cruge.models.auth.CrugeAuthDefault.php
+			// en vez de 'default' pon 'authdemo' para que utilice el demo de autenticacion alterna
+			// para saber mas lee documentacion de la clase modules/cruge/models/auth/AlternateAuthDemo.php
+			'availableAuthMethods'=>array('default'),
+			'availableAuthModes'=>array('username'),
+			'baseUrl'=>'http://coco.com/',
+			// NO OLVIDES PONER EN FALSE TRAS INSTALAR
+			'debug'=>true,
+			'rbacSetupEnabled'=>true,
+			'allowUserAlways'=>true,
+			// MIENTRAS INSTALAS..PONLO EN: false
+			// lee mas abajo respecto a 'Encriptando las claves'
+			'useEncryptedPassword' => false,
+			// Algoritmo de la funci�n hash que deseas usar
+			// Los valores admitidos est�n en: http://www.php.net/manual/en/function.hash-algos.php
+			'hash' => 'md5',
+			// a donde enviar al usuario tras iniciar sesion, cerrar sesion o al expirar la sesion.
+		    //
+			// esto va a forzar a Yii::app()->user->returnUrl cambiando el comportamiento estandar de Yii
+			// en los casos en que se usa CAccessControl como controlador
+			//
+			// ejemplo:
+			//		'afterLoginUrl'=>array('/site/welcome'),  ( !!! no olvidar el slash inicial / )
+			//		'afterLogoutUrl'=>array('/site/page','view'=>'about'),
+			//
+			'afterLoginUrl'=>null,
+			'afterLogoutUrl'=>null,
+			'afterSessionExpiredUrl'=>null,
+			// manejo del layout con cruge.
+			//
+			'loginLayout'=>'//layouts/cruge_login',
+			'registrationLayout'=>'//layouts/column2',
+			'activateAccountLayout'=>'//layouts/column2',
+			'editProfileLayout'=>'//layouts/column2',
+			// en la siguiente puedes especificar el valor "ui" o "column2" para que use el layout
+			// de fabrica, es basico pero funcional.  si pones otro valor considera que cruge
+			// requerir� de un portlet para desplegar un menu con las opciones de administrador.
+			//
+			'generalUserManagementLayout'=>'//layouts/column2',
+			'defaultSessionFilter'=>'application.components.MiSesionCruge',
 		),
-		// uncomment the following to enable the Gii tool
-		
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>false,
 		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 			 
-			'generatorPaths'=>array(
-				'bootstrap.gii', // since 0.9.1
-			),
 		),
 		
 	),
 
 	// application components
-	'components'=>array(
-		'authManager'=>array(
-			// The type of Manager (Database)
-			'class'=>'CDbAuthManager',
-			// The database connection used
-			'connectionID'=>'db',
-			// The itemTable name (default:authitem)
-			'itemTable'=>'auth_items',
-			// The assignmentTable name (default:authassignment)
-			'assignmentTable'=>'auth_asignacion',
-			// The itemChildTable name (default:authitemchild)
-			'itemChildTable'=>'auth_relaciones',
-		),
-        'user'=>array(
-            // enable cookie-based authentication
-            'allowAutoLogin'=>true,
+	'components'=>array(		
+        'ePdf' => array(
+                'class'=> 'ext.yii-pdf.EYiiPdf',
+                'params'=> array(
+                    'mpdf'     => array(
+                        'librarySourcePath' => 'application.vendors.mpdf.*',
+                        'constants'         => array(
+                            '_MPDF_TEMP_PATH' => Yii::getPathOfAlias('application.runtime'),
+                        ),
+                        'class'=>'mpdf', // the literal class filename to be loaded from the vendors folder
+                        /*'defaultParams'     => array( // More info: http://mpdf1.com/manual/index.php?tid=184
+                            'mode'              => '', //  This parameter specifies the mode of the new document.
+                            'format'            => 'A4', // format A4, A5, ...
+                            'default_font_size' => 0, // Sets the default document font size in points (pt)
+                            'default_font'      => '', // Sets the default font-family for the new document.
+                            'mgl'               => 15, // margin_left. Sets the page margins for the new document.
+                            'mgr'               => 15, // margin_right
+                            'mgt'               => 16, // margin_top
+                            'mgb'               => 16, // margin_bottom
+                            'mgh'               => 9, // margin_header
+                            'mgf'               => 9, // margin_footer
+                            'orientation'       => 'P', // landscape or portrait orientation
+                        )*/
+                    ),                    
+                ),
         ),
+		'uimanager' => array(
+			'class' => 'application.components.UiManager',
+		),
+        //  IMPORTANTE:  asegurate de que la entrada 'user' (y format) que por defecto trae Yii
+			//               sea sustituida por estas a continuaci�n:
+			//
+		'user'=>array(
+			'allowAutoLogin'=>true,
+			'class' => 'application.modules.cruge.components.CrugeWebUser',
+			'loginUrl' => array('/site/index'),
+		),
+		'authManager' => array(
+			'class' => 'application.modules.cruge.components.CrugeAuthManager',
+		),
+		'crugemailer'=>array(
+			'class' => 'application.modules.cruge.components.CrugeMailer',
+			'mailfrom' => 'promociones@tramasoft.com',
+			'subjectprefix' => 'Tu Encabezado del asunto - ',
+			'debug' => true,
+		),
+		'format' => array(
+			'datetimeFormat'=>"d M, Y h:m:s a",
+		),
 		
 		// uncomment the following to enable URLs in path-format
 		/*
@@ -131,39 +168,27 @@ return array(
 		),
 		
 		'errorHandler'=>array(
-			// use 'site/error' action to display errors
-            'errorAction'=>'site/error',
-        ),
+                      // use 'site/error' action to display errors
+                    'errorAction'=>'site/error',
+                ),
+                    
+            
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
 				array(
 					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
+					'levels'=>'error, warning, info, rbac',
 					//'ipFilters'=>array('127.0.0.1','192.168.0.11'),
 				),
+                                 
 			),
 		),
-		/*'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
-				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
-				),
-				// uncomment the following to show log messages on web pages
-				/*
-				array(
-					'class'=>'CWebLogRoute',
-				),
-				*/
-            /*
-			),
-		),*/
-		
 		'bootstrap'=>array(
-			'class'=>'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
+			'class'=>'bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
 		),
+            
+            
 	),
 
 	// application-level parameters that can be accessed

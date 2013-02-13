@@ -1,52 +1,46 @@
+<?php $this->pageTitle=Yii::app()->name." - Valor-Clasificación";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('admin'),
-	'Valores - Clasificaciones',
+	'Valores - Clasificaciónes',
 );
 
 ?>
-<h1>Valores - Clasificaciones</h1>
-<br>
+<h1>Valores - Clasificaciónes</h1>
+<?php 
+if (isset($_GET['men'])){
+    $this->mensaje($_GET['men']);
+}
+?>
+<div id="mensaje"></div>
 <div align="right">
-
-    <?php 
-
-        $this->widget('bootstrap.widgets.BootButton', array(
-            'label'=>'Nuevo',
-            'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-            'size'=>'mini', // '', 'large', 'small' or 'mini'
-            'url' => array('ubicacionGeografica2/create'),
-            'icon' => 'plus white',
-            'url'=>'#myModal',
-            'htmlOptions'=>array('data-toggle'=>'modal')
-        )); 
-
-    ?>
+    <?php $this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
 </div>
 <?php 
-	$this->widget('bootstrap.widgets.BootGridView', array(
+	$this->widget('bootstrap.widgets.TbGridView', array(
                 'type'=>'striped bordered condensed',
 		'id'=>'clasificacion-adi-valor-grid',
 		'dataProvider'=>$model->search(),
 		'filter'=>$model,
 		'columns'=>array(
 			array(
-				'name'=>'CLASIFICACION',
-				'header'=>'Clasificacion',
-				'value'=>'$data->cLASIFICACION->NOMBRE',
+                            'name'=>'CLASIFICACION',
+                            'header'=>'Clasificación',
+                            'value'=>'$data->cLASIFICACION->NOMBRE',
 			),
                         'VALOR',
 			array(
-				'class'=>'bootstrap.widgets.BootButtonColumn',
-                                'template'=>'{update}{delete}',
+                            'class'=>'bootstrap.widgets.TbButtonColumn',
+                            'template'=>'{update}{delete}',
+                            'afterDelete'=>$this->mensajeBorrar(),
 			),
 		),
 	)); 
-	$this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
+	$this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
  
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
-		<h3>Crear Valor - Clasificaciónr</h3>
+		<h3>Crear Valor - Clasificación</h3>
 		<p class="note">Los Campos con <span class="required">*</span> Son requeridos.</p>
 	</div>
 	 

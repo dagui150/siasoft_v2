@@ -11,38 +11,11 @@ class FormatoImpresionController extends Controller
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
-
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	public function accessRules()
-	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
-	}
+	public function filters(){
+            return array(
+                                      array('CrugeAccessControlFilter'),
+                              );
+          }
 
 	/**
 	 * Displays a particular model.
@@ -61,20 +34,24 @@ class FormatoImpresionController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new FormatoImpresion;
+		$model2=new FormatoImpresion;
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model);
 
 		if(isset($_POST['FormatoImpresion']))
 		{
-			$model->attributes=$_POST['FormatoImpresion'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->ID));
+			$model2->attributes=$_POST['FormatoImpresion'];
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
 		}
 
 		$this->render('create',array(
-			'model'=>$model,
+			'model2'=>$model2,
 		));
 	}
 
@@ -85,20 +62,24 @@ class FormatoImpresionController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+		$model2=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model2);
 
 		if(isset($_POST['FormatoImpresion']))
 		{
-			$model->attributes=$_POST['FormatoImpresion'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->ID));
+			$model2->attributes=$_POST['FormatoImpresion'];
+			if($model2->save()){
+				//$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(
-			'model'=>$model,
+			'model2'=>$model2,
 		));
 	}
 
@@ -109,10 +90,10 @@ class FormatoImpresionController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->request->isPostRequest)
+            if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'N'));
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -120,17 +101,12 @@ class FormatoImpresionController extends Controller
 		}
 		else
 			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
+	
 	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
+        public function actionRestaurar($id)
 	{
-		$dataProvider=new CActiveDataProvider('FormatoImpresion');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+            $this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
+		
 	}
 
 	/**
@@ -140,11 +116,28 @@ class FormatoImpresionController extends Controller
 	{
 		$model=new FormatoImpresion('search');
 		$model->unsetAttributes();  // clear any default values
+		$model2=new FormatoImpresion;
+		
+		$this->performAjaxValidation($model2);
+		
+		if(isset($_POST['FormatoImpresion']))
+		{
+			$model2->attributes=$_POST['FormatoImpresion'];
+			if($model2->save()){
+                            $this->redirect(array('admin&men=S003'));
+                        } else {
+                            $this->redirect(array('admin&men=E003'));
+                        }
+		}
+		
+		
+		
 		if(isset($_GET['FormatoImpresion']))
 			$model->attributes=$_GET['FormatoImpresion'];
 
 		$this->render('admin',array(
 			'model'=>$model,
+			'model2'=>$model2,
 		));
 	}
 
@@ -157,7 +150,7 @@ class FormatoImpresionController extends Controller
 	{
 		$model=FormatoImpresion::model()->findByPk($id);
 		if($model===null)
-			throw new CHttpException(404,'La pagina solicitada no existe.');
+			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
 
@@ -173,4 +166,13 @@ class FormatoImpresionController extends Controller
 			Yii::app()->end();
 		}
 	}
+        
+        public function actionSubmodulo(){
+            echo CJSON::encode(CHtml::listData(SubModulo::model()->findAll('ACTIVO="S" AND REPORTE="S" AND MODULO="'.$_GET['modulo'].'"'),'ID','NOMBRE'));  
+        }
+        
+        public function actionFormato(){
+            echo CJSON::encode(CHtml::listData(Plantilla::model()->findAll('ACTIVO="S" AND SUBMODULO="'.$_GET['submodulo'].'"'),'ID','NOMBRE'));
+        }
+        
 }

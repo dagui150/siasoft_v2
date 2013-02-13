@@ -45,8 +45,9 @@ class CodicionPago extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID, DESCRIPCION, DIAS_NETO', 'required'),
+                        array('ID','DSpacesValidator'),
                         array('ID', 'unique', 'attributeName'=>'ID', 'className'=>'CodicionPago','allowEmpty'=>false),
-			array('DIAS_NETO', 'numerical', 'integerOnly'=>true),
+			array('DIAS_NETO', 'numerical', 'integerOnly'=>true, 'integerPattern' => '/^\s*[-+]?(\d{1,3}\.*)*?\s*$/'),
 			array('ID', 'length', 'max'=>4),
 			array('DESCRIPCION', 'length', 'max'=>64),
 			array('ACTIVO', 'length', 'max'=>1),
@@ -75,8 +76,8 @@ class CodicionPago extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
-			'DESCRIPCION' => 'Descripcion',
+			'ID' => 'Código',
+			'DESCRIPCION' => 'Descripción',
 			'DIAS_NETO' => 'Dias Neto',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
@@ -100,7 +101,7 @@ class CodicionPago extends CActiveRecord
 		$criteria->compare('ID',$this->ID,true);
 		$criteria->compare('DESCRIPCION',$this->DESCRIPCION,true);
 		$criteria->compare('DIAS_NETO',$this->DIAS_NETO);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -110,10 +111,52 @@ class CodicionPago extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+        public function searchPdf()
+	{
+
+		$criteria=new CDbCriteria;                 $criteria->compare('ACTIVO','S');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+                        'pagination'=>array(
+                            'pageSize'=> CodicionPago::model()->count(),
+                        ),
+		));
+	}
+        
+	public function searchMod()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('ID',$this->ID,true);
+		$criteria->compare('DESCRIPCION',$this->DESCRIPCION,true);
+		$criteria->compare('DIAS_NETO',$this->DIAS_NETO);
+		$criteria->compare('ACTIVO','S');
+		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
+		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
+		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
+		$criteria->compare('ACTUALIZADO_EL',$this->ACTUALIZADO_EL,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+        
 	
 	public function behaviors()
 	{
+                
 		return array(
+                        'defaults'=>array(
+                           'class'=>'application.components.FormatBehavior',
+                           'formats'=> array(
+                                   'DIAS_NETO'=>'###,###', 
+                            ),
+                        ),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',
@@ -127,5 +170,22 @@ class CodicionPago extends CActiveRecord
 				'updatedByColumn' => 'ACTUALIZADO_POR',
 			),
 		);
+	}
+        
+                public function searchPapelera()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		
+		$criteria->compare('ACTIVO','N');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'pagination'=>false,
+			'sort'=>false,
+		));
 	}
 }

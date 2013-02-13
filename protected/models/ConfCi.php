@@ -15,6 +15,8 @@
  * @property string $EXIST_DISPONIBLE
  * @property string $EXIST_REMITIDA
  * @property string $EXIST_RESERVADA
+ * @property string $EXIST_CUARENTENA
+ * @property string $EXIST_VENCIDA
  * @property string $INTEGRACION_CONTA
  * @property string $USA_CODIGO_BARRAS
  * @property integer $LINEAS_MAX_TRANS
@@ -66,7 +68,8 @@ class ConfCi extends CActiveRecord
 		return array(
 			array('COSTOS_DEC, EXISTENCIAS_DEC, PESOS_DEC, COSTO_FISCAL, COSTO_INGR_DEFAULT, UNIDAD_PESO, UNIDAD_VOLUMEN, INTEGRACION_CONTA, USA_CODIGO_BARRAS, LINEAS_MAX_TRANS, PRIORIDAD_BUSQUEDA', 'required'),
 			array('ID, COSTOS_DEC, EXISTENCIAS_DEC, PESOS_DEC, LINEAS_MAX_TRANS,EAN13_REGLA_LOCAL,EAN8_REGLA_LOCAL,UCC12_REGLA_LOCAL', 'numerical', 'integerOnly'=>true),
-			array('COSTO_FISCAL,', 'length', 'max'=>11),
+                        array('COSTOS_DEC,EXISTENCIAS_DEC, PESOS_DEC', 'numerical', 'max'=>8),	
+                        array('COSTO_FISCAL,', 'length', 'max'=>11),
 			array('COSTO_INGR_DEFAULT, INTEGRACION_CONTA, USA_CODIGO_BARRAS, USA_UNIDADES_DIST, ASISTENCIA_AUTOMAT, USA_CODIGO_EAN13, USA_CODIGO_EAN8, USA_CODIGO_UCC12, USA_CODIGO_UCC8, PRIORIDAD_BUSQUEDA', 'length', 'max'=>1),
 			array('UNIDAD_PESO, UNIDAD_VOLUMEN, UCC12_REGLA_LOCAL', 'length', 'max'=>6),
 			array('EAN13_REGLA_LOCAL', 'length', 'max'=>18),
@@ -83,6 +86,24 @@ class ConfCi extends CActiveRecord
 		);
 	}
         
+        /**
+         * Valida que la existencia maxima sea mas que la minima
+         * @param string $attribute
+         * @param array $params 
+         */
+        public function validarEspacios($attribute,$params){
+                preg_match("/\W/", $text,$num);
+                
+                if(!preg_match("/\W/","$value"))
+			{
+				$message=$this->message!==null?$this->message:Yii::t('yii','{attribute} must be an integer.');
+				$this->addError($object,$attribute,$message);
+			}
+                
+		if ($max <= $min){
+                    $this->addError('EXISTENCIA_MAXIMA','Debe ser mayor a Mínima');
+                }
+	}
        
         
         public function miValidacion1($attribute,$params){
@@ -155,11 +176,13 @@ class ConfCi extends CActiveRecord
 			'EXIST_DISPONIBLE' => 'Disponible',
                         'EXIST_REMITIDA' => 'Remitida',
                         'EXIST_RESERVADA' => 'Reservada',
-			'INTEGRACION_CONTA' => 'Integracion Contable',
-			'USA_CODIGO_BARRAS' => 'Usa Codigo de Barras',
-			'LINEAS_MAX_TRANS' => 'Numero Max Lineas:',
+                        'EXIST_CUARENTENA' => 'Cuarentena',
+                        'EXIST_VENCIDA' => 'Vencida',
+			'INTEGRACION_CONTA' => 'Integración Contable',
+			'USA_CODIGO_BARRAS' => 'Usa Código de Barras',
+			'LINEAS_MAX_TRANS' => 'Número Max Líneas:',
 			'USA_UNIDADES_DIST' => 'Unidades de Distribucion',
-			'ASISTENCIA_AUTOMAT' => 'Asistencia Automatica',
+			'ASISTENCIA_AUTOMAT' => 'Asistencia Automática',
 			'USA_CODIGO_EAN13' => 'EAN13',
 			'USA_CODIGO_EAN8' => 'EAN8',
 			'USA_CODIGO_UCC12' => 'UCC12',

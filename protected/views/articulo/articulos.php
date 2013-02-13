@@ -1,10 +1,11 @@
 <?php
-    $this->widget('bootstrap.widgets.BootGridView', array(
+    $this->widget('bootstrap.widgets.TbGridView', array(
             'type'=>'striped bordered condensed',
             'id'=>$id,
-            'pager' => array('class'=>'BootPager','maxButtonCount' => 6),
+            'pager' => array('class'=>'TbPager','maxButtonCount' => 6),
             'template'=>'{items}{pager}',
-            'dataProvider'=>$articulo->searchModal(),
+        // Estaban con $articulo->searchModal()
+            'dataProvider'=>$data,
             'selectionChanged'=>$funcion,
             'filter'=>$articulo,
             'columns'=>array(
@@ -12,11 +13,16 @@
                         'class'=> 'CCheckBoxColumn',
                         'visible'=>$check
                     ),
-                    'ARTICULO',
+                    array(  'name'=>'ARTICULO',
+                        'header'=>'Codigo',
+                        'htmlOptions'=>array('data-dismiss'=>'modal'),
+                        'type'=>'raw',
+                        'value'=>'CHtml::link($data->ARTICULO,"#")'
+                    ),
                     'NOMBRE',
                     array(
                         'name'=>'TIPO_ARTICULO',
-                        'header'=>'Tipo de Articulo',
+                        'header'=>'Tipo de Artículo',
                         'value'=>'$data->tIPOARTICULO->NOMBRE',
                         'filter'=>CHtml::ListData(TipoArticulo::model()->findAll(),'ID','NOMBRE'),
                     ),

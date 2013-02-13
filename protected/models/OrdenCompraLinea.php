@@ -68,12 +68,12 @@ class OrdenCompraLinea extends CActiveRecord
 			array('ARTICULO, FACTURA, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('DESCRIPCION', 'length', 'max'=>128),
 			array('BODEGA', 'length', 'max'=>4),
-			array('CANTIDAD_ORDENADA, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, VALOR_IMPUESTO, CANTIDAD_RECIBIDA, CANTIDAD_RECHAZADA', 'length', 'max'=>28),
+			array('CANTIDAD_ORDENADA, PRECIO_UNITARIO, PORC_DESCUENTO, PORC_IMPUESTO, MONTO_DESCUENTO, VALOR_IMPUESTO, CANTIDAD_RECIBIDA, CANTIDAD_RECHAZADA', 'length', 'max'=>28),
 			array('ESTADO', 'length', 'max'=>1),
 			array('OBSERVACION', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('ORDEN_COMPRA_LINEA, ORDEN_COMPRA, LINEA_NUM, ARTICULO, DESCRIPCION, BODEGA, FECHA_REQUERIDA, FACTURA, CANTIDAD_ORDENADA, UNIDAD_COMPRA, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, VALOR_IMPUESTO, CANTIDAD_RECIBIDA, CANTIDAD_RECHAZADA, FECHA, OBSERVACION, ESTADO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
+			array('ORDEN_COMPRA_LINEA, ORDEN_COMPRA, LINEA_NUM, IMPORTE, PORC_IMPUESTO, ARTICULO, DESCRIPCION, BODEGA, FECHA_REQUERIDA, FACTURA, CANTIDAD_ORDENADA, UNIDAD_COMPRA, PRECIO_UNITARIO, PORC_DESCUENTO, MONTO_DESCUENTO, VALOR_IMPUESTO, CANTIDAD_RECIBIDA, CANTIDAD_RECHAZADA, FECHA, OBSERVACION, ESTADO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -99,11 +99,11 @@ class OrdenCompraLinea extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ORDEN_COMPRA_LINEA' => 'Orden Compra Linea',
+			'ORDEN_COMPRA_LINEA' => 'Orden Compra Línea',
 			'ORDEN_COMPRA' => 'Orden Compra',
-			'LINEA_NUM' => 'Linea Num',
-			'ARTICULO' => 'Articulo',
-			'DESCRIPCION' => 'Descripcion',
+			'LINEA_NUM' => 'Línea Num',
+			'ARTICULO' => 'Artículo',
+			'DESCRIPCION' => 'Descripción',
 			'BODEGA' => 'Bodega',
 			'FECHA_REQUERIDA' => 'Fecha Requerida',
 			'FACTURA' => 'Factura',
@@ -115,13 +115,14 @@ class OrdenCompraLinea extends CActiveRecord
 			'VALOR_IMPUESTO' => 'Valor Impuesto',
 			'CANTIDAD_RECIBIDA' => 'Cantidad Recibida',
 			'CANTIDAD_RECHAZADA' => 'Cantidad Rechazada',
+                        'IMPORTE' => 'Importe',
 			'FECHA' => 'Fecha',
 			'OBSERVACION' => 'Observacion',
 			'ESTADO' => 'Estado',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',
 			'ACTUALIZADO_POR' => 'Actualizado Por',
-                        'PORC_IMPUESTO'=>'Porcentaje Impuesto',
+                        'PORC_IMPUESTO'=>'Porc Impuesto',
 			'ACTUALIZADO_EL' => 'Actualizado El',
 		);
 	}
@@ -155,6 +156,7 @@ class OrdenCompraLinea extends CActiveRecord
 		$criteria->compare('CANTIDAD_RECIBIDA',$this->CANTIDAD_RECIBIDA,true);
 		$criteria->compare('CANTIDAD_RECHAZADA',$this->CANTIDAD_RECHAZADA,true);
 		$criteria->compare('FECHA',$this->FECHA,true);
+		$criteria->compare('IMPORTE',$this->IMPORTE,true);                
 		$criteria->compare('OBSERVACION',$this->OBSERVACION,true);
 		$criteria->compare('ESTADO',$this->ESTADO,true);
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
@@ -166,10 +168,81 @@ class OrdenCompraLinea extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-                
+        
+        public function search2($id)
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('ORDEN_COMPRA_LINEA',$this->ORDEN_COMPRA_LINEA);
+		$criteria->compare('ORDEN_COMPRA',$id,true);
+		$criteria->compare('LINEA_NUM',$this->LINEA_NUM);
+		$criteria->compare('ARTICULO',$this->ARTICULO,true);
+		$criteria->compare('DESCRIPCION',$this->DESCRIPCION,true);
+		$criteria->compare('BODEGA',$this->BODEGA,true);
+		$criteria->compare('FECHA_REQUERIDA',$this->FECHA_REQUERIDA,true);
+		$criteria->compare('FACTURA',$this->FACTURA,true);
+		$criteria->compare('CANTIDAD_ORDENADA',$this->CANTIDAD_ORDENADA,true);
+		$criteria->compare('UNIDAD_COMPRA',$this->UNIDAD_COMPRA);
+		$criteria->compare('PRECIO_UNITARIO',$this->PRECIO_UNITARIO,true);
+		$criteria->compare('PORC_DESCUENTO',$this->PORC_DESCUENTO,true);
+		$criteria->compare('MONTO_DESCUENTO',$this->MONTO_DESCUENTO,true);
+		$criteria->compare('PORC_IMPUESTO',$this->PORC_IMPUESTO,true);
+		$criteria->compare('VALOR_IMPUESTO',$this->VALOR_IMPUESTO,true);
+		$criteria->compare('CANTIDAD_RECIBIDA',$this->CANTIDAD_RECIBIDA,true);
+		$criteria->compare('CANTIDAD_RECHAZADA',$this->CANTIDAD_RECHAZADA,true);
+		$criteria->compare('FECHA',$this->FECHA,true);
+		$criteria->compare('OBSERVACION',$this->OBSERVACION,true);
+		$criteria->compare('ESTADO',$this->ESTADO,true);
+		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
+		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
+		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
+		$criteria->compare('ACTUALIZADO_EL',$this->ACTUALIZADO_EL,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+        
+        public function cambiaRecibir($id){
+            $i = 0;
+            $buscare = $this->model()->findByPk($id);
+            $buscar = $this->model()->findAll('ORDEN_COMPRA = "'.$buscare->ORDEN_COMPRA.'"');
+            foreach ($buscar as $a){
+                if($a->ESTADO == 'B'){
+                    $i++;
+                }
+            }
+            if($i == 0){
+                OrdenCompra::model()->updateByPk($a->ORDEN_COMPRA, array('ESTADO'=>'R'));
+            }
+        }
+                       
         public function behaviors()
 	{
+		$conf=ConfCo::model()->find();
+                $conf2=ConfAs::model()->find();
+                $dec=isset($conf->CANTIDAD_DEC)?$conf->CANTIDAD_DEC:0;
+                $decP=isset($conf2->PORCENTAJE_DEC)?$conf2->PORCENTAJE_DEC:0;
 		return array(
+                        'defaults'=>array(
+                            'class'=>'application.components.FormatBehavior',
+                            //'format'=>'db',
+                            'formats'=> array(
+                                   'MONTO_DESCUENTO'=>'###,##0.'.str_repeat('0',$dec),
+                                   'PRECIO_UNITARIO'=>'###,##0.'.str_repeat('0',$dec),
+                                   'VALOR_IMPUESTO'=>'###,##0.'.str_repeat('0',$dec),
+                                   'IMPORTE'=>'###,##0.'.str_repeat('0',$dec),
+                                   'CANTIDAD_ORDENADA'=>'###,##0.'.str_repeat('0',$dec),
+                                   'CANTIDAD_RECIBIDA'=>'###,##0.'.str_repeat('0',$dec),
+                                   'CANTIDAD_RECHAZADA'=>'###,##0.'.str_repeat('0',$dec),
+                                   'PORC_DESCUENTO'=>'#0.'.str_repeat('0',$decP),
+                            ),
+                            
+                            //'parseExpression'=> "strtr(\$value,',','.')",
+                        ),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',

@@ -13,17 +13,19 @@ function dependiente () {
         nombreCampoDependiente = 'ConsecCiTipoTrans_TIPO_TRANSACCION';
         $('#valor').val($(this).attr('value'));
             
-        $.post('<?php echo CController::createUrl('consecutivoCi/cargartransaccion'); ?>', { Base: $(this).attr('value') },
+        $.post('<?php echo Yii::app()->getController()->createUrl('consecutivoCi/cargartransaccion'); ?>', { Base: $(this).attr('value') },
 		  function(data){
                         $('select[id$=' + nombreCampoDependiente + '] > option').remove();
                         $('#' + nombreCampoDependiente).append(data);
-                        $(".tonces").attr("disabled","disabled");
 		  }
         );
-        $("#nuevo").slideToggle('fast');   
+            
+        $(".templateTarget").html('');   
+        $("#nuevo").attr('disabled',false);   
+        $("#cambia").val(1);   
 }
 function agregar(){
-        var cont = $('#contador').val();
+        var cont = $('body').find('.rowIndex').max();
         var valor = $("#valor").val();
             
         $('#ConsecCiTipoTransNuevo_'+cont+'_TRANSACCION_BASE').val(valor);
@@ -70,9 +72,10 @@ function eliminarRegistro(){
 
 </script>
 <?php 
-    if($tipos != ''){
+    $id_tipo = '';
+    if($tipos !== ''){
         foreach($tipos as $var){
-            $id_tipo = $var->TIPO_TRANSACCION;
+            $id_tipo = $var->tIPOTRANSACCION->TRANSACCION_BASE;
         }
     }
 ?>
@@ -90,7 +93,6 @@ function eliminarRegistro(){
               <?php 
                     echo CHtml::dropDownList('ConsecCiTipoTrans_TRANSACCION_BASE','',CHtml::listData(TipoTransaccion::model()->findAll(),'TIPO_TRANSACCION','NOMBRE'),
                                             array(
-                                                'disabled'=>$model2->isNewRecord ? false : true,
                                                 'style'=>'width:100px',
                                                 'prompt' => 'Seleccione',
                                                 'class' => 'tonces',
@@ -109,6 +111,7 @@ function eliminarRegistro(){
           </td>
           <input type="hidden" value="0" id="contador" />
           <?php echo CHtml::hiddenField('valor',$model2->isNewRecord ? '' : $id_tipo); ?>
+          <?php echo CHtml::hiddenField('cambia',0); ?>
   </tr>
 </table>
 
@@ -135,17 +138,8 @@ function eliminarRegistro(){
                                     <?php echo  $form->dropDownList($person,"[$i]TIPO_TRANSACCION",CHtml::ListData(TipoTransaccion::model()->findAll('TRANSACCION_BASE = "'.$id_tipo.'"'),'TIPO_TRANSACCION','NOMBRE'),array('prompt'=>'Seleccione')); ?>
                                 </td>
                                 <td>
-                                     <div class="remove">
-                                          <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                                            'buttonType'=>'button',
-                                                            'type'=>'danger',
-                                                            'label'=>'Eliminar',
-                                                            'icon'=>'minus white',
-                                                            'htmlOptions'=>array('class'=>'eliminarRegistro','name'=>$i)
-
-                                                ));
-                                          ?>
-                                          
+                                     <div class="remove" style="width: 85px;">
+                                         <?php $this->darBotonDeleteLinea('Eliminar',array('class'=>'eliminarRegistro','name'=>$i)); ?>
                                      </div>
                                 </td>
                            </tr>
@@ -177,15 +171,8 @@ function eliminarRegistro(){
                 <tfoot>
                     <tr>
                         <td colspan="4">
-                             <div class="add" style="width: 80px;" >
-                                   <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                                 'buttonType'=>'button',
-                                                 'type'=>'success',
-                                                 'label'=>'Nuevo',
-                                                 'icon'=>'plus white',
-                                                 'htmlOptions'=>array('id'=>'nuevo','style'=>$model2->isNewRecord ? 'display: none;' : '')
-                                         )); 
-                                   ?>
+                             <div class="add" style="width: 85px;" >
+                                 <?php $this->darBotonAddLinea('Nuevo',array('id'=>'nuevo','disabled'=>$model2->isNewRecord ? true : false)); ?>
                             </div>
                             <textarea class="template" rows="0" cols="0" style="display:none;">
                                 <tr class="templateContent">
@@ -196,15 +183,8 @@ function eliminarRegistro(){
                                         <?php echo CHtml::dropDownList('ConsecCiTipoTransNuevo[{0}][TIPO_TRANSACCION]','',array(),array('prompt'=>'Seleccione')); ?>
                                     </td>
                                     <td>
-                                        <div class="remove">
-                                               <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                                         'buttonType'=>'button',
-                                                         'type'=>'danger',
-                                                         'label'=>'Eliminar',
-                                                         'icon'=>'minus white',
-                                                         'htmlOptions'=>array('id'=>'remover','onclick'=>'eliminar()')
-                                                     ));
-                                               ?>
+                                        <div class="remove" style="width: 85px;">
+                                            <?php $this->darBotonDeleteLinea('Eliminar',array('id'=>'remover','onclick'=>'eliminar()')); ?>
                                         </div>
                                         <input type="hidden" class="rowIndex" value="{0}" />
                                    </td>
@@ -232,16 +212,8 @@ function eliminarRegistro(){
                                 <?php echo  $form->dropDownList($person,"[$i]TIPO_TRANSACCION",$model2->isNewRecord ? array() : CHtml::ListData(TipoTransaccion::model()->findAll('TRANSACCION_BASE = "'.$id_tipo.'"'),'TIPO_TRANSACCION','NOMBRE'),array('prompt'=>'Seleccione')); ?>
                             </td>
                             <td>
-                                 <div class="remove">
-                                      <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                                        'buttonType'=>'button',
-                                                        'type'=>'danger',
-                                                        'label'=>'Eliminar',
-                                                        'icon'=>'minus white',
-                                                        'htmlOptions'=>array('id'=>'remover','onclick'=>'eliminar()',)
-                                                        
-                                            ));
-                                      ?>
+                                 <div class="remove"  style="width: 85px;">
+                                     <?php $this->darBotonDeleteLinea('Eliminar',array('id'=>'remover','onclick'=>'eliminar()',)); ?>
                                  </div>
                             </td>
                        </tr>

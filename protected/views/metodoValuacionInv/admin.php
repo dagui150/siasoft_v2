@@ -1,3 +1,4 @@
+<?php $this->pageTitle=Yii::app()->name." - Metodos de Valuación";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('admin'),
@@ -5,9 +6,8 @@ $this->breadcrumbs=array(
 );
 ?>
 <h1>Metodos de Valuación</h1>
-<br>
 <?php 
-	$this->widget('bootstrap.widgets.BootGridView', array(
+	$this->widget('bootstrap.widgets.TbGridView', array(
                 'type'=>'striped bordered condensed',
 		'id'=>'metodo-valuacion-inv-grid',
 		'dataProvider'=>$model->search(),

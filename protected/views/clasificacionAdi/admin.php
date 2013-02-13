@@ -1,29 +1,24 @@
+<?php $this->pageTitle=Yii::app()->name." - Clasificaciónes";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('admin'),
-	'Clasificaciones'
+	'Clasificaciónes'
 );
 
 ?>
-<h1>Clasificaciones</h1>
-<br>
-<div align="right">
+<h1>Clasificaciónes</h1>
 <?php 
-
-		$this->widget('bootstrap.widgets.BootButton', array(
-			'label'=>'Nuevo',
-			'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-			'size'=>'mini', // '', 'large', 'small' or 'mini'
-			'url'=>'#myModal',
-			'icon' => 'plus white',
-			'htmlOptions'=>array('data-toggle'=>'modal')
-		)); 
-
-	?>
+if (isset($_GET['men'])){
+    $this->mensaje($_GET['men']);
+}
+?>
+<div id="mensaje"></div>
+<div align="right">
+    <?php $this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
 </div>
 
 <?php 
-	$this->widget('bootstrap.widgets.BootGridView', array(
+	$this->widget('bootstrap.widgets.TbGridView', array(
                 'type'=>'striped bordered condensed',
 		'id'=>'clasificacion-adi-grid',
 		'dataProvider'=>$model->search(),
@@ -38,12 +33,13 @@ $this->breadcrumbs=array(
                         ),
 			'POSICION',
 			array(
-				'class'=>'bootstrap.widgets.BootButtonColumn',
-                                'template'=>'{update}{delete}',
+                            'class'=>'bootstrap.widgets.TbButtonColumn',
+                            'template'=>'{update}{delete}',
+                            'afterDelete'=>$this->mensajeBorrar(),
 			),
 		),
 	)); 
-	$this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
+	$this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
  
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>

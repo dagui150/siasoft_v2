@@ -1,12 +1,19 @@
+<script>
+function completado(){
+    $.fn.yiiGridView.update('bodega-grid');
+}
+</script>
+<?php $this->pageTitle=Yii::app()->name." - Bodegas";?>
+
 <?php
 $this->breadcrumbs=array(
-	'Bodegas'=>array('admin'),
-	'Administrar',
+        'Sistema'=>array('admin'),
+	'Bodegas',
 );
 
 $this->menu=array(
-	array('label'=>'List Bodega', 'url'=>array('index')),
-	array('label'=>'Create Bodega', 'url'=>array('create')),
+	array('label'=>Yii::t('app','LIST').' Bodega', 'url'=>array('index')),
+	array('label'=>Yii::t('app','CREATE').' Bodega', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -25,27 +32,32 @@ $('.search-form form').submit(function(){
 
 <h1>Bodegas</h1>
 <?php 
+if (isset($_GET['men'])){
+    $this->mensaje($_GET['men']);
+}
+?>
+<div id="mensaje"></div>
+<?php 
+if(isset($alerta)){
+    Yii::app()->user->setFlash('info', $alerta);
+ } 
+ 
 if(isset($_GET['mensaje'])){ ?>
 <div class="alert alert-<?php echo $_GET['tipo']; ?>"><a class="close" data-dismiss="alert">×</a><?php echo base64_decode($_GET['mensaje']); ?></div>
-<?php } ?>
+<?php } 
+$this->widget('bootstrap.widgets.TbAlert');
+?>
 
 <div align="right">
-<?php 
 
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'Nuevo',
-    'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'icon' => 'plus white',
-	'url'=>'#myModal',
-	'htmlOptions'=>array('data-toggle'=>'modal')
-)); 
-
-?>
+    <?php $this->darBotonPdfExcel(array('bodega/excel')); ?>
+    <?php $this->darBotonPdfExcel(array('bodega/pdf'), false, 'PDF', 'danger'); ?>
+    <?php $this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
+    
 </div>
 <?php
 
-     $this->widget('bootstrap.widgets.BootGridView', array(
+     $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',
 	'id'=>'bodega-grid',
 	'dataProvider'=>$model->search(),
@@ -57,7 +69,7 @@ $this->widget('bootstrap.widgets.BootButton', array(
                         'name'=>'TIPO',
                         'header'=>'Tipo',
                         'value'=>'Bodega::tipo($data->TIPO)',
-                        'filter'=>array('C'=>'Consumo','V'=>'Ventas','N'=>'No Disponible'),
+                        'filter'=>array('C'=>'Consumo','V'=>'Ventas','N'=>'No Disponible',''=>'Todos'),
                     ),
 		'TELEFONO',
 		'DIRECCION',
@@ -69,14 +81,16 @@ $this->widget('bootstrap.widgets.BootButton', array(
 		'ACTUALIZADO_EL',
 		*/
 		array(
-                    'class'=>'bootstrap.widgets.BootButtonColumn',
+                    'class'=>'bootstrap.widgets.TbButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),
+                    'afterDelete'=>$this->mensajeBorrar(),
 		),
+
 	),
 )); ?>
 
 
-<?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
  
 <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>

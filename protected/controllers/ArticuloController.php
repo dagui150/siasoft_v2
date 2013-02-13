@@ -1,39 +1,19 @@
 <?php
 
-class ArticuloController extends SBaseController
+class ArticuloController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-        public $breadcrumbs=array();
-	public $menu=array();
+    public $breadcrumbs=array();
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
-
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	/*
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
+	public function filters(){
+            return array(array('CrugeAccessControlFilter'));
+          }
 
 	/**
 	 * Creates a new model.
@@ -71,7 +51,11 @@ class ArticuloController extends SBaseController
                     
 		if(isset($_POST['Articulo']))
 		{
+                    
                         $model->attributes=$_POST['Articulo']; 
+                        
+                        
+                        $model->ACTIVO='S';
                         
                         if($_POST['Articulo']['IMPUESTO_COMPRA'] === '')
                             $model->IMPUESTO_COMPRA = NULL;
@@ -86,8 +70,8 @@ class ArticuloController extends SBaseController
                             $model->RETENCION_VENTA = NULL;
                         
 			if($model->save()){
-                            if(isset($_POST['OtraClasificacionNuevo'])){
-                                foreach ($_POST['OtraClasificacionNuevo'] as $datos){
+                            if(isset($_POST['ClasificacionNuevo'])){
+                                foreach ($_POST['ClasificacionNuevo'] as $datos){
                                      $adi = new ClasificAdiArticulo;
                                      $adi->ARTICULO = $_POST['Articulo']['ARTICULO'];
                                      $adi->VALOR = $datos['VALOR'];
@@ -95,8 +79,20 @@ class ArticuloController extends SBaseController
                                      $adi->save();
                                 }
                             }
-                            $this->redirect(array('admin'));
-                        }
+                            if(isset($_POST['ObligaClasificacionNuevo'])){
+                                foreach ($_POST['ObligaClasificacionNuevo'] as $datos){
+                                     $adi = new ClasificAdiArticulo;
+                                     $adi->ARTICULO = $_POST['Articulo']['ARTICULO'];
+                                     $adi->VALOR = $datos['VALOR'];
+                                     $adi->ACTIVO = 'S';
+                                     $adi->save();
+                                }
+                            }
+                            //$this->redirect(array('admin'));
+                            $this->redirect(array('admin&men=S003'));
+                        }else{
+                        $model->attributes=$_POST['Articulo'];
+                }
 		}
                 
                 if(isset($_GET['ClasificacionAdiValor']))
@@ -168,6 +164,9 @@ class ArticuloController extends SBaseController
 		{
 			$model->attributes=$_POST['Articulo'];
                         
+                        
+                        
+                        
                         if($_POST['Articulo']['IMPUESTO_COMPRA'] === '')
                             $model->IMPUESTO_COMPRA = NULL;
                         
@@ -179,6 +178,9 @@ class ArticuloController extends SBaseController
                         
                         if($_POST['Articulo']['RETENCION_VENTA'] === '')
                             $model->RETENCION_VENTA = NULL;
+                        $model->IMPUESTO_VENTA = $_POST['Articulo']['IMPUESTO_VENTA'];
+                        
+                        $model->ACTIVO='S';
                         
 			if($model->save()){
                             //Actualizar Registros
@@ -192,8 +194,8 @@ class ArticuloController extends SBaseController
                                 }
                             }
                             //NUEVOS REGISTROS
-                            if(isset($_POST['OtraClasificacionNuevo'])){
-                                foreach ($_POST['OtraClasificacionNuevo'] as $datos){
+                            if(isset($_POST['ClasificacionNuevo'])){
+                                foreach ($_POST['ClasificacionNuevo'] as $datos){
                                      $adi = new ClasificAdiArticulo;
                                      $adi->ARTICULO = $model->ARTICULO;
                                      $adi->VALOR = $datos['VALOR'];
@@ -210,7 +212,10 @@ class ArticuloController extends SBaseController
                                 }
                                 
                              }
-                            $this->redirect(array('admin'));
+                                //$this->redirect(array('admin'));
+                             $this->redirect(array('admin&men=S002'));
+                        }else{
+                        $model->attributes=$_POST['Articulo'];
                         }
 		}
                 
@@ -238,37 +243,6 @@ class ArticuloController extends SBaseController
                         'bodega'=>$bodega,
                         'impuesto'=>$impuesto,
                         'retencion'=>$retencion,
-		));
-	}
-
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Solicitud Invalida. Por favor, no repita esta solicitud de nuevo.');
-	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Articulo');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
 		));
 	}
 
@@ -315,15 +289,11 @@ class ArticuloController extends SBaseController
 	}
         
         public function actionCargar() {
-                $var = $_POST['ClasificacionAdiValor'];
+                $var = $_GET['ClasificacionAdiValor'];
 		$data=  ClasificacionAdiValor::model()->findAll('CLASIFICACION = '.$var);
                
                $data=CHtml::listData($data,'ID','VALOR');
-               echo "<option value=''>Seleccione</option>";
-               foreach($data as $value=>$name)
-               {
-                       echo CHtml::tag('option',array('value'=>$value),CHtml::encode($name),true);
-               }
+               echo CJSON::encode($data);
 	}
         
         public function actionCargarAjax(){

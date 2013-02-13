@@ -1,3 +1,4 @@
+<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." Existencias en Bodegas";?>
 <?php
 $this->breadcrumbs=array(
 	'Inventario'=>array('articulo/admin'),
@@ -15,23 +16,14 @@ $('.search-button').click(function(){
 
 ?>
 
-<h1>Existencias de Bodega</h1>
-
-    <br>
+<h1>Bodegas de Articulo "<?php echo $articulo.' - '.$barticulo->NOMBRE?>"</h1>
+<div id="mensaje"></div>
     <div align="right">
-         <?php
-            $this->widget('bootstrap.widgets.BootButton', array(
-                    'type'=>'success',
-                    'size'=>'mini',
-                    'label'=>'Nuevo',
-                    'icon'=>'plus white',
-                    'htmlOptions'=>array('class'=>'search-button','onClick'=>"$('html,body').animate({scrollTop:'2000px'}, 'slow');return false;"),
-                ));
-         ?>
+        <?php $this->darBotonNuevo('#',array('class'=>'search-button','onClick'=>"$('html,body').animate({scrollTop:'2000px'}, 'slow');return false;"),'mini'); ?>
    </div>
     
   <?php   
-     $this->widget('bootstrap.widgets.BootGridView', array(
+     $this->widget('bootstrap.widgets.TbGridView', array(
         'type'=>'striped bordered condensed',
 	'id'=>'existencia-bodega-grid',
 	'dataProvider'=>$model2->search2($articulo),
@@ -45,8 +37,9 @@ $('.search-button').click(function(){
 		'CANT_RESERVADA',
 		'CANT_REMITIDA',
 		array(
-			 'class'=>'bootstrap.widgets.BootButtonColumn',
-                         'template'=>'{update}{delete}'
+                    'class'=>'bootstrap.widgets.TbButtonColumn',
+                    'template'=>'{update}{delete}',
+                    'afterDelete'=>$this->mensajeBorrar(),
 		),
 	),
     ));

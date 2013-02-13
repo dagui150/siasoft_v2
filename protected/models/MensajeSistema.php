@@ -43,7 +43,7 @@ class MensajeSistema extends CActiveRecord
 		return array(
 			array('CODIGO, TIPO, MENSAJE, ACTIVO', 'required'),
 			array('CODIGO', 'length', 'max'=>4),
-			array('TIPO, ACTIVO', 'length', 'max'=>1),
+			array('ACTIVO', 'length', 'max'=>1),
 			array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -68,7 +68,7 @@ class MensajeSistema extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'CODIGO' => 'Codigo',
+			'CODIGO' => 'Código',
 			'TIPO' => 'Tipo',
 			'MENSAJE' => 'Mensaje',
 			'ACTIVO' => 'Activo',
@@ -93,7 +93,7 @@ class MensajeSistema extends CActiveRecord
 		$criteria->compare('CODIGO',$this->CODIGO,true);
 		$criteria->compare('TIPO',$this->TIPO,true);
 		$criteria->compare('MENSAJE',$this->MENSAJE,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);

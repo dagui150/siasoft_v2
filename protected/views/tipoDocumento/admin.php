@@ -1,12 +1,13 @@
+<?php $this->pageTitle=Yii::app()->name." - Tipos de Documento";?>
 <?php
 $this->breadcrumbs=array(
-	'Tipo Documentos'=>array('admin'),
-	'Administrar',
+    'Sistema'=>array('admin'),
+	'Tipos de Documento',
 );
 
 $this->menu=array(
-	array('label'=>'List TipoDocumento', 'url'=>array('index')),
-	array('label'=>'Create TipoDocumento', 'url'=>array('create')),
+	array('label'=>Yii::t('app','LIST').' TipoDocumento', 'url'=>array('index')),
+	array('label'=>Yii::t('app','CREATE').' TipoDocumento', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -24,23 +25,19 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1>Tipo Documento</h1>
-
-<div align="right">
 <?php 
-
-$this->widget('bootstrap.widgets.BootButton', array(
-    'label'=>'Nuevo',
-    'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'mini', // '', 'large', 'small' or 'mini'
-	'icon' => 'plus white',
-	'url'=>'#myModal',
-	'htmlOptions'=>array('data-toggle'=>'modal')
-)); 
-
+if (isset($_GET['men'])){
+    $this->mensaje($_GET['men']);
+}
 ?>
+<div id="mensaje"></div>
+<div align="right">
+    <?php $this->darBotonPdfExcel(array('tipoDocumento/excel')); ?>
+    <?php $this->darBotonPdfExcel(array('tipoDocumento/pdf'), false, 'PDF', 'danger'); ?>
+    <?php $this->darBotonNuevo('#myModal',array('data-toggle'=>'modal'),'mini'); ?>
 </div>
 
-<?php $this->widget('bootstrap.widgets.BootGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',
 	'id'=>'tipo-documento-grid',
 	'dataProvider'=>$model->search(),
@@ -56,13 +53,14 @@ $this->widget('bootstrap.widgets.BootButton', array(
 		'ACTUALIZADO_EL',
 		*/
 		array(
-                    'class'=>'bootstrap.widgets.BootButtonColumn',
+                    'class'=>'bootstrap.widgets.TbButtonColumn',
                     'htmlOptions'=>array('style'=>'width: 50px'),
+                    'afterDelete'=>$this->mensajeBorrar(),
 		),
 	),
 )); ?>
 
-<?php $this->beginWidget('bootstrap.widgets.BootModal', array('id'=>'myModal')); ?>
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'myModal')); ?>
  
 <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>

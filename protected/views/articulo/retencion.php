@@ -1,16 +1,17 @@
 <?php
-        $this->widget('bootstrap.widgets.BootGridView', array(
+        $this->widget('bootstrap.widgets.TbGridView', array(
                             'type'=>'striped bordered condensed',
                             'id'=>$id,
+                            'pager' => array('class'=>'TbPager','maxButtonCount' => 6),
                             'template'=>"{items}{pager}",
-                            'dataProvider'=>$retencion->search(),
+                            'dataProvider'=>$data,
                             'filter'=>$retencion,
                             'selectionChanged'=>$funcion,
                             'columns'=>array(
                                     array(
                                         'type'=>'raw',
                                         'name'=>'ID',
-                                        'header'=>'Codigo Retencion',
+                                        'header'=>'Código Retención',
                                         'value'=>'CHtml::link($data->ID,"#")',
                                         'htmlOptions'=>array('data-dismiss'=>'modal'),
                                     ),

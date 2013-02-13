@@ -3,9 +3,9 @@
     $(document).ready(inicio);
     
     function inicio(){ 
-        var nombre_cantidad;
         $('#DocumentoInvLinea_TIPO_TRANSACCION').change(function (){
-            
+            $('#DocumentoInvLinea_SIGNO_0').click();
+            $('#signo').slideUp('slow');
             $.getJSON('<?php echo $this->createUrl('agregarlinea'); ?>&tipo='+$(this).val(),
                 function(data){
                     $('select[id$=DocumentoInvLinea_SUBTIPO ] > option').remove();
@@ -27,6 +27,12 @@
             
             $.getJSON('<?php echo $this->createUrl('agregarlinea'); ?>&tipo_transaccion='+$(this).val(),
                 function(data){
+                    
+                        if(data.NATURALEZA == 'A')
+                           $('#signo').slideDown('slow');
+                        else
+                           $('#signo').slideUp('slow');
+                    
                         $('#DocumentoInvLinea_BODEGA_DESTINO').attr('disabled',true);
                         $('#bodega-destino').attr('disabled',true);
                         
@@ -37,29 +43,15 @@
                             
                             $('#DocumentoInvLinea_TIPO_TRANSACCION_CANTIDAD').append("<option value=''>Seleccione</option>");
                             
-                            $.each(data.TRANSACCIONES, function(key, transaccion) {
+                            $.each(data.TRANSACCIONES, function(value, name) {
                                 
-                                $.getJSON('<?php echo $this->createUrl('agregarlinea'); ?>&cantidad='+transaccion.CANTIDAD,
-                                    function(respuesta){
-
-                                        nombre_cantidad = respuesta.NOMBRE;
-
-                                        $('#DocumentoInvLinea_TIPO_TRANSACCION_CANTIDAD').append("<option value='"+transaccion.CANTIDAD+"'>"+nombre_cantidad+"</option>");
-                                });
+                                $('#DocumentoInvLinea_TIPO_TRANSACCION_CANTIDAD').append("<option value='"+value+"'>"+name+"</option>");
                             });
                         }else{
-                            $('#DocumentoInvLinea_TIPO_TRANSACCION_CANTIDAD').append("<option value=''>Seleccione</option>");
-                            
-                            $.getJSON('<?php echo $this->createUrl('agregarlinea'); ?>&cantidades='+1,
-                                    function(data){
-
-                                        $.each(data, function(value, name) {
-                                            $('#DocumentoInvLinea_TIPO_TRANSACCION_CANTIDAD').append("<option value='"+value+"'>"+name+"</option>");
-                                        });
-                            });
+                            $('#DocumentoInvLinea_TIPO_TRANSACCION_CANTIDAD').append("<option value=''>Ninguno</option>");
                         }
                         
-                        switch(data.TRANSACCION_BASE){
+                        switch($(this).val()){
                             case 'COST':
                                   $('#DocumentoInvLinea_TIPO_TRANSACCION_CANTIDAD').attr('readonly',true);
                             break;
@@ -116,6 +108,10 @@
         $.getJSON(url,function(data){
                 $(campo).val(id);
                 $(campo_nombre).val(data.NOMBRE);
+                if(id_grilla == 'articulo-grid'){
+                    $('#DocumentoInvLinea_UNIDAD').val(data.UNIDAD);
+                    $('#DocumentoInvLinea_COSTO_UNITARIO').val(data.COSTO);
+                }
             });
         
     }
@@ -163,6 +159,8 @@
                 
                 $('#DocumentoInvLinea_ARTICULO').val(idArticulo);
                 $('#NOMBRE_ARTICULO').val(data.NOMBRE);
+                $('#DocumentoInvLinea_UNIDAD').val(data.UNIDAD);
+                $('#DocumentoInvLinea_COSTO_UNITARIO').val(data.COSTO);
             });
         }else
             $('#NOMBRE_ARTICULO').val('Ninguno');
@@ -458,7 +456,7 @@
     $campoActualiza = isset($PcampoActualiza) ? $PcampoActualiza : '';    
     $actualiza = isset($Pactualiza) ? $Pactualiza : 0;    
     
-    $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 'id'=>'documento-inv-linea-form',
                 'enableAjaxValidation'=>true,
                 'clientOptions'=>array(
@@ -466,28 +464,9 @@
                 ),
                  'type'=>'horizontal',
      ));
-     
-     $botonBodega = $this->widget('bootstrap.widgets.BootButton', array(
-                        'type'=>'info',
-                        'size'=>'mini',
-                        'buttonType'=>'button',
-                        'icon'=>'search',
-                        'htmlOptions'=>array('onclick'=>'$("#bodega").dialog("open");return false;',),
-                    ),true);
-     $botonBodegaDestino = $this->widget('bootstrap.widgets.BootButton', array(
-                        'type'=>'info',
-                        'size'=>'mini',
-                        'buttonType'=>'button',
-                        'icon'=>'search',
-                        'htmlOptions'=>array('id'=>'bodega-destino','disabled'=>true,'onclick'=>'$("#bodega_destino").dialog("open");return false;',),
-                    ),true);
-     $botonArticulo = $this->widget('bootstrap.widgets.BootButton', array(
-                        'type'=>'info',
-                        'size'=>'mini',
-                        'buttonType'=>'button',
-                        'icon'=>'search',
-                        'htmlOptions'=>array('onclick'=>'$("#articulo").dialog("open");return false;',),
-                    ),true);
+     $botonBodega = $this->darBotonBuscar('', true, array('onclick'=>'$("#bodega").dialog("open");return false;'));
+     $botonBodegaDestino = $this->darBotonBuscar('', true, array('id'=>'bodega-destino','disabled'=>true,'onclick'=>'$("#bodega_destino").dialog("open");return false;'));
+     $botonArticulo = $this->darBotonBuscar('', true, array('onclick'=>'$("#articulo").dialog("open");return false;'));
      
      echo CHtml::hiddenField('documento',$model->DOCUMENTO_INV);
      echo CHtml::hiddenField('consecutivo',isset($_POST['consecutivo']) ? $_POST['consecutivo'] : '');
@@ -533,39 +512,44 @@
             <tr>
                 <td><?php echo $form->textFieldRow($modelLi,'BODEGA',array('size'=>4,'maxlength'=>4)); ?></td> 
                 <td>
-                    <span style="margin: 0 0 0 -30px"><?php echo CHtml::textField('NOMBRE_BODEGA',$nombre_bodega,array('readonly'=>true))?></span>
+                    <span style="margin: 0 0 0 -12px"><?php echo CHtml::textField('NOMBRE_BODEGA',$nombre_bodega,array('readonly'=>true))?></span>
                     <span style="margin: 5px 0 0 0"><?php echo $botonBodega ?></span>
                 </td> 
             </tr>
             <tr>
                 <td><?php echo $form->textFieldRow($modelLi,'BODEGA_DESTINO',array('size'=>4,'maxlength'=>4,'disabled'=>true)); ?></td> 
                 <td>
-                    <span style="margin: 0 0 0 -30px"><?php echo CHtml::textField('NOMBRE_BODEGA_DESTINO',$nombre_bodega_destino,array('readonly'=>true))?></span>
+                    <span style="margin: 0 0 0 -12px"><?php echo CHtml::textField('NOMBRE_BODEGA_DESTINO',$nombre_bodega_destino,array('readonly'=>true))?></span>
                     <span style="margin: 5px 0 0 0"><?php echo $botonBodegaDestino ?></span>
                 </td>
             </tr>
             <tr>
                 <td><?php echo $form->textFieldRow($modelLi,'ARTICULO',array('size'=>4,'maxlength'=>20)); ?></td> 
                 <td>
-                    <span style="margin: 0 0 0 -30px"><?php echo CHtml::textField('NOMBRE_ARTICULO',$nombre_articulo,array('readonly'=>true))?></span>
+                    <span style="margin: 0 0 0 -12px"><?php echo CHtml::textField('NOMBRE_ARTICULO',$nombre_articulo,array('readonly'=>true))?></span>
                     <span style="margin: 5px 0 0 0"><?php echo $botonArticulo ?></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span id="signo" style="display: none"><?php echo $form->radioButtonListRow($modelLi,'SIGNO',array('+'=>'+','-'=>'-'))?></span>
                 </td>
             </tr>
             <tr>
                  <td>
                         <div align="left" style="width: 120px;">
-                                <?php echo $form->textFieldRow($modelLi,'CANTIDAD',array('size'=>13,'maxlength'=>28)); ?>
+                                <?php echo $form->textFieldRow($modelLi,'CANTIDAD',array('size'=>13,'maxlength'=>28,'class'=>'decimal')); ?>
                         </div>
                 </td>
                 <td>
-                        <div align="left" style="margin-left: 30px;">
-                                <?php echo $form->dropDownList($modelLi,'UNIDAD',CHtml::listData(UnidadMedida::model()->findAll(),'ID','NOMBRE'),array('empty'=>'Seleccione')); ?>
+                        <div align="left" style="margin-left: 42px;">
+                                <?php echo $form->dropDownList($modelLi,'UNIDAD',CHtml::listData(UnidadMedida::model()->findAll('ACTIVO = "S"'),'ID','NOMBRE'),array('empty'=>'Seleccione')); ?>
                         </div>
                 </td>
            </tr>
            <tr>
                  <td colspan="2">
-                     <span style="margin-top: -15;"><?php echo $form->textFieldRow($modelLi,'COSTO_UNITARIO',array('maxlength'=>28)); ?></span>
+                     <span style="margin-top: -15;"><?php echo $form->textFieldRow($modelLi,'COSTO_UNITARIO',array('maxlength'=>28,'class'=>'decimal')); ?></span>
                  </td>
            </tr>
 
@@ -576,7 +560,7 @@
      </div>
     <div class="modal-footer">
                  <?php
-                    $this->widget('bootstrap.widgets.BootButton', array(
+                    $this->widget('bootstrap.widgets.TbButton', array(
                          'buttonType'=>'ajaxSubmit',
                          'type'=>'primary',
                          'label'=>'Aceptar',
@@ -592,7 +576,8 @@
                 ?>
                  <?php
                     $bolean =Yii::app()->request->isAjaxRequest ? false : true;
-                    $this->widget('bootstrap.widgets.BootButton', array(
+                    //$this->darBotonCancelar(array('onclick'=>'$(".close").click(); limpiarForm('.$bolean.');'),'');
+                    $this->widget('bootstrap.widgets.TbButton', array(
                          'buttonType'=>'button',
                          'type'=>'normal',
                          'label'=>'Cancelar',

@@ -1,23 +1,20 @@
 <?php
 
-class ConfCiController extends SBaseController
+class ConfCiController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
-	public $breadcrumbs=array();
-	public $menu=array();
+	public $layout='//layouts/column2'; 
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
+	public function filters(){
+      return array(
+				array('CrugeAccessControlFilter'),
+			);
+    }
 
 	/**
 	 * Creates a new model.
@@ -61,6 +58,7 @@ class ConfCiController extends SBaseController
 	{
 		$model=$this->loadModel($id);
                 
+                
                 $regla1=  substr($model->EAN13_REGLA_LOCAL, 0,3);
                 $regla2=  substr($model->EAN13_REGLA_LOCAL, 3,5);
                 $regla3=  substr($model->UCC12_REGLA_LOCAL, 0,1);
@@ -81,14 +79,20 @@ class ConfCiController extends SBaseController
 			$model->EXIST_DISPONIBLE=$_POST['ConfCi']['EXIST_DISPONIBLE'];
                         $model->EXIST_REMITIDA=$_POST['ConfCi']['EXIST_REMITIDA'];
                         $model->EXIST_RESERVADA=$_POST['ConfCi']['EXIST_RESERVADA'];
+                        $model->EXIST_CUARENTENA=$_POST['ConfCi']['EXIST_CUARENTENA'];
+                        $model->EXIST_VENCIDA=$_POST['ConfCi']['EXIST_VENCIDA'];
                         
                         if($model->ASISTENCIA_AUTOMAT == true){
                                 $model->EAN13_REGLA_LOCAL=$_POST['ConfCi']['EAN13_REGLA_LOCAL'].''.$_POST['PRODUCTO_EAN13'];
                                 $model->UCC12_REGLA_LOCAL=$_POST['ConfCi']['UCC12_REGLA_LOCAL'].''.$_POST['PRODUCTO_UCC12'];
                         }
                         
-			if($model->save())
-				$this->redirect(Yii::app()->user->returnUrl);
+			if($model->save()){
+				//$this->redirect(Yii::app()->user->returnUrl);
+                                $this->redirect(array('update&id='.$id.'&men=S002'));
+                        } else {
+                            $this->redirect(array('admin&men=E002'));
+                        }
 		}
 
 		$this->render('update',array(

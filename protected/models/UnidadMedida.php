@@ -8,6 +8,7 @@
  * @property string $NOMBRE
  * @property string $ABREVIATURA
  * @property string $TIPO
+ * @property string $BASE
  * @property integer $UNIDAD_BASE
  * @property string $EQUIVALENCIA
  * @property string $ACTIVO
@@ -49,22 +50,40 @@ class UnidadMedida extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('NOMBRE, ABREVIATURA, TIPO, ACTIVO', 'required'),
-			array('EQUIVALENCIA', 'numerical',),
+			array('NOMBRE, ABREVIATURA, TIPO, ACTIVO,UNIDAD_BASE, EQUIVALENCIA', 'required'),
+			array('EQUIVALENCIA', 'numerical','numberPattern' => '/^\s*[-+]?(\d{1,3}\.*\,*)*?\s*$/'),
 			array('NOMBRE', 'length', 'max'=>64),
 			array('ABREVIATURA', 'length', 'max'=>5),
 			array('TIPO, ACTIVO', 'length', 'max'=>1),
 			array('EQUIVALENCIA', 'length', 'max'=>28),
+			array('UNIDAD_BASE', 'validarUnidadBase'),
 			array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('ID, NOMBRE, ABREVIATURA, TIPO, UNIDAD_BASE, EQUIVALENCIA, ACTIVO, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
-	}
-
+	}/**
+         * Validar la unidad base con las permitidas
+         * @param string $attribute
+         * @param array $params 
+         */
+        public function validarUnidadBase($attribute,$params){
+            if(!in_array($this->UNIDAD_BASE,self::getUnidadesValidas()))
+                $this->addError ('UNIDAD_BASE',$this->uNIDADBASE->NOMBRE.' No es permitida como base');
+            
+        }
 	public function behaviors()
 	{
+		$conf=ConfCi::model()->find();
 		return array(
+                        'defaults'=>array(
+                           'class'=>'application.components.FormatBehavior',
+                           'formats'=> array(
+                                   'EQUIVALENCIA'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   
+                            ),
+                        ),
+                        
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'CREADO_EL',
@@ -99,7 +118,7 @@ class UnidadMedida extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
+			'ID' => 'Código',
 			'NOMBRE' => 'Nombre',
 			'ABREVIATURA' => 'Abreviatura',
 			'TIPO' => 'Tipo',
@@ -130,7 +149,7 @@ class UnidadMedida extends CActiveRecord
 		$criteria->compare('TIPO',$this->TIPO,true);
 		$criteria->compare('UNIDAD_BASE',$this->UNIDAD_BASE);
 		$criteria->compare('EQUIVALENCIA',$this->EQUIVALENCIA,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -142,15 +161,15 @@ class UnidadMedida extends CActiveRecord
 	}
         public static function getUnidad(){
             
-            return CHtml::ListData(UnidadMedida::model()->findAll(),'ID','NOMBRE');
+            return CHtml::ListData(self::model()->findAll(),'ID','NOMBRE');
         }
         public static function getPeso(){
             
-            return CHtml::ListData(UnidadMedida::model()->findAll('TIPO = "P"'),'ID','NOMBRE');
+            return CHtml::ListData(self::model()->findAll('TIPO = "P"'),'ID','NOMBRE');
         }
         public static function getVolumen(){
             
-            return CHtml::ListData(UnidadMedida::model()->findAll('TIPO = "V"'),'ID','NOMBRE');
+            return CHtml::ListData(self::model()->findAll('TIPO = "V"'),'ID','NOMBRE');
         }
         
         public static function darTipo($tipo){
@@ -168,7 +187,66 @@ class UnidadMedida extends CActiveRecord
                 case 'V':
                     return 'Volumen';
                     break;
+                case 'S':
+                    return 'Servicio';
+                    break;
             }
             
+        }
+        
+                public function searchPapelera()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		
+		$criteria->compare('ACTIVO','N');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'pagination'=>false,
+			'sort'=>false,
+		));
+	}
+        /**
+         * Crea un arreglo con los id's de unidad base validos 
+         * 
+         * @return array $unidadesValidas
+         */
+        public static function getUnidadesValidas(){
+            $unidadesBase = self::model()->findAllByAttributes(array('ACTIVO'=>'S','BASE'=>'S'));
+            $unidadesValidas = array();
+            foreach($unidadesBase as $unidadBase){
+                $unidadesValidas[]=$unidadBase->ID;
+            }
+            return $unidadesValidas;
+        }
+        /**
+         * Metodo para validar que las unidades del sistema
+         * esten bien configuradas
+         * 
+         * @return boolean 
+         */
+        public static function validarUnidad(){
+            $unidadesBase = self::model()->findAllByAttributes(array('ACTIVO'=>'S','BASE'=>'S'));
+            $unidades = self::model()->findAllByAttributes(array('ACTIVO'=>'S','BASE'=>'N'));
+            $return = true;
+            //verifica si la unidad base  de las BASE son correctas
+            foreach($unidadesBase as $unidadBase){
+                if($unidadBase->UNIDAD_BASE != $unidadBase->ID){
+                    $unidadBase->UNIDAD_BASE = $unidadBase->ID;
+                    $unidadBase->update();
+                }
+            }
+            //Valida que esten correctas las unidades de medida que esten creeadas
+            foreach($unidades as $unidad){
+                if(!in_array($unidad->UNIDAD_BASE,self::getUnidadesValidas())){
+                     $return = false;
+                        break;
+                }
+            }
+            return $return;
         }
 }

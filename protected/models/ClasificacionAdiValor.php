@@ -45,7 +45,7 @@ class ClasificacionAdiValor extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('CLASIFICACION, VALOR, ACTIVO,', 'required'),
-			array('CLASIFICACION, VALOR', 'length', 'max'=>12),
+			array('CLASIFICACION, VALOR', 'length', 'max'=>20),
 			array('ACTIVO', 'length', 'max'=>1),
 			array('CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('ACTUALIZADO_EL', 'safe'),
@@ -90,9 +90,9 @@ class ClasificacionAdiValor extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
-			'CLASIFICACION' => 'Clasificacion',
-			'VALOR' => 'Valor',
+			'ID' => 'Código',
+			'CLASIFICACION' => 'Clasificación',
+			'VALOR' => 'Subclasificación',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',
@@ -115,7 +115,7 @@ class ClasificacionAdiValor extends CActiveRecord
 		$criteria->compare('ID',$this->ID);
 		$criteria->compare('CLASIFICACION',$this->CLASIFICACION,true);
 		$criteria->compare('VALOR',$this->VALOR,true);
-		$criteria->compare('ACTIVO',$this->ACTIVO,true);
+		$criteria->compare('ACTIVO','S');
 		$criteria->compare('CREADO_POR',$this->CREADO_POR,true);
 		$criteria->compare('CREADO_EL',$this->CREADO_EL,true);
 		$criteria->compare('ACTUALIZADO_POR',$this->ACTUALIZADO_POR,true);
@@ -140,5 +140,22 @@ class ClasificacionAdiValor extends CActiveRecord
                 return $bus->cLASIFICACION->NOMBRE;
             
         }
+        
+                public function searchPapelera()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		
+		$criteria->compare('ACTIVO','N');
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'pagination'=>false,
+			'sort'=>false,
+		));
+	}
         
 }

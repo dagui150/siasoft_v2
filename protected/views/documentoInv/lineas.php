@@ -1,9 +1,9 @@
 <table class="templateFrame table table-bordered" cellspacing="0">
       <thead>
            <tr>
-                <td><strong>Linea</strong></td>
-                <td><strong>Articulo</strong></td>
-                <td><strong>Descripcion</strong></td>
+                <td><strong>Línea</strong></td>
+                <td><strong>Artículo</strong></td>
+                <td><strong>Descripción</strong></td>
                 <td><strong>Bodega</strong></td>
                 <td><strong>Cantidad</strong></td>
                 <td></td>
@@ -16,14 +16,8 @@
                        <?php 
                             $config = ConfCi::model()->find();
                             $contador = $countLineas;
-                             $this->widget('bootstrap.widgets.BootButton', array(
-                                        'buttonType'=>'button',
-                                        'type'=>'success',
-                                        'label'=>'Nuevo',
-                                         'icon'=>'plus white',
-                                        'htmlOptions'=>array('id'=>'btn-nuevo','name'=>'','onclick'=>'$("#nuevo").modal(); limpiarForm();')
-                             ));
-                             
+                            $this->darBotonAddLinea('Nuevo',array('id'=>'btn-nuevo','name'=>'','onclick'=>'$("#nuevo").modal(); limpiarForm();','disabled'=>$model->ESTADO == 'P' ? false : true));
+
                              echo CHtml::hiddenField('maxLineas',$config->LINEAS_MAX_TRANS);
                              echo CHtml::hiddenField('contador',$contador);
                              echo CHtml::hiddenField('contadorLineas',$contador);
@@ -61,24 +55,10 @@
                                     </td>
                                     <td>
                                         <span style="float: left">
-                                            <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                                             'buttonType'=>'button',
-                                                             'type'=>'normal',
-                                                             'size'=>'mini',
-                                                             'icon'=>'pencil',
-                                                             'htmlOptions'=>array('class'=>'edit','name'=>'{0}',  )
-                                                         ));
-                                            ?>
+                                            <?php $this->darBotonUpdateLinea(array('class'=>'edit','name'=>'{0}',  )); ?>
                                         </span>
                                         <div class="remove" id ="remover"style="float: left; margin-left: 5px;">
-                                               <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                                         'buttonType'=>'button',
-                                                         'type'=>'danger',
-                                                         'size'=>'mini',
-                                                         'icon'=>'minus white',
-                                                         'htmlOptions'=>array('onclick'=>'eliminar();','name'=>'{0}')
-                                                     ));
-                                               ?>
+                                            <?php $this->darBotonDeleteLinea('',array('onclick'=>'eliminar();','name'=>'{0}')); ?>
                                         </div>
                                         <input type="hidden" class="rowIndex" value="{0}" />
                                    </td>
@@ -124,25 +104,10 @@
                                 </td>
                                   <td>
                                         <span style="float: left">
-                                                       <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                                             'buttonType'=>'button',
-                                                             'type'=>'normal',
-                                                             'size'=>'mini',
-                                                             'icon'=>'pencil',
-                                                             'htmlOptions'=>array('class'=>'editUpdate','name'=>$i)
-                                                          ));
-                                                       ?>
+                                            <?php $this->darBotonUpdateLinea(array('class'=>'editUpdate','name'=>$i,'disabled'=>$model->ESTADO == 'P' ? false : true)); ?>
                                         </span>
                                        <div class="remove" id ="remover" style="float: left; margin-left: 5px;">
-                                                  <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                                                 'buttonType'=>'button',
-                                                                 'type'=>'danger',
-                                                                 'size'=>'mini',
-                                                                 'icon'=>'minus white',
-                                                                 'htmlOptions'=>array('id'=>'btn-remover','class'=>'eliminaRegistro','name'=>$i)
-
-                                                         ));
-                                                 ?>
+                                           <?php $this->darBotonDeleteLinea('',array('id'=>'btn-remover','class'=>'eliminaRegistro','name'=>$i,'disabled'=>$model->ESTADO == 'P' ? false : true)); ?>
                                        </div>
                                    </td>
                          </tr>

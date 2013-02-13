@@ -34,7 +34,7 @@
                     <thead>
                        <tr>
                            <td>
-                               <?php echo $form->labelEx(Usuarios::model(),'USERNAME') ?>
+                                <?php echo $form->labelEx(CrugeUserModel::model(),'username') ?>
                            </td>
                            <td></td>
                       </tr>
@@ -43,20 +43,12 @@
                         <?php foreach($usuarios as $i=>$person): ?>
                             <tr class="templateContent">
                                 <td>
-                                    <?php echo $form->dropDownList($person,"[$i]USUARIO", CHtml::ListData(Usuarios::model()->findAll(),'USERNAME','USERNAME'),array('empty'=>'Seleccione'));  ?>
+                                    <?php echo $form->dropDownList($person,"[$i]USUARIO",CHtml::ListData(CrugeUserModel::model()->findAll(),'username','username'),array('empty'=>'Seleccione'));  ?>
                                     <?php echo $form->hiddenField($person,"[$i]ID",''); ?>
                                 </td>
                                 <td>
                                      <div class="remove">
-                                          <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                                            'buttonType'=>'button',
-                                                            'type'=>'danger',
-                                                            'label'=>'Eliminar',
-                                                            'icon'=>'minus white',
-                                                            'htmlOptions'=>array('class'=>'eliminarUsuario','name'=>$i)
-
-                                                ));
-                                          ?>
+                                         <?php $this->darBotonDeleteLinea('Eliminar',array('class'=>'eliminarUsuario','name'=>$i)); ?>
                                      </div>
                                 </td>
                            </tr>
@@ -75,7 +67,7 @@
                    <tr>
                        <td>
                            <?php if($model2->isNewRecord) :?>
-                                  <?php echo $form->labelEx(Usuarios::model(),'USERNAME') ?>
+                                  <?php echo $form->labelEx(CrugeUserModel::model(),'username') ?>
                             <?php endif;?>
                        </td>
                        <td>
@@ -86,31 +78,17 @@
                 <tfoot>
                     <tr>
                         <td colspan="4">
-                             <div class="add" style="width: 80px;" >
-                                   <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                                 'buttonType'=>'button',
-                                                 'type'=>'success',
-                                                 'label'=>'Nuevo',
-                                                 'icon'=>'plus white',
-                                                 'htmlOptions'=>array('id'=>'nuevo')
-                                         )); 
-                                   ?>
+                             <div class="add" style="width: 85px;" >
+                                 <?php $this->darBotonAddLinea('Nuevo',array('id'=>'nuevo')); ?>
                             </div>
                             <textarea class="template" rows="0" cols="0" style="display:none;">
                                 <tr class="templateContent">
                                     <td>
-                                        <?php echo CHtml::dropDownList('UsuariosNuevo[{0}][USERNAME]','',CHtml::ListData(Usuarios::model()->findAll(),'USERNAME','USERNAME'),array('empty'=>'Seleccione')); ?>
+                                        <?php echo CHtml::dropDownList('UsuariosNuevo[{0}][USERNAME]','',CHtml::ListData(CrugeUserModel::model()->findAll(),'username','username'),array('empty'=>'Seleccione')); ?>
                                     </td>
                                     <td>
                                         <div class="remove">
-                                               <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                                         'buttonType'=>'button',
-                                                         'type'=>'danger',
-                                                         'label'=>'Eliminar',
-                                                         'icon'=>'minus white',
-                                                         'htmlOptions'=>array('id'=>'remover')
-                                                     ));
-                                               ?>
+                                            <?php $this->darBotonDeleteLinea('Eliminar',array('id'=>'remover')); ?>
                                         </div>
                                         <input type="hidden" class="rowIndex" value="{0}" />
                                    </td>
@@ -123,19 +101,11 @@
                     <?php $persons = array(); foreach($persons as $i=>$person): ?>
                         <tr class="templateContent">
                             <td>
-                                <?php echo $form->dropDownList($person,"[$i]USERNAME", CHtml::ListData(Usuarios::model()->findAll(),'USERNAME','USERNAME'),array('empty'=>'Seleccione'));  ?>
+                                <?php echo $form->dropDownList($person,"[$i]username", CHtml::ListData(CrugeUserModel::model()->findAll(),'username','username'),array('empty'=>'Seleccione'));  ?>
                             </td>
                             <td>
                                  <div class="remove">
-                                      <?php $this->widget('bootstrap.widgets.BootButton', array(
-                                                        'buttonType'=>'button',
-                                                        'type'=>'danger',
-                                                        'label'=>'Eliminar',
-                                                        'icon'=>'minus white',
-                                                        'htmlOptions'=>array('id'=>'remover')
-                                                        
-                                            ));
-                                      ?>
+                                     <?php $this->darBotonDeleteLinea('Eliminar',array('id'=>'remover')); ?>
                                  </div>
                             </td>
                        </tr>

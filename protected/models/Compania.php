@@ -8,6 +8,7 @@
  * @property string $NOMBRE
  * @property string $NOMBRE_ABREV
  * @property string $NIT
+ * @property string $REGIMEN_TRIBUTARIO
  * @property string $UBICACION_GEOGRAFICA1
  * @property string $UBICACION_GEOGRAFICA2
  * @property string $PAIS
@@ -54,13 +55,14 @@ class Compania extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('NOMBRE, NOMBRE_ABREV, PAIS, UBICACION_GEOGRAFICA1, UBICACION_GEOGRAFICA2', 'required'),
+			array('NOMBRE, NOMBRE_ABREV, PAIS, UBICACION_GEOGRAFICA1, UBICACION_GEOGRAFICA2, REGIMEN_TRIBUTARIO', 'required'),
 			array('NOMBRE', 'length', 'max'=>128),
 			array('NOMBRE_ABREV', 'length', 'max'=>64),
 			array('NIT, TELEFONO1, TELEFONO2, CREADO_POR, ACTUALIZADO_POR', 'length', 'max'=>20),
 			array('UBICACION_GEOGRAFICA1', 'length', 'max'=>2),
 			array('UBICACION_GEOGRAFICA2', 'length', 'max'=>5),
 			array('PAIS', 'length', 'max'=>4),
+			array('REGIMEN_TRIBUTARIO', 'length', 'max'=>12),
 			array('DIRECCION', 'length', 'max'=>256),
                         array('TELEFONO1, TELEFONO2', 'numerical'),
 			// The following rule is used by search().
@@ -82,6 +84,7 @@ class Compania extends CActiveRecord
 			'uBICACIONGEOGRAFICA1' => array(self::BELONGS_TO, 'UbicacionGeografica1', 'UBICACION_GEOGRAFICA1'),
 			'uBICACIONGEOGRAFICA2' => array(self::BELONGS_TO, 'UbicacionGeografica2', 'UBICACION_GEOGRAFICA2'),
 			'pAIS' => array(self::BELONGS_TO, 'Pais', 'PAIS'),
+			'rEGIMENTRIBUTARIO' => array(self::BELONGS_TO, 'RegimenTributario', 'REGIMEN_TRIBUTARIO'),
 		);
 	}
 
@@ -98,6 +101,7 @@ class Compania extends CActiveRecord
 			'UBICACION_GEOGRAFICA1' => 'Departamento',
 			'UBICACION_GEOGRAFICA2' => 'Municipio',
 			'PAIS' => Yii::t('app','COUNTRY'),
+			'REGIMEN_TRIBUTARIO' => 'Régimen Tributario',
 			'DIRECCION' => Yii::t('app','ADDRESS'),
 			'TELEFONO1' => Yii::t('app','PHONE').' 1',
 			'TELEFONO2' => Yii::t('app','PHONE').' 2',

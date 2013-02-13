@@ -1,16 +1,18 @@
 <?php
-$this->widget('bootstrap.widgets.BootGridView', array(
+
+$this->widget('bootstrap.widgets.TbGridView', array(
                          'type'=>'striped bordered condensed',
                          'id'=>$id,
+                         'pager' => array('class'=>'TbPager','maxButtonCount' => 6),
                          'template'=>"{items}{pager}",
-                         'dataProvider'=>$impuesto->search(),
+                         'dataProvider'=>$data,
                          'filter'=>$impuesto,                       
                          'selectionChanged'=>$funcion,
                          'columns'=>array(
                                array(
                                    'type'=>'raw',
                                    'name'=>'ID',
-                                   'header'=>'Codigo Impuesto',
+                                   'header'=>'Código Impuesto',
                                    'value'=>'CHtml::link($data->ID,"#")',
                                    'htmlOptions'=>array('data-dismiss'=>'modal'),
                                ),
