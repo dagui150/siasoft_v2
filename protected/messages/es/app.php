@@ -42,13 +42,6 @@
 		'COMPANIES' => 'Compañias',
 		'YOU_MAY_OPTIONALLY_ENTER_A_COMPARISON_OPERATOR' => 'Puedes ingresar un operador de comparacion',
 		'AT_THE_BEGINNING_OF_EACH_OF_YOUR_SEARCH_VALUES_TO_SPECIFY_HOW_THE_COMPARISON_SHOULD_BE_DONE.' => 'al comienzo de cada uno de los valores de su busqueda para especificar se debe hacer.',
-            
-                // Traduccion de Reportes
-                'REPORTS' => 'Reportes',
-                'REPORTS_SALE' => 'Reportes de ventas',
-            
-                // Otras
-                'GENERATE' => 'Generar',
 
 	)
 ?>

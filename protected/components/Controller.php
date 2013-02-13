@@ -123,16 +123,6 @@ class Controller extends CController
 				
 		$this->menu = array(
                             array('label' => 'Inicio', 'url' => array('/site/index')),
-                            array('label' => 'Reportes', 'url' => '#',
-                                'items' => array(
-                                    array('label'=>'Cierre de ventas', 'url'=>array('/reportesVentas/create')),
-                                    array('label'=>'Inventario', 'url'=>'#'),
-                                    array('label'=>'Cuentas por cobrar y pagar', 'url'=>'#'),
-                                    array('label'=>'Ordenes de proveedor', 'url'=>'#'),
-                                    array('label'=>'Facturas por cliente', 'url'=>'#'),
-                                    //array('label'=>'', 'url'=>array('')),
-                                    )
-                            ),
                             array('label' => 'Facturación', 'url' => '#',
                                 'items' => array(
                                     array('label'=>'Ensamble de articulos', 'url'=>array('/articuloEnsamble/admin')),
@@ -143,8 +133,8 @@ class Controller extends CController
                                     array('label'=>'Clientes', 'url'=>array('/cliente/admin')),	
                                     array('label'=>'Consecutivos', 'url'=>array('/consecutivoFa/admin')),
                                     array('label' => 'Configuración', 'url' => $fac ? array('/confFa/update', 'id' => $fac->ID) : array('/confFa/create')),
-                                    )
-                            ),
+								)
+							),
                             array('label' => 'Compras', 'url' => '#',
                                 'items' => array(
                                     array('label' => 'Solicitudes', 'url' => array('/solicitudOc/admin')),

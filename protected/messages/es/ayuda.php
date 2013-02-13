@@ -21,8 +21,7 @@
 		'NIT_ENT_FINAN' => 'En este campo, se debe escribir/seleccionar un NIT previamente relaciona/creado en el submenú "Relación de Nits".',
 		'DESCR_ENT_FINAN' => 'Breve descripción de la entidad financiera.',
 		'DESCR_NIV_PRECI' => 'Breve descripción del nivel de precio.',
-		//'ESQ_NIV_PRECI' => 'Procedimiento que se utilizará para calcular los precios de los artículos.',
-		'ESQ_NIV_PRECI' => 'Procedimiento que se utilizará para calcular los precios de los artículos. Normal: No afecta el precio. Multiplicador: Aplica al precio base. Margen: Aplica al precio de costo.',
+		'ESQ_NIV_PRECI' => 'Procedimiento que se utilizará para calcular los precios de los artículos.',
 		'DESCR_TIP_TARJE' => 'Breve descripción del tipo de Tarjeta.',
             
             //MODULO - INVENTARIO
