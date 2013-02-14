@@ -19,7 +19,7 @@
                         'update'=>'#cargando',                        
                         'beforeSend'=>'cargando()',
                     ), */
-                    'htmlOptions'=>array('id'=>'continuar', 'onclick'=>'buscar();'),
+                    'htmlOptions'=>array('id'=>'continuar'),
                 ));
             ?>
 

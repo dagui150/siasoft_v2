@@ -16,13 +16,13 @@ function reescribir(){
     $('.close').click();
     $('#alert').remove();
     $('#form-cargado').slideDown('slow');
-    $('#boton-cargado').remove();   
+    $('#boton-cargado').remove();
     $.fn.yiiGridView.update('ingreso-compra-grid');
     
     var id;
         id = $('#check').val().split(',');
-        $.each(id,function(key){
-             $('[alt$='+key+']').click();
+        $.each(id,function(key , value){
+             $('[alt='+value+']').click();
         })
     
 }
@@ -36,8 +36,6 @@ $(document).ready(function(){
         'success':function(html){jQuery("#cargando").html(html)}});
     });
 });
-
-function buscar(){}
 </script>
 <?php $this->pageTitle=Yii::app()->name." - Ingreso Compras";?>
 <?php
@@ -94,7 +92,7 @@ if (isset($_GET['men'])){
 <div align="right">
     
     <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array()); ?>
-    <?php echo CHtml::HiddenField('check',''); ?>
+    <?php echo CHtml::hiddenField('check',''); ?>
     
       
 <?php 

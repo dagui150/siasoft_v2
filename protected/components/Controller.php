@@ -72,6 +72,26 @@ class Controller extends CController
                     'htmlOptions'=>array('class'=>'reducir'),
                 ));
 	}
+        
+        /**
+         * Metodo para ser llamado desde las opciones de compras para retornar mensajes sobre las operaciones
+         * @param string $codigo
+         * @param string $imagen
+         * @param int $contador
+         * @param string $ids
+         */
+        
+        public function men_compras($codigo, $imagen, $contador, $ids){
+            $mensaje = MensajeSistema::model()->findByPk($codigo);
+            Yii::app()->user->setFlash($mensaje->TIPO, '<font size="4" align="left">&nbsp &nbsp<img src='.Yii::app()->baseUrl.$imagen.'>&nbsp &nbsp'.$mensaje->MENSAJE.', '.$contador.' petición(es) procesada(s): ('.$ids.')</font>');
+            $this->widget('bootstrap.widgets.TbAlert', array(
+                    'block'=>true, // display a larger alert block?
+                    'fade'=>true, // use transitions?
+                    'closeText'=>'&times;', // close link text - if set to false, no close link is displayed
+                ));
+            
+        }
+        
         /**
          * Este metodo sera llamado para desformatear un numero que venga con comas(,) y puntos (.)
          * @param string $valor
@@ -103,16 +123,6 @@ class Controller extends CController
 				
 		$this->menu = array(
                             array('label' => 'Inicio', 'url' => array('/site/index')),
-                            array('label' => 'Reportes', 'url' => '#',
-                                'items' => array(
-                                    array('label'=>'Cierre de ventas', 'url'=>array('/reportesVentas/create')),
-                                    array('label'=>'Inventario', 'url'=>'#'),
-                                    array('label'=>'Cuentas por cobrar y pagar', 'url'=>'#'),
-                                    array('label'=>'Ordenes de proveedor', 'url'=>'#'),
-                                    array('label'=>'Facturas por cliente', 'url'=>'#'),
-                                    //array('label'=>'', 'url'=>array('')),
-                                    )
-                            ),
                             array('label' => 'Facturación', 'url' => '#',
                                 'items' => array(
                                     array('label'=>'Ensamble de articulos', 'url'=>array('/articuloEnsamble/admin')),
@@ -123,8 +133,8 @@ class Controller extends CController
                                     array('label'=>'Clientes', 'url'=>array('/cliente/admin')),	
                                     array('label'=>'Consecutivos', 'url'=>array('/consecutivoFa/admin')),
                                     array('label' => 'Configuración', 'url' => $fac ? array('/confFa/update', 'id' => $fac->ID) : array('/confFa/create')),
-                                    )
-                            ),
+								)
+							),
                             array('label' => 'Compras', 'url' => '#',
                                 'items' => array(
                                     array('label' => 'Solicitudes', 'url' => array('/solicitudOc/admin')),

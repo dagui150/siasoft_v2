@@ -44,7 +44,6 @@ $(document).ready(function(){
             
             
             contador =  $(this).attr('id').split('_')[1];
-            //alert(contador);
             switch(model){
                 case 'cantidad':
                     $('#cantidad_'+contador).text($(this).val());

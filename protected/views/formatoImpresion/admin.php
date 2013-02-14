@@ -66,7 +66,6 @@ if (isset($_GET['men'])){
                 
             ),
 		/*
-		'TIPO',
 		'ACTIVO',
 		'CREADO_POR',
 		'CREADO_EL',
