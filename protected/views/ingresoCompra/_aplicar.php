@@ -1,7 +1,6 @@
 <div class="modal-body">     
                 <br /><h3 style="color: #C09853;">Advertencias</h3><p>&nbsp;</p><div id="respuesta">Seleccione Ingresos para aplicar</div>              
           </div>
-	
         <div class="modal-footer">            
             <table>
                 <tr>
