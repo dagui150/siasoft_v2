@@ -123,6 +123,10 @@ class Controller extends CController
 				
 		$this->menu = array(
                             array('label' => 'Inicio', 'url' => array('/site/index')),
+                    array('label' => 'Reportes', 'url' => '#',
+                                'items' => array(
+                                    array('label'=>'Cierre de ventas', 'url'=>array('/reportesVentas/create')),
+                    )),
                             array('label' => 'Facturación', 'url' => '#',
                                 'items' => array(
                                     array('label'=>'Ensamble de articulos', 'url'=>array('/articuloEnsamble/admin')),
