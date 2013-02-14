@@ -1,7 +1,7 @@
 <div class="form">
 
 <?php $form= $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'reportes-ventas-form',
+	'id'=>'conf-as-form',
 	'type'=>'horizontal',
 	'enableAjaxValidation'=>true,
 	'clientOptions'=>array(
@@ -45,7 +45,6 @@
         ?>
     <br />
         <div class="well form "style="margin-top: 10px;-webkit-box-shadow: #666 0px 0px 10px;-moz-box-shadow: #666 0px 0px 10px;box-shadow: #666 0px 0px 10px;">
-            <p class="text-info"><i>* Para generar un reporte general, no seleccione ninguna fecha.</i></p>
             <fieldset >
                 <legend><font size="3" face="arial">Fecha</font></legend>
                 
@@ -60,24 +59,7 @@
                 </div>
 
                 <?php //echo CHtml::textField('Articulo_desc',''); ?>
-            </fieldset>
-            <fieldset >
-                <legend><font size="3" face="arial">Bodega</font></legend>
-                
-                <label for="FECHA" class="control-label">Bodegas</label>
-                <div class="controls">
-                    <?php echo CHtml::dropDownList('BODEGA','',CHtml::listData(Bodega::model()->findAll(),'ID','DESCRIPCION'),array('empty'=>'Todas')); ?>
-                </div>
-                
-            </fieldset>
-            <fieldset >
-                <legend><font size="3" face="arial">Cliente</font></legend>
-                
-                <label for="FECHA" class="control-label">Clientes</label>
-                <div class="controls">
-                    <?php echo CHtml::dropDownList('BODEGA','',CHtml::listData(Cliente::model()->findAll(),'CLIENTE','NOMBRE'),array('empty'=>'Todos')); ?>
-                </div>
-                
+                <div class="controls"><p class="text-info"><i>* Para generar un reporte general, no seleccione ninguna fecha.</i></p></div>
             </fieldset>
             <br />
             <div class="row-buttons" align="center">
