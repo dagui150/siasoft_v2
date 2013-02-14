@@ -1,7 +1,24 @@
+<?php    
+    Yii::app()->clientScript->registerScript('search', "
+    $('#reportes-form').submit(function(){
+            
+            $('html,body').animate({scrollTop:'800px'}, 'slow');
+            
+            $('#grilla').slideDown('slow');
+            
+            $.fn.yiiGridView.update('ventas-grid', {
+                    data: $(this).serialize()
+            });
+            
+            return false;
+    });
+    ");
+?>
 <div class="form">
 
 <?php $form= $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'reportes-form',
+        'method'=>'get',
 	'type'=>'horizontal',
 	'enableAjaxValidation'=>true,
 	'clientOptions'=>array(
@@ -42,7 +59,15 @@
                     </table>
 
                     <div class="row-buttons" align="center">
-                        <?php $this->darBotonGenerarReporte(); ?>
+                       <div class="buttons" align="center">
+                            <?php $this->widget('bootstrap.widgets.TbButton', array(
+                                            'type'=>'submit',
+                                            'buttonType'=>'submit',
+                                            'icon'=>'search',
+                                            'label'=>'Consultar',
+                                 )); 
+                            ?>
+                    </div>
                     </div>
                 </div>
     
@@ -58,3 +83,41 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+                <?php echo CHtml::lin ?>
+<div id="grilla" style="display: none">
+    <?php 
+        $this->widget('bootstrap.widgets.TbGridView', array(
+		'type'=>'striped bordered condensed',
+                'id'=>'ventas-grid',
+                'pagerCssClass' =>'pagination',
+                //'pager' => array('class'=>'BootPager'),
+		'dataProvider'=>$ventas,
+                'columns'=>array(
+                    
+                    array(
+                        'name'=>'FACTURA',                        
+                    ),
+                    array(
+                        'name'=>'BODEGA',
+                        'value'=>'$data->bODEGA->DESCRIPCION',
+                    ),
+                    array(
+                        'name'=>'CLIENTE',
+                        'value'=>'$data->cLIENTE->NOMBRE',
+                    ),
+                    array(
+                        'name'=>'TOTAL_A_FACTURAR',                        
+                    ),
+                    array(
+                        'name'=>'FECHA_FACTURA',                        
+                    ),                    
+                    array(
+                        'name'=>'NIVEL_PRECIO',   
+                        'value'=>'$data->nIVELPRECIO->DESCRIPCION',
+                    ),
+		),
+	));
+        
+    ?>
+    <div id="respuesta"></div>
+</div>

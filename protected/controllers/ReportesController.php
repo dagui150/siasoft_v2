@@ -12,8 +12,8 @@ class ReportesController extends Controller
 	 */
 	public function filters(){
             return array(
-                                      array('CrugeAccessControlFilter'),
-                              );
+                array('CrugeAccessControlFilter'),
+            );
           }
 
 	/**
@@ -21,10 +21,69 @@ class ReportesController extends Controller
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
 	public function actionVentas()
-	{
-                $model=new Reportes;
+	{   
+                $ventas=new CActiveDataProvider(Factura::model(), array(
+			'criteria'=>array(
+                                'condition'=>' FACTURA=-1',
+                         ),
+                         'pagination'=>false,
+		));
+                
+                if(isset($_GET['Reportes']['fecha_desde'])){
+                    //echo 'entra';
+                    $ventas->keyAttribute = 'FACTURA';
+                    $ventas->criteria = array(
+                                'select' => 't.FACTURA, t.CONSECUTIVO, t.CLIENTE, t.FECHA_FACTURA, t.TOTAL_A_FACTURAR, t.BODEGA, t.NIVEL_PRECIO',
+                                'condition'=>'t.FECHA_FACTURA BETWEEN "'.$_GET['Reportes']['fecha_desde'].'" AND "'.$_GET['Reportes']['fecha_hasta'].'"',
+                             );
+                    
+                    if(isset($_GET['Reportes']['bodegas']))
+                        $ventas->criteria->compare('t.BODEGA',$_GET['Reportes']['bodegas']);
+                    
+                    if(isset($_GET['Reportes']['clientes']))
+                        $ventas->criteria->compare('t.CLIENTE',$_GET['Reportes']['clientes']);
+                    
+                    /*
+                     * 
+                    
+                    $pago->sort =array(
+                            'attributes'=>
+                                array(
+                                    'FECHA',
+                                    'CLIENTE_POLIZA',
+                                    'VALOR_CRV',
+                                    'VALOR',
+                                    'POLIZA'=>array(
+                                        'asc'=>'p.POLIZA',
+                                        'desc'=>'p.POLIZA DESC',
+                                        'label'=>'Poliza',
+                                        'default'=>'asc',
+                                    ),
+                                    'TIPO_POLIZA'=>array(
+                                        'asc'=>'p.TIPO_POLIZA',
+                                        'desc'=>'p.TIPO_POLIZA DESC',
+                                        'label'=>'Tipo de Poliza',
+                                        'default'=>'asc',
+                                    ),
+                                    'NOMBRE'=>array(
+                                        'asc'=>'ter.NOMBRE',
+                                        'desc'=>'ter.NOMBRE DESC',
+                                        'label'=>'Cliente',
+                                        'default'=>'asc',
+                                    ),
+                                    'NOMBRES'=>array(
+                                        'asc'=>'f.NOMBRES',
+                                        'desc'=>'f.NOMBRES DESC',
+                                        'label'=>'Asesor',
+                                        'default'=>'asc',
+                                    ),
+                                ),
+                        );*/
+                }
+                $model=new Reportes;                
 		$this->render('ventas',array(
 			'model'=>$model,
+                        'ventas'=> $ventas
 		));
 	}
 

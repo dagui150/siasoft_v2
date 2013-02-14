@@ -395,6 +395,10 @@ class Controller extends CController
          * @return TbButton 
          */
         public  function darCalendario($model=null, $attribute=null, $name=null, $htmlOptions=array('style'=>'width:80px;vertical-align:top')){
+            
+            if(!isset($htmlOptions['value']) || $htmlOptions['value'] == '')
+                    $htmlOptions['value']=date("Y-m-d");
+            
             return $this->widget('zii.widgets.jui.CJuiDatePicker',
                          array(
                               'model'=>isset($model) ? $model : null,
@@ -407,7 +411,7 @@ class Controller extends CController
                                      'dateFormat'=>'yy-mm-dd',
                                      'constrainInput'=>'false',
                                      'showAnim'=>'fadeIn',
-                                     'showOn'=>'button',
+                                     'showOn'=>'both',
                                      'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif',
                                      'buttonImageOnly'=>true,
                               ),
