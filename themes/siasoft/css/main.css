@@ -324,3 +324,10 @@ legend{
     margin-left: 6px !important;
     margin-top: 6px !important;
 }
+
+.chzn-container{
+    width: 250px !important;
+}
+.chzn-drop{
+    width: 248px !important;
+}

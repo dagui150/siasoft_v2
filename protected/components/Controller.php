@@ -126,6 +126,7 @@ class Controller extends CController
                     array('label' => 'Reportes', 'url' => '#',
                                 'items' => array(
                                     array('label'=>'Cierre de ventas', 'url'=>array('/reportes/ventas')),
+                                    //array('label'=>'Inventario', 'url'=>array('/reportes/inventario')),
                     )),
                             array('label' => 'Facturación', 'url' => '#',
                                 'items' => array(
@@ -407,7 +408,7 @@ class Controller extends CController
                                      'dateFormat'=>'yy-mm-dd',
                                      'constrainInput'=>'false',
                                      'showAnim'=>'fadeIn',
-                                     'showOn'=>'button',
+                                     'showOn'=>'both',
                                      'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif',
                                      'buttonImageOnly'=>true,
                               ),
