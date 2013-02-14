@@ -230,7 +230,6 @@ class IngresoCompraController extends Controller
                 if(isset($_GET['OrdenCompraLinea']))
 			$ordenLinea->attributes=$_GET['OrdenCompraLinea'];
                 
-                
 		if(isset($_GET['Proveedor']))
 			$proveedor->attributes=$_GET['Proveedor'];
 
@@ -359,12 +358,12 @@ class IngresoCompraController extends Controller
                             foreach($lineas as $datos){
                                 $articulo = Articulo::model()->findByPk($datos->ARTICULO);
                                 $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos->ARTICULO,'BODEGA'=>$datos->BODEGA));
-                                //$cantidad = $this->darCantidad($existenciaBodega, $datos->CANTIDAD_ACEPTADA, $datos->UNIDAD_ORDENADA);
+                                $cantidad = $this->darCantidad($existenciaBodega, $datos->CANTIDAD_ACEPTADA, $datos->UNIDAD_ORDENADA);
 
                                 if($existenciaBodega){
                                         /*$existenciaBodega->CANT_DISPONIBLE = $existenciaBodega->CANT_DISPONIBLE + $datos->CANTIDAD_ACEPTADA;                                        
                                         $existenciaBodega->save(); //- La cantidad aceptada para el articulo exede a la maxima permitida;     */ 
-                                        $valor = $existenciaBodega->CANT_DISPONIBLE + $datos->CANTIDAD_ACEPTADA;
+                                        $valor = $existenciaBodega->CANT_DISPONIBLE + $cantidad;
                                         ExistenciaBodega::model()->updateByPk($existenciaBodega->ID, array('CANT_DISPONIBLE'=>$valor));
                                 }else{                                
                                     $existenciaBodega = new ExistenciaBodega;
@@ -407,7 +406,7 @@ class IngresoCompraController extends Controller
                             <h2 align="center">Operacion Satisfactoria</h2>
                             </div>
                                  <span id="form-cargado" style="display:none">';     
-                                    $this->renderPartial('_aplicar');
+                                    $this->renderPartial('_aplicar');                                    
                                  echo '</span>                      
                          <div id="boton-cargado" class="modal-footer">';
                             $this->widget('bootstrap.widgets.TbButton', array(
@@ -433,8 +432,8 @@ class IngresoCompraController extends Controller
             
             foreach($lineas as $datos){  
                 //Transaccion Inv Detalle                
-               // $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos->ARTICULO,'BODEGA'=>$datos->BODEGA));
-                //$cantidad = $this->darCantidad($existenciaBodega, $datos->CANTIDAD_ACEPTADA, $datos->UNIDAD_ORDENADA);
+                $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos->ARTICULO,'BODEGA'=>$datos->BODEGA));
+                $cantidad = $this->darCantidad($existenciaBodega, $datos->CANTIDAD_ACEPTADA, $datos->UNIDAD_ORDENADA);
                 $detalle = new TransaccionInvDetalle;
                 $detalle->TRANSACCION_INV = $transaccion->TRANSACCION_INV;
                 $detalle->LINEA = $datos->LINEA_NUM;
@@ -442,7 +441,7 @@ class IngresoCompraController extends Controller
                 $detalle->UNIDAD = $datos->UNIDAD_ORDENADA;
                 $detalle->BODEGA = $datos->BODEGA;
                 $detalle->NATURALEZA = 'E';
-                $detalle->CANTIDAD = $datos->CANTIDAD_ACEPTADA;
+                $detalle->CANTIDAD = $cantidad;
                 $detalle->COSTO_UNITARIO = $datos->COSTO_FISCAL_UNITARIO;
                 $detalle->PRECIO_UNITARIO = $datos->PRECIO_UNITARIO;
                 $detalle->ACTIVO = 'S';
