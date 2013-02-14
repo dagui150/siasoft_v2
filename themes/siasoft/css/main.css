@@ -315,3 +315,12 @@ input[disabled], input[readonly], input[tabindex], input[type="text"],input[type
      line-height: 20px;
 }
 #authitem-form .hint , #authitem-form .code, #authitem-form #CrugeAuthItemEditor_businessRule, label[for="CrugeAuthItemEditor_businessRule"] { display: none !important; }
+
+legend{
+     line-height: 21px !important;
+}
+
+.ui-datepicker-trigger{
+    margin-left: 6px !important;
+    margin-top: 6px !important;
+}

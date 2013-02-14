@@ -125,7 +125,7 @@ class Controller extends CController
                             array('label' => 'Inicio', 'url' => array('/site/index')),
                     array('label' => 'Reportes', 'url' => '#',
                                 'items' => array(
-                                    array('label'=>'Cierre de ventas', 'url'=>array('/reportesVentas/create')),
+                                    array('label'=>'Cierre de ventas', 'url'=>array('/reportes/ventas')),
                     )),
                             array('label' => 'Facturación', 'url' => '#',
                                 'items' => array(
@@ -370,5 +370,48 @@ class Controller extends CController
                                   'icon' => 'download-alt white',
                                   'htmlOptions'=>$htmlOptions,
                             ));
+        }
+        /**
+         * Metodo para retornar un Boton de Generar en reportes
+         * @param array $htmlOptions Opciones HTML del Boton default 'array()'
+         * @return TbButton 
+         */
+        public  function darBotonGenerarReporte($htmlOptions=array()){
+            return $this->widget('bootstrap.widgets.TbButton', array(
+                                  'buttonType'=>'submit',
+                                  'type'=>'primary',
+                                  'size' =>'small',
+                                  'label'=>'Generar',
+                                  'icon'=>'search white',
+                                  'htmlOptions'=>$htmlOptions,
+                            ));
+        }
+        /**
+         * Metodo para retornar la opcion de calendario
+         * @param array $model modelo correspondiente al campo
+         * @param array $attribute atributo correspondiente al campo
+         * @param array $name nombre correspondiente al campo
+         * @param array $htmlOptions Opciones HTML del Boton default 'array()'
+         * @return TbButton 
+         */
+        public  function darCalendario($model=null, $attribute=null, $name=null, $htmlOptions=array('style'=>'width:80px;vertical-align:top')){
+            return $this->widget('zii.widgets.jui.CJuiDatePicker',
+                         array(
+                              'model'=>isset($model) ? $model : null,
+                              'attribute'=>isset($attribute) ? $attribute : null,
+                              'name'=>isset($name) ? $name : null,
+                              'language'=>'es',
+                              'options'=>array(
+                                     'changeMonth'=>true,
+                                     'changeYear'=>true,
+                                     'dateFormat'=>'yy-mm-dd',
+                                     'constrainInput'=>'false',
+                                     'showAnim'=>'fadeIn',
+                                     'showOn'=>'button',
+                                     'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif',
+                                     'buttonImageOnly'=>true,
+                              ),
+                              'htmlOptions'=>$htmlOptions,
+                ),true);
         }
 }

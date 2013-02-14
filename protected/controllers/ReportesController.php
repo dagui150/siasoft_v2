@@ -1,6 +1,6 @@
 <?php
 
-class ReportesVentasController extends Controller
+class ReportesController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -20,23 +20,11 @@ class ReportesVentasController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionVentas()
 	{
-		//$model2=new ReportesVentas;
-		$model2='';
-
-		// Uncomment the following line if AJAX validation is needed
-		//$this->performAjaxValidation($model2);
-/*
-		if(isset($_POST['ConfAs']))
-		{
-			$model2->attributes=$_POST['ConfAs'];
-			if($model2->save())
-				$this->redirect(array('view','id'=>$model2->ID));
-		}
-*/
-		$this->render('create',array(
-			'model2'=>$model2,
+                $model=new Reportes;
+		$this->render('ventas',array(
+			'model'=>$model,
 		));
 	}
 
@@ -59,7 +47,7 @@ class ReportesVentasController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='reportes-ventas-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='reportes-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
