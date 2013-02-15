@@ -74,7 +74,7 @@ class Proveedor extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('PROVEEDOR, CATEGORIA, NOMBRE, CONTACTO, CARGO, DIRECCION, FECHA_INGRESO, TELEFONO1, NIT, PAIS, UBICACION_GEOGRAFICA1, CONDICION_PAGO', 'required'),
+			array('PROVEEDOR, CATEGORIA, NOMBRE, CONTACTO, CARGO, DIRECCION, FECHA_INGRESO, TELEFONO1, NIT, PAIS, CONDICION_PAGO', 'required'),
 			array('PROVEEDOR', 'DSpacesValidator'),
                         array('CATEGORIA', 'numerical', 'integerOnly'=>true),
                         array('PROVEEDOR', 'unique', 'attributeName'=>'PROVEEDOR', 'className'=>'Proveedor','allowEmpty'=>false),
@@ -91,10 +91,30 @@ class Proveedor extends CActiveRecord
 			array('ACTIVO', 'length', 'max'=>1),
 			array('ORDEN_MINIMA, DESCUENTO, TASA_INTERES_MORA', 'length', 'max'=>28),
 			array('NOTAS', 'safe'),
+                        array('PAIS','validarPais'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('PROVEEDOR, CATEGORIA, NOMBRE, ALIAS, CONTACTO, CARGO, DIRECCION, EMAIL, FECHA_INGRESO, TELEFONO1, TELEFONO2, FAX, NIT, CONDICION_PAGO, PAIS, UBICACION_GEOGRAFICA1, UBICACION_GEOGRAFICA2, REGIMEN, CIUDAD, ACTIVO, ORDEN_MINIMA, DESCUENTO, TASA_INTERES_MORA, NOTAS, CREADO_POR, CREADO_EL, ACTUALIZADO_POR, ACTUALIZADO_EL', 'safe', 'on'=>'search'),
 		);
+	}
+        
+        /**
+         * Valida que la existencia maxima sea mas que la minima
+         * @param string $attribute
+         * @param array $params 
+         */
+        public function validarPais($attribute,$params){
+            $pais = $this->PAIS;
+            $departamento = $this->UBICACION_GEOGRAFICA1;
+            $municipio = $this->UBICACION_GEOGRAFICA2;
+		if ($pais == 'COL'){
+                    if ($departamento == null || $departamento == '' || $departamento == 'null'){
+                        $this->addError('UBICACION_GEOGRAFICA1','Este campo es obligatorio');
+                    }
+                    if ($municipio == null || $municipio == '' || $municipio == 'null'){
+                        $this->addError('UBICACION_GEOGRAFICA2','Este campo es obligatorio');
+                    }
+                }
 	}
 
 	/**

@@ -46,6 +46,8 @@
                 // Traduccion de formularios de reportes
                 'GENERATE' => 'Generar',
                 'REPORTS_SALES' => 'Reportes de venta',
+                'REPORTS_INVENTORY' => 'Reportes de inventario',
+                'REPORTS_PURCHASE_ORDERS' => 'Reportes de Ordenes de compra',
 
 	)
 ?>
