@@ -70,6 +70,7 @@ class ClienteController extends Controller
 		{
 			$model->attributes=$_POST['Cliente'];
                         $model->ZONA = ($_POST['Cliente']['ZONA'] != '') ? $_POST['Cliente']['ZONA'] : NULL;
+                        $model->CATEGORIA = ($_POST['Cliente']['CATEGORIA'] != '') ? $_POST['Cliente']['CATEGORIA'] : NULL;
                         $model->CONDICION_PAGO = ($_POST['Cliente']['CONDICION_PAGO'] != '') ? $_POST['Cliente']['CONDICION_PAGO'] : NULL;
                         $model->TIPO_PRECIO = ($_POST['Cliente']['TIPO_PRECIO'] != '') ? $_POST['Cliente']['TIPO_PRECIO'] : NULL;
                         $model->PAIS = ($_POST['Cliente']['PAIS'] != '') ? $_POST['Cliente']['PAIS'] : NULL;
@@ -87,7 +88,9 @@ class ClienteController extends Controller
                         $model->LIMITE_CREDITO = $_POST['Cliente']['LIMITE_CREDITO'];
                         
 			if($model->save()){
-                            $this->redirect(array('admin'));                            
+                            $this->redirect(array('admin','men'=>'S003'));
+                        } else {
+                            $this->redirect(array('admin','men'=>'E003'));
                         }
 		}
 
@@ -126,6 +129,7 @@ class ClienteController extends Controller
 		if(isset($_POST['Cliente']))
 		{
 			$model->attributes=$_POST['Cliente'];
+                        $model->CATEGORIA = ($_POST['Cliente']['CATEGORIA'] != '') ? $_POST['Cliente']['CATEGORIA'] : NULL;
                         $model->CONDICION_PAGO = ($_POST['Cliente']['CONDICION_PAGO'] != '') ? $_POST['Cliente']['CONDICION_PAGO'] : NULL;
                         $model->TIPO_PRECIO = ($_POST['Cliente']['TIPO_PRECIO'] != '') ? $_POST['Cliente']['TIPO_PRECIO'] : NULL;
                         $model->PAIS = ($_POST['Cliente']['PAIS'] != '') ? $_POST['Cliente']['PAIS'] : NULL;
@@ -136,8 +140,11 @@ class ClienteController extends Controller
                         $model->UBICACION_GEOGRAFICA1 = ($_POST['Cliente']['UBICACION_GEOGRAFICA1'] != '') ? $_POST['Cliente']['UBICACION_GEOGRAFICA1'] : NULL;
                         $model->UBICACION_GEOGRAFICA2 = ($_POST['Cliente']['UBICACION_GEOGRAFICA2'] != '') ? $_POST['Cliente']['UBICACION_GEOGRAFICA2'] : NULL;
 
-			if($model->save())
-				$this->redirect(array('admin'));
+			if($model->save()){
+                                $this->redirect(array('admin','men'=>'S002'));
+                        } else {
+                            $this->redirect(array('admin','men'=>'E002'));
+                        }
 		}
                 
                  if(isset($_GET['Nit']))

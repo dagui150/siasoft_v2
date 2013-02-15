@@ -3,6 +3,7 @@
 <?php $form= $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'reportes-form',
 	'type'=>'horizontal',
+        'method'=>'get',
 	'enableAjaxValidation'=>true,
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
@@ -20,19 +21,18 @@
                     <tr>
                         <td>
                             <div style="margin-left: -63px">
-                                <?php echo $form->label($model,'fecha_desde',array('class'=>'control-label'));?>
+                                <?php echo $form->label($model,'FECHA_DESDE',array('class'=>'control-label'));?>
                                 <div class="controls">
-                                    <?php echo $this->darCalendario($model, 'fecha_desde', null, array('size'=>'8','style'=>'width:80px;vertical-align:top')); ?>
+                                    <?php echo $this->darCalendario($model, 'FECHA_DESDE', null, array('size'=>'8','style'=>'width:80px;vertical-align:top')); ?>
                                 </div>                                
                             </div>
                         </td>
                         <td>
                             <div style="margin-left: -40px">
-                                <label for="fecha_hasta" class="control-label">Fecha - Hasta</label>
+                                <label for="FECHA_HASTA" class="control-label">Fecha - Hasta</label>
                                 <div class="controls">
-                                    <?php echo $this->darCalendario($model, 'fecha_hasta', null, array('size'=>'8','style'=>'width:80px;vertical-align:top')); ?>
+                                    <?php echo $this->darCalendario($model, 'FECHA_HASTA', null, array('size'=>'8','style'=>'width:80px;vertical-align:top')); ?>
                                 </div>
-                                <?php //echo $form->dropDownListRow($model,'clientes',CHtml::listData(Cliente::model()->findAllByAttributes(array('ACTIVO'=>'S')),'CLIENTE','NOMBRE'),array('empty'=>'Todos')); ?>
                             </div>
                             
                         </td>
@@ -40,15 +40,15 @@
                     <tr>
                         <td>
                             <div style="margin-left: -63px">
-                                <?php echo $form->label($model,'bodegas',array('class'=>'control-label'));?>
+                                <?php echo $form->label($model,'BODEGAS',array('class'=>'control-label'));?>
                                 <div class="controls">
                                      <?php 
                                         $this->widget('ext.chosen.Chosen',array(
                                             'model' => $model,
-                                            'attribute' =>'bodegas',
+                                            'attribute' =>'BODEGAS',
                                             'multiple' =>true,
                                             'noResults' =>'No hay resultados',
-                                            'placeholderMultiple'=>'Seleccione',
+                                            'placeholderMultiple'=>'Seleccione...',
                                             'htmlOptions' => array('style'=>'width:350px; !important'), 
                                             'data' => array(
                                                 'Consumo'=>CHtml::listData(Bodega::model()->findAllByAttributes(array('ACTIVO'=>'S', 'TIPO'=>'C')),'ID','DESCRIPCION'),
@@ -62,31 +62,17 @@
                         </td>
                         <td>
                             <div style="margin-left: -40px">
-                                <?php echo $form->label($model,'clientes',array('class'=>'control-label'));?>
+                                <?php echo $form->label($model,'CLIENTES',array('class'=>'control-label'));?>
                                 <div class="controls">
-                                    <?php
-                                    /*
-                                     * ESTOY TERMINANDO ESTO  :D
-                                        //echo CHtml::listData(Cliente::model()->findAllByAttributes(array('ACTIVO'=>'S')),'CLIENTE','NOMBRE');
-                                        echo '<pre>';
-                                        print_r(CHtml::listData(Categoria::model()->findAllByAttributes(array('ACTIVO'=>'S', 'TIPO'=>'C')),'ID','DESCRIPCION'));
-                                        echo '</pre>';
-                                        echo '<br />';
-                                        Yii::app()->end();
-                                     * 
-                                     */
-                                    ?>
                                      <?php 
                                         $this->widget('ext.chosen.Chosen',array(
                                             'model' => $model,
-                                            'attribute' =>'clientes',
+                                            'attribute' =>'CLIENTES',
                                             'multiple' =>true,
                                             'noResults' =>'No hay resultados',
-                                            'placeholderMultiple'=>'Seleccione',
+                                            'placeholderMultiple'=>'Seleccione...',
                                             'htmlOptions' => array('style'=>'width:350px; !important'), 
-                                            'data' => array(
-                                                ''=>CHtml::listData(Cliente::model()->findAllByAttributes(array('ACTIVO'=>'S')),'CLIENTE','NOMBRE'),
-                                            ),
+                                            'data' => $model->getCombo(),
                                          ));
                                     ?>
                                 </div>
