@@ -15,7 +15,23 @@
     ");
 ?>
 <div class="form">
-
+    
+<?php
+    $array = array();
+    
+    foreach($ventas->getData() as $data){
+            
+        $array[]=array(
+                'FACTURA'=>$data->FACTURA,
+                'BODEGA'=>$data->bODEGA->DESCRIPCION,
+                'CLIENTE'=>$data->cLIENTE->NOMBRE,
+                'TOTAL_A_FACTURAR'=>$data->TOTAL_A_FACTURAR,
+                'FECHA_FACTURA'=>$data->FECHA_FACTURA,
+                'NIVEL_PRECIO'=>$data->nIVELPRECIO->DESCRIPCION,
+        );
+    }
+?>
+    
 <?php $form= $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'reportes-form',
         'method'=>'get',
@@ -66,7 +82,7 @@
                                             'multiple' =>true,
                                             'noResults' =>'No hay resultados',
                                             'placeholderMultiple'=>'Seleccione...',
-                                            'htmlOptions' => array('style'=>'width:350px; !important'), 
+                                            'htmlOptions' => array('style'=>'width:350px; !important'),
                                             'data' => array(
                                                 'Consumo'=>CHtml::listData(Bodega::model()->findAllByAttributes(array('ACTIVO'=>'S', 'TIPO'=>'C')),'ID','DESCRIPCION'),
                                                 'Ventas'=>CHtml::listData(Bodega::model()->findAllByAttributes(array('ACTIVO'=>'S', 'TIPO'=>'V')),'ID','DESCRIPCION'),
@@ -122,13 +138,14 @@
                
 <div id="grilla" style="display: none">
     
-    <div style="float: right; margin-bottom: 10px;">
-        <?php echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl.'/images/pdfReportes.png'),array(),array('target'=>'_blank','rel'=>'tooltip', 'data-original-title'=>'Exportar PDF')); ?>
+    <div id="link" style="float: right; margin-bottom: 10px;">
+        <?php echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl.'/images/pdfReportes.png'),array('formatoPDF','data'=>$array),array('target'=>'_blank','rel'=>'tooltip', 'data-original-title'=>'Exportar PDF')); ?>
     </div>
     <?php 
         $this->widget('bootstrap.widgets.TbGridView', array(
 		'type'=>'striped bordered condensed',
                 'id'=>'ventas-grid',
+                'ajaxUpdate'=>'link',
                 'pagerCssClass' =>'pagination',
                 //'pager' => array('class'=>'BootPager'),
 		'dataProvider'=>$ventas,
@@ -146,14 +163,15 @@
                         'value'=>'$data->cLIENTE->NOMBRE',
                     ),
                     array(
-                        'name'=>'TOTAL_A_FACTURAR',                        
-                    ),
-                    array(
                         'name'=>'FECHA_FACTURA',                        
                     ),                    
                     array(
                         'name'=>'NIVEL_PRECIO',   
                         'value'=>'$data->nIVELPRECIO->DESCRIPCION',
+                    ),
+                    
+                    array(
+                        'name'=>'TOTAL_A_FACTURAR',                        
                     ),
 		),
 	));

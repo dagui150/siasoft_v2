@@ -17,11 +17,13 @@ class ReportesController extends Controller
           }
 
           public function actionformatoPDF() {
-
-            $id = $_GET['id'];
-            $this->orden = OrdenCompra::model()->findByPk($id);
-            $lineas = new OrdenCompraLinea;
-            $this->layout = ConfCo::model()->find()->fORMATOORDEN->pLANTILLA->RUTA;
+            
+            $total = 0;
+            foreach($_GET['data'] as $datos){
+                $total = $total + $datos['TOTAL_A_FACTURAR'];
+            }
+            $model = new CArrayDataProvider($_GET['data']);
+            $this->layout = 'Reportes';
             $footer = '<table width="100%">
                     <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>
                         <td align="center" valign="middle"><span class="piePagina"><b>Generado el:</b> ' . date('Y/m/d') . '</span></td>
@@ -49,12 +51,11 @@ class ReportesController extends Controller
                             </tr>
                             <tr>
                                 <td align="center">Direccion  '.$compania->DIRECCION.'</td>
-
-                                <td align="right" valign="middle"><strong>Número:</strong></td>
+                                <td align="right" valign="middle"><strong>Total en este reporte: </strong></td>
                             </tr>
                             <tr>
                                 <td align="center"><b>Tels:</b> '.$compania->TELEFONO1.'-'.$compania->TELEFONO2.'</td>
-                                <td width="33%" align="right" valign="middle">'.$id.'</td>
+                                <td width="33%" align="center" valign="middle">$ '.$total.'</td>
                             </tr>
                         </table>';
             //'',array(377,279),0,'',15,15,16,16,9,9, 'P'
@@ -63,7 +64,7 @@ class ReportesController extends Controller
             //$mPDF1->h=148.5; //manually set height
             $mPDF1->SetHTMLHeader($header);
             $mPDF1->SetHTMLFooter($footer);
-            $mPDF1->WriteHTML($this->render('pdf', array('model' => $this->orden, 'model2' => $lineas), true));
+            $mPDF1->WriteHTML($this->render('pdf', array('model' => $model, 'total'=>$total), true));
             $mPDF1->SetHTMLFooter($footer);
 
             $mPDF1->Output();
@@ -75,7 +76,7 @@ class ReportesController extends Controller
 	 * If creation is successful, the browser will be redirected to the 'ventas' page.
 	 */
 	public function actionVentas()
-	{   
+	{
                 $ventas=new CActiveDataProvider(Factura::model(), array(
 			'criteria'=>array(
                                 'condition'=>' FACTURA=-1',
@@ -83,23 +84,22 @@ class ReportesController extends Controller
                          'pagination'=>false,
 		));
                 
-                if(isset($_GET['Reportes']['fecha_desde'])){
-                    //echo 'entra';
+                
+                if(isset($_GET['Reportes']['FECHA_DESDE'])){
+                    echo 'entra';
                     $ventas->keyAttribute = 'FACTURA';
                     $ventas->criteria = array(
                                 'select' => 't.FACTURA, t.CONSECUTIVO, t.CLIENTE, t.FECHA_FACTURA, t.TOTAL_A_FACTURAR, t.BODEGA, t.NIVEL_PRECIO',
-                                'condition'=>'t.FECHA_FACTURA BETWEEN "'.$_GET['Reportes']['fecha_desde'].'" AND "'.$_GET['Reportes']['fecha_hasta'].'"',
-                             );
+                                'condition'=>'t.FECHA_FACTURA BETWEEN "'.$_GET['Reportes']['FECHA_DESDE'].'" AND "'.$_GET['Reportes']['FECHA_HASTA'].'"',
+                );
                     
-                    if(isset($_GET['Reportes']['bodegas']))
-                        $ventas->criteria->compare('t.BODEGA',$_GET['Reportes']['bodegas']);
+                if(isset($_GET['Reportes']['BODEGAS']))
+                    $ventas->criteria->compare('t.BODEGA',$_GET['Reportes']['BODEGAS']);
                     
-                    if(isset($_GET['Reportes']['clientes']))
-                        $ventas->criteria->compare('t.CLIENTE',$_GET['Reportes']['clientes']);
+                if(isset($_GET['Reportes']['CLIENTES']))
+                    $ventas->criteria->compare('t.CLIENTE',$_GET['Reportes']['CLIENTES']);
                     
                     /*
-                     * 
-                    
                     $pago->sort =array(
                             'attributes'=>
                                 array(
