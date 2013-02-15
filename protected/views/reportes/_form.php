@@ -83,8 +83,12 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
-                <?php echo CHtml::lin ?>
+               
 <div id="grilla" style="display: none">
+    
+    <div style="float: right; margin-bottom: 10px;">
+        <?php echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl.'/images/pdfReportes.png'),array(),array('target'=>'_blank','rel'=>'tooltip', 'data-original-title'=>'Exportar PDF')); ?>
+    </div>
     <?php 
         $this->widget('bootstrap.widgets.TbGridView', array(
 		'type'=>'striped bordered condensed',
