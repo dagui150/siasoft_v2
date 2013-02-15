@@ -72,7 +72,7 @@ class ReportesController extends Controller
           
 	/**
 	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * If creation is successful, the browser will be redirected to the 'ventas' page.
 	 */
 	public function actionVentas()
 	{   
@@ -140,6 +140,7 @@ class ReportesController extends Controller
                         'ventas'=> $ventas
 		));
 	}
+        
 
         /**
 	 * Returns the data model based on the primary key given in the GET variable.

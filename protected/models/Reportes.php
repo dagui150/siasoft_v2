@@ -11,22 +11,22 @@ class Reportes extends CFormModel
          * Fecha inicial (desde) utilizada en los filtros de los reportes
          * @var string 
          */
-	public $fecha_desde;
+	public $FECHA_DESDE;
         /**
          * Fecha final (hasta) utilizada en los filtros de los reportes
          * @var string 
          */
-	public $fecha_hasta;
+	public $FECHA_HASTA;
         /**
          * Listado de bodegas utilizada en los filtros de los reportes
          * @var string
          */
-        public $bodegas;
+        public $BODEGAS;
         /**
          * Listado de clientes utilizada en los filtros de los reportes
          * @var string
          */
-        public $clientes;
+        public $CLIENTES;
         
         /**
 	 * @return array validation rules for model attributes.
@@ -46,10 +46,18 @@ class Reportes extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'fecha_desde' => 'Fecha - Desde',
-			'fecha_hasta' => 'Fecha - Hasta',
-                        'bodegas'=>'Bodegas',
-                        'clientes'=>'Clientes',
+			'FECHA_DESDE' => 'Fecha - Desde',
+			'FECHA_HASTA' => 'Fecha - Hasta',
+                        'BODEGAS'=>'Bodegas',
+                        'CLIENTES'=>'Clientes',
 		);
 	}
+        
+        public static function getCombo(){
+            $respuesta = array();
+            $categorias = Categoria::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>'C'));
+            foreach ($categorias as $categoria)
+                    $respuesta[$categoria->DESCRIPCION]= CHtml::listData(Cliente::model()->findAllByAttributes(array('ACTIVO'=>'S','CATEGORIA'=>$categoria->ID)),'CLIENTE','NOMBRE');
+            return $respuesta;
+        }
 }

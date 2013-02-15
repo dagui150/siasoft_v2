@@ -6,6 +6,12 @@ $this->breadcrumbs=array(
 ?>
 
 <h1>Clientes</h1>
+<?php 
+if (isset($_GET['men'])){
+    $this->mensaje($_GET['men']);
+}
+?>
+<div id="mensaje"></div>
 <div align="right">
     <?php $this->darBotonNuevo(); ?>
 </div>
