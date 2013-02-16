@@ -141,7 +141,42 @@ class ReportesController extends Controller
 		));
 	}
         
-
+        /**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'ventas' page.
+	 */
+	public function actionInventario()
+	{
+                $model=new Reportes;
+		$this->render('inventario',array(
+			'model'=>$model,
+		));
+	}
+        
+        /**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'ordenCompra' page.
+	 */
+	public function actionOrdenCompra()
+	{
+                $model=new Reportes;
+		$this->render('ordenCompra',array(
+			'model'=>$model,
+		));
+	}
+        
+        /**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'ordenCompra' page.
+	 */
+	public function actionFacturas()
+	{
+                $model=new Reportes;
+		$this->render('facturas',array(
+			'model'=>$model,
+		));
+	}
+        
         /**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

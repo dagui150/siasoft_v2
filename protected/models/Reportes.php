@@ -28,6 +28,40 @@ class Reportes extends CFormModel
          */
         public $CLIENTES;
         
+         /**
+         * Listado de los tipos de articulo utilizada en los filtros de los reportes
+         * @var string
+         */
+        public $TIPO_ARTICULOS;
+        /**
+         * Listado de las cantidades utilizada en los filtros de los reportes
+         * @var string
+         */
+        public $CANTIDADES;
+        /**
+         * Activo (estado) de los articulos utilizada en los filtros de los reportes
+         * @var string
+         */
+        public $ARTICULOS_ACTIVO;
+        
+        /**
+         * Listado de los estados de ordenes de compra utilizada en los filtros de los reportes
+         * @var string
+         */
+        public $ESTADO_ORDEN_COMP;
+        /**
+         * Listado de los proveedores utilizada en los filtros de los reportes
+         * @var string
+         */
+        public $PROVEEDOR;
+        
+        /**
+         * Listado de los proveedores utilizada en los filtros de los reportes
+         * @var string
+         */
+        public $CONSECUTIVOS_FA;
+        
+        
         /**
 	 * @return array validation rules for model attributes.
 	 */
@@ -50,14 +84,32 @@ class Reportes extends CFormModel
 			'FECHA_HASTA' => 'Fecha - Hasta',
                         'BODEGAS'=>'Bodegas',
                         'CLIENTES'=>'Clientes',
+                        'TIPO_ARTICULOS'=>'Tipos de artículo',
+                        'CANTIDADES'=>'Cantidades',
+                        'ARTICULOS_ACTIVO'=>'Artículos activos',
+                        'ESTADO_ORDEN_COMP'=>'Estado',
+                        'PROVEEDOR'=>'Proveedores',
+                        'CONSECUTIVOS_FA'=>'Consecutivos',
 		);
 	}
         
-        public static function getCombo(){
+        /**
+         * String que recibe el tipo de categoria
+         * @param String $tipo
+         * @return Arreglo con los clientes y sus respectivas categorias
+         */
+        public static function getCombo($tipo){
             $respuesta = array();
-            $categorias = Categoria::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>'C'));
-            foreach ($categorias as $categoria)
-                    $respuesta[$categoria->DESCRIPCION]= CHtml::listData(Cliente::model()->findAllByAttributes(array('ACTIVO'=>'S','CATEGORIA'=>$categoria->ID)),'CLIENTE','NOMBRE');
+            $categorias = Categoria::model()->findAllByAttributes(array('ACTIVO'=>'S','TIPO'=>$tipo));
+            if ($tipo=='C'){
+                foreach ($categorias as $categoria)
+                        $respuesta[$categoria->DESCRIPCION]= CHtml::listData(Cliente::model()->findAllByAttributes(array('ACTIVO'=>'S','CATEGORIA'=>$categoria->ID)),'CLIENTE','NOMBRE');
+            } else {
+                if($tipo=='P'){
+                    foreach ($categorias as $categoria)
+                        $respuesta[$categoria->DESCRIPCION]= CHtml::listData(Proveedor::model()->findAllByAttributes(array('ACTIVO'=>'S','CATEGORIA'=>$categoria->ID)),'PROVEEDOR','NOMBRE');
+                }
+            }
             return $respuesta;
         }
 }

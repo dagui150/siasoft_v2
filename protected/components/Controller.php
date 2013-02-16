@@ -126,7 +126,9 @@ class Controller extends CController
                     array('label' => 'Reportes', 'url' => '#',
                                 'items' => array(
                                     array('label'=>'Cierre de ventas', 'url'=>array('/reportes/ventas')),
-                                    //array('label'=>'Inventario', 'url'=>array('/reportes/inventario')),
+                                    array('label'=>'Inventario', 'url'=>array('/reportes/inventario')),
+                                    array('label'=>'Ordenes de compra', 'url'=>array('/reportes/ordenCompra')),
+                                    array('label'=>'Facturas', 'url'=>array('/reportes/facturas')),
                     )),
                             array('label' => 'Facturación', 'url' => '#',
                                 'items' => array(

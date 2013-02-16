@@ -83,7 +83,7 @@
                                             'multiple' =>true,
                                             'noResults' =>'No hay resultados',
                                             'placeholderMultiple'=>'Seleccione...',
-                                            'htmlOptions' => array('style'=>'width:350px; !important'),
+                                            'htmlOptions' => array('style'=>'width:350px; !important'), 
                                             'data' => array(
                                                 'Consumo'=>CHtml::listData(Bodega::model()->findAllByAttributes(array('ACTIVO'=>'S', 'TIPO'=>'C')),'ID','DESCRIPCION'),
                                                 'Ventas'=>CHtml::listData(Bodega::model()->findAllByAttributes(array('ACTIVO'=>'S', 'TIPO'=>'V')),'ID','DESCRIPCION'),
@@ -284,7 +284,7 @@
                                             'multiple' =>true,
                                             'noResults' =>'No hay resultados',
                                             'placeholderMultiple'=>'Seleccione...',
-                                            'htmlOptions' => array('style'=>'width:350px; !important'), 
+                                            'htmlOptions' => array('style'=>'width:350px; !important'),
                                             'data' => array(
                                                 'Consumo'=>CHtml::listData(Bodega::model()->findAllByAttributes(array('ACTIVO'=>'S', 'TIPO'=>'C')),'ID','DESCRIPCION'),
                                                 'Ventas'=>CHtml::listData(Bodega::model()->findAllByAttributes(array('ACTIVO'=>'S', 'TIPO'=>'V')),'ID','DESCRIPCION'),
@@ -314,6 +314,27 @@
                             </div>
                         </td>
                     </tr>
+<<<<<<< HEAD
+                    </table>
+                    <div class="row-buttons" align="center">
+                       <div class="buttons" align="center">
+                            <?php $this->widget('bootstrap.widgets.TbButton', array(
+                                            'type'=>'submit',
+                                            'buttonType'=>'submit',
+                                            'icon'=>'search',
+                                            'label'=>'Consultar',
+                                 )); 
+                            ?>
+                    </div>
+                    </div>
+                </div>
+       
+            <?php break;
+        case 'otro': ?>
+            <?php break;
+    } ?>
+        
+=======
                     <tr>
                         <td>
                             <div style="margin-left: -63px">
@@ -348,6 +369,7 @@
             <?php $this->darBotonGenerarReporte(); ?>
         </div>
     </div>
+>>>>>>> f67b38f335c57295597cabb74510e9c08bf96e31
 
 <?php $this->endWidget(); ?>
 
