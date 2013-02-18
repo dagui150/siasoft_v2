@@ -242,13 +242,10 @@ $(document).ready(function(){
                 $retorna = substr($mascara,0,2);
                 $mascara = strlen($mascara);
                 $longitud = $mascara - 2;
-                $sql = "SELECT count(ORDEN_COMPRA) FROM orden_compra";
-                $consulta = OrdenCompra::model()->findAllBySql($sql);
-                $connection=Yii::app()->db;
-                $command=$connection->createCommand($sql);
-                $row=$command->queryRow();
-                $bandera=$row['count(ORDEN_COMPRA)'];
-                $retorna .= str_pad($bandera, $longitud, "0", STR_PAD_LEFT);
+                $ultimaOrden = ConsecutivoFa::extractNum(confCo::model()->find()->ULT_ORDEN_COMPRA);
+                $longitud = strlen($ultimaOrden[1]);
+                $ordenActual = $ultimaOrden[0].str_pad($ultimaOrden[1]+1, $longitud, "0", STR_PAD_LEFT);
+                $retorna = $ordenActual;
               
                 $pestana = $this->renderPartial('lineas', array('form'=>$form, 'linea'=>$linea, 'model'=>$model, 'readonly'=>$readonly, 'ruta'=>$ruta, 'ruta2'=>$ruta2),true);
             }

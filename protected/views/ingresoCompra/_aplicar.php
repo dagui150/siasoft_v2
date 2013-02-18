@@ -13,12 +13,12 @@
                     'buttonType'=>'button',
                     'type'=>'success', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
                     'icon' => 'ok-circle white white',
-                    /*'url' => array('aplicar'),
+                    'url' => array('aplicar'),
                     'ajaxOptions'=>array(
                         'type'=>'POST',
                         'update'=>'#cargando',                        
                         'beforeSend'=>'cargando()',
-                    ), */
+                    ),
                     'htmlOptions'=>array('id'=>'continuar', 'onclick'=>'buscar();'),
                 ));
             ?>

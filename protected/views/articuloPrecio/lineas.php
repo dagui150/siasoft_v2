@@ -53,27 +53,37 @@
                                     <?php foreach($cargar as $i=>$item): ?>
                                 <tr class="templateContent">
                                     <td>
-                            <?php echo CHtml::textField("precio[$i]_ID", $item->nIVELPRECIO->DESCRIPCION, array('readonly'=>true)); ?>
+                                        <span id="precio[<?php echo $i ?>]_ID"><?php echo $item->nIVELPRECIO->DESCRIPCION ?></span>
+                            <?php //echo CHtml::hiddenField("precio[$i]_ID", $item->nIVELPRECIO->DESCRIPCION, array('readonly'=>true)); ?>
                             <?php echo CHtml::hiddenField("NivelPrecio[$i]_ID", $item->NIVEL_PRECIO, array('readonly'=>true)); ?>
                             		</td>
                         <td>
-                            <?php echo CHtml::textField("NivelPrecio2[$i]_ESQUEMA_TRABAJO",$item->ESQUEMA_TRABAJO,array('readonly' => true)); ?>
+                            <span id="NivelPrecio2[<?php echo $i ?>]_ESQUEMA_TRABAJO"><?php echo NivelPrecio::tipo($item->nIVELPRECIO->ESQUEMA_TRABAJO) ?></span>
+                            <?php echo CHtml::hiddenField("NivelPrecio2[$i]_ESQUEMA_TRABAJO",$item->ESQUEMA_TRABAJO,array('readonly' => true)); ?>
                         </td>
                         <td>
                             <?php 
                                 if($item->ESQUEMA_TRABAJO == 'NORM'){ ?>
-                                    <span style="background-color:#EEEEEE;line-height:30px;text-align:center; text-shadow:#FFFFFF 0 1px 0;padding-left:5px;padding-top:0px;width:16px;height:24px;margin-top:2px;float:left;font-size: 14px;border:1px solid #CCCCCC;">%</span>
-                                <?php    echo CHtml::textField("NivelPrecio3[$i]_MARGEN_MULTIPLICADOR", '', array('readonly'=>true)); 
+                                    <div class="input-prepend">
+                                        <span class="add-on">%</span>
+                                        <input class="span2" id="NivelPrecio3_<?php echo $i?>_MARGEN_MULTIPLICADOR" type="text" readonly="true" name="NivelPrecio3[<?php echo $i?>]_MARGEN_MULTIPLICADOR">
+                                    </div>
+                                <?php    //echo CHtml::textField("NivelPrecio3[$i]_MARGEN_MULTIPLICADOR", '', array('class'=>'input-prepend','readonly'=>true)); 
                                 }
                                 else{ ?>
-                                    <span style="background-color:#EEEEEE;line-height:30px;text-align:center; text-shadow:#FFFFFF 0 1px 0;padding-left:5px;padding-top:0px;width:16px;height:24px;margin-top:2px;float:left;font-size: 14px;border:1px solid #CCCCCC;">%</span>
+                                    <div class="input-prepend">
+                                        <span class="add-on">%</span>
+                                        <input class="calculosGen decimal span2" id="NivelPrecio3_<?php echo $i?>_MARGEN_MULTIPLICADOR" type="text" value="<?php echo $item->MARGEN_MULTIPLICADOR?>" name="NivelPrecio3[<?php echo $i?>]_MARGEN_MULTIPLICADOR">
+                                    </div>
                                 <?php
-                                    echo CHtml::textField("NivelPrecio3[$i]_MARGEN_MULTIPLICADOR", $item->MARGEN_MULTIPLICADOR, array('class'=>'calculosGen decimal')); 
+                                   // echo CHtml::textField("NivelPrecio3[$i]_MARGEN_MULTIPLICADOR", $item->MARGEN_MULTIPLICADOR, array('class'=>'calculosGen decimal span2')); 
                                 }
                             ?>
                         </td>
                         <td>
-                            <?php echo CHtml::textField("NivelPrecio4[$i]_PRECIO", $item->PRECIO, array('readonly'=>true, 'class'=> 'decimal')); ?>
+                            <span id="spanNivelPrecio4_<?php echo $i ?>_PRECIO"><?php echo $item->PRECIO?></span>
+                            
+                            <?php echo CHtml::hiddenField("NivelPrecio4[$i]_PRECIO", $item->PRECIO, array('readonly'=>true, 'class'=> 'decimal')); ?>
                         </td>
                       </tr>                      
                       <?php endforeach; ?> 
