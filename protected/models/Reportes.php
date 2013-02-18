@@ -55,12 +55,6 @@ class Reportes extends CFormModel
          */
         public $PROVEEDOR;
         
-        /**
-         * Listado de los proveedores utilizada en los filtros de los reportes
-         * @var string
-         */
-        public $CONSECUTIVOS_FA;
-        
         
         /**
 	 * @return array validation rules for model attributes.
@@ -89,7 +83,6 @@ class Reportes extends CFormModel
                         'ARTICULOS_ACTIVO'=>'Artículos activos',
                         'ESTADO_ORDEN_COMP'=>'Estado',
                         'PROVEEDOR'=>'Proveedores',
-                        'CONSECUTIVOS_FA'=>'Consecutivos',
 		);
 	}
         
