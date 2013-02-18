@@ -18,10 +18,10 @@ class ReportesController extends Controller
 
           public function actionformatoPDF() {
             
-            $total = 0;
+            /*$total = 0;
             foreach($_GET['data'] as $datos){
                 $total = $total + $datos['TOTAL_A_FACTURAR'];
-            }
+            }*/
             $model = new CArrayDataProvider($_GET['data']);
             $this->layout = 'Reportes';
             $footer = '<table width="100%">
@@ -55,7 +55,7 @@ class ReportesController extends Controller
                             </tr>
                             <tr>
                                 <td align="center"><b>Tels:</b> '.$compania->TELEFONO1.'-'.$compania->TELEFONO2.'</td>
-                                <td width="33%" align="center" valign="middle">$ '.$total.'</td>
+                                <td width="33%" align="center" valign="middle">$ '/*.$total*/.'</td>
                             </tr>
                         </table>';
             //'',array(377,279),0,'',15,15,16,16,9,9, 'P'
@@ -64,7 +64,7 @@ class ReportesController extends Controller
             //$mPDF1->h=148.5; //manually set height
             $mPDF1->SetHTMLHeader($header);
             $mPDF1->SetHTMLFooter($footer);
-            $mPDF1->WriteHTML($this->render('pdf', array('model' => $model, 'total'=>$total), true));
+            $mPDF1->WriteHTML($this->render('pdf', array('model' => $model, /*'total'=>$total*/), true));
             $mPDF1->SetHTMLFooter($footer);
 
             $mPDF1->Output();
@@ -147,9 +147,34 @@ class ReportesController extends Controller
 	 */
 	public function actionInventario()
 	{
+                $ventas=new CActiveDataProvider(Factura::model(), array(
+			'criteria'=>array(
+                                'condition'=>' FACTURA=-1',
+                         ),
+                         'pagination'=>false,
+		));
+                
+                if(isset($_GET['Reportes']['FECHA_DESDE'])){
+                    echo 'entra';
+                    $ventas->keyAttribute = 'FACTURA';
+                    $ventas->criteria = array(
+                                'select' => 't.FACTURA, t.CONSECUTIVO, t.CLIENTE, t.FECHA_FACTURA, t.TOTAL_A_FACTURAR, t.BODEGA, t.NIVEL_PRECIO',
+                                'condition'=>'t.FECHA_FACTURA BETWEEN "'.$_GET['Reportes']['FECHA_DESDE'].'" AND "'.$_GET['Reportes']['FECHA_HASTA'].'"',
+                );
+                    
+                if(isset($_GET['Reportes']['BODEGAS']))
+                    $ventas->criteria->compare('t.BODEGA',$_GET['Reportes']['BODEGAS']);
+                    
+                if(isset($_GET['Reportes']['CLIENTES']))
+                    $ventas->criteria->compare('t.CLIENTE',$_GET['Reportes']['CLIENTES']);
+                
+                
+                }
+                
                 $model=new Reportes;
 		$this->render('inventario',array(
 			'model'=>$model,
+                        'ventas'=>$ventas,
 		));
 	}
         

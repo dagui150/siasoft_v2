@@ -15,23 +15,7 @@
     ");
 ?>
 <div class="form">
-    
-<?php
-    $array = array();
-    
-    foreach($ventas->getData() as $data){
-            
-        $array[]=array(
-                'FACTURA'=>$data->FACTURA,
-                'BODEGA'=>$data->bODEGA->DESCRIPCION,
-                'CLIENTE'=>$data->cLIENTE->NOMBRE,
-                'TOTAL_A_FACTURAR'=>$data->TOTAL_A_FACTURAR,
-                'FECHA_FACTURA'=>$data->FECHA_FACTURA,
-                'NIVEL_PRECIO'=>$data->nIVELPRECIO->DESCRIPCION,
-        );
-    }
-?>
-    
+       
 <?php $form= $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'reportes-form',
         'method'=>'get',
@@ -358,41 +342,126 @@
     <div id="link" style="float: right; margin-bottom: 10px;">
         <?php echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl.'/images/pdfReportes.png'),array('formatoPDF','data'=>$array),array('target'=>'_blank','rel'=>'tooltip', 'data-original-title'=>'Exportar PDF')); ?>
     </div>
-    <?php 
-        $this->widget('bootstrap.widgets.TbGridView', array(
-		'type'=>'striped bordered condensed',
-                'id'=>'ventas-grid',
-                'ajaxUpdate'=>'link',
-                'pagerCssClass' =>'pagination',
-                //'pager' => array('class'=>'BootPager'),
-		'dataProvider'=>$ventas,
-                'columns'=>array(
+    
+    
+        <?php 
+            /*Ventas*/
+            
+            switch ($tipo){
+                case 'ventas':
                     
-                    array(
-                        'name'=>'FACTURA',                        
-                    ),
-                    array(
-                        'name'=>'BODEGA',
-                        'value'=>'$data->bODEGA->DESCRIPCION',
-                    ),
-                    array(
-                        'name'=>'CLIENTE',
-                        'value'=>'$data->cLIENTE->NOMBRE',
-                    ),
-                    array(
-                        'name'=>'FECHA_FACTURA',                        
-                    ),                    
-                    array(
-                        'name'=>'NIVEL_PRECIO',   
-                        'value'=>'$data->nIVELPRECIO->DESCRIPCION',
-                    ),
-                    
-                    array(
-                        'name'=>'TOTAL_A_FACTURAR',                        
-                    ),
-		),
-	));
+                        $this->widget('bootstrap.widgets.TbGridView', array(
+                        'type'=>'striped bordered condensed',
+                        'id'=>'ventas-grid',
+                        'ajaxUpdate'=>'link',
+                        'pagerCssClass' =>'pagination',
+                        //'pager' => array('class'=>'BootPager'),
+                        'dataProvider'=>$ventas,
+                        'columns'=>array(
+
+                            array(
+                                'name'=>'FACTURA',                        
+                            ),
+                            array(
+                                'name'=>'BODEGA',
+                                'value'=>'$data->bODEGA->DESCRIPCION',
+                            ),
+                            array(
+                                'name'=>'CLIENTE',
+                                'value'=>'$data->cLIENTE->NOMBRE',
+                            ),
+                            array(
+                                'name'=>'FECHA_FACTURA',                        
+                            ),                    
+                            array(
+                                'name'=>'NIVEL_PRECIO',   
+                                'value'=>'$data->nIVELPRECIO->DESCRIPCION',
+                            ),
+
+                            array(
+                                'name'=>'TOTAL_A_FACTURAR',                        
+                            ),
+                        ),
+                    ));                    
+                    break;
+                
+                case 'inventario':
+                    $this->widget('bootstrap.widgets.TbGridView', array(
+                        'type'=>'striped bordered condensed',
+                        'id'=>'ventas-grid',
+                        'ajaxUpdate'=>'link',
+                        'pagerCssClass' =>'pagination',
+                        //'pager' => array('class'=>'BootPager'),
+                        'dataProvider'=>$ventas,
+                        'columns'=>array(
+
+                            array(
+                                'name'=>'FACTURA',                        
+                            ),
+                            array(
+                                'name'=>'BODEGA',
+                                'value'=>'$data->bODEGA->DESCRIPCION',
+                            ),
+                            array(
+                                'name'=>'CLIENTE',
+                                'value'=>'$data->cLIENTE->NOMBRE',
+                            ),
+                            array(
+                                'name'=>'FECHA_FACTURA',                        
+                            ),                    
+                            array(
+                                'name'=>'NIVEL_PRECIO',   
+                                'value'=>'$data->nIVELPRECIO->DESCRIPCION',
+                            ),
+
+                            array(
+                                'name'=>'TOTAL_A_FACTURAR',                        
+                            ),
+                        ),
+                    )); 
+                    break;
+                
+                case 'ordenCompra':
+                    $this->widget('bootstrap.widgets.TbGridView', array(
+                        'type'=>'striped bordered condensed',
+                        'id'=>'ventas-grid',
+                        'ajaxUpdate'=>'link',
+                        'pagerCssClass' =>'pagination',
+                        //'pager' => array('class'=>'BootPager'),
+                        'dataProvider'=>$ventas,
+                        'columns'=>array(
+
+                            array(
+                                'name'=>'FACTURA',                        
+                            ),
+                            array(
+                                'name'=>'BODEGA',
+                                'value'=>'$data->bODEGA->DESCRIPCION',
+                            ),
+                            array(
+                                'name'=>'CLIENTE',
+                                'value'=>'$data->cLIENTE->NOMBRE',
+                            ),
+                            array(
+                                'name'=>'FECHA_FACTURA',                        
+                            ),                    
+                            array(
+                                'name'=>'NIVEL_PRECIO',   
+                                'value'=>'$data->nIVELPRECIO->DESCRIPCION',
+                            ),
+
+                            array(
+                                'name'=>'TOTAL_A_FACTURAR',                        
+                            ),
+                        ),
+                    ));
+                    break;
+            }
         
-    ?>
+            
+
+        ?>
+    
+    
     <div id="respuesta"></div>
 </div>
