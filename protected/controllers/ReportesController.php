@@ -22,7 +22,9 @@ class ReportesController extends Controller
             foreach($_GET['data'] as $datos){
                 $total = $total + $datos['TOTAL_A_FACTURAR'];
             }*/
-            $model = new CArrayDataProvider($_GET['data']);
+            $tipo = $_GET['tipo'];
+            $model = new CArrayDataProvider(Yii::app()->getSession()->get('nombreVariable'));
+            $model->pagination = false;
             $this->layout = 'Reportes';
             $footer = '<table width="100%">
                     <tr><td align="center" valign="middle"><span class="piePagina"><b>Generado por:</b> ' . Yii::app()->user->name . '</span></td>
@@ -64,7 +66,7 @@ class ReportesController extends Controller
             //$mPDF1->h=148.5; //manually set height
             $mPDF1->SetHTMLHeader($header);
             $mPDF1->SetHTMLFooter($footer);
-            $mPDF1->WriteHTML($this->render('pdf', array('model' => $model, /*'total'=>$total*/), true));
+            $mPDF1->WriteHTML($this->render('pdf', array('model' => $model, 'tipo'=>$tipo), true));
             $mPDF1->SetHTMLFooter($footer);
 
             $mPDF1->Output();
@@ -77,67 +79,31 @@ class ReportesController extends Controller
 	 */
 	public function actionVentas()
 	{
-                $ventas=new CActiveDataProvider(Factura::model(), array(
+                $provider=new CActiveDataProvider(Factura::model(), array(
 			'criteria'=>array(
                                 'condition'=>' FACTURA=-1',
                          ),
-                         'pagination'=>false,
+                         
 		));
                 
                 
                 if(isset($_GET['Reportes']['FECHA_DESDE'])){
-                    echo 'entra';
-                    $ventas->keyAttribute = 'FACTURA';
-                    $ventas->criteria = array(
+                    $provider->keyAttribute = 'FACTURA';
+                    $provider->criteria = array(
                                 'select' => 't.FACTURA, t.CONSECUTIVO, t.CLIENTE, t.FECHA_FACTURA, t.TOTAL_A_FACTURAR, t.BODEGA, t.NIVEL_PRECIO',
                                 'condition'=>'t.FECHA_FACTURA BETWEEN "'.$_GET['Reportes']['FECHA_DESDE'].'" AND "'.$_GET['Reportes']['FECHA_HASTA'].'"',
                 );
                     
                 if(isset($_GET['Reportes']['BODEGAS']))
-                    $ventas->criteria->compare('t.BODEGA',$_GET['Reportes']['BODEGAS']);
+                    $provider->criteria->compare('t.BODEGA',$_GET['Reportes']['BODEGAS']);
                     
                 if(isset($_GET['Reportes']['CLIENTES']))
-                    $ventas->criteria->compare('t.CLIENTE',$_GET['Reportes']['CLIENTES']);
-                    
-                    /*
-                    $pago->sort =array(
-                            'attributes'=>
-                                array(
-                                    'FECHA',
-                                    'CLIENTE_POLIZA',
-                                    'VALOR_CRV',
-                                    'VALOR',
-                                    'POLIZA'=>array(
-                                        'asc'=>'p.POLIZA',
-                                        'desc'=>'p.POLIZA DESC',
-                                        'label'=>'Poliza',
-                                        'default'=>'asc',
-                                    ),
-                                    'TIPO_POLIZA'=>array(
-                                        'asc'=>'p.TIPO_POLIZA',
-                                        'desc'=>'p.TIPO_POLIZA DESC',
-                                        'label'=>'Tipo de Poliza',
-                                        'default'=>'asc',
-                                    ),
-                                    'NOMBRE'=>array(
-                                        'asc'=>'ter.NOMBRE',
-                                        'desc'=>'ter.NOMBRE DESC',
-                                        'label'=>'Cliente',
-                                        'default'=>'asc',
-                                    ),
-                                    'NOMBRES'=>array(
-                                        'asc'=>'f.NOMBRES',
-                                        'desc'=>'f.NOMBRES DESC',
-                                        'label'=>'Asesor',
-                                        'default'=>'asc',
-                                    ),
-                                ),
-                        );*/
+                    $provider->criteria->compare('t.CLIENTE',$_GET['Reportes']['CLIENTES']);
                 }
                 $model=new Reportes;                
 		$this->render('ventas',array(
 			'model'=>$model,
-                        'ventas'=> $ventas
+                        'provider'=> $provider
 		));
 	}
         
@@ -147,34 +113,51 @@ class ReportesController extends Controller
 	 */
 	public function actionInventario()
 	{
-                $ventas=new CActiveDataProvider(Factura::model(), array(
+                $provider=new CActiveDataProvider(Articulo::model(), array(
 			'criteria'=>array(
-                                'condition'=>' FACTURA=-1',
+                                'condition'=>'ARTICULO=-1',
                          ),
-                         'pagination'=>false,
+                    'pagination'=>false
 		));
                 
-                if(isset($_GET['Reportes']['FECHA_DESDE'])){
-                    echo 'entra';
-                    $ventas->keyAttribute = 'FACTURA';
-                    $ventas->criteria = array(
-                                'select' => 't.FACTURA, t.CONSECUTIVO, t.CLIENTE, t.FECHA_FACTURA, t.TOTAL_A_FACTURAR, t.BODEGA, t.NIVEL_PRECIO',
-                                'condition'=>'t.FECHA_FACTURA BETWEEN "'.$_GET['Reportes']['FECHA_DESDE'].'" AND "'.$_GET['Reportes']['FECHA_HASTA'].'"',
+                $provider->keyAttribute = 'ARTICULO';
+                $provider->criteria = array(
+                                'select' => 't.ARTICULO, t.NOMBRE, t.EXISTENCIA_MINIMA, t.EXISTENCIA_MAXIMA, eb.BODEGA, t.UNIDAD_ALMACEN, eb.CANT_DISPONIBLE',
+                                'join' => 'LEFT JOIN existencia_bodega eb ON t.ARTICULO = eb.ARTICULO',
                 );
-                    
+                
+                
                 if(isset($_GET['Reportes']['BODEGAS']))
-                    $ventas->criteria->compare('t.BODEGA',$_GET['Reportes']['BODEGAS']);
+                    $provider->criteria->compare('eb.BODEGA',$_GET['Reportes']['BODEGAS']);
                     
-                if(isset($_GET['Reportes']['CLIENTES']))
-                    $ventas->criteria->compare('t.CLIENTE',$_GET['Reportes']['CLIENTES']);
+                if(isset($_GET['Reportes']['TIPO_ARTICULOS']))
+                    $provider->criteria->compare('t.TIPO_ARTICULO',$_GET['Reportes']['TIPO_ARTICULOS']);
                 
+                if(isset($_GET['Reportes']['ARTICULOS_ACTIVO']))
+                    $provider->criteria->compare('t.ACTIVO',$_GET['Reportes']['ARTICULOS_ACTIVO']);
                 
-                }
+                $provider->sort =array(
+                            'attributes'=>
+                                array(
+                                    'ARTICULO',
+                                    'NOMBRE',
+                                    'EXISTENCIA_MINIMA',
+                                    'EXISTENCIA_MAXIMA',
+                                    'BODEGA',
+                                    'UNIDAD_ALMACEN',
+                                    'CANT_DISPONIBLE'=>array(
+                                        'asc'=>'eb.CANT_DISPONIBLE',
+                                        'desc'=>'eb.CANT_DISPONIBLE DESC',
+                                        'label'=>'Cant. Disp.',
+                                        'default'=>'asc',
+                                    ),
+                                ),
+                        );
                 
                 $model=new Reportes;
 		$this->render('inventario',array(
 			'model'=>$model,
-                        'ventas'=>$ventas,
+                        'provider'=>$provider,
 		));
 	}
         

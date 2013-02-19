@@ -62,6 +62,12 @@
  * @property SolicitudOcLinea[] $solicitudOcLineas*/
 class Articulo extends CActiveRecord
 {
+        /**
+         * Variable para la generacion de reportes
+         * @var float
+         */
+        public $CANT_DISPONIBLE;
+        
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.

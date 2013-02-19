@@ -416,7 +416,6 @@ function calcularTotal(model){
                     impuesto = ((importe - desc_gen) * impuesto) / 100;
                     $('#'+model+'_'+contador+'_VALOR_IMPUESTO').val(impuesto); 
                 }
-                
                    
                 descuento = parseFloat(unformat($('#'+model+'_'+i+'_MONTO_DESCUENTO').val().toString().replace(/\./g,',')));
                 iva =  parseFloat(unformat($('#'+model+'_'+i+'_VALOR_IMPUESTO').val().toString().replace(/\./g,',')));     
@@ -435,7 +434,6 @@ function calcularTotal(model){
             total_descuento += desc_general;
             total_comprar = total_mercaderia - total_descuento + total_iva + monto_flete + monto_seguro;
             saldo = total_comprar - anticipo;
-            
             
             $('#TotalMerc').val(format(total_mercaderia.toString().replace(/\./g,',')));
             $('#MenosDescuento').val(format(total_descuento.toString().replace(/\./g,',')));
@@ -461,12 +459,10 @@ function calcularTotal(model){
                     impuesto = ((importe - desc_gen) * impuesto) / 100;
                     $('#'+model2+'_'+contador+'_VALOR_IMPUESTO').val(impuesto); 
                 }
-                
                    
                 descuento = parseFloat(unformat($('#'+model2+'_'+i+'_MONTO_DESCUENTO').val()));
                 iva =  parseFloat(unformat($('#'+model2+'_'+i+'_VALOR_IMPUESTO').val().toString().replace(/\./g,',')));     
                 total_mercaderia += importe;
-                alert(descuento);
                 total_descuento += descuento;                
                 total_iva += iva;                
                 $('#numero_'+i).text(parseInt(i, 10) + 1 + numLinea);

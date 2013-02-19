@@ -12,7 +12,7 @@ $this->breadcrumbs=array(
 <?php
     $array = array();
     
-    foreach($ventas->getData() as $data){
+    foreach($provider->getData() as $data){
             
         $array[]=array(
                 'FACTURA'=>$data->FACTURA,
@@ -26,4 +26,4 @@ $this->breadcrumbs=array(
 
 ?>
 <?php $tipo_form='ventas'; ?>
-<?php echo $this->renderPartial('_form', array('model'=>$model, 'tipo'=>$tipo_form, 'ventas'=>$ventas, 'array'=>$array)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'tipo'=>$tipo_form, 'provider'=>$provider, 'array'=>$array)); ?>

@@ -125,20 +125,7 @@
                         </td>
                         <td>
                             <div style="margin-left: -40px">
-                                <?php echo $form->label($model,'CANTIDADES',array('class'=>'control-label'));?>
-                                <div class="controls">
-                                     <?php 
-                                        $this->widget('ext.chosen.Chosen',array(
-                                            'model' => $model,
-                                            'attribute' =>'CANTIDADES',
-                                            'multiple' =>true,
-                                            'noResults' =>'No hay resultados',
-                                            'placeholderMultiple'=>'Seleccione...',
-                                            'htmlOptions' => array('style'=>'width:350px; !important'), 
-                                            'data' => CHtml::listData(TipoCantidadArticulo::model()->findAllByAttributes(array('ACTIVO'=>'S')),'ID','NOMBRE'),
-                                         ));
-                                    ?>
-                                </div>
+                                <?php echo $form->radioButtonListInlineRow($model,'ARTICULOS_ACTIVO',array('S'=>'Si','N'=>'No')); ?>
                             </div>
                         </td>
                     </tr>
@@ -162,9 +149,6 @@
                             </div>
                         </td>
                         <td>
-                            <div style="margin-left: -40px">
-                                <?php echo $form->radioButtonListInlineRow($model,'ARTICULOS_ACTIVO',array('S'=>'Si','N'=>'No')); ?>
-                            </div>
                             
                         <?php break;
                     
@@ -250,7 +234,7 @@
 <div id="grilla" style="display: none">
     
     <div id="link" style="float: right; margin-bottom: 10px;">
-        <?php echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl.'/images/pdfReportes.png'),array('formatoPDF','data'=>$array),array('target'=>'_blank','rel'=>'tooltip', 'data-original-title'=>'Exportar PDF')); ?>
+        <?php echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl.'/images/pdfReportes.png'),array('formatoPDF', 'tipo'=>$tipo),array('target'=>'_blank','rel'=>'tooltip', 'data-original-title'=>'Exportar PDF')); ?>
     </div>
     
     
@@ -266,7 +250,7 @@
                         'ajaxUpdate'=>'link',
                         'pagerCssClass' =>'pagination',
                         //'pager' => array('class'=>'BootPager'),
-                        'dataProvider'=>$ventas,
+                        'dataProvider'=>$provider,
                         'columns'=>array(
 
                             array(
@@ -292,7 +276,10 @@
                                 'name'=>'TOTAL_A_FACTURAR',                        
                             ),
                         ),
-                    ));                    
+                    ));    
+                    
+                    //unset(Yii::app()->request->cookies['reportes']);
+                    //Yii::app()->request->cookies['reportes'] = new CHttpCookie('reportes', $provider);
                     break;
                 
                 case 'inventario':
@@ -302,33 +289,39 @@
                         'ajaxUpdate'=>'link',
                         'pagerCssClass' =>'pagination',
                         //'pager' => array('class'=>'BootPager'),
-                        'dataProvider'=>$ventas,
+                        'dataProvider'=>$provider,
                         'columns'=>array(
 
                             array(
-                                'name'=>'FACTURA',                        
+                                'name'=>'ARTICULO',                        
                             ),
                             array(
-                                'name'=>'BODEGA',
-                                'value'=>'$data->bODEGA->DESCRIPCION',
+                                'name'=>'NOMBRE',
                             ),
                             array(
-                                'name'=>'CLIENTE',
-                                'value'=>'$data->cLIENTE->NOMBRE',
+                                'name'=>'EXISTENCIA_MINIMA',
                             ),
                             array(
-                                'name'=>'FECHA_FACTURA',                        
+                                'name'=>'EXISTENCIA_MAXIMA',      
                             ),                    
                             array(
-                                'name'=>'NIVEL_PRECIO',   
-                                'value'=>'$data->nIVELPRECIO->DESCRIPCION',
-                            ),
-
+                                'name'=>'BODEGA', 
+                                'value'=>'$data->BODEGA ? $data->bODEGA->DESCRIPCION : ""',
+                            ),                    
                             array(
-                                'name'=>'TOTAL_A_FACTURAR',                        
-                            ),
+                                'name'=>'UNIDAD_ALMACEN', 
+                                'value'=>'$data->uNIDADALMACEN->NOMBRE'
+                            ),                    
+                            array(
+                                'name'=>'CANT_DISPONIBLE',      
+                            ),       
                         ),
                     )); 
+                    Yii::app()->getSession()->remove('nombreVariable');
+                    Yii::app()->getSession()->add('nombreVariable', $array);
+                    echo '<pre>';
+                    print_r(Yii::app()->getSession()->get('nombreVariable'));
+                    echo '</pre>';
                     break;
                 
                 case 'ordenCompra':
