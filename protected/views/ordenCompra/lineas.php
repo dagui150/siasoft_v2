@@ -466,7 +466,6 @@ function calcularTotal(model){
                 descuento = parseFloat(unformat($('#'+model2+'_'+i+'_MONTO_DESCUENTO').val()));
                 iva =  parseFloat(unformat($('#'+model2+'_'+i+'_VALOR_IMPUESTO').val().toString().replace(/\./g,',')));     
                 total_mercaderia += importe;
-                alert(descuento);
                 total_descuento += descuento;                
                 total_iva += iva;                
                 $('#numero_'+i).text(parseInt(i, 10) + 1 + numLinea);
@@ -502,14 +501,14 @@ function calcularTotal(model){
     $cs->registerScriptFile(XHtml::jsUrl('template.js'), CClientScript::POS_HEAD);
     $cs->registerScriptFile(XHtml::jsUrl('jquery.validate.js'), CClientScript::POS_HEAD);
 ?>
-<?php $this->widget('bootstrap.widgets.TbButton', array(
+<?php /*$this->widget('bootstrap.widgets.TbButton', array(
     'type'=>'',
     'size'=>'mini',
     'url'=>'#lineas',
     'label' => 'Cargar Líneas',
     'icon'=>'icon-download-alt',
     'htmlOptions'=>array('data-toggle'=>'modal', 'id'=>"cargar"),
-)); ?>
+)); */?>
 
 <?php 
     $value = 0;

@@ -266,7 +266,7 @@ $(document).ready(function(){
             <tr>
                 <td><?php echo $form->textFieldRow($model,'ORDEN_COMPRA',array('size'=>10,'maxlength'=>10, 'readonly' => true, 'value' => $retorna)); ?></td>
                 <td width="10%"><?php echo $form->textFieldRow($model,'PROVEEDOR',array('size'=>20,'maxlength'=>20, 'class'=>'escritoProv', 'readonly'=>$readonly)); ?></td>
-                <td width="25%"><?php echo CHtml::textField('ProvNombre2','', array('readonly' => true));  echo '<span style="margin-left: 2px;margin-top:-5px;">'.$this->darBotonBuscar('#proveedor',true, array('disabled'=>$readonly)).'<span>'; ?></td>
+                <td width="25%"><?php echo CHtml::textField('ProvNombre2','', array('readonly' => true));  echo '<span style="margin-left: 2px;margin-top:-5px;">'.$this->darBotonBuscar('#proveedor',true, $readonly==false ? array('data-toggle'=>'modal','disabled'=>$readonly) : array('disabled'=>$readonly)).'<span>'; ?></td>
             </tr>
         </table>
    
@@ -370,8 +370,8 @@ $(document).ready(function(){
 )); ?>
 
 	<div align="center">
-            <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'icon'=>'ok-circle white', 'size' =>'small', 'label'=>$model->isNewRecord ? 'Crear' : 'Guardar')); ?>
-            <?php $this->widget('bootstrap.widgets.TbButton', array('label'=>'Cancelar', 'size'=>'small', 'url' => array('solicitudOc/admin'), 'icon' => 'remove'));  ?>
+            <?php $this->darBotonEnviar($model->isNewRecord ? 'Crear' : 'Guardar',$readonly==false ? '' : array('style'=>'display:none')); ?>
+            <?php $this->darBotonCancelar(); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
