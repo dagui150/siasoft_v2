@@ -414,10 +414,42 @@ class Controller extends CController
                                      'constrainInput'=>'false',
                                      'showAnim'=>'fadeIn',
                                      'showOn'=>'both',
+                                    'buttonText'=>Yii::t('ui','Seleccione una fecha'), 
                                      'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif',
                                      'buttonImageOnly'=>true,
                               ),
                               'htmlOptions'=>$htmlOptions,
                 ),true);
         }
+        
+        /**
+    * Metodo para mostrar botones del CGridView
+    * Segun Permisos, Recibe como parametro
+    * los nombres de las 3 acciones del widget
+    *
+    * @param string $view
+    * @param string $update
+    * @param string $delete
+    * @return mixed $respuesta
+    */
+   public function getAccess($view,$update,$delete){
+       $respuesta = array(
+           'class'=>'CButtonColumn',
+           'template'=>'',
+           'htmlOptions'=>array('style'=>'width: 50px'),
+           'afterDelete'=>$this->mensajeBorrar(),
+       );
+       if(isset($view) && Yii::app()->user->checkAccess($view))
+               $respuesta['template'] .='{view}';
+       if(isset($update) && Yii::app()->user->checkAccess($update))
+           $respuesta['template'] .='{update}';
+       if(isset($delete) && Yii::app()->user->checkAccess($delete))
+           $respuesta['template'] .='{delete}';
+       if($respuesta['template'] != '')
+               $respuesta['visible'] = true;
+       else
+           $respuesta['visible'] = false;
+       return $respuesta;
+       
+   }
 }

@@ -10,24 +10,6 @@ $this->breadcrumbs=array(
         'Sistema'=>array('admin'),
 	'Bodegas',
 );
-
-$this->menu=array(
-	array('label'=>Yii::t('app','LIST').' Bodega', 'url'=>array('index')),
-	array('label'=>Yii::t('app','CREATE').' Bodega', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('bodega-grid', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
 <h1>Bodegas</h1>

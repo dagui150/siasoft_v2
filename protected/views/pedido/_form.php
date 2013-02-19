@@ -302,81 +302,11 @@
     }
 ?>
 <?php
-    $fechaFactura = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-        'attribute'=>'FECHA_PEDIDO',
-        'model'=>$model,
-	'language'=>'es',
-	'options'=>array(
-            'showAnim'=>'fadeIn', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
-            'dateFormat'=>'yy-mm-dd',
-            'changeMonth'=>true,
-            'changeYear'=>true,
-            'showOn'=>'both', // 'focus', 'button', 'both'
-            'buttonText'=>Yii::t('ui','Select form calendar'), 
-            'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif',
-            'buttonImageOnly'=>true,
-	),
-        'htmlOptions'=>array(
-            'style'=>'width:80px;vertical-align:top',
-            'value'=>date('Y-m-d'),
-        ),  
-   ), true);
     
-    $fechaDespacho = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-        'attribute'=>'FECHA_PROMETIDA',
-        'model'=>$model,
-	'language'=>'es',
-	'options'=>array(
-            'showAnim'=>'fadeIn', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
-            'dateFormat'=>'yy-mm-dd',
-            'changeMonth'=>true,
-            'changeYear'=>true,
-            'showOn'=>'both', // 'focus', 'button', 'both'
-            'buttonText'=>Yii::t('ui','Select form calendar'), 
-            'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
-            'buttonImageOnly'=>true,
-	),
-        'htmlOptions'=>array(
-            'style'=>'width:80px;vertical-align:top'
-        ),  
-   ), true); 
-    
-    $fechaEntrega = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-        'attribute'=>'FECHA_EMBARQUE',
-        'model'=>$model,
-	'language'=>'es',
-	'options'=>array(
-            'showAnim'=>'fadeIn', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
-            'dateFormat'=>'yy-mm-dd',
-            'changeMonth'=>true,
-            'changeYear'=>true,
-            'showOn'=>'both', // 'focus', 'button', 'both'
-            'buttonText'=>Yii::t('ui','Select form calendar'), 
-            'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
-            'buttonImageOnly'=>true,
-	),
-        'htmlOptions'=>array(
-            'style'=>'width:80px;vertical-align:top'
-        ),  
-   ), true); 
-    $fechaOrden = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-        'attribute'=>'FECHA_ORDEN',
-        'model'=>$model,
-	'language'=>'es',
-	'options'=>array(
-            'showAnim'=>'fadeIn', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
-            'dateFormat'=>'yy-mm-dd',
-            'changeMonth'=>true,
-            'changeYear'=>true,
-            'showOn'=>'both', // 'focus', 'button', 'both'
-            'buttonText'=>Yii::t('ui','Select form calendar'), 
-            'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
-            'buttonImageOnly'=>true,
-	),
-        'htmlOptions'=>array(
-            'style'=>'width:80px;vertical-align:top'
-        ),  
-   ), true); 
+    $fechaFactura = $this->darCalendario($model, 'FECHA_PEDIDO', null);
+    $fechaDespacho = $this->darCalendario($model, 'FECHA_PROMETIDA', null);
+    $fechaEntrega = $this->darCalendario($model, 'FECHA_EMBARQUE', null);
+    $fechaOrden = $this->darCalendario($model, 'FECHA_ORDEN', null);
     
     $renderLineas = $this->renderPartial('lineas', array('linea'=>$linea, 'form'=>$form, 'model'=>$model,'ruta2'=>$ruta2,'modelLinea'=>$modelLinea),true);
     
