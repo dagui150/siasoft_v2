@@ -26,12 +26,36 @@ class Controller extends CController
          * @return string Boton de bootstrap popover 
          */
 	public function botonAyuda($texto) {
+            $animacion=array(
+                'fade',
+                'grow',
+                'swing',
+                'slide',
+                'fall',
+            );
+            $this->widget('ext.tooltipster.tooltipster',array(
+                          'identifier'=>'.my-tooltip',
+                          'options'=>array(
+                                'animation'=>$animacion[rand(0,4)],
+                                'iconTouch'=>true,
+                                'delay'=>10,
+                                'fixedWidth'=>300,
+                                'position'=>'right',
+                                'interactive'=>true,
+                                'interactiveTolerance'=>'5000',
+                                'speed'=>800,
+                                'theme'=>'.tooltipster-shadow',
+                                'trigger'=>'hover'
+                           )
+                    ));
+            
             $boton = $this->widget('bootstrap.widgets.TbButton', array(
                         'type' => 'nommal', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
                         'size' => 'normal', // '', 'large', 'small' or 'mini'
                         'icon' => 'info-sign',
-                        'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>Yii::t('ayuda',$texto), 'rel'=>'popover', 'class'=>'botonAyuda'),
+                        'htmlOptions'=>array('class'=>'botonAyuda my-tooltip','title'=>Yii::t('ayuda',$texto)),
                     ),true);
+                    
             return $boton;
         }
 	/**

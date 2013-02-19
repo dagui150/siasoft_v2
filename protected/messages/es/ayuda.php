@@ -6,7 +6,7 @@
 		'SIMB_MONEDA' => 'El símbolo de la moneda a utilizar en el sistema. <br>Ej.: $ (Pesos, dólares), € (Euro).',
 		'NOM_ZONA' => 'Es una división que hace la empresa para clasificar clientes o proveedores. <br>Ej.: Zona caribe, zona cafetera.<br>Este submenú es solo de carácter informativo.',
                 'CODIGO' => 'Cadena de caracteres alfanumérico.',
-                'CODIGO_BODEGA' => 'Cadena de caracteres alfanumérico. Maximo 4 caracteres.'.CHtml::link('asd','#'),
+                'CODIGO_BODEGA' => 'Cadena de caracteres alfanumérico. Maximo 4 caracteres.'.CHtml::link('Url','#',array('class'=>'my-tooltip')),
 		'DESCR_BODEGA' => 'Breve descripción de la bodega.',
 		'DESCR_CATEGORIA' => 'Breve descripción de la categoría o un nombre.',
 		'CODIGO_CC' => 'Este código depende de la máscara configurada en el submenú "Configuración general".',
