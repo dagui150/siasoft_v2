@@ -152,7 +152,7 @@
             
          ?>
 	<div class="row buttons" align="center">
-            <?php $this->darBotonEnviar($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
+            <?php $this->darBotonEnviar($model->isNewRecord ? 'Crear' : 'Guardar',$model->ESTADO=='P' ? '' : array('style'=>'display:none')); ?>
             <?php $this->darBotonCancelar(); ?>
       </div>
 

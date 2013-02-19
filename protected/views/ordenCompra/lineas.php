@@ -498,14 +498,14 @@ function calcularTotal(model){
     $cs->registerScriptFile(XHtml::jsUrl('template.js'), CClientScript::POS_HEAD);
     $cs->registerScriptFile(XHtml::jsUrl('jquery.validate.js'), CClientScript::POS_HEAD);
 ?>
-<?php $this->widget('bootstrap.widgets.TbButton', array(
+<?php /*$this->widget('bootstrap.widgets.TbButton', array(
     'type'=>'',
     'size'=>'mini',
     'url'=>'#lineas',
     'label' => 'Cargar Líneas',
     'icon'=>'icon-download-alt',
     'htmlOptions'=>array('data-toggle'=>'modal', 'id'=>"cargar"),
-)); ?>
+)); */?>
 
 <?php 
     $value = 0;
