@@ -234,7 +234,7 @@
 <div id="grilla" style="display: none">
     
     <div id="link" style="float: right; margin-bottom: 10px;">
-        <?php echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl.'/images/pdfReportes.png'),array('formatoPDF', 'tipo'=>$tipo),array('target'=>'_blank','rel'=>'tooltip', 'data-original-title'=>'Exportar PDF')); ?>
+        <?php echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl.'/images/excelReportes.png'),array('excel', 'tipo'=>$tipo),array('target'=>'_blank','rel'=>'tooltip', 'data-original-title'=>'Exportar Excel')); ?>
     </div>
     
     
@@ -278,8 +278,9 @@
                         ),
                     ));    
                     
-                    //unset(Yii::app()->request->cookies['reportes']);
-                    //Yii::app()->request->cookies['reportes'] = new CHttpCookie('reportes', $provider);
+                    Yii::app()->getSession()->remove('reportes');
+                    Yii::app()->getSession()->add('reportes', $array);
+                    //print_r(Yii::app()->getSession()->get('reportes'));
                     break;
                 
                 case 'inventario':
@@ -317,11 +318,8 @@
                             ),       
                         ),
                     )); 
-                    Yii::app()->getSession()->remove('nombreVariable');
-                    Yii::app()->getSession()->add('nombreVariable', $array);
-                    echo '<pre>';
-                    print_r(Yii::app()->getSession()->get('nombreVariable'));
-                    echo '</pre>';
+                    Yii::app()->getSession()->remove('reportes');
+                    Yii::app()->getSession()->add('reportes', $array);
                     break;
                 
                 case 'ordenCompra':
@@ -331,30 +329,29 @@
                         'ajaxUpdate'=>'link',
                         'pagerCssClass' =>'pagination',
                         //'pager' => array('class'=>'BootPager'),
-                        'dataProvider'=>$ventas,
+                        'dataProvider'=>$provider,
                         'columns'=>array(
-
                             array(
-                                'name'=>'FACTURA',                        
+                                'name'=>'ORDEN_COMPRA',                        
                             ),
                             array(
-                                'name'=>'BODEGA',
-                                'value'=>'$data->bODEGA->DESCRIPCION',
+                                'name'=>'PROVEEDOR',
                             ),
                             array(
-                                'name'=>'CLIENTE',
-                                'value'=>'$data->cLIENTE->NOMBRE',
+                                'name'=>'FECHA',
                             ),
                             array(
-                                'name'=>'FECHA_FACTURA',                        
+                                'name'=>'BODEGA',                        
                             ),                    
                             array(
-                                'name'=>'NIVEL_PRECIO',   
-                                'value'=>'$data->nIVELPRECIO->DESCRIPCION',
+                                'name'=>'PRIORIDAD',
                             ),
-
                             array(
-                                'name'=>'TOTAL_A_FACTURAR',                        
+                                'name'=>'CONDICION_PAGO',                        
+                            ),
+                            
+                            array(
+                                'name'=>'TOTAL_A_COMPRAR',                        
                             ),
                         ),
                     ));
