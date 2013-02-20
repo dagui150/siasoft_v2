@@ -46,6 +46,7 @@ class PapeleraController extends Controller {
                 array(
                     'class' => 'application.components.ButtonPapelera',
                     'template'=>'{Restaurar}',
+                    'header'=>'Restaurar'
                 ),
             ),
         ));

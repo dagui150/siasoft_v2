@@ -49,7 +49,7 @@ if (isset($_GET['men'])){
                         'name'=>'ESQUEMA_TRABAJO',
                         'header'=>'Esquema de trabajo',
                         'value'=>'NivelPrecio::tipo($data->ESQUEMA_TRABAJO)',
-                        'filter'=>array('NORM'=>'Normal','MULT'=>'Multiplicador', 'MARG' => 'Margen', 'MARK' => 'Markup'),
+                        'filter'=>array('NORM'=>'Normal','MULT'=>'Multiplicador', 'MARG' => 'Margen'),
                     ),
 		array(
                     'class'=>'bootstrap.widgets.TbButtonColumn',

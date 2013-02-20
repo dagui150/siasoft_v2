@@ -7,7 +7,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         
         array(
             'name' => 'ARTICULO',
-                'header' => 'Codigo'
+                'header' => 'Código'
         ),
         
         array(

@@ -50,13 +50,13 @@ if (isset($_GET['men'])){
 		'OBSERVACION',
             array(
                 'name'=>'MODULO',
-                'header'=>'Modulo',
+                'header'=>'Módulo',
                 'value'=>'$data->mODULO->NOMBRE',
                 
             ),
             array(
                 'name'=>'SUBMODULO',
-                'header'=>'SubModulo',
+                'header'=>'SubMódulo',
                 'value'=>'$data->sUBMODULO->NOMBRE',
                 
             ),
@@ -87,7 +87,7 @@ if (isset($_GET['men'])){
  
 <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>
-    <h3>Crear Formato de Impresion</h3>
+    <h3>Crear Formato de Impresión</h3>
     <p class="note"><?php echo Yii::t('app','FIELDS_WITH'); ?><span class='required'> * </span><?php echo Yii::t('app','ARE_REQUIRED'); ?>.
 </p>
 </div>

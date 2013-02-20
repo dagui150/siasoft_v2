@@ -145,6 +145,8 @@ class Categoria extends CActiveRecord
                     break;
                 case 'P' : $ret = 'Proveedor';
                     break;
+                case 'A' : $ret = 'Ambos';
+                    break;
             }
             return $ret;
         }

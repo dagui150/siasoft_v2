@@ -9,12 +9,13 @@
                   type:'GET',
                   url:'/siasoft_v2/index.php?r='+$(this).attr('modelo')+'/restaurar&id='+$(this).attr('id'),
                   success:function(html){
+                      
+                     $("#mensaje").html("<div class='alert alert-success'><button type=\'button\' class=\'close\' data-dismiss=\'alert\'>&times;</button><font size=\'4\' align=\'left\'>&nbsp &nbsp <img src='<?php echo Yii::app()->baseUrl?>/images/success.png'>&nbsp&nbsp Restarurado con éxito</font></div> ");
+                        
                         $("#papelera").html(html);
                         setTimeout(function(){
                              $('#'+sub).click();
-                        }, 5000);
-                        
-                       
+                        }, 3000);
                   },
                   beforeSend:cargando()
            });
@@ -28,8 +29,8 @@
 <?php $this->pageTitle = Yii::app()->name . " - Papelera"; ?>
 <?php
 $this->breadcrumbs = array(
-    'Días' => array('index'),
-    Yii::t('app', 'MANAGE') . '',
+    'Sistema' => array('index'),
+    Yii::t('app', 'MANAGE').' Papelera',
 );
 ?>
 
@@ -46,7 +47,8 @@ $this->breadcrumbs = array(
          );
     ?>
 </div>
-
+<br>
+<div id="mensaje" style="float: left;width: 70%;"></div>
 <div id="papelera" style="float: left;width: 70%;"></div>
 
 

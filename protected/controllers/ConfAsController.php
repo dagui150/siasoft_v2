@@ -23,6 +23,12 @@ class ConfAsController extends Controller
 	public function actionCreate()
 	{
 		$model2=new ConfAs;
+                $model2->IMPUESTO1_DESC='IVA';
+                $model2->SIMBOLO_MONEDA='$';
+                $model2->PORCENTAJE_DEC='2';
+                $model2->PATRON_CCOSTO='a999';
+                
+                
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model2);
@@ -31,7 +37,7 @@ class ConfAsController extends Controller
 		{
 			$model2->attributes=$_POST['ConfAs'];
 			if($model2->save())
-				$this->redirect(array('view','id'=>$model2->ID));
+				$this->redirect(array('update','id'=>$model2->ID));
 		}
 
 		$this->render('create',array(

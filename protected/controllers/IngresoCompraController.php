@@ -230,7 +230,6 @@ class IngresoCompraController extends Controller
                 if(isset($_GET['OrdenCompraLinea']))
 			$ordenLinea->attributes=$_GET['OrdenCompraLinea'];
                 
-                
 		if(isset($_GET['Proveedor']))
 			$proveedor->attributes=$_GET['Proveedor'];
 
@@ -344,8 +343,7 @@ class IngresoCompraController extends Controller
             $warning = '';
             
             foreach($check as $id){                
-                $ingreso = IngresoCompra::model()->findByPk($id);                
-                
+                $ingreso = IngresoCompra::model()->findByPk($id); 
                 switch ($ingreso->ESTADO){
                     case 'P' :
                         $transaction=$ingreso->dbConnection->beginTransaction();
@@ -360,12 +358,12 @@ class IngresoCompraController extends Controller
                             foreach($lineas as $datos){
                                 $articulo = Articulo::model()->findByPk($datos->ARTICULO);
                                 $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos->ARTICULO,'BODEGA'=>$datos->BODEGA));
-                                //$cantidad = $this->darCantidad($existenciaBodega, $datos->CANTIDAD_ACEPTADA, $datos->UNIDAD_ORDENADA);
+                                $cantidad = $this->darCantidad($existenciaBodega, $datos->CANTIDAD_ACEPTADA, $datos->UNIDAD_ORDENADA);
 
                                 if($existenciaBodega){
                                         /*$existenciaBodega->CANT_DISPONIBLE = $existenciaBodega->CANT_DISPONIBLE + $datos->CANTIDAD_ACEPTADA;                                        
                                         $existenciaBodega->save(); //- La cantidad aceptada para el articulo exede a la maxima permitida;     */ 
-                                        $valor = $existenciaBodega->CANT_DISPONIBLE + $datos->CANTIDAD_ACEPTADA;
+                                        $valor = $existenciaBodega->CANT_DISPONIBLE + $cantidad;
                                         ExistenciaBodega::model()->updateByPk($existenciaBodega->ID, array('CANT_DISPONIBLE'=>$valor));
                                 }else{                                
                                     $existenciaBodega = new ExistenciaBodega;
@@ -408,7 +406,7 @@ class IngresoCompraController extends Controller
                             <h2 align="center">Operacion Satisfactoria</h2>
                             </div>
                                  <span id="form-cargado" style="display:none">';     
-                                    $this->renderPartial('_aplicar');
+                                    $this->renderPartial('_aplicar');                                    
                                  echo '</span>                      
                          <div id="boton-cargado" class="modal-footer">';
                             $this->widget('bootstrap.widgets.TbButton', array(
@@ -434,8 +432,8 @@ class IngresoCompraController extends Controller
             
             foreach($lineas as $datos){  
                 //Transaccion Inv Detalle                
-               // $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos->ARTICULO,'BODEGA'=>$datos->BODEGA));
-                //$cantidad = $this->darCantidad($existenciaBodega, $datos->CANTIDAD_ACEPTADA, $datos->UNIDAD_ORDENADA);
+                $existenciaBodega = ExistenciaBodega::model()->findByAttributes(array('ARTICULO'=>$datos->ARTICULO,'BODEGA'=>$datos->BODEGA));
+                $cantidad = $this->darCantidad($existenciaBodega, $datos->CANTIDAD_ACEPTADA, $datos->UNIDAD_ORDENADA);
                 $detalle = new TransaccionInvDetalle;
                 $detalle->TRANSACCION_INV = $transaccion->TRANSACCION_INV;
                 $detalle->LINEA = $datos->LINEA_NUM;
@@ -443,7 +441,7 @@ class IngresoCompraController extends Controller
                 $detalle->UNIDAD = $datos->UNIDAD_ORDENADA;
                 $detalle->BODEGA = $datos->BODEGA;
                 $detalle->NATURALEZA = 'E';
-                $detalle->CANTIDAD = $datos->CANTIDAD_ACEPTADA;
+                $detalle->CANTIDAD = $cantidad;
                 $detalle->COSTO_UNITARIO = $datos->COSTO_FISCAL_UNITARIO;
                 $detalle->PRECIO_UNITARIO = $datos->PRECIO_UNITARIO;
                 $detalle->ACTIVO = 'S';
@@ -499,20 +497,14 @@ class IngresoCompraController extends Controller
                         break;
                 }
             }
-            $mensajeSucces = MensajeSistema::model()->findByPk('S002');
-            $mensajeError = MensajeSistema::model()->findByPk('E001');
-            $mensajeWarning = MensajeSistema::model()->findByPk('A001');
-            
             if($contSucces !=0)
-                Yii::app()->user->setFlash($mensajeSucces->TIPO, '<h4 align="center">'.$mensajeSucces->MENSAJE.': <br>'.$contSucces.' Ingreso(s)<br>('.$succes.')</h4>');
+                $this->men_compras('S002', '/images/success.png', $contSucces, $succes);
             
             if($contError !=0)
-                Yii::app()->user->setFlash($mensajeError->TIPO, '<h4 align="center">'.$mensajeError->MENSAJE.': <br>'.$contError.' Ingreso(s) no Aplicados<br>('.$error.')</h4>');
+                $this->men_compras('E001', '/images/error.png', $contError, $error);
             
             if($contWarning !=0)
-                Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h4 align="center">'.$mensajeWarning->MENSAJE.': <br>'.$contWarning.' Ingreso(s) ya Aplicados<br>('.$warning.')</h4>');
-            
-            $this->widget('bootstrap.widgets.TbAlert'); 
+                $this->men_compras('A001', '/images/warning.png', $contWarning, $warning);
         }
         
         protected function modificarExistencias($documento){
@@ -560,20 +552,14 @@ class IngresoCompraController extends Controller
                  $documento->save();
             }
                        
-            $mensajeSucces = MensajeSistema::model()->findByPk('S001');
-            $mensajeError = MensajeSistema::model()->findByPk('E001');
-            $mensajeWarning = MensajeSistema::model()->findByPk('A001');            
-            
-           if($contSucces !=0)
-                Yii::app()->user->setFlash($mensajeSucces->TIPO, '<h3 align="center">'.$mensajeSucces->MENSAJE.': '.$contSucces.' Documento(s) Cancelados<br>('.$succes.')</h3>');
+            if($contSucces !=0)
+                $this->men_compras('S001', '/images/success.png', $contSucces, $succes);
             
             if($contError !=0)
-                Yii::app()->user->setFlash($mensajeError->TIPO, '<h3 align="center">'.$mensajeError->MENSAJE.': '.$contError.' Documento(s) no Cancelados<br>('.$error.')</h3>');
+                $this->men_compras('E001', '/images/error.png', $contError, $error);
             
             if($contWarning !=0)
-                Yii::app()->user->setFlash($mensajeWarning->TIPO, '<h3 align="center">'.$mensajeWarning->MENSAJE.': '.$contWarning.' Documento(s) ya Cancelados<br>('.$warning.')</h3>');
-            
-           $this->widget('bootstrap.widgets.TbAlert');
+                $this->men_compras('A001', '/images/warning.png', $contWarning, $warning);
             
         }
 }

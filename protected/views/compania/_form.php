@@ -10,7 +10,7 @@ function Elimina(){
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'compania-form',
 	'htmlOptions' => array('enctype' => 'multipart/form-data'),
-	'enableAjaxValidation'=>false,
+	'enableAjaxValidation'=>true,
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),

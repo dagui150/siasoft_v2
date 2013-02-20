@@ -125,7 +125,7 @@ class ArticuloEnsamble extends CActiveRecord
                         'defaults'=>array(
                            'class'=>'application.components.FormatBehavior',
                            'formats'=> array(
-                                   'CANTIDAD'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO), 
+                                   'CANTIDAD'=>'###,##0.'.str_repeat('0',isset($conf2->DECIMALES_PRECIO)?$conf2->DECIMALES_PRECIO:'2'), 
                             ),
                         ),
                         

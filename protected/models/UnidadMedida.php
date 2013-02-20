@@ -79,7 +79,7 @@ class UnidadMedida extends CActiveRecord
                         'defaults'=>array(
                            'class'=>'application.components.FormatBehavior',
                            'formats'=> array(
-                                   'EQUIVALENCIA'=>'###,##0.'.str_repeat('0',$conf->EXISTENCIAS_DEC), 
+                                   'EQUIVALENCIA'=>'###,##0.'.str_repeat('0',isset($conf->EXISTENCIAS_DEC)?$conf->EXISTENCIAS_DEC:'2'), 
                                    
                             ),
                         ),

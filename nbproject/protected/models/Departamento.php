@@ -68,7 +68,7 @@ class Departamento extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
+			'ID' => 'Código',
 			'DESCRIPCION' => 'Descripcion',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',

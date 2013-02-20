@@ -85,7 +85,7 @@ class HorarioConcepto extends CActiveRecord
 			'DIA' => 'Dia',
 			'HORA_INICIO' => 'Hora Inicio',
 			'HORA_FIN' => 'Hora Fin',
-			'OBSERVACION' => 'Observacion',
+			'OBSERVACION' => 'Observación',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',

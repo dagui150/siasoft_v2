@@ -128,8 +128,8 @@ class ArticuloPrecio extends CActiveRecord
                         'defaults'=>array(
                            'class'=>'application.components.FormatBehavior',
                            'formats'=> array(
-                                   'PRECIO'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO), 
-                                   'MARGEN_MULTIPLICADOR'=>'###,##0.'.str_repeat('0',$conf->PORCENTAJE_DEC), 
+                                   'PRECIO'=>'###,##0.'.str_repeat('0',isset($conf2->DECIMALES_PRECIO)?$conf2->DECIMALES_PRECIO:'2'), 
+                                   'MARGEN_MULTIPLICADOR'=>'###,##0.'.str_repeat('0',isset($conf->PORCENTAJE_DEC)?$conf->PORCENTAJE_DEC:'2'), 
                             ),
                         ),
                         

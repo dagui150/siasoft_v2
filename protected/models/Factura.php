@@ -149,13 +149,13 @@ class Factura extends CActiveRecord
                         'defaults'=>array(
                            'class'=>'application.components.FormatBehavior',
                            'formats'=> array(
-                               'TOTAL_MERCADERIA'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
-                                'MONTO_ANTICIPO'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
-                                'MONTO_FLETE'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
-                                'MONTO_SEGURO'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
-                                'MONTO_DESCUENTO1'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
-                                'TOTAL_IMPUESTO1'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
-                                'TOTAL_A_FACTURAR'=>'###,##0.'.str_repeat('0',$conf2->DECIMALES_PRECIO),
+                               'TOTAL_MERCADERIA'=>'###,##0.'.str_repeat('0',isset($conf2->DECIMALES_PRECIO)?$conf2->DECIMALES_PRECIO:'2'),
+                                'MONTO_ANTICIPO'=>'###,##0.'.str_repeat('0',isset($conf2->DECIMALES_PRECIO)?$conf2->DECIMALES_PRECIO:'2'),
+                                'MONTO_FLETE'=>'###,##0.'.str_repeat('0',isset($conf2->DECIMALES_PRECIO)?$conf2->DECIMALES_PRECIO:'2'),
+                                'MONTO_SEGURO'=>'###,##0.'.str_repeat('0',isset($conf2->DECIMALES_PRECIO)?$conf2->DECIMALES_PRECIO:'2'),
+                                'MONTO_DESCUENTO1'=>'###,##0.'.str_repeat('0',isset($conf2->DECIMALES_PRECIO)?$conf2->DECIMALES_PRECIO:'2'),
+                                'TOTAL_IMPUESTO1'=>'###,##0.'.str_repeat('0',isset($conf2->DECIMALES_PRECIO)?$conf2->DECIMALES_PRECIO:'2'),
+                                'TOTAL_A_FACTURAR'=>'###,##0.'.str_repeat('0',isset($conf2->DECIMALES_PRECIO)?$conf2->DECIMALES_PRECIO:'2'),
                                 
                             ),
                         ),

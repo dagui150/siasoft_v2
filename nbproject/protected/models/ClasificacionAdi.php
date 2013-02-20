@@ -92,7 +92,7 @@ class ClasificacionAdi extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
+			'ID' => 'Código',
 			'NOMBRE' => 'Nombre',
 			'POSICION' => 'Posicion',
 			'ACTIVO' => 'Activo',

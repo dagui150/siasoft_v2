@@ -16,7 +16,7 @@ function reescribir(){
     $('.close').click();
     $('#alert').remove();
     $('#form-cargado').slideDown('slow');
-    $('#boton-cargado').remove();   
+    $('#boton-cargado').remove();
     $.fn.yiiGridView.update('ingreso-compra-grid');
     
     var id;
@@ -36,8 +36,6 @@ $(document).ready(function(){
         'success':function(html){jQuery("#cargando").html(html)}});
     });
 });
-
-function buscar(){}
 </script>
 <?php $this->pageTitle=Yii::app()->name." - Ingreso Compras";?>
 <?php

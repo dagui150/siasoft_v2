@@ -15,7 +15,7 @@ class DSpacesValidator extends CValidator
          *
          * @var String $spacesPattern
          */
-        public $spacesPattern = '/\W/';
+        public $spacesPattern = '/\s/';
         
         public $message = '{attribute} no puede contener espacios.';
 	

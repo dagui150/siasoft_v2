@@ -79,9 +79,9 @@ class FormatoImpresion extends CActiveRecord {
         return array(
             'ID' => 'ID',
             'NOMBRE' => 'Nombre',
-            'OBSERVACION' => 'Observacion',
-            'MODULO' => 'Modulo',
-            'SUBMODULO' => 'Submodulo',
+            'OBSERVACION' => 'Observación',
+            'MODULO' => 'Módulo',
+            'SUBMODULO' => 'SubMódulo',
             'PLANTILLA' => 'Formato',
             'ACTIVO' => 'Activo',
             'CREADO_POR' => 'Creado Por',
