@@ -177,23 +177,7 @@
 
         <?php
                 $this->conf = ConfFa::model()->find();
-                $calendario = $this->widget('zii.widgets.jui.CJuiDatePicker',
-                         array(
-                              'model'=>$model,
-                              'attribute'=>'FECHA_INGRESO',
-                              'language'=>'es',
-                              'options'=>array(
-                                     'changeMonth'=>true,
-                                     'changeYear'=>true,
-                                     'dateFormat'=>'yy-mm-dd',
-                                     'constrainInput'=>'false',
-                                     'showAnim'=>'fadeIn',
-                                     'showOn'=>'button',
-                                     'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif',
-                                     'buttonImageOnly'=>true,
-                              ),
-                              'htmlOptions'=>array('style'=>'width:80px;vertical-align:top'),
-                ),true);
+                $calendario = $this->darCalendario($model, 'FECHA_INGRESO', null);
                 
                 $autocompletarNit = $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                     'model'=>$model,

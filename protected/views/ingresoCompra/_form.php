@@ -57,22 +57,8 @@ function cargaProveedorGrilla (grid_id){
 
 <?php
             //Campos de fecha
-            $fecha = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-		'attribute'=>'FECHA_INGRESO',
-                'model'=>$model,
-		'language'=>'es',
-		'options'=>array(
-			'showAnim'=>'fadeIn', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
-			'dateFormat'=>'yy-mm-dd',
-			'changeMonth'=>true,
-			'changeYear'=>true,
-			'showOn'=>'both', // 'focus', 'button', 'both'
-			'buttonText'=>Yii::t('ui','Select form calendar'), 
-			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
-			'buttonImageOnly'=>true,
-		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>date("Y-m-d")),  
-            ), true); ?>
+            $fecha = $this->darCalendario($model, 'FECHA_INGRESO', null);
+    ?>
     
     
     <?php 

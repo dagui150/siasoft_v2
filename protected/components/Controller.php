@@ -26,13 +26,29 @@ class Controller extends CController
          * @return string Boton de bootstrap popover 
          */
 	public function botonAyuda($texto) {
-            $boton = $this->widget('bootstrap.widgets.TbButton', array(
-                        'type' => 'nommal', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-                        'size' => 'normal', // '', 'large', 'small' or 'mini'
-                        'icon' => 'info-sign',
-                        'htmlOptions'=>array('data-title'=>'Ayuda', 'data-content'=>Yii::t('ayuda',$texto), 'rel'=>'popover', 'class'=>'botonAyuda'),
-                    ),true);
-            return $boton;
+            $animacion=array(
+                'fade',
+                'grow',
+                'swing',
+                'fall',
+            );
+            $this->widget('ext.tooltipster.tooltipster',array(
+                          'identifier'=>'.men-ayuda',
+                          'options'=>array(
+                                'animation'=>$animacion[rand(0,3)],
+                                'iconTouch'=>true,
+                                'delay'=>10,
+                                'fixedWidth'=>300,
+                                'position'=>'right',
+                                'interactive'=>true,
+                                'interactiveTolerance'=>'5000',
+                                'speed'=>800,
+                                'theme'=>'.tooltipster-shadow',
+                                'trigger'=>'hover'
+                           )
+                    ));
+            $imagen= CHtml::image(Yii::app()->baseUrl."/images/warning.png",'Ayuda',array('class'=>'img men-ayuda','title'=>Yii::t('ayuda',$texto), 'style'=>'width: 20px;'));
+            return $imagen;
         }
 	/**
          * este metodo sera lamado para mostrar el mensaje al momento de borrar un registro
@@ -414,10 +430,42 @@ class Controller extends CController
                                      'constrainInput'=>'false',
                                      'showAnim'=>'fadeIn',
                                      'showOn'=>'both',
+                                    'buttonText'=>Yii::t('ui','Seleccione una fecha'), 
                                      'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif',
                                      'buttonImageOnly'=>true,
                               ),
                               'htmlOptions'=>$htmlOptions,
                 ),true);
         }
+        
+        /**
+    * Metodo para mostrar botones del CGridView
+    * Segun Permisos, Recibe como parametro
+    * los nombres de las 3 acciones del widget
+    *
+    * @param string $view
+    * @param string $update
+    * @param string $delete
+    * @return mixed $respuesta
+    */
+   public function getAccess($view,$update,$delete){
+       $respuesta = array(
+           'class'=>'CButtonColumn',
+           'template'=>'',
+           'htmlOptions'=>array('style'=>'width: 50px'),
+           'afterDelete'=>$this->mensajeBorrar(),
+       );
+       if(isset($view) && Yii::app()->user->checkAccess($view))
+               $respuesta['template'] .='{view}';
+       if(isset($update) && Yii::app()->user->checkAccess($update))
+           $respuesta['template'] .='{update}';
+       if(isset($delete) && Yii::app()->user->checkAccess($delete))
+           $respuesta['template'] .='{delete}';
+       if($respuesta['template'] != '')
+               $respuesta['visible'] = true;
+       else
+           $respuesta['visible'] = false;
+       return $respuesta;
+       
+   }
 }

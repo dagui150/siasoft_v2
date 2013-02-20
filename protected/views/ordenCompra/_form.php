@@ -101,90 +101,11 @@ $(document).ready(function(){
     
         <?php
             //Campos de fecha
-            $fecha = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-		'attribute'=>'FECHA',
-                'model'=>$model,
-		'language'=>'es',
-		'options'=>array(
-			'showAnim'=>'fadeIn', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
-			'dateFormat'=>'yy-mm-dd',
-			'changeMonth'=>true,
-			'changeYear'=>true,
-			'showOn'=>'both', // 'focus', 'button', 'both'
-			'buttonText'=>Yii::t('ui','Select form calendar'), 
-			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
-			'buttonImageOnly'=>true,
-		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA, 'disabled'=>$readonly),  
-            ), true); 
-            
-            $fecha2 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-		'attribute'=>'FECHA_COTIZACION',
-                'model'=>$model,
-		'language'=>'es',
-		'options'=>array(
-			'showAnim'=>'fadeIn', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
-			'dateFormat'=>'yy-mm-dd',
-			'changeMonth'=>true,
-			'changeYear'=>true,
-			'showOn'=>'both', // 'focus', 'button', 'both'
-			'buttonText'=>Yii::t('ui','Select form calendar'), 
-			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
-			'buttonImageOnly'=>true,
-		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_COTIZACION, 'disabled'=>$readonly),  
-            ), true); 
-            
-            $fecha3 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-		'attribute'=>'FECHA_OFRECIDA',
-                'model'=>$model,
-		'language'=>'es',
-		'options'=>array(
-			'showAnim'=>'fadeIn', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
-			'dateFormat'=>'yy-mm-dd',
-			'changeMonth'=>true,
-			'changeYear'=>true,
-			'showOn'=>'both', // 'focus', 'button', 'both'
-			'buttonText'=>Yii::t('ui','Select form calendar'), 
-			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
-			'buttonImageOnly'=>true,
-		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_OFRECIDA, 'disabled'=>$readonly),  
-            ), true); 
-            
-            $fecha4 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-		'attribute'=>'FECHA_REQUERIDA',
-                'model'=>$model,
-		'language'=>'es',
-		'options'=>array(
-			'showAnim'=>'fadeIn', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
-			'dateFormat'=>'yy-mm-dd',
-			'changeMonth'=>true,
-			'changeYear'=>true,
-			'showOn'=>'both', // 'focus', 'button', 'both'
-			'buttonText'=>Yii::t('ui','Select form calendar'), 
-			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
-			'buttonImageOnly'=>true,
-		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top', 'value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_REQUERIDA, 'disabled'=>$readonly),  
-            ), true); 
-            
-            $fecha5 = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-		'attribute'=>'FECHA_REQ_EMBARQUE',
-                'model'=>$model,
-		'language'=>'es',
-		'options'=>array(
-			'showAnim'=>'fadeIn', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
-			'dateFormat'=>'yy-mm-dd',
-			'changeMonth'=>true,
-			'changeYear'=>true,
-			'showOn'=>'both', // 'focus', 'button', 'both'
-			'buttonText'=>Yii::t('ui','Select form calendar'), 
-			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif', 
-			'buttonImageOnly'=>true,
-		),
-            'htmlOptions'=>array('style'=>'width:80px;vertical-align:top','value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_REQ_EMBARQUE, 'disabled'=>$readonly),  
-            ), true); 
+            $fecha = $this->darCalendario($model, 'FECHA', null, array('style'=>'width:80px;vertical-align:top','value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA, 'disabled'=>$readonly));
+            $fecha2 = $this->darCalendario($model, 'FECHA_COTIZACION', null, array('style'=>'width:80px;vertical-align:top','value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_COTIZACION, 'disabled'=>$readonly));
+            $fecha3 = $this->darCalendario($model, 'FECHA_OFRECIDA', null, array('style'=>'width:80px;vertical-align:top','value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_OFRECIDA, 'disabled'=>$readonly));
+            $fecha4 = $this->darCalendario($model, 'FECHA_REQUERIDA', null, array('style'=>'width:80px;vertical-align:top','value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_REQUERIDA, 'disabled'=>$readonly));
+            $fecha5 = $this->darCalendario($model, 'FECHA_REQ_EMBARQUE', null, array('style'=>'width:80px;vertical-align:top','value'=>$model->isNewRecord ? date("Y-m-d") : $model->FECHA_REQ_EMBARQUE, 'disabled'=>$readonly));
         ?>
     
 	<?php 

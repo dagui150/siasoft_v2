@@ -81,23 +81,7 @@
             'type'=>'horizontal',
     )); 
     echo '<br>'.$form->errorSummary($model);
-    $calendario = $this->widget('zii.widgets.jui.CJuiDatePicker',
-                         array(
-                              'model'=>$model,
-                              'attribute'=>'FECHA_DOCUMENTO',
-                              'language'=>'es',
-                              'options'=>array(
-                                     'changeMonth'=>true,
-                                     'changeYear'=>true,
-                                     'dateFormat'=>'yy-mm-dd',
-                                     'constrainInput'=>'false',
-                                     'showAnim'=>'fadeIn',
-                                     'showOn'=>'button',
-                                     'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif',
-                                     'buttonImageOnly'=>true,
-                              ),
-                              'htmlOptions'=>array('style'=>'width:80px;vertical-align:top','disabled'=>$model->ESTADO == 'P' ? false : true),
-                ),true);
+    $calendario = $this->darCalendario($model, 'FECHA_DOCUMENTO', null, array('style'=>'width:80px;vertical-align:top','disabled'=>$model->ESTADO == 'P' ? false : true));
 ?>
 
         <table>
