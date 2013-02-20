@@ -14,7 +14,7 @@
                         'visible'=>$check
                     ),
                     array(  'name'=>'ARTICULO',
-                        'header'=>'Codigo',
+                        'header'=>'Código',
                         'htmlOptions'=>array('data-dismiss'=>'modal'),
                         'type'=>'raw',
                         'value'=>'CHtml::link($data->ARTICULO,"#")'

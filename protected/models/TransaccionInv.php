@@ -100,7 +100,7 @@ class TransaccionInv extends CActiveRecord
 			'CONSECUTIVO_CI' => 'Consecutivo Ci',
 			'CONSECUTIVO_CO' => 'Consecutivo Co',
 			'CONSECUTIVO_FA' => 'Consecutivo Fa',
-			'MODULO_ORIGEN' => 'Modulo Origen',
+			'MODULO_ORIGEN' => 'Módulo Origen',
 			'REFERENCIA' => 'Referencia',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',

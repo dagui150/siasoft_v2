@@ -33,7 +33,7 @@
                 <textarea class="template" rows="0" cols="0" style="display: none;">
                                 <tr class="templateContent">
                                 
-                                    <td> <?php echo CHtml::dropDownList('LineaNueva[{0}][TIIPO_DOCUMENTO]', '', CHtml::listData(TipoDocumento::model()->findAll(),'ID','DESCRIPCION'), array('empty'=>'Seleccione...','class'=>'tipos')); ?></td>
+                                    <td> <?php echo CHtml::dropDownList('LineaNueva[{0}][TIIPO_DOCUMENTO]', '', CHtml::listData(TipoDocumento::model()->findAll("ACTIVO='S'"),'ID','DESCRIPCION'), array('empty'=>'Seleccione...','class'=>'tipos')); ?></td>
                                     <td> <?php echo CHtml::textField('LineaNueva[{0}][ID]', ''); ?></td>
                                     <td> <?php echo CHtml::textField('LineaNueva[{0}][RAZON_SOCIAL]', ''); ?> </td>
                                     <td> <?php echo CHtml::textField('LineaNueva[{0}][ALIAS]', ''); ?> </td>
@@ -60,7 +60,7 @@
                 <td>
                                    
                     
-                    <?php echo CHtml::activeDropDownList($concep, "[$i]TIIPO_DOCUMENTO", CHtml::listData(TipoDocumento::model()->findAll(),'ID','DESCRIPCION')); ?>                          
+                    <?php echo CHtml::activeDropDownList($concep, "[$i]TIIPO_DOCUMENTO", CHtml::listData(TipoDocumento::model()->findAll("ACTIVO='S'"),'ID','DESCRIPCION')); ?>                          
                 </td>
                 
                 <td>

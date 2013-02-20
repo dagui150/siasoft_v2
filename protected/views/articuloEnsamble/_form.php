@@ -377,7 +377,7 @@
             'filter'=>$articulo,
             'columns'=>array(
                 array(  'name'=>'ARTICULO',
-                        'header'=>'Codigo Articulo',
+                        'header'=>'Código Articulo',
                         'htmlOptions'=>array('data-dismiss'=>'modal'),
                         'type'=>'raw',
                         'value'=>'CHtml::link($data->ARTICULO,"#")'
@@ -415,7 +415,7 @@
             'filter'=>$articulo,
             'columns'=>array(
                 array(  'name'=>'ARTICULO',
-                        'header'=>'Codigo Articulo',
+                        'header'=>'Código Articulo',
                         'htmlOptions'=>array('data-dismiss'=>'modal'),
                         'type'=>'raw',
                         'value'=>'CHtml::link($data->ARTICULO,"#")'

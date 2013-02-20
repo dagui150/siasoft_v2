@@ -28,7 +28,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Ver Formato de Impresion <?php echo $model->ID; ?></h1>
+<h1>Ver Formato de Impresión <?php echo $model->ID; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -38,13 +38,13 @@ $this->menu=array(
 		'OBSERVACION',
             array(
                 'name'=>'MODULO',
-                'header'=>'Modulo',
+                'header'=>'Módulo',
                 'value'=>$model->mODULO->NOMBRE,
                 
             ),
             array(
                 'name'=>'SUBMODULO',
-                'header'=>'SubModulo',
+                'header'=>'SubMódulo',
                 'value'=>$model->sUBMODULO->NOMBRE,
                 
             ),

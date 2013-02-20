@@ -119,8 +119,20 @@ class Controller extends CController
             $valorunformat=strtr(strtr($valor, $trans), $trans2);
             return $valorunformat;
         }
-	
-	/**
+        /**
+         * Este metodo es usado para verificar si ya se ha creado una configuracion
+         * en cualquier modulo del sitema
+         * @return boolean Retorna true si la configuracion ya ha sido creada, 
+         * y false si aun no ha sido configurada.
+         */
+        protected function isConfig($model) {
+        $model = new $model;
+        if ($model->find())
+            return true;
+        return false;
+    }
+
+        /**
          * Este metodo sera llamado para retornar el menu del sistema
 	 * con los items desplegados por cruge y extras como logout
          * @return array con los items para un menu 
@@ -136,6 +148,8 @@ class Controller extends CController
         $fac = ConfFa::model()->find();
         $compa = Compania::model()->find();
         $admin = ConfAs::model()->find();
+        
+        $faltaConfig = array('style'=>'background-color: #BEF781;font-style: italic;font-weight: bold;');
 				
 		$this->menu = array(
                             array('label' => 'Inicio', 'url' => array('/site/index')),
@@ -152,10 +166,12 @@ class Controller extends CController
                                     array('label'=>'Pedidos', 'url'=>array('/pedido/admin')),
                                     array('label'=>'Facturas', 'url'=>array('/factura/admin')),
                                     '-',
-                                    array('label'=>'Clientes', 'url'=>array('/cliente/admin')),	
-                                    array('label'=>'Consecutivos', 'url'=>array('/consecutivoFa/admin')),
-                                    array('label' => 'Configuración', 'url' => $fac ? array('/confFa/update', 'id' => $fac->ID) : array('/confFa/create')),
-								)
+                                    array('label'=>'Clientes', 'url'=>array('/cliente/admin'),'linkOptions'=>$this->isConfig('Cliente') ? array(): $faltaConfig),
+                                    array('label'=>'Consecutivos', 'url'=>array('/consecutivoFa/admin'),'linkOptions'=>$this->isConfig('ConsecutivoFa') ? array(): $faltaConfig),
+                                    array('label' => 'Configuración', 'url' => $fac ? array('/confFa/update', 'id' => $fac->ID) : array('/confFa/create'),'linkOptions'=>$this->isConfig('ConfFa') ? array(): $faltaConfig),
+                                    '-',
+                                    array('label'=>'Ayuda', 'url'=>'http://tramasoft.com/manuales-siasoft/Modulo%206%20-%20Facturacion.pdf','linkOptions'=>array('target'=>'_blank')),
+                                    )
 							),
                             array('label' => 'Compras', 'url' => '#',
                                 'items' => array(
@@ -163,8 +179,11 @@ class Controller extends CController
                                     array('label' => 'Ordenes', 'url' => array('/ordenCompra/admin')),
                                     array('label' => 'Ingresos', 'url' => array('/ingresoCompra/admin')),
                                     '-',
-                                    array('label' => 'Proveedores', 'url' => array('/proveedor/admin')),
-                                    array('label' => 'Configuración', 'url' => $com ? array('/confCo/update', 'id' => $com->ID) : array('/confCo/create')),
+                                    array('label' => 'Proveedores', 'url' => array('/proveedor/admin'),'linkOptions'=>$this->isConfig('Proveedor') ? array(): $faltaConfig),
+                                    array('label' => 'Configuración', 'url' => $com ? array('/confCo/update', 'id' => $com->ID) : array('/confCo/create'),'linkOptions'=>$this->isConfig('ConfCo') ? array(): $faltaConfig),
+                                    '-',
+                                    array('label'=>'Ayuda', 'url'=>'http://tramasoft.com/manuales-siasoft/Modulo%205%20-%20Compras.pdf','linkOptions'=>array('target'=>'_blank')),
+                                    
                                 )
                             ),
                             array('label' => 'Inventario', 'url' => '#',
@@ -177,40 +196,49 @@ class Controller extends CController
                                     '-',
                                     array('label' => 'Tipos de artículo', 'url' => array('/tipoArticulo/admin')),
                                     array('label' => 'Metodos de Valuacion', 'url' => array('/metodoValuacionInv/admin')),
-                                    array('label' => 'Tipos de Transacción', 'url' => array('/tipoTransaccion/admin')),
-                                    array('label' => 'Consecutivos', 'url' => array('/consecutivoCi/admin')),
-                                    array('label' => 'Unidades de medida', 'url' => array('/unidadMedida/admin')),
-                                    array('label' => 'Configuración', 'url' => array('/confCi/create')),
+                                    array('label' => 'Tipos de Transacción', 'url' => array('/tipoTransaccion/admin'),'linkOptions'=>$this->isConfig('TipoTransaccion') ? array(): $faltaConfig),
+                                    array('label' => 'Consecutivos', 'url' => array('/consecutivoCi/admin'),'linkOptions'=>$this->isConfig('ConsecutivoCi') ? array(): $faltaConfig),
+                                    array('label' => 'Unidades de medida', 'url' => array('/unidadMedida/admin'),'linkOptions'=>$this->isConfig('UnidadMedida') ? array(): $faltaConfig),
+                                    array('label' => 'Configuración', 'url' => array('/confCi/create'),'linkOptions'=>$this->isConfig('ConfCi') ? array(): $faltaConfig),
+                                    '-',
+                                    array('label'=>'Ayuda', 'url'=>'http://tramasoft.com/manuales-siasoft/Modulo%204%20-%20Inventario.pdf','linkOptions'=>array('target'=>'_blank')),
+                                    
                                 )
                             ),
 							
                             array('label' => 'Sistema', 'url' => '#',
                                 'items' => array(
-                                    array('label' => Yii::t('app', 'COMPANY'), 'url' => $compa ? array('/compania/update', 'id' => $compa->ID) : array('/compania/create')),
-                                    array('label' => Yii::t('app', 'ADMINISTRATION_SETTINGS'), 'url' => $admin ? array('/confAs/update', 'id' => $admin->ID) : array('/confAs/create')),
-                                    array('label' => 'Zonas', 'url' => array('/zona/admin')),
-                                    array('label' => 'Bodegas', 'url' => array('/bodega/admin')),
-                                    array('label' => 'Categorías clientes y proveedores', 'url' => array('/categoria/admin')),
-                                    array('label' => 'Centros de costos', 'url' => array('/centroCostos/admin')),
-                                    array('label' => 'Condiciónes de pago', 'url' => array('/codicionPago/admin')),
-                                    array('label' => 'Dependencias', 'url' => array('/departamento/admin')),
-                                    array('label' => 'Tipos de documento', 'url' => array('/tipoDocumento/admin')),
-                                    array('label' => 'Relación de Nits', 'url' => array('nit/admin')),
-                                    array('label' => 'Entidades Financieras', 'url' => array('/entidadFinanciera/admin')),
-                                    array('label'=>'Tipos de precio', 'url'=>array('/nivelPrecio/admin')),
-                                    array('label' => 'Tipos de tarjeta', 'url' => array('/tipoTarjeta/admin')),
-                                    array('label' => 'Días Feriados', 'url' => array('/diaFeriado/admin')),
-                                    array('label' => 'Administración de Reportes', 'url' => array('/formatoImpresion/admin')),
+                                    array('label' => Yii::t('app', 'COMPANY'), 'url' => $compa ? array('/compania/update', 'id' => $compa->ID) : array('/compania/create'),'linkOptions'=>$this->isConfig('Compania') ? array(): $faltaConfig),
+                                    array('label' => Yii::t('app', 'ADMINISTRATION_SETTINGS'), 'url' => $admin ? array('/confAs/update', 'id' => $admin->ID) : array('/confAs/create'),'linkOptions'=>$this->isConfig('ConfAs') ? array(): $faltaConfig),
+                                    array('label' => 'Zonas', 'url' => array('/zona/admin'),'linkOptions'=>$this->isConfig('Zona') ? array(): $faltaConfig),
+                                    array('label' => 'Bodegas', 'url' => array('/bodega/admin'),'linkOptions'=>$this->isConfig('Bodega') ? array(): $faltaConfig),
+                                    array('label' => 'Categorías clientes y proveedores', 'url' => array('/categoria/admin'),'linkOptions'=>$this->isConfig('Categoria') ? array(): $faltaConfig),
+                                    array('label' => 'Centros de costos', 'url' => array('/centroCostos/admin'),'linkOptions'=>$this->isConfig('CentroCostos') ? array(): $faltaConfig),
+                                    array('label' => 'Condiciónes de pago', 'url' => array('/codicionPago/admin'),'linkOptions'=>$this->isConfig('CodicionPago') ? array(): $faltaConfig),
+                                    array('label' => 'Dependencias', 'url' => array('/departamento/admin'),'linkOptions'=>$this->isConfig('Departamento') ? array(): $faltaConfig),
+                                    array('label' => 'Tipos de documento', 'url' => array('/tipoDocumento/admin'),'linkOptions'=>$this->isConfig('TipoDocumento') ? array(): $faltaConfig),
+                                    array('label' => 'Relación de Nits', 'url' => array('nit/admin'),'linkOptions'=>$this->isConfig('Nit') ? array(): $faltaConfig),
+                                    array('label' => 'Entidades Financieras', 'url' => array('/entidadFinanciera/admin'),'linkOptions'=>$this->isConfig('EntidadFinanciera') ? array(): $faltaConfig),
+                                    array('label'=>'Tipos de precio', 'url'=>array('/nivelPrecio/admin'),'linkOptions'=>$this->isConfig('NivelPrecio') ? array(): $faltaConfig),
+                                    array('label' => 'Tipos de tarjeta', 'url' => array('/tipoTarjeta/admin'),'linkOptions'=>$this->isConfig('TipoTarjeta') ? array(): $faltaConfig),
+                                    array('label' => 'Días Feriados', 'url' => array('/diaFeriado/admin'),'linkOptions'=>$this->isConfig('DiaFeriado') ? array(): $faltaConfig),
+                                    array('label' => 'Administración de Reportes', 'url' => array('/formatoImpresion/admin'),'linkOptions'=>$this->isConfig('FormatoImpresion') ? array(): $faltaConfig),
                                     array('label' => 'Papelera de Reciclaje', 'url' => array('/Papelera/index')),
+                                    '-',
+                                    array('label'=>'Ayuda', 'url'=>'http://tramasoft.com/manuales-siasoft/Modulo%203%20-%20Sistema.pdf','linkOptions'=>array('target'=>'_blank')),
+                                    
                             )),
                     array('label' => 'Varios', 'url' => '#',
                                 'items' => array(
-                                    array('label' => Yii::t('app', 'COUNTRY'), 'url' => array('pais/admin')),
+                                    array('label' => Yii::t('app', 'COUNTRY'), 'url' => array('/pais/admin')),
                                     array('label' => 'Departamento', 'url' => array('/ubicacionGeografica1/admin')),
                                     array('label' => 'Municipio', 'url' => array('/ubicacionGeografica2/admin')),
                                     array('label' => 'Impuestos', 'url' => array('/impuesto/admin')),
-                                    array('label' => 'Retenciónes', 'url' => array('/retencion/admin')),
+                                    array('label' => 'Retenciones', 'url' => array('/retencion/admin')),
                                     array('label'=>'Régimen Tributario', 'url'=>array('/regimenTributario/admin')),
+                                    '-',
+                                    array('label'=>'Ayuda', 'url'=>'http://tramasoft.com/manuales-siasoft/Modulo%202%20-%20Varios.pdf','linkOptions'=>array('target'=>'_blank')),
+                                    
                             )),
                             /*array('label' => 'Recursos Humanos', 'url' => '#',
                                 'items' => array(
@@ -231,6 +259,9 @@ class Controller extends CController
                                     array('label' => 'Roles', 'url' => array('/cruge/ui/rbaclistroles')),
                                     array('label' => 'Asignar Roles a usuarios', 'url' => array('/cruge/ui/rbacusersassignments')),
                                     array('label' => 'Registro de Sesiones', 'url' => array('/cruge/ui/sessionadmin')),
+                                    '-',
+                                    array('label'=>'Ayuda', 'url'=>'http://tramasoft.com/manuales-siasoft/Modulo%201%20-%20Usuarios.pdf','linkOptions'=>array('target'=>'_blank')),
+                                    
                                  ),
                             ),
                             array('label'=>'Administrar Usuarios', 'url'=>Yii::app()->user->ui->userManagementAdminUrl, 'visible'=>!Yii::app()->user->isGuest && Yii::app()->user->isSuperAdmin ? true : false,

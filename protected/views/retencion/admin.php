@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<h1>Administrar Retenciones</h1>
+<h1>Retenciones</h1>
 <div align="right">
     <?php $this->darBotonPdfExcel(array('retencion/excel')); ?>
     <?php $this->darBotonPdfExcel(array('retencion/pdf'), false, 'PDF', 'danger'); ?>

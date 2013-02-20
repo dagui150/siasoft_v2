@@ -102,17 +102,15 @@ $(document).ready(function() {
 
 <?php       
             if($model->SOLICITUD_OC == ''){
+                
                 $mascara = $config->ULT_SOLICITUD_M;
                 $retorna = substr($mascara,0,2);
                 $mascara = strlen($mascara);
                 $longitud = $mascara - 2;
-                $sql = "SELECT count(SOLICITUD_OC) FROM solicitud_oc";
-                $consulta = SolicitudOc::model()->findAllBySql($sql);
-                $connection=Yii::app()->db;
-                $command=$connection->createCommand($sql);
-                $row=$command->queryRow();
-                $bandera=$row['count(SOLICITUD_OC)'];
-                $retorna .= str_pad($bandera, $longitud, "0", STR_PAD_LEFT);
+                $ultimaOrden = ConsecutivoFa::extractNum(confCo::model()->find()->ULT_SOLICITUD);
+                $longitud = strlen($ultimaOrden[1]);
+                $ordenActual = $ultimaOrden[0].str_pad($ultimaOrden[1]+1, $longitud, "0", STR_PAD_LEFT);
+                $retorna = $ordenActual;
                 
                 
                 $render = 'lineas';

@@ -77,7 +77,7 @@ class UbicacionGeografica1 extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
+			'ID' => 'Código',
 			'PAIS' => Yii::t('app','COUNTRY'),
 			'NOMBRE' => Yii::t('app','NAME'),
 			'ACTIVO' => 'Activo',

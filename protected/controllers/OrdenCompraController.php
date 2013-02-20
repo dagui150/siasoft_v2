@@ -443,12 +443,19 @@ class OrdenCompraController extends Controller
 		if(isset($_POST['OrdenCompra']))
 		{
 			$model->attributes=$_POST['OrdenCompra'];
+                        
+                        $ultimaOrden = ConsecutivoFa::extractNum(confCo::model()->find()->ULT_ORDEN_COMPRA);
+                        $longitud = strlen($ultimaOrden[1]);
+                        $ordenActual = $ultimaOrden[0].str_pad($ultimaOrden[1]+1, $longitud, "0", STR_PAD_LEFT);
+                        $model->ORDEN_COMPRA = $ordenActual; 
+                                              
+                        
 			if($model->save()){
                             if(isset($_POST['Nuevo'])){
                                 foreach ($_POST['Nuevo'] as $datos){
                                     
                                     $salvar = new OrdenCompraLinea;
-                                    $salvar->ORDEN_COMPRA = $_POST['OrdenCompra']['ORDEN_COMPRA'];
+                                    $salvar->ORDEN_COMPRA = $ordenActual;
                                     $salvar->ARTICULO = $datos['ARTICULO'];
                                     $salvar->LINEA_NUM = $i;
                                     $salvar->DESCRIPCION = $datos['DESCRIPCION'];
@@ -469,7 +476,7 @@ class OrdenCompraController extends Controller
                                     $salvar->OBSERVACION = $datos['OBSERVACION'];
                                     $salvar->ESTADO = $datos['ESTADO'];
                                     $salvar->save();
-                                    $config->ULT_ORDEN_COMPRA = $_POST['OrdenCompra']['ORDEN_COMPRA'];
+                                    $config->ULT_ORDEN_COMPRA = $ordenActual;
                                     $config->save();
                                     
                                     if($datos['SOLICITUD'] != ''){

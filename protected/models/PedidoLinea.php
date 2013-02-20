@@ -195,13 +195,13 @@ class PedidoLinea extends CActiveRecord
             'defaults' => array(
                 'class' => 'application.components.FormatBehavior',
                 'formats' => array(
-                    'CANTIDAD' => '###,##0.' . str_repeat('0', $conf2->DECIMALES_PRECIO),
-                    'PRECIO_UNITARIO' => '###,##0.' . str_repeat('0', $conf2->DECIMALES_PRECIO),
-                    'PORC_DESCUENTO' => '###,##0.' . str_repeat('0', $conf->PORCENTAJE_DEC),
-                    'MONTO_DESCUENTO' => '###,##0.' . str_repeat('0', $conf->PORCENTAJE_DEC),
-                    'PORC_IMPUESTO' => '###,##0.' . str_repeat('0', $conf->PORCENTAJE_DEC),
-                    'VALOR_IMPUESTO' => '###,##0.' . str_repeat('0', $conf2->DECIMALES_PRECIO),
-                    'TOTAL' => '###,##0.' . str_repeat('0', $conf2->DECIMALES_PRECIO),
+                    'CANTIDAD' => '###,##0.' . str_repeat('0',isset($conf2->DECIMALES_PRECIO)?$conf2->DECIMALES_PRECIO:'2'),
+                    'PRECIO_UNITARIO' => '###,##0.' . str_repeat('0',isset($conf2->DECIMALES_PRECIO)?$conf2->DECIMALES_PRECIO:'2'),
+                    'PORC_DESCUENTO' => '###,##0.' . str_repeat('0',isset($conf->PORCENTAJE_DEC)?$conf->PORCENTAJE_DEC:'2'),
+                    'MONTO_DESCUENTO' => '###,##0.' . str_repeat('0',isset($conf->PORCENTAJE_DEC)?$conf->PORCENTAJE_DEC:'2'),
+                    'PORC_IMPUESTO' => '###,##0.' . str_repeat('0',isset($conf->PORCENTAJE_DEC)?$conf->PORCENTAJE_DEC:'2'),
+                    'VALOR_IMPUESTO' => '###,##0.' . str_repeat('0',isset($conf2->DECIMALES_PRECIO)?$conf2->DECIMALES_PRECIO:'2'),
+                    'TOTAL' => '###,##0.' . str_repeat('0',isset($conf2->DECIMALES_PRECIO)?$conf2->DECIMALES_PRECIO:'2'),
                 ),
             ),
             'CTimestampBehavior' => array(

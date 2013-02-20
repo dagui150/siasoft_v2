@@ -95,8 +95,8 @@ class Compania extends CActiveRecord
 	{
 		return array(
 			'ID' => 'ID',
-			'NOMBRE' => Yii::t('app','NAME'),
-			'NOMBRE_ABREV' => Yii::t('app','ABBREVIATED_NAME'),
+			'NOMBRE' => 'Razón Social',
+			'NOMBRE_ABREV' => 'Nombre Comercial',
 			'NIT' => 'Nit',
 			'UBICACION_GEOGRAFICA1' => 'Departamento',
 			'UBICACION_GEOGRAFICA2' => 'Municipio',

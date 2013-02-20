@@ -71,7 +71,7 @@ class Impuesto extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'Codigo',
+			'id' => 'Código',
 			'nombre' => 'Nombre',
 			'procentaje' => 'Porcentaje',
 			'activo' => 'Activo',

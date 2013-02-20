@@ -41,7 +41,7 @@ $(document).ready(function () {
     
     <?php echo $form->errorSummary($model2); ?>
     
-		<?php echo $form->dropDownListRow($model2,'TIIPO_DOCUMENTO', CHtml::listData(TipoDocumento::model()->findAll(),'ID','DESCRIPCION'), array('empty'=>'Seleccione...')); ?>        
+		<?php echo $form->dropDownListRow($model2,'TIIPO_DOCUMENTO', CHtml::listData(TipoDocumento::model()->findAll("ACTIVO = 'S'"),'ID','DESCRIPCION'), array('empty'=>'Seleccione...')); ?>        
 		<?php echo $form->textFieldRow($model2,'ID',array('size'=>12,'maxlength'=>12)); ?>
 		<?php echo $form->textFieldRow($model2,'RAZON_SOCIAL',array('maxlength'=>128)); ?>
 		<?php echo $form->textFieldRow($model2,'ALIAS',array('maxlength'=>128)); ?>

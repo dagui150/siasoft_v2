@@ -27,6 +27,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Actualizar Formato de Impresion <?php echo $model2->ID; ?></h1>
+<h1>Actualizar Formato de Impresión <?php echo $model2->ID; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model2'=>$model2)); ?>

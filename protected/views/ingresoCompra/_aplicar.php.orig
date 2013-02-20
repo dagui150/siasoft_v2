@@ -17,8 +17,13 @@
                         'type'=>'POST',
                         'update'=>'#cargando',                        
                         'beforeSend'=>'cargando()',
+<<<<<<< HEAD
                     ),
+                    'htmlOptions'=>array('id'=>'continuar', 'onclick'=>'buscar();'),
+=======
+                    ), */
                     'htmlOptions'=>array('id'=>'continuar'),
+>>>>>>> d51c99bf2486746a570011fc24c0da57389504d6
                 ));
             ?>
 

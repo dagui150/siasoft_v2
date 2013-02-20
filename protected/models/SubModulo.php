@@ -71,7 +71,7 @@ class SubModulo extends CActiveRecord
 		return array(
 			'ID' => 'Id',
 			'NOMBRE' => 'Nombre',
-                        'MODULO' => 'Modulo',
+                        'MODULO' => 'Módulo',
 			'ACTIVO' => 'Activo',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',

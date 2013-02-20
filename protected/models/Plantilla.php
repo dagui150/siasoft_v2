@@ -63,7 +63,7 @@ class Plantilla extends CActiveRecord {
         return array(
             'ID' => 'Id',
             'NOMBRE' => 'Nombre',
-            'SUBMODULO' => 'SubModulo',
+            'SUBMODULO' => 'SubMódulo',
             'ACTIVO' => 'Activo',
             'CREADO_POR' => 'Creado Por',
             'CREADO_EL' => 'Creado El',

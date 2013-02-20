@@ -11,26 +11,30 @@ function inicio(){
                 $('#Costo').val(data.COSTO_ESTANDAR);
     });
     
-    $(".calculosGen").live("change", function (e){
+    $(".calculosGen").live("blur", function (e){
         var ciclos = $('#ciclos').val();  
         var base = unformat($('#Precio_base').val());
-        for(var i=0;i<=ciclos;i++){
+        for(var i=0;i<ciclos;i++){
             var margMul = unformat($('#NivelPrecio3_' + i + '_MARGEN_MULTIPLICADOR').val());
             switch($('#NivelPrecio2_' + i +'_ESQUEMA_TRABAJO').val()){
                 case 'NORM':
-                    $('#NivelPrecio4_' + i + '_PRECIO').val(format(base));
+                    $('#NivelPrecio4_' + i + '_PRECIO').val(format(base.toString().replace(/\./g,',')));
+                    $('#spanNivelPrecio4_' + i + '_PRECIO').text(format(base.toString().replace(/\./g,',')));
                 break;
                 case 'MULT':
                     if(margMul != ''){
                         margMul = base * margMul / 100;
-                        $('#NivelPrecio4_' + i + '_PRECIO').val(format(margMul));
+                        $('#NivelPrecio4_' + i + '_PRECIO').val(format(margMul.toString().replace(/\./g,',')));
+                        $('#spanNivelPrecio4_' + i + '_PRECIO').text(format(margMul.toString().replace(/\./g,',')));
                     }
                 break;
                 case 'MARG':
                     if($('#Costo').val() != 0){
-                        margMul = unformat ($('#Costo').val()) / (1 - (margMul/100));
+                                                
+                        margMul = (unformat($('#Costo').val())) / (1 - (margMul/100));
                        
                         $('#NivelPrecio4_' + i + '_PRECIO').val(format(margMul.toFixed(0)));
+                        $('#spanNivelPrecio4_' + i + '_PRECIO').text(format(margMul.toFixed(0)));
                     }
                 break;
             }

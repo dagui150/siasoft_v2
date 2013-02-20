@@ -121,10 +121,10 @@ class Cliente extends CActiveRecord
             'defaults' => array(
                 'class' => 'application.components.FormatBehavior',
                 'formats' => array(
-                    'INTERES_CORRIENTE' => '###,##0.' . str_repeat('0', $conf->PORCENTAJE_DEC),
-                    'INTERES_MORA' => '###,##0.' . str_repeat('0', $conf->PORCENTAJE_DEC),
-                    'DESCUENTO' => '###,##0.' . str_repeat('0', $conf->PORCENTAJE_DEC),
-                    'LIMITE_CREDITO' => '###,##0.' . str_repeat('0', $conf2->DECIMALES_PRECIO)
+                    'INTERES_CORRIENTE' => '###,##0.' . str_repeat('0', isset($conf->PORCENTAJE_DEC)?$conf->PORCENTAJE_DEC:'2'),
+                    'INTERES_MORA' => '###,##0.' . str_repeat('0', isset($conf->PORCENTAJE_DEC)?$conf->PORCENTAJE_DEC:'2'),
+                    'DESCUENTO' => '###,##0.' . str_repeat('0', isset($conf->PORCENTAJE_DEC)?$conf->PORCENTAJE_DEC:'2'),
+                    'LIMITE_CREDITO' => '###,##0.' . str_repeat('0', isset($conf2->DECIMALES_PRECIO)?$conf2->DECIMALES_PRECIO:'2')
                 ),
             ),
             'CTimestampBehavior' => array(

@@ -23,7 +23,7 @@
             </tr>
             <tr>
                 <td>
-                    <?php echo $form->dropDownListRow($model2, 'TIPO', array('C'=>'Cliente','P'=>'Proveedor')); ?>
+                    <?php echo $form->dropDownListRow($model2, 'TIPO', array('C'=>'Cliente','P'=>'Proveedor', 'A'=>'Ambos')); ?>
                 </td>
                 <td>
                     <?php //echo $this->botonAyuda('Pruebas Boton Ayuda'); ?>

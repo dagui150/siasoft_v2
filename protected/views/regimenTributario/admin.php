@@ -1,14 +1,15 @@
+<?php $this->pageTitle=Yii::app()->name." - Régimen Tributario";?>
 <?php
 /* @var $this RegimenTributarioController */
 /* @var $model RegimenTributario */
 
 $this->breadcrumbs=array(
-	'Regimen Tributarios'=>array('admin'),
-	'Administrar',
+        'Sistema'=>array('admin'),
+	'Régimen Tributario'
 );
 
 ?>
-<h1>Régimen tributario</h1>
+<h1>Régimen Tributario</h1>
 <?php 
 if (isset($_GET['men'])){
     $this->mensaje($_GET['men']);

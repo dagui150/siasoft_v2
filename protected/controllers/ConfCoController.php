@@ -30,11 +30,18 @@ class ConfCoController extends Controller
 		if(isset($_POST['ConfCo']))
 		{
 			$model->attributes=$_POST['ConfCo'];
+                        
+                        if(isset($model->ULT_SOLICITUD_M))$model->ULT_SOLICITUD = str_replace("9", "0", $model->ULT_SOLICITUD_M);
+                        if(isset($model->ULT_ORDEN_COMPRA_M))$model->ULT_ORDEN_COMPRA = str_replace("9", "0", $model->ULT_ORDEN_COMPRA_M);
+                        if(isset($model->ULT_EMBARQUE_M))$model->ULT_EMBARQUE = str_replace("9", "0", $model->ULT_EMBARQUE_M);
+                        if(isset($model->ULT_DEVOLUCION_M))$model->ULT_DEVOLUCION = str_replace("9", "0", $model->ULT_DEVOLUCION_M);
+                        
+                        
 			if($model->save()){
 				//$this->redirect(array('view','id'=>$model->ID));
-                                $this->redirect(array('view&id='.$id.'&men=S003'));
+                                $this->redirect(array('update&id='.$model->ID.'&men=S003'));
                         } else {
-                            $this->redirect(array('view&id='.$id.'&men=E003'));
+                            $this->redirect(array('update&id='.$model->ID.'&men=E003'));
                         }
 		}
 

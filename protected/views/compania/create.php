@@ -1,8 +1,8 @@
-<?php $this->pageTitle=Yii::app()->name." - ".Yii::t('app','CREATE')." ".Yii::t('app','COMPANIES');?>
+<?php $this->pageTitle=Yii::app()->name." - Datos Empresa";?>
 <?php
 $this->breadcrumbs=array(
-	Yii::t('app','COMPANIES')=>array('admin'),
-	Yii::t('app','CREATE'),
+	'Sistema'=>array('create'),
+	'Datos Empresa',
 );
 
 $this->menu=array(

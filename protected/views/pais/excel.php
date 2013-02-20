@@ -2,7 +2,7 @@
     'id'                   => 'some-grid',
     'dataProvider'         => $model->search(),
     'grid_mode'            => 'export', // Same usage as EExcelView v0.33
-    'title'                => 'Pais ' . date('d-m-Y'),
+    'title'                => 'Paises ' . date('d-m-Y'),
     'creator'              => '',
     'subject'              => '',
     'description'          => '',

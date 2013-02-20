@@ -158,10 +158,17 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=siasoft',
+<<<<<<< HEAD
+                        'connectionString' => 'mysql:host=192.168.1.71;dbname=siasoft',
                         'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
+                        'username' => 'siasoft',
+                        'password' => '123456',
+=======
+			'connectionString' => 'mysql:host=192.168.1.71;dbname=siasoft',
+			'emulatePrepare' => true,
+			'username' => 'siasoft',
+			'password' => '123456',
+>>>>>>> 5afdd9065fdcef3760fc5029fc6161aedddbb5b5
 			'charset' => 'utf8',
 			'enableProfiling'=>true,
 			'enableParamLogging'=>true,

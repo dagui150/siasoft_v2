@@ -525,7 +525,7 @@
             'filter'=>$cliente,
             'columns'=>array(
                 array(  'name'=>'CLIENTE',
-                        'header'=>'Codigo',
+                        'header'=>'Código',
                         'htmlOptions'=>array('data-dismiss'=>'modal'),
                         'type'=>'raw',
                         'value'=>'CHtml::link($data->CLIENTE,"#")'

@@ -12,7 +12,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
                                array(
                                    'type'=>'raw',
                                    'name'=>'REGIMEN',
-                                   'header'=>'Codigo Regimen',
+                                   'header'=>'Código Regimen',
                                    'value'=>'CHtml::link($data->REGIMEN,"#")',
                                    'htmlOptions'=>array('data-dismiss'=>'modal'),
                                ),

@@ -271,6 +271,14 @@ class BodegaController extends Controller
 		
 	}
        
+        public function actionExcel()
+	{
+		$model = new Bodega('search');
+                $model->unsetAttributes();
+                $this->render('excel',array(
+			'model' => $model,
+		));
+	}
           
          public function actionPdf(){
             

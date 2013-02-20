@@ -30,7 +30,7 @@
 		'ADDRESS' => 'Direccion',
 		'PHONE' => 'Telefono',
 		'CURRENCY_SYMBOL' => 'Simbolo Moneda',
-		'ISO_CODE' => 'Codigo Iso',
+		'ISO_CODE' => 'Código Iso',
 		
 		// Traduccion busquedas
 		'ADVANCED_SEARCH' => 'Busqueda Avanzada',

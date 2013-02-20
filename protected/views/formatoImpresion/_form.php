@@ -64,7 +64,7 @@
 
 		<?php echo $form->textFieldRow($model2,'NOMBRE'); ?>
 		<?php echo $form->textFieldRow($model2,'OBSERVACION'); ?>
-		<?php echo $form->dropDownListRow($model2,'MODULO', CHtml::listData(Modulo::model()->findAll('ACTIVO="S"'),'ID','NOMBRE'), array('empty' => 'Seleccione')); ?>        
+		<?php echo $form->dropDownListRow($model2,'MODULO', CHtml::listData(Modulo::model()->findAll('ACTIVO="S" AND REPORTES="S"'),'ID','NOMBRE'), array('empty' => 'Seleccione')); ?>        
 		<?php echo $form->dropDownListRow($model2,'SUBMODULO',array(), array('empty' => 'Seleccione')); ?>
 		<?php echo $form->dropDownListRow($model2,'PLANTILLA',array(), array('empty' => 'Seleccione')); ?>
 

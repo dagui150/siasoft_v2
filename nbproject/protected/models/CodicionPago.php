@@ -74,7 +74,7 @@ class CodicionPago extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'Codigo',
+			'ID' => 'Código',
 			'DESCRIPCION' => 'Descripcion',
 			'DIAS_NETO' => 'Dias Neto',
 			'ACTIVO' => 'Activo',

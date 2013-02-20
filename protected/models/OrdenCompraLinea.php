@@ -117,7 +117,7 @@ class OrdenCompraLinea extends CActiveRecord
 			'CANTIDAD_RECHAZADA' => 'Cantidad Rechazada',
                         'IMPORTE' => 'Importe',
 			'FECHA' => 'Fecha',
-			'OBSERVACION' => 'Observacion',
+			'OBSERVACION' => 'Observación',
 			'ESTADO' => 'Estado',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',

@@ -40,6 +40,12 @@ class SolicitudOcController extends Controller
 		{
 			$model->attributes=$_POST['SolicitudOc'];
                         
+                        $ultimaSolicitud = ConsecutivoFa::extractNum(confCo::model()->find()->ULT_SOLICITUD);
+                        $longitud = strlen($ultimaSolicitud[1]);
+                        $solicitudActual = $ultimaSolicitud[0].str_pad($ultimaSolicitud[1]+1, $longitud, "0", STR_PAD_LEFT);
+                        $model->SOLICITUD_OC = $solicitudActual;
+                        
+                        
 			if($model->save()){
                             if(isset($_POST['Nuevo'])){
                                 $trans = array('.' => '');

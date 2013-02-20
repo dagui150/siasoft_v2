@@ -99,7 +99,7 @@ class DocumentoInv extends CActiveRecord
 			'DOCUMENTO_INV' => 'Documento',
 			'CONSECUTIVO' => 'Consecutivo',
 			'FECHA_DOCUMENTO' => 'Fecha Documento',
-			'REFERENCIA' => 'Referencia',
+			'REFERENCIA' => 'Observaciones',
 			'ESTADO' => 'Estado',
 			'CREADO_POR' => 'Creado Por',
 			'CREADO_EL' => 'Creado El',

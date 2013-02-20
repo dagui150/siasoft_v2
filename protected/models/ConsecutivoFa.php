@@ -115,7 +115,7 @@ class ConsecutivoFa extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'CODIGO_CONSECUTIVO' => 'Codigo Consecutivo',
+			'CODIGO_CONSECUTIVO' => 'Código Consecutivo',
 			'CLASIFICACION' => 'Clasificación',
 			'FORMATO_IMPRESION' => 'Formato Impresión',
 			'DESCRIPCION' => 'Descripción',

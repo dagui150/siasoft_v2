@@ -251,7 +251,7 @@ class FacturaController extends Controller
             $this->header = '<table width="100%" align="center" >
                             <tr>
                                 <td width="26%" rowspan="5" align="left" valign="middle">' . $logo . '</td>
-                                <td width="41%" align="center">' . $compania->NOMBRE_ABREV . '</td>
+                                <td width="41%" align="center">' . $compania->NOMBRE . '</td>
                                 <td width="33%" align="right" valign="middle"><strong>Factura de Venta Núm:</strong></td>
                             </tr>
                             <tr>

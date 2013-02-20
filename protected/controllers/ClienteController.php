@@ -187,7 +187,7 @@ class ClienteController extends Controller
         public function actionRestaurar($id)
 	{
 			$this->loadModel($id)->updateByPk($id,array('ACTIVO'=>'S'));
-		
+                                    
 	}
 
 	/**

@@ -3,8 +3,8 @@
 
 <?php
 $this->breadcrumbs=array(
-	Yii::t('app','COUNTRIES')=>array('admin'),
-	Yii::t('app','MANAGE'),
+        'Sistema'=>array('admin'),
+	Yii::t('app','COUNTRIES')
 );
 ?>
 
