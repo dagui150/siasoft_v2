@@ -30,13 +30,12 @@ class Controller extends CController
                 'fade',
                 'grow',
                 'swing',
-                'slide',
                 'fall',
             );
             $this->widget('ext.tooltipster.tooltipster',array(
-                          'identifier'=>'.my-tooltip',
+                          'identifier'=>'.men-ayuda',
                           'options'=>array(
-                                'animation'=>$animacion[rand(0,4)],
+                                'animation'=>$animacion[rand(0,3)],
                                 'iconTouch'=>true,
                                 'delay'=>10,
                                 'fixedWidth'=>300,
@@ -48,15 +47,8 @@ class Controller extends CController
                                 'trigger'=>'hover'
                            )
                     ));
-            
-            $boton = $this->widget('bootstrap.widgets.TbButton', array(
-                        'type' => 'nommal', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-                        'size' => 'normal', // '', 'large', 'small' or 'mini'
-                        'icon' => 'info-sign',
-                        'htmlOptions'=>array('class'=>'botonAyuda my-tooltip','title'=>Yii::t('ayuda',$texto)),
-                    ),true);
-                    
-            return $boton;
+            $imagen= CHtml::image(Yii::app()->baseUrl."/images/warning.png",'Ayuda',array('class'=>'img men-ayuda','title'=>Yii::t('ayuda',$texto), 'style'=>'width: 20px;'));
+            return $imagen;
         }
 	/**
          * este metodo sera lamado para mostrar el mensaje al momento de borrar un registro
